@@ -1,0 +1,1185 @@
+﻿
+msgid "DISCLAIMER"
+msgstr "免责声明"
+
+msgid "This is a free software, and you are welcome"
+msgstr "这是一个免费软件，"
+
+msgid "to redistribute it under the conditions of the"
+msgstr "在本软件的许可范围之内，"
+
+msgid "license that you should have received with this"
+msgstr "您可以随意的传播。"
+
+msgid "program. You may not sell, lease, rent or generally"
+msgstr "您不得出售、租赁、出租本软件，"
+
+msgid "use this software in any commercial product or activity."
+msgstr "或者使用于任何的商业产品或活动中。"
+
+msgid "Authors can not be held responsible for any damage or"
+msgstr "使用本软件而引起的功能异常或损坏，"
+
+msgid "or dysfunction that could occur while using this port."
+msgstr "作者不担负任何责任。"
+
+msgid "You may not distribute this software with any ROM image"
+msgstr "您传播本软件时不能附带任何ROM文件，"
+
+msgid "unless you have the legal right to distribute them."
+msgstr "除非您拥有传播ROM的合法权利。"
+
+msgid "This software is not endorsed by or affiliated"
+msgstr "本软件并没有被世嘉或者任天堂公司许可，"
+
+msgid "with Sega Enterprises Ltd or Nintendo Co Ltd."
+msgstr "和两家公司没有任何关联。"
+
+msgid "All trademarks and registered trademarks are"
+msgstr "所有其他商标以及注册商标，"
+
+msgid "the property of their respective owners."
+msgstr "都是它们相应公司的财产。"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "KeysConfig"
+msgstr "按键\n设定"
+
+msgid "Configure Controller Keys"
+msgstr "设定控制器按键"
+
+msgid "Load recently played games"
+msgstr "加载最近玩过的游戏"
+
+msgid "Load Mega Drive/Genesis games"
+msgstr "加载MD/Genesis游戏"
+
+msgid "Load Sega/Mega CD games"
+msgstr "加载Sega/Mega CD游戏"
+
+msgid "Load Master System games"
+msgstr "加载Master System游戏"
+
+msgid "Load Game Gear games"
+msgstr "加载Game Gear游戏"
+
+msgid "Load SG-1000 games"
+msgstr "加载SG-1000游戏"
+
+msgid "Controller Settings"
+msgstr "控制器设定"
+
+msgid "Load Game"
+msgstr "加载游戏"
+
+msgid "Settings"
+msgstr "各种设定"
+
+msgid "System ROM Paths"
+msgstr "游戏ROM位置"
+
+msgid "System Settings"
+msgstr "系统设定"
+
+msgid "Video Settings"
+msgstr "视频设定"
+
+msgid "Audio Settings"
+msgstr "音频设定"
+
+msgid "Menu Settings"
+msgstr "菜单设定"
+
+msgid "Save Manager"
+msgstr "保存设定"
+
+msgid "Auto ROM Load: ON"
+msgstr "自动加载Rom: 开启"
+
+msgid "Auto ROM Load: OFF"
+msgstr "自动加载Rom: 关闭"
+
+msgid "Auto Cheats: ON"
+msgstr "自动作弊: 开启"
+
+msgid "Auto Cheats: OFF"
+msgstr "自动作弊: 关闭"
+
+msgid "Auto Saves: ALL"
+msgstr "自动保存: 所有"
+
+msgid "Auto Saves: STATE ONLY"
+msgstr "自动保存: 只是状态"
+
+msgid "Auto Saves: SRAM ONLY"
+msgstr "自动保存: 只是SRAM"
+
+msgid "Auto Saves: NONE"
+msgstr "自动保存: 关闭"
+
+msgid "ROM Load Device: USB"
+msgstr "加载游戏设备: USB"
+
+msgid "ROM Load Device: DVD"
+msgstr "加载游戏设备: DVD"
+
+msgid "ROM Load Device: SD"
+msgstr "加载游戏设备: SD"
+
+msgid "Saves Device: MCARD A"
+msgstr "保存设备: MCARD A"
+
+msgid "Saves Device: MCARD B"
+msgstr "保存设备: MCARD B"
+
+msgid "Saves Device: FAT"
+msgstr "保存设备: FAT"
+
+msgid "SFX Volume:"
+msgstr "音效音量:"
+
+msgid "SFX Volume"
+msgstr "音效音量"
+
+msgid "BGM Volume:"
+msgstr "背景音乐音量:"
+
+msgid "BGM Volume"
+msgstr "背景音乐音量"
+
+msgid "BG Overlay: ON"
+msgstr "背景叠加: 开启"
+
+msgid "BG Overlay: OFF"
+msgstr "背景叠加: 关闭"
+
+msgid "Screen Width:"
+msgstr "屏幕宽度:"
+
+msgid "Screen Width"
+msgstr "屏幕宽度"
+
+msgid "Show CD Leds: ON"
+msgstr "显示CD Leds: 开启"
+
+msgid "Show CD Leds: OFF"
+msgstr "显示CD Leds: 关闭"
+
+msgid "Show FPS: ON"
+msgstr "显示FPS: 开启"
+
+msgid "Show FPS: OFF"
+msgstr "显示FPS: 关闭"
+
+msgid "Wiimote Timeout: 5 MIN"
+msgstr "Wii手柄失效时间: 5分钟"
+
+msgid "Wiimote Timeout: 30 MIN"
+msgstr "Wii手柄失效时间: 30分钟"
+
+msgid "Wiimote Timeout: 5min"
+msgstr "Wii手柄失效时间: 5分钟"
+
+msgid "Wiimote Timeout: 30min"
+msgstr "Wii手柄失效时间: 30分钟"
+
+msgid "Wiimote Calibration: MANUAL"
+msgstr "Wii手柄校准: 手动"
+
+msgid "Wiimote Calibration: AUTO"
+msgstr "Wii手柄校准: 自动"
+
+msgid "Reset default Wii remote pointer calibration"
+msgstr "重置Wii手柄的校准为默认值"
+
+msgid "Calibrate Wii remote pointer"
+msgstr "校准Wii手柄"
+
+msgid "Pointer Calibration"
+msgstr "指向校准"
+
+msgid "Aim center of TV screen"
+msgstr "指向屏幕的中央"
+
+msgid "Master System FM: OFF"
+msgstr "Master System FM: 关闭"
+
+msgid "Master System FM: ON"
+msgstr "Master System FM: 开启"
+
+msgid "Master System FM: AUTO"
+msgstr "Master System FM: 自动"
+
+msgid "High-Quality FM: ON"
+msgstr "高品质FM: 开启"
+
+msgid "High-Quality FM: OFF"
+msgstr "高品质FM: 关闭"
+
+msgid "FM Resolution: MAX"
+msgstr "FM分辨率: MAX"
+
+msgid "FM Resolution:"
+msgstr "FM分辨率:"
+
+msgid "FM Volume:"
+msgstr "FM音量:"
+
+msgid "FM Volume"
+msgstr "FM音量"
+
+msgid "PSG Volume:"
+msgstr "PSG音量:"
+
+msgid "PSG Volume"
+msgstr "PSG音量"
+
+msgid "High-Quality PSG: ON"
+msgstr "高品质PSG: 开启"
+
+msgid "High-Quality PSG: OFF"
+msgstr "高品质PSG: 关闭"
+
+msgid "Audio Output: MONO"
+msgstr "声音输出: 普通"
+
+msgid "Audio Output: STEREO"
+msgstr "声音输出: 立体声"
+
+msgid "Filtering: 3-BAND EQ"
+msgstr "图像过滤: 3-BAND EQ"
+
+msgid "Filtering: LOW-PASS"
+msgstr "图像过滤: LOW-PASS"
+
+msgid "Filtering: OFF"
+msgstr "图像过滤: 关闭"
+
+msgid "Low Gain:"
+msgstr "低音:"
+
+msgid "Low Gain"
+msgstr "低音"
+
+msgid "Adjust EQ Low Band Gain"
+msgstr "调整EQ低频增益"
+
+msgid "Middle Gain:"
+msgstr "中音:"
+
+msgid "Middle Gain"
+msgstr "中音"
+
+msgid "High Gain:"
+msgstr "高音:"
+
+msgid "High Gain"
+msgstr "高音"
+
+msgid "Low Freq:"
+msgstr "低频:"
+
+msgid "High Freq:"
+msgstr "高频:"
+
+msgid "Low-Pass Rate:"
+msgstr "Low-Pass Rate:"
+
+msgid "Adjust Low Pass filter"
+msgstr "调整Low Pass 过滤"
+
+msgid "Low Frequency"
+msgstr "低频"
+
+msgid "Low Freq:"
+msgstr "低频:"
+
+msgid "High Frequency"
+msgstr "高频"
+
+msgid "High Freq:"
+msgstr "高频:"
+
+msgid "Console Type: AUTO"
+msgstr "平台类型: 自动"
+
+msgid "Console Type: SG-1000"
+msgstr "平台类型: SG-1000"
+
+msgid "Console Type: SG-1000 II"
+msgstr "平台类型: SG-1000 II"
+
+msgid "Console Type: MARK-III"
+msgstr "平台类型: MARK-III"
+
+msgid "Console Type: SMS"
+msgstr "平台类型: SMS"
+
+msgid "Console Type: SMS II"
+msgstr "平台类型: SMS II"
+
+msgid "Console Type: GG"
+msgstr "平台类型: GG"
+
+msgid "Console Type: MD"
+msgstr "平台类型: MD"
+
+msgid "Console Region: AUTO"
+msgstr "平台地区: 自动"
+
+msgid "Console Region: USA"
+msgstr "平台地区: USA"
+
+msgid "Console Region: PAL"
+msgstr "平台地区: PAL"
+
+msgid "Console Region: JAP"
+msgstr "平台地区: JAP"
+
+msgid "VDP Mode: AUTO"
+msgstr "显示模式: 自动"
+
+msgid "VDP Mode: NTSC"
+msgstr "显示模式: NTSC"
+
+msgid "VDP Mode: PAL"
+msgstr "显示模式: PAL"
+
+msgid "System Clock: AUTO"
+msgstr "系统锁定: 自动"
+
+msgid "System Clock: NTSC"
+msgstr "系统锁定: NTSC"
+
+msgid "System Clock: PAL"
+msgstr "系统锁定: PAL"
+
+msgid "System Boot: BIOS&CART"
+msgstr "系统启动: BIOS&CART"
+
+msgid "System Boot: BIOS ONLY"
+msgstr "系统启动: BIOS ONLY"
+
+msgid "System Boot: CART"
+msgstr "系统启动: CART"
+
+msgid "System Lockups: ON"
+msgstr "系统锁定: 开启"
+
+msgid "System Lockups: OFF"
+msgstr "系统锁定: 关闭"
+
+msgid "68k Address Error: ON"
+msgstr "68k地址错误: 开启"
+
+msgid "68k Address Error: OFF"
+msgstr "68k地址错误: 关闭"
+
+msgid "Lock-On: GAME GENIE"
+msgstr "锁定开启: GAME GENIE"
+
+msgid "Lock-On: ACTION REPLAY"
+msgstr "锁定开启: ACTION REPLAY"
+
+msgid "Lock-On: SONIC&KNUCKLES"
+msgstr "锁定开启: SONIC&KNUCKLES"
+
+msgid "Lock-On: OFF"
+msgstr "锁定开启: 关闭"
+
+msgid "Cartridge Swap: ON"
+msgstr "Cartridge交换: 开启"
+
+msgid "Cartridge Swap: OFF"
+msgstr "Cartridge交换: 关闭"
+
+msgid "SVP Cycles:"
+msgstr "SVP周期:"
+
+msgid "SVP Cycles"
+msgstr "SVP周期"
+
+msgid "Display: INTERLACED"
+msgstr "显示: 隔行"
+
+msgid "Display: PROGRESSIVE"
+msgstr "显示: 逐行"
+
+msgid "Display: ORIGINAL"
+msgstr "显示: 原始"
+
+msgid "TV Mode: 60HZ"
+msgstr "电视模式: 60HZ"
+
+msgid "TV Mode: 50HZ"
+msgstr "电视模式: 50HZ"
+
+msgid "TV Mode: 50/60HZ"
+msgstr "电视模式: 50/60HZ"
+
+msgid "VSYNC: AUTO"
+msgstr "垂直同步: 自动"
+
+msgid "VSYNC: OFF"
+msgstr "垂直同步: 关闭"
+
+msgid "Bilinear Filter: ON"
+msgstr "双线性过滤: 开启"
+
+msgid "Bilinear Filter: OFF"
+msgstr "双线性过滤: 关闭"
+
+msgid "Deflickering Filter: ON"
+msgstr "Deflickering过滤: 开启"
+
+msgid "Deflickering Filter: OFF"
+msgstr "Deflickering过滤: 关闭"
+
+msgid "LCD Ghosting Filter:"
+msgstr "LCD重影过滤:"
+
+msgid "LCD Ghosting Filter: OFF"
+msgstr "LCD重影过滤: 关闭"
+
+msgid "Trap Filter: ON"
+msgstr "Trap过滤: 开启"
+
+msgid "Trap Filter: OFF"
+msgstr "Trap过滤: 关闭"
+
+msgid "NTSC Filter: COMPOSITE"
+msgstr "NTSC过滤: COMPOSITE"
+
+msgid "NTSC Filter: S-VIDEO"
+msgstr "NTSC过滤: S-VIDEO"
+
+msgid "NTSC Filter: RGB"
+msgstr "NTSC过滤: RGB"
+
+msgid "NTSC Filter: MANUAL"
+msgstr "NTSC过滤: 手动"
+
+msgid "NTSC Filter: OFF"
+msgstr "NTSC过滤: 关闭"
+
+msgid "NTSC Sharpness:"
+msgstr "NTSC锐利度:"
+
+msgid "NTSC Resolution:"
+msgstr "NTSC分辨率:"
+
+msgid "NTSC Artifacts:"
+msgstr "NTSC阴影:"
+
+msgid "NTSC Color Bleed:"
+msgstr "NTSC颜色混合:"
+
+msgid "NTSC Color Fringing:"
+msgstr "NTSC颜色边缘:"
+
+msgid "NTSC Sharpness"
+msgstr "NTSC锐利度"
+
+msgid "NTSC Resolution"
+msgstr "NTSC分辨率"
+
+msgid "NTSC Artifacts"
+msgstr "NTSC阴影"
+
+msgid "NTSC Color Bleed"
+msgstr "NTSC颜色混合"
+
+msgid "NTSC Color Fringing"
+msgstr "NTSC颜色边缘"
+
+msgid "Adjust edge contrast enhancement/blurring"
+msgstr "调整边缘对比度 增强/模糊"
+
+msgid "Adjust image resolution"
+msgstr "调整图像分辨率"
+
+msgid "Adjust artifacts caused by color changes"
+msgstr "调整颜色变化引起的阴影"
+
+msgid "Adjust color resolution reduction"
+msgstr "调整色彩分辨率"
+
+msgid "Adjust artifacts caused by brightness changes"
+msgstr "调整亮度变化引起的阴影"
+
+msgid "Enable/Disable overscan emulation"
+msgstr "打开/关闭 过扫描模拟"
+
+msgid "Enable/Disable Game Gear extended screen"
+msgstr "打开/关闭 Game Gear扩展屏幕"
+
+msgid "Select display aspect ratio"
+msgstr "选择显示的纵横比"
+
+msgid "Adjust display position"
+msgstr "调整显示位置"
+
+msgid "Adjust display scaling"
+msgstr "调整显示的缩放比"
+
+msgid "Borders: FULL"
+msgstr "边线: 所有"
+
+msgid "Borders: H ONLY"
+msgstr "边线: 只有水平"
+
+msgid "Borders: V ONLY"
+msgstr "边线: 只有垂直"
+
+msgid "Borders: NONE"
+msgstr "边线: 不要"
+
+msgid "GG Screen: EXTENDED"
+msgstr "GG屏幕: 扩展"
+
+msgid "GG Screen: ORIGINAL"
+msgstr "GG屏幕: 原始"
+
+msgid "Aspect: ORIGINAL (4:3)"
+msgstr "纵横比: 原始 (4:3)"
+
+msgid "Aspect: ORIGINAL (16:9)"
+msgstr "纵横比: 原始 (16:9)"
+
+msgid "Aspect: SCALED"
+msgstr "纵横比: 缩放"
+
+msgid "Screen Position:"
+msgstr "屏幕位置:"
+
+msgid "Screen Scaling:"
+msgstr "屏幕缩放:"
+
+msgid "Gamma Correction:"
+msgstr "灰度校正:"
+
+msgid "Gamma Correction"
+msgstr "灰度校正"
+
+msgid "Please load a game first !"
+msgstr "请先加载一个游戏！"
+
+msgid "NTSC filter must be disabled"
+msgstr "必须关闭NTSC过滤"
+
+msgid "LCD Ghosting Ratio"
+msgstr "LCD重影率"
+
+msgid "LCD filter must be disabled"
+msgstr "必须关闭LCD过滤"
+
+msgid "X Offset"
+msgstr "X偏移"
+
+msgid "Y Offset"
+msgstr "Y偏移"
+
+msgid "X Scale"
+msgstr "X缩放"
+
+msgid "Y Scale"
+msgstr "Y缩放"
+
+msgid "Player"
+msgstr "玩家"
+
+msgid "Configure Player 1 (J-CART) settings"
+msgstr "设定玩家 1 (J-CART) 的信息"
+
+msgid "Configure Player 2 (J-CART) settings"
+msgstr "设定玩家 2 (J-CART) 的信息"
+
+msgid "Configure Player 3 (J-CART) settings"
+msgstr "设定玩家 3 (J-CART) 的信息"
+
+msgid "Configure Player 4 (J-CART) settings"
+msgstr "设定玩家 4 (J-CART) 的信息"
+
+msgid "Configure Player 1 settings"
+msgstr "设定玩家 1 的信息"
+
+msgid "Configure Player 2 settings"
+msgstr "设定玩家 2 的信息"
+
+msgid "Configure Player 3 settings"
+msgstr "设定玩家 3 的信息"
+
+msgid "Configure Player 4 settings"
+msgstr "设定玩家 4 的信息"
+
+msgid "Select Port 1 device"
+msgstr "选择端口 1 的设备"
+
+msgid "Select Port 2 device"
+msgstr "选择端口 2 的设备"
+
+msgid "PadType"
+msgstr "手柄\n类型"
+
+msgid "Use 3-buttons Pad"
+msgstr "使用3个按键的手柄"
+
+msgid "Use 6-buttons Pad"
+msgstr "使用6个按键的手柄"
+
+msgid "Use 2-buttons Pad"
+msgstr "使用2个按键的手柄"
+
+msgid "Auto-detect Pad type"
+msgstr "自动检查手柄类型"
+
+msgid "InvertMouse"
+msgstr "反转\n鼠标"
+
+msgid "Enable/Disable Y-Axis inversion"
+msgstr "打开/关闭 Y轴反转"
+
+msgid "ShowCursor"
+msgstr "显示\n光标"
+
+msgid "Enable/Disable Lightgun cursor"
+msgstr "打开/关闭 光枪线"
+
+msgid "InputDevice"
+msgstr "输入\n设备"
+
+msgid "Select Input Controller"
+msgstr "选择输入控制器"
+
+msgid "Terebi Oekaki detected !"
+msgstr "检测到Terebi Oekaki！"
+
+msgid "PICO hardware detected !"
+msgstr "检测到PICO硬件！"
+
+msgid "One Analog Stick required !"
+msgstr "需要摇杆1 ！"
+
+msgid "Two Analog Sticks required !"
+msgstr "需要摇杆2 ！"
+
+msgid "Controller Settings (Player 1) (J-CART)"
+msgstr "控制器设定(玩家1) (J-CART)"
+
+msgid "Controller Settings (Player 2) (J-CART)"
+msgstr "控制器设定(玩家2) (J-CART)"
+
+msgid "Controller Settings (Player 3) (J-CART)"
+msgstr "控制器设定(玩家3) (J-CART)"
+
+msgid "Controller Settings (Player 4) (J-CART)"
+msgstr "控制器设定(玩家4) (J-CART)"
+
+msgid "Controller Settings (Player 1)"
+msgstr "控制器设定(玩家1)"
+
+msgid "Controller Settings (Player 2)"
+msgstr "控制器设定(玩家2)"
+
+msgid "Controller Settings (Player 3)"
+msgstr "控制器设定(玩家3)"
+
+msgid "Controller Settings (Player 4)"
+msgstr "控制器设定(玩家4)"
+
+msgid "Keys Configuration"
+msgstr "按键设定"
+
+msgid "No input connected !"
+msgstr "没有发现输入设备！"
+
+msgid "Backup Memory"
+msgstr "备份内存"
+
+msgid "Backup Memory disabled"
+msgstr "备份内存关闭"
+
+msgid "Empty Slot"
+msgstr "空的插槽"
+
+msgid "Delete Save File ?"
+msgstr "删除保存的文件？"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "View Credits"
+msgstr "制作组信息"
+
+msgid "Reset System"
+msgstr "重置系统"
+
+msgid "Return to Loader"
+msgstr "返回到Loader"
+
+msgid "Exit to System Menu"
+msgstr "返回到系统菜单"
+
+msgid "ActionReplay"
+msgstr "决定\n重新开始"
+
+msgid "Invalid Controllers Settings"
+msgstr "无效的控制器设定"
+
+msgid "Error"
+msgstr "发生错误"
+
+msgid "No Disc inserted !"
+msgstr "未发现磁盘！"
+
+msgid "Disc can not be read !"
+msgstr "磁盘无法读取！"
+
+msgid "Information"
+msgstr "提示信息"
+
+msgid "Loading game..."
+msgstr "加载游戏中..."
+
+msgid "Unable to load game"
+msgstr "无法加载游戏"
+
+msgid "Unable to allocate memory !"
+msgstr "无法分配内存！"
+
+msgid "Unable to open directory !"
+msgstr "无法打开目录！"
+
+msgid "No files found !"
+msgstr "没有发现文件！"
+
+msgid "Loading State ..."
+msgstr "加载状态中..."
+
+msgid "Backup RAM is disabled !"
+msgstr "备份RAM功能被关闭了！"
+
+msgid "Backup RAM disabled !"
+msgstr "备份RAM功能被关闭了！"
+
+msgid "Loading Backup RAM ..."
+msgstr "加载备份的RAM..."
+
+msgid "Unable to open file !"
+msgstr "无法打开文件！"
+
+msgid "Unable to mount memory card"
+msgstr "无法定位内存卡"
+
+msgid "Invalid state file !"
+msgstr "无效的状态文件！"
+
+msgid "Saving State ..."
+msgstr "保存状态中..."
+
+msgid "Backup RAM not modified !"
+msgstr "备份RAM没有被改变！"
+
+msgid "Saving Backup RAM ..."
+msgstr "保存备份的RAM..."
+
+msgid "File is too large"
+msgstr "文件太大了"
+
+msgid "Invalid Cheat Code"
+msgstr "无效的作弊码"
+
+msgid "No Description"
+msgstr "没有描述"
+
+msgid "Delete Cheat Entry ?"
+msgstr "要删除作弊信息吗？"
+
+msgid "Warning"
+msgstr "警告"
+
+msgid "Press    button to continue."
+msgstr "按下    按键继续"
+
+msgid "Press    to continue."
+msgstr "按下    按键继续"
+
+msgid "        Confirm      Cancel      "
+msgstr "        确 认            取 消      "
+
+msgid "Add White Space"
+msgstr "添加空格"
+
+msgid "Add Code Separator"
+msgstr "添加分割符"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Exit"
+msgstr "退出"
+
+msgid "Sega CD (USA) BIOS Selection"
+msgstr "选择Sega CD (USA) BIOS"
+
+msgid "Mega CD (PAL) BIOS Selection"
+msgstr "选择Mega CD (PAL) BIOS"
+
+msgid "Mega CD (JAP) BIOS Selection"
+msgstr "选择Mega CD (JAP) BIOS"
+
+msgid "Mega Drive/Genesis BootROM Selection"
+msgstr "选择Mega Drive/Genesis BootROM"
+
+msgid "Master System (USA) BootROM Selection"
+msgstr "选择Master System (USA) BootROM"
+
+msgid "Master System (PAL) BootROM Selection"
+msgstr "选择Master System (PAL) BootROM"
+
+msgid "Master System (JAP) BootROM Selection"
+msgstr "选择Master System (JAP) BootROM"
+
+msgid "Game Gear BootROM Selection"
+msgstr "选择Game Gear BootROM"
+
+msgid "Game Genie ROM Selection"
+msgstr "选择Game Genie ROM"
+
+msgid "Action Replay (Pro) ROM Selection"
+msgstr "选择Action Replay (Pro) ROM"
+
+msgid "Sonic & Knuckles ROM Selection"
+msgstr "选择Sonic & Knuckles ROM"
+
+msgid "Sonic 2 & Knuckles ROM Selection"
+msgstr "选择Sonic 2 & Knuckles ROM"
+
+msgid "Game Selection"
+msgstr "选择游戏"
+
+msgid "Previous Directory"
+msgstr "上一级目录"
+
+msgid "Open Directory"
+msgstr "打开目录"
+
+msgid "Select File"
+msgstr "选择文件"
+
+msgid "Load File"
+msgstr "加载文件"
+
+msgid "Controllers settings"
+msgstr "控制器设定"
+
+msgid "System settings"
+msgstr "系统设定"
+
+msgid "Video settings"
+msgstr "视频设定"
+
+msgid "Audio settings"
+msgstr "音频设定"
+
+msgid "Menu settings"
+msgstr "菜单设定"
+
+msgid "Controllers Setting"
+msgstr "控制器设定"
+
+msgid "System Setting"
+msgstr "系统设定"
+
+msgid "Video Setting"
+msgstr "视频设定"
+
+msgid "Audio Setting"
+msgstr "音频设定"
+
+msgid "Menu Setting"
+msgstr "菜单设定"
+
+msgid "Enable/Disable YM2413 chip"
+msgstr "打开/关闭 YM2413芯片"
+
+msgid "Enable/Disable YM2612/YM2413 high-quality resampling"
+msgstr "打开/关闭 YM2612/YM2413高品质采样"
+
+msgid "Adjust YM2612 DAC precision"
+msgstr "调整YM2612 DAC精确度"
+
+msgid "Adjust YM2612/YM2413 audio balance"
+msgstr "调整YM2612/YM2413音频均衡"
+
+msgid "Adjust SN76489 audio balance"
+msgstr "调整SN76489音频均衡"
+
+msgid "Enable/Disable SN76489 high-quality resampling"
+msgstr "打开/关闭 SN76489高品质采样"
+
+msgid "Select audio mixing output type"
+msgstr "选择音频混音输入类型"
+
+msgid "Select audio filtering type"
+msgstr "选择音频过滤类型"
+
+msgid "Adjust EQ Low Band Gain"
+msgstr "调整EQ低频增益"
+
+msgid "Adjust EQ Mid Band Gain"
+msgstr "调整EQ中频增益"
+
+msgid "Adjust EQ High Band Gain"
+msgstr "调整EQ高频增益"
+
+msgid "Adjust EQ Lowest Frequency"
+msgstr "调整EQ最低频率"
+
+msgid "Adjust EQ Highest Frequency"
+msgstr "调整EQ最高频率"
+
+msgid "CD BIOS (USA): NOT FOUND"
+msgstr "CD BIOS (USA): 未找到"
+
+msgid "Select Sega CD (USA) BIOS"
+msgstr "选择Sega CD (USA) BIOS"
+
+msgid "CD BIOS (PAL): NOT FOUND"
+msgstr "CD BIOS (PAL): 未找到"
+
+msgid "Select Mega CD (PAL) BIOS"
+msgstr "选择Mega CD (PAL) BIOS"
+
+msgid "CD BIOS (JAP): NOT FOUND"
+msgstr "CD BIOS (JAP): 未找到"
+
+msgid "Select Mega CD (JAP) BIOS"
+msgstr "选择Mega CD (JAP) BIOS"
+
+msgid "MD BIOS (TMSS): NOT FOUND"
+msgstr "MD BIOS (TMSS): 未找到"
+
+msgid "Select Mega Drive / Genesis BootROM"
+msgstr "选择Mega Drive / Genesis BootROM"
+
+msgid "MS BIOS (USA): NOT FOUND"
+msgstr "MS BIOS (USA): 未找到"
+
+msgid "Select Master System (USA) BootROM"
+msgstr "选择Master System (USA) BootROM"
+
+msgid "MS BIOS (PAL): NOT FOUND"
+msgstr "MS BIOS (PAL): 未找到"
+
+msgid "Select Master System (PAL) BootROM"
+msgstr "选择Master System (PAL) BootROM"
+
+msgid "MS BIOS (JAP): NOT FOUND"
+msgstr "MS BIOS (JAP): 未找到"
+
+msgid "Select Master System (JAP) BootROM"
+msgstr "选择Master System (JAP) BootROM"
+
+msgid "Game Gear BIOS: NOT FOUND"
+msgstr "Game Gear BIOS: 未找到"
+
+msgid "Select Game Gear BootROM"
+msgstr "选择Game Gear BootROM"
+
+msgid "Game Genie: NOT FOUND"
+msgstr "Game Genie: 未找到"
+
+msgid "Select Game Genie ROM"
+msgstr "选择Game Genie ROM"
+
+msgid "Action Replay: NOT FOUND"
+msgstr "Action Replay: 未找到"
+
+msgid "Select Action Replay (Pro) ROM"
+msgstr "选择Action Replay (Pro) ROM"
+
+msgid "S&K (2MB ROM): NOT FOUND"
+msgstr "S&K (2MB ROM): 未找到"
+
+msgid "Select Sonic & Knuckle main ROM"
+msgstr "选择Sonic & Knuckle main ROM"
+
+msgid "S2&K (256K ROM): NOT FOUND"
+msgstr "S2&K (256K ROM): 未找到"
+
+msgid "Select Sonic 2 & Knuckle upmem ROM"
+msgstr "选择Sonic 2 & Knuckle upmem ROM"
+
+msgid "Console Hardware: AUTO"
+msgstr "平台硬件: 自动"
+
+msgid "Select system hardware model"
+msgstr "选择系统硬件模式"
+
+msgid "Select system region"
+msgstr "选择系统区域"
+
+msgid "Select VDP mode"
+msgstr "选择VDP模式"
+
+msgid "Select system clock frequency"
+msgstr "选择系统时钟频率"
+
+msgid "Select system booting method"
+msgstr "选择系统启动方法"
+
+msgid "Enable/Disable original system lock-ups"
+msgstr "打开/关闭 原始的系统锁定"
+
+msgid "Enable/Disable 68k address error exceptions"
+msgstr "打开/关闭 68k地址错误异常"
+
+msgid "Lock-on: OFF"
+msgstr "锁定: 关闭"
+
+msgid "Select Lock-On cartridge type"
+msgstr "选择锁定cartridge类型"
+
+msgid "Enable/Disable cartridge hot swap"
+msgstr "打开/关闭 cartridge热交换"
+
+msgid "BIOS & Lock-On ROM paths"
+msgstr "BIOS以及锁定ROM的路径"
+
+msgid "Configure BIOS & Lock-On ROM paths"
+msgstr "设定BIOS以及锁定ROM的路径"
+
+msgid "SVP Cycles: 1500"
+msgstr "SVP周期: 1500"
+
+msgid "Adjust SVP chip emulation speed"
+msgstr "调整SVP芯片模拟速度"
+
+msgid "Select video mode"
+msgstr "选择视频模式"
+
+msgid "TV mode: 50/60HZ"
+msgstr "电视模式: 50/60HZ"
+
+msgid "Select video refresh rate"
+msgstr "选择视频刷新率"
+
+msgid "Enable/Disable sync with video hardware"
+msgstr "打开/关闭 与视频硬件同步"
+
+msgid "Enable/Disable GX hardware texture filtering"
+msgstr "打开/关闭 GX硬件纹理过滤"
+
+msgid "Deflickering Filter: AUTO"
+msgstr "Deflickering过滤: 自动"
+
+msgid "Enable/Disable GX hardware framebuffer filtering"
+msgstr "打开/关闭 GX硬件缓冲过滤"
+
+msgid "Enable/Disable VI hardware composite out filtering"
+msgstr "打开/关闭 VI硬件复合输出过滤"
+
+msgid "Gamma Correction: 1.0"
+msgstr "灰度校正: 1.0"
+
+msgid "Adjust VI hardware gamma correction"
+msgstr "调整VI硬件灰度校正"
+
+msgid "Enable/Disable software LCD image persistence"
+msgstr "打开/关闭 软件LCD图像持久性"
+
+msgid "Enable/Disable software NTSC filtering"
+msgstr "打开/关闭 软件NTSC过滤"
+
+msgid "NTSC Sharpness: 0.0"
+msgstr "NTSC锐利度: 0.0"
+
+msgid "NTSC Resolution: 0.0"
+msgstr "NTSC分辨率: 0.0"
+
+msgid "NTSC Artifacts: 0.0"
+msgstr "NTSC阴影: 0.0"
+
+msgid "NTSC Color Bleed: 0.0"
+msgstr "NTSC颜色混合: 0.0"
+
+msgid "NTSC Color Fringing: 0.0"
+msgstr "NTSC颜色边缘: 0.0"
+
+msgid "Borders: OFF"
+msgstr "边线: 不要"
+
+msgid "GG screen: ORIGINAL"
+msgstr "GG屏幕: 原始"
+
+msgid "Screen Position (+0,+0)"
+msgstr "屏幕位置 (+0,+0)"
+
+msgid "Adjust display position"
+msgstr "调整显示位置"
+
+msgid "Screen Scaling (+0,+0)"
+msgstr "屏幕缩放 (+0,+0)"
+
+msgid "Adjust display scaling"
+msgstr "调整显示缩放"
+
+msgid "Enable/Disable automatic ROM loading on startup"
+msgstr "打开/关闭 开始时自动加载ROM"
+
+msgid "Enable/Disable automatic cheats activation"
+msgstr "打开/关闭 作弊器自动启动"
+
+msgid "Enable/Disable automatic saves"
+msgstr "打开/关闭 自动保存"
+
+msgid "Configure default device for ROM files"
+msgstr "设定ROM文件所在的默认设备"
+
+msgid "Configure default device for Save files"
+msgstr "设定保存文件所在的默认设备"
+
+msgid "SFX Volume: 100"
+msgstr "音效音量: 100"
+
+msgid "Adjust sound effects volume"
+msgstr "调整效果音的音量"
+
+msgid "BGM Volume: 100"
+msgstr "背景音乐音量: 100"
+
+msgid "Adjust background music volume"
+msgstr "调整背景音乐音量"
+
+msgid "Enable/Disable background overlay"
+msgstr "打开/关闭 图像持久性"
+
+msgid "Screen Width: 658"
+msgstr "屏幕宽度: 658"
+
+msgid "Adjust menu screen width in pixels"
+msgstr "以像素单位调整菜单屏幕宽度"
+
+msgid "Enable/Disable CD leds display"
+msgstr "打开/关闭 CD leds显示"
+
+msgid "Enable/Disable FPS counter"
+msgstr "打开/关闭 FPS计数器"
+
+msgid "Wiimote Timeout: OFF"
+msgstr "Wii手柄失效: 关闭"
+
+msgid "Enable/Disable Wii remote automatic shutodwn"
+msgstr "打开/关闭 Wii手柄自动切断"
+
+msgid "Audio Out: MONO"
+msgstr "声音输出: 普通"
+
+msgid "Audio Out: STEREO"
+msgstr "声音输出: 立体声"
+
+msgid "Default Settings restored"
+msgstr "使用了默认的设置"
