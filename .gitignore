@@ -7,3 +7,10 @@ Wii64(fix94)/zh_lang.h
 Wii64(fix94)/wii64-glN64.dol
 Wii64(fix94)/wii64-glN64.elf
 Wii64(fix94)/wii64-glN64.elf.map
+mednafen/boot.dol
+mednafen/boot.elf
+mednafen/build/about_png.h
+mednafen/build/boot.elf.map
+mednafen/build/font_ttf.h
+mednafen/build/icon_png.h
+mednafen/build/wiimotenotsupported_png.h
