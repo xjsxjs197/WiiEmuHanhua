@@ -6,3 +6,4 @@ mednafen        模拟器合集
 mgba            任天堂GBA模拟器
 RetroArch       模拟器合集
 WiiSxr          索尼PS模拟器
+Wii64(fix94)    任天堂N64模拟器

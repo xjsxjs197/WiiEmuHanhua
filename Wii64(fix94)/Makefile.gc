@@ -1,0 +1,15 @@
+# Makefile for GC-specific code
+
+CXXFLAGS	+= -DHW_DOL -DUSE_TLB_CACHE -DTINY_TLBCACHE -D__gamecube__
+
+LDFLAGS		+= -mogc
+
+LIBPATHS	+= -L$(DEVKITPRO)/libogc/lib/cube -L$(DEVKITPRO)/libfat/libogc/lib/cube
+
+OBJ		+= \
+		gc_memory/TLB-Cache.o \
+		vm/vm.o \
+		vm/dsihandler.o
+
+LIB		+= -lz
+
