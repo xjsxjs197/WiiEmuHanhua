@@ -1,0 +1,9 @@
+
+*.o
+*.d
+Wii64(fix94)/en_lang.h
+Wii64(fix94)/FontCn_IA8_N64_dat.h
+Wii64(fix94)/zh_lang.h
+Wii64(fix94)/wii64-glN64.dol
+Wii64(fix94)/wii64-glN64.elf
+Wii64(fix94)/wii64-glN64.elf.map
