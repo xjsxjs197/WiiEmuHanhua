@@ -17,3 +17,6 @@ mednafen/build/wiimotenotsupported_png.h
 Genesis-Plus-GX/genplus_wii.dol
 Genesis-Plus-GX/genplus_wii.elf
 Genesis-Plus-GX/build_wii/*.*
+fceugx/executables/fceugx-wii.elf
+fceugx/executables/fceugx-wii.dol
+fceugx/build_wii/*.*
