@@ -14,3 +14,6 @@ mednafen/build/boot.elf.map
 mednafen/build/font_ttf.h
 mednafen/build/icon_png.h
 mednafen/build/wiimotenotsupported_png.h
+Genesis-Plus-GX/genplus_wii.dol
+Genesis-Plus-GX/genplus_wii.elf
+Genesis-Plus-GX/build_wii/*.*
