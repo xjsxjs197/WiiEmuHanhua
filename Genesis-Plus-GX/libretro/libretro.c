@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX libretro port
  *
- *  Copyright Eke-Eke (2007-2016)
+ *  Copyright Eke-Eke (2007-2017)
  *
  *  Copyright Daniel De Matteis (2012-2016)
  *
@@ -74,6 +74,26 @@
 #include "libretro.h"
 #include "md_ntsc.h"
 #include "sms_ntsc.h"
+#include <streams/file_stream.h>
+
+#define STATIC_ASSERT(name, test) typedef struct { int assert_[(test)?1:-1]; } assert_ ## name ## _
+#define M68K_MAX_CYCLES 1107
+#define Z80_MAX_CYCLES 345
+#define OVERCLOCK_FRAME_DELAY 100
+
+#ifdef M68K_OVERCLOCK_SHIFT
+#define HAVE_OVERCLOCK
+STATIC_ASSERT(m68k_overflow,
+              M68K_MAX_CYCLES <= UINT_MAX >> (M68K_OVERCLOCK_SHIFT + 1));
+#endif
+
+#ifdef Z80_OVERCLOCK_SHIFT
+#ifndef HAVE_OVERCLOCK
+#define HAVE_OVERCLOCK
+#endif
+STATIC_ASSERT(z80_overflow,
+              Z80_MAX_CYCLES <= UINT_MAX >> (Z80_OVERCLOCK_SHIFT + 1));
+#endif
 
 sms_ntsc_t *sms_ntsc;
 md_ntsc_t  *md_ntsc;
@@ -113,6 +133,8 @@ static uint8_t temp[0x10000];
 static int16 soundbuffer[3068];
 static uint16_t bitmap_data_[720 * 576];
 
+static bool restart_eq = false;
+
 static char g_rom_dir[256];
 static char g_rom_name[256];
 static char *save_dir;
@@ -147,6 +169,19 @@ static char ggvalidchars[] = "ABCDEFGHJKLMNPRSTVWXYZ0123456789";
 
 static char arvalidchars[] = "0123456789ABCDEF";
 
+/* Some games appear to calibrate music playback speed for PAL/NTSC by
+   actually counting CPU cycles per frame during startup, resulting in
+   hilariously fast music.  Delay overclocking for a while as a
+   workaround */
+#ifdef HAVE_OVERCLOCK
+static uint32_t overclock_delay;
+#endif
+
+#define SOUND_FREQUENCY 44100
+
+/* Hide the EQ settings for now */
+/*#define HAVE_EQ*/
+
 /************************************
  * Genesis Plus GX implementation
  ************************************/
@@ -169,7 +204,7 @@ int load_archive(char *filename, unsigned char *buffer, int maxsize, char *exten
   int size, left;
 
   /* Open file */
-  FILE *fd = fopen(filename, "rb");
+  RFILE *fd = filestream_open(filename, RFILE_MODE_READ, -1);
 
   if (!fd)
   {
@@ -193,13 +228,13 @@ int load_archive(char *filename, unsigned char *buffer, int maxsize, char *exten
   }
 
   /* Get file size */
-  fseek(fd, 0, SEEK_END);
-  size = ftell(fd);
+  filestream_seek(fd, 0, SEEK_END);
+  size = filestream_tell(fd);
 
   /* size limit */
   if (size > MAXROMSIZE)
   {
-    fclose(fd);
+    filestream_close(fd);
     if (log_cb)
        log_cb(RETRO_LOG_ERROR, "File is too large.\n");
     return 0;
@@ -221,19 +256,19 @@ int load_archive(char *filename, unsigned char *buffer, int maxsize, char *exten
 
   /* Read into buffer */
   left = size;
-  fseek(fd, 0, SEEK_SET);
+  filestream_seek(fd, 0, SEEK_SET);
   while (left > CHUNKSIZE)
   {
-    fread(buffer, CHUNKSIZE, 1, fd);
+    filestream_read(fd, buffer, CHUNKSIZE);
     buffer += CHUNKSIZE;
     left -= CHUNKSIZE;
   }
 
   /* Read remaining bytes */
-  fread(buffer, left, 1, fd);
+  filestream_read(fd, buffer, left);
 
   /* Close file */
-  fclose(fd);
+  filestream_close(fd);
 
   /* Return loaded ROM size */
   return size;
@@ -498,15 +533,18 @@ static void config_default(void)
    config.hq_fm          = 1; /* high-quality FM resampling (slower) */
    config.hq_psg         = 1; /* high-quality PSG resampling (slower) */
    config.filter         = 0; /* no filter */
-   config.lp_range       = 0x9999; /* 0.6 in 16.16 fixed point */
+   config.lp_range       = 0x7fff; /* 0.5 in 0.16 fixed point */
    config.low_freq       = 880;
    config.high_freq      = 5000;
-   config.lg             = 1.0;
-   config.mg             = 1.0;
-   config.hg             = 1.0;
-   config.dac_bits       = 14; /* MAX DEPTH */ 
+   config.lg             = 100;
+   config.mg             = 100;
+   config.hg             = 100;
+   config.ym2612         = YM2612_DISCRETE; 
    config.ym2413         = 2; /* AUTO */
    config.mono           = 0; /* STEREO output */
+#ifdef HAVE_YM3438_CORE
+   config.ym3438         = 0;
+#endif
 
    /* system options */
    config.system         = 0; /* AUTO */
@@ -518,6 +556,10 @@ static void config_default(void)
    config.bios           = 0;
    config.lock_on        = 0;
    config.lcd            = 0; /* 0.8 fixed point */
+#ifdef HAVE_OVERCLOCK
+   config.overclock      = 100;
+#endif
+   config.no_sprite_limit = 0;
 
    /* video options */
    config.overscan = 0;
@@ -538,19 +580,19 @@ static void config_default(void)
 
 static void bram_load(void)
 {
-    FILE *fp;
+    RFILE *fp;
 
     /* automatically load internal backup RAM */
     switch (region_code)
     {
        case REGION_JAPAN_NTSC:
-          fp = fopen(CD_BRAM_JP, "rb");
+          fp = filestream_open(CD_BRAM_JP, RFILE_MODE_READ, -1);
           break;
        case REGION_EUROPE:
-          fp = fopen(CD_BRAM_EU, "rb");
+          fp = filestream_open(CD_BRAM_EU, RFILE_MODE_READ, -1);
           break;
        case REGION_USA:
-          fp = fopen(CD_BRAM_US, "rb");
+          fp = filestream_open(CD_BRAM_US, RFILE_MODE_READ, -1);
           break;
        default:
           return;
@@ -558,8 +600,8 @@ static void bram_load(void)
 
     if (fp != NULL)
     {
-      fread(scd.bram, 0x2000, 1, fp);
-      fclose(fp);
+      filestream_read(fp, scd.bram, 0x2000);
+      filestream_close(fp);
 
       /* update CRC */
       brm_crc[0] = crc32(0, scd.bram, 0x2000);
@@ -590,7 +632,7 @@ static void bram_load(void)
     /* automatically load cartridge backup RAM (if enabled) */
     if (scd.cartridge.id)
     {
-      fp = fopen(CART_BRAM, "rb");
+      fp = filestream_open(CART_BRAM, RFILE_MODE_READ, -1);
       if (fp != NULL)
       {
         int filesize = scd.cartridge.mask + 1;
@@ -599,7 +641,7 @@ static void bram_load(void)
         /* Read into buffer (2k blocks) */
         while (filesize > CHUNKSIZE)
         {
-          fread(scd.cartridge.area + done, CHUNKSIZE, 1, fp);
+          filestream_read(fp, scd.cartridge.area + done, CHUNKSIZE);
           done += CHUNKSIZE;
           filesize -= CHUNKSIZE;
         }
@@ -607,11 +649,11 @@ static void bram_load(void)
         /* Read remaining bytes */
         if (filesize)
         {
-          fread(scd.cartridge.area + done, filesize, 1, fp);
+          filestream_read(fp, scd.cartridge.area + done, filesize);
         }
 
         /* close file */
-        fclose(fp);
+        filestream_close(fp);
 
         /* update CRC */
         brm_crc[1] = crc32(0, scd.cartridge.area, scd.cartridge.mask + 1);
@@ -635,7 +677,7 @@ static void bram_load(void)
 
 static void bram_save(void)
 {
-    FILE *fp;
+    RFILE *fp;
 
     /* verify that internal backup RAM has been modified */
     if (crc32(0, scd.bram, 0x2000) != brm_crc[0])
@@ -646,13 +688,13 @@ static void bram_save(void)
         switch (region_code)
         {
           case REGION_JAPAN_NTSC:
-            fp = fopen(CD_BRAM_JP, "wb");
+            fp = filestream_open(CD_BRAM_JP, RFILE_MODE_WRITE, -1);
             break;
           case REGION_EUROPE:
-            fp = fopen(CD_BRAM_EU, "wb");
+            fp = filestream_open(CD_BRAM_EU, RFILE_MODE_WRITE, -1);
             break;
           case REGION_USA:
-            fp = fopen(CD_BRAM_US, "wb");
+            fp = filestream_open(CD_BRAM_US, RFILE_MODE_WRITE, -1);
             break;
           default:
             return;
@@ -660,8 +702,8 @@ static void bram_save(void)
 
         if (fp != NULL)
         {
-          fwrite(scd.bram, 0x2000, 1, fp);
-          fclose(fp);
+          filestream_write(fp, scd.bram, 0x2000);
+          filestream_close(fp);
 
           /* update CRC */
           brm_crc[0] = crc32(0, scd.bram, 0x2000);
@@ -675,7 +717,7 @@ static void bram_save(void)
       /* check if it is correctly formatted before saving */
       if (!memcmp(scd.cartridge.area + scd.cartridge.mask + 1 - 0x20, brm_format + 0x20, 0x20))
       {
-        fp = fopen(CART_BRAM, "wb");
+        fp = filestream_open(CART_BRAM, RFILE_MODE_WRITE, -1);
         if (fp != NULL)
         {
           int filesize = scd.cartridge.mask + 1;
@@ -684,7 +726,7 @@ static void bram_save(void)
           /* Write to file (2k blocks) */
           while (filesize > CHUNKSIZE)
           {
-            fwrite(scd.cartridge.area + done, CHUNKSIZE, 1, fp);
+            filestream_write(fp, scd.cartridge.area + done, CHUNKSIZE);
             done += CHUNKSIZE;
             filesize -= CHUNKSIZE;
           }
@@ -692,11 +734,11 @@ static void bram_save(void)
           /* Write remaining bytes */
           if (filesize)
           {
-            fwrite(scd.cartridge.area + done, filesize, 1, fp);
+            filestream_write(fp, scd.cartridge.area + done, filesize);
           }
 
           /* Close file */
-          fclose(fp);
+          filestream_close(fp);
 
           /* update CRC */
           brm_crc[1] = crc32(0, scd.cartridge.area, scd.cartridge.mask + 1);
@@ -740,33 +782,25 @@ static void extract_directory(char *buf, const char *path, size_t size)
 
 static double calculate_display_aspect_ratio(void)
 {
-  if (config.aspect_ratio == 0)
-  {
-    if ((system_hw == SYSTEM_GG || system_hw == SYSTEM_GGMS) && config.overscan == 0 && config.gg_extra == 0)
-    {
-      return (6.0 / 5.0) * ((double)vwidth / (double)vheight);
-    }
-  }
+   double videosamplerate, dotrate;
+   bool is_h40 = false;
+   if (config.aspect_ratio == 0)
+   {
+      if ((system_hw == SYSTEM_GG || system_hw == SYSTEM_GGMS) && config.overscan == 0 && config.gg_extra == 0)
+         return (6.0 / 5.0) * ((double)vwidth / (double)vheight);
+   }
 
-  bool is_h40 = bitmap.viewport.w == 320; /* Could be read directly from the register as well. */
+   is_h40  = bitmap.viewport.w == 320; /* Could be read directly from the register as well. */
+   dotrate = system_clock / (is_h40 ? 8.0 : 10.0);
 
-  double dotrate = system_clock / (is_h40 ? 8.0 : 10.0);
-  double videosamplerate;
+   if (config.aspect_ratio == 1) /* Force NTSC PAR */
+      videosamplerate = 135000000.0 / 11.0;
+   else if (config.aspect_ratio == 2) /* Force PAL PAR */
+      videosamplerate = 14750000.0;
+   else
+      videosamplerate = vdp_pal ? 14750000.0 : 135000000.0 / 11.0;
 
-  if (config.aspect_ratio == 1) /* Force NTSC PAR */
-  {
-    videosamplerate = 135000000.0 / 11.0;
-  }
-  else if (config.aspect_ratio == 2) /* Force PAL PAR */
-  {
-    videosamplerate = 14750000.0;
-  }
-  else
-  {
-    videosamplerate = vdp_pal ? 14750000.0 : 135000000.0 / 11.0;
-  }
-
-  return (videosamplerate / dotrate) * ((double)vwidth / ((double)vheight * 2.0));
+   return (videosamplerate / dotrate) * ((double)vwidth / ((double)vheight * 2.0));
 }
 
 static bool update_viewport(void)
@@ -794,13 +828,38 @@ static bool update_viewport(void)
    return ((ow != vwidth) || (oh != vheight) || (oar != vaspect_ratio));
 }
 
+#ifdef HAVE_OVERCLOCK
+static void update_overclock(void)
+{
+#ifdef M68K_OVERCLOCK_SHIFT
+    m68k.cycle_ratio = 1 << M68K_OVERCLOCK_SHIFT;
+#endif
+#ifdef Z80_OVERCLOCK_SHIFT
+    z80_cycle_ratio = 1 << Z80_OVERCLOCK_SHIFT;
+#endif
+    if (overclock_delay == 0)
+    {
+      /* Cycle ratios multiply per-instruction cycle counts, so use
+         reciprocals */
+#ifdef M68K_OVERCLOCK_SHIFT
+      if ((system_hw & SYSTEM_PBC) == SYSTEM_MD)
+        m68k.cycle_ratio = (100 << M68K_OVERCLOCK_SHIFT) / config.overclock;
+#endif
+#ifdef Z80_OVERCLOCK_SHIFT
+      if ((system_hw & SYSTEM_PBC) != SYSTEM_MD)
+        z80_cycle_ratio = (100 << Z80_OVERCLOCK_SHIFT) / config.overclock;
+#endif
+    }
+}
+#endif
+
 static void check_variables(void)
 {
   unsigned orig_value;
+  struct retro_system_av_info info;
   bool update_viewports = false;
   bool reinit = false;
   struct retro_variable var = {0};
-  struct retro_system_av_info info;
 
   var.key = "genesis_plus_gx_bram";
   environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
@@ -1033,15 +1092,105 @@ static void check_variables(void)
     }
   }
 
-  var.key = "genesis_plus_gx_dac_bits";
+  var.key = "genesis_plus_gx_sound_output";
   environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
   {
-    if (!strcmp(var.value, "enabled"))
-      config.dac_bits = 9;
-    else
-      config.dac_bits = 14;
+    if (!strcmp(var.value, "mono"))
+      config.mono = 1;
+    else if (!strcmp(var.value, "stereo"))
+      config.mono = 0; 
+  }
 
-    YM2612Config(config.dac_bits);
+  var.key = "genesis_plus_gx_audio_filter";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    if (!strcmp(var.value, "low-pass"))
+      config.filter = 1;
+
+#if HAVE_EQ 
+    else if (!strcmp(var.value, "EQ"))
+      config.filter = 2;
+#endif
+
+    else
+      config.filter = 0;
+  }
+
+  var.key = "genesis_plus_gx_lowpass_range";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    config.lp_range = (atoi(var.value) * 65536) / 100;
+  }
+
+#if HAVE_EQ
+  var.key = "genesis_plus_gx_audio_eq_low";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    uint8_t new_lg = atoi(var.value);
+    if (new_lg != config.lg) restart_eq = true;
+    config.lg = new_lg;
+  }
+
+  var.key = "genesis_plus_gx_audio_eq_mid";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    uint8_t new_mg = atoi(var.value);
+    if (new_mg != config.mg) restart_eq = true;
+    config.mg = new_mg;
+  }
+
+  var.key = "genesis_plus_gx_audio_eq_high";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    uint8_t new_hg = atoi(var.value);
+    if (new_hg != config.hg) restart_eq = true;
+    config.hg = new_hg;
+
+  }
+#endif
+
+  var.key = "genesis_plus_gx_ym2612";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+#ifdef HAVE_YM3438_CORE
+    orig_value = config.ym3438;
+    if (!strcmp(var.value, "nuked (ym2612)"))
+    {
+      OPN2_SetChipType(ym3438_mode_ym2612);
+      config.ym3438 = 1;
+    }
+    else if (!strcmp(var.value, "nuked (ym3438)"))
+    {
+      OPN2_SetChipType(ym3438_mode_readmode);
+      config.ym3438 = 2;
+    }
+    else
+    {
+      config.ym3438 = 0;
+    }
+
+    if (((orig_value == 0) && (config.ym3438 > 0)) || ((orig_value > 0) && (config.ym3438 == 0)))
+    {
+      sound_init();
+      sound_reset();
+    }
+#endif
+
+    if (!strcmp(var.value, "mame (ym2612)"))
+    {
+      config.ym2612 = YM2612_DISCRETE;
+      YM2612Config(YM2612_DISCRETE);
+    }
+    else if (!strcmp(var.value, "mame (asic ym3438)"))
+    {
+      config.ym2612 = YM2612_INTEGRATED;
+      YM2612Config(YM2612_INTEGRATED);
+    }
+    else
+    {
+      config.ym2612 = YM2612_ENHANCED;
+      YM2612Config(YM2612_ENHANCED);
+    }
   }
 
   var.key = "genesis_plus_gx_blargg_ntsc_filter";
@@ -1161,9 +1310,41 @@ static void check_variables(void)
       config.invert_mouse = 1;
   }
 
+#ifdef HAVE_OVERCLOCK
+  var.key = "genesis_plus_gx_overclock";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    if (strcmp(var.value, "100%") == 0)
+      config.overclock = 100;
+    else if (strcmp(var.value, "125%") == 0)
+      config.overclock = 125;
+    else if (strcmp(var.value, "150%") == 0)
+      config.overclock = 150;
+    else if (strcmp(var.value, "175%") == 0)
+      config.overclock = 175;
+    else if (strcmp(var.value, "200%") == 0)
+      config.overclock = 200;
+
+    if (system_hw)
+      update_overclock();
+  }
+#endif
+
+  var.key = "genesis_plus_gx_no_sprite_limit";
+  environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE, &var);
+  {
+    if (strcmp(var.value, "disabled") == 0)
+      config.no_sprite_limit = 0;
+    else
+      config.no_sprite_limit = 1;
+  }
+
   if (reinit)
   {
-    audio_init(44100, 0);
+#ifdef HAVE_OVERCLOCK
+    overclock_delay = OVERCLOCK_FRAME_DELAY;
+#endif
+    audio_init(SOUND_FREQUENCY, 0);
     memcpy(temp, sram.sram, sizeof(temp));
     system_init();
     system_reset();
@@ -1192,9 +1373,9 @@ static uint32_t decode_cheat(char *string, int index)
    uint8_t ref = 0;
 
    if ((system_hw & SYSTEM_PBC) == SYSTEM_MD){
-      //If system is Genesis-based
+      /*If system is Genesis-based*/
 
-      //Game-Genie
+      /*Game-Genie*/
       if ((strlen(string) >= 9) && (string[4] == '-'))
       {
          for (i = 0; i < 8; i++)
@@ -1238,7 +1419,7 @@ static uint32_t decode_cheat(char *string, int index)
          len = 9;
       }
 
-      //Patch and PAR
+      /*Patch and PAR*/
       else if ((strlen(string) >=9) && (string[6] == ':'))
       {
          /* decode 24-bit address */
@@ -1262,9 +1443,9 @@ static uint32_t decode_cheat(char *string, int index)
          len = 11;
       }
    } else {
-      //If System is Master-based
+      /*If System is Master-based*/
 
-      //Game Genie
+      /*Game Genie*/
       if ((strlen(string) >=7) && (string[3] == '-'))
       {
          /* decode 8-bit data */
@@ -1313,7 +1494,7 @@ static uint32_t decode_cheat(char *string, int index)
          }
       }
 
-      //Action Replay
+      /*Action Replay*/
       else if ((strlen(string) >=9) && (string[4] == '-')){
          string+=2;
          /* decode 16-bit address */
@@ -1337,7 +1518,7 @@ static uint32_t decode_cheat(char *string, int index)
          len = 9;
       }
 
-      //Fusion RAM
+      /*Fusion RAM*/
       else if ((strlen(string) >=7) && (string[4] == ':'))
       {
          /* decode 16-bit address */
@@ -1361,7 +1542,7 @@ static uint32_t decode_cheat(char *string, int index)
          len = 7;
       }
 
-      //Fusion ROM
+      /*Fusion ROM*/
       else if ((strlen(string) >=9) && (string[6] == ':'))
       {
          /* decode reference 8-bit data */
@@ -1578,8 +1759,23 @@ void retro_set_environment(retro_environment_t cb)
       { "genesis_plus_gx_bram", "CD System BRAM; per bios|per game" },
       { "genesis_plus_gx_addr_error", "68k address error; enabled|disabled" },
       { "genesis_plus_gx_lock_on", "Cartridge lock-on; disabled|game genie|action replay (pro)|sonic & knuckles" },
-      { "genesis_plus_gx_ym2413", "Master System FM; auto|disabled|enabled" },
-      { "genesis_plus_gx_dac_bits", "YM2612 DAC quantization; disabled|enabled" },
+      { "genesis_plus_gx_ym2413", "Master System FM (YM2413); auto|disabled|enabled" },
+#ifdef HAVE_YM3438_CORE
+      { "genesis_plus_gx_ym2612", "Mega Drive / Genesis FM; mame (ym2612)|mame (asic ym3438)|mame (enhanced ym3438)|nuked (ym2612)|nuked (ym3438)" },
+#else
+      { "genesis_plus_gx_ym2612", "Mega Drive / Genesis FM; mame (ym2612)|mame (asic ym3438)|mame (enhanced ym3438)" },
+#endif
+
+      { "genesis_plus_gx_sound_output", "Sound output; stereo|mono" },
+      { "genesis_plus_gx_audio_filter", "Audio filter; disabled|low-pass" },
+      { "genesis_plus_gx_lowpass_range", "Low-pass filter %; 60|65|70|75|80|85|90|95|5|10|15|20|25|30|35|40|45|50|55"},
+      
+      #if HAVE_EQ     
+      { "genesis_plus_gx_audio_eq_low",  "EQ Low;  100|0|5|10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95" },
+      { "genesis_plus_gx_audio_eq_mid",  "EQ Mid;  100|0|5|10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95" },
+      { "genesis_plus_gx_audio_eq_high", "EQ High; 100|0|5|10|15|20|25|30|35|40|45|50|55|60|65|70|75|80|85|90|95" },
+      #endif
+      
       { "genesis_plus_gx_blargg_ntsc_filter", "Blargg NTSC filter; disabled|monochrome|composite|svideo|rgb" },
       { "genesis_plus_gx_lcd_filter", "LCD Ghosting filter; disabled|enabled" },
       { "genesis_plus_gx_overscan", "Borders; disabled|top/bottom|left/right|full" },
@@ -1588,6 +1784,10 @@ void retro_set_environment(retro_environment_t cb)
       { "genesis_plus_gx_render", "Interlaced mode 2 output; single field|double field" },
       { "genesis_plus_gx_gun_cursor", "Show Lightgun crosshair; disabled|enabled" },
       { "genesis_plus_gx_invert_mouse", "Invert Mouse Y-axis; disabled|enabled" },
+#ifdef HAVE_OVERCLOCK
+      { "genesis_plus_gx_overclock", "CPU speed; 100%|125%|150%|175%|200%" },
+#endif
+      { "genesis_plus_gx_no_sprite_limit", "Remove per-line sprite limit; disabled|enabled" },
       { NULL, NULL },
    };
 
@@ -1757,6 +1957,7 @@ void retro_set_audio_sample_batch(retro_audio_sample_batch_t cb) { audio_cb = cb
 void retro_set_input_poll(retro_input_poll_t cb) { input_poll_cb = cb; }
 void retro_set_input_state(retro_input_state_t cb) { input_state_cb = cb; }
 
+
 void retro_get_system_info(struct retro_system_info *info)
 {
    info->library_name = "Genesis Plus GX";
@@ -1764,7 +1965,7 @@ void retro_get_system_info(struct retro_system_info *info)
 #define GIT_VERSION ""
 #endif
    info->library_version = "v1.7.4" GIT_VERSION;
-   info->valid_extensions = "mdx|md|smd|gen|bin|cue|iso|sms|gg|sg";
+   info->valid_extensions = "mdx|md|smd|gen|bin|cue|iso|chd|sms|gg|sg";
    info->block_extract = false;
    info->need_fullpath = true;
 }
@@ -1772,12 +1973,12 @@ void retro_get_system_info(struct retro_system_info *info)
 void retro_get_system_av_info(struct retro_system_av_info *info)
 {
    info->geometry.base_width    = vwidth;
-   info->geometry.base_height   = vheight;
+   info->geometry.base_height   = bitmap.viewport.h + (2 * bitmap.viewport.y);
    info->geometry.max_width     = 720;
    info->geometry.max_height    = 576;
    info->geometry.aspect_ratio  = vaspect_ratio;
    info->timing.fps             = (double)(system_clock) / (double)lines_per_frame / (double)MCYCLES_PER_LINE;
-   info->timing.sample_rate     = 44100;
+   info->timing.sample_rate     = SOUND_FREQUENCY;
 }
 
 void retro_set_controller_port_device(unsigned port, unsigned device)
@@ -1792,7 +1993,7 @@ void retro_set_controller_port_device(unsigned port, unsigned device)
          break;
       case RETRO_DEVICE_MDPAD_3B:
       {
-         if (port && (input.system[0] >= RETRO_DEVICE_MDPAD_3B_WAYPLAY) && (input.system[0] <= RETRO_DEVICE_MSPAD_2B_MASTERTAP))
+         if (port && (input.system[0] >= SYSTEM_MASTERTAP) && (input.system[0] <= SYSTEM_WAYPLAY))
             config.input[4].padtype = DEVICE_PAD3B;
          else
             config.input[port].padtype = DEVICE_PAD3B;
@@ -1801,7 +2002,7 @@ void retro_set_controller_port_device(unsigned port, unsigned device)
       }
       case RETRO_DEVICE_MDPAD_6B:
       {
-         if (port && (input.system[0] >= RETRO_DEVICE_MDPAD_3B_WAYPLAY) && (input.system[0] <= RETRO_DEVICE_MSPAD_2B_MASTERTAP))
+         if (port && (input.system[0] >= SYSTEM_MASTERTAP) && (input.system[0] <= SYSTEM_WAYPLAY))
             config.input[4].padtype = DEVICE_PAD6B;
          else
             config.input[port].padtype = DEVICE_PAD6B;
@@ -1810,7 +2011,7 @@ void retro_set_controller_port_device(unsigned port, unsigned device)
       }
       case RETRO_DEVICE_MSPAD_2B:
       {
-         if (port && (input.system[0] >= RETRO_DEVICE_MDPAD_3B_WAYPLAY) && (input.system[0] <= RETRO_DEVICE_MSPAD_2B_MASTERTAP))
+         if (port && (input.system[0] >= SYSTEM_MASTERTAP) && (input.system[0] <= SYSTEM_WAYPLAY))
             config.input[4].padtype = DEVICE_PAD2B;
          else
             config.input[port].padtype = DEVICE_PAD2B;
@@ -1894,7 +2095,7 @@ void retro_set_controller_port_device(unsigned port, unsigned device)
       case RETRO_DEVICE_JOYPAD:
       default:
       {
-         if (port && (input.system[0] >= RETRO_DEVICE_MDPAD_3B_WAYPLAY) && (input.system[0] <= RETRO_DEVICE_MSPAD_2B_MASTERTAP))
+         if (port && (input.system[0] >= SYSTEM_MASTERTAP) && (input.system[0] <= SYSTEM_WAYPLAY))
             config.input[4].padtype = DEVICE_PAD2B | DEVICE_PAD6B | DEVICE_PAD3B;
          else
             config.input[port].padtype = DEVICE_PAD2B | DEVICE_PAD6B | DEVICE_PAD3B;
@@ -1930,6 +2131,11 @@ bool retro_unserialize(const void *data, size_t size)
    if (!state_load((uint8_t*)data))
       return FALSE;
 
+#ifdef HAVE_OVERCLOCK
+   overclock_delay = OVERCLOCK_FRAME_DELAY;
+   update_overclock();
+#endif
+
    return TRUE;
 }
 
@@ -1945,16 +2151,17 @@ void retro_cheat_set(unsigned index, bool enabled, const char *code)
 {
 	char codeCopy[256];
 	char *buff;
-   
-   /* Avoid crashing when giving empty input */
-   if (code=='\0') return;
 
-   /* clear existing ROM patches */
-   clear_cheats();
+	/* Avoid crashing when giving no input */
+	if (code==NULL) return;
 
-   /* Detect and split multiline cheats */
-	strcpy(codeCopy,code);
-   buff = strtok(codeCopy,"+");
+	/* clear existing ROM patches */
+	clear_cheats();
+
+	/* Detect and split multiline cheats */
+	strncpy(codeCopy,code,255);
+	codeCopy[255] = '\0';
+	buff = strtok(codeCopy,"+");
 
 	while (buff != NULL)
 	{
@@ -1984,8 +2191,8 @@ void retro_cheat_set(unsigned index, bool enabled, const char *code)
       buff = strtok(NULL,"+");
 	}
 
-   /* apply ROM patches */
-   apply_cheats();
+	/* apply ROM patches */
+	apply_cheats();
 }
 
 bool retro_load_game(const struct retro_game_info *info)
@@ -2002,10 +2209,12 @@ bool retro_load_game(const struct retro_game_info *info)
       return false;
 
 #ifdef FRONTEND_SUPPORTS_RGB565
-   unsigned rgb565 = RETRO_PIXEL_FORMAT_RGB565;
-   if(environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &rgb565))
-      if (log_cb)
-         log_cb(RETRO_LOG_INFO, "Frontend supports RGB565 - will use that instead of XRGB1555.\n");
+   {
+      unsigned rgb565 = RETRO_PIXEL_FORMAT_RGB565;
+      if(environ_cb(RETRO_ENVIRONMENT_SET_PIXEL_FORMAT, &rgb565))
+         if (log_cb)
+            log_cb(RETRO_LOG_INFO, "Frontend supports RGB565 - will use that instead of XRGB1555.\n");
+   }
 #endif
 
    sms_ntsc = calloc(1, sizeof(sms_ntsc_t));
@@ -2091,7 +2300,7 @@ bool retro_load_game(const struct retro_game_info *info)
       }
    }
 
-   audio_init(44100,0);
+   audio_init(SOUND_FREQUENCY, 0);
    system_init();
    system_reset();
    is_running = false;
@@ -2100,6 +2309,11 @@ bool retro_load_game(const struct retro_game_info *info)
       bram_load();
 
    update_viewport();
+
+#ifdef HAVE_OVERCLOCK
+   overclock_delay = OVERCLOCK_FRAME_DELAY;
+   update_overclock();
+#endif
 
    return true;
 }
@@ -2128,20 +2342,12 @@ unsigned retro_get_region(void) { return vdp_pal ? RETRO_REGION_PAL : RETRO_REGI
 
 void *retro_get_memory_data(unsigned id)
 {
-   if (!sram.on)
-      return NULL;
-
    switch (id)
    {
       case RETRO_MEMORY_SAVE_RAM:
-         return sram.sram;
+         return sram.on ? sram.sram : NULL;
       case RETRO_MEMORY_SYSTEM_RAM:
-
-      if (system_hw == SYSTEM_SMS)
-	return zram; // 0x2000 = 8kb z80 ram
-      else
-	return work_ram; //0x10000 = 64kb 68000 ram
-	
+         return work_ram;
       default:
          return NULL;
    }
@@ -2151,13 +2357,13 @@ size_t retro_get_memory_size(unsigned id)
 {
    int i;
 
-   if (!sram.on)
-      return 0;
-
    switch (id)
    {
       case RETRO_MEMORY_SAVE_RAM:
       {
+        if (!sram.on)
+          return 0;
+
         /* if emulation is not running, we assume the frontend is requesting SRAM size for loading */
         if (!is_running)
         {
@@ -2214,6 +2420,10 @@ void retro_deinit(void)
 
 void retro_reset(void)
 {
+#ifdef HAVE_OVERCLOCK
+   overclock_delay = OVERCLOCK_FRAME_DELAY;
+   update_overclock();
+#endif
    gen_reset(0);
 }
 
@@ -2222,12 +2432,24 @@ void retro_run(void)
    bool updated = false;
    is_running = true;
 
+#ifdef HAVE_OVERCLOCK
+  /* update overclock delay */
+  if (overclock_delay && --overclock_delay == 0)
+      update_overclock();
+#endif
+
    if (system_hw == SYSTEM_MCD)
+   {
       system_frame_scd(0);
+   }
    else if ((system_hw & SYSTEM_PBC) == SYSTEM_MD)
+   {
       system_frame_gen(0);
+   }
    else
+   {
       system_frame_sms(0);
+   }
 
    if (bitmap.viewport.changed & 9)
    {
@@ -2274,7 +2496,14 @@ void retro_run(void)
 
    environ_cb(RETRO_ENVIRONMENT_GET_VARIABLE_UPDATE, &updated);
    if (updated)
+   {
       check_variables();
+      if (restart_eq)
+      {
+         audio_set_equalizer();
+         restart_eq = false;
+      }
+   }
 }
 
 #undef  CHUNKSIZE

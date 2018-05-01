@@ -514,7 +514,11 @@
 
 /* ---------------------------- Cycle Counting ---------------------------- */
 
+#ifdef M68K_OVERCLOCK_SHIFT
+#define USE_CYCLES(A) m68ki_cpu.cycles += ((A) * m68ki_cpu.cycle_ratio) >> M68K_OVERCLOCK_SHIFT
+#else
 #define USE_CYCLES(A) m68ki_cpu.cycles += (A)
+#endif
 #define SET_CYCLES(A) m68ki_cpu.cycles  = (A)
 
 

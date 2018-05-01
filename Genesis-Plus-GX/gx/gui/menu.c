@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX menu
  *
- *  Copyright Eke-Eke (2009-2016)
+ *  Copyright Eke-Eke (2009-2017)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -47,6 +47,7 @@
 
 #ifdef HW_RVL
 #include <ogc/usbmouse.h>
+#include "wiidrc.h"
 #endif
 
 #include <ogc/lwp_threads.h>
@@ -122,6 +123,7 @@ extern const u8 ctrl_gamecube_png[];
 extern const u8 ctrl_classic_png[];
 extern const u8 ctrl_nunchuk_png[];
 extern const u8 ctrl_wiimote_png[];
+extern const u8 ctrl_wiiu_png[];
 #endif
 
 /* Generic images */
@@ -341,20 +343,20 @@ static gui_item items_options[] =
 /* Audio options */
 static gui_item items_audio[] =
 {
-  {NULL,NULL,"Master System FM: AUTO", "Enable/Disable YM2413 chip",                           56,132,276,48},
-  {NULL,NULL,"High-Quality FM: ON",    "Enable/Disable YM2612/YM2413 high-quality resampling", 56,132,276,48},
-  {NULL,NULL,"FM Resolution: MAX",     "Adjust YM2612 DAC precision",                          56,132,276,48},
-  {NULL,NULL,"FM Volume: 1.00",        "Adjust YM2612/YM2413 audio balance",                   56,132,276,48},
-  {NULL,NULL,"PSG Volume: 2.50",       "Adjust SN76489 audio balance",                         56,132,276,48},
-  {NULL,NULL,"High-Quality PSG: ON",   "Enable/Disable SN76489 high-quality resampling",       56,132,276,48},
-  {NULL,NULL,"Audio Output: STEREO",   "Select audio mixing output type",                      56,132,276,48},
-  {NULL,NULL,"Filtering: 3-BAND EQ",   "Select audio filtering type",                          56,132,276,48},
-  {NULL,NULL,"Low Gain: 1.00",         "Adjust EQ Low Band Gain",                              56,132,276,48},
-  {NULL,NULL,"Mid Gain: 1.00",         "Adjust EQ Mid Band Gain",                              56,132,276,48},
-  {NULL,NULL,"High Gain: 1.00",        "Adjust EQ High Band Gain",                             56,132,276,48},
-  {NULL,NULL,"Low Freq: 200 Hz",       "Adjust EQ Lowest Frequency",                           56,132,276,48},
-  {NULL,NULL,"High Freq: 20000 Hz",    "Adjust EQ Highest Frequency",                          56,132,276,48}
-};
+  {NULL,NULL,"Master System FM: AUTO",   "Enable/Disable YM2413 chip",                           56,132,276,48},
+  {NULL,NULL,"YM2612 Type: DISCRETE",    "Select YM2612 chip model",                             56,132,276,48},
+  {NULL,NULL,"High-Quality FM: ON",      "Enable/Disable YM2612/YM2413 high-quality resampling", 56,132,276,48},
+  {NULL,NULL,"High-Quality PSG: ON",     "Enable/Disable SN76489 high-quality resampling",       56,132,276,48},
+  {NULL,NULL,"FM Volume: 1.00",          "Adjust YM2612/YM2413 audio balance",                   56,132,276,48},
+  {NULL,NULL,"PSG Volume: 2.50",         "Adjust SN76489 audio balance",                         56,132,276,48},
+  {NULL,NULL,"Audio Output: STEREO",     "Select audio mixing output type",                      56,132,276,48},
+  {NULL,NULL,"Filtering: 3-BAND EQ",     "Select audio filtering type",                          56,132,276,48},
+  {NULL,NULL,"Low Gain: 1.00",           "Adjust EQ Low Band Gain",                              56,132,276,48},
+  {NULL,NULL,"Mid Gain: 1.00",           "Adjust EQ Mid Band Gain",                              56,132,276,48},
+  {NULL,NULL,"High Gain: 1.00",          "Adjust EQ High Band Gain",                             56,132,276,48},
+  {NULL,NULL,"Low Freq: 200 Hz",         "Adjust EQ Lowest Frequency",                           56,132,276,48},
+  {NULL,NULL,"High Freq: 20000 Hz",      "Adjust EQ Highest Frequency",                          56,132,276,48}
+}; 
 
 /* System ROM paths */
 static gui_item items_rompaths[] =
@@ -701,7 +703,7 @@ static void prefmenu ()
   int ret, quit = 0;
   gui_menu *m = &menu_prefs;
   gui_item *items = m->items;
-
+  
   sprintf (items[0].text, "Auto ROM Load: %s", config.autoload ? "ON":"OFF");
   sprintf (items[1].text, "Auto Cheats: %s", config.autocheat ? "ON":"OFF");
   if (config.s_auto == 3) sprintf (items[2].text, "Auto Saves: ALL");
@@ -901,14 +903,15 @@ static void soundmenu ()
   else if (config.ym2413 == 1) sprintf (items[0].text, "Master System FM: ON");
   else sprintf (items[0].text, "Master System FM: AUTO");
 
-  sprintf (items[1].text, "High-Quality FM: %s", config.hq_fm ? "ON":"OFF");
+  if (config.ym2612 == YM2612_DISCRETE) sprintf (items[1].text, "YM2612 Type: DISCRETE");
+  else if (config.ym2612 == YM2612_INTEGRATED) sprintf (items[1].text, "YM2612 Type: ASIC");
+  else sprintf (items[1].text, "YM2612 Type: ENHANCED");
+  
+  sprintf (items[2].text, "High-Quality FM: %s", config.hq_fm? "ON":"OFF");
+  sprintf (items[3].text, "High-Quality PSG: %s", config.hq_psg? "ON":"OFF");
 
-  if (config.dac_bits < 14) sprintf (items[2].text, JoinString("FM Resolution:", " %d bits"), config.dac_bits);
-  else  sprintf (items[2].text, "FM Resolution: MAX");
-
-  sprintf (items[3].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
-  sprintf (items[4].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
-  sprintf (items[5].text, "High-Quality PSG: %s", config.hq_psg? "ON":"OFF");
+  sprintf (items[4].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
+  sprintf (items[5].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
   sprintf (items[6].text, "Audio Output: %s", config.mono ? "MONO":"STEREO");
 
   if (config.filter == 2)
@@ -971,33 +974,41 @@ static void soundmenu ()
 
       case 1:
       {
-        config.hq_fm ^= 1;
-        sprintf (items[1].text, "High-Quality FM: %s", config.hq_fm ? "ON":"OFF");
+        config.ym2612++;
+        if (config.ym2612 > YM2612_ENHANCED) config.ym2612 = YM2612_DISCRETE;
+        if (config.ym2612 == YM2612_DISCRETE) sprintf (items[1].text, "YM2612 Type: DISCRETE");
+        else if (config.ym2612 == YM2612_INTEGRATED) sprintf (items[1].text, "YM2612 Type: ASIC");
+        else sprintf (items[1].text, "YM2612 Type: ENHANCED");
+        YM2612Config(config.ym2612);
         break;
       }
 
       case 2:
       {
-        config.dac_bits++;
-        if (config.dac_bits > 14) config.dac_bits = 7;
-        if (config.dac_bits < 14) sprintf (items[2].text, JoinString("FM Resolution:", " %d bits"), config.dac_bits);
-        else sprintf (items[2].text, "FM Resolution: MAX");
-        YM2612Config(config.dac_bits);
+        config.hq_fm ^= 1;
+        sprintf (items[2].text, "High-Quality FM: %s", config.hq_fm ? "ON":"OFF");
         break;
       }
 
       case 3:
       {
-        GUI_OptionBox(m,0,"FM Volume",(void *)&fm_volume,0.01,0.0,5.0,0);
-        sprintf (items[3].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
-        config.fm_preamp = (int)(fm_volume * 100.0 + 0.5);
+        config.hq_psg ^= 1;
+        sprintf (items[3].text, "High-Quality PSG: %s", config.hq_psg ? "ON":"OFF");
         break;
       }
 
       case 4:
       {
+        GUI_OptionBox(m,0,"FM Volume",(void *)&fm_volume,0.01,0.0,5.0,0);
+        sprintf (items[4].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
+        config.fm_preamp = (int)(fm_volume * 100.0 + 0.5);
+        break;
+      }
+
+      case 5:
+      {
         GUI_OptionBox(m,0,"PSG Volume",(void *)&psg_volume,0.01,0.0,5.0,0);
-        sprintf (items[4].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
+        sprintf (items[5].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
         config.psg_preamp = (int)(psg_volume * 100.0 + 0.5);
         if ((system_hw & SYSTEM_PBC) == SYSTEM_MD)
         {
@@ -1007,13 +1018,6 @@ static void soundmenu ()
         {
           psg_config(0, config.psg_preamp, io_reg[6]);
         }
-        break;
-      }
-
-      case 5:
-      {
-        config.hq_psg ^= 1;
-        sprintf (items[5].text, "High-Quality PSG: %s", config.hq_psg ? "ON":"OFF");
         break;
       }
 
@@ -2352,13 +2356,14 @@ static void ctrlmenu(void)
 
   /* Player Configuration device items */
 #ifdef HW_RVL
-  gui_item items_device[5] =
+  gui_item items_device[6] =
   {
     {NULL,ctrl_option_off_png ,"InputDevice","Select Input Controller",534,244,24,24},
     {NULL,ctrl_gamecube_png   ,"InputDevice","Select Input Controller",530,246,36,24},
     {NULL,ctrl_wiimote_png    ,"InputDevice","Select Input Controller",526,250,40,12},
     {NULL,ctrl_nunchuk_png    ,"InputDevice","Select Input Controller",532,242,32,32},
     {NULL,ctrl_classic_png    ,"InputDevice","Select Input Controller",526,242,40,32},
+    {NULL,ctrl_wiiu_png       ,"InputDevice","Select Input Controller",526,246,40,24},
   };
 #else
   gui_item items_device[2] =
@@ -2394,6 +2399,10 @@ static void ctrlmenu(void)
   items_device[2].texture = gxTextureOpenPNG(items_device[2].data,0);
   items_device[3].texture = gxTextureOpenPNG(items_device[3].data,0);
   items_device[4].texture = gxTextureOpenPNG(items_device[4].data,0);
+  if (WiiDRC_Inited())
+  {
+    items_device[5].texture = gxTextureOpenPNG(items_device[5].data,0);
+  }
 #endif
 
   /* restore current menu elements */
@@ -2923,6 +2932,18 @@ static void ctrlmenu(void)
 
             if (config.input[player].port >= 4)
             {
+              /* test WiiU gamepad */
+              config.input[player].device = 4;
+              config.input[player].port = 0;
+            }
+          }
+
+          /* autodetect WiiU gamepad */
+          if (config.input[player].device == 4)
+          {
+            /* support for only one gamepad */
+            if (!WiiDRC_Inited() || !WiiDRC_Connected() || (config.input[player].port >= 1))
+            {
               /* no input controller left */
               config.input[player].device = -1;
               config.input[player].port = player%4;
@@ -3089,6 +3110,10 @@ static void ctrlmenu(void)
   gxTextureClose(&items_device[2].texture);
   gxTextureClose(&items_device[3].texture);
   gxTextureClose(&items_device[4].texture);
+  if (WiiDRC_Inited())
+  {
+    gxTextureClose(&items_device[5].texture);
+  }
 #endif
 }
 
@@ -3636,9 +3661,9 @@ static void showcredits(void)
     if (texture)
       gxDrawTexture(texture, (640-texture->width)/2, (480-texture->height)/2, texture->width, texture->height,255);
 
-    FONT_writeCenterOld("Genesis Plus Core", 24, 0, 640, 480 - offset, (GXColor)LIGHT_BLUE);
-    FONT_writeCenterOld("improved emulation code & extra features by Eke-Eke", 18, 0, 640, 516 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("original 1.3 version by Charles MacDonald", 18, 0, 640, 534 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Genesis Plus GX Core", 24, 0, 640, 480 - offset, (GXColor)LIGHT_BLUE);
+    FONT_writeCenterOld("improved emulation code & additional features by Eke-Eke", 18, 0, 640, 516 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("original Genesis Plus (1.3) version by Charles MacDonald", 18, 0, 640, 534 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("original Z80 core by Juergen Buchmueller", 18, 0, 640, 552 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("original 68k core (Musashi) by Karl Stenerud", 18, 0, 640, 570 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("original YM2612/2413 cores by Jarek Burczynski, Tatsuyuki Satoh", 18, 0, 640, 588 - offset, (GXColor)WHITE);
@@ -3646,36 +3671,41 @@ static void showcredits(void)
     FONT_writeCenterOld("Blip Buffer Library & NTSC Video Filter by Shay Green (Blargg)", 18, 0, 640, 624 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("3-Band EQ implementation by Neil C", 18, 0, 640, 642 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("Ogg Vorbis 'Tremor' Library by Xiph.org Foundation", 18, 0, 640, 660 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("CHD Library by Aaron Giles, Romain Tisserand", 18, 0, 640, 678 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("FLAC Library by Josh Coalson & Xiph.org Foundation", 18, 0, 640, 696 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("ZLIB Library by Jean-loup Gailly & Mark Adler", 18, 0, 640, 714 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("LZMA Library by Igor Pavlov", 18, 0, 640, 732 - offset, (GXColor)WHITE);
 
-    FONT_writeCenterOld("Special thanks to ...", 20, 0, 640, 700 - offset, (GXColor)LIGHT_GREEN);
-    FONT_writeCenterOld("Nemesis, Tasco Deluxe, Bart Trzynadlowski, Jorge Cwik, Haze,", 18, 0, 640, 736 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("Stef Dallongeville, Notaz, AamirM, Steve Snake, Charles MacDonald", 18, 0, 640, 754 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("Spritesmind & SMS Power forums members for their technical help", 18, 0, 640, 772 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Special thanks to ...", 20, 0, 640, 772 - offset, (GXColor)LIGHT_GREEN);
+    FONT_writeCenterOld("Nemesis, Tasco Deluxe, Mask of Destiny, Bart Trzynadlowski, Haze,", 18, 0, 640, 808 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Jorge Cwik, Stef, Notaz, AamirM, Steve Snake, Charles MacDonald", 18, 0, 640, 826 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Spritesmind & SMS Power forums members for their technical help", 18, 0, 640, 844 - offset, (GXColor)WHITE);
 
-    FONT_writeCenterOld("Gamecube & Wii port", 24, 0, 640, 830 - offset, (GXColor)LIGHT_BLUE);
-    FONT_writeCenterOld("porting code, GUI engine & design by Eke-Eke", 18, 0, 640, 866 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("original Gamecube port by Softdev, Honkeykong & Markcube", 18, 0, 640, 884 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("original icons, logo & button design by Low Lines", 18, 0, 640, 906 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("credit illustration by Orioto (Deviant Art)", 18, 0, 640, 924 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("memory card icon design by Brakken", 18, 0, 640, 942 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("libogc by Shagkur & various other contibutors", 18, 0, 640, 960 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("libfat by Chism", 18, 0, 640, 978 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("wiiuse by Michael Laforest (Para)", 18, 0, 640, 996 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("asndlib & OGG player by Francisco Muñoz (Hermes)", 18, 0, 640, 1014 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("zlib & libpng by their respective authors", 18, 0, 640, 1032 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("devkitPPC by Wintermute", 18, 0, 640, 1050 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Gamecube & Wii port", 24, 0, 640, 902 - offset, (GXColor)LIGHT_BLUE);
+    FONT_writeCenterOld("porting code, GUI engine & design by Eke-Eke", 18, 0, 640, 938 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("original Gamecube port by Softdev, Honkeykong & Markcube", 18, 0, 640, 956 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("original icons, logo & button design by Low Lines", 18, 0, 640, 974 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("credit illustration by Orioto (Deviant Art)", 18, 0, 640, 992 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("memory card icon design by Brakken", 18, 0, 640, 1010 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("libogc by Shagkur & various other contibutors", 18, 0, 640, 1028 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("libfat by Chism", 18, 0, 640, 1046 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("wiiuse by Michael Laforest (Para)", 18, 0, 640, 1064 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("asndlib & OGG player by Francisco Muñoz (Hermes)", 18, 0, 640, 1082 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("libwiidrc by Fix94", 18, 0, 640, 1100 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("libpng by their respective authors", 18, 0, 640, 1118 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("devkitPPC by Wintermute", 18, 0, 640, 1136 - offset, (GXColor)WHITE);
 
-    FONT_writeCenterOld("Special thanks to ...", 20, 0, 640, 1090 - offset, (GXColor)LIGHT_GREEN);
-    FONT_writeCenterOld("Softdev, Tmbinc, Costis, Emukiddid, Team Twiizer", 18, 0, 640, 1126 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("Brakken & former Tehskeen members for their support", 18, 0, 640, 1144 - offset, (GXColor)WHITE);
-    FONT_writeCenterOld("Anca, my wife, for her patience & various ideas", 18, 0, 640, 1162 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Special thanks to ...", 20, 0, 640, 1176 - offset, (GXColor)LIGHT_GREEN);
+    FONT_writeCenterOld("Softdev, Tmbinc, Costis, Emukiddid, Team Twiizer", 18, 0, 640, 1212 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Brakken & former Tehskeen members for their support", 18, 0, 640, 1230 - offset, (GXColor)WHITE);
+    FONT_writeCenterOld("Anca, my wife, for her patience & various ideas", 18, 0, 640, 1248 - offset, (GXColor)WHITE);
 
     gxSetScreen();
     p = m_input.keys;
     gxSetScreen();
     p |= m_input.keys;
     offset ++;
-    if (offset > 1144)
+    if (offset > 1222)
       offset = 0;
   }
 

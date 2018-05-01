@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX configuration file support
  *
- *  Copyright Eke-Eke (2007-2016)
+ *  Copyright Eke-Eke (2007-2017)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -52,7 +52,7 @@ typedef struct
   uint8 hq_fm;
   uint8 filter;
   uint8 hq_psg;
-  uint8 dac_bits;
+  uint8 ym2612;
   uint8 ym2413;
   uint8 mono;
   int16 psg_preamp;
@@ -97,7 +97,7 @@ typedef struct
   t_input_config input[MAX_INPUTS];
   uint16 pad_keymap[4][MAX_KEYS+1];
 #ifdef HW_RVL
-  uint32 wpad_keymap[4*3][MAX_KEYS];
+  uint32 wpad_keymap[4*3+1][MAX_KEYS];
   uint8 autosleep;
   int32 calx;
   int32 caly;

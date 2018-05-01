@@ -51,6 +51,8 @@ typedef unsigned char bool;
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <streams/file_stream.h>
+#include <streams/file_stream_transforms.h>
 
 #define MAX_INPUTS 8
 #define MAX_KEYS 8
@@ -72,7 +74,14 @@ typedef unsigned char bool;
 
 #define CHEATS_UPDATE() ROMCheatUpdate()
 
-typedef struct 
+#define HAVE_NO_SPRITE_LIMIT
+#define MAX_SPRITES_PER_LINE 80
+#define TMS_MAX_SPRITES_PER_LINE (config.no_sprite_limit ? MAX_SPRITES_PER_LINE : 4)
+#define MODE4_MAX_SPRITES_PER_LINE (config.no_sprite_limit ? MAX_SPRITES_PER_LINE : 8)
+#define MODE5_MAX_SPRITES_PER_LINE (config.no_sprite_limit ? MAX_SPRITES_PER_LINE : (bitmap.viewport.w >> 4))
+#define MODE5_MAX_SPRITE_PIXELS (config.no_sprite_limit ? MAX_SPRITES_PER_LINE * 32 : max_sprite_pixels)
+
+typedef struct
 {
   int8 device;
   uint8 port;
@@ -85,12 +94,15 @@ struct
   uint8 hq_fm;
   uint8 filter;
   uint8 hq_psg;
-  uint8 dac_bits;
+  uint8 ym2612;
   uint8 ym2413;
+#ifdef HAVE_YM3438_CORE
+  uint8 ym3438;
+#endif
   uint8 mono;
   int16 psg_preamp;
   int16 fm_preamp;
-  int16 lp_range;
+  uint16 lp_range;
   int16 low_freq;
   int16 high_freq;
   int16 lg;
@@ -113,6 +125,8 @@ struct
   t_input_config input[MAX_INPUTS];
   uint8 invert_mouse;
   uint8 gun_cursor;
+  uint32 overclock;
+  uint8 no_sprite_limit;
 } config;
 
 extern char GG_ROM[256];
@@ -131,5 +145,15 @@ extern char MS_BIOS_JP[256];
 extern void osd_input_update(void);
 extern int load_archive(char *filename, unsigned char *buffer, int maxsize, char *extension);
 extern void ROMCheatUpdate(void);
+
+#ifndef cdStream
+#define cdStream            RFILE
+#define cdStreamOpen(fname) rfopen(fname, "rb")
+#define cdStreamClose       rfclose
+#define cdStreamRead        rfread
+#define cdStreamSeek        rfseek
+#define cdStreamTell        rftell
+#define cdStreamGets        rfgets
+#endif
 
 #endif /* _OSD_H */
