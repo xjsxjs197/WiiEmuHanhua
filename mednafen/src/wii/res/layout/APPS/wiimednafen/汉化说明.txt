@@ -1,0 +1,2 @@
+﻿SD:\wiimednafen\lang目录必须存在SimpChinese.lang
+才能选择中文显示
