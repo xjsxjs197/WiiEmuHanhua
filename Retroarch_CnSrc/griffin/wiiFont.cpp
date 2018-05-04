@@ -26,6 +26,10 @@
 #include "wiiFont.h"
 #include "wiiFontC.h"
 #include "../gfx/drivers_font_renderer/bitmap.h"
+extern "C" {
+#include "../memory/wii/mem2_manager.h"
+}
+
 
 #define CHAR_IMG_SIZE 338
 //#define CHAR_IMG_SIZE 512
@@ -53,7 +57,7 @@ void wiiFont::wiiFontInit()
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
 	FILE *charPngFile = fopen("sd:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
-	ZhBufFont_dat = (uint8_t *)memalign(32, ZhBufFont_size);
+	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
 
 	fseek(charPngFile, 0, SEEK_SET);
 	fread(ZhBufFont_dat, 1, ZhBufFont_size, charPngFile);
@@ -83,7 +87,7 @@ void wiiFont::wiiFontClose()
 {
     if (ZhBufFont_dat)
     {
-        free(ZhBufFont_dat);
+        _mem2_free(ZhBufFont_dat);
         ZhBufFont_dat = NULL;
     }
 }
@@ -130,16 +134,13 @@ int wiiFont::getMaxLen(const char* msg, int maxPixelLen)
         charDataPosPtr = getPngPosByCharCode(*unicodeMsg);
         charInfoPtr = (uint8_t *)charDataPosPtr;
         charDataPosPtr++;
-        retWid -= *charInfoPtr; // x - paddingLeft
 
-        if (*unicodeMsg < 256)
+        retWid += *(charInfoPtr + 1); // x + charWidth
+        if (*unicodeMsg >= 256)
         {
-            retWid += *(charInfoPtr + 1); // x + charWidth
+            retWid++;
         }
-        else
-        {
-            retWid += *(charInfoPtr + 1) + 1; // x + charWidth
-        }
+
         if (retWid > maxPixelLen)
         {
             return maxLen;
@@ -168,16 +169,13 @@ void wiiFont::getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)
         charDataPosPtr = getPngPosByCharCode(*unicodeMsg);
         charInfoPtr = (uint8_t *)charDataPosPtr;
         charDataPosPtr++;
-        retWid -= *charInfoPtr; // x - paddingLeft
 
-        if (*unicodeMsg < 256)
+        retWid += *(charInfoPtr + 1); // x + charWidth
+        if (*unicodeMsg >= 256)
         {
-            retWid += *(charInfoPtr + 1); // x + charWidth
+            retWid++;
         }
-        else
-        {
-            retWid += *(charInfoPtr + 1) + 1; // x + charWidth
-        }
+
         if (retWid > maxPixelLen)
         {
             lenInfo[2] = 1;
@@ -206,7 +204,7 @@ void wiiFont::setFontBufByMsgW(uint16_t* rguiFramebuf, wchar_t* unicodeMsg, size
         charDataPosPtr = getPngPosByCharCode(*tmpMsgPtr);
         charInfoPtr = (uint8_t *)charDataPosPtr;
         charDataPosPtr++;
-        x -= *charInfoPtr; // x - paddingLeft
+        //x -= *charInfoPtr; // x - paddingLeft
         for (j = 0; j < FONT_HEIGHT; j++)
         {
             tmpBufPos = (y + j) * (pitch >> 1) + x;
@@ -227,13 +225,10 @@ void wiiFont::setFontBufByMsgW(uint16_t* rguiFramebuf, wchar_t* unicodeMsg, size
             }
         }
 
-        if (*tmpMsgPtr < 256)
+        x += *(charInfoPtr + 1); // x + charWidth
+        if (*tmpMsgPtr >= 256)
         {
-            x += *(charInfoPtr + 1); // x + charWidth
-        }
-        else
-        {
-            x += *(charInfoPtr + 1) + 1; // x + charWidth
+            x++;
         }
         tmpMsgPtr++;
     }
@@ -289,7 +284,7 @@ void wiiFont::setTextMsg(const char* msg, int x, int y, int width, int height, b
         charDataPosPtr = getPngPosByCharCode(*tmpMsgPtr);
         charInfoPtr = (uint8_t *)charDataPosPtr;
         charDataPosPtr++;
-        x -= *charInfoPtr; // x - paddingLeft
+        //x -= *charInfoPtr; // x - paddingLeft
         for (j = 0; j < FONT_HEIGHT; j++)
         {
             for (i = 0; i < FONT_WIDTH; i++)
@@ -314,18 +309,14 @@ void wiiFont::setTextMsg(const char* msg, int x, int y, int width, int height, b
                    }
                 }
 
-                //GX_PokeARGB(x + i, y + j, *charDataPosPtr == 0 ? b : changeColor(*charDataPosPtr));
                 charDataPosPtr++;
             }
         }
 
-        if (*tmpMsgPtr < 256)
+        charWidth = *(charInfoPtr + 1);
+        if (*tmpMsgPtr >= 256)
         {
-            charWidth = *(charInfoPtr + 1);
-        }
-        else
-        {
-            charWidth = *(charInfoPtr + 1) + 1;
+            charWidth++;
         }
 
         for (h = 0; h < height; h++)
