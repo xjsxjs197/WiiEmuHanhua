@@ -20,3 +20,12 @@ Genesis-Plus-GX/build_wii/*.*
 fceugx/executables/fceugx-wii.elf
 fceugx/executables/fceugx-wii.dol
 fceugx/build_wii/*.*
+mgba/build_mgba/*.*
+mgba/mgba.dol
+mgba/mgba.elf
+snes9xgx/executables/*.elf
+snes9xgx/executables/*.dol
+snes9xgx/build_wii/*.*
+vbagx/executables/*.elf
+vbagx/executables/*.dol
+vbagx/build_wii/*.*

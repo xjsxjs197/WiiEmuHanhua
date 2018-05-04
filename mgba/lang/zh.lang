@@ -1,0 +1,156 @@
+﻿
+msgid "(Up)"
+msgstr "（上一级目录）"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Back"
+msgstr "返回"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Up"
+msgstr "上"
+
+msgid "Down"
+msgstr "下"
+
+msgid "Left"
+msgstr "左"
+
+msgid "Right"
+msgstr "右"
+
+msgid "Increase solar brightness"
+msgstr "增加背光的亮度"
+
+msgid "Decrease solar brightness"
+msgstr "减小背光的亮度"
+
+msgid "Screen mode"
+msgstr "屏幕模式"
+
+msgid "Take screenshot"
+msgstr "屏幕截图"
+
+msgid "Fast forward"
+msgstr "快进"
+
+msgid "Game Paused"
+msgstr "游戏暂停中"
+
+msgid "Save state"
+msgstr "保存状态"
+
+msgid "Load state"
+msgstr "读取状态"
+
+msgid "Unpause"
+msgstr "取消暂停"
+
+msgid "State 1"
+msgstr "状态 1"
+
+msgid "State 2"
+msgstr "状态 2"
+
+msgid "State 3"
+msgstr "状态 3"
+
+msgid "State 4"
+msgstr "状态 4"
+
+msgid "State 5"
+msgstr "状态 5"
+
+msgid "State 6"
+msgstr "状态 6"
+
+msgid "State 7"
+msgstr "状态 7"
+
+msgid "State 8"
+msgstr "状态 8"
+
+msgid "State 9"
+msgstr "状态 9"
+
+msgid "Configure"
+msgstr "各种设定"
+
+msgid "Reset game"
+msgstr "重新开始游戏"
+
+msgid "Exit game"
+msgstr "退出游戏"
+
+msgid "Loading..."
+msgstr "加载游戏中..."
+
+msgid "Load failed!"
+msgstr "游戏加载失败！"
+
+msgid "Select file"
+msgstr "选择游戏"
+
+msgid "On "
+msgstr "打开 "
+
+msgid "Off "
+msgstr "关闭 "
+
+msgid "Frameskip"
+msgstr "跳帧"
+
+msgid "Show framerate"
+msgstr "显示帧数"
+
+msgid "Use BIOS if found"
+msgstr "如果BIOS存在就使用"
+
+msgid "Select BIOS path"
+msgstr "选择BIOS路径"
+
+msgid "Remap controls"
+msgstr "重新映射控制器"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Video mode"
+msgstr "视频模式"
+
+msgid "Filtering"
+msgstr "过滤器"
+
+msgid "Autodetect (recommended) "
+msgstr "自动检测（推荐） "
+
+msgid "Pixel-Accurate "
+msgstr "精确的像素对应 "
+
+msgid "Stretched "
+msgstr "拉伸 "
+
+msgid "Pixelated "
+msgstr "像素化 "
+
+msgid "Bilinear (smoother) "
+msgstr "双线性过滤（平滑） "
+
+msgid "Bilinear (pixelated) "
+msgstr "双线性过滤（像素化） "
+
+msgid "GameCube Input (1) "
+msgstr "GameCube手柄 1 "
+
+msgid "GameCube Input (2) "
+msgstr "GameCube手柄 2 "
+
+msgid "Wii Remote Input "
+msgstr "Wii右手柄 "
+
+msgid "Classic Controller Input "
+msgstr "经典手柄 "
