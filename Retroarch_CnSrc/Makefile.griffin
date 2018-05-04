@@ -11,6 +11,13 @@ PC_DEVELOPMENT_UDP_PORT    = 3490
 RARCH_CONSOLE        = 0
 USBGECKO       = 0
 
+SPACE :=
+SPACE := $(SPACE) $(SPACE)
+BACKSLASH :=
+BACKSLASH := \$(BACKSLASH)
+filter_out1 = $(filter-out $(firstword $1),$1)
+filter_out2 = $(call filter_out1,$(call filter_out1,$1))
+
 UNAME_ARCH = $(shell uname -m)
 
 ifeq ($(UNAME_ARCH),x86_64)
@@ -171,6 +178,7 @@ else ifeq ($(libogc_platform), 1)
 
    CFLAGS += -DGEKKO -U__INT32_TYPE__ -U __UINT32_TYPE__ -D__INT32_TYPE__=int
 
+   HAVE_RUNAHEAD            := 1
    HAVE_FILTERS_BUILTIN     := 1
    HAVE_THREADS             := 1
    HAVE_RPNG                := 1
@@ -318,7 +326,6 @@ else ifeq ($(platform), windows_msvc6_x86)
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -335,14 +342,14 @@ else ifeq ($(platform), windows_msvc6_x86)
    PLATCFLAGS += -D_WIN32 -D_WIN32_WINNT=0x0351 -D__STDC_CONSTANT_MACROS -D_MBCS
    LDFLAGS += shell32.lib user32.lib gdi32.lib comdlg32.lib winmm.lib ole32.lib
 
-   VCDIR ?= $(shell reg query "HKLM\SOFTWARE\Wow6432Node\Microsoft\DevStudio\6.0\Products\Microsoft Visual C++" -v "ProductDir" | grep -o '[A-Z]:\\.*')
+   VCDIR ?= $(shell reg query "HKLM\SOFTWARE\Wow6432Node\Microsoft\DevStudio\6.0\Products\Microsoft Visual C++" -v "ProductDir" | grep -io '[A-Z]:\\.*')
 
    PATH := $(shell IFS=$$'\n'; cygpath "$(VCDIR)/bin"):$(PATH)
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VCDIR)/../Common/MSDev98/Bin")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VCDIR)/Include")
    LIB := $(shell IFS=$$'\n'; cygpath -w "$(VCDIR)/Lib")
 
-   export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc
+   export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
    export LIB := $(LIB);$(INETSDK)\Lib
 else ifeq ($(platform), windows_msvc2003_x86)
    HAVE_RPNG                := 1
@@ -360,7 +367,6 @@ else ifeq ($(platform), windows_msvc2003_x86)
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -385,10 +391,10 @@ else ifeq ($(platform), windows_msvc2003_x86)
    ifeq ($(HAVE_DIRECTX), 1)
       PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND
       DXSDK_DIR := $(DXSDK_DIR:\=)
-      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc
+      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(INETSDK)\Lib;$(DXSDK_DIR)\Lib\x86
    else
-      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc
+      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(INETSDK)\Lib
    endif
 else ifeq ($(platform), windows_msvc2005_x86)
@@ -407,7 +413,6 @@ else ifeq ($(platform), windows_msvc2005_x86)
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -433,10 +438,10 @@ else ifeq ($(platform), windows_msvc2005_x86)
    ifeq ($(HAVE_DIRECTX), 1)
       PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND
       DXSDK_DIR := $(DXSDK_DIR:\=)
-      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc
+      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(INETSDK)\Lib;$(DXSDK_DIR)\Lib\x86
    else
-      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc
+      export INCLUDE := $(INCLUDE);$(INETSDK)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(INETSDK)\Lib
    endif
 else ifneq (,$(findstring windows_msvc2010,$(platform)))
@@ -455,7 +460,6 @@ else ifneq (,$(findstring windows_msvc2010,$(platform)))
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -497,17 +501,17 @@ else ifneq (,$(findstring windows_msvc2010,$(platform)))
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS100COMNTOOLS)../IDE")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS100COMNTOOLS)../../VC/include")
 
-   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.0A" -v "InstallationFolder" | grep -o '[A-Z]:\\.*')
-   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.1A" -v "InstallationFolder" | grep -o '[A-Z]:\\.*')
+   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.0A" -v "InstallationFolder" | grep -io '[A-Z]:\\.*')
+   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.1A" -v "InstallationFolder" | grep -io '[A-Z]:\\.*')
    WindowsSdkDir := $(WindowsSdkDir:\=)
 
    ifeq ($(HAVE_DIRECTX), 1)
       PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND -DHAVE_D3D -DHAVE_D3D9 -DHAVE_XAUDIO -DHAVE_XINPUT
       DXSDK_DIR := $(DXSDK_DIR:\=)
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib);$(DXSDK_DIR)\Lib\$(WinArch)
    else
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib)
    endif
 else ifneq (,$(findstring windows_msvc2012,$(platform)))
@@ -526,7 +530,6 @@ else ifneq (,$(findstring windows_msvc2012,$(platform)))
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -573,16 +576,16 @@ else ifneq (,$(findstring windows_msvc2012,$(platform)))
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS110COMNTOOLS)../IDE")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS110COMNTOOLS)../../VC/include")
 
-   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Windows Kits\Installed Roots" -v "KitsRoot81" | grep -o '[A-Z]:\\.*')
+   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Windows Kits\Installed Roots" -v "KitsRoot81" | grep -io '[A-Z]:\\.*')
    WindowsSdkDir := $(WindowsSdkDir:\=)
 
    ifeq ($(HAVE_DIRECTX), 1)
       PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND -DHAVE_D3D -DHAVE_D3D9 -DHAVE_XAUDIO -DHAVE_XINPUT
       DXSDK_DIR := $(DXSDK_DIR:\=)
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib);$(DXSDK_DIR)\Lib\$(WinArch)
    else
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib)
    endif
 else ifneq (,$(findstring windows_msvc2013,$(platform)))
@@ -601,7 +604,6 @@ else ifneq (,$(findstring windows_msvc2013,$(platform)))
    HAVE_STB_FONT            := 1
    HAVE_THREADS             := 1
    HAVE_LIBRETRODB          := 1
-   HAVE_FBO                 := 1
    HAVE_COMMAND             := 1
    HAVE_STDIN_CMD           := 1
    HAVE_CMD                 := 1
@@ -648,17 +650,106 @@ else ifneq (,$(findstring windows_msvc2013,$(platform)))
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS120COMNTOOLS)../IDE")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS120COMNTOOLS)../../VC/include")
 
-   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Windows Kits\Installed Roots" -v "KitsRoot81" | grep -o '[A-Z]:\\.*')
+   WindowsSdkDir ?= $(shell reg query "HKLM\SOFTWARE\Microsoft\Windows Kits\Installed Roots" -v "KitsRoot81" | grep -io '[A-Z]:\\.*')
    WindowsSdkDir := $(WindowsSdkDir:\=)
 
    ifeq ($(HAVE_DIRECTX), 1)
       PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND -DHAVE_D3D -DHAVE_D3D9 -DHAVE_XAUDIO -DHAVE_XINPUT
       DXSDK_DIR := $(DXSDK_DIR:\=)
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib);$(DXSDK_DIR)\Lib\$(WinArch)
    else
-      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;libretro-common\include;libretro-common\include\compat\msvc;gfx\include
+      export INCLUDE := $(INCLUDE);$(WindowsSdkDir)\Include\um;$(WindowsSdkDir)\Include\shared;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
       export LIB := $(LIB);$(WindowsSdkDir)\$(PlatLib)
+   endif
+else ifneq (,$(findstring windows_msvc2015,$(platform)))
+   HAVE_RPNG                := 1
+   HAVE_RJPEG               := 1
+   HAVE_RBMP                := 1
+   HAVE_RTGA                := 1
+   HAVE_ZLIB                := 1
+   WANT_ZLIB                := 1
+   HAVE_7ZIP                := 1
+   HAVE_NETWORKING          := 1
+   HAVE_NETWORK_CMD         := 1
+   HAVE_OVERLAY             := 1
+   HAVE_MATERIALUI          := 1
+   HAVE_XMB                 := 1
+   HAVE_STB_FONT            := 1
+   HAVE_THREADS             := 1
+   HAVE_LIBRETRODB          := 1
+   HAVE_COMMAND             := 1
+   HAVE_STDIN_CMD           := 1
+   HAVE_CMD                 := 1
+   HAVE_DYLIB               := 1
+   HAVE_DYNAMIC             := 1
+   HAVE_GRIFFIN_CPP         := 1
+   HAVE_DIRECTX             ?= 1
+
+   EXT_TARGET := $(TARGET_NAME).exe
+   EXT_INTER_TARGET := $(TARGET_NAME).exe
+   CC = cl.exe
+   CXX = cl.exe
+   LD = link.exe
+
+   PLATCFLAGS += -D_WIN32 -D__STDC_CONSTANT_MACROS -D_MBCS
+   PLATCFLAGS += -D__i686__ -D__SSE__ -D_CRT_NONSTDC_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS -D_WINDOWS -DHAVE_CC_RESAMPLER -DHAVE_GL_SYNC -DHAVE_GLSL -DHAVE_IMAGEVIEWER -DHAVE_LANGEXTRA -DHAVE_OPENGL -DHAVE_SHADERPIPELINE -DHAVE_UPDATE_ASSETS -DWIN32
+   LDFLAGS += shell32.lib user32.lib gdi32.lib comdlg32.lib winmm.lib ole32.lib iphlpapi.lib
+
+   PlatformSuffix = $(subst windows_msvc2015_,,$(platform))
+
+   ifneq (,$(findstring x64,$(PlatformSuffix)))
+      ifeq ($(HOST_ARCH),x86)
+         # cross-compile for x64 from x86 host
+         PATH := $(shell IFS=$$'\n'; cygpath "$(VS140COMNTOOLS)../../VC/bin/x86_amd64"):$(PATH)
+      else
+         PATH := $(shell IFS=$$'\n'; cygpath "$(VS140COMNTOOLS)../../VC/bin/amd64"):$(PATH)
+      endif
+
+      LIB := $(shell IFS=$$'\n'; cygpath -w "$(VS140COMNTOOLS)../../VC/lib/amd64")
+      WinArch = x64
+      PlatLib = um\x64
+      VCLib = amd64
+   else ifneq (,$(findstring arm,$(PlatformSuffix)))
+      PATH := $(shell IFS=$$'\n'; cygpath "$(VS140COMNTOOLS)../../VC/bin/x86_arm"):$(PATH)
+      LIB := $(shell IFS=$$'\n'; cygpath -w "$(VS140COMNTOOLS)../../VC/lib/arm")
+      HAVE_DIRECTX = 0
+      WinArch = arm
+      PlatLib = um\arm
+      VCLib = arm
+   else
+      PATH := $(shell IFS=$$'\n'; cygpath "$(VS140COMNTOOLS)../../VC/bin"):$(PATH)
+      LIB := $(shell IFS=$$'\n'; cygpath -w "$(VS140COMNTOOLS)../../VC/lib")
+      WinArch = x86
+      PlatLib = um\x86
+      VCLib =
+   endif
+
+   PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS140COMNTOOLS)../IDE")
+   INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS140COMNTOOLS)../../VC/include")
+
+   reg_query = $(call filter_out2,$(subst $2,,$(shell reg query "$2" -v "$1" 2>nul)))
+   fix_path = $(subst $(SPACE),\ ,$(subst \,/,$1))
+   WindowsSdkDir ?= $(call reg_query,InstallationFolder,HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0)
+   WindowsSdkDir ?= $(call reg_query,InstallationFolder,HKEY_CURRENT_USER\SOFTWARE\Wow6432Node\Microsoft\Microsoft SDKs\Windows\v10.0)
+   WindowsSdkDir ?= $(call reg_query,InstallationFolder,HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0)
+   WindowsSdkDir ?= $(call reg_query,InstallationFolder,HKEY_CURRENT_USER\SOFTWARE\Microsoft\Microsoft SDKs\Windows\v10.0)
+   WindowsSdkDir := $(WindowsSdkDir)
+
+   WindowsSDKVersion ?= $(firstword $(foreach folder,$(subst $(subst \,/,$(WindowsSdkDir)Include/),,$(wildcard $(call fix_path,$(WindowsSdkDir)Include\*))),$(if $(wildcard $(call fix_path,$(WindowsSdkDir)Include/$(folder)/um/Windows.h)),$(folder),)))$(BACKSLASH)
+   WindowsSDKVersion := $(WindowsSDKVersion)
+
+   export INCLUDE := $(INCLUDE);$(VCINSTALLDIR)INCLUDE;$(VCINSTALLDIR)ATLMFC\INCLUDE;$(WindowsSdkDir)include\$(WindowsSDKVersion)ucrt;$(WindowsSdkDir)include\$(WindowsSDKVersion)shared;$(WindowsSdkDir)include\$(WindowsSDKVersion)um
+   export LIB := $(LIB);$(VCINSTALLDIR)LIB$(VCLib);$(VCINSTALLDIR)ATLMFC\LIB$(VCLib);$(WindowsSdkDir)lib\$(WindowsSDKVersion)ucrt\$(WinArch);$(WindowsSdkDir)lib\$(WindowsSDKVersion)$(PlatLib)
+
+   ifeq ($(HAVE_DIRECTX), 1)
+      PLATCFLAGS += -DHAVE_DINPUT -DHAVE_DSOUND -DHAVE_D3D -DHAVE_D3D9 -DHAVE_XAUDIO -DHAVE_XINPUT
+      DXSDK_DIR := $(DXSDK_DIR:\=)
+      export INCLUDE := $(INCLUDE);$(DXSDK_DIR)\Include;libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
+      export LIB := $(LIB);$(DXSDK_DIR)\Lib\$(WinArch)
+   else
+      export INCLUDE := $(INCLUDE);libretro-common\include;libretro-common\include\compat\msvc;gfx\include;deps;deps\stb
+      export LIB := $(LIB)
    endif
 endif
 
@@ -666,13 +757,19 @@ ifneq (,$(findstring msvc,$(platform)))
    CFLAGS += -W2 $(MACHDEP) $(PLATCFLAGS)
 else
    CFLAGS += -Wall -std=gnu99 $(MACHDEP) $(PLATCFLAGS) $(INCLUDE)
-   INCLUDE += -I./libretro-common/include
+   INCLUDE += -I./libretro-common/include \
+				  -Ideps \
+				  -Ideps/stb 
 endif
 
 OBJ = griffin/griffin.o griffin/wiiFont.o  $(PLATOBJS)
 
 ifeq ($(HAVE_GRIFFIN_CPP), 1)
    OBJ += griffin/griffin_cpp.o
+endif
+
+ifeq ($(WANT_GLSLANG), 1)
+	OBJ += griffin/griffin_glslang.o
 endif
 
 ifeq ($(HAVE_LOGGER), 1)
@@ -744,6 +841,10 @@ ifeq ($(HAVE_IMAGEVIEWER), 1)
    CFLAGS      += -DHAVE_IMAGEVIEWER
 endif
 
+ifeq ($(HAVE_RUNAHEAD), 1)
+   CFLAGS      += -DHAVE_RUNAHEAD
+endif
+
 ifeq ($(HAVE_7ZIP), 1)
    CFLAGS      += -DHAVE_7ZIP
 endif
@@ -767,7 +868,7 @@ endif
 ifneq (,$(findstring msvc,$(platform)))
    CFLAGS += -DHAVE_RGUI -DHAVE_MENU -DHAVE_GRIFFIN=1 -DRARCH_INTERNAL
 else
-   CFLAGS += -std=gnu99 -DSINC_LOWER_QUALITY -DHAVE_RGUI -DHAVE_MENU -DHAVE_GRIFFIN=1 -Wno-char-subscripts -DRARCH_INTERNAL
+   CFLAGS += -std=gnu99 -DHAVE_RGUI -DHAVE_MENU -DHAVE_GRIFFIN=1 -Wno-char-subscripts -DRARCH_INTERNAL
 endif
 
 ifeq ($(HAVE_MATERIALUI), 1)
@@ -810,10 +911,6 @@ ifeq ($(HAVE_GETOPT_LONG), 1)
    CFLAGS += -DHAVE_GETOPT_LONG=1
 endif
 
-ifeq ($(HAVE_FBO), 1)
-   CFLAGS += -DHAVE_FBO
-endif
-
 ifeq ($(HAVE_DYLIB), 1)
    CFLAGS += -DHAVE_DYLIB
 endif
@@ -840,7 +937,8 @@ ifeq ($(DEBUG), 1)
          CFLAGS += -Wp64
       endif
 
-      CFLAGS += -Od -Zi -D_DEBUG -MTd -TP
+      CFLAGS += -Od -Zi -D_DEBUG -MTd
+      LDFLAGS += -DEBUG
    else
       CFLAGS += -O0 -g -DDEBUG
    endif
@@ -851,9 +949,10 @@ else ifeq ($(platform), vita)
 else ifneq (,$(findstring msvc,$(platform)))
    ifeq ($(platform), windows_msvc2003_x86)
       CFLAGS += -Wp64
+      LDFLAGS += -SUBSYSTEM:WINDOWS -ENTRY:mainCRTStartup
    endif
 
-   CFLAGS += -O2 -DNDEBUG -MT -TP
+   CFLAGS += -O2 -DNDEBUG -MT
 else
    CFLAGS += -O3
 endif

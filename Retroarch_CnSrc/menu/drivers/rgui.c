@@ -40,6 +40,8 @@
 #include "../../config.h"
 #endif
 
+#include "../../frontend/frontend_driver.h"
+
 #include "menu_generic.h"
 
 #include "../menu_driver.h"
@@ -57,11 +59,14 @@
 
 typedef struct
 {
+   bool bg_modified;
    bool force_redraw;
    bool mouse_show;
    unsigned last_width;
    unsigned last_height;
    unsigned frame_count;
+   bool bg_thickness;
+   bool border_thickness;
    float scroll_y;
    char *msgbox;
 } rgui_t;
@@ -87,42 +92,18 @@ static uint16_t argb32_to_rgba4444(uint32_t col)
 }
 #endif
 
-static void rgui_copy_glyph(uint8_t *glyph, const uint8_t *buf)
-{
-   int x, y;
-
-   if (!glyph)
-      return;
-
-   for (y = 0; y < FONT_HEIGHT; y++)
-   {
-      for (x = 0; x < FONT_WIDTH; x++)
-      {
-         uint32_t col    =
-            ((uint32_t)buf[3 * (-y * 256 + x) + 0] << 0) |
-            ((uint32_t)buf[3 * (-y * 256 + x) + 1] << 8) |
-            ((uint32_t)buf[3 * (-y * 256 + x) + 2] << 16);
-
-         uint8_t rem     = 1 << ((x + y * FONT_WIDTH) & 7);
-         unsigned offset = (x + y * FONT_WIDTH) >> 3;
-
-         if (col != 0xff)
-            glyph[offset] |= rem;
-      }
-   }
-}
 
 // add by xjsxjs197 for support zh_ch start
-static uint16_t rgui_black_filler(unsigned x, unsigned y)
+static uint16_t rgui_black_filler(rgui_t *rgui, unsigned x, unsigned y)
 {
     return 0;
 }
 // add by xjsxjs197 for support zh_ch end
 
-static uint16_t rgui_gray_filler(unsigned x, unsigned y)
+static uint16_t rgui_gray_filler(rgui_t *rgui, unsigned x, unsigned y)
 {
-   unsigned col   = (((x >> 1) + (y >> 1)) & 1) + 1;
-
+   unsigned shft        = (rgui->bg_thickness ? 1 : 0);
+   unsigned col         = (((x >> shft) + (y >> shft)) & 1) + 1;
 #if defined(GEKKO) || defined(PSP)
    return (6 << 12) | (col << 8) | (col << 4) | (col << 0);
 #else
@@ -130,9 +111,10 @@ static uint16_t rgui_gray_filler(unsigned x, unsigned y)
 #endif
 }
 
-static uint16_t rgui_green_filler(unsigned x, unsigned y)
+static uint16_t rgui_green_filler(rgui_t *rgui, unsigned x, unsigned y)
 {
-   unsigned col   = (((x >> 1) + (y >> 1)) & 1) + 1;
+   unsigned shft        = (rgui->border_thickness ? 1 : 0);
+   unsigned col         = (((x >> shft) + (y >> shft)) & 1) + 1;
 #if defined(GEKKO) || defined(PSP)
    return (6 << 12) | (col << 8) | (col << 5) | (col << 0);
 #else
@@ -141,17 +123,18 @@ static uint16_t rgui_green_filler(unsigned x, unsigned y)
 }
 
 static void rgui_fill_rect(
+      rgui_t *rgui,
       uint16_t *data,
       size_t pitch,
       unsigned x, unsigned y,
       unsigned width, unsigned height,
-      uint16_t (*col)(unsigned x, unsigned y))
+      uint16_t (*col)(rgui_t *rgui, unsigned x, unsigned y))
 {
    unsigned i, j;
 
    for (j = y; j < y + height; j++)
       for (i = x; i < x + width; i++)
-         data[j * (pitch >> 1) + i] = col(i, j);
+         data[j * (pitch >> 1) + i] = col(rgui, i, j);
 }
 
 static void rgui_color_rect(
@@ -205,47 +188,29 @@ static void blit_line(int x, int y,
    // upd by xjsxjs197 for support zh_cn end
 }
 
-static bool init_font(menu_handle_t *menu, const uint8_t *font_bmp_buf)
-{
-   unsigned i;
-   bool fb_font_inited  = true;
-   uint8_t        *font = (uint8_t *)calloc(1, FONT_OFFSET(256));
 
-   if (!font)
-      return false;
-
-   menu_display_set_font_data_init(fb_font_inited);
-
-   for (i = 0; i < 256; i++)
-   {
-      unsigned y = i / 16;
-      unsigned x = i % 16;
-      rgui_copy_glyph(&font[FONT_OFFSET(i)],
-            font_bmp_buf + 54 + 3 * (256 * (255 - 16 * y) + 16 * x));
-   }
-
-   menu_display_set_font_framebuffer(font);
-
-   return true;
-}
 
 static bool rguidisp_init_font(menu_handle_t *menu)
 {
+#if 0
    const uint8_t *font_bmp_buf = NULL;
+#endif
    const uint8_t *font_bin_buf = bitmap_bin;
 
    if (!menu)
       return false;
 
+#if 0
    if (font_bmp_buf)
       return init_font(menu, font_bmp_buf);
+#endif
 
    menu_display_set_font_framebuffer(font_bin_buf);
 
    return true;
 }
 
-static void rgui_render_background(void)
+static void rgui_render_background(rgui_t *rgui)
 {
    size_t pitch_in_pixels, size;
    size_t fb_pitch;
@@ -273,19 +238,25 @@ static void rgui_render_background(void)
 
    if (rgui_framebuf_data)
    {
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 5, 5, fb_width - 10, 5, rgui_green_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 5, fb_height - 10, fb_width - 10, 5, rgui_green_filler);
+      settings_t *settings       = config_get_ptr();
 
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 5, 5, 5, fb_height - 10, rgui_green_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, fb_width - 10, 5, 5, fb_height - 10, rgui_green_filler);
+      if (settings->bools.menu_rgui_border_filler_enable)
+      {
+         rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 5, 5, fb_width - 10, 5, rgui_green_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 5, fb_height - 10, fb_width - 10, 5, rgui_green_filler);
 
-      // add by xjsxjs197 for support zh_cn start
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 0, 0, fb_width, 5, rgui_gray_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 0, fb_height - 5, fb_width, 5, rgui_gray_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 5, 5, 5, fb_height - 10, rgui_green_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, fb_width - 10, 5, 5, fb_height - 10,
+               rgui_green_filler);
+			   
+		 // add by xjsxjs197 for support zh_cn start
+          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 0, 0, fb_width, 5, rgui_gray_filler);
+          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 0, fb_height - 5, fb_width, 5, rgui_gray_filler);
 
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, 0, 0, 5, fb_height, rgui_gray_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, fb_width - 5, 0, 5, fb_height, rgui_gray_filler);
-      // add by xjsxjs197 for support zh_cn end
+          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 0, 0, 5, fb_height, rgui_gray_filler);
+          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, fb_width - 5, 0, 5, fb_height, rgui_gray_filler);
+          // add by xjsxjs197 for support zh_cn end
+      }
    }
 }
 
@@ -302,7 +273,7 @@ static void rgui_set_message(void *data, const char *message)
    rgui->force_redraw = true;
 }
 
-static void rgui_render_messagebox(const char *message)
+static void rgui_render_messagebox(rgui_t *rgui, const char *message)
 {
    int x, y;
    uint16_t color;
@@ -384,13 +355,27 @@ static void rgui_render_messagebox(const char *message)
    if (rgui_framebuf_data)
    {
       // upd by xjsxjs197 for support zh_cn start
-      //rgui_fill_rect(rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_gray_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_black_filler);
+	  /*
+      rgui_fill_rect(rgui, rgui_framebuf_data,
+            fb_pitch, x + 5, y + 5, width - 10,
+            height - 10, rgui_gray_filler);*/
+      rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_black_filler);
       // upd by xjsxjs197 for support zh_cn end
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, x, y, width - 5, 5, rgui_green_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, x + width - 5, y, 5, height - 5, rgui_green_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, x + 5, y + height - 5, width - 5, 5, rgui_green_filler);
-      rgui_fill_rect(rgui_framebuf_data, fb_pitch, x, y + 5, 5, height - 5, rgui_green_filler);
+	  
+      if (settings->bools.menu_rgui_border_filler_enable)
+      {
+         rgui_fill_rect(rgui, rgui_framebuf_data,
+               fb_pitch, x, y, width - 5, 5, rgui_green_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data,
+               fb_pitch, x + width - 5, y, 5,
+               height - 5, rgui_green_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data,
+               fb_pitch, x + 5, y + height - 5,
+               width - 5, 5, rgui_green_filler);
+         rgui_fill_rect(rgui, rgui_framebuf_data,
+               fb_pitch, x, y + 5, 5,
+               height - 5, rgui_green_filler);
+      }
    }
 
    color = NORMAL_COLOR(settings);
@@ -440,6 +425,15 @@ static void rgui_blit_cursor(void)
 static void rgui_frame(void *data, video_frame_info_t *video_info)
 {
    rgui_t *rgui                   = (rgui_t*)data;
+   settings_t *settings           = config_get_ptr();
+
+   if ((settings->bools.menu_rgui_background_filler_thickness_enable != rgui->bg_thickness) ||
+       (settings->bools.menu_rgui_border_filler_thickness_enable     != rgui->border_thickness)
+      )
+      rgui->bg_modified           = true;
+
+   rgui->bg_thickness             = settings->bools.menu_rgui_background_filler_thickness_enable;
+   rgui->border_thickness         = settings->bools.menu_rgui_border_filler_thickness_enable;
 
    rgui->frame_count++;
 }
@@ -480,14 +474,17 @@ static void rgui_render(void *data, bool is_idle)
          &fb_pitch);
 
    /* if the framebuffer changed size, recache the background */
-   if (rgui->last_width != fb_width || rgui->last_height != fb_height)
+   if (rgui->bg_modified || rgui->last_width != fb_width || rgui->last_height != fb_height)
    {
       if (rgui_framebuf_data)
-         rgui_fill_rect(rgui_framebuf_data,
+         rgui_fill_rect(rgui, rgui_framebuf_data,
                fb_pitch, 0, fb_height, fb_width, 4, rgui_gray_filler);
       rgui->last_width  = fb_width;
       rgui->last_height = fb_height;
    }
+   
+   if (rgui->bg_modified)
+      rgui->bg_modified = false;
 
    menu_display_set_framebuffer_dirty_flag();
    menu_animation_ctl(MENU_ANIMATION_CTL_CLEAR_ACTIVE, NULL);
@@ -552,7 +549,7 @@ static void rgui_render(void *data, bool is_idle)
    end         = ((old_start + RGUI_TERM_HEIGHT(fb_width, fb_height)) <= (entries_end)) ?
       old_start + RGUI_TERM_HEIGHT(fb_width, fb_height) : entries_end;
 
-   rgui_render_background();
+   rgui_render_background(rgui);
 
    menu_entries_get_title(title, sizeof(title));
 
@@ -580,7 +577,7 @@ static void rgui_render(void *data, bool is_idle)
       back_buf[0] = back_msg[0] = '\0';
 
       strlcpy(back_buf, msg_hash_to_str(MENU_ENUM_LABEL_VALUE_BASIC_MENU_CONTROLS_BACK), sizeof(back_buf));
-      strlcpy(back_msg, string_to_upper(back_buf), sizeof(back_msg));
+      string_to_upper(back_buf);
       if (rgui_framebuf_data)
          blit_line(
                RGUI_TERM_START_X(fb_width),
@@ -589,7 +586,7 @@ static void rgui_render(void *data, bool is_idle)
                TITLE_COLOR(settings));
    }
 
-   strlcpy(title_buf, string_to_upper(title_buf), sizeof(title_buf));
+   string_to_upper(title_buf);
 
    if (rgui_framebuf_data)
       // upd by xjsxjs197 for support zh_cn start
@@ -743,12 +740,12 @@ static void rgui_render(void *data, bool is_idle)
       const char *label = menu_input_dialog_get_label_buffer();
 
       snprintf(msg, sizeof(msg), "%s\n%s", label, str);
-      rgui_render_messagebox(msg);
+      rgui_render_messagebox(rgui, msg);
    }
 
    if (!string_is_empty(rgui->msgbox))
    {
-      rgui_render_messagebox(rgui->msgbox);
+      rgui_render_messagebox(rgui, rgui->msgbox);
       free(rgui->msgbox);
       rgui->msgbox       = NULL;
       rgui->force_redraw = true;
@@ -779,6 +776,7 @@ static void *rgui_init(void **userdata, bool video_is_threaded)
    unsigned fb_width, fb_height, new_font_height;
    rgui_t               *rgui = NULL;
    bool                   ret = false;
+   settings_t *settings       = config_get_ptr();
    menu_handle_t        *menu = (menu_handle_t*)calloc(1, sizeof(*menu));
 
    if (!menu)
@@ -789,10 +787,11 @@ static void *rgui_init(void **userdata, bool video_is_threaded)
    if (!rgui)
       goto error;
 
-   *userdata = rgui;
+   *userdata              = rgui;
 
    /* 4 extra lines to cache  the checked background */
-   rgui_framebuf_data = (uint16_t*)calloc(400 * (240 + 4), sizeof(uint16_t));
+   rgui_framebuf_data = (uint16_t*)
+      calloc(400 * (240 + 4), sizeof(uint16_t));
 
    if (!rgui_framebuf_data)
       goto error;
@@ -815,10 +814,9 @@ static void *rgui_init(void **userdata, bool video_is_threaded)
    if (!ret)
       goto error;
 
-   if (rgui_framebuf_data)
-      rgui_fill_rect(rgui_framebuf_data,
-            fb_pitch, 0, fb_height,
-            fb_width, 4, rgui_gray_filler);
+   rgui->bg_thickness             = settings->bools.menu_rgui_background_filler_thickness_enable;
+   rgui->border_thickness         = settings->bools.menu_rgui_border_filler_thickness_enable;
+   rgui->bg_modified              = true;
 
    rgui->last_width  = fb_width;
    rgui->last_height = fb_height;

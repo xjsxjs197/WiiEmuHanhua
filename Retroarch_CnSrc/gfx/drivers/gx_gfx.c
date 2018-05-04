@@ -21,8 +21,8 @@
 #include <gccore.h>
 #include <ogcsys.h>
 
-#include <streams/file_stream.h>
-
+#include <libretro.h>
+#include <streams/interface_stream.h>
 // added by xjsxjs197 for support zh_cn start
 #include "../../griffin/wiiFontC.h"
 // added by xjsxjs197 for support zh_cn end
@@ -723,12 +723,14 @@ static void gx_efb_screenshot(void)
 {
    int x, y;
    uint8_t tga_header[] = {0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x02, 0xE0, 0x01, 0x18, 0x00};
-   RFILE           *out = filestream_open("/screenshot.tga", RFILE_MODE_WRITE, -1);
+   intfstream_t    *out = intfstream_open("/screenshot.tga",
+         RETRO_VFS_FILE_ACCESS_WRITE,
+         RETRO_VFS_FILE_ACCESS_HINT_NONE);
 
    if (!out)
       return;
 
-   filestream_write(out, tga_header, sizeof(tga_header));
+   intfstream_write(out, tga_header, sizeof(tga_header));
 
    for (y = 479; y >= 0; --y)
    {
@@ -743,10 +745,11 @@ static void gx_efb_screenshot(void)
          line[i++] = color.g;
          line[i++] = color.r;
       }
-      filestream_write(out, line, sizeof(line));
+      intfstream_write(out, line, sizeof(line));
    }
 
-   filestream_close(out);
+   intfstream_close(out);
+   free(out);
 }
 
 #endif
@@ -1270,9 +1273,13 @@ static void gx_get_video_output_next(void *data)
 }
 
 static const video_poke_interface_t gx_poke_interface = {
+   NULL, /* get_flags */
+   NULL,                      /* set_coords */
+   NULL,                      /* set_mvp */
    NULL,
    NULL,
    gx_set_video_mode,
+   NULL, /* get_refresh_rate */
    NULL,
    gx_get_video_output_size,
    gx_get_video_output_prev,
@@ -1283,6 +1290,12 @@ static const video_poke_interface_t gx_poke_interface = {
    gx_apply_state_changes,
    gx_set_texture_frame,
    gx_set_texture_enable,
+   NULL,                         /* set_osd_msg */
+   NULL,                         /* show_mouse */
+   NULL,                         /* grab_mouse_toggle */
+   NULL,                         /* get_current_shader */
+   NULL,                         /* get_current_software_framebuffer */
+   NULL                          /* get_hw_render_interface */
 };
 
 static void gx_get_poke_interface(void *data,

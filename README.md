@@ -16,7 +16,7 @@ Wii上的汉化的模拟器
   mgba_0.6.3          任天堂GBA模拟器  (PPC26 + Libogc_1.8.11.1(libfat.a使用Old))
 
 5、https://github.com/libretro/RetroArch
-  RetroArch           模拟器合集(只保留显示中文的代码)
+  RetroArch_1.7.3     模拟器合集(只保留显示中文的代码)
 
 6、https://github.com/Mystro256
   WiiSxr_1.3          索尼PS模拟器     (PPC29 + Libogc_1.8.16(libfat.a使用New))
