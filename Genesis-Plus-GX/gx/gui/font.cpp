@@ -353,6 +353,16 @@ int FONT_write(char *string, int size, int x, int y, int max_width, GXColor colo
     char delims[] = "\n";
     char *result = NULL;
     result = strtok(utf8Txt, delims);
+
+    if (max_width > 0)
+    {
+        fontSystemOne->setMaxVideoWidth(x + max_width);
+    }
+    else
+    {
+        fontSystemOne->setMaxVideoWidth(0);
+    }
+
     while (result != NULL )
     {
         fontSystemOne->drawText(x, y, fontSystemOne->charToWideChar(result), color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
@@ -410,6 +420,9 @@ int FONT_writeCenter(char *string, int size, int x1, int x2, int y, GXColor colo
     char delims[] = "\n";
     char *result = NULL;
     result = strtok(utf8Txt, delims);
+
+    fontSystemOne->setMaxVideoWidth(0);
+
     while (result != NULL )
     {
         wchar_t *text = fontSystemOne->charToWideChar(result);
@@ -518,6 +531,8 @@ int FONT_alignRight(char *string, int size, int x, int y, GXColor color)
     w = fontSystemOne->getWidth(text);
     x -= (vmode->fbWidth / 2);
     x -= w;
+
+    fontSystemOne->setMaxVideoWidth(0);
 
     fontSystemOne->drawText(x, y, text, color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
 
