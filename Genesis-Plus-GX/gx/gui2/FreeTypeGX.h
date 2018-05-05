@@ -148,6 +148,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <map>
+#include <cwchar>
 
 /*! \struct ftgxCharData_
  *
@@ -235,7 +236,7 @@ class FreeTypeGX {
 		bool widthCachingEnabled;
 		std::map<const wchar_t*, uint16_t> cacheTextWidth;
 
-		static uint16_t maxVideoWidth; /**< Maximum width of the video screen. */
+		int16_t maxVideoWidth; /**< Maximum width of the video screen. */
 
 		static uint16_t adjustTextureWidth(uint16_t textureWidth, uint8_t textureFormat);
 		static uint16_t adjustTextureHeight(uint16_t textureHeight, uint8_t textureFormat);
@@ -270,7 +271,7 @@ class FreeTypeGX {
 		static wchar_t* charToWideChar(const char* p);
 		void setVertexFormat(uint8_t vertexIndex);
 		void setCompatibilityMode(uint32_t compatibilityMode);
-		static uint16_t setMaxVideoWidth(uint16_t width);
+		int16_t setMaxVideoWidth(int16_t width);
 
 		uint16_t loadFont(uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);
 		uint16_t loadFont(const uint8_t* fontBuffer, FT_Long bufferSize, FT_UInt pointSize, bool cacheAll = false);

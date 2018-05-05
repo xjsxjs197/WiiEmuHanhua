@@ -365,7 +365,11 @@ int FONT_write(char *string, int size, int x, int y, int max_width, GXColor colo
 
     while (result != NULL )
     {
-        fontSystemOne->drawText(x, y, fontSystemOne->charToWideChar(result), color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        int notPrintLen = fontSystemOne->drawText(x, y, fontSystemOne->charToWideChar(result), color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        if (notPrintLen > 0)
+        {
+            return notPrintLen;
+        }
         result = strtok(NULL, delims);
         y += size;
     }

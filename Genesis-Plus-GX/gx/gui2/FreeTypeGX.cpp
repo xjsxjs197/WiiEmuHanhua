@@ -117,8 +117,7 @@ void FreeTypeGX::setCompatibilityMode(uint32_t compatibilityMode) {
  * @param width	The pixel width of the video screen.
  * @return The new size of the video screen in pixels.
  */
-uint16_t FreeTypeGX::maxVideoWidth = 0;
-uint16_t FreeTypeGX::setMaxVideoWidth(uint16_t width) {
+int16_t FreeTypeGX::setMaxVideoWidth(int16_t width) {
 	return maxVideoWidth = width;
 }
 
@@ -552,6 +551,7 @@ ftgxCharData* FreeTypeGX::getCharacter(wchar_t character) {
  */
 uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color, uint16_t textStyle) {
 	uint16_t x_pos = x, printed = 0;
+	int16_t oldX = x;
 	uint16_t x_offset = 0, y_offset = 0;
 	GXTexObj glyphTexture;
 	FT_Vector pairDelta;
@@ -572,7 +572,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 
 	int i = 0;
 	while(text[i]) {
-		if(maxVideoWidth > 0 && (x_pos > maxVideoWidth)) {
+		if(maxVideoWidth > 0 && (oldX > maxVideoWidth)) {
 			break;
 		}
 
@@ -588,6 +588,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 			this->copyTextureToFramebuffer(&glyphTexture, glyphData->textureWidth, glyphData->textureHeight, x_pos - x_offset, y - glyphData->renderOffsetY - y_offset, color);
 
 			x_pos += glyphData->glyphAdvanceX;
+			oldX += glyphData->glyphAdvanceX;
 			printed++;
 		}
 
@@ -598,7 +599,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 		this->drawTextFeature(x - x_offset, y - y_offset, textWidth > 0 ? textWidth : textWidth = this->getWidth(text), textStyle, color);
 	}
 
-	return printed;
+	return wcslen(text) - printed;
 }
 
 /**

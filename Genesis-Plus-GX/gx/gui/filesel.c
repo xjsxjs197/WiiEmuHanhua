@@ -1,6 +1,6 @@
 /*
  *  filesel.c
- * 
+ *
  *  File Browser
  *
  *  Copyright Eke-Eke (2009-2014)
@@ -43,6 +43,8 @@
 #include "gui.h"
 #include "file_load.h"
 #include "history.h"
+
+#include "gettext.h"
 
 #define BG_COLOR_1 {0x49,0x49,0x49,0xff}
 #define BG_COLOR_2 {0x66,0x66,0x66,0xff}
@@ -158,6 +160,20 @@ static gui_menu menu_selector =
   selector_cb
 };
 
+static wchar_t* charToWideChar(char* strChar) {
+	wchar_t strWChar[strlen(strChar) + 1];
+
+	int bt = mbstowcs(strWChar, strChar, strlen(strChar));
+	if (bt) {
+		strWChar[bt] = (wchar_t)'\0';
+		return strWChar;
+	}
+
+	wchar_t *tempDest = strWChar;
+	while((*tempDest++ = *strChar++));
+
+	return strWChar;
+}
 
 static void selector_cb(void)
 {
@@ -186,12 +202,15 @@ static void selector_cb(void)
       gxDrawTexture(bar_over.texture,bar_over.x,yoffset+bar_over.y,bar_over.w,bar_over.h,255);
 
       /* scrolling text */
+      const char *utf8Txt = gettext(filelist[i].filename);
+      wchar_t *cnText = charToWideChar(utf8Txt);
+
       if ((string_offset/SCROLL_SPEED) >= strlen(filelist[i].filename))
       {
         string_offset = 0;
       }
 
-      if (string_offset)
+      if (((string_offset/SCROLL_SPEED) < strlen(filelist[i].filename)) && string_offset)
       {
         sprintf(text,"%s ",filelist[i].filename+string_offset/SCROLL_SPEED);
         strncat(text, filelist[i].filename, string_offset/SCROLL_SPEED);
@@ -237,8 +256,8 @@ static void selector_cb(void)
 
     yoffset += 26;
   }
-}  
-  
+}
+
 
 /****************************************************************************
  * FileSelector
@@ -246,7 +265,7 @@ static void selector_cb(void)
  * Browse directories and select a file from the file listing
  * return ROM size
  *
- ****************************************************************************/ 
+ ****************************************************************************/
 int FileSelector(int type)
 {
   short p;
@@ -546,7 +565,7 @@ int FileSelector(int type)
         strcpy(action_select.comment,"Load File");
       }
     }
- 
+
     /* Draw menu*/
     GUI_DrawMenu(m);
 
@@ -642,7 +661,7 @@ int FileSelector(int type)
     }
 
     /* go back one page */
-    else if (p & (PAD_TRIGGER_L | PAD_BUTTON_LEFT)) 
+    else if (p & (PAD_TRIGGER_L | PAD_BUTTON_LEFT))
     {
       if (maxfiles >= 10)
       {
