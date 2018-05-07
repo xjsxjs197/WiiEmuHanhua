@@ -44,8 +44,6 @@
 #include "file_load.h"
 #include "history.h"
 
-#include "gettext.h"
-
 #define BG_COLOR_1 {0x49,0x49,0x49,0xff}
 #define BG_COLOR_2 {0x66,0x66,0x66,0xff}
 
@@ -160,7 +158,7 @@ static gui_menu menu_selector =
   selector_cb
 };
 
-static wchar_t* charToWideChar(char* strChar) {
+wchar_t* charToWideChar(char* strChar) {
 	wchar_t strWChar[strlen(strChar) + 1];
 
 	int bt = mbstowcs(strWChar, strChar, strlen(strChar));
@@ -178,7 +176,9 @@ static wchar_t* charToWideChar(char* strChar) {
 static void selector_cb(void)
 {
   int i;
-  char text[MAXPATHLEN];
+  //char text[MAXPATHLEN];
+  wchar_t strWChar[MAXPATHLEN >> 1];
+  wchar_t *tmpWChar;
   int yoffset = 108;
 
   /* Draw browser array */
@@ -202,30 +202,47 @@ static void selector_cb(void)
       gxDrawTexture(bar_over.texture,bar_over.x,yoffset+bar_over.y,bar_over.w,bar_over.h,255);
 
       /* scrolling text */
-      const char *utf8Txt = gettext(filelist[i].filename);
-      wchar_t *cnText = charToWideChar(utf8Txt);
+      int txtStartPos = (int) (string_offset / SCROLL_SPEED);
+      tmpWChar = charToWideChar(filelist[i].filename);
 
-      if ((string_offset/SCROLL_SPEED) >= strlen(filelist[i].filename))
+      if (txtStartPos >= wcslen(tmpWChar))
       {
         string_offset = 0;
+        txtStartPos = 0;
       }
 
-      if (((string_offset/SCROLL_SPEED) < strlen(filelist[i].filename)) && string_offset)
+      if (string_offset)
       {
-        sprintf(text,"%s ",filelist[i].filename+string_offset/SCROLL_SPEED);
-        strncat(text, filelist[i].filename, string_offset/SCROLL_SPEED);
+        //sprintf(text,"%s ",filelist[i].filename + txtStartPos);
+        //strncat(text, filelist[i].filename, txtStartPos);
+        int tmpIndex = txtStartPos;
+        int newIndex = 0;
+        while (tmpWChar[tmpIndex])
+        {
+            strWChar[newIndex++] = tmpWChar[tmpIndex++];
+        }
+        strWChar[newIndex++] = L' ';
+
+        tmpIndex = 0;
+        while (tmpIndex < txtStartPos)
+        {
+            strWChar[newIndex++] = tmpWChar[tmpIndex++];
+        }
+        strWChar[newIndex] = L'\0';
       }
       else
       {
-        strcpy(text, filelist[i].filename);
+        //strcpy(text, filelist[i].filename);
+        wcscpy(strWChar, (const wchar_t*)tmpWChar);
       }
+      //strcpy(text, filelist[i].filename);
 
       /* print text */
       if (filelist[i].flags)
       {
         /* directory icon */
         gxDrawTexture(dir_icon.texture,dir_icon.x,yoffset+dir_icon.y,dir_icon.w,dir_icon.h,255);
-        if (FONT_write(text,18,dir_icon.x+dir_icon.w+6,yoffset+22,bar_over.w-dir_icon.w-26,(GXColor)WHITE))
+        if (FONT_writeW(strWChar,18,dir_icon.x+dir_icon.w+6,yoffset+22,bar_over.w-dir_icon.w-26,(GXColor)WHITE))
         {
           /* text scrolling */
           string_offset ++;
@@ -233,7 +250,7 @@ static void selector_cb(void)
       }
       else
       {
-        if (FONT_write(text,18,26,yoffset+22,bar_over.w-20,(GXColor)WHITE))
+        if (FONT_writeW(strWChar,18,26,yoffset+22,bar_over.w-20,(GXColor)WHITE))
         {
           /* text scrolling */
           string_offset ++;

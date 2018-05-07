@@ -334,6 +334,33 @@ static char * ChgCoustString(const char *s)
     return result;
 }
 
+extern "C" int  FONT_writeW(wchar_t *string, int size, int x, int y, int max_width, GXColor color);
+int FONT_writeW(wchar_t *string, int size, int x, int y, int max_width, GXColor color)
+{
+    x -= (vmode->fbWidth / 2);
+    y -= (vmode->efbHeight / 2);
+    if (!fontSystemOne)
+    {
+        fontSystemOne = new FreeTypeGX();
+        fontSystemOne->loadFont(font_zh_ttf, font_zh_ttf_size, size, false);
+    }
+    else if (size != fontSystemOne->getFontSize())
+    {
+        fontSystemOne->loadFont(font_zh_ttf, font_zh_ttf_size, size, false);
+    }
+
+    if (max_width > 0)
+    {
+        fontSystemOne->setMaxVideoWidth(x + max_width);
+    }
+    else
+    {
+        fontSystemOne->setMaxVideoWidth(0);
+    }
+
+    return fontSystemOne->drawText(x, y, string, color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+}
+
 extern "C" int  FONT_write(char *string, int size, int x, int y, int max_width, GXColor color);
 int FONT_write(char *string, int size, int x, int y, int max_width, GXColor color)
 {
@@ -349,11 +376,6 @@ int FONT_write(char *string, int size, int x, int y, int max_width, GXColor colo
         fontSystemOne->loadFont(font_zh_ttf, font_zh_ttf_size, size, false);
     }
 
-    char *utf8Txt = ChgCoustString(gettext(string));
-    char delims[] = "\n";
-    char *result = NULL;
-    result = strtok(utf8Txt, delims);
-
     if (max_width > 0)
     {
         fontSystemOne->setMaxVideoWidth(x + max_width);
@@ -363,9 +385,15 @@ int FONT_write(char *string, int size, int x, int y, int max_width, GXColor colo
         fontSystemOne->setMaxVideoWidth(0);
     }
 
+    char *utf8Txt = ChgCoustString(gettext(string));
+    char delims[] = "\n";
+    char *result = NULL;
+    result = strtok(utf8Txt, delims);
+
     while (result != NULL )
     {
         int notPrintLen = fontSystemOne->drawText(x, y, fontSystemOne->charToWideChar(result), color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        //int notPrintLen = FONT_writeW(fontSystemOne->charToWideChar(result), size, x, y, max_width, color);
         if (notPrintLen > 0)
         {
             return notPrintLen;

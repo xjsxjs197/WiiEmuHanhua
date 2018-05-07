@@ -573,7 +573,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 	int i = 0;
 	while(text[i]) {
 		if(maxVideoWidth > 0 && (oldX > maxVideoWidth)) {
-			break;
+			return 1;
 		}
 
 		ftgxCharData* glyphData = getCharacter(text[i]);
@@ -599,7 +599,7 @@ uint16_t FreeTypeGX::drawText(int16_t x, int16_t y, wchar_t *text, GXColor color
 		this->drawTextFeature(x - x_offset, y - y_offset, textWidth > 0 ? textWidth : textWidth = this->getWidth(text), textStyle, color);
 	}
 
-	return wcslen(text) - printed;
+	return 0;
 }
 
 /**
