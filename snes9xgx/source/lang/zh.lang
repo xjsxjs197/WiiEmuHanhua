@@ -946,6 +946,9 @@ msgstr "土耳其语"
 msgid "Game Genie"
 msgstr "游戏金手指"
 
+msgid "FCE Ultra GX GameCube"
+msgstr "FCE Ultra GX GameCube版"
+
 msgid "Snes9x GX GameCube"
 msgstr "Snes9x GX GameCube版"
 
@@ -1050,3 +1053,27 @@ msgstr "预览图片"
 
 msgid "Artworks Folder"
 msgstr "插图目录"
+
+msgid "Emulation"
+msgstr "模拟设置"
+
+msgid "Hardware (GB/GBC)"
+msgstr "硬件 （GB/GBC）"
+
+msgid "Super Game Boy border"
+msgstr "GB的边缘"
+
+msgid "Offset from UTC (hours)"
+msgstr "UTC的时差（小时）"
+
+msgid "GB Screen Palette"
+msgstr "GB屏幕调色板"
+
+msgid "Append Auto to .SAV Files"
+msgstr "自动添加到.SAV文件"
+
+msgid "GBA Fixed Pixel Ratio"
+msgstr "GBA 固定像素比例"
+
+msgid "GBA Frameskip"
+msgstr "GBA 跳帧"
