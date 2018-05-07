@@ -212,7 +212,7 @@ preparePrefsData ()
 	createXMLSection("Emulation", "Emulation Settings");
 
 	createXMLSetting("BasicPalette", "Basic Color Palette for GB", toStr(GCSettings.BasicPalette));
-	
+
 	createXMLSection("Controller", "Controller Settings");
 
 	createXMLSetting("WiiControls", "Match Wii Game", toStr(GCSettings.WiiControls));
@@ -533,9 +533,9 @@ decodePrefsData ()
 			loadXMLController(btnmap[CTRLR_WIIMOTE], "wmpadmap");
 			loadXMLController(btnmap[CTRLR_CLASSIC], "ccpadmap");
 			loadXMLController(btnmap[CTRLR_NUNCHUK], "ncpadmap");
-			
+
 			// Emulation Settings
-			
+
 			loadXMLSetting(&GCSettings.OffsetMinutesUTC, "OffsetMinutesUTC");
 			loadXMLSetting(&GCSettings.GBHardware, "GBHardware");
 			loadXMLSetting(&GCSettings.SGBBorder, "SGBBorder");
@@ -671,15 +671,14 @@ DefaultSettings ()
 	GCSettings.SFXVolume = 40;
 	GCSettings.Rumble = 1;
 	GCSettings.PreviewImage = 0;
-	
+
 	GCSettings.BasicPalette = 0;
-	
+
 #ifdef HW_RVL
 	GCSettings.language = CONF_GetLanguage();
 
-	if(GCSettings.language == LANG_JAPANESE || 
-		GCSettings.language == LANG_SIMP_CHINESE || 
-		GCSettings.language == LANG_TRAD_CHINESE || 
+	if(GCSettings.language == LANG_JAPANESE ||
+		GCSettings.language == LANG_TRAD_CHINESE ||
 		GCSettings.language == LANG_KOREAN)
 		GCSettings.language = LANG_ENGLISH;
 #else
@@ -703,7 +702,7 @@ SavePrefs (bool silent)
 	int datasize;
 	int offset = 0;
 	int device = 0;
-	
+
 	if(prefpath[0] != 0)
 	{
 		sprintf(filepath, "%s/%s", prefpath, PREF_FILE_NAME);
@@ -718,12 +717,12 @@ SavePrefs (bool silent)
 	else
 	{
 		device = autoSaveMethod(silent);
-		
+
 		if(device == 0)
 			return false;
-		
+
 		sprintf(filepath, "%s%s", pathPrefix[device], APPFOLDER);
-						
+
 		DIR *dir = opendir(filepath);
 		if (!dir)
 		{
@@ -743,7 +742,7 @@ SavePrefs (bool silent)
 		sprintf(filepath, "%s%s/%s", pathPrefix[device], APPFOLDER, PREF_FILE_NAME);
 		sprintf(prefpath, "%s%s", pathPrefix[device], APPFOLDER);
 	}
-	
+
 	if(device == 0)
 		return false;
 
@@ -815,7 +814,7 @@ bool LoadPrefs()
 	bool prefFound = false;
 	char filepath[4][MAXPATHLEN];
 	int numDevices;
-	
+
 #ifdef HW_RVL
 	numDevices = 5;
 	sprintf(filepath[0], "%s", appPath);
@@ -832,7 +831,7 @@ bool LoadPrefs()
 	for(int i=0; i<numDevices; i++)
 	{
 		prefFound = LoadPrefsFromMethod(filepath[i]);
-		
+
 		if(prefFound)
 			break;
 	}
