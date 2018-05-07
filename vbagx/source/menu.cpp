@@ -1988,7 +1988,7 @@ static int MenuGameSettings()
 	wiiControlsBtn.SetTrigger(trig2);
 	wiiControlsBtn.SetEffectGrow();
 
-	GuiText screenshotBtnTxt("Screenshot", 22, (GXColor){0, 0, 0, 255});
+	GuiText screenshotBtnTxt("ScreenShot", 22, (GXColor){0, 0, 0, 255});
 	GuiImage screenshotBtnImg(&btnLargeOutline);
 	GuiImage screenshotBtnImgOver(&btnLargeOutlineOver);
 	GuiImage screenshotBtnIcon(&iconScreenshot);
