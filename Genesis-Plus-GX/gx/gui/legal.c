@@ -46,15 +46,14 @@ extern const u8 Bg_intro_c2_png[];
 extern const u8 Bg_intro_c3_png[];
 extern const u8 Bg_intro_c4_png[];
 
-/*
- * This is the legal stuff - which must be shown at program startup
+/* 
+ * This is the legal stuff - which must be shown at program startup 
  * Any derivative work MUST include the same textual output.
  *
  */
 
 static void show_disclaimer(int ypos)
 {
-  //FONT_writeCenter ("DISCLAIMER",22,0,640,ypos,(GXColor)WHITE);
   FONT_writeCenter ("DISCLAIMER",22,0,640,ypos,(GXColor)WHITE);
   ypos += 32;
   FONT_writeCenter ("This is a free software, and you are welcome",20,0,640,ypos,(GXColor)WHITE);
