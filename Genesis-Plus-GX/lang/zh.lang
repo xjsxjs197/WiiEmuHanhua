@@ -425,7 +425,7 @@ msgstr "垂直同步: 自动"
 msgid "VSYNC: OFF"
 msgstr "垂直同步: 关闭"
 
-msgid "Bilinear Filter: ON"
+msgid "Bilinear Filter:  ON"
 msgstr "双线性过滤: 开启"
 
 msgid "Bilinear Filter: OFF"
@@ -443,7 +443,7 @@ msgstr "LCD重影过滤:"
 msgid "LCD Ghosting Filter: OFF"
 msgstr "LCD重影过滤: 关闭"
 
-msgid "Trap Filter: ON"
+msgid "Trap Filter:  ON"
 msgstr "Trap过滤: 开启"
 
 msgid "Trap Filter: OFF"
