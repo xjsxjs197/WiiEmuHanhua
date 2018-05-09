@@ -915,11 +915,11 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     gxDrawTexture(top,xwindow,ywindow-yoffset,top->width,top->height,255);
 
     /* draw title */
-    FONT_writeCenter(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
+    FONT_writeCenterOld(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
 
     /* draw  text */
     for (i=0; i<nb_items; i++)
-      FONT_writeCenter(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize-yoffset,(GXColor)WHITE);
+      FONT_writeCenterOld(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize-yoffset,(GXColor)WHITE);
 
     /* update display */
     gxSetScreen();
@@ -939,12 +939,12 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     gxDrawTexture(top,xwindow,ywindow,top->width,top->height,255);
 
     /* draw title */
-    FONT_writeCenter(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20,(GXColor)WHITE);
+    FONT_writeCenterOld(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20,(GXColor)WHITE);
 
     /* draw text */
     for (i=0; i<nb_items; i++)
     {
-      FONT_writeCenter(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize,(GXColor)WHITE);
+      FONT_writeCenterOld(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize,(GXColor)WHITE);
     }
 
 #ifdef HW_RVL
@@ -991,11 +991,11 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     gxDrawTexture(top,xwindow,ywindow-yoffset,top->width,top->height,255);
 
     /* draw title */
-    FONT_writeCenter(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
+    FONT_writeCenterOld(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
 
     /* draw  text */
     for (i=0; i<nb_items; i++)
-      FONT_writeCenter(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize-yoffset,(GXColor)WHITE);
+      FONT_writeCenterOld(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize-yoffset,(GXColor)WHITE);
 
     /* update display */
     gxSetScreen();
