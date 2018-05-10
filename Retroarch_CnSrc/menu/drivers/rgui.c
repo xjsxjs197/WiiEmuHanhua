@@ -248,7 +248,7 @@ static void rgui_render_background(rgui_t *rgui)
          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 5, 5, 5, fb_height - 10, rgui_green_filler);
          rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, fb_width - 10, 5, 5, fb_height - 10,
                rgui_green_filler);
-			   
+
 		 // add by xjsxjs197 for support zh_cn start
           rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 0, 0, fb_width, 5, rgui_gray_filler);
           rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, 0, fb_height - 5, fb_width, 5, rgui_gray_filler);
@@ -361,7 +361,7 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
             height - 10, rgui_gray_filler);*/
       rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_black_filler);
       // upd by xjsxjs197 for support zh_cn end
-	  
+
       if (settings->bools.menu_rgui_border_filler_enable)
       {
          rgui_fill_rect(rgui, rgui_framebuf_data,
@@ -482,7 +482,7 @@ static void rgui_render(void *data, bool is_idle)
       rgui->last_width  = fb_width;
       rgui->last_height = fb_height;
    }
-   
+
    if (rgui->bg_modified)
       rgui->bg_modified = false;
 
@@ -714,7 +714,7 @@ static void rgui_render(void *data, bool is_idle)
             type_str_buf);*/
        snprintf(message, sizeof(message), "%c %s   %s",
             entry_selected ? '>' : ' ',
-            entry_title_buf,
+            wiiFont_getChTitle(entry_title_buf),
             type_str_buf);
        /* snprintf(message, sizeof(message), "%c %-*.*s %-*s",
             entry_selected ? '>' : ' ',

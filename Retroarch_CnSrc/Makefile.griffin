@@ -762,7 +762,7 @@ else
 				  -Ideps/stb 
 endif
 
-OBJ = griffin/griffin.o griffin/wiiFont.o  $(PLATOBJS)
+OBJ = griffin/griffin.o griffin/wiiFont.o griffin/gettext.o  $(PLATOBJS)
 
 ifeq ($(HAVE_GRIFFIN_CPP), 1)
    OBJ += griffin/griffin_cpp.o

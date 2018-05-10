@@ -25,6 +25,7 @@
 
 #include "wiiFont.h"
 #include "wiiFontC.h"
+#include "gettext.h"
 #include "../gfx/drivers_font_renderer/bitmap.h"
 extern "C" {
 #include "../memory/wii/mem2_manager.h"
@@ -81,6 +82,19 @@ void wiiFont::wiiFontInit()
     colorMap.insert(std::pair<uint16_t, uint16_t>(28671, 24704));
     colorMap.insert(std::pair<uint16_t, uint16_t>(24575, 20608));
     colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));
+
+    // 读取文件名映射文件
+    FILE *titleMapFile = fopen("sd:/retroarch/font/zh.lang", "rb");
+    fseek(titleMapFile, 0, SEEK_END);
+    long zhMapFileLen = ftell(titleMapFile);
+    char* zhMapBuf = memalign(32, (int)zhMapFileLen);
+
+    fseek(titleMapFile, 0, SEEK_SET);
+	fread(zhMapBuf, 1, zhMapFileLen, titleMapFile);
+    fclose(titleMapFile);
+    titleMapFile = NULL;
+
+    LoadLanguage(zhMapBuf);
 }
 
 void wiiFont::wiiFontClose()
@@ -343,6 +357,11 @@ void wiiFont::setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pi
     free(unicodeMsg);
 }
 
+char* wiiFont::getChTitle(char* title)
+{
+    return gettext(title);
+}
+
 extern "C" {
     int wiiFont_getMaxLen(const char* msg, int maxPixelLen)
     {
@@ -362,5 +381,10 @@ extern "C" {
     void wiiFont_setTextMsg(const char* msg, int x, int y, int width, int height, bool double_width, bool double_strike)
     {
         wiiFont::getInstance().setTextMsg(msg, x, y, width, height, double_width, double_strike);
+    }
+
+    char* wiiFont_getChTitle(char* title)
+    {
+        wiiFont::getInstance().getChTitle(title);
     }
 }

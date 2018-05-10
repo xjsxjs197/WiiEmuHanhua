@@ -32,6 +32,7 @@ public:
 	void setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pitch, int x, int y, uint16_t color);
 	void setFontBufByMsgW(uint16_t* rguiFramebuf, wchar_t* msg, size_t pitch, int x, int y, uint16_t color);
 	void setTextMsg(const char* msg, int x, int y, int width, int height, bool double_width, bool double_strike);
+	char* getChTitle(char* title);
     static wiiFont& getInstance()
 	{
 		static wiiFont obj;
