@@ -23,3 +23,6 @@ Wii上的汉化的模拟器
 
 7、https://github.com/FIX94/Wii64
   Wii64(fix94)_1.2    任天堂N64模拟器  (PPC29 + Libogc_1.8.16(libfat.a使用New))
+
+8、https://github.com/FIX94/Nintendont
+  Nintendont          Wii上玩Ngc工具   (PPC29 + Libogc_1.8.16(libfat.a使用New))
