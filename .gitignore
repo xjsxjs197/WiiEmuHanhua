@@ -29,3 +29,4 @@ snes9xgx/build_wii/*.*
 vbagx/executables/*.elf
 vbagx/executables/*.dol
 vbagx/build_wii/*.*
+Nintendont/loader/loader.dol
