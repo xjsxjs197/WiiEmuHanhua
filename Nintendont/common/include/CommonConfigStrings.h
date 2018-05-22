@@ -5,48 +5,48 @@
 //Strings must match order in CommonConfig.h
 const char* OptionStrings[] =
 {
-	"Cheats",
-	"Debugger",
-	"Debugger Wait",
-	"Memcard Emulation",
-	"Cheat Path",
-	"Force Widescreen",
-	"Force Progressive",
-	"Auto Boot",
-	"Unlock Read Speed",
-	"OSReport",
-	"WiiU Widescreen", //Replaces USB
-	"Drive Access LED",
-	"Log",
-	
-	"MaxPads",
-	"Language",
-	"Video",
-	"Videomode",
-	"Memcard Blocks",
-	"Memcard Multi",
-	"Native Control",
+	"作弊码",
+	"调试",
+	"调试 等待",
+	"记忆卡模拟",
+	"作弊码路径",
+	"强制宽屏显示",
+	"强制逐行显示",
+	"自动启动",
+	"解除读取限速",
+	"系统报告",
+	"WiiU宽屏显示", //Replaces USB
+	"LED灯显示设置",
+	"日志",
+
+	"最大手柄数",
+	"系统语言",
+	"视频",
+	"视频模式",
+	"记忆卡块数",
+	"多记忆卡",
+	"GBA控制",
 };
 
 const char* LanguageStrings[] =
 {
-	"Eng",
-	"Ger",
-	"Fre",
-	"Spa",
-	"Ita",
-	"Dut",
+	"英语",
+	"德语",
+	"法语",
+	"西班牙语",
+	"意大利语",
+	"荷兰语",
 
-	"Auto",
+	"自动",
 };
 
 const char* VideoStrings[] =
 {
-	"Auto",
-	"Force",
-	"None",
-	"Invalid",
-	"Force (Deflicker)",
+	"自动",
+	"强制",
+	"空",
+	"无效",
+	"强制 (降低闪烁)",
 };
 
 const char* VideoModeStrings[] =

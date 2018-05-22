@@ -835,7 +835,7 @@ static const char *const *GetSettingsDescription(const MenuCtx *ctx)
 					"插槽A当中的记忆卡.",
 					"",
 					"如果你想使用Wii实机的",
-					"真是的记忆卡",
+					"真实的记忆卡",
 					"可以关闭这个选项.",
 					NULL
 				};
@@ -853,7 +853,7 @@ static const char *const *GetSettingsDescription(const MenuCtx *ctx)
 					"不是所有游戏都支持",
 					"如果游戏内部就支持",
 					"16:9屏幕比率运行",
-					"选项就是失效",
+					"这个选项是无效的",
 					"请使用游戏当中的选项",
 					"来调整显示模式.",
 					NULL
@@ -997,7 +997,7 @@ static const char *const *GetSettingsDescription(const MenuCtx *ctx)
 			case NIN_SETTINGS_NATIVE_SI: {
 				static const char *desc_native_si[] = {
 					"控制Wii系统可以",
-					"GBA连接线.",
+					"使用GBA连接线.",
 					"",
 					"注意: 打开这个选项",
 					"会关闭蓝牙和",

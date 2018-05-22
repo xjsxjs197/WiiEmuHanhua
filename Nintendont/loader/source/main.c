@@ -611,7 +611,7 @@ int main(int argc, char **argv)
 	{
 		// Preparing IOS58 Kernel...
 		if(argsboot == false)
-			ShowMessageScreen("Preparing IOS58 Kernel...");
+			ShowMessageScreen("正在准备 IOS58 核心...");
 
 		u32 u;
 		//Disables MEMPROT for patches
@@ -654,7 +654,7 @@ int main(int argc, char **argv)
 
 		// Loading IOS58 Kernel...
 		if(argsboot == false)
-			ShowMessageScreen("Loading IOS58 Kernel...");
+			ShowMessageScreen("正在加载 IOS58 核心...");
 
 		//libogc still has that, lets close it
 		__ES_Close();
@@ -677,7 +677,7 @@ int main(int argc, char **argv)
 
 	// Preparing Nintendont Kernel...
 	if(argsboot == false)
-		ShowMessageScreen("Preparing Nintendont Kernel...");
+		ShowMessageScreen("正在准备 Nintendont 核心...");
 
 	//inject nintendont thread
 	void *kernel_bin = NULL;
@@ -692,7 +692,7 @@ int main(int argc, char **argv)
 	DCFlushRange((void*)0x92FFFE00,kernelboot_bin_size);
 	//Loading Nintendont Kernel...
 	if(argsboot == false)
-		ShowMessageScreen("Loading Nintendont Kernel...");
+		ShowMessageScreen("正在加载 Nintendont 核心...");
 	//close in case this is wii vc
 	__ES_Close();
 	memset( STATUS, 0, 0x20 );
@@ -711,7 +711,7 @@ int main(int argc, char **argv)
 	IOS_IoctlvAsync(fd, 0x1F, 0, 0, &IOCTL_Buf, NULL, NULL);
 	//Waiting for Nintendont...
 	if(argsboot == false)
-		ShowMessageScreen("Waiting for Nintendont...");
+		ShowMessageScreen("Nintendont正在进行相关处理...");
 	while(1)
 	{
 		DCInvalidateRange( STATUS, 0x20 );
@@ -729,7 +729,7 @@ int main(int argc, char **argv)
 
 	// Checking for storage devices...
 	if(argsboot == false)
-		ShowMessageScreen("Checking storage devices...");
+		ShowMessageScreen("正在检查存储器设备...");
 
 	// Initialize devices.
 	// TODO: Only mount the device Nintendont was launched from
@@ -859,18 +859,18 @@ int main(int argc, char **argv)
 		if(isWiiVC)
 		{
 			if(WDVD_Init() != 0)
-				ShowMessageScreenAndExit("The Wii VC Disc could not be initialized!", 1);
+				ShowMessageScreenAndExit("Wii VC 磁盘无法初始化!", 1);
 			if(WDVD_OpenDataPartition() != 0)
-				ShowMessageScreenAndExit("Found no Partition on Wii VC Disc!", 1);
+				ShowMessageScreenAndExit("Wii VC 磁盘中没有发现分区信息!", 1);
 			if(!WDVD_FST_Mount())
-				ShowMessageScreenAndExit("Unable to open Partition on Wii VC Disc!", 1);
+				ShowMessageScreenAndExit("Wii VC 磁盘中无法读取分区信息!", 1);
 			if(WDVD_FST_OpenDisc(0) != 0)
-				ShowMessageScreenAndExit("No game.iso on Wii VC Disc!", 1);
+				ShowMessageScreenAndExit("Wii VC 磁盘中没有找到game.iso!", 1);
 			u8 *DIBuf = memalign(32,0x800);
 			if(WDVD_FST_Read(DIBuf, 0x800) != 0x800)
 			{
 				free(DIBuf);
-				ShowMessageScreenAndExit("Cant read game.iso start!", 1);
+				ShowMessageScreenAndExit("无法读取game.iso的开始信息!", 1);
 			}
 			if( IsGCGame(DIBuf) == false )
 			{
@@ -879,7 +879,7 @@ int main(int argc, char **argv)
 				if( IsGCGame(DIBuf) == false )
 				{
 					free(DIBuf);
-					ShowMessageScreenAndExit("game.iso is not a GC Disc!", 1);
+					ShowMessageScreenAndExit("game.iso不是一个GC游戏!", 1);
 				}
 			}
 			memcpy(&(ncfg->GameID), DIBuf, 4);
@@ -896,7 +896,7 @@ int main(int argc, char **argv)
 				usleep(20000);
 			if(!(DI_GetStatus() & DVD_READY))
 			{
-				ShowMessageScreenAndExit("The Disc Drive could not be initialized!", 1);
+				ShowMessageScreenAndExit("光驱无法进行初始化!", 1);
 			}
 			DI_Close();
 
@@ -914,7 +914,7 @@ int main(int argc, char **argv)
 				if( IsGCGame(DIBuf) == false )
 				{
 					free(DIBuf);
-					ShowMessageScreenAndExit("The Disc in the Drive is not a GC Disc!", 1);
+					ShowMessageScreenAndExit("光驱中放入的不是GC游戏盘!", 1);
 				}
 			}
 			memcpy(&(ncfg->GameID), DIBuf, 4);
@@ -1099,7 +1099,7 @@ int main(int argc, char **argv)
 			if(GenerateMemCard(MemCard, BI2region) == false)
 			{
 				ClearScreen();
-				ShowMessageScreenAndExit("Failed to create Memory Card File!", 1);
+				ShowMessageScreenAndExit("生成记忆卡文件时发生错误!", 1);
 			}
 		}
 		else
