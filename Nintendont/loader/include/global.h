@@ -45,8 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #define DEFAULT_SIZE		16 // At 16, all characters are 10 pixels wide.  Use this to calculate centers
 #define MENU_SIZE			16 // If we run out of screen space this should be made smaller
 
-#define ARROW_LEFT			"◁" //"\xE2\x97\x80"
-#define ARROW_RIGHT			"▷" //"\xE2\x96\xB6"
+#define ARROW_LEFT			"※" //"\xE2\x97\x80"
+#define ARROW_RIGHT			"※" //"\xE2\x96\xB6"
 
 // RGBA Colors
 #define AQUA				0x00FFFFFF
