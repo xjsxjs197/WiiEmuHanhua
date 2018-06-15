@@ -1,701 +1,703 @@
-301-GameCube Service Disc
-D29-Monthly Nintendo Shop Demo May 2002
-D32-Monthly Nintendo Shop Demo June 2002
-D33-Monthly Nintendo Shop Demo July 2002
-D34-Monthly Nintendo Shop Demo July 2002
-D38-Monthly Nintendo Shop Demo September 2002
-D43-The Legend of Zelda: Ocarina of Time / Master Quest
-D4B-Resident Evil 4: Preview Disc
-D53-Monthly Nintendo Shop Demo May 2003
+﻿301-任天堂GameCube服务光盘版1.0-03
+D29-月度任天堂商店演示 - 2002/5
+D32-月度任天堂商店演示 - 2002/6
+D33-月度任天堂商店演示 - 2002/7
+D34-月度任天堂商店演示 - 2002/8
+D38-月度任天堂商店演示 - 2002/9
+D43-时之笛&里时之笛(日)(角色扮演)
+D4B-生化危机 4: 预览光盘
+D53-月度任天堂商店演示 - 2003/5
 D55-Interactive Disc Catalog Summer 2003
-D56-Interactive Multi-Game Demo Disc Version 35
-D57-Interactive Multi-Game Demo Disc Version 34
-D58-Interactive Multi-Game Demo Disc Version 33
-D59-Interactive Multi-Game Demo Disc Version 32
-D62-Interactive Multi-Game Demo Disc Version 31
-D63-Interactive Multi-Game Demo Disc Version 30
-D64-Interactive Multi-Game Demo Disc Version 28
-D65-Interactive Multi-Game Demo Disc Version 29
-D66-Interactive Multi-Game Demo Disc Version 27
-D67-Interactive Multi-Game Demo Disc Version 26
-D68-Interactive Multi-Game Demo Disc Version 25
-D69-Interactive Multi-Game Demo Disc Version 24
-D72-Interactive Multi-Game Demo Disc Version 23
-D73-Interactive Multi-Game Demo Disc Version 22
-D74-Interactive Multi-Game Demo Disc Version 21
-D75-Interactive Multi-Game Demo Disc Version 20
-D76-Interactive Multi-Game Demo Disc Version 19
-D77-Interactive Multi-Game Demo Disc Version 18
-D78-Interactive Multi-Game Demo Disc Version 17
-D79-Interactive Multi-Game Demo Disc Version 16
-D82-Interactive Multi-Game Demo Disc Version 15
-D83-Interactive Multi-Game Demo Disc Version 14
-D84-Interactive Multi-Game Demo Disc Version 13
-D85-Interactive Multi-Game Demo Disc Version 12
-D86-Interactive Multi-Game Demo Disc Version 11
-D87-Interactive Multi-Game Demo Disc March 2004
-D88-Interactive Multi-Game Demo Disc Version 10
-D89-Interactive Multi-Game Demo Disc Version 9
-D92-Interactive Multi-Game Demo Disc Version 8
-D93-Interactive Multi-Game Demo Disc Version 7
-D94-Interactive Multi-Game Demo Disc February 2003
-D95-Interactive Multi-Game Demo Disc December 2002
+D56-Interactive Multi-Game Demo Disc - Version 35
+D57-Interactive Multi-Game Demo Disc - Version 34
+D58-Interactive Multi-Game Demo Disc - Version 33
+D59-Interactive Multi-Game Demo Disc - Version 32
+D62-Interactive Multi-Game Demo Disc - Version 31
+D63-Interactive Multi-Game Demo Disc - Version 30
+D64-Interactive Multi-Game Demo Disc - Version 29
+D65-Interactive Multi-Game Demo Disc - Version 28
+D66-Interactive Multi-Game Demo Disc - Version 27
+D67-Interactive Multi-Game Demo Disc - Version 26
+D68-Interactive Multi-Game Demo Disc - Version 25
+D69-Interactive Multi-Game Demo Disc - Version 24
+D72-Interactive Multi-Game Demo Disc - Version 23
+D73-Interactive Multi-Game Demo Disc - Version 22
+D74-Interactive Multi-Game Demo Disc - Version 21
+D75-Interactive Multi-Game Demo Disc - Version 20
+D76-Interactive Multi-Game Demo Disc - Version 19
+D77-Interactive Multi-Game Demo Disc - Version 18
+D78-Interactive Multi-Game Demo Disc - Version 17
+D79-Interactive Multi-Game Demo Disc - May 2005
+D82-Interactive Multi-Game Demo Disc - April 2005
+D83-Interactive Multi-Game Demo Disc - February 2005
+D84-Interactive Multi-Game Demo Disc - November 2004
+D85-Interactive Multi-Game Demo Disc - July 2004
+D86-Interactive Multi-Game Demo Disc - May 2004
+D87-任天堂GameCube预览光盘2003
+D88-Interactive Multi-Game Demo Disc - November 2003
+D89-Interactive Multi-Game Demo Disc - September 2003
+D92-Interactive Multi-Game Demo Disc - June 2003
+D93-Interactive Multi-Game Demo Disc - April 2003
+D94-Interactive Multi-Game Demo Disc - February 2003
+D95-Interactive Multi-Game Demo Disc - December 2002
 D96-Interactive Multi-Game Demo Disc November 2002
-DAL-Dairantou Smash Brothers DX (Demo)
-DBZ-Biohazard Zero: Trial Edition
-DEZ-Billy Hatcher and the Giant Egg (Demo) 
-DLS-Star Wars: Rogue Squadron III: Rebel Strike: Limited Edition Bonus Disc (Demo)
-DNU-Naruto Clash of Ninja 2 (Demo)
-DPN-P.N.03 (Promo)
+DAL-任天堂明星大乱斗DX(日)(格斗类) (Demo)
+DBZ-生化危机 0: 试用版
+DEZ-巨蛋比利大冒险 (Demo) 
+DLS-星球大战：侠盗中队3(动作射击类) (Demo)
+DNU-火影忍者：激斗忍者大战2(格斗类) (Demo)
+DPN-P.N.03 (宣传片)
 DTL-Action Replay
-DVJ-Viewtiful Joe (Promotional demo)
-G2B-Black & Bruised
-G2C-True Crime: New York City
-G2F-Tak 2: The Staff of Dreams
-G2G-Mobile Suit Gundam: Gundam vs. Z Gundam
-G2K-NHL 2K3
-G2M-Metroid Prime 2: Echoes
-G2O-Prince of Persia: Warrior Within
-G2P-Spirits And Spells
-G2R-Shrek SuperSlam
-G2S-Shikigami no Shiro II
-G2T-Tony Hawk's Underground 2
-G2V-Viewtiful Joe 2
-G2X-Sonic Gems Collection
-G3A-Lord of the Rings: The Third Age
-G3B-Serious Sam: Next Encounter
-G3D-Carmen Sandiego: The Secret of the Stolen Drums
-G3E-XGIII: Extreme G Racing
-G3F-TimeSplitters: Future Perfect
-G3J-Curious George
-G3L-Super Monkey Ball Adventure
-G3M-Tom Clancy's The Sum of All Fears
-G3N-NARUTO Gekito Ninja Taisen! 3
-G3Q-Teenage Mutant Ninja Turtles 3: Mutant Nightmare
-G3R-Shrek 2
-G3S-Bust-A-Move 3000
-G3V-NBA Street Vol.3
-G3X-X-Men: The Official Game
-G3Y-Shrek Super Slam
-G4A-Harvest Moon: Magical Melody
-G4B-Resident Evil 4
-G4C-Charlie and the Chocolate Factory
-G4F-FIFA Soccer 07
-G4G-Harvest Moon: Another Wonderful Life
-G4I-Shrek Smash n' Crash Racing
-G4M-The Sims: Bustin' Out
-G4N-NARUTO Gekito Ninja Taisen! 4
-G4O-The Sims 2: Pets
-G4Q-Super Mario Strikers
-G4S-The Legend of Zelda: Four Swords Adventures
-G4Z-The Sims 2
-G5B-Strike Force Bowling
-G5D-Scooby-Doo! - Unmasked
-G5N-Namco Museum 50th Anniversary
-G5S-Spyro: A Hero's Tail
-G5T-Tiger Woods PGA Tour 2005
-G62-Major League Baseball 2k6
-G63-Tom Clancy's Rainbow Six 3
-G6F-2006 FIFA World Cup
-G6M-Madden NFL 06
-G6N-NBA Live 06
-G6Q-Mega Man Anniversary Collection
-G6S-The Legend of Spyro: A New Beginning
-G6T-Teen Titans
-G6W-Tiger Woods PGA Tour 06
-G7M-Madden NFL 07
-G89-Pac Man - World Rally
-G8F-Virtua Quest
-G8M-Paper Mario: The Thousand-Year Door
-G8O-Bobobo-bo Bo-bobo Dassutsu! Hajike Royale
-G8S-Battle Stadium D.O.N
-G8W-Battalion Wars
-G94-Interactive Multi-Game Demo Disc August 2002
-G95-Interactive Multi-Game Demo Disc July 2002
-G96-Interactive Multi-Game Demo Disc June 2002
-G97-Interactive Multi-Game Demo Disc March 2002
-G98-Interactive Multi-Game Demo Disc May 2002
-G99-Interactive Multi-Game Demo Disc March 2002
-G9B-Mark Davis Pro Bass Challenge
-G9R-Crash Tag Team Racing
-G9S-Sonic Heroes
-G9T-Shark Tale
-GA2-All-Star Baseball 2002
-GA3-All-Star Baseball 2003
-GA4-All-Star Baseball 2004
-GA7-Backyard Sports Baseball 2007
-GAA-Disney's Mickey & Minnie Trick & Chase
-GAB-Zatch Bell! Mamodo Fury
-GAC-Army Men: Air Combat The Elite Missions
-GAE-Doubutu no mori e+
-GAF-Animal Crossing
-GAG-Asterix & Obelix XXL
-GAH-Alien Hominid
-GAK-Midway Arcade Treasures
-GAL-Super Smash Bros. Melee
-GAM-Army Men Sarges War
-GAN-Animaniacs: The Great Edgar Hunt
-GAP-American Chopper 2 - Full Throttle
-GAQ-Aquaman: Battle of Atlantis
-GAR-Army Men: RTS
-GAS-Sonic Adventure DX
-GAT-ATV Quad Power Racing 2
-GAU-Auto Modellista
-GAV-Avatar The Last Airbender
-GAX-The Ant Bully
-GAY-Midway Arcade Treasures 2
-GAZ-Harry Potter and the Prisoner of Azkaban
-GB2-Bomberman Land 2
-GB3-BMX XXX
-GB4-Burnout 2: Point of Impact
-GBA-NBA 2K2
-GBD-BloodRayne
-GBF-Backyard Football
-GBG-Bomberman Generation
-GBH-Mystic Heroes
-GBI-Resident Evil
-GBK-Backyard Baseball
-GBL-Bloody Roar: Primal Fury
-GBM-Batman: Dark Tomorrow
-GBN-Warrior Blade: Rastan vs. Barbarian
-GBO-Burnout
-GBQ-Rocket Power: Beach Bandits
-GBS-Beach Spikers: Virtua Beach Volleyball
-GBT-Beyblade VForce - Super Tournament Battle
-GBV-Batman: Vengeance
-GBW-Star Wars Bounty Hunter
-GBX-Dave Mirra Freestyle BMX 2
-GBY-Super Bubble Pop
-GBZ-Resident Evil Zero
-GC2-Conflict: Desert Storm II: Back to Baghdad
-GC3-Scooby-Doo!: Mystery Mayhem
-GC4-Shinseiki GPX Cyber Formula Road To The EVOLUTION
-GC5-Cocoto: Kart Racer
-GC6-Pokemon Colosseum
+DVJ-红侠乔伊 (促销 demo)
+G2B-卡通拳击 鼻青脸肿(动作类)Black & Bruised (USA)
+G2C-真实犯罪 纽约(动作射击类)
+G2F-罗顿梦想之杖Nickelodeon Tak 2
+G2G-机动战士高达高达VS Z高达
+G2K-国家冰球联盟2K3(体育类)NHL 2K3 (USA)
+G2M-银河战士 前传2 黑暗回声
+G2O-波斯王子2：武者之心(动作类)
+G2P-幽灵与符咒ACT(动作类)
+G2R-梦工厂 史莱克-超级大满贯(动作类)
+G2S-式神之城2
+G2T-托尼·霍克地下滑板1(运动类)Tony Hawk's Underground 2 (Europe) (En,Fr,De)
+G2V-红侠乔伊2(动作类)Viewtiful Joe 2
+G2X-索尼克珠玉作品合辑(动作类)Sonic Gems Collection
+G3A-指环王：第三纪元(动作类)
+G3B-英雄萨姆 再次遭遇(动作射击类)
+G3D-怪盗卡门 遗失鼓的秘密(动作类)
+G3E-极限摩托RA (竞速类)
+G3F-时空分裂者3 完美未来(第一人称射击)
+G3J-好奇猴乔治(动作类)Curious George
+G3L-超级猴球大冒险(动作类)Super Monkey Ball Adventure
+G3M-汤姆·克兰西 幽灵行动(动作射击类)Tom Clancy's The Sum of All Fears
+G3N-火影忍者 激斗忍者大战3
+G3Q-忍者神龟3异种梦魇(动作类)
+G3R-怪物史莱克2(动作类)Shrek 2
+G3S-泡泡龙3000(益智类)Bust-A-Move 3000 (USA)
+G3V-街头篮球(体育类)
+G3X-X战警：官方游戏(动作类)
+G3Y-史莱克大乱斗(格斗类)Shrek Super Slam
+G4A-牧场物语：幸福之诗SIM(模拟养成类)
+G4B-生化危机4(动作射击类)Biohazard 4
+G4C-查理与巧克力工厂(动作类)Charlie and the Chocolate Factory
+G4F-国际足球大联盟2007(体育类)
+G4G-牧场物语 美丽人生 女生版(模拟养成类)
+G4I-史莱克冲撞赛车(竞速类)Shrek Smash n' Crash Racing
+G4M-模拟人生之纯属意外(模拟养成类)The Sims Bustin' Out
+G4N-火影忍者 激斗忍者大战4
+G4O-模拟人生2-宠物(模拟养成类)
+G4Q-马里奥足球(运动类)Mario Smash Football
+G4S-塞尔达传说 - 4支剑(角色扮演)
+G4Z-模拟人生2(模拟养成类)The Sims 2
+G5B-强力保龄球(运动类)Strike Force Bowling
+G5D-史酷比！揭露(动作类)
+G5N-南梦宫50周年纪念合集(动作类)Namco Museum 50th Anniversary
+G5S-小龙斯派罗：英雄之尾(动作类)
+G5T-泰格伍兹高尔夫球巡回赛2005(运动类)Tiger Woods PGA Tour 2005
+G62-美国职业棒球2K6(运动类)
+G63-汤姆克兰 彩虹六号3(动作射击类)Tom Clancy's Rainbow Six 3 (USA)
+G6F-2006国际足联世界杯(体育类)
+G6M-劲爆美式橄榄球06(体育类)Madden NFL 06
+G6N-美国职业篮球实况2006(体育类)NBA Live 06 (USA)
+G6Q-洛克人 周年收藏(动作类)Mega Man Anniversary Collection (USA)
+G6S-小龙斯派罗：新的开始(动作类)
+G6T-少年泰坦(动作类)Teen Titans (USA) (En,Fr)
+G6W-泰格伍兹高尔夫球巡回赛2006(运动类)Tiger Woods PGA Tour 06 (USA)
+G7M-劲爆美式橄榄球07(体育类)Madden NFL 07
+G89-吃豆人世界拉力赛Pac-Man World Rally (USA)
+G8F-VR战士：虚拟任务(射击类)Virtua Quest
+G8M-马里奥RPG
+G8O-爆裂鼻毛真拳(动作类)Bobobo-bo Bo-bobo Dassutsu! Hajike Royale
+G8S-D.O.N 大乱斗 Battle Stadium D.O.N
+G8W-军团大战(射击类)Battalion Wars
+G94-交互式多游戏演示光盘2002年八月Interactive Multi-Game Demo Disc - August 2002 (USA)
+G95-交互式多游戏演示光盘2002年七月Interactive Multi-Game Demo Disc - July 2002 (USA)
+G96-交互式多游戏演示光盘2002年六月Interactive Multi-Game Demo Disc - June 2002 (USA)
+G97-Interactive Multi Game Demo Disc - September 2002
+G98-交互式多游戏演示光盘2002年一月Interactive Multi-Game Demo Disc - January 2002 (USA)
+G99-交互式多游戏演示光盘2002年三月Interactive Multi-Game Demo Disc - March 2002 (USA)
+G9B-麦克大卫钓鱼Mark Davis Pro Bass Challenge
+G9R-古惑狼赛车：团队竞速(竞速类)Crash Tag Team Racing
+G9S-索尼克英雄(动作类)Sonic Heroes
+G9T-鲨鱼故事(动作类)Shark Tale
+GA2-全明星棒球2002(运动类)All-Star Baseball 2002 (USA)
+GA3-全美明星棒球2003一个队长(运动类)All-Star Baseball 2003 featuring Derek Jeter (USA)
+GA4-全明星棒球2004(运动类)All-Star Baseball 2004 featuring Derek Jeter (USA)
+GA7-后院运动：棒球2007(运动类)Backyard Sports Baseball 2007
+GAA-迪士尼米奇美妮把戏与追逐
+GAB-金色的卡修：咆哮吧! 友情战队Zatch Bell! Mamodo Fury
+GAC-玩具兵大战：空中追击(动作射击类)
+GAE-Doubutu no Mori e+
+GAF-动物之森(角色扮演)Animal Crossing
+GAG-幻想新国度(角色扮演)Asterix & Obelix XXL (E)
+GAH-外星原人Alien Hominid.USA[MOONCUBE]
+GAK-Midway经典街机游戏集1ETC(合集类)Midway Arcade Treasures 1
+GAL-任天堂明星大乱斗DX(格斗类)Dairantou Smash Brothers DX[Jap]
+GAM-玩具兵大战：萨基战争(动作射击类)Army Men Sarges War
+GAN-伟大的艾德加胡特(动作类)
+GAP-美国机车2：全速前进(竞速类)American Chopper 2 - Full Throttle (USA)
+GAQ-潜水员- 亚特兰蒂斯之战
+GAR-玩具兵大战即时战略版
+GAS-索尼克大冒险DX(动作类)Sonic Adventure DX
+GAT-沙地摩托车热力赛2(角色扮演)ATV Quad Power Racing 2
+GAU-网络极速赛车(竞速类)Auto Modellista
+GAV-降世神通：最后的气宗(动作类)Avatar The Last Airbender
+GAX-别惹蚂蚁(动作类)The Ant Bully
+GAY-Midway经典街机游戏集2ETC(合集类)Midway Arcade Treasures 2
+GAZ-哈利·波特与阿兹卡班的囚徒(动作类)Harry Potter and the Prisoner of Azkaban (USA)
+GB2-炸弹人大陆2(动作类)Bomberman Land 2 Game Jijousaidai no Theme Park
+GB3-极限自行车挑战赛(竞速类)BMX XXX
+GB4-横冲直撞2死亡终点(竞速类)
+GBA-美国职业篮球篮球2002(体育类)NBA 2K2
+GBD-吸血莱恩(动作类)BloodRayne
+GBF-后院橄榄球(运动类)Backyard Football
+GBG-炸弹人世代(益智类)Bomberman Generation (Europe) (En,Fr,De,Es,It)
+GBH-战斗封神(动作类)Mystic Heroes
+GBI-任迷俱乐部 2(益智类)Resident Evil 2.PAL
+GBK-后院棒球 改装(运动类)Backyard Baseball REPACK READNFO.USA[MOONCUBE]
+GBL-血腥咆哮(格斗类)
+GBM-蝙蝠侠：黑暗未来(动作类)
+GBN-战士之刃拉斯坦对蛮族
+GBO-横冲直撞(竞速类)Burnout.PAL
+GBQ-尼克火箭动力-沙滩强盗
+GBS-沙滩重扣：VR沙滩排球 (体育类)
+GBT-爆转陀螺2002激斗赛Beyblade VForce - Super Tournament Battle (USA)
+GBV-蝙蝠侠：复仇(动作类)Batman Vengeance
+GBW-星球大战：赏金猎人FPS(第一人称射击)Star Wars Bounty Hunter
+GBX-戴夫米拉自由式小轮车2 Dave Mirra Freestyle BMX 2 (USA)
+GBY-超级立体泡泡Super Bubble Pop (USA)
+GBZ-生化危机Zero(动作射击类)Resident Evil Zero.USA
+GC2-沙漠风暴2回到巴格达(第一人称射击)
+GC3-史酷比！神秘的混乱(动作类)
+GC4-闪电霹雳车无限之路Shinseiki GPX Cyber Formula Road To The EVOLUTION
+GC5-魔怪卡丁车(竞速类)
+GC6-口袋妖怪竞技场(动作类)
 GC7-Cocoto Platform Jumper
-GC9-Conan
-GCA-Cubix: Robots for Everyone Showdown
-GCB-Crash Bandicoot: The Wrath of Cortex
-GCC-Final Fantasy Crystal Chronicles
-GCD-Resident Evil Code: Veronica X
-GCE-Tom Clancy's Splinter Cell
-GCF-Conflict: Desert Storm
-GCG-Charlie's Angels
-GCH-WWE Crush Hour
-GCI-The Sims
+GC9-柯南Conan
+GCA-酷比克机器人(动作类)
+GCB-古惑狼 4(动作类)
+GCC-最终幻想水晶编年史(角色扮演)
+GCD-生化危机 代号: 维罗妮卡 完全版
+GCE-汤姆克兰 细胞分裂2明日潘多拉(动作射击类)
+GCF-沙漠风暴(第一人称射击)
+GCG-霹雳娇娃(动作类)Charlie's Angels
+GCH-美国职业摔角WWE Crush Hour (USA)
+GCI-模拟人生(模拟养成类)The Sims
 GCJ-Tom Clancy's Splinter Cell: Chaos Theory
-GCL-Cel Damage
+GCL-巨大损伤(动作类)Cel Damage
 GCM-Muscle Champion ~Battle of Muscle Island~
-GCN-Crash Nitro Kart
+GCN-古惑狼赛车(竞速类)Crash Nitro Kart
 GCO-Call of Duty: Finest Hour
 GCP-Casper: Spirit Dimensions
-GCQ-Buffy the Vampire Slayer: Chaos Bleeds
-GCS-Street Racing Syndicate
-GCT-Crazy Taxi
-GCU-NCAA Football 2005
+GCQ-Buffy The Vampire Slayer Chaos Bleeds
+GCS-街头赛车联盟(竞速类)SRS - Street Racing Syndicate (USA)
+GCT-疯狂出租车(竞速类)Crazy Taxi
+GCU-美国大学橄榄球2005(体育类)NCAA Football 2005 (USA)
 GCV-Cubivore: Survival of the Fittest
-GCW-Castleween
-GCZ-Catwoman
-GD4-Dinotopia - The Sunstone Odyssey
-GD6-Digimon Rumble Arena 2
-GD7-Dragon Ball Z - Budokai
-GD9-Drome Racers
-GDC-Speed Kings
+GCW-古堡幽灵(动作类)Castleween.PAL[NGC-METHS]
+GCZ-猫女(动作类)Catwoman (Europe) (En,Fr,De,Es,It,Nl)
+GD4-恐龙帝国：太阳石传说(动作类)Dinotopia - The Sunstone Odyssey (USA)
+GD6-数码宝贝：竞技场2(格斗类)Digimon Rumble Arena 2
+GD7-龙珠Z：武道会1(格斗类)Dragon Ball Z - Budokai (USA)
+GD9-乐高疯狂赛车(竞速类)LEGO Drome Racers
+GDC-速度之王(竞速类)Speed Kings (USA)
 GDD-Disney's Donald Duck: Goin' Quackers
-GDE-Baldur's Gate: Dark Alliance
-GDF-Defender: For All Mankind
+GDE-Baldur's Gate Dark Alliance
+GDF-守护者Defender
 GDG-Dragon's Lair 3D: Return to the Lair
 GDI-Die Hard: Vendetta
-GDJ-Digimon World 4
+GDJ-数码宝贝世界4(角色扮演)Digimon World 4
 GDK-Disney Sports Soccer
-GDL-Disney Sports: Basketball
-GDM-Disney's Magical Mirror Starring Mickey Mouse
+GDL-迪斯尼明星篮球(运动类)Disney Sports Basketball
+GDM-迪士尼魔幻乐园(动作类)Disney's Magical Mirror Starring Mickey Mouse
 GDO-Disney's Donald Duck PK
 GDP-Mr. Driller: Drill Land
-GDQ-Darkened Skye
-GDR-Dead to Rights
-GDS-Dark Summit
-GDT-Def Jam Vendetta
-GDV-Driven
-GDW-Disney Sports Football
+GDQ-黑暗猎手(动作射击类)Darkened Skye
+GDR-脱狱潜龙(动作射击类)Dead to Rights (USA)
+GDS-黑暗巅峰滑雪(运动类)Dark Summit
+GDT-街头教父(运动类)Def Jam Vendetta
+GDV-生死极速(竞速类)Driven
+GDW-迪斯尼运动：橄榄球(运动类)Disney Sports Football
 GDX-Disney Sports Skateboarding
-GE3-Midway Arcade Treasures 3
-GE4-4x4 Evo 2
+GE3-Midway经典街机游戏集3ETC(合集类)Midway Arcade Treasures 3
+GE4-4X4方程式赛车2(竞速类)4x4 Evo 2 (USA)
 GE5-TMNT: Mutant Melee
 GE9-Ed, Edd n Eddy: The Mis-Edventures
-GEA-Skies of Arcadia Legends
-GEB-Evolution Snowboarding
-GED-Eternal Darkness: Sanity's Requiem
-GEJ-Jikkyou Powerful Pro Yakyuu 11 Chou Ketteiban
+GEA-永恒的阿卡迪亚(角色扮演)Skies of Arcadia Legends.PAL
+GEB-进化滑雪(竞速类)Evolution Snowboarding
+GED-Eternal Darkness: Manekareta 13-nin
+GEJ-实况力量棒球11Jikkyou Powerful Pro Yakyuu 11 Chou Ketteiban (NTSC-J)
 GEM-Egg Mania: Eggstreme Madness
-GEN-James Bond 007: Everything Or Nothing
-GEO-Capcom Vs. SNK2 EO: Millionaire Fighting 2001
-GES-Evolution Skateboarding
-GEV-Shinki Sekai Evolutia
-GEW-Evolution Worlds
+GEN-007: Everything or Nothing
+GEO-嘉富康对SNK 2百万格斗2001 Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (USA)
+GES-进化滑板(运动类)Evolution Skateboarding (USA)
+GEV-世界evolutia姬Shinki Sekai Evolutia (J)
+GEW-神机世界(动作类)Evolution Worlds
 GEX-Disney Extreme Skate Adventure
-GEY-Fight Night Round 2
-GEZ-Billy Hatcher and the Giant Egg
-GF2-F1 2002
-GF3-NFL 2K3
-GF4-Fantastic Four
-GF5-FIFA Soccer 2005
-GF6-FIFA Soccer 06
+GEY-拳击之夜2Fight Night Round 2
+GEZ-光与蛋：比利哈恰的大冒险(动作类)Billy Hatcher and the Giant Egg (USA)
+GF2-一级方程式赛车2002(竞速类)F1 2002
+GF3-橄榄球2K3 NFL 2K3 (Europe)
+GF4-神奇4侠(动作类)Fantastic 4 (USA)
+GF5-FIFA Football 2005
+GF6-FIFA 06
 GF7-Star Fox: Assault
-GF8-FIFA Street
-GFA-FIFA Soccer 2003
-GFB-Fireblade
-GFC-F1 Career Challenge
-GFD-Freedom Fighters
+GF8-国际足球街头足球2(体育类)FIFA Street 2
+GFA-国际足联足球2003(体育类)FIFA Football 2003 (Europe)
+GFB-火焰FireBlade (USA)
+GFC-一级职业车手挑战大赛(竞速类)F1 Career Challenge.Pal[GC-RARE]
+GFD-自由战士FPS(第一人称射击)Freedom Fighters
 GFE-Fire Emblem: Path of Radiance
-GFF-Freaky Flyers
-GFG-Frogger Beyond
-GFH-Neighbours From Hell
-GFI-2002 FIFA World Cup
-GFK-Freekstyle
-GFN-Finding Nemo
+GFF-捍卫战士A(动作射击类)Freaky Flyers (USA) (Disc 1)
+GFG-青蛙远行(动作类)Frogger Beyond
+GFH-整蛊邻居(动作类)Neighbours From Hell (E)
+GFI-2002国际足联世界杯(体育类)2002 FIFA World Cup (Europe)
+GFK-花式摩托(竞速类)Freekstyle (USA)
+GFN-海底总动员(动作类)Disney Pixar Finding Nemo
 GFO-The Fairly OddParents - Shadow Showdown
 GFP-Frogger: Ancient Shadow
 GFQ-Frogger's Adventures: The Rescue
-GFS-2002 FIFA World Cup
-GFT-Mario Golf: Toadstool Tour
+GFS-2002国际足联世界杯(体育类)2002 FIFA World Cup (Europe)
+GFT-Mario Golf: Family Tour
 GFU-Future Tactics: The Uprising
-GFV-NFL Blitz Pro
+GFV-职业橄榄球(体育类)NFL Blitz Pro (USA)
 GFW-The Fairly OddParents: Breakin' Da Rules
-GFX-Freestyle Metal X
-GFY-FIFA Street 2
-GFZ-F-Zero GX
-GG2-Trigger Man
-GG4-Gotcha Force
-GG5-Cabela's Big Game Hunter 2005
+GFX-花式摩托车X(竞速类)Freestyle Metal X (USA)
+GFY-国际足球街头足球2(体育类)FIFA Street 2
+GFZ-最高时速GX(竞速类)F-Zero GX (Europe) (En,Fr,De,Es,It)
+GG2-触发者(动作类)Trigger Man
+GG4-玩具战争(动作射击类)Gotcha Force
+GG5-坎贝拉猎人2005FPS(第一人称射击)Cabela's Big Game Hunter 2005
 GGA-Mobile Suit Gundam: The Ace Pilot
-GGC-Goblin Commander: Unleash the Horde
-GGE-Beyond Good & Evil
+GGC-Goblin Commander: Unleash The Horde
+GGE-超越善恶(动作类)Beyond Good & Evil (USA) (En,Es)
 GGF-GiFTPiA
 GGN-The Grim Adventures of Billy and Mandy
-GGP-SD Gundam Gashapon Wars
-GGR-Tom Clancy's Ghost Recon
+GGP-SD高达扭蛋战争SD Gundam Gashapon Wars (J)
+GGR-汤姆·克兰西 幽灵行动1(动作射击类)Tom Clancy's Ghost Recon (USA)
 GGS-Metal Gear Solid: The Twin Snakes
-GGT-Chibi-Robo!
+GGT-赤壁机器人冒险Chibi-Robo! Plug into Adventure! (USA)
 GGV-Spongebob Squarepants : The Movie
-GGY-Tom Clancy's Ghost Recon 2
-GGZ-Madagascar
+GGY-汤姆·克兰西 幽灵行动2(动作射击类)Tom Clancy's Ghost Recon 2 (USA) (En,Fr,Es)
+GGZ-马达加斯加(动作类)Madagascar
 GH2-Need for Speed: Hot Pursuit 2
-GH3-NHL 2003
-GH4-Harry Potter and the Goblet of Fire
+GH3-国家冰球联盟2003(体育类)NHL 2003 (USA)
+GH4-哈利·波特与火焰杯(动作类)Harry Potter and the Goblet of Fire (USA)
 GH5-Over The Hedge
 GH6-Hello Kitty: Roller Rescue
-GH7-Happy Feet
-GH9-Tony Hawk's American Wasteland
-GHA-Resident Evil 2
+GH7-快乐的大脚Music(音乐类)Happy Feet (USA) (En,Fr)
+GH9-托尼霍克滑板：美国荒野(竞速类)Tony Hawk's American Wasteland (Europe)
+GHA-生化危机2(动作射击类)Biohazard 2
 GHB-The Hobbit
-GHC-Chicken Little
-GHE-Homeland
-GHF-Pinball Hall Of Fame: The Gottlieb Collection
-GHG-Go! Go! Hypergrind
-GHK-Hulk
-GHL-Harry Potter and the Sorcerer's Stone
+GHC-四眼天鸡(动作类)Chicken Little
+GHE-家园(角色扮演)Homeland
+GHF-Pinball Hall of Fame: The Gottlieb Collection
+GHG-卡通滑板(竞速类)Go! Go! Hypergrind
+GHK-绿巨人(动作类)Hulk (USA)
+GHL-哈利波特与魔法石(动作类)Harry Potter and the Philosopher's Stone
 GHM-Hitman 2: Silent Assassin
 GHN-Hunter: The Reckoning
-GHP-Street Hoops
-GHQ-The Simpsons: Hit And Run
+GHP-街头灌篮秀(体育类)Street Hoops
+GHQ-The Simpsons: Hit & Run
 GHR-Hot Wheels: World Race
-GHS-Harry Potter and the Chamber of Secrets
-GHU-The Incredible Hulk: Ultimate Destruction
-GHV-Disney's Hide & Sneak
+GHS-哈利波特与密室(动作类)Harry Potter and the Chamber of Secrets (Europe)
+GHU-The Incredible Hulk Ultimate Destruction
+GHV-米老鼠的神奇魔镜Disney's Hide & Sneak (Europe) (En,Fr,De,Es,It)
 GHW-Hot Wheels: Velocity X
-GHY-The Haunted Mansion
-GHZ-NHL Hitz Pro
-GI2-Momotarou Dentetsu 12
-GIA-Ice Age 2: The Meltdown
-GIB-The Italian Job
-GIC-The Incredibles
+GHY-迪斯尼 鬼屋(动作类)Disney's The Haunted Mansion (USA)
+GHZ-全美职业冰球赛(运动类)NHL Hitz Pro
+GI2-桃太郎电铁12Momotarou Dentetsu 12 (NTSC-J)
+GIA-Ice Age 2 : The Meltdown
+GIB-偷天换日(竞速类)The Italian Job
+GIC-超人总动员1(动作类)The Incredibles
 GIG-Bleach GC: Tasogare Ni Mamieru Shinigami
 GIH-Scooby-Doo!  Night of 100 Frights
-GII-Momotarou Dentetsu 11
-GIJ-Space Raiders
-GIK-Ikaruga
-GIL-Aggressive Inline
-GIN-Batman Begins
+GII-桃太郎电铁11Momotarou Dentetsu 11 (NTSC-J)
+GIJ-太空捕手(运动类)Space Raiders
+GIK-斑鸠(飞行射击类)Ikaruga
+GIL-极限轮滑(运动类)Aggressive Inline
+GIN-蝙蝠侠：诞生(动作类)Batman Begins
 GIP-Shonen Jump's One Piece: Pirates Carnival
 GIQ-The Incredibles: Rise of the Underminer
-GIS-Second Sight
-GIT-Geist
-GIV-Intellivision Lives
+GIS-超能力战士(动作射击类)Second Sight
+GIT-幽灵AVG(冒险类)Geist (Europe) (En,Fr,De,Es,It)
+GIV-八十年代经典游戏集ETC(合集类)Intellivision Lives
 GIZ-Ty the Tasmanian Tiger 3: Night of the Quinkan
-GJ2-International Superstar Soccer 2
-GJ3-International Superstar Soccer 3
-GJB-Bomberman Jetters
+GJ2-国际足球巨星2(体育类)International Superstar Soccer 2.Pal[GC-RARE]
+GJ3-国际足球巨星3(体育类)International Superstar Soccer 3.PAL[GC-RARE]
+GJB-炸弹人杰特斯(动作类)Bomberman Jetters (USA)
 GJC-Samurai Jack: The Shadow of Aku
 GJD-Judge Dredd: Dredd vs. Death
 GJF-Jimmy Neutron Jet Fusion
 GJK-Star Wars Jedi Knight II: Jedi Outcast
-GJN-Jimmy Neutron Boy Genius
-GJS-Hudson Selection Vol.2: Star Soldier
-GJU-Tak and the Power of Juju
+GJN-天才小子吉米(动作类)Jimmy Neutron Boy Genius
+GJP-实况力量棒球11Jikkyou Powerful Pro Yakyuu 11 (NTSC-J)
+GJS-Hudson Selection Vol. 2: Star Soldier
+GJU-塔克和符咒的神力(动作类)Tak and the Power of Juju (USA)
 GJW-Tak: The Great JuJu Challenge
-GJX-Vexx
+GJX-威斯大冒险(动作类)Vexx
 GJY-Jimmy Neutron Boy Genius: Attack of the Twonkies
 GJZ-SeaWorld Adventure Parks: Shamu's Deep Sea Adventures
-GK2-Spider-Man 2
-GK3-NBA 2K3
-GK4-Baten Kaitos Origins
-GK5-Monster House
-GK7-Killer 7
-GK9-Karaoke Revolution Party
-GKA-Amazing Island
-GKB-Baten Kaitos: Eternal Wings and the Lost Ocean
-GKD-Doshin the Giant
+GK2-蜘蛛侠2(动作类)Spider-Man 2 (USA)
+GK3-美国职业篮球篮球2003(体育类)NBA 2K3
+GK4-Baten Kaitos II: Hajimari no Tsubasa to Kamigami no Shishi
+GK5-怪兽屋Monster House.PAL
+GK7-Killer7
+GK9-卡拉OK革命：派对Music(音乐类)Karaoke Revolution Party
+GKA-怪兽岛(动作类)Amazing Island
+GKB-Baten Kaitos Eternal Wings and the Lost Ocean
+GKD-巨人多西(动作类)Doshin the Giant
 GKE-PAWAFURU PUROYAKYU 12 KETTEIBAN
-GKF-Chaos Field
-GKG-Donkey Konga
-GKH-King Arthur
-GKJ-Cars
-GKK-Knockout Kings 2003
-GKL-The Lord of the Rings: The Return of the King
+GKF-混沌领域SLG(策略类)Chaos Field
+GKG-大金刚鼓1M.(音乐动作类)Donkey Konga
+GKH-亚瑟王(动作类)King Arthur
+GKJ-汽车总动员(竞速类)Cars
+GKK-敲除王2003 Knockout Kings 2003 (USA)
+GKL-Lord of the Rings: The Return of the King
 GKM-Prince of Persia: The Two Thrones
-GKN-Ultimate Muscle: Legends vs. New Generation
+GKN-Kinnikuman Nisei: Shinsedai Choujin vs Densetsu Choujin
 GKO-Kao The Kangaroo Round 2
-GKR-Ribbit King
-GKS-Kelly Slater's Pro Surfer
+GKP-实况力量棒球12Jikkyou Powerful Pro Yakyuu 12 (NTSC-J)
+GKQ-转转鸟猛击Kururin Squash! (J)
+GKR-兔子王(动作类)Ribbit King (USA) (En,Es)
+GKS-极限冲浪(运动类)Kelly Slater's Pro Surfer (USA)
 GKT-Captain Tsubasa: Ougon Sedai no Chousen
-GKU-Scaler
-GKW-Dream Mix TV World Fighters
-GKY-Kirby Air Ride
+GKU-攀登者(运动类)Scaler
+GKW-梦幻TV：世界战士DreamMix TV World Fighters
+GKY-卡比的飞板Kirby Air Ride.USA
 GKZ-Codename Kids Next Door - Operation V.I.D.E.O.G.A.M.E
-GL2-Legends of Wrestling II
+GL2-摔角传奇2(格斗类)Legends of Wrestling 2
 GL5-LEGO Star Wars: The Video Game
 GL7-LEGO Star Wars II: The Original Trilogy
 GL8-Lara Croft Tomb Raider: Legend
-GLB-Home Run King
+GLB-本垒打之王(运动类)Home Run King
 GLC-Lemony Snickets A Series Of Unfortunate Events
-GLE-Resident Evil 3: Nemesis
+GLE-BioHazard 3: Last Escape
 GLG-Largo Winch : Empire Under Threat
-GLH-Flushed Away
-GLJ-Radirgy
-GLL-Ratatouille
-GLM-Luigi's Mansion
+GLH-冲走小老鼠DreamWorks & Aardman Flushed Away (USA)
+GLJ-电波之剑(动作类)Radirgy Generic
+GLL-料理鼠王(动作类)Ratatouille
+GLM-路易的鬼屋(动作类)Luigi's Mansion
 GLN-Looney Tunes: Back in Action
 GLO-Lord of the Rings: The Two Towers
 GLQ-Tom Clancy's Rainbow Six: Lockdown
 GLR-Star Wars Rogue Squadron III: Rebel Strike
-GLS-Gladius
-GLU-Lotus Challenge
+GLS-角斗士(动作类)Gladius
+GLU-莲花赛车(竞速类)Lotus Challenge (USA)
 GLV-The Chronicles of Narnia: The Lion Witch and the Wardrobe
-GLW-Legends of Wrestling
-GLY-NBA Live 2005
-GLZ-James Bond 007: From Russia With Love
-GM2-Super Monkey Ball 2
-GM3-Madden NFL 2003
+GLW-摔角传奇2(格斗类)Legends of Wrestling 2
+GLY-美国职业篮球实况2005(体育类)NBA Live 2005 (USA)
+GLZ-007: From Russia With Love
+GM2-超级猴球2(动作类)Super Monkey Ball 2
+GM3-疯狂橄榄球2003(运动类)Madden NFL 2003 (USA)
 GM4-Mario Kart: Double Dash!!
 GM5-Metal Arms: Glitch in the System
-GM6-Medabots Infinity
-GM8-Metroid Prime
-GM9-Muppets Party Cruise
+GM6-徽章战士 无限(动作射击类)Medabots Infinity (USA) (v1.00)
+GM8-银河战士2(动作射击类)Metroid Prime.2
+GM9-芝麻街派对：大巡游PAR(派对类)Muppets Party Cruise
 GMA-Mary-Kate and Ashley: Sweet 16 Licensed to Drive
-GMB-Super Monkey Ball
-GMD-Madden NFL 2002
+GMB-超级猴球1(动作类)Super Monkey Ball
+GMD-疯狂橄榄球2002(运动类)Madden NFL 2002 (USA)
 GME-Men In Black II:  Alien Escape
 GMF-Medal of Honor: Frontline
-GMH-Mat Hoffman's Pro BMX 2
+GMH-马特 霍夫曼-专业特技脚踏车(竞速类)Mat Hoffman's Pro BMX 2 (USA)
 GMI-Mission Impossible: Operation Surma
 GMJ-Monster Jam: Maximum Destruction
 GMK-Mortal Kombat: Deadly Alliance
 GML-ESPN MLS Extra Time 2002
 GMN-Monsters, Inc. Scream Arena
-GMO-Micro Machines
-GMP-Mario Party 4
-GMQ-Monopoly Party
-GMR-Big Air Freestyle
-GMS-Super Mario Sunshine
-GMT-Disney's Party
-GMU-Dr. Muto
+GMO-微型机器(动作射击类)Micro Machines (E) (oRAR)
+GMP-马里奥聚会4(运动类)Mario Party 4
+GMQ-大富翁：聚会(益智类)Monopoly Party
+GMR-自由泳(运动类)Big Air Freestyle (USA)
+GMS-阳光马里奥(动作类)Super Mario Sunshine
+GMT-迪斯尼欢乐聚会(动作)Disney's Party 2005-5-29
+GMU-疯狂博士(益智类)Dr. Muto (USA)
 GMW-Minority Report: Everybody Runs
-GMX-Enter The Matrix
-GMY-Gekitou Pro Yakyuu
+GMX-黑客帝国(动作射击类)Enter The Matrix
+GMY-激斗职业棒球Gekitou Pro Yakyuu (NTSC-J)
 GMZ-Monster 4x4: Masters Of Metal
 GN2-Nascar: Dirt To Daytona
-GN3-NHL Hitz 2003
+GN3-全美职业冰球赛2003(运动类)NHL Hitz 2003
 GN4-Nascar 2005: Chase For The Cup
-GN5-NHL 2005
-GN6-NHL 06
-GN7-NFL Street 2
-GN8-NBA Live 2004
-GN9-Nickelodeon Party Blast
-GNA-NCAA College Football 2K3
-GNB-NBA Courtside 2002
+GN5-国家冰球联盟2005(体育类)NHL 2005 (USA) (En,Fr)
+GN6-冰上曲棍球06(运动类)NHL 06
+GN7-街头橄榄球2(体育类)NFL Street 2
+GN8-美国职业篮球实况2004(体育类)NBA Live 2004 (USA)
+GN9-点唱机疯狂派对(益智类)Nickelodeon Party Blast
+GNA-美国大学橄榄球2003(体育类)NCAA College Football 2K3
+GNB-美国职业篮球现场2002(体育类)NBA Courtside 2002
 GNC-Nascar Thunder 2003
-GND-Need For Speed Underground
-GNE-Finding Nemo
-GNF-NFL Blitz 2002
-GNG-NCAA Football 2003
-GNH-NHL Hitz 2002
+GND-Need for Speed: Underground
+GNE-海底总动员(动作类)Disney Pixar Finding Nemo
+GNF-橄榄球闪电战2002(运动类)NFL Blitz 2002
+GNG-美国大学橄榄球2003(体育类)NCAA Football 2003 (USA)
+GNH-NHL Hitz 20-02
 GNI-Teenage Mutant Ninja Turtles 2: Battle Nexus
-GNJ-I-Ninja
-GNK-NCAA College Basketball 2K3
-GNL-NBA Live 2003
-GNM-Namco Museum
-GNN-NFL Street
-GNO-Spongebob Squarepants & Friends: Unite!
-GNP-Nickelodeon Party Blast
-GNQ-Madden NFL 2005
-GNR-Naruto Clash of Ninja
-GNS-NBA Street
-GNU-Naruto Clash of Ninja 2
-GNV-NHL 2004
+GNJ-可爱忍者大冒险(动作类)I-Ninja (USA)
+GNK-美国大学篮球2003(体育类)NCAA College Basketball 2K3
+GNL-美国职业篮球实况2003(体育类)NBA Live 2003 (USA)
+GNM-南梦宫50周年纪念合集(动作类)Namco Museum 50th Anniversary
+GNN-街头橄榄球2(体育类)NFL Street 2
+GNO-海绵宝宝团结！(动作类)Nicktoons Unite! (USA)
+GNP-点唱机疯狂派对(益智类)Nickelodeon Party Blast
+GNQ-疯狂橄榄球2005(运动类)Madden NFL 2005 (USA)
+GNR-火影忍者：激斗忍者大战2(格斗类)Naruto Clash of Ninja 2
+GNS-街头篮球(体育类)NBA Street (USA)
+GNU-火影忍者：激斗忍者大战2(格斗类)Naruto Clash of Ninja 2
+GNV-国家冰球联盟2004(体育类)NHL 2004 (USA)
 GNW-Def Jam: Fight For NY
-GNX-NCAA Football 2004
+GNX-美国大学橄榄球2004(体育类)NCAA Football 2004 (USA)
 GNZ-NBA Street Vol.2
 GO2-Blood Omen 2: The Legacy of Kain Series
-GO3-NFL Blitz 2003
-GO7-James Bond 007: NightFire
-GOA-Cabela's Outdoor Adventures
-GOB-Bad Boys: Miami Takedown
-GOC-RoadKill
-GOF-Outlaw Golf
+GO3-橄榄球闪电战2003(运动类)NFL Blitz 2003
+GO7-007: NightFire
+GOA-坎贝拉野外冒险2006FPS(第一人称射击)Cabela's Outdoor Adventures 2006
+GOB-绝地战警2(动作射击类)Bad Boys II (Europe) (En,Fr,De,Es,It)
+GOC-公路猎杀RoadKill
+GOF-疯狂高尔夫(运动类)Outlaw Golf
 GOG-One Piece: Grand Battle! 3
-GOM-Mario Power Tennis
-GON-Medal of Honor: European Assault
-GOO-Odama
+GOM-马里奥网球(运动类)Mario Power Tennis
+GON-Medal of Honor: Europa Kyoushuu
+GOO-大玉(益智类)Odama
 GOP-One Piece: Grand Battle! Rush
 GOQ-One Piece: Grand Adventure
-GOS-Open Season
-GOU-Cocoto Funfair
-GOW-Need For Speed Most Wanted
+GOS-丛林大反攻(动作类)Open Season.PAL[Multi5][NGC-iND]
+GOU-卡卡多游乐场Cocoto Funfair.PAL[MULTi5][NGC-SUNSHiNE]
+GOW-Need for Speed: Most Wanted
 GOY-GoldenEye: Rogue Agent
-GP2-Pac-Man World 2
-GP3-The Polar Express
-GP4-Hudson Selection Vol.3: Bonk's Adventure
-GP5-Mario Party 5
-GP6-Mario Party 6
-GP7-Mario Party 7
-GP8-Pac-Man World 3
-GP9-Rogue Ops
-GPA-Pokemon Channel
+GP2-吃豆人世界2(动作类)Pac-Man World 2 (USA)
+GP3-极地特快(竞速类)The Polar Express
+GP4-Hudson Selection Vol. 3: Bonk's Adventure
+GP5-马里奥聚会5(运动类)Mario Party 5
+GP6-马里奥聚会6(运动类)Mario Party 6
+GP7-马里奥聚会7(运动类)Mario Party 7
+GP8-吃豆人世界3(动作类)Pac-Man World 3 (USA)
+GP9-女特务(动作类)Rogue Ops
+GPA-Pokémon Channel
 GPD-Dakar 2: The World's Ultimate Rally
-GPE-Pool Edge
+GPE-撞球边缘Sport(休闲运动类)Pool Edge
 GPH-Pitfall: The Lost Expedition
-GPI-Pikmin
+GPI-动物番长2(动作类)Pikmin 2.PAL
+GPJ-实况力量棒球10Jikkyou Powerful Pro Yakyuu 10 (NTSC-J)
 GPK-Disney's PK Out of the Shadows
-GPL-Piglet's Big Game
+GPL-迪斯尼 小猪大游戏(动作类)Disney's Piglet's Big Game (USA)
 GPM-Pac Man Fever
-GPN-P.N.03
-GPO-Phantasy Star Online Episode I & II
+GPN-制品3号(动作射击类)P.N.03
+GPO-梦幻之星 1&2 加强版(角色扮演)Phantasy Star Online Episode I & II Plus.JP
+GPP-实况力量棒球9 Jikkyou Powerful Pro Yakyuu 9 (NTSC-J)
 GPQ-The Powerpuff Girls: Relish Rampage
-GPR-Pool Paradise
+GPR-台球天堂Sport(休闲运动类)Pool Paradise
 GPS-Phantasy Star Online Episode III: C.A.R.D. Revolution
 GPT-Prince of Persia: The Sands of Time
-GPU-Puyo Pop Fever
-GPV-Pikmin 2
+GPU-魔法气泡狂热版(益智类)Puyo Pop Fever (USA) (En,Ja,Fr,De,Es,It)
+GPV-动物番长2(动作类)Pikmin 2.PAL
 GPW-Spawn: Armageddon
-GPX-Pokemon Box: Ruby & Sapphire
-GPY-Puyo Pop Fever
-GPZ-Nintendo Puzzle Collection
+GPX-Pokémon Box: Ruby & Sapphire
+GPY-魔法气泡狂热版(益智类)Puyo Pop Fever (USA) (En,Ja,Fr,De,Es,It)
+GPZ-任天堂方块合集(益智类)Nintendo Puzzle Collection
 GQ4-SpongeBob SquarePants: Creature from the Krusty Krab
-GQ8-Madden NFL 08
+GQ8-劲爆美式橄榄球08(体育类)Madden NFL 08
 GQB-NFL Quarterback Club 2002
 GQC-Call of Duty 2: Big Red One
 GQF-Franklin: A Birthday Surprise
-GQL-Dora The Explorer: Journey to the Purple Planet
+GQL-Dora the Explorer: Journey to the Purple Planet
 GQN-Mortal Kombat: Deception
 GQP-SpongeBob SquarePants: Battle for Bikini Bottom
-GQQ-SpongeBob SquarePants: Lights, Camera, PANTS!
-GQR-Hudson Selection Vol.1: Cubic Lode Runner
-GQS-Tales of Symphonia
-GQT-Meet the Robinsons
+GQQ-SpongeBob SquarePants: Lights, Camera, Pants!
+GQR-Hudson Selection Vol. 1: Cubic Lode Runner
+GQS-仙乐传说A(动作角色扮演)Tales of Symphonia
+GQT-迪斯尼 拜见罗宾逊一家(动作类)Disney's Meet the Robinsons (USA)
 GQW-Harry Potter: Quidditch World Cup
-GQX-Madden NFL 2004
-GR2-Lost Kingdoms 2
+GQX-疯狂橄榄球2004(运动类)Madden NFL 2004 (USA) (v1.00)
+GR2-神器之谜2(格斗类)Lost Kingdoms 2
 GR3-Red Card 2003
-GR4-MC Groovz Dance Craze
+GR4-劲爆热舞MC Groovz Dance Craze (USA)
 GR5-Robocop: Aratanaru Kiki
 GR6-Bratz: Rock Angelz
 GR8-Medal of Honor: Rising Sun
-GR9-Reign of Fire
-GRA-Rally Championship
-GRB-Robotech: Battlecry
-GRD-RedCard
+GR9-烈火帝国Reign of Fire
+GRA-拉力锦标赛(竞速类)Rally Championship
+GRB-Robotech : Battlecry
+GRD-茅趸足球2003(体育类)RedCard 2003
 GRE-Mega Man Network Transmission
-GRE-RockMan EXE Transmission
-GRF-Red Faction II
+GRF-红色派系2 Red Faction II (USA)
 GRH-Rayman 3: Hoodlum Havoc
-GRJ-R:Racing Evolution: Life in the Fast Lane
-GRK-Rocky
-GRL-Pro Rally
+GRJ-R: Racing
+GRK-洛基(动作类)Rocky
+GRL-职业拉力2002(竞速类)Pro Rally 2002
 GRM-Monopoly: Mezase!! Daifugou Jinsei!!
-GRN-Lost Kingdoms
-GRN-Rune
-GRO-Road Trip: The Arcade Edition
-GRO-Gadget Racers
-GRQ-City Racer
+GRN-神器之谜2(格斗类)Lost Kingdoms 2
+GRO-迷你赛车(竞速类)Gadget Racers.PAL[Multi3][NGC-NoMiS][and_PerPetRatOrS]
+GRQ-城市赛车手(竞速类)City Racer
 GRR-Rugrats: Royal Ransom
 GRS-SoulCalibur II
-GRU-Power Rangers Dino Thunder
-GRV-Rave Master
-GRW-Super Robot Taisen GC
-GRY-Rayman Arena
+GRU-恐龙战队：闪电暴龙Power Rangers Dino Thunder
+GRV-圣石小子(格斗类)Rave Master
+GRW-超级机器人大战GC(动作类)Super Robot Taisen GC
+GRY-雷曼：竞技场(格斗类)Rayman Arena
 GS2-Summoner: A Goddess Reborn
-GS3-SX Superstar
-GS7-MLB SlugFest 2004
+GS3-越野摩托超级明星(竞速类)SX Superstar
+GS7-美国职业棒球大联盟2004(运动类)MLB SlugFest 2004 (USA)
 GS8-Spyro: Enter the Dragonfly
-GS9-Shrek Extra Large
-GSA-Star Fox Adventures
+GS9-怪物史莱克：特大号(动作类)Shrek Extra Large
+GSA-星际火狐大冒险(动作类)Star Fox Adventures.PAL
 GSB-Sonic Adventure 2: Battle
 GSC-Jeremy McGrath SuperCross World
-GSD-Smashing Drive
+GSD-疯狂驾驶员(竞速类)Smashing Drive
 GSE-Shaman King: Soul Fight
-GSG-MLB SlugFest 2003
-GSH-SpyHunter
-GSK-The Scorpion King: Rise of the Akkadian
-GSM-Spider-Man: The Movie
+GSG-美国职业棒球大联盟2003(运动类)MLB SlugFest 2003 (USA)
+GSH-间谍猎手(动作射击类)SpyHunter (USA)
+GSK-The Scorpion King : Rise of the Akkadian
+GSM-蜘蛛侠1(动作类)Spider-Man (USA)
 GSN-Sonic Adventure 2: Battle
-GSO-Sonic Mega Collection
+GSO-索尼克百万合集(动作类)Sonic Mega Collection
 GSP-The Simpsons: Road Rage
 GSQ-SpongeBob SquarePants: Revenge of the Flying Dutchman
 GSR-Smuggler's Run: Warzones
-GSS-Sega Soccer Slam
-GST-SSX Tricky
+GSS-世嘉暴力足球Sega Soccer Slam
+GST-极限疾风滑雪板(运动类)SSX Tricky (USA)
 GSU-Superman: Shadow of Apokolips
 GSV-MX Superfly Featuring Ricky Carmichael
-GSW-Star Wars Rogue Squadron II: Rogue Leader
+GSW-Star Wars Rogue Leader: Rogue Squadron II
 GSX-Star Wars: The Clone Wars
 GSY-Shrek: Super Party
 GSZ-Speed Challenge: Jacques Villeneuve Racing Vision
-GT3-Tony Hawk's Pro Skater 3
-GT4-Tony Hawk's Pro Skater 4
-GT5-Starsky & Hutch
+GT3-托尼·霍克职业滑板3(竞速类)Tony Hawk's Pro Skater 3
+GT4-托尼·霍克职业滑板4(竞速类)Tony Hawk's Pro Skater 4
+GT5-警界双雄(动作类)Starsky & Hutch (USA)
 GT6-Terminator 3: The Redemption
 GT7-Tom Clancy's Splinter Cell: Pandora Tomorrow
-GT8-Big Mutha Truckers
-GTA-Top Angler: Real Bass Fishing
-GTC-GT Cube
-GTD-Tony Hawk's Underground
-GTE-1080 Avalanche
-GTF-Teenage Mutant Ninja Turtles
+GT8-重金属卡车司机(竞速类)Big Mutha Truckers
+GTA-Top Angler : Real Bass Fishing
+GTC-卡通跑车(竞速类)GT Cube
+GTD-托尼·霍克地下滑板1(运动类)Tony Hawk's Underground
+GTE-1080度雪崩(运动类)1080° Avalanche
+GTF-忍者神龟2并肩作战(动作类)Teenage Mutant Ninja Turtles 2 Battle Nexus  
 GTG-Top Gun: Combat Zones
-GTH-Charinko Hero
-GTI-Tiger Woods PGA Tour 2003
+GTH-三轮车英雄(竞速类)Charinko Hero
+GTI-泰格伍兹高尔夫球巡回赛2003(运动类)Tiger Woods PGA Tour 2003 (USA)
 GTJ-Tom & Jerry in War of the Whiskers
-GTK-Turok Evolution
+GTK-恐龙猎人：进化Turok Evolution
 GTL-True Crime: Streets of LA
-GTN-Hudson Selection Vol.4: Adventure Island
-GTO-Tales of Symphonia
+GTN-Hudson Selection Vol. 4: Adventure Island
+GTO-仙乐传说A(动作角色扮演)Tales of Symphonia
 GTP-Knights Of The Temple : Infernal Crusade
 GTQ-Tonka: Rescue Patrol
-GTR-Tetris Worlds
-GTS-TimeSplitters 2
-GTU-Tube Slider - The Championship of Future Formula
+GTR-俄罗斯方块世界(益智类)Tetris Worlds
+GTS-时空分裂者2FPS(第一人称射击)TimeSplitters 2
+GTU-管型滑道 未来式的冠军Tube Slider - The Championship of Future Formula (USA)
 GTV-Transworld Surf: Next Wave
-GTW-Taz Wanted
-GTY-Ty: The Tasmanian Tiger
-GTZ-Tarzan Untamed
+GTW-通天要犯：疯狂大逃亡(动作类)Taz Wanted
+GTY-Ty the Tasmanian Tiger
+GTZ-Tarzan Freeride
 GU2-2 Games in 1: The Incredibles / Finding Nemo
 GU3-2 Games in 1: The SpongeBob SquarePants Movie / Tak 2: The Staff of Dreams
 GU4-2 Games in 1: The SpongeBob SquarePants Movie / Battle for Bikini Bottom
-GU6-Nicktoons - Battle for Volcano Island
-GUB-The Urbz: Sims in the City
+GU6-海绵宝宝-火山岛之战(动作类)Nicktoons - Battle for Volcano Island (USA)
+GUB-The Urbz: Sims In The City
 GUC-UEFA Champions League 2004-2005
-GUF-Ultimate Fighting Championship Throwdown
-GUG-Need For Speed Underground 2
-GUM-Gun
+GUF-UFC: Throwdown
+GUG-Need for Speed: Underground 2
+GUM-SD高达：扭蛋战争(动作类)SD Gundam  Gashapon Wars
 GUN-Gauntlet: Dark Legacy
-GUP-Shadow The Hedgehog
-GUS-Universal Studios Theme Park Adventure
-GUT-Ultimate Spider-Man
-GUV-Freestyle Street Soccer
-GUZ-Batman: Rise of Sin Tzu
+GUP-刺猬阴影(动作类)Shadow the Hedgehog (Europe) (En,Fr,De,Es,It)
+GUS-环球主题公园大冒险(动作类)Universal Studios Theme Park Adventure
+GUT-终极蜘蛛侠(动作类)Ultimate Spider-Man (USA)
+GUV-城市街头足球Freestyle Street Soccer (USA)
+GUZ-蝙蝠侠：辛特组的复活(动作类)Batman Rise of Sin Tzu
 GV3-V-Rally 3
-GV4-MVP Baseball 2005
-GVC-Viewtiful Joe: Red Hot Rumble
-GVD-Bratz Forever Diamondz
-GVH-Bionicle Heroes
-GVJ-Viewtiful Joe
-GVK-Cabela's Dangerous Hunts 2
+GV4-全明星棒球2005(运动类)MVP Baseball 2005
+GVC-Viewtiful Joe: Battle Carnival
+GVD-贝兹娃娃：永恒之钻(动作类)Bratz Forever Diamondz
+GVH-乐高生化战士(动作射击类)Bionicle Heroes
+GVJ-红侠乔伊1 新希望(动作类)Viewtiful Joe.USA[SAVEPOiNT]
+GVK-坎贝拉危险狩猎2FPS(第一人称射击)Cabela's Dangerous Hunts 2
 GVL-Marvel Nemesis: Rise of the Imperfects
 GVM-Super Bust-A-Move All Stars
-GVO-Bionicle
-GVP-MVP Baseball 2004
+GVO-乐高生化战士(动作射击类)Bionicle Heroes
+GVP-全明星棒球2004(运动类)MVP Baseball 2004
 GVR-Grooverider Slot Car Thunder
-GVS-Virtua Striker 2002
-GW2-WWE Day of Reckoning 2
+GVS-VIRTUA STRIKER 3 ver.2002
+GW2-美国职业摔角审判日2(格斗类)WWE Day of Reckoning 2.PAL.NGC-HS
 GW3-WWE WrestleMania X8
-GW3-WWE Wrestlemania X8
-GW4-Tiger Woods PGA Tour 2004
-GW5-Need For Speed Carbon
-GW6-Winning Eleven 6 Final Evolution
+GW4-泰格伍兹高尔夫球巡回赛2004 A(运动类)Tiger Woods PGA Tour 2004 (USA) (Disc 1)
+GW5-Need for Speed: Carbon
+GW6-胜利十一人6(体育类)Winning Eleven 6 Final Evolution
 GW7-James Bond 007 in Agent Under Fire
-GW8-World Series of Poker
-GW9-WWE WrestleMania XIX
-GWA-Spartan Total Warrior
-GWB-Worms Blast
-GWD-World Racing
-GWE-18 Wheeler: American Pro Trucker
-GWG-Swingerz Golf
-GWG-Ace Golf
-GWH-Winnie the Pooh's Rumbly Tumbly Adventure
-GWJ-Tony Hawk's American Wasteland
+GW8-世界扑克锦标赛World Series of Poker
+GW9-美国职业摔角狂热19WWE WrestleMania XIX (USA)
+GWA-古罗马的英雄传说_斯巴达全面战争Spartan Total Warrior.USA
+GWB-百战天虫：爆发Worms Blast
+GWD-世界赛车World Racing GAME DOWNLOAD
+GWE-18轮大货车(竞速类)18 Wheeler American Pro Trucker
+GWG-王牌高尔夫Sport(休闲运动类)Ace Golf.PAL
+GWH-Winnie The Pooh Rumbly Tumbly Adventures
+GWJ-托尼霍克滑板：美国荒野(竞速类)Tony Hawk's American Wasteland (Europe)
 GWK-Peter Jackson's King Kong: The Official Game of the Movie
-GWL-Wallace & Gromit in Project Zoo
-GWM-Worms 3D
-GWO-Blowout
-GWP-WWE Day of Reckoning
+GWL-Wallace & Gromit : Project Zoo
+GWM-百战天虫3D(射击类)Worms 3D
+GWO-暴走战士(动作射击类)Blowout (USA)
+GWP-美国职业摔角审判日2(格斗类)WWE Day of Reckoning 2.PAL.NGC-HS
 GWQ-Wreckless: The Yakuza Missions
 GWR-Wave Race: Blue Storm
-GWS-ESPN International Winter Sports 2002
+GWS-ESPN国际冬季运动会02(运动类)ESPN International Winter Sports 2002
 GWT-Pro Tennis WTA Tour
-GWU-Whirl Tour
-GWV-X-Men 2: Wolverine's Revenge
-GWW-Wario World
+GWU-街头绵羊王赛车(竞速类)Whirl Tour
+GWV-X2: Wolverine's Revenge
+GWW-坏俐欧世界Wario World.Pal[Multi5]
 GWY-Tom Clancy's Splinter Cell: Double Agent
 GWZ-Dance Dance Revolution: Mario Mix
 GX2-X-Men Legends II: Rise of Apocalypse
-GX3-XIII
-GXA-XGRA Extreme G Racing Association
-GXB-SSX 3
-GXC-Custom Robo: Battle Revolution
-GXE-Sonic Riders
-GXF-FIFA Soccer 2004
-GXG-Mega Man X Collection
-GXL-X-Men Legends
+GX3-拳皇13(格斗类)XIII.USA(En,Fr,Es)
+GXA-极限摩托RA(竞速类)XGRA Extreme G Racing Association
+GXB-极限滑雪3(运动类)SSX 3
+GXC-机甲设计师(动作射击类)Custom Robo
+GXE-索尼克滑板(动作类)Sonic Riders
+GXF-国际足联足球2004(体育类)FIFA Football 2004 (Europe)
+GXG-洛克人X 合集(动作类)Mega Man X Collection
+GXL-X战警：传奇1(动作类)X-Men Legends
 GXM-X-Men: Next Dimension
-GXN-Rampage Total Destruction
-GXO-SSX On Tour
-GXP-Sphinx and the Cursed Mummy
+GXN-怪兽大破坏(动作类)Rampage Total Destruction
+GXO-SSX on Tour
+GXP-斯芬克斯与木乃伊(动作类)Sphinx and the Cursed Mummy
 GXQ-Taxi 3
 GXR-Mega Man X: Command Mission
 GXS-Sonic Adventure DX: Director's Cut
-GXU-Surf's Up
-GXX-Pokemon XD: Gale of Darkness
-GY2-Donkey Konga 2
-GY3-Donkey Konga 3
-GYA-Barnyard
-GYB-Donkey Kong Jungle Beat
-GYF-Yu-Gi-Oh! The Falsebound Kingdom
-GYK-Zatch Bell! Mamodo Battles
-GYM-PAWAFURU MAJORLEAGUE
-GYQ-Mario Superstar Baseball
-GYR-TMNT
-GYT-Ty The Tasmanian Tiger 2: Bush Rescue
+GXU-冲浪企鹅(竞速类)Surf's Up
+GXX-Pokémon XD: Gale of Darkness
+GY2-大金刚鼓2M.(音乐动作类)Donkey Konga 2
+GY3-大金刚鼓3M.(音乐动作类)Donkey Konga 3
+GYA-疯狂农场(模仿类)Barnyard
+GYB-大金刚：丛林节拍M.(音乐动作类)Donkey Kong Jungle Beat
+GYF-游戏王！falsebound王国SLG(战略类)Yu-Gi-Oh! The Falsebound Kingdom (USA)
+GYK-金色的卡修：魔物大作战Zatch Bell! Mamodo Battles
+GYM-实况力量棒球大联盟11(体育类)Jikkyou Powerful Major League 11
+GYQ-马里奥棒球(运动类)Mario Superstar Baseball
+GYR-忍者神龟(动作类)TMNT The Movie
+GYT-Ty the Tasmanian Tiger 2: Bush Rescue
 GYW-Harvest Moon: A Wonderful Life
 GZ2-The Legend of Zelda: Twilight Princess
 GZ3-Dragon Ball Z: Budokai 2
-GZC-ZooCube
+GZC-立体旋转方块(益智类)ZooCube (USA)
 GZD-Godzilla: Destroy all Monsters Melee
 GZE-Dragon Ball Z: Sagas
-GZH-Zoids Full Metal Crash
+GZH-机兽新世纪：钢铁冲击(动作射击类)Zoids Full Metal Crash
 GZL-The Legend of Zelda: The Wind Waker
 GZM-Butt-Ugly Martians Zoom or Doom
 GZO-Zoids vs.
-GZP-Zapper: One Wicked Cricket!
-GZQ-Robots
-GZS-Zoids VS. II
-GZV-Zoids VS. III
+GZP-Zapper - One Wicked Cricket!
+GZQ-酷比克机器人(动作类)Cubix Robots for Everyone Showdown
+GZS-机兽新世纪Vs2(动作射击类)Zoids Battle Legends
+GZV-Zoids vs. III
 GZW-Wario Ware Inc.: Mega Party Game$!
 P2M-Metroid Prime 2: Echoes (Bonus Disc)
-PC6-Pokemon Colosseum Bonus Disc
-PCS-Pokemon Colosseum Bonus Disc
-PKB-The Tower of Druaga
+PC6-Pokémon Colosseum Bonus Disc
+PCS-口袋妖怪竞技场 黑暗传说-序(角色扮演)Pokemon Colosseum Bonus Disc 2003年11月21日
+PGP-SD Gundam Trial
+PKB-龙之塔The Tower of Druaga  JAP NGC - TeamDNL
 PM4-Mario Kart: Double Dash!! Bonus Disc
 PRJ-Pac-Man vs.
 PZL-The Legend of Zelda: Collector's Edition
-UGP-Game Boy Player
+REL-Sonic Adventure DX: Director's Cut (Preview Prototype)
+UGP-游戏男孩(v1.00)(动作类)Game Boy Player Start-Up Disc (USA) (v1.00)
