@@ -77,7 +77,7 @@ G3S-泡泡龙3000(益智类)Bust-A-Move 3000 (USA)
 G3V-街头篮球(体育类)
 G3X-X战警：官方游戏(动作类)
 G3Y-史莱克大乱斗(格斗类)Shrek Super Slam
-G4A-牧场物语：幸福之诗SIM(模拟养成类)
+G4A-牧场物语：幸福之诗(模拟养成类)
 G4B-生化危机4(动作射击类)Biohazard 4
 G4C-查理与巧克力工厂(动作类)Charlie and the Chocolate Factory
 G4F-国际足球大联盟2007(体育类)
@@ -127,7 +127,7 @@ GA7-后院运动：棒球2007(运动类)Backyard Sports Baseball 2007
 GAA-迪士尼米奇美妮把戏与追逐
 GAB-金色的卡修：咆哮吧! 友情战队Zatch Bell! Mamodo Fury
 GAC-玩具兵大战：空中追击(动作射击类)
-GAE-Doubutu no Mori e+
+GAE-动物之森
 GAF-动物之森(角色扮演)Animal Crossing
 GAG-幻想新国度(角色扮演)Asterix & Obelix XXL (E)
 GAH-外星原人Alien Hominid.USA[MOONCUBE]
@@ -143,7 +143,7 @@ GAT-沙地摩托车热力赛2(角色扮演)ATV Quad Power Racing 2
 GAU-网络极速赛车(竞速类)Auto Modellista
 GAV-降世神通：最后的气宗(动作类)Avatar The Last Airbender
 GAX-别惹蚂蚁(动作类)The Ant Bully
-GAY-Midway经典街机游戏集2ETC(合集类)Midway Arcade Treasures 2
+GAY-Midway经典街机游戏集2(合集类)Midway Arcade Treasures 2
 GAZ-哈利·波特与阿兹卡班的囚徒(动作类)Harry Potter and the Prisoner of Azkaban (USA)
 GB2-炸弹人大陆2(动作类)Bomberman Land 2 Game Jijousaidai no Theme Park
 GB3-极限自行车挑战赛(竞速类)BMX XXX
@@ -166,13 +166,13 @@ GBV-蝙蝠侠：复仇(动作类)Batman Vengeance
 GBW-星球大战：赏金猎人FPS(第一人称射击)Star Wars Bounty Hunter
 GBX-戴夫米拉自由式小轮车2 Dave Mirra Freestyle BMX 2 (USA)
 GBY-超级立体泡泡Super Bubble Pop (USA)
-GBZ-生化危机Zero(动作射击类)Resident Evil Zero.USA
+GBZ-生化危机 0(动作射击类)Resident Evil Zero.USA
 GC2-沙漠风暴2回到巴格达(第一人称射击)
 GC3-史酷比！神秘的混乱(动作类)
 GC4-闪电霹雳车无限之路Shinseiki GPX Cyber Formula Road To The EVOLUTION
 GC5-魔怪卡丁车(竞速类)
 GC6-口袋妖怪竞技场(动作类)
-GC7-Cocoto Platform Jumper
+GC7-卡卡多平台跳跃
 GC9-柯南Conan
 GCA-酷比克机器人(动作类)
 GCB-古惑狼 4(动作类)
@@ -183,17 +183,17 @@ GCF-沙漠风暴(第一人称射击)
 GCG-霹雳娇娃(动作类)Charlie's Angels
 GCH-美国职业摔角WWE Crush Hour (USA)
 GCI-模拟人生(模拟养成类)The Sims
-GCJ-Tom Clancy's Splinter Cell: Chaos Theory
+GCJ-汤姆克兰 细胞分裂：混沌理论
 GCL-巨大损伤(动作类)Cel Damage
-GCM-Muscle Champion ~Battle of Muscle Island~
+GCM-筋肉人：筋肉岛之战
 GCN-古惑狼赛车(竞速类)Crash Nitro Kart
-GCO-Call of Duty: Finest Hour
-GCP-Casper: Spirit Dimensions
-GCQ-Buffy The Vampire Slayer Chaos Bleeds
+GCO-使命召唤尖峰时刻
+GCP-鬼马小精灵
+GCQ-吸血鬼猎人巴菲：混乱之血
 GCS-街头赛车联盟(竞速类)SRS - Street Racing Syndicate (USA)
 GCT-疯狂出租车(竞速类)Crazy Taxi
 GCU-美国大学橄榄球2005(体育类)NCAA Football 2005 (USA)
-GCV-Cubivore: Survival of the Fittest
+GCV-动物番长：适者生存
 GCW-古堡幽灵(动作类)Castleween.PAL[NGC-METHS]
 GCZ-猫女(动作类)Catwoman (Europe) (En,Fr,De,Es,It,Nl)
 GD4-恐龙帝国：太阳石传说(动作类)Dinotopia - The Sunstone Odyssey (USA)
@@ -201,140 +201,140 @@ GD6-数码宝贝：竞技场2(格斗类)Digimon Rumble Arena 2
 GD7-龙珠Z：武道会1(格斗类)Dragon Ball Z - Budokai (USA)
 GD9-乐高疯狂赛车(竞速类)LEGO Drome Racers
 GDC-速度之王(竞速类)Speed Kings (USA)
-GDD-Disney's Donald Duck: Goin' Quackers
-GDE-Baldur's Gate Dark Alliance
+GDD-唐老鸭英雄救美
+GDE-博德之门：暗黑联盟
 GDF-守护者Defender
-GDG-Dragon's Lair 3D: Return to the Lair
-GDI-Die Hard: Vendetta
+GDG-龙穴3D回归
+GDI-虎胆龙威：深仇大恨
 GDJ-数码宝贝世界4(角色扮演)Digimon World 4
-GDK-Disney Sports Soccer
+GDK-迪斯尼运动 足球
 GDL-迪斯尼明星篮球(运动类)Disney Sports Basketball
 GDM-迪士尼魔幻乐园(动作类)Disney's Magical Mirror Starring Mickey Mouse
-GDO-Disney's Donald Duck PK
-GDP-Mr. Driller: Drill Land
+GDO-迪斯尼 唐老鸭PK大战
+GDP-爆钻小英雄 爆钻乐园
 GDQ-黑暗猎手(动作射击类)Darkened Skye
 GDR-脱狱潜龙(动作射击类)Dead to Rights (USA)
 GDS-黑暗巅峰滑雪(运动类)Dark Summit
 GDT-街头教父(运动类)Def Jam Vendetta
 GDV-生死极速(竞速类)Driven
 GDW-迪斯尼运动：橄榄球(运动类)Disney Sports Football
-GDX-Disney Sports Skateboarding
-GE3-Midway经典街机游戏集3ETC(合集类)Midway Arcade Treasures 3
+GDX-迪士尼运动 滑板
+GE3-Midway经典街机游戏集3(合集类)Midway Arcade Treasures 3
 GE4-4X4方程式赛车2(竞速类)4x4 Evo 2 (USA)
-GE5-TMNT: Mutant Melee
-GE9-Ed, Edd n Eddy: The Mis-Edventures
+GE5-忍者神龟：变种格斗
+GE9-顽皮小鬼混乱大冒险
 GEA-永恒的阿卡迪亚(角色扮演)Skies of Arcadia Legends.PAL
 GEB-进化滑雪(竞速类)Evolution Snowboarding
-GED-Eternal Darkness: Manekareta 13-nin
-GEJ-实况力量棒球11Jikkyou Powerful Pro Yakyuu 11 Chou Ketteiban (NTSC-J)
-GEM-Egg Mania: Eggstreme Madness
-GEN-007: Everything or Nothing
+GED-永恒的黑暗：被召唤的13人
+GEJ-实况力量棒球11
+GEM-鸡蛋疯狂
+GEN-詹姆斯邦德007：孤注一掷
 GEO-嘉富康对SNK 2百万格斗2001 Capcom vs. SNK 2 EO - Millionaire Fighting 2001 (USA)
 GES-进化滑板(运动类)Evolution Skateboarding (USA)
-GEV-世界evolutia姬Shinki Sekai Evolutia (J)
+GEV-全新世界进化
 GEW-神机世界(动作类)Evolution Worlds
-GEX-Disney Extreme Skate Adventure
+GEX-迪斯尼 极限滑板冒险
 GEY-拳击之夜2Fight Night Round 2
 GEZ-光与蛋：比利哈恰的大冒险(动作类)Billy Hatcher and the Giant Egg (USA)
 GF2-一级方程式赛车2002(竞速类)F1 2002
 GF3-橄榄球2K3 NFL 2K3 (Europe)
 GF4-神奇4侠(动作类)Fantastic 4 (USA)
-GF5-FIFA Football 2005
-GF6-FIFA 06
-GF7-Star Fox: Assault
+GF5-国际足球大联盟2005
+GF6-国际足球大联盟2006
+GF7-星际火狐(动作射击类)
 GF8-国际足球街头足球2(体育类)FIFA Street 2
 GFA-国际足联足球2003(体育类)FIFA Football 2003 (Europe)
-GFB-火焰FireBlade (USA)
+GFB-火焰刀锋FireBlade (USA)
 GFC-一级职业车手挑战大赛(竞速类)F1 Career Challenge.Pal[GC-RARE]
 GFD-自由战士FPS(第一人称射击)Freedom Fighters
-GFE-Fire Emblem: Path of Radiance
-GFF-捍卫战士A(动作射击类)Freaky Flyers (USA) (Disc 1)
+GFE-火焰之纹章
+GFF-捍卫战士(动作射击类)Freaky Flyers (USA) (Disc 1)
 GFG-青蛙远行(动作类)Frogger Beyond
 GFH-整蛊邻居(动作类)Neighbours From Hell (E)
 GFI-2002国际足联世界杯(体育类)2002 FIFA World Cup (Europe)
 GFK-花式摩托(竞速类)Freekstyle (USA)
 GFN-海底总动员(动作类)Disney Pixar Finding Nemo
-GFO-The Fairly OddParents - Shadow Showdown
-GFP-Frogger: Ancient Shadow
-GFQ-Frogger's Adventures: The Rescue
+GFO-反斗家族驱散阴影
+GFP-青蛙过河(动作类)
+GFQ-青蛙冒险-救援(动作类)
 GFS-2002国际足联世界杯(体育类)2002 FIFA World Cup (Europe)
-GFT-Mario Golf: Family Tour
-GFU-Future Tactics: The Uprising
+GFT-马里奥-家庭高尔夫
+GFU-未来战略家：起义(动作射击类)
 GFV-职业橄榄球(体育类)NFL Blitz Pro (USA)
-GFW-The Fairly OddParents: Breakin' Da Rules
+GFW-反斗家族驱散阴影(动作类)
 GFX-花式摩托车X(竞速类)Freestyle Metal X (USA)
 GFY-国际足球街头足球2(体育类)FIFA Street 2
 GFZ-最高时速GX(竞速类)F-Zero GX (Europe) (En,Fr,De,Es,It)
 GG2-触发者(动作类)Trigger Man
 GG4-玩具战争(动作射击类)Gotcha Force
 GG5-坎贝拉猎人2005FPS(第一人称射击)Cabela's Big Game Hunter 2005
-GGA-Mobile Suit Gundam: The Ace Pilot
-GGC-Goblin Commander: Unleash The Horde
+GGA-机动战士高达：王牌飞行员
+GGC-地精指挥官
 GGE-超越善恶(动作类)Beyond Good & Evil (USA) (En,Es)
 GGF-GiFTPiA
-GGN-The Grim Adventures of Billy and Mandy
+GGN-比利&曼蒂大冒险(动作类)
 GGP-SD高达扭蛋战争SD Gundam Gashapon Wars (J)
 GGR-汤姆·克兰西 幽灵行动1(动作射击类)Tom Clancy's Ghost Recon (USA)
-GGS-Metal Gear Solid: The Twin Snakes
+GGS-合金装备：双蛇
 GGT-赤壁机器人冒险Chibi-Robo! Plug into Adventure! (USA)
-GGV-Spongebob Squarepants : The Movie
+GGV-海绵宝宝历险记：电影(动作类)
 GGY-汤姆·克兰西 幽灵行动2(动作射击类)Tom Clancy's Ghost Recon 2 (USA) (En,Fr,Es)
 GGZ-马达加斯加(动作类)Madagascar
-GH2-Need for Speed: Hot Pursuit 2
+GH2-极品飞车6：热力追踪2
 GH3-国家冰球联盟2003(体育类)NHL 2003 (USA)
 GH4-哈利·波特与火焰杯(动作类)Harry Potter and the Goblet of Fire (USA)
 GH5-Over The Hedge
-GH6-Hello Kitty: Roller Rescue
+GH6-凯蒂猫-友情总动员(动作类)
 GH7-快乐的大脚Music(音乐类)Happy Feet (USA) (En,Fr)
 GH9-托尼霍克滑板：美国荒野(竞速类)Tony Hawk's American Wasteland (Europe)
 GHA-生化危机2(动作射击类)Biohazard 2
-GHB-The Hobbit
+GHB-霍比特人 前奏魔戒(动作类)
 GHC-四眼天鸡(动作类)Chicken Little
 GHE-家园(角色扮演)Homeland
-GHF-Pinball Hall of Fame: The Gottlieb Collection
+GHF-弹珠台名人堂(益智类)
 GHG-卡通滑板(竞速类)Go! Go! Hypergrind
 GHK-绿巨人(动作类)Hulk (USA)
 GHL-哈利波特与魔法石(动作类)Harry Potter and the Philosopher's Stone
-GHM-Hitman 2: Silent Assassin
-GHN-Hunter: The Reckoning
+GHM-终极刺客2：沉默杀手(动作射击类)
+GHN-猎手：清算(动作类)
 GHP-街头灌篮秀(体育类)Street Hoops
-GHQ-The Simpsons: Hit & Run
-GHR-Hot Wheels: World Race
+GHQ-辛普森 反撞了就跑(动作类)
+GHR-无敌风火轮赛车：世界比赛(竞速类)
 GHS-哈利波特与密室(动作类)Harry Potter and the Chamber of Secrets (Europe)
-GHU-The Incredible Hulk Ultimate Destruction
+GHU-绿巨人终极毁灭(动作类)
 GHV-米老鼠的神奇魔镜Disney's Hide & Sneak (Europe) (En,Fr,De,Es,It)
-GHW-Hot Wheels: Velocity X
+GHW-无敌风火轮疾速赛车X(竞速类)
 GHY-迪斯尼 鬼屋(动作类)Disney's The Haunted Mansion (USA)
 GHZ-全美职业冰球赛(运动类)NHL Hitz Pro
 GI2-桃太郎电铁12Momotarou Dentetsu 12 (NTSC-J)
-GIA-Ice Age 2 : The Meltdown
+GIA-冰河世纪2 -崩溃(动作类)
 GIB-偷天换日(竞速类)The Italian Job
 GIC-超人总动员1(动作类)The Incredibles
-GIG-Bleach GC: Tasogare Ni Mamieru Shinigami
-GIH-Scooby-Doo!  Night of 100 Frights
+GIG-死神：在黄昏看见的死神(格斗类)
+GIH-史酷比！100恐怖的夜晚(动作类)
 GII-桃太郎电铁11Momotarou Dentetsu 11 (NTSC-J)
 GIJ-太空捕手(运动类)Space Raiders
 GIK-斑鸠(飞行射击类)Ikaruga
 GIL-极限轮滑(运动类)Aggressive Inline
 GIN-蝙蝠侠：诞生(动作类)Batman Begins
-GIP-Shonen Jump's One Piece: Pirates Carnival
-GIQ-The Incredibles: Rise of the Underminer
+GIP-海贼王海贼嘉年华
+GIQ-迪斯尼 皮克斯 超人特攻队-美国崛起的破坏者(动作类)
 GIS-超能力战士(动作射击类)Second Sight
 GIT-幽灵AVG(冒险类)Geist (Europe) (En,Fr,De,Es,It)
 GIV-八十年代经典游戏集ETC(合集类)Intellivision Lives
-GIZ-Ty the Tasmanian Tiger 3: Night of the Quinkan
+GIZ-泰思虎奇幻冒险3 昆肯夜(动作类)
 GJ2-国际足球巨星2(体育类)International Superstar Soccer 2.Pal[GC-RARE]
 GJ3-国际足球巨星3(体育类)International Superstar Soccer 3.PAL[GC-RARE]
 GJB-炸弹人杰特斯(动作类)Bomberman Jetters (USA)
-GJC-Samurai Jack: The Shadow of Aku
-GJD-Judge Dredd: Dredd vs. Death
-GJF-Jimmy Neutron Jet Fusion
-GJK-Star Wars Jedi Knight II: Jedi Outcast
+GJC-武士杰克-阿酷的影子(动作类)
+GJD-特警判官(动作射击类)
+GJF-尼克-天才小子吉米
+GJK-星球大战 杰迪武士2(动作射击类)
 GJN-天才小子吉米(动作类)Jimmy Neutron Boy Genius
 GJP-实况力量棒球11Jikkyou Powerful Pro Yakyuu 11 (NTSC-J)
-GJS-Hudson Selection Vol. 2: Star Soldier
+GJS-哈德森精选Vol.2 星际战士
 GJU-塔克和符咒的神力(动作类)Tak and the Power of Juju (USA)
-GJW-Tak: The Great JuJu Challenge
+GJW-塔克：符咒大挑战(动作类)
 GJX-威斯大冒险(动作类)Vexx
 GJY-Jimmy Neutron Boy Genius: Attack of the Twonkies
 GJZ-SeaWorld Adventure Parks: Shamu's Deep Sea Adventures
