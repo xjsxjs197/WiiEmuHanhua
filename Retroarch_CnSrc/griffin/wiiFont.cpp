@@ -21,6 +21,7 @@
 #include <map>
 #include <malloc.h>
 #include <string.h>
+#include <exception>
 #include <ogc/gx.h>
 
 #include "wiiFont.h"
@@ -57,7 +58,12 @@ void wiiFont::wiiFontInit()
 	int searchLen = (int)(ZhBufFont_size / (4 + CHAR_IMG_SIZE));
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
-	FILE *charPngFile = fopen("sd:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
+	FILE *charPngFile;
+	try {
+	    charPngFile = fopen("sd:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
+	} catch (std::exception e) {
+	    charPngFile = fopen("usb:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
+	}
 	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
 
 	fseek(charPngFile, 0, SEEK_SET);
@@ -84,10 +90,16 @@ void wiiFont::wiiFontInit()
     colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));
 
     // 读取文件名映射文件
-    FILE *titleMapFile = fopen("sd:/retroarch/font/zh.lang", "rb");
+    FILE *titleMapFile;
+    try {
+	    titleMapFile = fopen("sd:/retroarch/font/zh.lang", "rb");
+	} catch (std::exception e) {
+	    titleMapFile = fopen("usb:/retroarch/font/zh.lang", "rb");
+	}
+
     fseek(titleMapFile, 0, SEEK_END);
     long zhMapFileLen = ftell(titleMapFile);
-    char* zhMapBuf = memalign(32, (int)zhMapFileLen);
+    char* zhMapBuf = (char*)memalign(32, (int)zhMapFileLen);
 
     fseek(titleMapFile, 0, SEEK_SET);
 	fread(zhMapBuf, 1, zhMapFileLen, titleMapFile);
@@ -359,7 +371,7 @@ void wiiFont::setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pi
 
 char* wiiFont::getChTitle(char* title)
 {
-    return gettext(title);
+    return (char*)gettext(title);
 }
 
 extern "C" {
