@@ -13,7 +13,7 @@ extern uint16_t drawText(int16_t x, int16_t y, wchar_t *text);
 
 static char * ChgCoustString(const char *s)
 {
-    char *result = (char *)malloc(strlen(s) + 1);
+    /*char *result = (char *)malloc(strlen(s) + 1);
     if (result == NULL)
     {
         return (char *)s;
@@ -21,7 +21,8 @@ static char * ChgCoustString(const char *s)
 
     strcpy(result, s);
 
-    return result;
+    return result;*/
+    return (char *)s;
 }
 
 unsigned GUIFontSpanWidth(const struct GUIFont* font, const char* text) {
