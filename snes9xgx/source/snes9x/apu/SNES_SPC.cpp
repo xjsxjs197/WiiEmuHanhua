@@ -131,7 +131,6 @@ void SNES_SPC::enable_rom( int enable )
 			int count = (time) - m.dsp_time;\
 			if ( !SPC_MORE_ACCURACY || count )\
 			{\
-				assert( count > 0 );\
 				m.dsp_time = (time);\
 				dsp.run( count );\
 			}\
@@ -283,7 +282,7 @@ static unsigned char const glitch_probs [3] [256] =
 // If write isn't preceded by read, data has this added to it
 int const no_read_before_write = 0x2000;
 
-void SNES_SPC::cpu_write_smp_reg_( int data, rel_time_t time, int addr )
+void SNES_SPC::cpu_write_smp_reg_( int data, rel_time_t time, uint16_t addr )
 {
 	switch ( addr )
 	{
@@ -384,7 +383,7 @@ void SNES_SPC::cpu_write_smp_reg_( int data, rel_time_t time, int addr )
 	}
 }
 
-void SNES_SPC::cpu_write_smp_reg( int data, rel_time_t time, int addr )
+void SNES_SPC::cpu_write_smp_reg( int data, rel_time_t time, uint16_t addr )
 {
 	if ( addr == r_dspdata ) // 99%
 		dsp_write( data, time );
@@ -394,23 +393,15 @@ void SNES_SPC::cpu_write_smp_reg( int data, rel_time_t time, int addr )
 
 void SNES_SPC::cpu_write_high( int data, int i, rel_time_t time )
 {
-	if ( i < rom_size )
-	{
-		m.hi_ram [i] = (uint8_t) data;
-		if ( m.rom_enabled )
-			RAM [i + rom_addr] = m.rom [i]; // restore overwritten ROM
-	}
-	else
-	{
-		assert( *(&(RAM [0]) + i + rom_addr) == (uint8_t) data );
-		*(&(RAM [0]) + i + rom_addr) = cpu_pad_fill; // restore overwritten padding
-		cpu_write( data, i + rom_addr - 0x10000, time );
-	}
+	m.hi_ram [i] = (uint8_t) data;
+
+	if ( m.rom_enabled )
+		RAM [i + rom_addr] = m.rom [i]; // restore overwritten ROM
 }
 
 int const bits_in_int = CHAR_BIT * sizeof (int);
 
-void SNES_SPC::cpu_write( int data, int addr, rel_time_t time )
+void SNES_SPC::cpu_write( int data, uint16_t addr, rel_time_t time )
 {
 	MEM_ACCESS( time, addr )
 	
@@ -464,7 +455,7 @@ inline int SNES_SPC::cpu_read_smp_reg( int reg, rel_time_t time )
 	return result;
 }
 
-int SNES_SPC::cpu_read( int addr, rel_time_t time )
+int SNES_SPC::cpu_read( uint16_t addr, rel_time_t time )
 {
 	MEM_ACCESS( time, addr )
 	
@@ -494,8 +485,8 @@ int SNES_SPC::cpu_read( int addr, rel_time_t time )
 			}
 			else // 1%
 			{
-				assert( reg + (r_t0out + 0xF0 - 0x10000) < 0x100 );
-				result = cpu_read( reg + (r_t0out + 0xF0 - 0x10000), time );
+				if( reg + (r_t0out + 0xF0 - 0x10000) < 0x100 )
+					result = cpu_read( reg + (r_t0out + 0xF0 - 0x10000), time );
 			}
 		}
 	}
@@ -543,7 +534,7 @@ void SNES_SPC::end_frame( time_t end_time )
 	// Greatest number of clocks early that emulation can stop early due to
 	// not being able to execute current instruction without going over
 	// allowed time.
-	assert( -cpu_lag_max <= m.spc_time && m.spc_time <= cpu_lag_max );
+	//assert( -cpu_lag_max <= m.spc_time && m.spc_time <= cpu_lag_max );
 	
 	// Catch timers up to CPU
 	for ( int i = 0; i < timer_count; i++ )

@@ -273,7 +273,7 @@ void S9xReset (void)
 
 	memset(Memory.RAM, 0x55, 0x20000);
 	memset(Memory.VRAM, 0x00, 0x10000);
-	ZeroMemory(Memory.FillRAM, 0x8000);
+	memset(Memory.FillRAM, 0, 0x8000);
 
 	if (Settings.BS)
 		S9xResetBSX();
@@ -282,6 +282,7 @@ void S9xReset (void)
 	S9xResetPPU();
 	S9xResetDMA();
 	S9xResetAPU();
+	S9xResetMSU();
 
 	if (Settings.DSP)
 		S9xResetDSP();
@@ -299,6 +300,8 @@ void S9xReset (void)
 		S9xResetOBC1();
 	if (Settings.SRTC)
 		S9xResetSRTC();
+	if (Settings.MSU1)
+		S9xMSU1Init();
 
 	S9xInitCheatData();
 }
@@ -307,7 +310,7 @@ void S9xSoftReset (void)
 {
 	S9xResetSaveTimer(FALSE);
 
-	ZeroMemory(Memory.FillRAM, 0x8000);
+	memset(Memory.FillRAM, 0, 0x8000);
 
 	if (Settings.BS)
 		S9xResetBSX();
@@ -316,6 +319,7 @@ void S9xSoftReset (void)
 	S9xSoftResetPPU();
 	S9xResetDMA();
 	S9xSoftResetAPU();
+	S9xResetMSU();
 
 	if (Settings.DSP)
 		S9xResetDSP();
@@ -333,6 +337,8 @@ void S9xSoftReset (void)
 		S9xResetOBC1();
 	if (Settings.SRTC)
 		S9xResetSRTC();
+	if (Settings.MSU1)
+		S9xMSU1Init();
 
 	S9xInitCheatData();
 }

@@ -18,14 +18,16 @@
 #include <string>
 #include <ogcsys.h>
 #include <unistd.h>
-#include <wiiuse/wpad.h>
-#include <wupc/wupc.h>
 #include <fat.h>
 #include <debug.h>
 #include <sys/iosupport.h>
 
 #ifdef HW_RVL
 #include <di/di.h>
+#include <wiiuse/wpad.h>
+#endif
+#ifdef USE_VM
+	#include "vmalloc.h"
 #endif
 
 #include "snes9xgx.h"
@@ -58,6 +60,10 @@ char appPath[1024] = { 0 };
 static int currentMode;
 
 extern "C" {
+#ifdef USE_VM
+	#include "utils/vm/vm.h"
+#endif
+extern char* strcasestr(const char *, const char *);
 extern void __exception_setreload(int t);
 }
 
@@ -171,7 +177,7 @@ void ShutdownCB()
 {
 	ShutdownRequested = 1;
 }
-void ResetCB()
+void ResetCB(u32 irq, void *ctx)
 {
 	ResetRequested = 1;
 }
@@ -306,7 +312,7 @@ bool SaneIOS(u32 ios)
 static bool gecko = false;
 static mutex_t gecko_mutex = 0;
 
-static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
+static ssize_t __out_write(struct _reent *r, void* fd, const char *ptr, size_t len)
 {
 	if (!gecko || len == 0)
 		return len;
@@ -360,8 +366,34 @@ extern "C" {
 	s32 __STM_Init();
 }
 
+void InitializeSnes9x() {
+	S9xUnmapAllControls ();
+	SetDefaultButtonMap ();
+
+	// Allocate SNES Memory
+	if (!Memory.Init ())
+		ExitApp();
+
+	// Allocate APU
+	if (!S9xInitAPU ())
+		ExitApp();
+
+	S9xInitSound (64, 0); // Initialise Sound System
+
+	// Initialise Graphics
+	setGFX ();
+	if (!S9xGraphicsInit ())
+		ExitApp();
+
+	AllocGfxMem();
+}
+
 int main(int argc, char *argv[])
 {
+	#ifdef USE_VM
+	VM_Init(ARAM_SIZE, MRAM_BACKING);		// Setup Virtual Memory with the entire ARAM
+	#endif
+	
 	#ifdef HW_RVL
 	L2Enhance();
 	
@@ -381,7 +413,9 @@ int main(int argc, char *argv[])
 	USBGeckoOutput();
 	__exception_setreload(8);
 
+	DefaultSettings (); // Set defaults
 	InitGCVideo(); // Initialise video
+	InitializeSnes9x();
 	ResetVideo_Menu (); // change to menu video mode
 	
 	#ifdef HW_RVL
@@ -393,12 +427,10 @@ int main(int argc, char *argv[])
 	SYS_SetPowerCallback(ShutdownCB);
 	SYS_SetResetCallback(ResetCB);
 	
-	WUPC_Init();
 	WPAD_Init();
 	WPAD_SetPowerButtonCallback((WPADShutdownCallback)ShutdownCB);
 	DI_Init();
 	USBStorage_Initialize();
-	StartNetworkThread();
 	#else
 	DVD_Init (); // Initialize DVD subsystem (GameCube only)
 	#endif
@@ -415,40 +447,24 @@ int main(int argc, char *argv[])
 	InitMem2Manager();
 	#endif
 
-	DefaultSettings (); // Set defaults
-	S9xUnmapAllControls ();
-	SetDefaultButtonMap ();
-
-	// Allocate SNES Memory
-	if (!Memory.Init ())
-		ExitApp();
-
-	// Allocate APU
-	if (!S9xInitAPU ())
-		ExitApp();
-
-	S9xSetRenderPixelFormat (RGB565); // Set Pixel Renderer to match 565
-	S9xInitSound (64, 0); // Initialise Sound System
-
-	// Initialise Graphics
-	setGFX ();
-	if (!S9xGraphicsInit ())
-		ExitApp();
-	
-	AllocGfxMem();
 	S9xInitSync(); // initialize frame sync
 	InitFreeType((u8*)font_ttf, font_ttf_size); // Initialize font system
 #ifdef HW_RVL
 	savebuffer = (unsigned char *)mem2_malloc(SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)mem2_malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 #else
-	savebuffer = (unsigned char *)malloc(SAVEBUFFERSIZE);
-	browserList = (BROWSERENTRY *)malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
+#ifdef USE_VM
+	savebuffer = (unsigned char *)vm_malloc(SAVEBUFFERSIZE);
+	browserList = (BROWSERENTRY *)vm_malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
+#else
+	savebuffer = (unsigned char *)memalign(32,SAVEBUFFERSIZE);
+	browserList = (BROWSERENTRY *)memalign(32,sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
+#endif
 #endif
 	InitGUIThreads();
 
 	bool autoboot = false;
-	if(argc > 3 && argv[1] != NULL && argv[2] != NULL && argv[3] != NULL)
+	if(argc > 2 && argv[1] != NULL && argv[2] != NULL)
 	{
 		autoboot = true;
 		ResetBrowser();
@@ -471,7 +487,7 @@ int main(int argc, char *argv[])
 		strncpy(arg_filename, argv[2], sizeof(arg_filename));
 		strncpy(GCSettings.LoadFolder, dir.c_str(), sizeof(GCSettings.LoadFolder));
 		OpenGameList();
-		strncpy(GCSettings.Exit_Dol_File, argv[3], sizeof(GCSettings.Exit_Dol_File));
+		strncpy(GCSettings.Exit_Dol_File, argc > 3 && argv[3] != NULL ? argv[3] : "", sizeof(GCSettings.Exit_Dol_File));
 		if(argc > 5 && argv[4] != NULL && argv[5] != NULL)
 		{
 			sscanf(argv[4], "%08x", &GCSettings.Exit_Channel[0]);

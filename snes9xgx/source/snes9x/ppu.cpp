@@ -17,12 +17,19 @@
 
   (c) Copyright 2002 - 2010  Brad Jorsch (anomie@users.sourceforge.net),
                              Nach (n-a-c-h@users.sourceforge.net),
-                             zones (kasumitokoduck@yahoo.com)
+
+  (c) Copyright 2002 - 2011  zones (kasumitokoduck@yahoo.com)
 
   (c) Copyright 2006 - 2007  nitsuja
 
-  (c) Copyright 2009 - 2010  BearOso,
+  (c) Copyright 2009 - 2018  BearOso,
                              OV2
+
+  (c) Copyright 2017         qwertymodo
+
+  (c) Copyright 2011 - 2017  Hans-Kristian Arntzen,
+                             Daniel De Matteis
+                             (Under no circumstances will commercial rights be given)
 
 
   BS-X C emulator code
@@ -117,6 +124,9 @@
   Sound emulator code used in 1.52+
   (c) Copyright 2004 - 2007  Shay Green (gblargg@gmail.com)
 
+  S-SMP emulator code used in 1.54+
+  (c) Copyright 2016         byuu
+
   SH assembler code partly based on x86 assembler code
   (c) Copyright 2002 - 2004  Marcus Comstedt (marcus@mc.pp.se)
 
@@ -130,7 +140,7 @@
   (c) Copyright 2006 - 2007  Shay Green
 
   GTK+ GUI code
-  (c) Copyright 2004 - 2010  BearOso
+  (c) Copyright 2004 - 2018  BearOso
 
   Win32 GUI code
   (c) Copyright 2003 - 2006  blip,
@@ -138,11 +148,16 @@
                              Matthew Kendora,
                              Nach,
                              nitsuja
-  (c) Copyright 2009 - 2010  OV2
+  (c) Copyright 2009 - 2018  OV2
 
   Mac OS GUI code
   (c) Copyright 1998 - 2001  John Stiles
-  (c) Copyright 2001 - 2010  zones
+  (c) Copyright 2001 - 2011  zones
+
+  Libretro port
+  (c) Copyright 2011 - 2017  Hans-Kristian Arntzen,
+                             Daniel De Matteis
+                             (Under no circumstances will commercial rights be given)
 
 
   Specific ports contains the works of other authors. See headers in
@@ -204,9 +219,6 @@ static inline void S9xLatchCounters (bool force)
 	#ifdef DEBUGGER
 		missing.h_v_latch = 1;
 	#endif
-	#if 0 // #ifdef CPU_SHUTDOWN
-		CPU.WaitAddress = CPU.PCAtOpcodeStart;
-	#endif
 
 		PPU.HVBeamCounterLatched = 1;
 		PPU.VBeamPosLatched = (uint16) CPU.V_Counter;
@@ -244,9 +256,6 @@ static inline void S9xTryGunLatch (bool force)
 		{
 		#ifdef DEBUGGER
 			missing.h_v_latch = 1;
-		#endif
-		#if 0 // #ifdef CPU_SHUTDOWN
-			CPU.WaitAddress = CPU.PCAtOpcodeStart;
 		#endif
 
 			PPU.HVBeamCounterLatched = 1;
@@ -495,6 +504,9 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 		S9xTraceFormattedMessage("--- HDMA PPU %04X -> %02X", Address, Byte);
 #endif
 
+	if (Settings.MSU1 && (Address & 0xfff8) == 0x2000) // MSU-1
+		S9xMSU1WritePort(Address & 7, Byte);
+	else
 	if ((Address & 0xffc0) == 0x2140) // APUIO0, APUIO1, APUIO2, APUIO3
 		// write_port will run the APU until given clock before writing value
 		S9xAPUWritePort(Address & 3, Byte);
@@ -511,9 +523,9 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 					if (PPU.Brightness != (Byte & 0xf))
 					{
 						IPPU.ColorsChanged = TRUE;
-						IPPU.DirectColourMapsNeedRebuild = TRUE;
 						PPU.Brightness = Byte & 0xf;
 						S9xFixColourBrightness();
+						S9xBuildDirectColourMaps();
 						if (PPU.Brightness > IPPU.MaxBrightness)
 							IPPU.MaxBrightness = PPU.Brightness;
 					}
@@ -618,7 +630,10 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 					PPU.BGMode = Byte & 7;
 					// BJ: BG3Priority only takes effect if BGMode == 1 and the bit is set
 					PPU.BG3Priority = ((Byte & 0x0f) == 0x09);
-					IPPU.Interlace = Memory.FillRAM[0x2133] & 1;
+					if (PPU.BGMode == 6 || PPU.BGMode == 5 || PPU.BGMode == 7)
+					    IPPU.Interlace = Memory.FillRAM[0x2133] & 1;
+					else
+					    IPPU.Interlace = 0;
 				#ifdef DEBUGGER
 					missing.modes[PPU.BGMode] = 1;
 				#endif
@@ -1143,13 +1158,20 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 					#endif
 					}
 					else
+					{
 						PPU.ScreenHeight = SNES_HEIGHT;
+						if (IPPU.DoubleHeightPixels)
+							IPPU.RenderedScreenHeight = PPU.ScreenHeight << 1;
+						else
+							IPPU.RenderedScreenHeight = PPU.ScreenHeight;
+					}
 
 					if ((Memory.FillRAM[0x2133] ^ Byte) & 3)
 					{
 						FLUSH_REDRAW();
 						if ((Memory.FillRAM[0x2133] ^ Byte) & 2)
 							IPPU.OBJChanged = TRUE;
+
 						IPPU.Interlace = Byte & 1;
 						IPPU.InterlaceOBJ = Byte & 2;
 					}
@@ -1257,6 +1279,9 @@ uint8 S9xGetPPU (uint16 Address)
 {
 	// MAP_PPU: $2000-$3FFF
 
+	if (Settings.MSU1 && (Address & 0xfff8) == 0x2000)
+		return (S9xMSU1ReadPort(Address & 7));
+	else
 	if (Address < 0x2100)
 		return (OpenBus);
 
@@ -1535,7 +1560,7 @@ uint8 S9xGetPPU (uint16 Address)
 		else
 		if (Settings.BS      && Address >= 0x2188 && Address <= 0x219f)
 			return (S9xGetBSXPPU(Address));
-		else	
+		else
 		if (Settings.SRTC    && Address == 0x2800)
 			return (S9xGetSRTC(Address));
 		else
@@ -2103,7 +2128,7 @@ void S9xSoftResetPPU (void)
 	PPU.OAMReadFlip = 0;
 	PPU.OAMTileAddress = 0;
 	PPU.OAMWriteRegister = 0;
-	ZeroMemory(PPU.OAMData, 512 + 32);
+	memset(PPU.OAMData, 0, 512 + 32);
 
 	PPU.FirstSprite = 0;
 	PPU.LastSprite = 127;
@@ -2177,19 +2202,19 @@ void S9xSoftResetPPU (void)
 		memset(&IPPU.Clip[c], 0, sizeof(struct ClipData));
 	IPPU.ColorsChanged = TRUE;
 	IPPU.OBJChanged = TRUE;
-	IPPU.DirectColourMapsNeedRebuild = TRUE;
-	ZeroMemory(IPPU.TileCached[TILE_2BIT], MAX_2BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_4BIT], MAX_4BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_8BIT], MAX_8BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_2BIT_EVEN], MAX_2BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_2BIT_ODD],  MAX_2BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_4BIT_EVEN], MAX_4BIT_TILES);
-	ZeroMemory(IPPU.TileCached[TILE_4BIT_ODD],  MAX_4BIT_TILES);
+	memset(IPPU.TileCached[TILE_2BIT], 0, MAX_2BIT_TILES);
+	memset(IPPU.TileCached[TILE_4BIT], 0, MAX_4BIT_TILES);
+	memset(IPPU.TileCached[TILE_8BIT], 0, MAX_8BIT_TILES);
+	memset(IPPU.TileCached[TILE_2BIT_EVEN], 0, MAX_2BIT_TILES);
+	memset(IPPU.TileCached[TILE_2BIT_ODD],  0, MAX_2BIT_TILES);
+	memset(IPPU.TileCached[TILE_4BIT_EVEN], 0, MAX_4BIT_TILES);
+	memset(IPPU.TileCached[TILE_4BIT_ODD],  0, MAX_4BIT_TILES);
 #ifdef CORRECT_VRAM_READS
 	IPPU.VRAMReadBuffer = 0; // XXX: FIXME: anything better?
 #else
 	IPPU.FirstVRAMRead = FALSE;
 #endif
+	GFX.InterlaceFrame = 0;
 	IPPU.Interlace = FALSE;
 	IPPU.InterlaceOBJ = FALSE;
 	IPPU.DoubleWidthPixels = FALSE;
@@ -2210,14 +2235,16 @@ void S9xSoftResetPPU (void)
 	IPPU.FrameSkip = 0;
 
 	S9xFixColourBrightness();
+	S9xBuildDirectColourMaps();
 
 	for (int c = 0; c < 0x8000; c += 0x100)
 		memset(&Memory.FillRAM[c], c >> 8, 0x100);
-	ZeroMemory(&Memory.FillRAM[0x2100], 0x100);
-	ZeroMemory(&Memory.FillRAM[0x4200], 0x100);
-	ZeroMemory(&Memory.FillRAM[0x4000], 0x100);
+	memset(&Memory.FillRAM[0x2100], 0, 0x100);
+	memset(&Memory.FillRAM[0x4200], 0, 0x100);
+	memset(&Memory.FillRAM[0x4000], 0, 0x100);
 	// For BS Suttehakkun 2...
-	ZeroMemory(&Memory.FillRAM[0x1000], 0x1000);
+	memset(&Memory.FillRAM[0x1000], 0, 0x1000);
 
 	Memory.FillRAM[0x4201] = Memory.FillRAM[0x4213] = 0xff;
+	Memory.FillRAM[0x2126] = Memory.FillRAM[0x2128] = 1;
 }

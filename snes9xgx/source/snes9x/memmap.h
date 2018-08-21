@@ -187,7 +187,11 @@ struct CMemory
 {
 	enum
 #ifdef HW_DOL
+#ifdef USE_VM
+	{ MAX_ROM_SIZE = 0x800000 };
+#else
 	{ MAX_ROM_SIZE = 0x600000 };
+#endif
 #else
 	{ MAX_ROM_SIZE = 0x800000 };
 #endif
@@ -245,6 +249,7 @@ struct CMemory
 	uint8	ExtendedFormat;
 
 	char	ROMFilename[PATH_MAX + 1];
+	char	ROMFilePath[PATH_MAX + 1];
 	char	ROMName[ROM_NAME_LEN];
 	char	RawROMName[ROM_NAME_LEN];
 	char	ROMId[5];

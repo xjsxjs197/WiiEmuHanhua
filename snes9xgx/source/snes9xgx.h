@@ -20,10 +20,11 @@
 #include "filelist.h"
 
 #define APPNAME 			"Snes9x GX"
-#define APPVERSION 			"4.3.7"
+#define APPVERSION 			"4.3.8"
 #define APPFOLDER 			"snes9xgx"
 #define PREF_FILE_NAME		"settings.xml"
 
+#define MAXPATHLEN 1024
 #define NOTSILENT 0
 #define SILENT 1
 

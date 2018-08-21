@@ -359,6 +359,7 @@ struct SSettings
 	bool8	BS;
 	bool8	BSXItself;
 	bool8	BSXBootup;
+    bool8	MSU1;
 	bool8	MouseMaster;
 	bool8	SuperScopeMaster;
 	bool8	JustifierMaster;
@@ -386,7 +387,8 @@ struct SSettings
 	bool8	Stereo;
 	bool8	ReverseStereo;
 	bool8	Mute;
-
+	bool8	DynamicRateControl;
+	
 	bool8	SupportHiRes;
 	bool8	Transparency;
 	uint8	BG_Forced;
@@ -447,6 +449,7 @@ struct SSettings
 
 	bool8	OpenGLEnable;
 	float	SuperFXSpeedPerLine;
+	int	MaxSpriteTilesPerLine;
 };
 
 struct SSNESGameFixes

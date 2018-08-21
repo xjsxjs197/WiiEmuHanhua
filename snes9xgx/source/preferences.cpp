@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
+#include <sys/stat.h>
 #include <ogcsys.h>
 #include <mxml.h>
 
@@ -64,7 +65,7 @@ static void createXMLSetting(const char * name, const char * description, const 
 	mxmlElementSetAttr(item, "description", description);
 }
 
-static void createXMLController(unsigned int controller[], const char * name, const char * description)
+static void createXMLController(u32 controller[], const char * name, const char * description)
 {
 	item = mxmlNewElement(section, "controller");
 	mxmlElementSetAttr(item, "name", name);
@@ -153,7 +154,9 @@ preparePrefsData ()
 
 	createXMLSection("Menu", "Menu Settings");
 
+#ifdef HW_RVL
 	createXMLSetting("WiimoteOrientation", "Wiimote Orientation", toStr(GCSettings.WiimoteOrientation));
+#endif
 	createXMLSetting("ExitAction", "Exit Action", toStr(GCSettings.ExitAction));
 	createXMLSetting("MusicVolume", "Music Volume", toStr(GCSettings.MusicVolume));
 	createXMLSetting("SFXVolume", "Sound Effects Volume", toStr(GCSettings.SFXVolume));
@@ -166,16 +169,24 @@ preparePrefsData ()
 	createXMLSetting("Controller", "Controller", toStr(GCSettings.Controller));
 
 	createXMLController(btnmap[CTRL_PAD][CTRLR_GCPAD], "btnmap_pad_gcpad", "SNES Pad - GameCube Controller");
+#ifdef HW_RVL
 	createXMLController(btnmap[CTRL_PAD][CTRLR_WIIMOTE], "btnmap_pad_wiimote", "SNES Pad - Wiimote");
 	createXMLController(btnmap[CTRL_PAD][CTRLR_CLASSIC], "btnmap_pad_classic", "SNES Pad - Classic Controller");
+	createXMLController(btnmap[CTRL_PAD][CTRLR_WUPC], "btnmap_pad_wupc", "SNES Pad - Wii U Pro Controller");
 	createXMLController(btnmap[CTRL_PAD][CTRLR_NUNCHUK], "btnmap_pad_nunchuk", "SNES Pad - Nunchuk + Wiimote");
+#endif
 	createXMLController(btnmap[CTRL_SCOPE][CTRLR_GCPAD], "btnmap_scope_gcpad", "Superscope - GameCube Controller");
+#ifdef HW_RVL
 	createXMLController(btnmap[CTRL_SCOPE][CTRLR_WIIMOTE], "btnmap_scope_wiimote", "Superscope - Wiimote");
+#endif
 	createXMLController(btnmap[CTRL_MOUSE][CTRLR_GCPAD], "btnmap_mouse_gcpad", "Mouse - GameCube Controller");
+#ifdef HW_RVL
 	createXMLController(btnmap[CTRL_MOUSE][CTRLR_WIIMOTE], "btnmap_mouse_wiimote", "Mouse - Wiimote");
+#endif
 	createXMLController(btnmap[CTRL_JUST][CTRLR_GCPAD], "btnmap_just_gcpad", "Justifier - GameCube Controller");
+#ifdef HW_RVL
 	createXMLController(btnmap[CTRL_JUST][CTRLR_WIIMOTE], "btnmap_just_wiimote", "Justifier - Wiimote");
-
+#endif
 	int datasize = mxmlSaveString(xml, (char *)savebuffer, SAVEBUFFERSIZE, XMLSaveCallback);
 
 	mxmlDelete(xml);
@@ -226,7 +237,7 @@ static void loadXMLSetting(float * var, const char * name)
  * Load XML elements into variables for a controller mapping
  ***************************************************************************/
 
-static void loadXMLController(unsigned int controller[], const char * name)
+static void loadXMLController(u32 controller[], const char * name)
 {
 	item = mxmlFindElement(xml, xml, "controller", "name", name, MXML_DESCEND);
 
@@ -275,17 +286,15 @@ decodePrefsData ()
 				int verMinor = version[2] - '0';
 				int verPoint = version[4] - '0';
 
-				// first we'll check that the versioning is valid
-				if(!(verMajor >= 0 && verMajor <= 9 &&
+				// check that the versioning is valid
+				if(!(verMajor >= 4 && verMajor <= 9 &&
 					verMinor >= 0 && verMinor <= 9 &&
-					verPoint >= 0 && verPoint <= 9))
+					verPoint >= 0 && verPoint <= 9)) {
 					result = false;
-				else if(verMajor < 4) // less than version 4.0.0
-					result = false; // reset settings
-				else if(verMajor == 4 && verMinor == 0 && verPoint < 2)	// anything less than 4.0.2
-					result = false; // reset settings
-				else
+				}
+				else {
 					result = true;
+				}
 			}
 		}
 
@@ -346,6 +355,7 @@ decodePrefsData ()
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_GCPAD], "btnmap_pad_gcpad");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_WIIMOTE], "btnmap_pad_wiimote");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_CLASSIC], "btnmap_pad_classic");
+			loadXMLController(btnmap[CTRL_PAD][CTRLR_WUPC], "btnmap_pad_wupc");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_NUNCHUK], "btnmap_pad_nunchuk");
 			loadXMLController(btnmap[CTRL_SCOPE][CTRLR_GCPAD], "btnmap_scope_gcpad");
 			loadXMLController(btnmap[CTRL_SCOPE][CTRLR_WIIMOTE], "btnmap_scope_wiimote");
@@ -381,15 +391,15 @@ void FixInvalidSettings()
 	if(!(GCSettings.yshift > -50 && GCSettings.yshift < 50))
 		GCSettings.yshift = 0;
 	if(!(GCSettings.MusicVolume >= 0 && GCSettings.MusicVolume <= 100))
-		GCSettings.MusicVolume = 40;
+		GCSettings.MusicVolume = 20;
 	if(!(GCSettings.SFXVolume >= 0 && GCSettings.SFXVolume <= 100))
 		GCSettings.SFXVolume = 40;
 	if(GCSettings.language < 0 || GCSettings.language >= LANG_LENGTH)
 		GCSettings.language = LANG_ENGLISH;
 	if(GCSettings.Controller > CTRL_PAD4 || GCSettings.Controller < CTRL_MOUSE)
 		GCSettings.Controller = CTRL_PAD2;
-	if(!(GCSettings.render >= 0 && GCSettings.render < 3))
-		GCSettings.render = 2;
+	if(!(GCSettings.render >= 0 && GCSettings.render < 5))
+		GCSettings.render = 4;
 	if(!(GCSettings.videomode >= 0 && GCSettings.videomode < 5))
 		GCSettings.videomode = 0;
 }
@@ -433,7 +443,7 @@ DefaultSettings ()
 
 	GCSettings.WiimoteOrientation = 0;
 	GCSettings.ExitAction = 0;
-	GCSettings.MusicVolume = 40;
+	GCSettings.MusicVolume = 20;
 	GCSettings.SFXVolume = 40;
 	GCSettings.Rumble = 1;
 	GCSettings.PreviewImage = 0;
@@ -442,7 +452,9 @@ DefaultSettings ()
 	GCSettings.language = CONF_GetLanguage();
 
 	if(GCSettings.language == LANG_JAPANESE || 
-		GCSettings.language == LANG_SIMP_CHINESE || 
+	    // delete start by xjsxjs197
+		//GCSettings.language == LANG_SIMP_CHINESE || 
+		// delete end by xjsxjs197
 		GCSettings.language == LANG_TRAD_CHINESE || 
 		GCSettings.language == LANG_KOREAN)
 		GCSettings.language = LANG_ENGLISH;
@@ -468,16 +480,18 @@ DefaultSettings ()
 	Settings.HDMATimingHack = 100;
 
 	// Sound defaults. On Wii this is 32Khz/16bit/Stereo
-	//Settings.SoundSync = true;
+	Settings.SoundSync = true;
 	Settings.SixteenBitSound = true;
 	Settings.Stereo = true;
 	Settings.ReverseStereo = true;
-	Settings.SoundPlaybackRate = 32000;
-	Settings.SoundInputRate = 31953;
+	Settings.SoundPlaybackRate = 32040;
+	Settings.SoundInputRate = 32000;
+	Settings.DynamicRateControl = true;
 
 	// Graphics
 	Settings.Transparency = true;
 	Settings.SupportHiRes = true;
+	Settings.MaxSpriteTilesPerLine = 34;
 	Settings.SkipFrames = AUTO_FRAMERATE;
 	Settings.TurboSkipFrames = 19;
 	Settings.DisplayFrameRate = false;
@@ -641,8 +655,9 @@ bool LoadPrefs()
 
 	prefLoaded = true; // attempted to load preferences
 
-	if(prefFound)
+	if(prefFound) {
 		FixInvalidSettings();
+	}
 	
 	// rename snes9x to snes9xgx
 	if(GCSettings.LoadMethod == DEVICE_SD)
@@ -680,6 +695,19 @@ bool LoadPrefs()
 	if(strcmp(GCSettings.ArtworkFolder, "snes9x/artworks") == 0)
 		sprintf(GCSettings.ArtworkFolder, "snes9xgx/artworks");
 	
+	// attempt to create directories if they don't exist
+	if(GCSettings.LoadMethod != DEVICE_AUTO) {
+		char dirPath[MAXPATHLEN];
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ScreenshotsFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.CoverFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ArtworkFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.CheatFolder);
+		CreateDirectory(dirPath);
+	}
+
 	ResetText();
 	return prefFound;
 }

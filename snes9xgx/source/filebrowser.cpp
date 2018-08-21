@@ -24,6 +24,7 @@
 #include <di/di.h>
 #endif
 
+#include "snes9x/port.h"
 #include "snes9xgx.h"
 #include "filebrowser.h"
 #include "menu.h"
@@ -332,7 +333,7 @@ int FileSortCallback(const void *f1, const void *f2)
 	if(((BROWSERENTRY *)f1)->isdir && !(((BROWSERENTRY *)f2)->isdir)) return -1;
 	if(!(((BROWSERENTRY *)f1)->isdir) && ((BROWSERENTRY *)f2)->isdir) return 1;
 
-	return stricmp(((BROWSERENTRY *)f1)->filename, ((BROWSERENTRY *)f2)->filename);
+	return strcasecmp(((BROWSERENTRY *)f1)->filename, ((BROWSERENTRY *)f2)->filename);
 }
 
 /****************************************************************************
@@ -345,8 +346,8 @@ int FileSortCallback(const void *f1, const void *f2)
  ***************************************************************************/
 static bool IsValidROM()
 {
-	// file size should be between 96K and 8MB
-	if(browserList[browser.selIndex].length < (1024*96) ||
+	// file size should be between 32K and 8MB
+	if(browserList[browser.selIndex].length < (1024*32) ||
 		browserList[browser.selIndex].length > Memory.MAX_ROM_SIZE)
 	{
 		ErrorPrompt("Invalid file size!");
@@ -361,7 +362,7 @@ static bool IsValidROM()
 		{
 			char * zippedFilename = NULL;
 			
-			if(stricmp(p, ".zip") == 0 && !inSz)
+			if(strcasecmp(p, ".zip") == 0 && !inSz)
 			{
 				// we need to check the file extension of the first file in the archive
 				zippedFilename = GetFirstZipFilename ();
@@ -374,10 +375,10 @@ static bool IsValidROM()
 
 			if(p != NULL)
 			{
-				if (stricmp(p, ".smc") == 0 ||
-					stricmp(p, ".fig") == 0 ||
-					stricmp(p, ".sfc") == 0 ||
-					stricmp(p, ".swc") == 0)
+				if (strcasecmp(p, ".smc") == 0 ||
+					strcasecmp(p, ".fig") == 0 ||
+					strcasecmp(p, ".sfc") == 0 ||
+					strcasecmp(p, ".swc") == 0)
 				{
 					if(zippedFilename) free(zippedFilename);
 					return true;
@@ -402,7 +403,7 @@ bool IsSz()
 		char * p = strrchr(browserList[browser.selIndex].filename, '.');
 
 		if (p != NULL)
-			if(stricmp(p, ".7z") == 0)
+			if(strcasecmp(p, ".7z") == 0)
 				return true;
 	}
 	return false;
@@ -454,7 +455,7 @@ int BrowserLoadSz()
 
 int WiiFileLoader()
 {
-	int size;
+	size_t size;
 	char filepath[1024];
 
 	memset(Memory.NSRTHeader, 0, sizeof(Memory.NSRTHeader));
@@ -509,6 +510,7 @@ int BrowserLoadFile()
 	// store the filename (w/o ext) - used for sram/freeze naming
 	StripExt(Memory.ROMFilename, browserList[browser.selIndex].filename);
 	snprintf(GCSettings.LastFileLoaded, MAXPATHLEN, "%s", browserList[browser.selIndex].filename);
+	strncpy(Memory.ROMFilePath, browser.dir, PATH_MAX);
 
 	SNESROMSize = 0;
 	S9xDeleteCheats();

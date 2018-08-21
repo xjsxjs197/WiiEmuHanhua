@@ -154,7 +154,7 @@ void SNES_SPC::ram_loaded()
 	
 	// Put STOP instruction around memory to catch PC underflow/overflow
 	memset( m.ram.padding1, cpu_pad_fill, sizeof m.ram.padding1 );
-	memset( m.ram.padding2, cpu_pad_fill, sizeof m.ram.padding2 );
+	memset( m.ram.ram + 0x10000, cpu_pad_fill, sizeof m.ram.padding1 );
 }
 
 // Registers were just loaded. Applies these new values.
@@ -292,8 +292,6 @@ void SNES_SPC::reset_buf()
 
 void SNES_SPC::set_output( sample_t* out, int size )
 {
-	require( (size & 1) == 0 ); // size must be even
-	
 	m.extra_clocks &= clocks_per_sample - 1;
 	if ( out )
 	{
@@ -352,7 +350,6 @@ void SNES_SPC::save_extra()
 
 blargg_err_t SNES_SPC::play( int count, sample_t* out )
 {
-	require( (count & 1) == 0 ); // must be even
 	if ( count )
 	{
 		set_output( out, count );

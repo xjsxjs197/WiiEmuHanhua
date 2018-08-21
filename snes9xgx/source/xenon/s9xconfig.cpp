@@ -25,9 +25,6 @@
  ***************************************************************************/
 void FixInvalidSettings()
 {
-
-/*	if(!(GCSettings.ZoomLevel > 0.5 && GCSettings.ZoomLevel < 1.5))
-		GCSettings.ZoomLevel = 1.0;
 	if(!(GCSettings.xshift > -50 && GCSettings.xshift < 50))
 		GCSettings.xshift = 0;
 	if(!(GCSettings.yshift > -50 && GCSettings.yshift < 50))
@@ -36,12 +33,12 @@ void FixInvalidSettings()
 		GCSettings.MusicVolume = 40;
 	if(!(GCSettings.SFXVolume >= 0 && GCSettings.SFXVolume <= 100))
 		GCSettings.SFXVolume = 40;
-	if(GCSettings.Controller > CTRL_PAD4 || GCSettings.Controller < CTRL_MOUSE)
+	if(GCSettings.Controller > CTRL_PAD4 || GCSettings.Controller < CTRL_PAD)
 		GCSettings.Controller = CTRL_PAD2;
 	if(!(GCSettings.render >= 0 && GCSettings.render < 3))
 		GCSettings.render = 2;
 	if(!(GCSettings.videomode >= 0 && GCSettings.videomode < 5))
-		GCSettings.videomode = 0; */
+		GCSettings.videomode = 0;
 }
 
 /****************************************************************************
@@ -112,17 +109,11 @@ DefaultSettings ()
 	Settings.BlockInvalidVRAMAccess = false;
 	Settings.HDMATimingHack = 100;
 
-	// Sound defaults. On GC this is 32Khz/16bit/Stereo/InterpolatedSound
-	Settings.APUEnabled = true;
-	Settings.NextAPUEnabled = true;
+	// Sound defaults
 	Settings.SoundPlaybackRate = 32000;
 	Settings.Stereo = true;
 	Settings.SixteenBitSound = true;
-	Settings.SoundEnvelopeHeightReading = true;
 	Settings.SoundSync = true;
-	Settings.FixFrequency = false;
-	Settings.DisableSampleCaching = true;
-	Settings.InterpolatedSound = true;
 	Settings.ReverseStereo = true;
 
 	// Graphics
@@ -138,22 +129,14 @@ DefaultSettings ()
 	Settings.FrameTimePAL = 20000;
 	Settings.FrameTimeNTSC = 16667;
 
-	// SDD1 - Star Ocean Returns
-	Settings.SDD1Pack = true;
-
 	Settings.ForceNTSC = 0;
 	Settings.ForcePAL = 0;
 	Settings.ForceHiROM = 0;
 	Settings.ForceLoROM = 0;
 	Settings.ForceHeader = 0;
 	Settings.ForceNoHeader = 0;
-	Settings.ForceTransparency = 0;
 	Settings.ForceInterleaved = 0;
 	Settings.ForceInterleaved2 = 0;
 	Settings.ForceInterleaveGD24 = 0;
 	Settings.ForceNotInterleaved = 0;
-	Settings.ForceNoSuperFX = 0;
-	Settings.ForceSuperFX = 0;
-	Settings.ForceDSP1 = 0;
-	Settings.ForceNoDSP1 = 0;
 }

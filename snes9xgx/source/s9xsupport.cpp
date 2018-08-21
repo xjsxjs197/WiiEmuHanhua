@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <ogc/lwp_watchdog.h>
 
+#include "snes9x/port.h"
 #include "snes9xgx.h"
 #include "video.h"
 #include "audio.h"
@@ -84,11 +85,7 @@ void S9xInitSync()
 
 /*** Synchronisation ***/
 
-void S9xSyncSpeed ()
-{
-	while (!S9xSyncSound())
-		usleep(10);
-
+void S9xSyncSpeed () {
 	uint32 skipFrms = Settings.SkipFrames;
 
 	if (Settings.TurboMode)
@@ -253,12 +250,6 @@ void _makepath(char *filename, const char *drive, const char *dir,
 		const char *fname, const char *ext)
 {
 	ExitApp();
-}
-
-int dup(int fildes)
-{
-	ExitApp();
-	return 1;
 }
 
 int access(const char *pathname, int mode)

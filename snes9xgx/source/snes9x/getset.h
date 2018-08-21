@@ -186,6 +186,7 @@
 #include "obc1.h"
 #include "seta.h"
 #include "bsx.h"
+#include "msu1.h"
 
 #if (S9X_ACCURACY_LEVEL >= 2)
 
@@ -930,8 +931,7 @@ inline void S9xSetPCBase (uint32 Address)
 	Registers.PBPC = Address & 0xffffff;
 	ICPU.ShiftedPB = Address & 0xff0000;
 
-	int		block;
-	uint8	*GetAddress = Memory.Map[block = ((Address & 0xffffff) >> MEMMAP_SHIFT)];
+	uint8	*GetAddress = Memory.Map[(int)((Address & 0xffffff) >> MEMMAP_SHIFT)];
 
 	CPU.MemSpeed = memory_speed(Address);
 	CPU.MemSpeedx2 = CPU.MemSpeed << 1;
