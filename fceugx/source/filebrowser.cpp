@@ -31,6 +31,8 @@
 #include "fceuram.h"
 #include "fceustate.h"
 #include "patch.h"
+#include "pocketnes/goombasav.h"
+#include "pocketnes/pocketnesrom.h"
 
 BROWSERINFO browser;
 BROWSERENTRY * browserList = NULL; // list of files/folders in browser
@@ -280,7 +282,10 @@ bool MakeFilePath(char filepath[], int type, char * filename, int filenum)
 					if(filenum == -1)
 						sprintf(file, "%s.%s", filename, ext);
 					else if(filenum == 0)
-						sprintf(file, "%s Auto.%s", filename, ext);
+						if (GCSettings.AppendAuto <= 0)
+							sprintf(file, "%s.%s", filename, ext);
+						else
+							sprintf(file, "%s Auto.%s", filename, ext);
 					else
 						sprintf(file, "%s %i.%s", filename, filenum, ext);
 				}
@@ -326,7 +331,7 @@ int FileSortCallback(const void *f1, const void *f2)
 	if(((BROWSERENTRY *)f1)->isdir && !(((BROWSERENTRY *)f2)->isdir)) return -1;
 	if(!(((BROWSERENTRY *)f1)->isdir) && ((BROWSERENTRY *)f2)->isdir) return 1;
 
-	return stricmp(((BROWSERENTRY *)f1)->filename, ((BROWSERENTRY *)f2)->filename);
+	return strcasecmp(((BROWSERENTRY *)f1)->filename, ((BROWSERENTRY *)f2)->filename);
 }
 
 /****************************************************************************
@@ -353,9 +358,15 @@ static bool IsValidROM()
 
 		if (p != NULL)
 		{
+			if(strcasecmp(p, ".gba") == 0)
+			{
+				// File will be checked for GBA ROMs later.
+				return true;
+			}
+			
 			char * zippedFilename = NULL;
 
-			if(stricmp(p, ".zip") == 0 && !inSz)
+			if(strcasecmp(p, ".zip") == 0 && !inSz)
 			{
 				// we need to check the file extension of the first file in the archive
 				zippedFilename = GetFirstZipFilename ();
@@ -369,12 +380,12 @@ static bool IsValidROM()
 			if(p != NULL)
 			{
 				if (
-					stricmp(p, ".nes") == 0 ||
-					stricmp(p, ".fds") == 0 ||
-					stricmp(p, ".nsf") == 0 ||
-					stricmp(p, ".unf") == 0 ||
-					stricmp(p, ".nez") == 0 ||
-					stricmp(p, ".unif") == 0
+					strcasecmp(p, ".nes") == 0 ||
+					strcasecmp(p, ".fds") == 0 ||
+					strcasecmp(p, ".nsf") == 0 ||
+					strcasecmp(p, ".unf") == 0 ||
+					strcasecmp(p, ".nez") == 0 ||
+					strcasecmp(p, ".unif") == 0
 				)
 				{
 					if(zippedFilename) free(zippedFilename);
@@ -400,7 +411,7 @@ bool IsSz()
 		char * p = strrchr(browserList[browser.selIndex].filename, '.');
 
 		if (p != NULL)
-			if(stricmp(p, ".7z") == 0)
+			if(strcasecmp(p, ".7z") == 0)
 				return true;
 	}
 	return false;
@@ -480,6 +491,28 @@ int BrowserLoadFile()
 			goto done;
 
 		filesize = LoadFile ((char *)nesrom, filepath, browserList[browser.selIndex].length, NOTSILENT);
+
+		// check nesrom for PocketNES embedded roms
+		const char *ext = strrchr(filepath, '.');
+		if (ext != NULL && strcmp(ext, ".gba") == 0)
+		{
+			const pocketnes_romheader* rom1 = pocketnes_first_rom(nesrom, filesize);
+			const pocketnes_romheader* rom2 = NULL;
+			if (rom1 != NULL) {
+				rom2 = pocketnes_next_rom(nesrom, filesize, rom1);
+			}
+
+			if (rom1 == NULL)
+				ErrorPrompt("No NES ROMs found in this file.");
+			else if (rom2 != NULL)
+				ErrorPrompt("More than one NES ROM found in this file. Only files with one ROM are supported.");
+			else
+			{
+				const void* rom = rom1 + 1;
+				filesize = little_endian_conv_32(rom1->filesize);
+				memcpy(nesrom, rom, filesize);
+			}
+		}
 	}
 	else
 	{

@@ -15,7 +15,8 @@
 #include <asndlib.h>
 #include "fceusupport.h"
 
-static u8 ConfigRequested = 0;
+extern int ScreenshotRequested;
+extern int ConfigRequested;
 static u8 soundbuffer[2][3840] ATTRIBUTE_ALIGN(32);
 static u8 mixbuffer[16000];
 static int mixhead = 0;
@@ -64,15 +65,16 @@ static int MixerCollect( u8 *outbuffer, int len )
  ***************************************************************************/
 static void AudioSwitchBuffers()
 {
-	if ( !ConfigRequested )
-	{
-		whichab ^= 1;
+	if ( !ScreenshotRequested && !ConfigRequested ) {
+		IsPlaying = 1;
 		int len = MixerCollect( soundbuffer[whichab], 3840 );
 		DCFlushRange(soundbuffer[whichab], len);
 		AUDIO_InitDMA((u32)soundbuffer[whichab], len);
-		IsPlaying = 1;
+		whichab ^= 1;
 	}
-	else IsPlaying = 0;
+	else {
+		IsPlaying = 0;
+	}
 }
 
 /****************************************************************************
@@ -117,20 +119,18 @@ SwitchAudioMode(int mode)
 	{
 		#ifndef NO_SOUND
 		ASND_Pause(1);
+		ASND_End();
 		AUDIO_StopDMA();
+		AUDIO_RegisterDMACallback(NULL);
+		DSP_Halt();
 		AUDIO_RegisterDMACallback(AudioSwitchBuffers);
 		#endif
-		memset(soundbuffer[0],0,3840);
-		memset(soundbuffer[1],0,3840);
-		DCFlushRange(soundbuffer[0],3840);
-		DCFlushRange(soundbuffer[1],3840);
-		AUDIO_InitDMA((u32)soundbuffer[whichab],3200);
-		AUDIO_StartDMA();
 	}
 	else // menu
 	{
 		IsPlaying = 0;
 		#ifndef NO_SOUND
+		DSP_Unhalt();
 		ASND_Init();
 		ASND_Pause(0);
 		#else
@@ -156,30 +156,32 @@ void ShutdownAudio()
  * Puts incoming mono samples into mixbuffer
  * Splits mono samples into two channels (stereo)
  ****************************************************************************/
-void PlaySound( int *Buffer, int count )
+void PlaySound( int32 *Buffer, int count )
 {
 	int i;
 	u16 sample;
 	u32 *dst = (u32 *)mixbuffer;
 
-	for( i = 0; i < count; i++ )
-	{
+	for( i = 0; i < count; i++ ) {
 		sample = Buffer[i] & 0xffff;
 		dst[mixhead++] = sample | ( sample << 16);
-		if (mixhead == 4000)
+		if (mixhead == 4000) {
 			mixhead = 0;
+		}
 	}
 
 	// Restart Sound Processing if stopped
-	if (IsPlaying == 0)
-	{
-		AudioSwitchBuffers ();
+	if (IsPlaying == 0) {
+		AUDIO_StartDMA();
 	}
 }
 
 void UpdateSampleRate(int rate)
 {
-	samplerate = rate;
+	if(samplerate != rate) {
+		samplerate = rate;
+		FCEUI_Sound(samplerate);
+	}
 }
 
 void SetSampleRate()

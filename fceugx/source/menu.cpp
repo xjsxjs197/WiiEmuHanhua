@@ -16,7 +16,7 @@
 #include <string.h>
 #include <wiiuse/wpad.h>
 #include <sys/stat.h>
-#include <algorithm>
+#include <algorithm> 
 
 #ifdef HW_RVL
 #include <di/di.h>
@@ -73,7 +73,6 @@ static GuiWindow * mainWindow = NULL;
 static GuiText * settingText = NULL;
 static GuiText * settingText2 = NULL;
 static int lastMenu = MENU_NONE;
-static int wiiuproCtrl = 0;
 static int mapMenuCtrl = 0;
 static int mapMenuCtrlNES = 0;
 
@@ -252,27 +251,6 @@ WindowPrompt(const char *title, const char *msg, const char *btn1Label, const ch
 	return choice;
 }
 
-#ifdef HW_RVL
-/****************************************************************************
- * EmulatorUpdate
- *
- * Prompts for confirmation, and downloads/installs updates
- ***************************************************************************/
-static void *
-EmulatorUpdate (void *arg)
-{
-	bool installUpdate = WindowPrompt(
-		"Update Available",
-		"An update is available!",
-		"Update now",
-		"Update later");
-	if(installUpdate)
-		if(DownloadUpdate())
-			ExitRequested = 1;
-	return NULL;
-}
-#endif
-
 /****************************************************************************
  * UpdateGUI
  *
@@ -298,9 +276,9 @@ UpdateGUI (void *arg)
 		i = 3;
 		do
 		{
-			if(userInput[i].wpad->ir.valid)
-				Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48,
-					96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+			if(userInput[i].wpad->ir.valid) {
+				Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48, 96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+			}
 			DoRumble(i);
 			--i;
 		} while(i>=0);
@@ -312,15 +290,6 @@ UpdateGUI (void *arg)
 		mainWindow->Update(&userInput[2]);
 		mainWindow->Update(&userInput[1]);
 		mainWindow->Update(&userInput[0]);
-
-		#ifdef HW_RVL
-		if(updateFound)
-		{
-			updateFound = false;
-			if(!loadingFile)
-				LWP_CreateThread (&updatethread, EmulatorUpdate, NULL, NULL, 0, 70);
-		}
-		#endif
 
 		if(ExitRequested || ShutdownRequested)
 		{
@@ -799,8 +768,7 @@ static void WindowCredits(void * ptr)
 	txt[i] = new GuiText("Official Site: https://github.com/dborth/fceugx", 20, (GXColor){0, 0, 0, 255});
 	txt[i]->SetAlignment(ALIGN_CENTRE, ALIGN_TOP); txt[i]->SetPosition(0,y); i++; y+=32;
 
-	txt[i]->SetPresets(20, (GXColor){0, 0, 0, 255}, 0,
-			FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP, ALIGN_LEFT, ALIGN_TOP);
+	GuiText::SetPresets(20, (GXColor){0, 0, 0, 255}, 0, FTGX_JUSTIFY_LEFT | FTGX_ALIGN_TOP, ALIGN_LEFT, ALIGN_TOP);
 
 	txt[i] = new GuiText("Coding & menu design");
 	txt[i]->SetPosition(40,y); i++;
@@ -847,8 +815,7 @@ static void WindowCredits(void * ptr)
 	txt[i] = new GuiText("Armin Tamzarian");
 	txt[i]->SetPosition(335,y); i++; y+=48;
 
-	txt[i]->SetPresets(18, (GXColor){0, 0, 0, 255}, 0,
-		FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP, ALIGN_CENTRE, ALIGN_TOP);
+	GuiText::SetPresets(18, (GXColor){0, 0, 0, 255}, 0, FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP, ALIGN_CENTRE, ALIGN_TOP);
 
 	txt[i] = new GuiText("This software is open source and may be copied,");
 	txt[i]->SetPosition(0,y); i++; y+=20;
@@ -883,10 +850,10 @@ static void WindowCredits(void * ptr)
 
 		#ifdef HW_RVL
 		i = 3;
-		do {
-		if(userInput[i].wpad->ir.valid)
-			Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48,
-				96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+		do {	
+			if(userInput[i].wpad->ir.valid) {
+				Menu_DrawImg(userInput[i].wpad->ir.x-48, userInput[i].wpad->ir.y-48, 96, 96, pointer[i]->GetImage(), userInput[i].wpad->ir.angle, 1, 1, 255);
+			}
 			DoRumble(i);
 			--i;
 		} while(i >= 0);
@@ -894,10 +861,10 @@ static void WindowCredits(void * ptr)
 
 		Menu_Render();
 
-		if((userInput[0].wpad->btns_d || userInput[0].pad.btns_d || userInput[0].wupcdata.btns_d) ||
-		   (userInput[1].wpad->btns_d || userInput[1].pad.btns_d || userInput[1].wupcdata.btns_d) ||
-		   (userInput[2].wpad->btns_d || userInput[2].pad.btns_d || userInput[2].wupcdata.btns_d) ||
-		   (userInput[3].wpad->btns_d || userInput[3].pad.btns_d || userInput[3].wupcdata.btns_d))
+		if((userInput[0].wpad->btns_d || userInput[0].pad.btns_d) ||
+		   (userInput[1].wpad->btns_d || userInput[1].pad.btns_d) ||
+		   (userInput[2].wpad->btns_d || userInput[2].pad.btns_d) ||
+		   (userInput[3].wpad->btns_d || userInput[3].pad.btns_d))
 		{
 			exit = true;
 		}
@@ -907,7 +874,6 @@ static void WindowCredits(void * ptr)
 	// clear buttons pressed
 	for(i=0; i < 4; i++)
 	{
-		userInput[i].wupcdata.btns_d = 0;
 		userInput[i].wpad->btns_d = 0;
 		userInput[i].pad.btns_d = 0;
 	}
@@ -989,13 +955,13 @@ static int MenuGameSelection()
 	GuiFileBrowser gameBrowser(330, 268);
 	gameBrowser.SetPosition(20, 98);
 	ResetBrowser();
-
+	
 	GuiImage bgPreview(&bgPreviewImg);
 	bgPreview.SetPosition(365, 98);
-
+	
 	GuiImage preview;
 	preview.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
-	preview.SetPosition(175, -8);	//preview.SetPosition(380, 125);
+	preview.SetPosition(175, -8);
 	u8* imgBuffer = MEM_ALLOC(512 * 512 * 4);
 	int  previousBrowserIndex = -1;
 	char screenshotPath[MAXJOLIET + 1];
@@ -1041,10 +1007,10 @@ static int MenuGameSelection()
 			if(gameBrowser.fileList[i]->GetState() == STATE_CLICKED)
 			{
 				gameBrowser.fileList[i]->ResetState();
-
+				
 				// check corresponding browser entry
 				if(browserList[browser.selIndex].isdir || IsSz())
-				{
+				{	
 					HaltGui();
 					res = BrowserChangeFolder();
 					if(res)
@@ -1052,17 +1018,17 @@ static int MenuGameSelection()
 						gameBrowser.ResetState();
 						gameBrowser.fileList[0]->SetState(STATE_SELECTED);
 						gameBrowser.TriggerUpdate();
-						previousBrowserIndex = -1;
+						previousBrowserIndex = -1;			
 					}
 					else
 					{
 						menu = MENU_GAMESELECTION;
 						break;
 					}
-
-
+					
+					
 					titleTxt.SetText(inSz ? szname : "Choose Game");
-
+					
 					ResumeGui();
 				}
 				else
@@ -1079,13 +1045,13 @@ static int MenuGameSelection()
 				}
 			}
 		}
-
+		
 		//update game screenshot
 		if(previousBrowserIndex != browser.selIndex)
-		{
+		{			
 			previousBrowserIndex = browser.selIndex;
 			snprintf(screenshotPath, MAXJOLIET, "%s%s/%s.png", pathPrefix[GCSettings.LoadMethod], GCSettings.ScreenshotsFolder, browserList[browser.selIndex].displayname);
-
+			
 			AllocSaveBuffer();
 			int width, height;
 			if(LoadFile(screenshotPath, SILENT))
@@ -1100,7 +1066,7 @@ static int MenuGameSelection()
 					preview.SetImage(NULL, 0, 0);
 				}
 			}
-			else
+			else 
 			{
 				preview.SetImage(NULL, 0, 0);
 			}
@@ -1227,26 +1193,6 @@ static int MenuGame()
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50,40);
 
-	char memInfo[128];
-	memset(&memInfo[0], 0, 128);
-	#ifdef USE_VM
-		sprintf(&memInfo[0], "Memory Free: RAM %.2fMB VM %.2fMB"
-						,((float)((u32)SYS_GetArena1Hi()-(u32)SYS_GetArena1Lo())/1024/1024)
-						,((float)(vm_size_free())/1024/1024));
-		#else
-		#ifdef HW_RVL
-			sprintf(&memInfo[0], "Memory Free: MEM1 %.2fMB MEM2 %.2fMB"
-							,((float)((u32)SYS_GetArena1Hi()-(u32)SYS_GetArena1Lo())/1024/1024)
-							,((float)((u32)SYS_GetArena2Hi()-(u32)SYS_GetArena2Lo())/1024/1024));
-		#else
-			sprintf(&memInfo[0], "Memory Free: RAM %.2fMB"
-							,((float)((u32)SYS_GetArena1Hi()-(u32)SYS_GetArena1Lo())/1024/1024));
-		#endif
-	#endif
-	GuiText memTxt(memInfo, 18, (GXColor){255, 255, 255, 255});
-	memTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	memTxt.SetPosition(50,70);
-
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_png);
@@ -1318,7 +1264,7 @@ static int MenuGame()
 	deleteBtn.SetTrigger(trigA);
 	deleteBtn.SetTrigger(trig2);
 	deleteBtn.SetEffectGrow();
-
+	
 	GuiText resetBtnTxt("Reset", 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(&btnLargeOutline);
 	GuiImage resetBtnImgOver(&btnLargeOutlineOver);
@@ -1435,12 +1381,7 @@ static int MenuGame()
 	w.Append(&deleteBtn);
 	w.Append(&resetBtn);
 	w.Append(&gameSettingsBtn);
-
-	if(GCSettings.DisplayVM == 1) //show memory usage
-	{
-		w.Append(&memTxt);
-	}
-
+		
 	#ifdef HW_RVL
 	w.Append(batteryBtn[0]);
 	w.Append(batteryBtn[1]);
@@ -1461,7 +1402,6 @@ static int MenuGame()
 		bgTopImg->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 35);
 		closeBtn.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 35);
 		titleTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 35);
-		memTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_IN, 35);
 		mainmenuBtn.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 35);
 		bgBottomImg->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 35);
 		btnLogo->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_IN, 35);
@@ -1476,7 +1416,7 @@ static int MenuGame()
 	}
 
 	ResumeGui();
-
+	
 	if(lastMenu == MENU_NONE)
 		AutoSave();
 
@@ -1495,17 +1435,8 @@ static int MenuGame()
 			}
 			else
 			{
-				struct WUPCData *data = WUPC_Data(i);
-				if(data != NULL)
-				{
-					newStatus = true;
-					newLevel = data->battery;
-				}
-				else
-				{
-					newStatus = false;
-					newLevel = 0;
-				}
+				newStatus = false;
+				newLevel = 0;
 			}
 
 			if(status[i] != newStatus || level[i] != newLevel)
@@ -1585,7 +1516,6 @@ static int MenuGame()
 			bgTopImg->SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 15);
 			closeBtn.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 15);
 			titleTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 15);
-			memTxt.SetEffect(EFFECT_SLIDE_TOP | EFFECT_SLIDE_OUT, 15);
 			mainmenuBtn.SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 15);
 			bgBottomImg->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 15);
 			btnLogo->SetEffect(EFFECT_SLIDE_BOTTOM | EFFECT_SLIDE_OUT, 15);
@@ -1821,7 +1751,7 @@ static int MenuGameSaves(int action)
 		if(ret > -3)
 		{
 			result = 0;
-
+			
 			if(action == 0) // load
 			{
 				MakeFilePath(filepath, saves.type[ret], saves.filename[ret]);
@@ -1835,7 +1765,7 @@ static int MenuGameSaves(int action)
 						break;
 				}
 				if(result)
-					menu = MENU_EXIT;
+					menu = MENU_EXIT;				
 			}
 			else if(action == 2) // delete RAM/State
 			{
@@ -1860,7 +1790,7 @@ static int MenuGameSaves(int action)
 							sprintf(deletepath, "%s.fcs", deletepath);
 							remove(deletepath); // Delete the *.fcs file (Save State file)
 						break;
-					}
+					}							
 				}
 				menu = MENU_GAME_DELETE;
 			}
@@ -2041,7 +1971,7 @@ static int MenuGameSettings()
 	screenshotBtn.SetTrigger(trigA);
 	screenshotBtn.SetTrigger(trig2);
 	screenshotBtn.SetEffectGrow();
-
+		
 	GuiText cheatsBtnTxt("Cheats", 22, (GXColor){0, 0, 0, 255});
 	GuiImage cheatsBtnImg(&btnLargeOutline);
 	GuiImage cheatsBtnImgOver(&btnLargeOutlineOver);
@@ -2134,7 +2064,7 @@ static int MenuGameSettings()
 			if (WindowPrompt("Preview Screenshot", "Save a new Preview Screenshot? Current Screenshot image will be overwritten.", "OK", "Cancel"))
 			{
 				snprintf(filepath, 1024, "%s%s/%s", pathPrefix[GCSettings.SaveMethod], GCSettings.ScreenshotsFolder, romFilename);
-				SavePreviewImg(filepath, NOTSILENT);
+				SavePreviewImg(filepath, NOTSILENT); 
 			}
 		}
 		else if(closeBtn.GetState() == STATE_CLICKED)
@@ -2412,6 +2342,24 @@ static int MenuSettingsMappingsController()
 	gamecubeBtn.SetTrigger(trig2);
 	gamecubeBtn.SetEffectGrow();
 
+	GuiText wiiuproBtnTxt("Wii U Pro Controller", 22, (GXColor){0, 0, 0, 255});
+	wiiuproBtnTxt.SetWrap(true, btnLargeOutline.GetWidth()-20);
+	GuiImage wiiuproBtnImg(&btnLargeOutline);
+	GuiImage wiiuproBtnImgOver(&btnLargeOutlineOver);
+	GuiImage wiiuproBtnIcon(&iconWiiupro);
+	GuiButton wiiuproBtn(btnLargeOutline.GetWidth(), btnLargeOutline.GetHeight());
+	wiiuproBtn.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
+	wiiuproBtn.SetPosition(0, 250);
+	wiiuproBtn.SetLabel(&wiiuproBtnTxt);
+	wiiuproBtn.SetImage(&wiiuproBtnImg);
+	wiiuproBtn.SetImageOver(&wiiuproBtnImgOver);
+	wiiuproBtn.SetIcon(&wiiuproBtnIcon);
+	wiiuproBtn.SetSoundOver(&btnSoundOver);
+	wiiuproBtn.SetSoundClick(&btnSoundClick);
+	wiiuproBtn.SetTrigger(trigA);
+	wiiuproBtn.SetTrigger(trig2);
+	wiiuproBtn.SetEffectGrow();
+
 	GuiText wiimoteBtnTxt("Wiimote", 22, (GXColor){0, 0, 0, 255});
 	GuiImage wiimoteBtnImg(&btnLargeOutline);
 	GuiImage wiimoteBtnImgOver(&btnLargeOutlineOver);
@@ -2446,25 +2394,7 @@ static int MenuSettingsMappingsController()
 	classicBtn.SetTrigger(trigA);
 	classicBtn.SetTrigger(trig2);
 	classicBtn.SetEffectGrow();
-
-	GuiText wiiuproBtnTxt("Wii U Pro Controller", 22, (GXColor){0, 0, 0, 255});
-	wiiuproBtnTxt.SetWrap(true, btnLargeOutline.GetWidth()-20);
-	GuiImage wiiuproBtnImg(&btnLargeOutline);
-	GuiImage wiiuproBtnImgOver(&btnLargeOutlineOver);
-	GuiImage wiiuproBtnIcon(&iconWiiupro);
-	GuiButton wiiuproBtn(btnLargeOutline.GetWidth(), btnLargeOutline.GetHeight());
-	wiiuproBtn.SetAlignment(ALIGN_CENTRE, ALIGN_TOP);
-	wiiuproBtn.SetPosition(0, 250);
-	wiiuproBtn.SetLabel(&wiiuproBtnTxt);
-	wiiuproBtn.SetImage(&wiiuproBtnImg);
-	wiiuproBtn.SetImageOver(&wiiuproBtnImgOver);
-	wiiuproBtn.SetIcon(&wiiuproBtnIcon);
-	wiiuproBtn.SetSoundOver(&btnSoundOver);
-	wiiuproBtn.SetSoundClick(&btnSoundClick);
-	wiiuproBtn.SetTrigger(trigA);
-	wiiuproBtn.SetTrigger(trig2);
-	wiiuproBtn.SetEffectGrow();
-
+	
 	GuiText nunchukBtnTxt1("Wiimote", 22, (GXColor){0, 0, 0, 255});
 	GuiText nunchukBtnTxt2("&", 18, (GXColor){0, 0, 0, 255});
 	GuiText nunchukBtnTxt3("Nunchuk", 22, (GXColor){0, 0, 0, 255});
@@ -2541,15 +2471,13 @@ static int MenuSettingsMappingsController()
 		}
 		else if(classicBtn.GetState() == STATE_CLICKED)
 		{
-			wiiuproCtrl = 0;
 			menu = MENU_GAMESETTINGS_MAPPINGS_MAP;
 			mapMenuCtrl = CTRLR_CLASSIC;
 		}
 		else if(wiiuproBtn.GetState() == STATE_CLICKED)
 		{
-			wiiuproCtrl = 1;
 			menu = MENU_GAMESETTINGS_MAPPINGS_MAP;
-			mapMenuCtrl = CTRLR_CLASSIC;
+			mapMenuCtrl = CTRLR_WUPC;
 		}
 		else if(gamecubeBtn.GetState() == STATE_CLICKED)
 		{
@@ -2602,14 +2530,10 @@ ButtonMappingWindow()
 			sprintf(msg, "Press any button on the Wiimote now. Press Home to clear the existing mapping.");
 			break;
 		case CTRLR_CLASSIC:
-			if(wiiuproCtrl == 1)
-			{
-				sprintf(msg, "Press any button on the Wii U Pro Controller now. Press Home to clear the existing mapping.");
-			}
-			else
-			{
-				sprintf(msg, "Press any button on the Classic Controller now. Press Home to clear the existing mapping.");
-			}
+			sprintf(msg, "Press any button on the Classic Controller now. Press Home to clear the existing mapping.");
+			break;
+		case CTRLR_WUPC:
+			sprintf(msg, "Press any button on the Wii U Pro Controller now. Press Home to clear the existing mapping.");
 			break;
 		case CTRLR_NUNCHUK:
 			sprintf(msg, "Press any button on the Wiimote or Nunchuk now. Press Home to clear the existing mapping.");
@@ -2665,10 +2589,16 @@ ButtonMappingWindow()
 						break;
 
 					case CTRLR_CLASSIC:
-						if(userInput[0].wpad->exp.type != WPAD_EXP_CLASSIC)
+						if(userInput[0].wpad->exp.type != WPAD_EXP_CLASSIC && userInput[0].wpad->exp.classic.type < 2)
 							pressed = 0; // not a valid input
 						else if(pressed <= 0x1000)
+							pressed = 0;
+						break;
+					case CTRLR_WUPC:
+						if(userInput[0].wpad->exp.type != WPAD_EXP_CLASSIC && userInput[0].wpad->exp.classic.type == 2)
 							pressed = 0; // not a valid input
+						else if(pressed <= 0x1000)
+							pressed = 0;
 						break;
 
 					case CTRLR_NUNCHUK:
@@ -2677,13 +2607,10 @@ ButtonMappingWindow()
 						break;
 				}
 			}
-			if(pressed == 0)
-				pressed = userInput[0].wupcdata.btns_d;
 		}
 	}
 
-	if(pressed == WPAD_BUTTON_HOME
-		|| pressed == WPAD_CLASSIC_BUTTON_HOME)
+	if(pressed == WPAD_BUTTON_HOME || pressed == WPAD_CLASSIC_BUTTON_HOME)
 		pressed = 0;
 
 	HaltGui();
@@ -2709,14 +2636,7 @@ static int MenuSettingsMappingsMap()
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50,30);
 
-	if(wiiuproCtrl == 1)
-	{
-		sprintf(menuSubtitle, "%s - %s", gettext(ctrlName[mapMenuCtrlNES]),"Wii U Pro Controller");
-	}
-	else
-	{
-		sprintf(menuSubtitle, "%s - %s", gettext(ctrlName[mapMenuCtrlNES]), gettext(ctrlrName[mapMenuCtrl]));
-	}
+	sprintf(menuSubtitle, "%s - %s", gettext(ctrlName[mapMenuCtrlNES]), gettext(ctrlrName[mapMenuCtrl]));
 	GuiText subtitleTxt(menuSubtitle, 20, (GXColor){255, 255, 255, 255});
 	subtitleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	subtitleTxt.SetPosition(50,60);
@@ -2858,7 +2778,7 @@ static int MenuSettingsMappingsMap()
 			optionBrowser.TriggerUpdate();
 		}
 	}
-	wiiuproCtrl = 0;
+
 	HaltGui();
 	mainWindow->Remove(&optionBrowser);
 	mainWindow->Remove(&w);
@@ -3201,7 +3121,7 @@ static int MenuSettingsVideo()
 		{
 			case 0:
 				GCSettings.render++;
-				if (GCSettings.render > 2)
+				if (GCSettings.render > 4)
 					GCSettings.render = 0;
 				break;
 
@@ -3263,6 +3183,10 @@ static int MenuSettingsVideo()
 				sprintf (options.value[0], "Filtered");
 			else if (GCSettings.render == 2)
 				sprintf (options.value[0], "Unfiltered");
+			else if (GCSettings.render == 3)
+				sprintf (options.value[0], "Filtered (Sharp)");
+			else if (GCSettings.render == 4)
+				sprintf (options.value[0], "Filtered (Soft)");
 
 			if(GCSettings.widescreen)
 				sprintf (options.value[1], "16:9 Correction");
@@ -3278,8 +3202,8 @@ static int MenuSettingsVideo()
 			}
 
 			sprintf (options.value[3], "%s",
-				GCSettings.currpal ? palettes[GCSettings.currpal-1].desc : "Default Colors");
-
+				GCSettings.currpal ? palettes[GCSettings.currpal-1].desc : "Default");
+ 
 			switch(GCSettings.timing)
 			{
 				case 0: sprintf (options.value[4], "NTSC"); break;
@@ -3309,7 +3233,7 @@ static int MenuSettingsVideo()
 		}
 
 		if(backBtn.GetState() == STATE_CLICKED)
-
+		
 		{
 			menu = MENU_GAMESETTINGS;
 		}
@@ -3332,7 +3256,7 @@ static int MenuSettings()
 	GuiText titleTxt("Settings", 26, (GXColor){255, 255, 255, 255});
 	titleTxt.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	titleTxt.SetPosition(50,50);
-
+	
 	GuiSound btnSoundOver(button_over_pcm, button_over_pcm_size, SOUND_PCM);
 	GuiSound btnSoundClick(button_click_pcm, button_click_pcm_size, SOUND_PCM);
 	GuiImageData btnOutline(button_long_png);
@@ -3373,7 +3297,7 @@ static int MenuSettings()
 	resetBtn.SetTrigger(trigA);
 	resetBtn.SetTrigger(trig2);
 	resetBtn.SetEffectGrow();
-
+	
 	HaltGui();
 	GuiWindow w(screenwidth, screenheight);
 	w.Append(&titleTxt);
@@ -3381,7 +3305,7 @@ static int MenuSettings()
 	w.Append(&resetBtn);
 	mainWindow->Append(&w);
 	ResumeGui();
-
+	
 	GuiText savingBtnTxt1("Saving", 22, (GXColor){0, 0, 0, 255});
 	GuiText savingBtnTxt2("&", 18, (GXColor){0, 0, 0, 255});
 	GuiText savingBtnTxt3("Loading", 22, (GXColor){0, 0, 0, 255});
@@ -3493,7 +3417,7 @@ static int MenuSettings()
 		else if(cheatsBtn.GetState() == STATE_CLICKED)
 		{
 			cheatsBtn.ResetState();
-
+			
 			if(!FindGameGenie())
 			{
 				ErrorPrompt("Game Genie ROM not found!");
@@ -3549,6 +3473,7 @@ static int MenuSettingsFile()
 	sprintf(options.name[i++], "Screenshots Folder");
 	sprintf(options.name[i++], "Auto Load");
 	sprintf(options.name[i++], "Auto Save");
+	sprintf(options.name[i++], "Append Auto to .SAV Files");
 	options.length = i;
 
 	for(i=0; i < options.length; i++)
@@ -3618,7 +3543,7 @@ static int MenuSettingsFile()
 			case 4:
 				OnScreenKeyboard(GCSettings.CheatFolder, MAXPATHLEN);
 				break;
-
+				
 			case 5:
 				OnScreenKeyboard(GCSettings.ScreenshotsFolder, MAXPATHLEN);
 				break;
@@ -3633,6 +3558,12 @@ static int MenuSettingsFile()
 				GCSettings.AutoSave++;
 				if (GCSettings.AutoSave > 3)
 					GCSettings.AutoSave = 0;
+				break;
+
+			case 8:
+				GCSettings.AppendAuto++;
+				if (GCSettings.AppendAuto > 1)
+					GCSettings.AppendAuto = 0;
 				break;
 		}
 
@@ -3706,6 +3637,9 @@ static int MenuSettingsFile()
 			else if (GCSettings.AutoSave == 2) sprintf (options.value[7],"State");
 			else if (GCSettings.AutoSave == 3) sprintf (options.value[7],"Both");
 
+			if (GCSettings.AppendAuto == 0) sprintf (options.value[8], "Off");
+			else if (GCSettings.AppendAuto == 1) sprintf (options.value[8], "On");
+
 			optionBrowser.TriggerUpdate();
 		}
 
@@ -3739,7 +3673,6 @@ static int MenuSettingsMenu()
 	sprintf(options.name[i++], "Sound Effects Volume");
 	sprintf(options.name[i++], "Rumble");
 	sprintf(options.name[i++], "Language");
-	sprintf(options.name[i++], "Display Virtual Memory");
 	options.length = i;
 
 	for(i=0; i < options.length; i++)
@@ -3814,15 +3747,17 @@ static int MenuSettingsMenu()
 				break;
 			case 5:
 				GCSettings.language++;
-
+				
 				if(GCSettings.language >= LANG_LENGTH)
 					GCSettings.language = LANG_JAPANESE;
 
-				if(GCSettings.language == LANG_JAPANESE)
+                // upd start by xjsxjs197
+				if(GCSettings.language == LANG_SIMP_CHINESE)
+					//GCSettings.language = LANG_PORTUGUESE;
+					GCSettings.language = LANG_SIMP_CHINESE;
+			    // upd end by xjsxjs197
+				else if(GCSettings.language == LANG_JAPANESE)
 					GCSettings.language = LANG_ENGLISH;
-				break;
-			case 6:
-				GCSettings.DisplayVM ^= 1;
 				break;
 		}
 
@@ -3890,13 +3825,7 @@ static int MenuSettingsMenu()
 				case LANG_CATALAN:			sprintf(options.value[5], "Catalan"); 	break;
 				case LANG_TURKISH:			sprintf(options.value[5], "Turkish"); 	break;
 			}
-
-			if (GCSettings.DisplayVM == 1)
-				sprintf (options.value[6], "Enabled");
-			else
-				sprintf (options.value[6], "Disabled");
-
-
+			
 			optionBrowser.TriggerUpdate();
 		}
 
@@ -4028,7 +3957,7 @@ MainMenu (int menu)
 	static bool init = false;
 	int currentMenu = menu;
 	lastMenu = MENU_NONE;
-
+	
 	if(!init)
 	{
 		init = true;
@@ -4142,10 +4071,10 @@ MainMenu (int menu)
 				break;
 			case MENU_GAME_SAVE:
 				currentMenu = MenuGameSaves(1);
-				break;
+				break;			
 			case MENU_GAME_DELETE:
 				currentMenu = MenuGameSaves(2);
-				break;
+				break;	
 			case MENU_GAMESETTINGS:
 				currentMenu = MenuGameSettings();
 				break;
@@ -4222,7 +4151,7 @@ MainMenu (int menu)
 		#endif
 		gameScreenPng = NULL;
 	}
-
+	
 	// wait for keys to be depressed
 	while(MenuRequested())
 	{

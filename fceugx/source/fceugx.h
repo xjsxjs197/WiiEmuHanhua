@@ -17,10 +17,11 @@
 #include "fceultra/driver.h"
 
 #define APPNAME			"FCE Ultra GX"
-#define APPVERSION		"3.3.9"
+#define APPVERSION		"3.4.0"
 #define APPFOLDER 		"fceugx"
 #define PREF_FILE_NAME	"settings.xml"
 
+#define MAXPATHLEN 1024
 #define NOTSILENT 0
 #define SILENT 1
 
@@ -83,6 +84,7 @@ struct SGCSettings
     int		AutoSave;
     int		LoadMethod; // For ROMS: Auto, SD, DVD, USB, Network (SMB)
 	int		SaveMethod; // For SRAM, Freeze, Prefs: Auto, SD, USB, SMB
+	int		AppendAuto; // 0 - no, 1 - yes
 	char	LoadFolder[MAXPATHLEN]; // Path to game files
 	char	LastFileLoaded[MAXPATHLEN]; //Last file loaded filename
 	char	SaveFolder[MAXPATHLEN]; // Path to save files
@@ -118,7 +120,6 @@ struct SGCSettings
 	int		SFXVolume;
 	int		Rumble;
 	int 	language;
-	int		DisplayVM;
 };
 
 void ExitApp();

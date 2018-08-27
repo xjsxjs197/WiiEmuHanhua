@@ -17,7 +17,6 @@
 #include <ogc/system.h>
 #include <fat.h>
 #include <wiiuse/wpad.h>
-#include <wupc/wupc.h>
 #include <malloc.h>
 #include <sys/iosupport.h>
 
@@ -47,15 +46,16 @@
 
 #include "fceultra/types.h"
 
-void FCEUD_Update(uint8 *XBuf, int32 *Buffer, int Count);
-void FCEUD_UpdatePulfrich(uint8 *XBuf, int32 *Buffer, int Count);
-void FCEUD_UpdateLeft(uint8 *XBuf, int32 *Buffer, int Count);
-void FCEUD_UpdateRight(uint8 *XBuf, int32 *Buffer, int Count);
+void FCEUD_Update(uint8 *XBuf, int32 *Buffer, int32 Count);
+void FCEUD_UpdatePulfrich(uint8 *XBuf, int32 *Buffer, int32 Count);
+void FCEUD_UpdateLeft(uint8 *XBuf, int32 *Buffer, int32 Count);
+void FCEUD_UpdateRight(uint8 *XBuf, int32 *Buffer, int32 Count);
 
 extern "C" {
 #ifdef USE_VM
 	#include "utils/vm/vm.h"
 #endif
+extern char* strcasestr(const char *, const char *);
 extern void __exception_setreload(int t);
 }
 
@@ -182,7 +182,7 @@ void ShutdownCB()
 {
 	ShutdownRequested = 1;
 }
-void ResetCB()
+void ResetCB(u32 irq, void *ctx)
 {
 	ResetRequested = 1;
 }
@@ -292,7 +292,7 @@ bool SaneIOS(u32 ios)
 static bool gecko = false;
 static mutex_t gecko_mutex = 0;
 
-static ssize_t __out_write(struct _reent *r, int fd, const char *ptr, size_t len)
+static ssize_t __out_write(struct _reent *r, void* fd, const char *ptr, size_t len)
 {
 	if (!gecko || len == 0)
 		return len;
@@ -388,12 +388,10 @@ int main(int argc, char *argv[])
 	SYS_SetPowerCallback(ShutdownCB);
 	SYS_SetResetCallback(ResetCB);
 	
-	WUPC_Init();
 	WPAD_Init();
 	WPAD_SetPowerButtonCallback((WPADShutdownCallback)ShutdownCB);
 	DI_Init();
 	USBStorage_Initialize();
-	StartNetworkThread();
 	#else
 	DVD_Init (); // Initialize DVD subsystem (GameCube only)
 	#endif
@@ -438,7 +436,7 @@ int main(int argc, char *argv[])
 	int currentTiming = 0;
 
 	bool autoboot = false;
-	if(argc > 3 && argv[1] != NULL && argv[2] != NULL && argv[3] != NULL)
+	if(argc > 2 && argv[1] != NULL && argv[2] != NULL)
 	{
 		autoboot = true;
 		ResetBrowser();
@@ -461,7 +459,7 @@ int main(int argc, char *argv[])
 		strncpy(arg_filename, argv[2], sizeof(arg_filename));
 		strncpy(GCSettings.LoadFolder, dir.c_str(), sizeof(GCSettings.LoadFolder));
 		OpenGameList();
-		strncpy(GCSettings.Exit_Dol_File, argv[3], sizeof(GCSettings.Exit_Dol_File));
+		strncpy(GCSettings.Exit_Dol_File, argc > 3 && argv[3] != NULL ? argv[3] : "", sizeof(GCSettings.Exit_Dol_File));
 		if(argc > 5 && argv[4] != NULL && argv[5] != NULL)
 		{
 			sscanf(argv[4], "%08x", &GCSettings.Exit_Channel[0]);

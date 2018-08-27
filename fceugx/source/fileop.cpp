@@ -158,7 +158,6 @@ devicecallback (void *arg)
 			usleep(THREAD_SLEEP);
 			devsleep -= THREAD_SLEEP;
 		}
-		UpdateCheck();
 	}
 	return NULL;
 }
@@ -566,10 +565,11 @@ static bool ParseDirEntries()
 				if(ext == NULL)
 					continue;
 
-				if(	stricmp(ext, "nes") != 0 && stricmp(ext, "fds") != 0 &&
-					stricmp(ext, "nsf") != 0 && stricmp(ext, "unf") != 0 &&
-					stricmp(ext, "nez") != 0 && stricmp(ext, "unif") != 0 &&
-					stricmp(ext, "zip") != 0 && stricmp(ext, "7z") != 0)
+				if(	strcasecmp(ext, "nes") != 0 && strcasecmp(ext, "fds") != 0 &&
+					strcasecmp(ext, "nsf") != 0 && strcasecmp(ext, "unf") != 0 &&
+					strcasecmp(ext, "nez") != 0 && strcasecmp(ext, "unif") != 0 &&
+					strcasecmp(ext, "gba") != 0 &&
+					strcasecmp(ext, "zip") != 0 && strcasecmp(ext, "7z") != 0)
 					continue;
 			}
 		}
@@ -697,6 +697,20 @@ ParseDirectory(bool waitParse, bool filter)
 	}
 
 	return browser.numEntries;
+}
+
+bool CreateDirectory(char * path)
+{
+	DIR *dir = opendir(path);
+	if (!dir) {
+		if(mkdir(path, 0777) != 0) {
+			return false;
+		}
+	}
+	else {
+		closedir(dir);
+	}
+	return true;
 }
 
 /****************************************************************************
