@@ -27,6 +27,8 @@
 #include "wiiFont.h"
 #include "wiiFontC.h"
 #include "gettext.h"
+#include "ZhBufFont13X13NoBlock_RGB5A3_dat.h"
+#include "zh_lang.h"
 #include "../gfx/drivers_font_renderer/bitmap.h"
 extern "C" {
 #include "../memory/wii/mem2_manager.h"
@@ -52,24 +54,13 @@ wiiFont::~wiiFont()
 
 void wiiFont::wiiFontInit()
 {
-    int ZhBufFont_size = 2384766; // RGB5A3
+    int ZhBufFont_size = ZhBufFont13X13NoBlock_RGB5A3_dat_size; // RGB5A3
 	//int ZhBufFont_size = 3598068; // RGB5A3
 	//int ZhBufFont_size = 1422492; // RGB5A3
 	int searchLen = (int)(ZhBufFont_size / (4 + CHAR_IMG_SIZE));
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
-	FILE *charPngFile;
-	try {
-	    charPngFile = fopen("sd:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
-	} catch (std::exception e) {
-	    charPngFile = fopen("usb:/retroarch/font/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
-	}
-	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
-
-	fseek(charPngFile, 0, SEEK_SET);
-	fread(ZhBufFont_dat, 1, ZhBufFont_size, charPngFile);
-    fclose(charPngFile);
-    charPngFile = NULL;
+	ZhBufFont_dat = (uint8_t *)ZhBufFont13X13NoBlock_RGB5A3_dat;
 
 	uint16_t *zhFontBufTemp = (uint16_t *)ZhBufFont_dat;
     while (bufIndex < searchLen)
@@ -89,33 +80,18 @@ void wiiFont::wiiFontInit()
     colorMap.insert(std::pair<uint16_t, uint16_t>(24575, 20608));
     colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));
 
-    // 读取文件名映射文件
-    FILE *titleMapFile;
-    try {
-	    titleMapFile = fopen("sd:/retroarch/font/zh.lang", "rb");
-	} catch (std::exception e) {
-	    titleMapFile = fopen("usb:/retroarch/font/zh.lang", "rb");
-	}
-
-    fseek(titleMapFile, 0, SEEK_END);
-    long zhMapFileLen = ftell(titleMapFile);
-    char* zhMapBuf = (char*)memalign(32, (int)zhMapFileLen);
-
-    fseek(titleMapFile, 0, SEEK_SET);
-	fread(zhMapBuf, 1, zhMapFileLen, titleMapFile);
-    fclose(titleMapFile);
-    titleMapFile = NULL;
-
+    char* zhMapBuf = (char*)zh_lang;
     LoadLanguage(zhMapBuf);
 }
 
 void wiiFont::wiiFontClose()
 {
+    /*
     if (ZhBufFont_dat)
     {
         _mem2_free(ZhBufFont_dat);
         ZhBufFont_dat = NULL;
-    }
+    }*/
 }
 
 uint16_t* wiiFont::getPngPosByCharCode(wchar_t unicode)

@@ -104,6 +104,7 @@ else ifeq ($(platform), ps3-cobra)
 # NGC/Wii - libogc
 else ifeq ($(libogc_platform), 1)
    EXTERNAL_LIBOGC=0
+   AS = $(DEVKITPPC)/bin/powerpc-eabi-as$(EXE_EXT)
    CC = $(DEVKITPPC)/bin/powerpc-eabi-gcc$(EXE_EXT)
    CXX = $(DEVKITPPC)/bin/powerpc-eabi-g++$(EXE_EXT)
    LD = $(DEVKITPPC)/bin/powerpc-eabi-ld$(EXE_EXT)
@@ -112,7 +113,7 @@ else ifeq ($(libogc_platform), 1)
    EXT_INTER_TARGET := $(TARGET_NAME)_$(platform).elf
 
    INCLUDE += -I. -I$(DEVKITPRO)/libogc/include -Ideps/libz -Iwii/libogc/include
- 
+
    ifeq ($(EXTERNAL_LIBOGC), 1)
       CFLAGS   += -DEXTERNAL_LIBOGC
       CXXFLAGS += -DEXTERNAL_LIBOGC
@@ -382,7 +383,7 @@ else ifeq ($(platform), windows_msvc2003_x86)
 
    PLATCFLAGS += -D_WIN32 -DWINVER=0x0400 -D_WIN32_WINNT=0x0400 -D__STDC_CONSTANT_MACROS -D_MBCS -D_VC80_UPGRADE=0x0710
    LDFLAGS += shell32.lib user32.lib gdi32.lib comdlg32.lib winmm.lib ole32.lib
-   
+
    PATH := $(shell IFS=$$'\n'; cygpath "$(VS71COMNTOOLS)../../Vc7/bin"):$(PATH)
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS71COMNTOOLS)../IDE")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS71COMNTOOLS)../../Vc7/include")
@@ -429,7 +430,7 @@ else ifeq ($(platform), windows_msvc2005_x86)
 
    PLATCFLAGS += -D_WIN32 -D_WIN32_WINNT=0x0410 -D__STDC_CONSTANT_MACROS -D_MBCS
    LDFLAGS += shell32.lib user32.lib gdi32.lib comdlg32.lib winmm.lib ole32.lib
-   
+
    PATH := $(shell IFS=$$'\n'; cygpath "$(VS80COMNTOOLS)../../VC/bin"):$(PATH)
    PATH := $(PATH):$(shell IFS=$$'\n'; cygpath "$(VS80COMNTOOLS)../IDE")
    INCLUDE := $(shell IFS=$$'\n'; cygpath -w "$(VS80COMNTOOLS)../../VC/include")
@@ -759,10 +760,10 @@ else
    CFLAGS += -Wall -std=gnu99 $(MACHDEP) $(PLATCFLAGS) $(INCLUDE)
    INCLUDE += -I./libretro-common/include \
 				  -Ideps \
-				  -Ideps/stb 
+				  -Ideps/stb
 endif
 
-OBJ = griffin/griffin.o griffin/wiiFont.o griffin/gettext.o  $(PLATOBJS)
+OBJ = griffin/griffin.o griffin/zh.lang.o griffin/ZhBufFont13X13NoBlock_RGB5A3.dat.o griffin/wiiFont.o griffin/gettext.o $(PLATOBJS)
 
 ifeq ($(HAVE_GRIFFIN_CPP), 1)
    OBJ += griffin/griffin_cpp.o
@@ -962,8 +963,8 @@ ifneq (,$(findstring msvc,$(platform)))
 	LINKOUT = -out:
 	LINK = link.exe
 else
-	OBJOUT   = -o 
-	LINKOUT  = -o 
+	OBJOUT   = -o
+	LINKOUT  = -o
 	LINK = $(CXX)
 endif
 
@@ -992,9 +993,27 @@ endif
 $(EXT_INTER_TARGET): $(OBJ)
 	$(LINK) $(LINKOUT)$@ $(LDFLAGS) $(LIBDIRS) $(OBJ) $(PLATEXTRA) $(LIBS)
 
+#---------------------------------------------------------------------------------
+# canned command sequence for binary data
+#---------------------------------------------------------------------------------
+define bin2o
+	bin2s -a 32 $< | $(AS) -o $(@)
+	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"_end[];" > `(echo $(<F) | tr . _)`.h
+	echo "extern const u8" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`"[];" >> `(echo $(<F) | tr . _)`.h
+	echo "extern const u32" `(echo $(<F) | sed -e 's/^\([0-9]\)/_\1/' | tr . _)`_size";" >> `(echo $(<F) | tr . _)`.h
+endef
+
+%.lang.o: %.lang
+	@echo $(notdir $<)
+	$(bin2o)
+
+%.dat.o: %.dat
+	@echo $(notdir $<)
+	$(bin2o)
+
 %.o: %.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $<
-	
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(OBJOUT)$@ $<
 
