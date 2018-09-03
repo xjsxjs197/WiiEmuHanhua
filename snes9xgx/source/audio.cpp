@@ -29,64 +29,71 @@
 #include "snes9x/spc7110.h"
 #include "snes9x/controls.h"
 
+extern int ScreenshotRequested;
 extern int ConfigRequested;
 
 /*** Double buffered audio ***/
+#define SAMPLES_TO_PROCESS 1024
 #define AUDIOBUFFER 2048
-static unsigned char soundbuffer[2][AUDIOBUFFER] __attribute__ ((__aligned__ (32)));
-static int whichab = 0;	/*** Audio buffer flip switch ***/
+#define BUFFERCOUNT 16
+static u8 soundbuffer[BUFFERCOUNT][AUDIOBUFFER] __attribute__ ((__aligned__ (32)));
+static int playab = 0;
+static int nextab = 0;
+static int unplayed = 0;
 
-#define AUDIOSTACK 16384
-static lwpq_t audioqueue;
-static lwp_t athread;
-static uint8 astack[AUDIOSTACK];
-static mutex_t audiomutex = LWP_MUTEX_NULL;
+static inline void updateUnplayed(int diff) {
+	unplayed += diff;
 
-/****************************************************************************
- * Audio Threading
- ***************************************************************************/
-static void *
-AudioThread (void *arg)
-{
-	LWP_InitQueue (&audioqueue);
-
-	while (1)
-	{
-		if (ConfigRequested)
-			memset (soundbuffer[whichab], 0, AUDIOBUFFER);
-		else
-		{
-			LWP_MutexLock(audiomutex);
-			S9xMixSamples (soundbuffer[whichab], AUDIOBUFFER >> 1);
-			LWP_MutexUnlock(audiomutex);
-		}
-		DCFlushRange (soundbuffer[whichab], AUDIOBUFFER);
-		LWP_ThreadSleep (audioqueue);
+	if(unplayed < 0) {
+		unplayed = 0;
 	}
-
-	return NULL;
-}
-
-/****************************************************************************
- * MixSamples
- * This continually calls S9xMixSamples On each DMA Completion
- ***************************************************************************/
-static void
-GCMixSamples ()
-{
-	if (!ConfigRequested)
-	{
-		whichab ^= 1;
-		AUDIO_InitDMA ((u32) soundbuffer[whichab], AUDIOBUFFER);
-		LWP_ThreadSignal (audioqueue);
+	else if(unplayed > BUFFERCOUNT-1) {
+		unplayed = BUFFERCOUNT-1;
 	}
 }
 
-static void FinalizeSamplesCallback (void *data)
-{ 
-	LWP_MutexLock(audiomutex);
+static void DMACallback () {
+	if (!ScreenshotRequested && !ConfigRequested) {
+		updateUnplayed(-1);
+		AUDIO_InitDMA ((u32) soundbuffer[playab], AUDIOBUFFER);
+		playab = (playab + 1) % BUFFERCOUNT;
+	}
+}
+
+static void S9xAudioCallback (void *data) {
+	double rate = 1.0;
+
+	if(unplayed > 8) {
+		rate = 1.005;
+	}
+	else if(unplayed < 4) {
+		rate = 0.995;
+	}
+
+	S9xUpdateDynamicRate(rate);
 	S9xFinalizeSamples();
-	LWP_MutexUnlock(audiomutex);
+
+	if (ScreenshotRequested || ConfigRequested) {
+		AUDIO_StopDMA();
+	}
+	else if(S9xGetSampleCount() >= SAMPLES_TO_PROCESS) {
+		S9xMixSamples (soundbuffer[nextab], SAMPLES_TO_PROCESS);
+		DCFlushRange (soundbuffer[nextab], AUDIOBUFFER);
+		updateUnplayed(1);
+		nextab = (nextab + 1) % BUFFERCOUNT;
+		
+		if(!Settings.TurboMode && ((nextab + 1) % BUFFERCOUNT) == playab) {
+		 	// quick and dirty attempt to prevent reading and writing from/to the same buffer
+			nextab = (nextab + BUFFERCOUNT/2) % BUFFERCOUNT;
+		}
+
+		if(playab == -1) {
+			if(unplayed > 2) {
+				playab = 0;
+				AUDIO_StartDMA();
+			}
+		}
+	}
 }
 
 /****************************************************************************
@@ -97,13 +104,11 @@ InitAudio ()
 {
 	#ifdef NO_SOUND
 	AUDIO_Init (NULL);
-	AUDIO_SetDSPSampleRate(AI_SAMPLERATE_32KHZ);
-	AUDIO_RegisterDMACallback(GCMixSamples);
+	AUDIO_SetDSPSampleRate(AI_SAMPLERATE_48KHZ);
+	AUDIO_RegisterDMACallback(DMACallback);
 	#else
 	ASND_Init();
 	#endif
-	LWP_MutexInit(&audiomutex, false);
-	LWP_CreateThread (&athread, AudioThread, NULL, astack, AUDIOSTACK, 70);
 }
 
 /****************************************************************************
@@ -122,17 +127,9 @@ SwitchAudioMode(int mode)
 		AUDIO_StopDMA();
 		AUDIO_RegisterDMACallback(NULL);
 		DSP_Halt();
-		AUDIO_SetDSPSampleRate(AI_SAMPLERATE_32KHZ);
-		AUDIO_RegisterDMACallback(GCMixSamples);
+		AUDIO_RegisterDMACallback(DMACallback);
 		#endif
-		memset(soundbuffer[0],0,AUDIOBUFFER);
-		memset(soundbuffer[1],0,AUDIOBUFFER);
-		DCFlushRange(soundbuffer[0],AUDIOBUFFER);
-		DCFlushRange(soundbuffer[1],AUDIOBUFFER);
-		AUDIO_InitDMA((u32)soundbuffer[whichab],AUDIOBUFFER);
-		AUDIO_StartDMA();
-
-		S9xSetSamplesAvailableCallback(FinalizeSamplesCallback, NULL);
+		S9xSetSamplesAvailableCallback(S9xAudioCallback, NULL);
 	}
 	else // menu
 	{
@@ -166,5 +163,7 @@ void ShutdownAudio()
 void
 AudioStart ()
 {
-	GCMixSamples ();
+	unplayed = 0;
+	nextab = 0;
+	playab = -1;
 }

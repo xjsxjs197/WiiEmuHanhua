@@ -1039,7 +1039,7 @@ msgstr "截图目录"
 msgid "WiiU Pro controller"
 msgstr "WiiU Pro 控制器"
 
-msgid "ScreenShot"
+msgid "Screenshot"
 msgstr "屏幕截图"
 
 msgid "Preview Screenshot"
@@ -1051,7 +1051,7 @@ msgstr "保存一个新的预览截图吗？ 当前预览截图将会被覆盖�
 msgid "Preview Image"
 msgstr "预览图片"
 
-msgid "Artworks Folder"
+msgid "Artwork Folder"
 msgstr "插图目录"
 
 msgid "Emulation"

@@ -15,7 +15,7 @@ Wii homebrew is WiiBrew (www.wiibrew.org).
 |                                                                FEATURES  |
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
 
-* Based on hybrid Snes9x 1.51 and 1.56 (with faster Blargg S-SMP module)
+* Based on Snes9x 1.52
 * Wiimote, Nunchuk, Classic, and Gamecube controller support
 * SNES Superscope, Mouse, Justifier support
 * Cheat support
@@ -33,22 +33,29 @@ Wii homebrew is WiiBrew (www.wiibrew.org).
 |                                                          UPDATE HISTORY  |
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
 
+[4.3.9 - August 24, 2018]
+
+* Revert core completely back to Snes9x 1.52
+* Rewritten audio handling
+* Fix tinny audio issue when going from the game to the menu and back
+* Fixed random in-game crashes
+* Fixed sound issues from turbo mode
+
 [4.3.8 - August 16, 2018]
 
 * Partially update core to 1.56 (with less accurate but faster Blargg audio core)
 * Improved audio synchronization with dynamic rate control - fixes audio crackles
 * Memory optimizations to free up more MEM1 for Snes9x
 * Disable multi pixel format support for a speed boost
+* Add soft and sharp video filtering options
 * Add MSU1 support (thanks qwertymodo!)
 * Add BPS soft-patching support (thanks qwertymodo!)
 * Allow loader to pass two arguments instead of three (libertyernie)
 * Backport some MSU1 fixes from snes9x
 * Fix a few potential crashes caused by the GUI
 * Compiled with latest libOGC/devkitPPC
-* Remove update check completely. 
-* Compatibility fixes for newer devkitppc.
-* Compile fixes for Gamecube
-* Compile fixes for Linux 
+* Removed update check completely
+* Compilation fixes for DevkitPPC/Gamecube/Linux
 
 [4.3.7 - December 9, 2016]
 

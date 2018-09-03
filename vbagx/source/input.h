@@ -16,7 +16,6 @@
 
 #define PI 					3.14159265f
 #define PADCAL				50
-#define WUPCCAL				400
 #define MAXJP 				10 // # of mappable controller buttons
 
 #define VBA_BUTTON_A		1
@@ -33,7 +32,7 @@
 #define VBA_CAPTURE			2048
 
 extern int rumbleRequest[4];
-extern u32 btnmap[4][10];
+extern u32 btnmap[5][10];
 
 void ResetControls(int wc = -1);
 void ShutoffRumble();

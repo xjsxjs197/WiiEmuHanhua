@@ -11,12 +11,13 @@
 #define _VBAGX_H_
 
 #include <unistd.h>
+#include <sys/param.h>
 
 #include "filelist.h"
 #include "utils/FreeTypeGX.h"
 
 #define APPNAME 		"Visual Boy Advance GX"
-#define APPVERSION 		"2.3.6"
+#define APPVERSION 		"2.3.7"
 #define APPFOLDER 		"vbagx"
 #define PREF_FILE_NAME 	"settings.xml"
 #define PAL_FILE_NAME 	"palettes.xml"

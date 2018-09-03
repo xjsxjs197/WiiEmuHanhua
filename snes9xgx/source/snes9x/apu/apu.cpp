@@ -180,12 +180,11 @@
 
 
 #include <math.h>
-#include "snes9x.h"
+#include "../snes9x.h"
 #include "apu.h"
-#include "msu1.h"
-#include "snapshot.h"
-#include "display.h"
-#include "linear_resampler.h"
+#include "../msu1.h"
+#include "../snapshot.h"
+#include "../display.h"
 #include "hermite_resampler.h"
 
 #define APU_DEFAULT_INPUT_RATE		32040
@@ -195,7 +194,6 @@
 #define APU_DENOMINATOR_NTSC		328125
 #define APU_NUMERATOR_PAL			34176
 #define APU_DENOMINATOR_PAL			709379
-#define APU_DEFAULT_RESAMPLER		HermiteResampler
 
 SNES_SPC	*spc_core = NULL;
 
@@ -389,41 +387,19 @@ int S9xGetSampleCount (void)
 	return (spc::resampler->avail() >> (Settings.Stereo ? 0 : 1));
 }
 
-#ifdef GEKKO
-void S9xIncreaseDynamicRateMultiplier ()
-{
-	if(spc::dynamic_rate_multiplier != 1.005) {
-		spc::dynamic_rate_multiplier = 1.005;
-		UpdatePlaybackRate();
-	}
-}
-
-void S9xResetDynamicRateMultiplier ()
-{
-	if(spc::dynamic_rate_multiplier != 1.0) {
-		spc::dynamic_rate_multiplier = 1.0;
-		UpdatePlaybackRate();
-	}
-}
-#endif
-
 void S9xFinalizeSamples (void)
 {
 	bool drop_current_msu1_samples = TRUE;
 
 	if (!Settings.Mute)
 	{
-		if(!spc::sound_in_sync) {
-			S9xIncreaseDynamicRateMultiplier();
-		}
-
 		drop_current_msu1_samples = FALSE;
 
 		if (!spc::resampler->push((short *) spc::landing_buffer, spc_core->sample_count()))
 		{
 			/* We weren't able to process the entire buffer. Potential overrun. */
 			spc::sound_in_sync = FALSE;
-			
+
 			if (Settings.SoundSync && !Settings.TurboMode)
 				return;
 
@@ -453,10 +429,6 @@ void S9xFinalizeSamples (void)
 		spc::sound_in_sync = TRUE;
 	else
 		spc::sound_in_sync = FALSE;
-
-	if(spc::sound_in_sync) {
-		S9xResetDynamicRateMultiplier ();
-	}
 
 	spc_core->set_output((SNES_SPC::sample_t *) spc::landing_buffer, spc::buffer_size >> 1);
 }
@@ -491,6 +463,14 @@ void S9xSetSamplesAvailableCallback (apu_callback callback, void *data)
 {
 	spc::sa_callback = callback;
 	spc::extra_data  = data;
+}
+
+void S9xUpdateDynamicRate (double rate)
+{
+	if(spc::dynamic_rate_multiplier != rate) {
+		spc::dynamic_rate_multiplier = rate;
+		UpdatePlaybackRate();
+	}
 }
 
 void UpdatePlaybackRate (void)
@@ -554,7 +534,7 @@ bool8 S9xInitSound (int buffer_ms, int lag_ms)
 	   arguments. Use 2x in the resampler for buffer leveling with SoundSync */
 	if (!spc::resampler)
 	{
-		spc::resampler = new APU_DEFAULT_RESAMPLER(spc::buffer_size >> (Settings.SoundSync ? 0 : 1));
+		spc::resampler = new HermiteResampler(spc::buffer_size >> (Settings.SoundSync ? 0 : 1));
 		if (!spc::resampler)
 		{
 			delete[] spc::landing_buffer;
@@ -567,7 +547,7 @@ bool8 S9xInitSound (int buffer_ms, int lag_ms)
 
 	if (!msu::resampler)
 	{
-		msu::resampler = new APU_DEFAULT_RESAMPLER(msu::buffer_size >> (Settings.SoundSync ? 0 : 1));
+		msu::resampler = new HermiteResampler(msu::buffer_size >> (Settings.SoundSync ? 0 : 1));
 		if (!msu::resampler)
 		{
 			delete[] msu::landing_buffer;

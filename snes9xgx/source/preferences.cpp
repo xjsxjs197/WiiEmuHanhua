@@ -476,22 +476,22 @@ DefaultSettings ()
 	Settings.DontSaveOopsSnapshot = true;
 	Settings.ApplyCheats = true;
 
-	Settings.BlockInvalidVRAMAccess = false;
 	Settings.HDMATimingHack = 100;
+	Settings.BlockInvalidVRAMAccessMaster = true;
 
-	// Sound defaults. On Wii this is 32Khz/16bit/Stereo
+	// Sound
 	Settings.SoundSync = true;
 	Settings.SixteenBitSound = true;
 	Settings.Stereo = true;
 	Settings.ReverseStereo = true;
-	Settings.SoundPlaybackRate = 32040;
-	Settings.SoundInputRate = 32000;
+	Settings.SoundPlaybackRate = 48000;
+	Settings.SoundInputRate = 31950;
 	Settings.DynamicRateControl = true;
+	Settings.DynamicRateLimit = 1;
 
 	// Graphics
 	Settings.Transparency = true;
 	Settings.SupportHiRes = true;
-	Settings.MaxSpriteTilesPerLine = 34;
 	Settings.SkipFrames = AUTO_FRAMERATE;
 	Settings.TurboSkipFrames = 19;
 	Settings.DisplayFrameRate = false;

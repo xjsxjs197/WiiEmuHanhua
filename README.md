@@ -2,7 +2,7 @@
 Wii上的汉化的模拟器
 
 1、https://github.com/dborth
-  fceugx_3.3.9        任天堂FC模拟器   (PPC26 + Libogc_1.8.11.1(libfat.a使用Old))
+  fceugx_3.3.9        任天堂FC模拟器   (PPC32 + Libogc_1.8.20)
   snes9xgx_4.3.8      任天堂SFC模拟器  (PPC32 + Libogc_1.8.20)
   vbagx_2.3.6         任天堂GBA模拟器  (PPC26 + Libogc_1.8.11.1(libfat.a使用Old))
 

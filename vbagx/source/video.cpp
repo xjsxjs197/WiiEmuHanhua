@@ -32,7 +32,7 @@ u32 FrameTimer = 0;
 /*** External 2D Video ***/
 /*** 2D Video Globals ***/
 GXRModeObj *vmode = NULL; // Graphics Mode Object
-unsigned int *xfb[2] = { NULL, NULL }; // Framebuffers
+u32 *xfb[2] = { NULL, NULL }; // Framebuffers
 int whichfb = 0; // Frame buffer toggle
 
 static Mtx GXmodelView2D;
@@ -324,35 +324,12 @@ static GXRModeObj * FindVideoMode()
 		progressive = false;
 
 	#ifdef HW_RVL
-	bool pal = false;
+	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
+		mode->viWidth = 678;
+	else
+		mode->viWidth = 672;
 
-	if (mode == &TVPal576IntDfScale)
-		pal = true;
-
-	/*if (CONF_GetAspectRatio() == CONF_ASPECT_16_9 && mode->xfbHeight != 240)
-	{
-		if (pal)
-		{
-			mode = &TVPal528IntDf;
-			mode->xfbHeight = 542;
-			mode->viHeight = 542;
-		}
-		else
-		{
-			mode->xfbHeight = 456;
-			mode->viHeight = 456;
-		}
-		
-		mode->fbWidth = 640;
-		mode->efbHeight = 456;
-		mode->viWidth = 686;
-	}
-	else*/
-	{
-		mode->viWidth = 704;
-	}
-
-	if (pal)
+	if (mode->viTVMode >> 2 == VI_PAL)
 	{
 		mode->viXOrigin = (VI_MAX_WIDTH_PAL - mode->viWidth) / 2;
 		mode->viYOrigin = (VI_MAX_HEIGHT_PAL - mode->viHeight) / 2;
@@ -363,7 +340,6 @@ static GXRModeObj * FindVideoMode()
 		mode->viYOrigin = (VI_MAX_HEIGHT_NTSC - mode->viHeight) / 2;
 	}
 	#endif
-
 	return mode;
 }
 
@@ -433,8 +409,6 @@ InitializeVideo ()
 	GX_SetCopyClear (background, 0x00ffffff);
 	GX_SetDispCopyGamma (GX_GM_1_0);
 	GX_SetCullMode (GX_CULL_NONE);
-	GX_CopyDisp (xfb[whichfb], GX_TRUE); // reset xfb
-	GX_Flush();
 }
 
 

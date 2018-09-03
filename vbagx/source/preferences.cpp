@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dirent.h>
+#include <sys/stat.h>
 #include <ogcsys.h>
 #include <mxml.h>
 
@@ -82,7 +83,7 @@ static void createXMLSetting(const char * name, const char * description, const 
 	mxmlElementSetAttr(item, "description", description);
 }
 
-static void createXMLController(unsigned int controller[], const char * name, const char * description)
+static void createXMLController(u32 controller[], const char * name, const char * description)
 {
 	item = mxmlNewElement(section, "controller");
 	mxmlElementSetAttr(item, "name", name);
@@ -169,11 +170,10 @@ preparePrefsData ()
 	createXMLSetting("LastFileLoaded", "Last File Loaded", GCSettings.LastFileLoaded);
 	createXMLSetting("SaveFolder", "Save Folder", GCSettings.SaveFolder);
 	createXMLSetting("AppendAuto", "Append Auto to .SAV Files", toStr(GCSettings.AppendAuto));
-	//createXMLSetting("CheatFolder", "Cheats Folder", GCSettings.CheatFolder);
 	createXMLSetting("ScreenshotsFolder", "Screenshots Folder", GCSettings.ScreenshotsFolder);
 	createXMLSetting("BorderFolder", "SGB Borders Folder", GCSettings.BorderFolder);
 	createXMLSetting("CoverFolder", "Covers Folder", GCSettings.CoverFolder);
-	createXMLSetting("ArtworkFolder", "Artworks Folder", GCSettings.ArtworkFolder);
+	createXMLSetting("ArtworkFolder", "Artwork Folder", GCSettings.ArtworkFolder);
 	createXMLSetting("ImageFolder", "Image Folder", GCSettings.ImageFolder);
 
 	createXMLSection("Network", "Network Settings");
@@ -201,7 +201,9 @@ preparePrefsData ()
 
 	createXMLSection("Menu", "Menu Settings");
 
+#ifdef HW_RVL
 	createXMLSetting("WiimoteOrientation", "Wiimote Orientation", toStr(GCSettings.WiimoteOrientation));
+#endif
 	createXMLSetting("ExitAction", "Exit Action", toStr(GCSettings.ExitAction));
 	createXMLSetting("MusicVolume", "Music Volume", toStr(GCSettings.MusicVolume));
 	createXMLSetting("SFXVolume", "Sound Effects Volume", toStr(GCSettings.SFXVolume));
@@ -212,7 +214,7 @@ preparePrefsData ()
 	createXMLSection("Emulation", "Emulation Settings");
 
 	createXMLSetting("BasicPalette", "Basic Color Palette for GB", toStr(GCSettings.BasicPalette));
-
+	
 	createXMLSection("Controller", "Controller Settings");
 
 	createXMLSetting("WiiControls", "Match Wii Game", toStr(GCSettings.WiiControls));
@@ -220,6 +222,7 @@ preparePrefsData ()
 	createXMLController(btnmap[CTRLR_WIIMOTE], "wmpadmap", "Wiimote");
 	createXMLController(btnmap[CTRLR_CLASSIC], "ccpadmap", "Classic Controller");
 	createXMLController(btnmap[CTRLR_NUNCHUK], "ncpadmap", "Nunchuk");
+	createXMLController(btnmap[CTRLR_WUPC], "wupcpadmap", "Wii U Pro Controller");
 
 	createXMLSection("Emulation", "Emulation Settings");
 
@@ -331,7 +334,7 @@ static void loadXMLSetting(float * var, const char * name)
  * Load XML elements into variables for a controller mapping
  ***************************************************************************/
 
-static void loadXMLController(unsigned int controller[], const char * name)
+static void loadXMLController(u32 controller[], const char * name)
 {
 	item = mxmlFindElement(xml, xml, "controller", "name", name, MXML_DESCEND);
 
@@ -458,17 +461,12 @@ decodePrefsData ()
 				int verMajor = version[0] - '0';
 				int verMinor = version[2] - '0';
 				int verPoint = version[4] - '0';
-				int curMajor = APPVERSION[0] - '0';
-				int curMinor = APPVERSION[2] - '0';
-				int curPoint = APPVERSION[4] - '0';
 
-				// first we'll check that the versioning is valid
-				if(!(verMajor >= 0 && verMajor <= 9 &&
+				// check that the versioning is valid
+				if(!(verMajor >= 2 && verMajor <= 9 &&
 					verMinor >= 0 && verMinor <= 9 &&
 					verPoint >= 0 && verPoint <= 9))
 					result = false;
-				else if(verMajor < 2) // less than version 2.0.0
-					result = false; // reset settings (sorry, should update settings instead)
 				else
 					result = true;
 			}
@@ -533,9 +531,10 @@ decodePrefsData ()
 			loadXMLController(btnmap[CTRLR_WIIMOTE], "wmpadmap");
 			loadXMLController(btnmap[CTRLR_CLASSIC], "ccpadmap");
 			loadXMLController(btnmap[CTRLR_NUNCHUK], "ncpadmap");
-
+			loadXMLController(btnmap[CTRLR_WUPC], "wupcpadmap");
+			
 			// Emulation Settings
-
+			
 			loadXMLSetting(&GCSettings.OffsetMinutesUTC, "OffsetMinutesUTC");
 			loadXMLSetting(&GCSettings.GBHardware, "GBHardware");
 			loadXMLSetting(&GCSettings.SGBBorder, "SGBBorder");
@@ -610,7 +609,7 @@ void FixInvalidSettings()
 	if(!(GCSettings.yshift > -50 && GCSettings.yshift < 50))
 		GCSettings.yshift = 0;
 	if(!(GCSettings.MusicVolume >= 0 && GCSettings.MusicVolume <= 100))
-		GCSettings.MusicVolume = 40;
+		GCSettings.MusicVolume = 20;
 	if(!(GCSettings.SFXVolume >= 0 && GCSettings.SFXVolume <= 100))
 		GCSettings.SFXVolume = 40;
 	if(GCSettings.language < 0 || GCSettings.language >= LANG_LENGTH)
@@ -636,11 +635,10 @@ DefaultSettings ()
 	GCSettings.SaveMethod = DEVICE_AUTO; // Auto, SD, USB, Network (SMB)
 	sprintf (GCSettings.LoadFolder, "%s/roms", APPFOLDER); // Path to game files
 	sprintf (GCSettings.SaveFolder, "%s/saves", APPFOLDER); // Path to save files
-	//sprintf (GCSettings.CheatFolder, "%s/cheats", APPFOLDER); // Path to cheat files
 	sprintf (GCSettings.ScreenshotsFolder, "%s/screenshots", APPFOLDER);
 	sprintf (GCSettings.BorderFolder, "%s/borders", APPFOLDER);
 	sprintf (GCSettings.CoverFolder, "%s/covers", APPFOLDER); // Path to cover files
-	sprintf (GCSettings.ArtworkFolder, "%s/artworks", APPFOLDER); // Path to artwork files
+	sprintf (GCSettings.ArtworkFolder, "%s/artwork", APPFOLDER); // Path to artwork files
 	sprintf (GCSettings.ImageFolder, "%s/screenshots", APPFOLDER);
 
 	GCSettings.AutoLoad = 1;
@@ -667,18 +665,21 @@ DefaultSettings ()
 
 	GCSettings.WiimoteOrientation = 0;
 	GCSettings.ExitAction = 0;
-	GCSettings.MusicVolume = 40;
+	GCSettings.MusicVolume = 20;
 	GCSettings.SFXVolume = 40;
 	GCSettings.Rumble = 1;
 	GCSettings.PreviewImage = 0;
-
+	
 	GCSettings.BasicPalette = 0;
-
+	
 #ifdef HW_RVL
 	GCSettings.language = CONF_GetLanguage();
 
-	if(GCSettings.language == LANG_JAPANESE ||
-		GCSettings.language == LANG_TRAD_CHINESE ||
+	if(GCSettings.language == LANG_JAPANESE || 
+	    // upd start by xjsxjs197 2018/09/03
+		//GCSettings.language == LANG_SIMP_CHINESE || 
+		// upd end by xjsxjs197 2018/09/03
+		GCSettings.language == LANG_TRAD_CHINESE || 
 		GCSettings.language == LANG_KOREAN)
 		GCSettings.language = LANG_ENGLISH;
 #else
@@ -702,7 +703,7 @@ SavePrefs (bool silent)
 	int datasize;
 	int offset = 0;
 	int device = 0;
-
+	
 	if(prefpath[0] != 0)
 	{
 		sprintf(filepath, "%s/%s", prefpath, PREF_FILE_NAME);
@@ -717,12 +718,12 @@ SavePrefs (bool silent)
 	else
 	{
 		device = autoSaveMethod(silent);
-
+		
 		if(device == 0)
 			return false;
-
+		
 		sprintf(filepath, "%s%s", pathPrefix[device], APPFOLDER);
-
+						
 		DIR *dir = opendir(filepath);
 		if (!dir)
 		{
@@ -742,7 +743,7 @@ SavePrefs (bool silent)
 		sprintf(filepath, "%s%s/%s", pathPrefix[device], APPFOLDER, PREF_FILE_NAME);
 		sprintf(prefpath, "%s%s", pathPrefix[device], APPFOLDER);
 	}
-
+	
 	if(device == 0)
 		return false;
 
@@ -812,9 +813,9 @@ bool LoadPrefs()
 		return true;
 
 	bool prefFound = false;
-	char filepath[4][MAXPATHLEN];
+	char filepath[5][MAXPATHLEN];
 	int numDevices;
-
+	
 #ifdef HW_RVL
 	numDevices = 5;
 	sprintf(filepath[0], "%s", appPath);
@@ -831,7 +832,7 @@ bool LoadPrefs()
 	for(int i=0; i<numDevices; i++)
 	{
 		prefFound = LoadPrefsFromMethod(filepath[i]);
-
+		
 		if(prefFound)
 			break;
 	}
@@ -840,6 +841,17 @@ bool LoadPrefs()
 
 	if(prefFound)
 		FixInvalidSettings();
+
+	// attempt to create directories if they don't exist
+	if(GCSettings.LoadMethod != DEVICE_AUTO) {
+		char dirPath[MAXPATHLEN];
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ScreenshotsFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.CoverFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ArtworkFolder);
+		CreateDirectory(dirPath);
+	}
 
 	ResetText();
 	return prefFound;
