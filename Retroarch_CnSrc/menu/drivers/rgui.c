@@ -227,13 +227,13 @@ static void rgui_render_background(rgui_t *rgui)
    dst             = rgui_framebuf_data;
 
    // upd by xjsxjs197 for support zh_cn start
-   /*
+
    while (dst < src)
    {
       memcpy(dst, src, size);
       dst += pitch_in_pixels * 4;
-   }*/
-   memset(rgui_framebuf_data, 0, 400 * (240 + 4) * 2);
+   }
+   //memset(rgui_framebuf_data, 0, 400 * (240 + 4) * 2);
    // upd by xjsxjs197 for support zh_cn end
 
    if (rgui_framebuf_data)
@@ -355,11 +355,11 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
    if (rgui_framebuf_data)
    {
       // upd by xjsxjs197 for support zh_cn start
-	  /*
+
       rgui_fill_rect(rgui, rgui_framebuf_data,
             fb_pitch, x + 5, y + 5, width - 10,
-            height - 10, rgui_gray_filler);*/
-      rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_black_filler);
+            height - 10, rgui_gray_filler);
+      //rgui_fill_rect(rgui, rgui_framebuf_data, fb_pitch, x + 5, y + 5, width - 10, height - 10, rgui_black_filler);
       // upd by xjsxjs197 for support zh_cn end
 
       if (settings->bools.menu_rgui_border_filler_enable)
