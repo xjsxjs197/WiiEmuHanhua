@@ -77,7 +77,7 @@ static GXRModeObj *vmode = NULL;
 
 static unsigned char ESBootPatch[] =
 {
-    0x48, 0x03, 0x49, 0x04, 0x47, 0x78, 0x46, 0xC0, 0xE6, 0x00, 0x08, 0x70, 0xE1, 0x2F, 0xFF, 0x1E,
+    0x48, 0x03, 0x49, 0x04, 0x47, 0x78, 0x46, 0xC0, 0xE6, 0x00, 0x08, 0x70, 0xE1, 0x2F, 0xFF, 0x1E, 
     0x10, 0x10, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x25,
 };
 /*static const unsigned char AHBAccessPattern[] =
@@ -90,11 +90,11 @@ static const unsigned char AHBAccessPatch[] =
 };*/
 static const unsigned char FSAccessPattern[] =
 {
-    0x9B, 0x05, 0x40, 0x03, 0x99, 0x05, 0x42, 0x8B,
+    0x9B, 0x05, 0x40, 0x03, 0x99, 0x05, 0x42, 0x8B, 
 };
 static const unsigned char FSAccessPatch[] =
 {
-    0x9B, 0x05, 0x40, 0x03, 0x1C, 0x0B, 0x42, 0x8B,
+    0x9B, 0x05, 0x40, 0x03, 0x1C, 0x0B, 0x42, 0x8B, 
 };
 
 // Forbid the use of MEM2 through malloc
@@ -134,7 +134,7 @@ static void updateMetaXml(void)
 {
 	char filepath[MAXPATHLEN];
 	bool dir_argument_exists = strlen(launch_dir);
-
+	
 	snprintf(filepath, sizeof(filepath), "%smeta.xml",
 		dir_argument_exists ? launch_dir : "/apps/Nintendont/");
 
@@ -221,7 +221,7 @@ void changeToDefaultDrive()
  * @param BI2region	[out,opt] bi2.bin region code.
  * @return 0 on success; non-zero on error.
  */
-static u32 CheckForMultiGameAndRegion(u32 CurDICMD, u32 *ISOShift, u32 *BI2region)
+static u32 CheckForMultiGameAndRegion(unsigned int CurDICMD, u32 *ISOShift, u32 *BI2region)
 {
 	char GamePath[260];
 
@@ -518,7 +518,7 @@ static u32 CheckForMultiGameAndRegion(u32 CurDICMD, u32 *ISOShift, u32 *BI2regio
 			for (i = 0; i < gamecount; ++i)
 			{
 				const u32 color = gameIsUnaligned[i] ? MAROON : BLACK;
-				PrintFormat(DEFAULT_SIZE, color, MENU_POS_X, MENU_POS_Y + 20*4 + i * 20, "%50.50s [%.6s]%s",
+				PrintFormat(DEFAULT_SIZE, color, MENU_POS_X, MENU_POS_Y + 20*4 + i * 20, "%50.50s [%.6s]%s", 
 					    gi[i].Name, gi[i].ID, i == PosX ? ARROW_LEFT : " " );
 			}
 			GRRLIB_Render();
@@ -553,6 +553,7 @@ static u32 CheckForMultiGameAndRegion(u32 CurDICMD, u32 *ISOShift, u32 *BI2regio
 static char dev_es[] ATTRIBUTE_ALIGN(32) = "/dev/es";
 
 extern vu32 FoundVersion;
+extern void _jmp813();
 int main(int argc, char **argv)
 {
 	// Exit after 10 seconds if there is an error
@@ -670,7 +671,7 @@ int main(int argc, char **argv)
 	//else if(*(vu16*)0xCD8005A0 != 0xCAFE)
 	//{
 		/* WiiVC seems to have some bug that without any fake IOS
-		   reload makes it impossible to read HW regs on PPC
+		   reload makes it impossible to read HW regs on PPC 
 		   and it seems to break some consoles to reload IOS */
 	//	IOS_ReloadIOS(58);
 	//}
@@ -851,7 +852,7 @@ int main(int argc, char **argv)
 	}
 
 //Init DI and set correct ID if needed
-	u32 CurDICMD = 0;
+	unsigned int CurDICMD = 0;
 	if( memcmp(ncfg->GamePath, "di", 3) == 0 )
 	{
 		if(argsboot == false)
@@ -1405,7 +1406,8 @@ int main(int argc, char **argv)
 
 		case BI2_REGION_USA:
 			if ((vidForce && vidForceMode == NIN_VID_FORCE_MPAL) ||
-			    (!vidForce && CONF_GetVideo() == CONF_VIDEO_MPAL))
+			    (!vidForce && ((CONF_GetVideo() == CONF_VIDEO_MPAL) 
+					|| (useipl && memcmp(iplbuf+0x55,"MPAL",4) == 0))))
 			{
 				// PAL-M
 				*(vu32*)0x800000CC = 3;
@@ -1595,11 +1597,8 @@ int main(int argc, char **argv)
 		DCFlushRange((void*)0x81300000, multidol_ldr_bin_size);
 		ICInvalidateRange((void*)0x81300000, multidol_ldr_bin_size);
 	}
-	asm volatile (
-		"lis %r3, 0x8130\n"
-		"mtlr %r3\n"
-		"blr\n"
-	);
+	_jmp813();
+
 	//IRQ_Restore(level);
 
 	return 0;
