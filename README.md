@@ -16,7 +16,7 @@ Wii上的汉化的模拟器
   mgba_0.6.3          任天堂GBA模拟器  (PPC26 + Libogc_1.8.11.1(libfat.a使用Old))
 
 5、https://github.com/libretro/RetroArch
-  RetroArch_1.7.3     模拟器合集       (PPC29 + Libogc_1.8.11.1(libfat.a使用Old))
+  RetroArch_1.7.5     模拟器合集       (PPC29 + Libogc_1.8.11.1(libfat.a使用Old))
 
 6、https://github.com/Mystro256
   WiiSxr_1.3          索尼PS模拟器     (PPC29 + Libogc_1.8.16(libfat.a使用New))
@@ -25,4 +25,4 @@ Wii上的汉化的模拟器
   Wii64(fix94)_1.2    任天堂N64模拟器  (PPC29 + Libogc_1.8.16(libfat.a使用New))
 
 8、https://github.com/FIX94/Nintendont
-  Nintendont          Wii上玩Ngc工具   (PPC29 + Libogc_1.8.16(libfat.a使用New))
+  Nintendont          Wii上玩Ngc工具   (PPC32 + Libogc_1.8.20)

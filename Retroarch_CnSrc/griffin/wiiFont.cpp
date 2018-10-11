@@ -57,7 +57,7 @@ void wiiFont::wiiFontInit()
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
 
     FILE *charPngFile;
-    charPngFile = fopen("sd:/apps/retroarch/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
+    charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
 	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
 
 	fseek(charPngFile, 0, SEEK_SET);
@@ -195,7 +195,7 @@ void wiiFont::wiiFontInit()
 
     // 读取文件名映射文件
     FILE *titleMapFile;
-    titleMapFile = fopen("sd:/apps/retroarch/zh.lang", "rb");
+    titleMapFile = fopen("sd:/apps/retroarchCnFont/zh.lang", "rb");
 
     fseek(titleMapFile, 0, SEEK_END);
     long zhMapFileLen = ftell(titleMapFile);
