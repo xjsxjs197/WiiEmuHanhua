@@ -679,6 +679,9 @@ static void rgui_render(void *data, bool is_idle)
       ticker.s        = entry_title_buf;
       // upd by xjsxjs197 for support zh_cn start
       //ticker.len      = RGUI_TERM_WIDTH(fb_width) - (entry_spacing + 1 + 2);
+      // 计算可以显示的最大字符长度
+      // 其中ticker.s中存放截取过的字符串
+      // ticker.str存放原始的字符串
       if (strlen(entry_value) > 0)
       {
           maxItemlen -= 70;
@@ -687,7 +690,7 @@ static void rgui_render(void *data, bool is_idle)
       ticker.len = msgMaxLen[0];
       // upd by xjsxjs197 for support zh_cn end
       ticker.idx      = frame_count / RGUI_TERM_START_X(fb_width);
-      ticker.str      = entry_path;
+      ticker.str      = wiiFont_getChTitle(entry_path);
       ticker.selected = entry_selected;
 
       menu_animation_ticker(&ticker);

@@ -32,23 +32,31 @@ extern "C" {
 #include "../memory/wii/mem2_manager.h"
 }
 
-
 #define CHAR_IMG_SIZE 338
 static std::map<wchar_t, int> charCodeMap;
 static std::map<uint16_t, uint16_t> colorMap;
 static uint8_t *ZhBufFont_dat;
 static char* zhMapBuf;
 
+/**
+* 初始化
+*/
 wiiFont::wiiFont()
 {
     wiiFontInit();
 }
 
+/**
+* 释放资源
+*/
 wiiFont::~wiiFont()
 {
 	wiiFontClose();
 }
 
+/**
+* 初始化
+*/
 void wiiFont::wiiFontInit()
 {
     int ZhBufFont_size = 2384766; // RGB5A3
@@ -56,6 +64,7 @@ void wiiFont::wiiFontInit()
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
 
+    // 读取中文字库信息到Mem2
     FILE *charPngFile;
     charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
 	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
@@ -65,6 +74,7 @@ void wiiFont::wiiFontInit()
     fclose(charPngFile);
     charPngFile = NULL;
 
+    // 将字库信息放入Map方便查找
 	uint16_t *zhFontBufTemp = (uint16_t *)ZhBufFont_dat;
     while (bufIndex < searchLen)
     {
@@ -73,15 +83,7 @@ void wiiFont::wiiFontInit()
         bufIndex++;
     }
 
-    /*colorMap.insert(std::pair<uint16_t, uint16_t>(0, 0));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(12287, 8304));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(20479, 16496));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(16383, 12400));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(8191, 4208));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(4095, 112));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(28671, 24704));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(24575, 20608));
-    colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));*/
+    // 设置白色字和绿色字的像素映射，方便显示绿字
     colorMap.insert(std::pair<uint16_t, uint16_t>(0, 0));
     colorMap.insert(std::pair<uint16_t, uint16_t>(32777, 32768));
     colorMap.insert(std::pair<uint16_t, uint16_t>(53151, 33216));
@@ -193,7 +195,7 @@ void wiiFont::wiiFontInit()
     colorMap.insert(std::pair<uint16_t, uint16_t>(62204, 33152));
     colorMap.insert(std::pair<uint16_t, uint16_t>(56791, 32992));
 
-    // 读取文件名映射文件
+    // 读取街机游戏文件名映射文件
     FILE *titleMapFile;
     titleMapFile = fopen("sd:/apps/retroarchCnFont/zh.lang", "rb");
 
@@ -206,9 +208,13 @@ void wiiFont::wiiFontInit()
     fclose(titleMapFile);
     titleMapFile = NULL;
 
+    // 游戏文件名映射放入内存
     LoadLanguage(zhMapBuf);
 }
 
+/**
+* 释放资源
+*/
 void wiiFont::wiiFontClose()
 {
     if (ZhBufFont_dat)
@@ -224,11 +230,21 @@ void wiiFont::wiiFontClose()
     }
 }
 
+/**
+* 取得当前字符在字库中的位置
+* @param unicode Unicode编码格式的当前字符
+* @return 当前字符在字库中的位置
+*/
 uint16_t* wiiFont::getPngPosByCharCode(wchar_t unicode)
 {
     return ((uint16_t *)ZhBufFont_dat + charCodeMap[unicode] + 1);
 }
 
+/**
+* 单字节字符串转换成多字节字符串
+* @param strChar 单字节字符串
+* @return 多字节字符串
+*/
 wchar_t* wiiFont::charToWideChar(char* strChar)
 {
     char *tmpPtr = strChar;
@@ -248,18 +264,29 @@ wchar_t* wiiFont::charToWideChar(char* strChar)
 	return strWChar;
 }
 
+/**
+* 单字节字符串转换成多字节字符串
+* @param strChar 单字节字符串
+* @return 多字节字符串
+*/
 wchar_t* wiiFont::charToWideChar(const char* strChar)
 {
 	return charToWideChar((char*)strChar);
 }
 
+/**
+* 取得当前字符串显示时的最大像素长度
+* @param msg 单字节字符串
+* @param maxPixelLen 最大可以显示的像素长度
+* @return 当前字符串显示时的最大像素长度
+*/
 int wiiFont::getMaxLen(const char* msg, int maxPixelLen)
 {
     int maxLen = 0;
     int retWid = 0;
     uint16_t * charDataPosPtr;
     uint8_t * charInfoPtr;
-    wchar_t* unicodeMsg = charToWideChar(msg);
+    wchar_t* unicodeMsg = charToWideChar(gettext(msg));
     wchar_t* freePtr = unicodeMsg;
     while (*unicodeMsg)
     {
@@ -275,7 +302,7 @@ int wiiFont::getMaxLen(const char* msg, int maxPixelLen)
 
         if (retWid > maxPixelLen)
         {
-            return maxLen;
+            break;
         }
 
         maxLen++;
@@ -286,6 +313,12 @@ int wiiFont::getMaxLen(const char* msg, int maxPixelLen)
     return maxLen;
 }
 
+/**
+* 设置当前字符串显示时的最大长度信息
+* @param lenInfo 最大长度信息（0：可以显示的最大文字个数，1：可以显示的最大像素长度，2：是否超过可以显示的最大长度）
+* @param msg 单字节字符串
+* @param maxPixelLen 最大可以显示的像素长度
+*/
 void wiiFont::getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)
 {
     int retWid = 0;
@@ -294,7 +327,7 @@ void wiiFont::getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)
     lenInfo[0] = 0;
     lenInfo[1] = 0;
     lenInfo[2] = 0;
-    wchar_t* unicodeMsg = charToWideChar(msg);
+    wchar_t* unicodeMsg = charToWideChar(gettext(msg));
     wchar_t* freePtr = unicodeMsg;
     while (*unicodeMsg)
     {
@@ -311,7 +344,7 @@ void wiiFont::getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)
         if (retWid > maxPixelLen)
         {
             lenInfo[2] = 1;
-            return;
+            break;
         }
 
         lenInfo[0] += 1;
@@ -323,6 +356,15 @@ void wiiFont::getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)
     free(freePtr);
 }
 
+/**
+* 将当前显示的字符串信息设置到显示Buf中
+* @param rguiFramebuf 显示Buf
+* @param unicodeMsg unicode格式的字符串
+* @param pitch 屏幕宽度
+* @param x 位置x
+* @param y 位置y
+* @param color 是否是选中的颜色
+*/
 void wiiFont::setFontBufByMsgW(uint16_t* rguiFramebuf, wchar_t* unicodeMsg, size_t pitch, int x, int y, uint16_t color)
 {
     int isHoverColor = color == 0x7FFF ? 0 : 1;
@@ -396,6 +438,16 @@ GXColor wiiFont::changeColor(uint16_t color)
    return w;
 }
 
+/**
+* 将当前显示的字符串信息设置到显示Buf中
+* @param msg 单字节的字符串
+* @param x 位置x
+* @param y 位置y
+* @param width 屏幕宽
+* @param height 屏幕高
+* @param double_width 是否双倍宽
+* @param double_strike 是否是粗体
+*/
 void wiiFont::setTextMsg(const char* msg, int x, int y, int width, int height, bool double_width, bool double_strike)
 {
     wchar_t* unicodeMsg = charToWideChar(msg);
@@ -467,6 +519,15 @@ void wiiFont::setTextMsg(const char* msg, int x, int y, int width, int height, b
     free(unicodeMsg);
 }
 
+/**
+* 将当前显示的字符串信息设置到显示Buf中
+* @param rguiFramebuf 显示Buf
+* @param msg 单字节字符串
+* @param pitch 屏幕宽度
+* @param x 位置x
+* @param y 位置y
+* @param color 是否是选中的颜色
+*/
 void wiiFont::setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pitch, int x, int y, uint16_t color)
 {
     wchar_t* unicodeMsg = charToWideChar(msg);
@@ -475,6 +536,11 @@ void wiiFont::setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pi
     free(unicodeMsg);
 }
 
+/**
+* 根据当前字符串，取得相应的中文字符串
+* @param title 当前字符串
+* @return 相应的中文字符串
+*/
 char* wiiFont::getChTitle(char* title)
 {
     return (char*)gettext(title);
