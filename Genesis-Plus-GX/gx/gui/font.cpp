@@ -321,19 +321,6 @@ void FONT_Shutdown(void)
     }
 }
 
-static char * ChgCoustString(const char *s)
-{
-    char *result = (char *)malloc(strlen(s) + 1);
-    if (result == NULL)
-    {
-        return (char *)s;
-    }
-
-    strcpy(result, s);
-
-    return result;
-}
-
 extern "C" int  FONT_writeW(wchar_t *string, int size, int x, int y, int max_width, GXColor color);
 int FONT_writeW(wchar_t *string, int size, int x, int y, int max_width, GXColor color)
 {
@@ -385,14 +372,16 @@ int FONT_write(char *string, int size, int x, int y, int max_width, GXColor colo
         fontSystemOne->setMaxVideoWidth(0);
     }
 
-    char *utf8Txt = ChgCoustString(gettext(string));
+    char *utf8Txt = (char *)(gettext(string));
     char delims[] = "\n";
     char *result = NULL;
     result = strtok(utf8Txt, delims);
 
     while (result != NULL )
     {
-        int notPrintLen = fontSystemOne->drawText(x, y, fontSystemOne->charToWideChar(result), color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        wchar_t* strWChar = fontSystemOne->charToWideChar(result);
+        int notPrintLen = fontSystemOne->drawText(x, y, strWChar, color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        fontSystemOne->freeWideCharBuf(strWChar);
         //int notPrintLen = FONT_writeW(fontSystemOne->charToWideChar(result), size, x, y, max_width, color);
         if (notPrintLen > 0)
         {
@@ -448,7 +437,7 @@ int FONT_writeCenter(char *string, int size, int x1, int x2, int y, GXColor colo
         fontSystemOne->loadFont(font_zh_ttf, font_zh_ttf_size, size, false);
     }
 
-    char *utf8Txt = ChgCoustString(gettext(string));
+    char *utf8Txt = (char *)(gettext(string));
     char delims[] = "\n";
     char *result = NULL;
     result = strtok(utf8Txt, delims);
@@ -467,6 +456,8 @@ int FONT_writeCenter(char *string, int size, int x1, int x2, int y, GXColor colo
         x = x1 + (x2 - x1 - w - vmode->fbWidth) / 2;
 
         fontSystemOne->drawText(x, y, text, color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
+        fontSystemOne->freeWideCharBuf(text);
+
         result = strtok(NULL, delims);
         y += size;
     }
@@ -568,6 +559,8 @@ int FONT_alignRight(char *string, int size, int x, int y, GXColor color)
 
     fontSystemOne->drawText(x, y, text, color, (u16)(FTGX_ALIGN_MASK | FTGX_JUSTIFY_MASK));
 
+    fontSystemOne->freeWideCharBuf(text);
+
 //    try
 //    {
 //        if (!fontSystem[size])
@@ -617,17 +610,14 @@ int FONT_alignRight(char *string, int size, int x, int y, GXColor color)
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
+char joinStr[100];
 char * JoinString(char *s1, char *s2)
 {
+    joinStr[0] = '\0';
     const char *utf8Txt = gettext(s1);
-    char *result = (char *)malloc(strlen(utf8Txt) + strlen(s2) + 1);
-    if (result == NULL)
-    {
-        return strcpy(s1 + strlen(s1), s2);
-    }
 
-    strcpy(result, utf8Txt);
-    strcat(result, s2);
+    strcpy(joinStr, utf8Txt);
+    strcat(joinStr, s2);
 
-    return result;
+    return joinStr;
 }

@@ -79,6 +79,16 @@ wchar_t* FreeTypeGX::charToWideChar(const char* strChar) {
 }
 
 /**
+ *
+ */
+void FreeTypeGX::freeWideCharBuf(wchar_t* strWChar) {
+    if (strWChar)
+    {
+        delete strWChar;
+    }
+}
+
+/**
  * Setup the vertex attribute formats for the glyph textures.
  *
  * This function sets up the vertex format for the glyph texture on the specified vertex format index.
