@@ -289,17 +289,14 @@ const char *gettext(const char *msgid)
 	return msgid;
 }
 
+char joinStr[100];
 char * JoinString(char *s1, char *s2)
 {
+    joinStr[0] = '\0';
     const char *utf8Txt = gettext(s1);
-    char *result = (char *)malloc(strlen(utf8Txt) + strlen(s2) + 1);
-    if (result == NULL)
-    {
-        return strcpy(s1 + strlen(s1), s2);
-    }
 
-    strcpy(result, utf8Txt);
-    strcat(result, s2);
+    strcpy(joinStr, utf8Txt);
+    strcat(joinStr, s2);
 
-    return result;
+    return joinStr;
 }
