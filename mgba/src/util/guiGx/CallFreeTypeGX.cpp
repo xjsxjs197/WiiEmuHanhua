@@ -32,3 +32,8 @@ extern "C" wchar_t* charToWideChar(char* strChar);
 wchar_t* charToWideChar(char* strChar) {
 	return fontSystemOne->charToWideChar(strChar);
 }
+
+extern "C" void freeWideCharBuf(wchar_t* strWChar);
+void freeWideCharBuf(wchar_t* strWChar) {
+	fontSystemOne->freeWideCharBuf(strWChar);
+}

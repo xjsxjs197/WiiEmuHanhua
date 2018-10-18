@@ -266,6 +266,7 @@ class FreeTypeGX {
 		void clearTextWidthCache();
 		int getFontSize();
 
+		static void freeWideCharBuf(wchar_t* p);
 		static wchar_t* charToWideChar(char* p);
 		static wchar_t* charToWideChar(const char* p);
 		void setVertexFormat(uint8_t vertexIndex);
