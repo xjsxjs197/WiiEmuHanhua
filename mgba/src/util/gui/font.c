@@ -11,12 +11,17 @@ extern uint16_t getWidth(wchar_t *text);
 extern wchar_t* charToWideChar(char* strChar);
 extern uint16_t drawText(int16_t x, int16_t y, wchar_t *text);
 extern void freeWideCharBuf(wchar_t* strWChar);
-char txtWithoutIcon[5];
 
 unsigned GUIFontSpanWidth(const struct GUIFont* font, const char* text) {
 	unsigned width = 0;
+	char txtWithoutIcon[5];
 	char *utf8Txt = (char *)gettext(text);
-	size_t len = strlen(utf8Txt);
+
+	wchar_t * widText = charToWideChar(utf8Txt);
+	return getWidth(widText);
+
+
+	/*size_t len = strlen(utf8Txt);
 	while (len) {
 		uint32_t c = utf8Char(&utf8Txt, &len);
 		if (c == '\1') {
@@ -32,15 +37,16 @@ unsigned GUIFontSpanWidth(const struct GUIFont* font, const char* text) {
 		    wchar_t * widText = charToWideChar(txtWithoutIcon);
 			width += getWidth(widText);
 
-			freeWideCharBuf(widText);
+			//freeWideCharBuf(widText);
 		}
 	}
 
-	return width;
+	return width;*/
 }
 
 void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment align, uint32_t color, const char* text) {
 
+    char txtWithoutIcon[5];
 	switch (align & GUI_ALIGN_HCENTER) {
 	case GUI_ALIGN_HCENTER:
 		x -= GUIFontSpanWidth(font, text) / 2;
@@ -53,7 +59,8 @@ void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment al
 	}
 
     char *utf8Txt = (char *)(gettext(text));
-	size_t len = strlen(utf8Txt);
+    drawText(x, y, charToWideChar(utf8Txt));
+	/*size_t len = strlen(utf8Txt);
 	while (len) {
 		uint32_t c = utf8Char(&utf8Txt, &len);
 		if (c == '\1') {
@@ -71,9 +78,9 @@ void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment al
 			drawText(x, y, widText);
             x += getWidth(widText);
 
-            freeWideCharBuf(widText);
+            //freeWideCharBuf(widText);
 		}
-	}
+	}*/
 }
 
 void GUIFontPrintf(const struct GUIFont* font, int x, int y, enum GUIAlignment align, uint32_t color, const char* text, ...) {
