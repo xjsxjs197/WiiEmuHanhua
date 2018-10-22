@@ -1342,12 +1342,15 @@ static int menu_displaylist_parse_playlist(menu_displaylist_info_t *info,
 
          path_short[0] = '\0';
 
+         // upd by xjsxjs197 for support zh_cn start
+         /*
          fill_short_pathname_representation(path_short, path,
                path_size);
-         // upd by xjsxjs197 for support zh_cn start
-         /*strlcpy(fill_buf,
+         strlcpy(fill_buf,
                (!string_is_empty(label)) ? label : path_short,
                path_size);*/
+         fill_short_pathname_representation_xjs(path_short, path,
+               path_size);
          strlcpy(fill_buf,
                (!string_is_empty(label)) ? label : wiiFont_getChTitle(path_short),
                path_size);
