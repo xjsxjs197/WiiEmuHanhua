@@ -1,0 +1,788 @@
+﻿msgid "(2d) Red/black"
+msgstr "(2D) 红/黑"
+
+msgid "(2d) White/black"
+msgstr "(2D) 白/黑"
+
+msgid "(3d) Green/red"
+msgstr "(3d) 绿/红"
+
+msgid "(3d) Red/blue"
+msgstr "(3d) 红/蓝"
+
+msgid "(3d) Red/cyan"
+msgstr "(3D) 红/蓝绿"
+
+msgid "(3d) Red/electric cyan"
+msgstr "(3D) 红/电青"
+
+msgid "(3d) Red/green"
+msgstr "(3d) 红/绿"
+
+msgid "(3d) Yellow/blue"
+msgstr "(3D) 黄/蓝"
+
+msgid "(auto)"
+msgstr "(自动)"
+
+msgid "(default)"
+msgstr "(默认)"
+
+msgid "(none)"
+msgstr "(none)"
+
+msgid "(normal)"
+msgstr "(通常)"
+
+msgid "(rewind)"
+msgstr "(回退)"
+
+msgid "(rotate screen)"
+msgstr "(旋转屏幕)"
+
+msgid "(special)"
+msgstr "(特别)"
+
+msgid "1 item found."
+msgstr "发现1个项目。"
+
+msgid "16:9 correction"
+msgstr "16:9校正"
+
+msgid "2-button pad"
+msgstr "2个按键的手柄"
+
+msgid "270 degrees"
+msgstr "270度"
+
+msgid "2x/Full screen"
+msgstr "2x/全屏幕"
+
+msgid "3-button pad"
+msgstr "3个按键的手柄"
+
+msgid "3x/Full screen"
+msgstr "3x/全屏幕"
+
+msgid "4x/Full screen"
+msgstr "4x/全屏幕"
+
+msgid "6-button pad"
+msgstr "6个按键的手柄"
+
+msgid "90 degrees"
+msgstr "90度"
+
+msgid "A/2 button"
+msgstr "A/2 button"
+
+msgid "Accept changes"
+msgstr "接受变更"
+
+msgid "Activate spin/power meter"
+msgstr "激活自转/功率表"
+
+msgid "Advanced"
+msgstr "高级选项"
+
+msgid "Aim left"
+msgstr "Aim left"
+
+msgid "Aim right"
+msgstr "Aim right"
+
+msgid "Aim"
+msgstr "Aim"
+
+msgid "Ascend"
+msgstr "Ascend"
+
+msgid "Aspect ratio"
+msgstr "调整宽高比"
+
+msgid "Attack"
+msgstr "Attack"
+
+msgid "Attempting to mount drive..."
+msgstr "正在加载设备..."
+
+msgid "Auto fire"
+msgstr "Auto fire"
+
+msgid "Auto"
+msgstr "Auto"
+
+msgid "B/1 button"
+msgstr "B/1 button"
+
+msgid "Back"
+msgstr "后退"
+
+msgid "Bilinear filter"
+msgstr "双线性过滤"
+
+msgid "Bowl"
+msgstr "Bowl"
+
+msgid "Button 1"
+msgstr "Button 1"
+
+msgid "Button 2"
+msgstr "Button 2"
+
+msgid "Button mappings"
+msgstr "按键映射"
+
+msgid "button pad"
+msgstr "按钮的摇杆"
+
+msgid "Cancel changes"
+msgstr "取消变更"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Cast/reel in"
+msgstr "Cast/reel in"
+
+msgid "Change altitude"
+msgstr "变更高度"
+
+msgid "Change layer"
+msgstr "变更层"
+
+msgid "Change perspective"
+msgstr "变更视角"
+
+msgid "Charge power"
+msgstr "Charge power"
+
+msgid "Cheats"
+msgstr "作弊器"
+
+msgid "Check configuration file."
+msgstr "检查设定文件。"
+
+msgid "Classic"
+msgstr "经典的"
+
+msgid "Color trap filter"
+msgstr "彩色过滤器"
+
+msgid "Console region"
+msgstr "平台地区"
+
+msgid "Control settings"
+msgstr "控制器设置"
+
+msgid "Controller"
+msgstr "手柄"
+
+msgid "Controller 1"
+msgstr "手柄1"
+
+msgid "Controller 2"
+msgstr "手柄2"
+
+msgid "Controller 3"
+msgstr "手柄3"
+
+msgid "Controller 4"
+msgstr "手柄4"
+
+msgid "Custom"
+msgstr "通常"
+
+msgid "D-pad/Analog"
+msgstr "D-pad/Analog"
+
+msgid "Debug mode"
+msgstr "调试模式"
+
+msgid "Decrease speed"
+msgstr "减速"
+
+msgid "Delete settings"
+msgstr "删除设定"
+
+msgid "Descend"
+msgstr "Descend"
+
+msgid "Destroy drone"
+msgstr "Destroy drone"
+
+msgid "Disabled"
+msgstr "关闭"
+
+msgid "Disk 0 side A inserted."
+msgstr "Disk 0 side A inserted."
+
+msgid "Disk 0 side B insertedvc."
+msgstr "Disk 0 side B insertedvc."
+
+msgid "Display mode"
+msgstr "显示模式"
+
+msgid "Display settings"
+msgstr "显示设置"
+
+msgid "Domestic (Japan)"
+msgstr "Domestic (Japan)"
+
+msgid "Double strike (240p)"
+msgstr "两倍输出（240p）"
+
+msgid "Down"
+msgstr "Down"
+
+msgid "Drone 1"
+msgstr "Drone 1"
+
+msgid "Drone 2"
+msgstr "Drone 2"
+
+msgid "Drone 3"
+msgstr "Drone 3"
+
+msgid "Drone controls"
+msgstr "Drone控制器"
+
+msgid "Drop faster"
+msgstr "Drop faster"
+
+msgid "Emulator settings"
+msgstr "模拟器设置"
+
+msgid "Enabled"
+msgstr "开启"
+
+msgid "English"
+msgstr "英语"
+
+msgid "Europe"
+msgstr "欧美"
+
+msgid "Evasive maneuver"
+msgstr "规避策略"
+
+msgid "Execute"
+msgstr "执行"
+
+msgid "Exit"
+msgstr "退出"
+
+msgid "Export (World)"
+msgstr "Export (World)"
+
+msgid "External BIOS"
+msgstr "外部的BIOS"
+
+msgid "Fill screen"
+msgstr "填充屏幕"
+
+msgid "Fire 1"
+msgstr "Fire 1"
+
+msgid "Fire 1/Start"
+msgstr "Fire 1/Start"
+
+msgid "Fire 2"
+msgstr "Fire 2"
+
+msgid "Fire down"
+msgstr "Fire down"
+
+msgid "Fire left"
+msgstr "Fire left"
+
+msgid "Fire right"
+msgstr "Fire right"
+
+msgid "Fire up"
+msgstr "Fire up"
+
+msgid "Fire"
+msgstr "Fire"
+
+msgid "Fires cannon/homing missile"
+msgstr "Fires cannon/homing missile"
+
+msgid "Fixed (double strike)"
+msgstr "固定（两倍输出）"
+
+msgid "Flip disk"
+msgstr "Flip disk"
+
+msgid "Frame skip"
+msgstr "跳帧"
+
+msgid "Full screen"
+msgstr "全屏"
+
+msgid "Full widescreen"
+msgstr "宽屏全屏"
+
+msgid "Game Gear"
+msgstr "Game Gear"
+
+msgid "Game Genie"
+msgstr "Game Genie"
+
+msgid "Game-specific settings"
+msgstr "游戏特殊设定"
+
+msgid "GameBoy Advance"
+msgstr "GameBoy Advance"
+
+msgid "GameBoy Color"
+msgstr "GameBoy Color"
+
+msgid "GameCube"
+msgstr "GameCube"
+
+msgid "Go left"
+msgstr "Go left"
+
+msgid "Go right"
+msgstr "Go right"
+
+msgid "GX + VI"
+msgstr "GX + VI"
+
+msgid "GX"
+msgstr "GX"
+
+msgid "Hacker"
+msgstr "Hacker"
+
+msgid "Home"
+msgstr "Home"
+
+msgid "Hook fish"
+msgstr "Hook fish"
+
+msgid "Horiz."
+msgstr "水平"
+
+msgid "Increase speed"
+msgstr "加速"
+
+msgid "Insert coin"
+msgstr "投币"
+
+msgid "Invalid network settings - Check configuration file."
+msgstr "无效的网络设定 - 请检查设定文件。"
+
+msgid "Invalid network settings"
+msgstr "无效的网络设定"
+
+msgid "items found, displaying"
+msgstr "个项目被发现，显示"
+
+msgid "Japan"
+msgstr "Japan"
+
+msgid "Japanese"
+msgstr "日语"
+
+msgid "Jump"
+msgstr "Jump"
+
+msgid "L-Down"
+msgstr "L-Down"
+
+msgid "L-Left"
+msgstr "L-Left"
+
+msgid "L-Right"
+msgstr "L-Right"
+
+msgid "L-Up"
+msgstr "L-Up"
+
+msgid "Language (game)"
+msgstr "语言（游戏）"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Latest"
+msgstr "最新"
+
+msgid "Left flipper"
+msgstr "Left flipper"
+
+msgid "Left punch"
+msgstr "Left punch"
+
+msgid "Left punch/block"
+msgstr "Left punch/block"
+
+msgid "Left"
+msgstr "Left"
+
+msgid "Load game"
+msgstr "加载游戏"
+
+msgid "Load state"
+msgstr "加载状态"
+
+msgid "Loading game..."
+msgstr "加载游戏中..."
+
+msgid "Locked"
+msgstr "Locked"
+
+msgid "Lynx"
+msgstr "Lynx"
+
+msgid "Maneuver faster"
+msgstr "Maneuver faster"
+
+msgid "Manual"
+msgstr "手动"
+
+msgid "Map"
+msgstr "Map"
+
+msgid "Match game header"
+msgstr "匹配游戏头部"
+
+msgid "Mega Drive"
+msgstr "Mega Drive"
+
+msgid "Minus"
+msgstr "Minus"
+
+msgid "Minus/LTrigger"
+msgstr "Minus/LTrigger"
+
+msgid "Mode"
+msgstr "Mode"
+
+msgid "Move block"
+msgstr "Move block"
+
+msgid "Move cursor"
+msgstr "Move cursor"
+
+msgid "Move left"
+msgstr "Move left"
+
+msgid "Move right"
+msgstr "Move right"
+
+msgid "Move"
+msgstr "Move"
+
+msgid "Neo Geo Pocket"
+msgstr "Neo Geo Pocket"
+
+msgid "NES"
+msgstr "NES"
+
+msgid "Network Share"
+msgstr "网络共享"
+
+msgid "No"
+msgstr "不"
+
+msgid "None"
+msgstr "None"
+
+msgid "Normal"
+msgstr "通常"
+
+msgid "North America"
+msgstr "通常"
+
+msgid "Note: Enabling rewind may affect performance."
+msgstr "注意：开启回退可能会影响性能。"
+
+msgid "Option 1"
+msgstr "Option 1"
+
+msgid "Option 2"
+msgstr "Option 2"
+
+msgid "Option"
+msgstr "选项"
+
+msgid "Page"
+msgstr "翻页"
+
+msgid "Pause"
+msgstr "Pause"
+
+msgid "PC Engine"
+msgstr "PC Engine"
+
+msgid "PC-FX"
+msgstr "PC-FX"
+
+msgid "Plus"
+msgstr "Plus"
+
+msgid "Plus/RTrigger"
+msgstr "Plus/RTrigger"
+
+msgid "Portuguese"
+msgstr "葡萄牙语"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "R-Down"
+msgstr "R-Down"
+
+msgid "R-Left"
+msgstr "R-Left"
+
+msgid "R-Right"
+msgstr "R-Right"
+
+msgid "R-Up"
+msgstr "R-Up"
+
+msgid "Rapid"
+msgstr "Rapid"
+
+msgid "Reading file list..."
+msgstr "读取文件列表中..."
+
+msgid "Reload"
+msgstr "重新加载"
+
+msgid "Reset to defaults"
+msgstr "重新设置成默认值"
+
+msgid "Reset"
+msgstr "重新开始"
+
+msgid "Resize screen"
+msgstr "调整屏幕大小"
+
+msgid "Resizing not supported for double strike mode."
+msgstr "两倍输出模式下不能调整屏幕大小。"
+
+msgid "Resume"
+msgstr "继续"
+
+msgid "Revert to saved settings"
+msgstr "恢复保存的设置"
+
+msgid "Rewind buttons"
+msgstr "回退按钮"
+
+msgid "Rewind"
+msgstr "回退"
+
+msgid "Right flipper"
+msgstr "Right flipper"
+
+msgid "Right punch"
+msgstr "Right punch"
+
+msgid "Right punch/block"
+msgstr "Right punch/block"
+
+msgid "Right"
+msgstr "Right"
+
+msgid "ROM image is too large; maximum size allowed is 67108864 bytes."
+msgstr "Rom文件过大；最大允许64M"
+
+msgid "ROM patching"
+msgstr "ROM patching"
+
+msgid "Rotate backward"
+msgstr "向后旋转"
+
+msgid "Rotate clockwise"
+msgstr "顺时针旋转"
+
+msgid "Rotate container left"
+msgstr "Rotate container left"
+
+msgid "Rotate container right"
+msgstr "Rotate container right"
+
+msgid "Rotate counter-clockwise"
+msgstr "逆时针旋转"
+
+msgid "Rotate forward"
+msgstr "向前旋转"
+
+msgid "Rotated"
+msgstr "已旋转"
+
+msgid "Rotation"
+msgstr "旋转"
+
+msgid "Run"
+msgstr "Run"
+
+msgid "Save settings"
+msgstr "保存设定"
+
+msgid "Save state"
+msgstr "保存状态"
+
+msgid "Save states"
+msgstr "保存状态"
+
+msgid "Scaler"
+msgstr "缩放"
+
+msgid "Screen size"
+msgstr "屏幕大小"
+
+msgid "Scroll"
+msgstr "切换"
+
+msgid "SD Card"
+msgstr "SD卡"
+
+msgid "Sega Master System"
+msgstr "Sega Master System"
+
+msgid "Select unit"
+msgstr "选择器"
+
+msgid "Select"
+msgstr "选择"
+
+msgid "Shake"
+msgstr "Shake"
+
+msgid "Shoot"
+msgstr "Shoot"
+
+msgid "Show menu"
+msgstr "显示菜单"
+
+msgid "Sideways"
+msgstr "水平"
+
+msgid "Slot"
+msgstr "插槽"
+
+msgid "Soft shot, lob"
+msgstr "Soft shot, lob"
+
+msgid "Solid shot"
+msgstr "Solid shot"
+
+msgid "Start"
+msgstr "开始"
+
+msgid "Successfully deleted cartridge settings."
+msgstr "成功删除了设定。"
+
+msgid "Successfully reverted to saved settings."
+msgstr "成功恢复了保存的设定。"
+
+msgid "Successfully saved cartridge settings."
+msgstr "成功保存了设定。"
+
+msgid "Successly saved state."
+msgstr "成功保存了状态。"
+
+msgid "Supported"
+msgstr "支持"
+
+msgid "Swing left"
+msgstr "Swing left"
+
+msgid "Swing right"
+msgstr "Swing right"
+
+msgid "Swing up"
+msgstr "Swing up"
+
+msgid "Switch camera"
+msgstr "调整相机"
+
+msgid "Throw down"
+msgstr "Throw down"
+
+msgid "Throw left"
+msgstr "Throw left"
+
+msgid "Throw right"
+msgstr "Throw right"
+
+msgid "Throw up"
+msgstr "Throw up"
+
+msgid "Throw"
+msgstr "Throw"
+
+msgid "to"
+msgstr "到"
+
+msgid "Toggle A/R lock"
+msgstr "Toggle A/R lock"
+
+msgid "Toggle auto rotation"
+msgstr "Toggle auto rotation"
+
+msgid "Toggle screen sizes"
+msgstr "切换屏幕大小"
+
+msgid "Top menu exit"
+msgstr "退回到最初菜单"
+
+msgid "U/D"
+msgstr "上/下"
+
+msgid "Unable to mount"
+msgstr "无法定位"
+
+msgid "Unlocked"
+msgstr "解锁了"
+
+msgid "Up"
+msgstr "Up"
+
+msgid "Upright"
+msgstr "竖直"
+
+msgid "USB Device"
+msgstr "USB设备"
+
+msgid "Use power"
+msgstr "Use power"
+
+msgid "Use special"
+msgstr "Use special"
+
+msgid "Vert."
+msgstr "垂直"
+
+msgid "Video filter"
+msgstr "视频过滤"
+
+msgid "Video settings"
+msgstr "视频设定"
+
+msgid "Virtual Boy"
+msgstr "Virtual Boy"
+
+msgid "Volume"
+msgstr "音量"
+
+msgid "Wiimote (menu)"
+msgstr "Wii手柄（操作）"
+
+msgid "Wiimote + Nunchuk"
+msgstr "Wii左手柄 + 右手柄"
+
+msgid "Wiimote"
+msgstr "Wii右手柄"
+
+msgid "WonderSwan"
+msgstr "WonderSwan"
+
+msgid "Yes"
+msgstr "是的"
