@@ -1,1584 +1,8664 @@
 ﻿
-msgid "1941u.zip"
-msgstr "1941-反击战(900227美版)"
+msgid "g_12inun.zip"
+msgstr "(Genesis)12合1"
 
-msgid "1941.zip"
-msgstr "1941-反击战(900227世界版)"
+msgid "g_3in1ro.zip"
+msgstr "(Genesis)3合1暴力摩托-女小精灵-立体方块"
+
+msgid "g_3in1fl.zip"
+msgstr "(Genesis)3合1永恒追求-世界足球锦标赛-92世界杯"
+
+msgid "g_4in1pb.zip"
+msgstr "(Genesis)4合1"
+
+msgid "g_6pakus.zip"
+msgstr "(Genesis)6合1(美版)"
+
+msgid "g_aressh.zip"
+msgstr "(Genesis)A行列车MD(日版)"
+
+msgid "g_eahock.zip"
+msgstr "(Genesis)EA曲棍球联赛(欧版)"
+
+msgid "g_eahoc1.zip"
+msgstr "(Genesis)EA曲棍球联赛(日版)"
+
+msgid "g_easpor.zip"
+msgstr "(Genesis)EA赛车联赛(欧版)"
+
+msgid "g_f1wc.zip"
+msgstr "(Genesis)F1-世界锦标赛(欧版)"
+
+msgid "g_f1wcb.zip"
+msgstr "(Genesis)F1-世界锦标赛(欧版)(Beta)"
+
+msgid "g_f1circ.zip"
+msgstr "(Genesis)F1赛车MD(日版)"
+
+msgid "g_f22.zip"
+msgstr "(Genesis)F-22拦截机(美版,欧版)(09/1991)"
+
+msgid "g_f22_realdump.zip"
+msgstr "(Genesis)F-22拦截机(美版,欧版)(09/1991)(properdump)"
+
+msgid "g_fifa.zip"
+msgstr "(Genesis)FIFA国际足球(美版,欧版)"
+
+msgid "g_fi2k.zip"
+msgstr "(Genesis)FIFA足球2000金版"
+
+msgid "g_fi95.zip"
+msgstr "(Genesis)FIFA足球95(美版,欧版)"
+
+msgid "g_fi96.zip"
+msgstr "(Genesis)FIFA足球96(美版,欧版)"
+
+msgid "g_fi97.zip"
+msgstr "(Genesis)FIFA足球97(美版,欧版)"
+
+msgid "g_fi97_realdump.zip"
+msgstr "(Genesis)FIFA足球97(美版,欧版)(properdump)"
+
+msgid "g_fi98.zip"
+msgstr "(Genesis)FIFA足球98-通向世界杯之路(欧版)"
+
+msgid "g_futbol.zip"
+msgstr "(Genesis)FIFA足球98"
+
+msgid "g_fi99.zip"
+msgstr "(Genesis)FIFA足球99(R)"
+
+msgid "g_jl_ps.zip"
+msgstr "(Genesis)J.联盟超级足球(日版)(v1.0)"
+
+msgid "g_jl_psa.zip"
+msgstr "(Genesis)J.联盟超级足球(日版)(v1.3)"
+
+msgid "g_jl_ps2.zip"
+msgstr "(Genesis)J.联盟超级足球2(日版)"
+
+msgid "g_jl_fs.zip"
+msgstr "(Genesis)J.联盟超级足球之最后一战(日版)"
+
+msgid "g_jl_pf.zip"
+msgstr "(Genesis)J.联盟完美射手完全版(日版)"
+
+msgid "g_jl.zip"
+msgstr "(Genesis)J.联盟足球(日版)"
+
+msgid "g_nbapro.zip"
+msgstr "(Genesis)NBA超级篮球赛'94(日版)"
+
+msgid "g_nbashb.zip"
+msgstr "(Genesis)NBA灌篮赛'94(美版)(Beta)"
+
+msgid "g_nbash.zip"
+msgstr "(Genesis)NBA灌篮赛'94(美版,欧版)"
+
+msgid "g_nbl95.zip"
+msgstr "(Genesis)NBA实况转播95(美版,欧版)"
+
+msgid "g_nbal96.zip"
+msgstr "(Genesis)NBA实况转播96(美版,欧版)"
+
+msgid "g_nbal97.zip"
+msgstr "(Genesis)NBA实况转播97(美版,欧版)"
+
+msgid "g_nbal98.zip"
+msgstr "(Genesis)NBA实况转播98(美版)"
+
+msgid "g_ncaafo.zip"
+msgstr "(Genesis)NCAA大学橄榄球联赛(美版)"
+
+msgid "g_ncaafi.zip"
+msgstr "(Genesis)NCAA大学篮球总决赛(美版)"
+
+msgid "g_nh94_realdump.zip"
+msgstr "(Genesis)NHL'94(美版,欧版)"
+
+msgid "g_tsbb.zip"
+msgstr "(Genesis)Tecmo超级NBA篮球(美版)"
+
+msgid "g_tsbbj.zip"
+msgstr "(Genesis)Tecmo超级NBA篮球(日版)"
+
+msgid "g_tsb.zip"
+msgstr "(Genesis)Tecmo超级板球(美版)(10/1993)"
+
+msgid "g_tsbo.zip"
+msgstr "(Genesis)Tecmo超级板球(美版)(09/1993)"
+
+msgid "g_tsbj.zip"
+msgstr "(Genesis)Tecmo超级板球(日版)"
+
+msgid "g_tsb2.zip"
+msgstr "(Genesis)Tecmo超级板球II-特别版(美版)"
+
+msgid "g_tsb2j.zip"
+msgstr "(Genesis)Tecmo超级板球II-特别版(日版)"
+
+msgid "g_tsb3.zip"
+msgstr "(Genesis)Tecmo超级板球III-最终版(美版)"
+
+msgid "g_tecmos.zip"
+msgstr "(Genesis)Tecmo超级棒球(美版)"
+
+msgid "g_vf2.zip"
+msgstr "(Genesis)VR战士2(美版,欧版)"
+
+msgid "g_addam2.zip"
+msgstr "(Genesis)阿达姆斯家庭(美版)(Beta)"
+
+msgid "g_addam.zip"
+msgstr "(Genesis)阿达姆斯家庭(美版,欧版)"
+
+msgid "g_afv.zip"
+msgstr "(Genesis)阿达姆斯家庭(欧版)"
+
+msgid "g_andre2.zip"
+msgstr "(Genesis)阿加斯网球(美版)"
+
+msgid "g_andre1.zip"
+msgstr "(Genesis)阿加斯网球(美版)(Beta)"
+
+msgid "g_andrea.zip"
+msgstr "(Genesis)阿加斯网球(欧版)"
+
+msgid "g_aladd3.zip"
+msgstr "(Genesis)阿拉丁(美版)"
+
+msgid "g_aladd2.zip"
+msgstr "(Genesis)阿拉丁(美版)(Beta)"
+
+msgid "g_aladdi.zip"
+msgstr "(Genesis)阿拉丁(欧版)"
+
+msgid "g_aladd1.zip"
+msgstr "(Genesis)阿拉丁(日版)"
+
+msgid "g_alad2.zip"
+msgstr "(Genesis)阿拉丁II"
+
+msgid "g_arcus.zip"
+msgstr "(Genesis)阿鲁卡冒险(美版)"
+
+msgid "g_arcusj.zip"
+msgstr "(Genesis)阿鲁卡冒险(日版)"
+
+msgid "g_arnold.zip"
+msgstr "(Genesis)阿诺德高尔夫锦标赛(美版,欧版)"
+
+msgid "g_aster1.zip"
+msgstr "(Genesis)阿斯特瑞克斯-大救援(美版)"
+
+msgid "g_asteri.zip"
+msgstr "(Genesis)阿斯特瑞克斯-大救援(欧版)"
+
+msgid "g_astepg.zip"
+msgstr "(Genesis)阿斯特瑞克斯-上帝之力(欧版)"
+
+msgid "g_shdwr.zip"
+msgstr "(Genesis)暗之追迹者(美版)"
+
+msgid "g_shdwrj.zip"
+msgstr "(Genesis)暗之追迹者(日版)"
+
+msgid "g_austra.zip"
+msgstr "(Genesis)澳大利亚橄榄球(欧版)"
+
+msgid "g_barbi1.zip"
+msgstr "(Genesis)芭比-假日冒险(美版)"
+
+msgid "g_bahamu.zip"
+msgstr "(Genesis)巴哈姆特战记(日版)"
+
+msgid "g_barney.zip"
+msgstr "(Genesis)巴尼寻宝(美版)"
+
+msgid "g_bassma.zip"
+msgstr "(Genesis)巴斯钓鱼经典版(美版)"
+
+msgid "g_espnba.zip"
+msgstr "(Genesis)棒球之夜(美版)"
+
+msgid "g_twocr1.zip"
+msgstr "(Genesis)暴力克星(美版)"
+
+msgid "g_twocru.zip"
+msgstr "(Genesis)暴力克星(欧版)"
+
+msgid "g_crudeb.zip"
+msgstr "(Genesis)暴力克星(日版)"
+
+msgid "g_roadra.zip"
+msgstr "(Genesis)暴力摩托(美版,欧版)"
+
+msgid "g_rrsh3.zip"
+msgstr "(Genesis)暴力摩托3(美版,欧版)"
+
+msgid "g_rrsh2b.zip"
+msgstr "(Genesis)暴力摩托II(美版,欧版)"
+
+msgid "g_rrsh2a.zip"
+msgstr "(Genesis)暴力摩托II(美版,欧版)(v1.2)"
+
+msgid "g_rrsh2.zip"
+msgstr "(Genesis)暴力摩托II(日版)"
+
+msgid "g_billwa.zip"
+msgstr "(Genesis)比尔渥休足球(美版,欧版)"
+
+msgid "g_bill95.zip"
+msgstr "(Genesis)比尔渥休足球'95(美版)"
+
+msgid "g_batmrd.zip"
+msgstr "(Genesis)蝙蝠侠-爵克的复仇(美版)"
+
+msgid "g_batma2.zip"
+msgstr "(Genesis)蝙蝠侠(美版)"
+
+msgid "g_batman.zip"
+msgstr "(Genesis)蝙蝠侠(欧版)"
+
+msgid "g_batma1.zip"
+msgstr "(Genesis)蝙蝠侠(日版)"
+
+msgid "g_batmrt.zip"
+msgstr "(Genesis)蝙蝠侠归来(世界版)"
+
+msgid "g_adven1.zip"
+msgstr "(Genesis)蝙蝠侠与罗宾的冒险(美版)"
+
+msgid "g_advent.zip"
+msgstr "(Genesis)蝙蝠侠与罗宾的冒险(欧版)"
+
+msgid "g_musham.zip"
+msgstr "(Genesis)变形战机(美版)"
+
+msgid "g_buckro.zip"
+msgstr "(Genesis)别克罗杰-最终审判(美版,欧版)"
+
+msgid "g_aahari.zip"
+msgstr "(Genesis)播磨滩相扑(日版)"
+
+msgid "g_aokioo.zip"
+msgstr "(Genesis)苍狼与白鹿-成吉思汗(日版)"
+
+msgid "g_sb2020.zip"
+msgstr "(Genesis)超级棒球2020(美版,欧版)"
+
+msgid "g_2020to.zip"
+msgstr "(Genesis)超级棒球2020(日版)"
+
+msgid "g_proyak.zip"
+msgstr "(Genesis)超级棒球'91(日版)"
+
+msgid "g_superd.zip"
+msgstr "(Genesis)超级大战略(日版)"
+
+msgid "g_suphyu.zip"
+msgstr "(Genesis)超级海德(美版)"
+
+msgid "g_suphy.zip"
+msgstr "(Genesis)超级海德(欧版)"
+
+msgid "g_suphyj.zip"
+msgstr "(Genesis)超级海德(日版)"
+
+msgid "g_ssf2u.zip"
+msgstr "(Genesis)超级街头霸王II-新的来者(美版)"
+
+msgid "g_ssf2.zip"
+msgstr "(Genesis)超级街头霸王II-新的来者(欧版)"
+
+msgid "g_superk.zip"
+msgstr "(Genesis)超级劲射足球(欧版)"
+
+msgid "g_barbie.zip"
+msgstr "(Genesis)超级名模芭比(美版)"
+
+msgid "g_smgp.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车(美版)"
+
+msgid "g_smgpj.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车(日版)"
+
+msgid "g_smgpb.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车(日版,欧版)"
+
+msgid "g_smgpa.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车(日版,欧版)"
+
+msgid "g_asmgp.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车II(美版)"
+
+msgid "g_asmgpj.zip"
+msgstr "(Genesis)超级摩纳哥GP赛车II(日版,欧版)"
+
+msgid "g_supero.zip"
+msgstr "(Genesis)超级四驱车(美版,欧版)"
+
+msgid "g_chouky.zip"
+msgstr "(Genesis)超球界(日版)"
+
+msgid "g_rentah.zip"
+msgstr "(Genesis)出租英雄(日版)"
+
+msgid "g_crusad.zip"
+msgstr "(Genesis)创世战士(美版)"
+
+msgid "g_jstria.zip"
+msgstr "(Genesis)丛林激战直升机(美版)(Beta)"
+
+msgid "g_jstrik.zip"
+msgstr "(Genesis)丛林激战直升机(美版,欧版)"
+
+msgid "g_jstrib.zip"
+msgstr "(Genesis)丛林激战直升机(日版)"
+
+msgid "g_darwin.zip"
+msgstr "(Genesis)达尔文4081(日版,韩国版)"
+
+msgid "g_unchw2.zip"
+msgstr "(Genesis)大航海时代-新大陆(美版)"
+
+msgid "g_daik2.zip"
+msgstr "(Genesis)大航海时代II(日版)"
+
+msgid "g_fastes.zip"
+msgstr "(Genesis)大赛车(日版)"
+
+msgid "g_collnc.zip"
+msgstr "(Genesis)大学美式足球冠军赛(美版)"
+
+msgid "g_colln2.zip"
+msgstr "(Genesis)大学美式足球冠军赛II(美版)"
+
+msgid "g_disney.zip"
+msgstr "(Genesis)迪斯尼幻想乐园(欧版)"
+
+msgid "g_operat.zip"
+msgstr "(Genesis)第二次世界大战1939-45(美版)"
+
+msgid "g_action.zip"
+msgstr "(Genesis)动作52合1(美版)(Alt)(Unl)"
+
+msgid "g_actio1.zip"
+msgstr "(Genesis)动作52合1(美版)(Unl)"
+
+msgid "g_nbaa.zip"
+msgstr "(Genesis)动作NBA(美版)"
+
+msgid "g_naa95.zip"
+msgstr "(Genesis)动作NBA'95(美版,欧版)"
+
+msgid "g_tougio.zip"
+msgstr "(Genesis)斗技王(日版)"
+
+msgid "g_libert.zip"
+msgstr "(Genesis)独立战争(美版)"
+
+msgid "g_coachk.zip"
+msgstr "(Genesis)杜克大学篮球(美版)"
+
+msgid "g_cvani2.zip"
+msgstr "(Genesis)恶魔城-新的时代(欧版)"
+
+msgid "g_cvani1.zip"
+msgstr "(Genesis)恶魔城-新的时代(欧版)(Beta)"
+
+msgid "g_cvania.zip"
+msgstr "(Genesis)恶魔城-血族(美版)"
+
+msgid "g_aerot2.zip"
+msgstr "(Genesis)飞翔蝙蝠(美版)"
+
+msgid "g_aeroth.zip"
+msgstr "(Genesis)飞翔蝙蝠(欧版)"
+
+msgid "g_aero2u.zip"
+msgstr "(Genesis)飞翔蝙蝠2(美版)"
+
+msgid "g_aero2.zip"
+msgstr "(Genesis)飞翔蝙蝠2(欧版)"
+
+msgid "g_aworgj.zip"
+msgstr "(Genesis)浮游战士(日版)(SegaNet)"
+
+msgid "g_blades.zip"
+msgstr "(Genesis)复仇之刃(美版,欧版)"
+
+msgid "g_unnece.zip"
+msgstr "(Genesis)橄榄球95(美版)"
+
+msgid "g_bimini.zip"
+msgstr "(Genesis)高速竞艇(美版)"
+
+msgid "g_gemfir.zip"
+msgstr "(Genesis)古代战争(美版)"
+
+msgid "g_beasw.zip"
+msgstr "(Genesis)怪兽摔角(美版)"
+
+msgid "g_maste1.zip"
+msgstr "(Genesis)怪兽之主(美版)"
+
+msgid "g_master.zip"
+msgstr "(Genesis)怪兽之主(日版)"
+
+msgid "g_tnnbas.zip"
+msgstr "(Genesis)冠军钓鱼(美版)"
+
+msgid "g_shnfb.zip"
+msgstr "(Genesis)光明力量-诸神之遗产(日版)"
+
+msgid "g_shnf.zip"
+msgstr "(Genesis)光明力量(美版)"
+
+msgid "g_shnfa.zip"
+msgstr "(Genesis)光明力量(美版)(Beta)"
+
+msgid "g_shf2j.zip"
+msgstr "(Genesis)光明力量II-古代封印(日版)"
+
+msgid "g_shf2u.zip"
+msgstr "(Genesis)光明力量II(美版)"
+
+msgid "g_shf2.zip"
+msgstr "(Genesis)光明力量II(欧版)"
+
+msgid "g_light2.zip"
+msgstr "(Genesis)光明十字军(韩国版)"
+
+msgid "g_light4.zip"
+msgstr "(Genesis)光明十字军(美版)"
+
+msgid "g_lightc.zip"
+msgstr "(Genesis)光明十字军(欧版)"
+
+msgid "g_light1.zip"
+msgstr "(Genesis)光明十字军(日版)"
+
+msgid "g_sitdb.zip"
+msgstr "(Genesis)光明与黑暗(巴西版)"
+
+msgid "g_sitd.zip"
+msgstr "(Genesis)光明与黑暗(美版,欧版)"
+
+msgid "g_shinso.zip"
+msgstr "(Genesis)光明与黑暗(日版)"
+
+msgid "g_shinin.zip"
+msgstr "(Genesis)光明与黑暗(日版)"
+
+msgid "g_story8.zip"
+msgstr "(Genesis)光之继承者-HikarioTsugumono(日版)"
+
+msgid "g_story1.zip"
+msgstr "(Genesis)光之继承者(Germany)"
+
+msgid "g_story7.zip"
+msgstr "(Genesis)光之继承者(Spain)"
+
+msgid "g_legen1.zip"
+msgstr "(Genesis)光之继承者(法文版)"
+
+msgid "g_story3.zip"
+msgstr "(Genesis)光之继承者(韩国版)"
+
+msgid "g_storyo.zip"
+msgstr "(Genesis)光之继承者(欧版)"
+
+msgid "g_story2.zip"
+msgstr "(Genesis)光之继承者(日版)(Beta)"
+
+msgid "g_crying.zip"
+msgstr "(Genesis)海底战争-亚生命战争(日版)"
+
+msgid "g_aquati.zip"
+msgstr "(Genesis)海洋动物运动会(美版,欧版)"
+
+msgid "g_aerobs.zip"
+msgstr "(Genesis)航空霸业-超音速(美版)"
+
+msgid "g_airman.zip"
+msgstr "(Genesis)航空霸业-在天空翱翔(日版)"
+
+msgid "g_aerobi.zip"
+msgstr "(Genesis)航空霸业(美版)"
+
+msgid "g_airmas.zip"
+msgstr "(Genesis)航空霸业II-航空王(日版)"
+
+msgid "g_tnnout.zip"
+msgstr "(Genesis)户外钓鱼'96(美版)"
+
+msgid "g_phan22.zip"
+msgstr "(Genesis)幻影2040(美版)"
+
+msgid "g_phanto.zip"
+msgstr "(Genesis)幻影2040(欧版)"
+
+msgid "g_castl.zip"
+msgstr "(Genesis)幻影堡垒-不可思议的御城大冒险(美版,欧版)"
+
+msgid "g_castlj.zip"
+msgstr "(Genesis)幻影堡垒-不可思议的御城大冒险(日版)"
+
+msgid "g_royalb.zip"
+msgstr "(Genesis)皇家血统(日版)"
+
+msgid "g_backt1.zip"
+msgstr "(Genesis)回到未来III(美版)"
+
+msgid "g_backto.zip"
+msgstr "(Genesis)回到未来III(欧版)"
+
+msgid "g_dukenu.zip"
+msgstr "(Genesis)毁灭公爵3D(巴西版)"
+
+msgid "g_contra.zip"
+msgstr "(Genesis)魂斗罗-铁血兵团(美版,韩国版)"
+
+msgid "g_probot.zip"
+msgstr "(Genesis)魂斗罗-铁血兵团(欧版)"
+
+msgid "g_contr1.zip"
+msgstr "(Genesis)魂斗罗-铁血兵团(日版)"
+
+msgid "g_rocke2.zip"
+msgstr "(Genesis)火箭骑士历险记(美版)"
+
+msgid "g_rocket.zip"
+msgstr "(Genesis)火箭骑士历险记(欧版)"
+
+msgid "g_rocke1.zip"
+msgstr "(Genesis)火箭骑士历险记(日版)"
+
+msgid "g_gunst3.zip"
+msgstr "(Genesis)火枪英雄(美版)"
+
+msgid "g_gunsta.zip"
+msgstr "(Genesis)火枪英雄(欧版)"
+
+msgid "g_gunst2.zip"
+msgstr "(Genesis)火枪英雄(日版)"
+
+msgid "g_gunst1.zip"
+msgstr "(Genesis)火枪英雄(日版)(Sample)"
+
+msgid "g_tazemu.zip"
+msgstr "(Genesis)火星逃脱者(美版)"
+
+msgid "g_tazem.zip"
+msgstr "(Genesis)火星逃脱者(欧版)"
+
+msgid "g_kidouk.zip"
+msgstr "(Genesis)机动警察(日版)"
+
+msgid "g_vixenj.zip"
+msgstr "(Genesis)机甲神兵(日版)"
+
+msgid "g_batttc.zip"
+msgstr "(Genesis)机甲争霸(美版)"
+
+msgid "g_riseof.zip"
+msgstr "(Genesis)机器人格斗(欧版)"
+
+msgid "g_eswatc.zip"
+msgstr "(Genesis)机械警察-围困之城(美版)"
+
+msgid "g_pacifi.zip"
+msgstr "(Genesis)激战太平洋(美版)"
+
+msgid "g_teitok.zip"
+msgstr "(Genesis)激战太平洋(日版)"
+
+msgid "g_blast.zip"
+msgstr "(Genesis)疾风战车2(美版)"
+
+msgid "g_blastb.zip"
+msgstr "(Genesis)疾风战车2(美版)(Beta)"
+
+msgid "g_airbus.zip"
+msgstr "(Genesis)疾风战机(美版)"
+
+msgid "g_aerobl.zip"
+msgstr "(Genesis)疾风战机(日版)"
+
+msgid "g_espsp.zip"
+msgstr "(Genesis)极速世界(美版)"
+
+msgid "g_califo.zip"
+msgstr "(Genesis)加州游戏(美版,欧版)"
+
+msgid "g_arcade.zip"
+msgstr "(Genesis)街机合集(美版,欧版)"
+
+msgid "g_sf2u.zip"
+msgstr "(Genesis)街头霸王II'-特别冠军版(美版)"
+
+msgid "g_sf2.zip"
+msgstr "(Genesis)街头霸王II'-特别冠军版(欧版)"
+
+msgid "g_sf2p.zip"
+msgstr "(Genesis)街头霸王II'Plus(日版,亚洲版)"
+
+msgid "g_ballja.zip"
+msgstr "(Genesis)杰克钢球(日版,欧版)"
+
+msgid "g_jackni.zip"
+msgstr "(Genesis)杰克尼克劳斯高尔夫(美版,欧版)"
+
+msgid "g_classi.zip"
+msgstr "(Genesis)经典4合1(欧版)"
+
+msgid "g_berens.zip"
+msgstr "(Genesis)卷毛熊露营冒险(美版)"
+
+msgid "g_chelno.zip"
+msgstr "(Genesis)卡洛夫(日版)"
+
+msgid "g_besto1.zip"
+msgstr "(Genesis)空手道(美版)"
+
+msgid "g_bestof.zip"
+msgstr "(Genesis)空手道(欧版)"
+
+msgid "g_airdv.zip"
+msgstr "(Genesis)空中霸王(美版)"
+
+msgid "g_airdvj.zip"
+msgstr "(Genesis)空中霸王(日版)"
+
+msgid "g_exosq2.zip"
+msgstr "(Genesis)空中战警(美版)"
+
+msgid "g_exosq1.zip"
+msgstr "(Genesis)空中战警(美版)(Beta)"
+
+msgid "g_exosqu.zip"
+msgstr "(Genesis)空中战警(欧版)"
+
+msgid "d_hirea.zip"
+msgstr "(Genesis)恐龙战士(Prototype-Apr26,1993)"
+
+msgid "d_hireb.zip"
+msgstr "(Genesis)恐龙战士(Prototype-Apr27,1993)"
+
+msgid "d_hirec.zip"
+msgstr "(Genesis)恐龙战士(Prototype-May02,1993)"
+
+msgid "d_hire.zip"
+msgstr "(Genesis)恐龙战士(美版)"
+
+msgid "g_telsta.zip"
+msgstr "(Genesis)快乐棒球(日版)"
+
+msgid "g_archri.zip"
+msgstr "(Genesis)篮球-街机游戏(美版,欧版)"
+
+msgid "g_beyonu.zip"
+msgstr "(Genesis)雷神传说(美版)"
+
+msgid "g_blocko.zip"
+msgstr "(Genesis)立体方块(世界版)"
+
+msgid "g_vmana.zip"
+msgstr "(Genesis)粒子斗士(Beta)"
+
+msgid "g_vmanb.zip"
+msgstr "(Genesis)粒子斗士(Prototype-Jul24,1995)"
+
+msgid "g_vmanc.zip"
+msgstr "(Genesis)粒子斗士(美版)(Beta)"
+
+msgid "g_vman.zip"
+msgstr "(Genesis)粒子斗士(美版,欧版)"
+
+msgid "g_hybri.zip"
+msgstr "(Genesis)联合阵线(日版)"
+
+msgid "g_beavi2.zip"
+msgstr "(Genesis)两个傻瓜(美版)"
+
+msgid "g_beavis.zip"
+msgstr "(Genesis)两个傻瓜(欧版)"
+
+msgid "g_688att.zip"
+msgstr "(Genesis)猎杀潜艇(美版,欧版)"
+
+msgid "g_zeroto.zip"
+msgstr "(Genesis)零号特警(美版,欧版)"
+
+msgid "g_artof2.zip"
+msgstr "(Genesis)龙虎之拳(美版)"
+
+msgid "g_artoff.zip"
+msgstr "(Genesis)龙虎之拳(欧版)"
+
+msgid "g_ryuuko.zip"
+msgstr "(Genesis)龙虎之拳(日版)"
+
+msgid "g_alisi2.zip"
+msgstr "(Genesis)龙骑士(美版)"
+
+msgid "g_alisia.zip"
+msgstr "(Genesis)龙骑士(欧版)"
+
+msgid "g_alisi1.zip"
+msgstr "(Genesis)龙骑士(日版)"
+
+msgid "g_dungeo.zip"
+msgstr "(Genesis)龙与地下城-永恒的太阳战士(美版,欧版)"
+
+msgid "g_warri1.zip"
+msgstr "(Genesis)罗马勇士II(美版)"
+
+msgid "g_caes2.zip"
+msgstr "(Genesis)罗马勇士II(日版)"
+
+msgid "g_rockm1.zip"
+msgstr "(Genesis)洛克人(日版)"
+
+msgid "g_rockma.zip"
+msgstr "(Genesis)洛克人(日版)(Alt)"
+
+msgid "g_megama.zip"
+msgstr "(Genesis)洛克人大合集(欧版)"
+
+msgid "g_bob.zip"
+msgstr "(Genesis)蚂蚁战士(美版,欧版)"
+
+msgid "g_pulsem.zip"
+msgstr "(Genesis)脉冲超人(日版)"
+
+msgid "g_comix1.zip"
+msgstr "(Genesis)漫画地带(E)(Prototype-Jun28,1995)"
+
+msgid "g_comix3.zip"
+msgstr "(Genesis)漫画地带(K)(Prototype-Jun09,1995)"
+
+msgid "g_comix4.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jul12,1995-FULSCR)"
+
+msgid "g_comix5.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jul12,1995)"
+
+msgid "g_comix6.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jun01,1995-B)"
+
+msgid "g_comix7.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jun01,1995-C)"
+
+msgid "g_comix8.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jun01,1995-D)"
+
+msgid "g_comix9.zip"
+msgstr "(Genesis)漫画地带(Prototype-Jun01,1995)"
+
+msgid "g_comix.zip"
+msgstr "(Genesis)漫画地带(欧版)"
+
+msgid "g_comix2.zip"
+msgstr "(Genesis)漫画地带(日版)"
+
+msgid "g_monste.zip"
+msgstr "(Genesis)冒险世界IV(日版)"
+
+msgid "g_colleg.zip"
+msgstr "(Genesis)美国大学足球'96(美版)"
+
+msgid "g_coll97.zip"
+msgstr "(Genesis)美国大学足球'97(美版)"
+
+msgid "g_americ.zip"
+msgstr "(Genesis)美国夺标(美版)"
+
+msgid "g_beauty.zip"
+msgstr "(Genesis)美女与野兽-美女的追求(美版)"
+
+msgid "g_beaurb.zip"
+msgstr "(Genesis)美女与野兽-野兽之怒吼(美版)"
+
+msgid "g_arielt.zip"
+msgstr "(Genesis)美人鱼(美版,欧版)"
+
+msgid "g_bishou.zip"
+msgstr "(Genesis)美少女战士(日版)"
+
+msgid "g_nfl94.zip"
+msgstr "(Genesis)美式足球'94(美版)"
+
+msgid "g_nfl94j.zip"
+msgstr "(Genesis)美式足球'94(日版)"
+
+msgid "g_nfl95.zip"
+msgstr "(Genesis)美式足球'95(美版,欧版)"
+
+msgid "g_nfl98.zip"
+msgstr "(Genesis)美式足球'98(美版)"
+
+msgid "g_warson.zip"
+msgstr "(Genesis)梦幻模拟战(美版)"
+
+msgid "g_langri.zip"
+msgstr "(Genesis)梦幻模拟战(日版)"
+
+msgid "g_lang2b.zip"
+msgstr "(Genesis)梦幻模拟战II(日版)"
+
+msgid "g_lang2a.zip"
+msgstr "(Genesis)梦幻模拟战II(日版)(v1.1)"
+
+msgid "g_lang2.zip"
+msgstr "(Genesis)梦幻模拟战II(日版)(v1.2)"
+
+msgid "g_pstr4j.zip"
+msgstr "(Genesis)梦幻之星-SennenkinoOwarini(日版)"
+
+msgid "g_pstr2j.zip"
+msgstr "(Genesis)梦幻之星II-KaerazaruTokinoOwarini(日版)"
+
+msgid "g_pstr2a.zip"
+msgstr "(Genesis)梦幻之星II(巴西版)"
+
+msgid "g_pstr2b.zip"
+msgstr "(Genesis)梦幻之星II(美版,欧版)"
+
+msgid "g_pstr2.zip"
+msgstr "(Genesis)梦幻之星II(美版,欧版)(RevA)"
+
+msgid "g_pstr3.zip"
+msgstr "(Genesis)梦幻之星III-时之继承者(巴西版)"
+
+msgid "g_pstr3a.zip"
+msgstr "(Genesis)梦幻之星III-时之继承者(美版,欧版)"
+
+msgid "g_pstr3b.zip"
+msgstr "(Genesis)梦幻之星III-时之继承者(日版)"
+
+msgid "g_pstr4.zip"
+msgstr "(Genesis)梦幻之星IV(美版)"
+
+msgid "g_lands2.zip"
+msgstr "(Genesis)秘境魔宝(德文版)"
+
+msgid "g_lands4.zip"
+msgstr "(Genesis)秘境魔宝(法文版)"
+
+msgid "g_lands1.zip"
+msgstr "(Genesis)秘境魔宝(美版)"
+
+msgid "g_landst.zip"
+msgstr "(Genesis)秘境魔宝(美版)(Beta)"
+
+msgid "g_lands5.zip"
+msgstr "(Genesis)秘境魔宝(欧版)"
+
+msgid "g_lands3.zip"
+msgstr "(Genesis)秘境魔宝(日版)"
+
+msgid "g_madoum.zip"
+msgstr "(Genesis)魔导物语I(日版)"
+
+msgid "g_colum1.zip"
+msgstr "(Genesis)魔法宝石(世界版)"
+
+msgid "g_column.zip"
+msgstr "(Genesis)魔法宝石(世界版)(v1.1)"
+
+msgid "g_cols3.zip"
+msgstr "(Genesis)魔法宝石III-RevengeofColumns(美版)"
+
+msgid "g_cols3a.zip"
+msgstr "(Genesis)魔法宝石III-Taiketsu!ColumnsWorld(日版,韩国版)"
+
+msgid "g_mighta.zip"
+msgstr "(Genesis)魔法门-世界之门(美版,欧版)"
+
+msgid "g_drrob2.zip"
+msgstr "(Genesis)魔法气泡外传(美版)"
+
+msgid "g_drrob1.zip"
+msgstr "(Genesis)魔法气泡外传(美版)(Beta)"
+
+msgid "g_drrobo.zip"
+msgstr "(Genesis)魔法气泡外传(欧版)"
+
+msgid "g_matenn.zip"
+msgstr "(Genesis)魔天的创灭(日版)"
+
+msgid "g_sora.zip"
+msgstr "(Genesis)怒之铁拳(世界版)"
+
+msgid "g_sor.zip"
+msgstr "(Genesis)怒之铁拳(世界版)(RevA)"
+
+msgid "g_sor2.zip"
+msgstr "(Genesis)怒之铁拳2(美版)"
+
+msgid "g_sor3u.zip"
+msgstr "(Genesis)怒之铁拳3(美版)"
+
+msgid "g_sor3.zip"
+msgstr "(Genesis)怒之铁拳3(欧版)"
+
+msgid "g_sor3a.zip"
+msgstr "(Genesis)怒之铁拳3(亚洲版)"
+
+msgid "g_bk2b.zip"
+msgstr "(Genesis)怒之铁拳II(日版)(Beta)"
+
+msgid "g_bk2.zip"
+msgstr "(Genesis)怒之铁拳II(日版,欧版)"
+
+msgid "g_bk3.zip"
+msgstr "(Genesis)怒之铁拳III(日版)"
+
+msgid "g_europe.zip"
+msgstr "(Genesis)欧洲杯足球(欧版)"
+
+msgid "g_pgaeur.zip"
+msgstr "(Genesis)欧洲职业高尔夫球赛(美版,欧版)"
+
+msgid "g_pebbl1.zip"
+msgstr "(Genesis)培柏海岸高尔夫球场(美版)"
+
+msgid "g_pebble.zip"
+msgstr "(Genesis)培柏海岸高尔夫球场(欧版)"
+
+msgid "g_elimin.zip"
+msgstr "(Genesis)平衡战机(日版)"
+
+msgid "g_cools3.zip"
+msgstr "(Genesis)七喜小子(美版)"
+
+msgid "g_cools2.zip"
+msgstr "(Genesis)七喜小子(美版)(Beta)"
+
+msgid "g_coolsp.zip"
+msgstr "(Genesis)七喜小子(欧版)"
+
+msgid "g_wolu.zip"
+msgstr "(Genesis)奇幻世界-米老鼠与唐老鸭(美版,韩国版)"
+
+msgid "g_wol.zip"
+msgstr "(Genesis)奇幻世界-米老鼠与唐老鸭(欧版)"
+
+msgid "g_kishid.zip"
+msgstr "(Genesis)骑士传说(日版)"
+
+msgid "g_ejimu.zip"
+msgstr "(Genesis)蚯蚓战士(美版)"
+
+msgid "g_ejim.zip"
+msgstr "(Genesis)蚯蚓战士(欧版)"
+
+msgid "g_ejim2u.zip"
+msgstr "(Genesis)蚯蚓战士2(美版)"
+
+msgid "g_ejim2.zip"
+msgstr "(Genesis)蚯蚓战士2(欧版)"
+
+msgid "g_ballzd.zip"
+msgstr "(Genesis)球人大乱斗(美版,欧版)"
+
+msgid "g_nhlhoc.zip"
+msgstr "(Genesis)曲棍球(美版)"
+
+msgid "g_nhl94.zip"
+msgstr "(Genesis)曲棍球赛'94(美版,欧版)"
+
+msgid "g_nhl95.zip"
+msgstr "(Genesis)曲棍球赛'95(美版,欧版)"
+
+msgid "g_nhl96.zip"
+msgstr "(Genesis)曲棍球赛'96(美版,欧版)"
+
+msgid "g_nhl97.zip"
+msgstr "(Genesis)曲棍球赛'97(美版,欧版)"
+
+msgid "g_nhl98.zip"
+msgstr "(Genesis)曲棍球赛'98(美版)"
+
+msgid "g_elit95.zip"
+msgstr "(Genesis)曲棍球赛季95(Sweden)"
+
+msgid "g_elit96.zip"
+msgstr "(Genesis)曲棍球赛季96(Sweden)"
+
+msgid "g_primet.zip"
+msgstr "(Genesis)全程赛'97(美版)"
+
+msgid "g_kickbo.zip"
+msgstr "(Genesis)拳击(日版,韩国版)"
+
+msgid "g_janout.zip"
+msgstr "(Genesis)雀皇登龙门(J)[!]"
+
+msgid "g_janou1.zip"
+msgstr "(Genesis)雀皇登龙门(日版)"
+
+msgid "g_3ninja.zip"
+msgstr "(Genesis)忍杀三人组(美版)"
+
+msgid "g_tmhshj.zip"
+msgstr "(Genesis)忍者神龟-大进击(日版)"
+
+msgid "g_tmhshu.zip"
+msgstr "(Genesis)忍者神龟-史雷德回归(美版)"
+
+msgid "g_tmhsh.zip"
+msgstr "(Genesis)忍者神龟-史雷德回归(欧版)"
+
+msgid "g_r3k2.zip"
+msgstr "(Genesis)三国志II(美版)"
+
+msgid "g_sangok.zip"
+msgstr "(Genesis)三国志II(日版)"
+
+msgid "g_r3k3.zip"
+msgstr "(Genesis)三国志III-龙的复活(美版)"
+
+msgid "g_sango1.zip"
+msgstr "(Genesis)三国志III(日版)"
+
+msgid "g_sango2.zip"
+msgstr "(Genesis)三国志列传-乱世群英(日版)"
+
+msgid "g_sanguo.zip"
+msgstr "(Genesis)三国志列传-乱世群英(中文版)"
+
+msgid "g_anima1.zip"
+msgstr "(Genesis)三只笨鼠(美版)"
+
+msgid "g_animan.zip"
+msgstr "(Genesis)三只笨鼠(欧版)(En,Fr,De)"
+
+msgid "g_dstrk.zip"
+msgstr "(Genesis)沙漠风暴(美版,欧版)"
+
+msgid "g_tfiii.zip"
+msgstr "(Genesis)闪电出击III(日版,美版)"
+
+msgid "g_tfiv.zip"
+msgstr "(Genesis)闪电出击IV(欧版)"
+
+msgid "g_tfivj.zip"
+msgstr "(Genesis)闪电出击IV(日版)"
+
+msgid "g_wbmw.zip"
+msgstr "(Genesis)神奇男孩在魔界(美版,欧版)"
+
+msgid "g_biohzb.zip"
+msgstr "(Genesis)生化战机(美版)(Beta)"
+
+msgid "g_biohz.zip"
+msgstr "(Genesis)生化战机(美版,欧版)"
+
+msgid "g_espnf.zip"
+msgstr "(Genesis)实况曲棍球(美版)"
+
+msgid "g_16zhan.zip"
+msgstr "(Genesis)十六张麻将(中文版)(Unl)"
+
+msgid "g_vermil.zip"
+msgstr "(Genesis)石中剑(日版)"
+
+msgid "g_16tons.zip"
+msgstr "(Genesis)世嘉频道(SN)(GNKO)(日版)[!]"
+
+msgid "g_16tjap.zip"
+msgstr "(Genesis)世嘉频道(日版)(SegaNet)"
+
+msgid "g_worldt.zip"
+msgstr "(Genesis)世界杯(美版)"
+
+msgid "g_wsb98.zip"
+msgstr "(Genesis)世界系列棒球'98(美版)"
+
+msgid "g_altere.zip"
+msgstr "(Genesis)兽王记(美版,欧版)"
+
+msgid "g_juuou1.zip"
+msgstr "(Genesis)兽王记(日版)"
+
+msgid "g_juuouk.zip"
+msgstr "(Genesis)兽王记(日版)(v1.1)"
+
+msgid "g_dd.zip"
+msgstr "(Genesis)双截龙(美版,欧版)"
+
+msgid "g_sonicb.zip"
+msgstr "(Genesis)索尼克(W)(REV00)[p5][!]"
+
+msgid "g_sonic.zip"
+msgstr "(Genesis)索尼克(美版,欧版)"
+
+msgid "g_sonica.zip"
+msgstr "(Genesis)索尼克(日版,韩国版)"
+
+msgid "g_soni2b.zip"
+msgstr "(Genesis)索尼克2(Beta4-Sep18,1992,16.26)"
+
+msgid "g_soni2c.zip"
+msgstr "(Genesis)索尼克2(Beta5-Sep21,1992,12.06)"
+
+msgid "g_soni2d.zip"
+msgstr "(Genesis)索尼克2(Beta6-Sep22,1992,18.47)"
+
+msgid "g_soni2e.zip"
+msgstr "(Genesis)索尼克2(Beta6-Sep22,1992,19.42)"
+
+msgid "g_soni2f.zip"
+msgstr "(Genesis)索尼克2(Beta7-Sep24,1992,09.26)"
+
+msgid "g_soni2g.zip"
+msgstr "(Genesis)索尼克2(Beta8-Sep24,1992,19.27)"
+
+msgid "g_soni2h.zip"
+msgstr "(Genesis)索尼克2(Prototype)[!]"
+
+msgid "g_soni2i.zip"
+msgstr "(Genesis)索尼克2(W)(REV01a)[!]"
+
+msgid "g_soni2j.zip"
+msgstr "(Genesis)索尼克2(W)(REVSC02)"
+
+msgid "g_soni2a.zip"
+msgstr "(Genesis)索尼克2(世界版)"
+
+msgid "g_soni2k.zip"
+msgstr "(Genesis)索尼克2(世界版)(Beta)"
+
+msgid "g_soni2.zip"
+msgstr "(Genesis)索尼克2(世界版)(RevA)"
+
+msgid "g_soni3a.zip"
+msgstr "(Genesis)索尼克3(ArgentinianPirate)"
+
+msgid "g_soni3.zip"
+msgstr "(Genesis)索尼克3(美版)"
+
+msgid "g_soni3b.zip"
+msgstr "(Genesis)索尼克3(欧版)"
+
+msgid "g_soni3c.zip"
+msgstr "(Genesis)索尼克3(日版,韩国版)"
+
+msgid "g_son3c.zip"
+msgstr "(Genesis)索尼克3C(Prototype0408-Apr08,1994,17.29)"
+
+msgid "g_son3ca.zip"
+msgstr "(Genesis)索尼克3C(Prototype0517-May17,1994,17.08)"
+
+msgid "g_s3d.zip"
+msgstr "(Genesis)索尼克3D(美版,欧版)"
+
+msgid "g_sspind.zip"
+msgstr "(Genesis)索尼克弹珠台(美版)"
+
+msgid "g_sspinb.zip"
+msgstr "(Genesis)索尼克弹珠台(美版)(Alt)"
+
+msgid "g_sspinc.zip"
+msgstr "(Genesis)索尼克弹珠台(美版)(Beta)"
+
+msgid "g_sspin.zip"
+msgstr "(Genesis)索尼克弹珠台(欧版)"
+
+msgid "g_sspina.zip"
+msgstr "(Genesis)索尼克弹珠台(日版)"
+
+msgid "g_compa.zip"
+msgstr "(Genesis)索尼克合集(美版,欧版)(v1.1)"
+
+msgid "g_comp.zip"
+msgstr "(Genesis)索尼克合集(欧版)"
+
+msgid "g_scrack.zip"
+msgstr "(Genesis)索尼克与疯狂小尾巴(日版)(Proto)"
+
+msgid "g_ska.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0525-May25,1994,15.28)"
+
+msgid "g_skb.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0606-Jun06,1994,10.02)"
+
+msgid "g_skc.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0608-Jun08,1994,05.03)"
+
+msgid "g_skd.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0610-Jun10,1994,07.49)"
+
+msgid "g_ske.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0612-Jun12,1994,18.27)"
+
+msgid "g_skf.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0618-Jun18,1994,09.15)"
+
+msgid "g_skg.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(Prototype0619-Jun19,1994,08.18)"
+
+msgid "g_sk.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯(世界版)"
+
+msgid "g_knuckl.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯2(Prototype0524-May27,1994,10.46)"
+
+msgid "g_sks1.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯加强版+索尼克(世界版)"
+
+msgid "g_sks2.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯加强版+索尼克2(世界版)"
+
+msgid "g_sks3.zip"
+msgstr "(Genesis)索尼克与纳克鲁斯加强版+索尼克3(世界版)"
+
+msgid "g_spacef.zip"
+msgstr "(Genesis)太空蚂蚁战士(日版)"
+
+msgid "g_awspro.zip"
+msgstr "(Genesis)太空足球(美版)"
+
+msgid "g_nhktai.zip"
+msgstr "(Genesis)太平记(日版)"
+
+msgid "g_troyai.zip"
+msgstr "(Genesis)特洛伊.阿卡曼的美式足球(美版)"
+
+msgid "g_laruss.zip"
+msgstr "(Genesis)托尼棒球95(美版,澳洲版)"
+
+msgid "g_toeja1.zip"
+msgstr "(Genesis)外星双傻(世界版)"
+
+msgid "g_toejam.zip"
+msgstr "(Genesis)外星双傻(世界版)(RevA)"
+
+msgid "g_micha1.zip"
+msgstr "(Genesis)外星战将-麦可杰克森月球漫步(世界版)"
+
+msgid "g_michae.zip"
+msgstr "(Genesis)外星战将-麦可杰克森月球漫步(世界版)(RevA)"
+
+msgid "g_aliens.zip"
+msgstr "(Genesis)外星战士(欧版)"
+
+msgid "g_alien2.zip"
+msgstr "(Genesis)外星战士(日版)"
+
+msgid "g_advem1.zip"
+msgstr "(Genesis)万能麦斯(美版)"
+
+msgid "g_advemm.zip"
+msgstr "(Genesis)万能麦斯(欧版)"
+
+msgid "g_skinga.zip"
+msgstr "(Genesis)王国巫师(美版)"
+
+msgid "g_sking.zip"
+msgstr "(Genesis)王国巫师(美版)(v1.1)"
+
+msgid "g_sorcer.zip"
+msgstr "(Genesis)王国巫师(日版)"
+
+msgid "g_europa.zip"
+msgstr "(Genesis)王者雄师(日版)"
+
+msgid "g_aweso.zip"
+msgstr "(Genesis)威鼠闯天关(美版)"
+
+msgid "g_awesob.zip"
+msgstr "(Genesis)威鼠闯天关(美版)(Beta)"
+
+msgid "g_micma.zip"
+msgstr "(Genesis)微型机车(C)"
+
+msgid "g_micm.zip"
+msgstr "(Genesis)微型机车(美版,欧版)"
+
+msgid "g_micmb.zip"
+msgstr "(Genesis)微型机车(美版,欧版)(Alt)"
+
+msgid "g_micmc.zip"
+msgstr "(Genesis)微型机车(美版,欧版)(MDMMACD3)"
+
+msgid "g_micm2a.zip"
+msgstr "(Genesis)微型机车2-超级联赛(欧版)(J-Cart)"
+
+msgid "g_micm2.zip"
+msgstr "(Genesis)微型机车2-超级联赛(欧版)(J-Cart)(Alt)"
+
+msgid "g_mic96.zip"
+msgstr "(Genesis)微型机车96(V1.1)(E)"
+
+msgid "g_mic96b.zip"
+msgstr "(Genesis)微型机车96(欧版)(v1.1)(J-Cart)"
+
+msgid "g_mmma.zip"
+msgstr "(Genesis)微型机车军事版(E)[x]"
+
+msgid "g_mmm.zip"
+msgstr "(Genesis)微型机车军事版(欧版)(J-Cart)"
+
+msgid "g_sorcn.zip"
+msgstr "(Genesis)巫师(日版)"
+
+msgid "g_second.zip"
+msgstr "(Genesis)武士魂(欧版)"
+
+msgid "g_mushaa.zip"
+msgstr "(Genesis)武者(日版)"
+
+msgid "g_cyberp.zip"
+msgstr "(Genesis)武装行警(日版)"
+
+msgid "g_babyd.zip"
+msgstr "(Genesis)小鬼当街(美版)(Proto)"
+
+msgid "g_ecco2b.zip"
+msgstr "(Genesis)小海豚-退潮后的游戏时间(Beta)"
+
+msgid "g_ecco2u.zip"
+msgstr "(Genesis)小海豚-退潮后的游戏时间(美版)"
+
+msgid "g_ecco2.zip"
+msgstr "(Genesis)小海豚-退潮后的游戏时间(欧版)"
+
+msgid "g_ecco.zip"
+msgstr "(Genesis)小海豚(美版,欧版)"
+
+msgid "g_eccoj.zip"
+msgstr "(Genesis)小海豚(日版)"
+
+msgid "g_ecco2j.zip"
+msgstr "(Genesis)小海豚II(日版)"
+
+msgid "g_eccojr.zip"
+msgstr "(Genesis)小海豚2世(美版,澳洲版)(February1995)"
+
+msgid "g_eccoj1.zip"
+msgstr "(Genesis)小海豚2世(美版,澳洲版)(March1995)"
+
+msgid "g_new3dg.zip"
+msgstr "(Genesis)新3D高尔夫(日版)"
+
+msgid "g_new3d2.zip"
+msgstr "(Genesis)新3D高尔夫培柏海岸高尔夫球场(日版)"
+
+msgid "g_new3d1.zip"
+msgstr "(Genesis)新3D模拟高尔夫球(日版)"
+
+msgid "g_new3d3.zip"
+msgstr "(Genesis)新3D瓦乐奇迹高尔夫(日版)"
+
+msgid "g_solei1.zip"
+msgstr "(Genesis)新创世纪(France)"
+
+msgid "g_solei2.zip"
+msgstr "(Genesis)新创世纪(Germany)"
+
+msgid "g_solei4.zip"
+msgstr "(Genesis)新创世纪(Spain)"
+
+msgid "g_ragnac.zip"
+msgstr "(Genesis)新创世纪(韩国版)"
+
+msgid "g_soleil.zip"
+msgstr "(Genesis)新创世纪(欧版)"
+
+msgid "g_nobhao.zip"
+msgstr "(Genesis)信长的野望-霸王传(日版)"
+
+msgid "g_nobzen.zip"
+msgstr "(Genesis)信长的野望-全国版(日版)"
+
+msgid "g_nobamb.zip"
+msgstr "(Genesis)信长的野望(美版)"
+
+msgid "g_starcr.zip"
+msgstr "(Genesis)星际巡洋舰(日版)"
+
+msgid "g_sttnga.zip"
+msgstr "(Genesis)星舰迷航记-星际移民(美版)"
+
+msgid "g_sttng.zip"
+msgstr "(Genesis)星舰迷航记-星际移民(美版)(v1.1)"
+
+msgid "g_tazman.zip"
+msgstr "(Genesis)旋风狗泰兹(世界版)"
+
+msgid "g_elvin.zip"
+msgstr "(Genesis)旋风女战士(美版)"
+
+msgid "g_elvinj.zip"
+msgstr "(Genesis)旋风女战士(日版)"
+
+msgid "g_swdv.zip"
+msgstr "(Genesis)血色之剑(美版,欧版)"
+
+msgid "g_alexk2.zip"
+msgstr "(Genesis)亚历克斯-天空魔城(韩国)"
+
+msgid "g_alexk1.zip"
+msgstr "(Genesis)亚历克斯-天空魔城(日版)"
+
+msgid "g_alexk4.zip"
+msgstr "(Genesis)亚历克斯在魔城(美版)"
+
+msgid "g_alexk3.zip"
+msgstr "(Genesis)亚历克斯在魔城(欧版)"
+
+msgid "g_alexkd.zip"
+msgstr "(Genesis)亚历克斯在魔城(欧版)(RevA)"
+
+msgid "g_yswand.zip"
+msgstr "(Genesis)伊苏国III-来自伊苏的冒险者(日版)"
+
+msgid "g_ysiiiu.zip"
+msgstr "(Genesis)伊苏国III(美版)"
+
+msgid "g_evande.zip"
+msgstr "(Genesis)伊万德的真实拳击(世界版)"
+
+msgid "g_artali.zip"
+msgstr "(Genesis)艺术生涯(世界版)"
+
+msgid "g_alien1.zip"
+msgstr "(Genesis)异形3(美版,欧版)"
+
+msgid "g_alienu.zip"
+msgstr "(Genesis)异形3(美版,欧版)(RevA)"
+
+msgid "g_alstm.zip"
+msgstr "(Genesis)异形风暴(世界版)"
+
+msgid "g_dinodi.zip"
+msgstr "(Genesis)意大利足球(欧版)"
+
+msgid "g_sonice.zip"
+msgstr "(Genesis)音速方块(日版)(SegaNet)"
+
+msgid "g_bubsy.zip"
+msgstr "(Genesis)音速狐(美版,欧版)"
+
+msgid "g_bubsy2.zip"
+msgstr "(Genesis)音速狐II(美版,欧版)"
+
+msgid "g_shin3u.zip"
+msgstr "(Genesis)影武者III-大师之返(美版)"
+
+msgid "g_shin3.zip"
+msgstr "(Genesis)影武者III-大师之返(欧版)"
+
+msgid "g_hard94.zip"
+msgstr "(Genesis)硬派棒球'94(美版,欧版)"
+
+msgid "g_hard95.zip"
+msgstr "(Genesis)硬派棒球'95(美版)"
+
+msgid "g_hard3.zip"
+msgstr "(Genesis)硬派棒球III(美版)"
+
+msgid "g_eternu.zip"
+msgstr "(Genesis)永恒之冠(美版)"
+
+msgid "g_etern.zip"
+msgstr "(Genesis)永恒之冠(欧版)"
+
+msgid "g_eternb.zip"
+msgstr "(Genesis)永恒之冠(欧版)(Beta)"
+
+msgid "g_eternj.zip"
+msgstr "(Genesis)永恒之冠(日版,韩国版)"
+
+msgid "g_batmfr.zip"
+msgstr "(Genesis)永远的蝙蝠侠(世界版)"
+
+msgid "g_arrow.zip"
+msgstr "(Genesis)宇宙战机(美版,欧版)"
+
+msgid "g_arrowj.zip"
+msgstr "(Genesis)宇宙战机(日版)"
+
+msgid "g_genghi.zip"
+msgstr "(Genesis)元朝秘史II-苍狼与白鹿(美版)"
+
+msgid "g_elems.zip"
+msgstr "(Genesis)元素支配者(美版)"
+
+msgid "g_elemsj.zip"
+msgstr "(Genesis)元素支配者(日版)"
+
+msgid "g_arobo.zip"
+msgstr "(Genesis)原子机械童(美版)"
+
+msgid "g_aroboj.zip"
+msgstr "(Genesis)原子机械童(日版)"
+
+msgid "g_atomr1.zip"
+msgstr "(Genesis)原子战士(美版)"
+
+msgid "g_atomrn.zip"
+msgstr "(Genesis)原子战士(欧版)"
+
+msgid "g_maj.zip"
+msgstr "(Genesis)约翰马顿橄榄球-美式足球(日版)"
+
+msgid "g_ma.zip"
+msgstr "(Genesis)约翰马顿橄榄球(美版,欧版)"
+
+msgid "g_ma93ce.zip"
+msgstr "(Genesis)约翰马顿橄榄球'93-冠军版(美版)"
+
+msgid "g_madden.zip"
+msgstr "(Genesis)约翰马顿橄榄球'94(美版,欧版)"
+
+msgid "g_mad95.zip"
+msgstr "(Genesis)约翰马顿橄榄球'95(美版,欧版)"
+
+msgid "g_mad96.zip"
+msgstr "(Genesis)约翰马顿橄榄球'96(美版,欧版)"
+
+msgid "g_mad97.zip"
+msgstr "(Genesis)约翰马顿橄榄球'97(美版,欧版)"
+
+msgid "g_mad98.zip"
+msgstr "(Genesis)约翰马顿橄榄球'98(美版)"
+
+msgid "g_joem2a.zip"
+msgstr "(Genesis)约翰马顿橄榄球II(世界版)"
+
+msgid "g_joem2.zip"
+msgstr "(Genesis)约翰马顿橄榄球II(世界版)(RevA)"
+
+msgid "g_nflspo.zip"
+msgstr "(Genesis)约翰马顿实况足球'93(美版,欧版)"
+
+msgid "g_jrobo.zip"
+msgstr "(Genesis)詹姆斯庞德II-代号无人机(美版,欧版)"
+
+msgid "g_jp2_realdump.zip"
+msgstr "(Genesis)詹姆斯庞德II-代号无人机(美版,欧版)(properdump)"
+
+msgid "g_jroboj.zip"
+msgstr "(Genesis)詹姆斯庞德II-代号无人机(日版,韩国版)"
+
+msgid "g_clayu.zip"
+msgstr "(Genesis)粘土战士(美版)"
+
+msgid "g_clay.zip"
+msgstr "(Genesis)粘土战士(欧版)"
+
+msgid "g_zanyas.zip"
+msgstr "(Genesis)斩-夜叉圆舞曲(日版)"
+
+msgid "g_battle.zip"
+msgstr "(Genesis)战斗高尔夫(日版)"
+
+msgid "g_battmd.zip"
+msgstr "(Genesis)战斗玛利亚-大吟釀(日版,韩国版)"
+
+msgid "g_btoads.zip"
+msgstr "(Genesis)战斗蛙(世界版)"
+
+msgid "g_btoadd.zip"
+msgstr "(Genesis)战斗蛙与双截龙(美版)"
+
+msgid "g_gaxea.zip"
+msgstr "(Genesis)战斧(世界版)"
+
+msgid "g_gaxe.zip"
+msgstr "(Genesis)战斧(世界版)(v1.1)"
+
+msgid "g_gaxe2.zip"
+msgstr "(Genesis)战斧II(世界版)"
+
+msgid "g_gaxe2b.zip"
+msgstr "(Genesis)战斧II(世界版)(Beta)"
+
+msgid "g_gaxe3.zip"
+msgstr "(Genesis)战斧III(日版)"
+
+msgid "g_mka.zip"
+msgstr "(Genesis)真人快打(世界版)"
+
+msgid "g_mk.zip"
+msgstr "(Genesis)真人快打(世界版)(v1.1)"
+
+msgid "g_mk3a.zip"
+msgstr "(Genesis)真人快打3(美版)"
+
+msgid "g_mk3.zip"
+msgstr "(Genesis)真人快打3(欧版)"
+
+msgid "g_mk2.zip"
+msgstr "(Genesis)真人快打II(世界版)"
+
+msgid "g_aaahh1.zip"
+msgstr "(Genesis)真实妖怪(美版)"
+
+msgid "g_aaahhr.zip"
+msgstr "(Genesis)真实妖怪(欧版)"
+
+msgid "g_pga96.zip"
+msgstr "(Genesis)职业高尔夫球赛96(美版,欧版)"
+
+msgid "g_pgaa.zip"
+msgstr "(Genesis)职业高尔夫巡回赛(美版,欧版)(v1.1)"
+
+msgid "g_pga.zip"
+msgstr "(Genesis)职业高尔夫巡回赛(美版,欧版)(v1.2)"
+
+msgid "g_pga2a.zip"
+msgstr "(Genesis)职业高尔夫巡回赛II(美版,欧版)"
+
+msgid "g_pga2.zip"
+msgstr "(Genesis)职业高尔夫巡回赛II(美版,欧版)(v1.1)"
+
+msgid "g_pga2b.zip"
+msgstr "(Genesis)职业高尔夫巡回赛II(日版)"
+
+msgid "g_atpto9.zip"
+msgstr "(Genesis)职业网球巡回赛(美版)"
+
+msgid "g_atptou.zip"
+msgstr "(Genesis)职业网球巡回赛(欧版)"
+
+msgid "g_nakaj2.zip"
+msgstr "(Genesis)中岛悟F1超级驾照(日版)"
+
+msgid "g_umk3a.zip"
+msgstr "(Genesis)终级真人快打3(美版)"
+
+msgid "g_umk3.zip"
+msgstr "(Genesis)终级真人快打3(欧版)"
+
+msgid "g_sensii.zip"
+msgstr "(Genesis)足球经理-国际版(欧版)(En,Fr,De,It)"
+
+msgid "g_premie.zip"
+msgstr "(Genesis)足球经理(欧版)"
+
+msgid "g_sensi.zip"
+msgstr "(Genesis)足球经理(欧版)(En,Fr,De,It)"
+
+msgid "g_prem97.zip"
+msgstr "(Genesis)足球经理97(欧版)"
+
+msgid "gtmra.zip"
+msgstr "1000英里大师赛车(94/06/13)"
+
+msgid "gtmr.zip"
+msgstr "1000英里大师赛车(94/07/18)"
+
+msgid "gtmre.zip"
+msgstr "1000英里大师赛车(94/09/06)"
+
+msgid "gtmrusa.zip"
+msgstr "1000英里大师赛车(94/09/06)"
+
+msgid "gtmr2a.zip"
+msgstr "1000英里大师赛车2(95/04/04)"
+
+msgid "gtmr2u.zip"
+msgstr "1000英里大师赛车2(95/05/18)"
+
+msgid "gtmr2.zip"
+msgstr "1000英里大师赛车2(95/05/24)"
 
 msgid "1941j.zip"
 msgstr "1941-反击战(日版)"
 
-msgid "1941r1.zip"
+msgid "1941.zip"
 msgstr "1941-反击战(世界版)"
 
-msgid "area88r.zip"
-msgstr "战区88(日版 转售版)"
+msgid "1942b.zip"
+msgstr "1942-空中大战(初版)"
 
-msgid "area88.zip"
-msgstr "战区88(日版)"
+msgid "1942w.zip"
+msgstr "1942-空中大战(威廉斯电子)"
 
-msgid "punisherbz.zip"
-msgstr "暴风战警(中国改版)"
+msgid "1942a.zip"
+msgstr "1942-空中大战(校正版A)"
 
-msgid "dino.zip"
-msgstr "恐龙世纪(930201通用版)"
+msgid "1942abl.zip"
+msgstr "1942-空中大战(校正版A,盗版)"
 
-msgid "dinou.zip"
-msgstr "恐龙世纪(930201美版)"
+msgid "1942.zip"
+msgstr "1942-空中大战(校正版B)"
 
-msgid "dinopic.zip"
-msgstr "恐龙世纪(改版1 PIC16c57)"
+msgid "1943.zip"
+msgstr "1943-中途岛海战(美版)"
 
-msgid "dinopic2.zip"
-msgstr "恐龙世纪(改版2 PIC16c57)"
+msgid "1943j.zip"
+msgstr "1943-中途岛海战(日版)"
 
-msgid "dinoh.zip"
-msgstr "恐龙世纪(改版3 930223台湾)"
+msgid "1943kai.zip"
+msgstr "1943改-中途岛海战(日版)"
 
-msgid "dinoeh.zip"
-msgstr "恐龙世纪(破解 930201通用版)"
+msgid "1944d.zip"
+msgstr "1944-征服世界(美版000620凤凰版)(盗版)"
 
-msgid "dinot.zip"
-msgstr "恐龙世纪加速版(改版1 930223台湾)"
+msgid "1944.zip"
+msgstr "1944-征服世界(美版000620)"
 
-msgid "dinotpic.zip"
-msgstr "恐龙世纪加速版(改版2 PIC16c57)"
+msgid "1944j.zip"
+msgstr "1944-征服世界(日版000620)"
 
-msgid "dinoj.zip"
-msgstr "恐龙世纪(930201日版)"
+msgid "1945kiii.zip"
+msgstr "1945kIII"
 
-msgid "cworld2j.zip"
-msgstr "嘉富康世界2(920611日版)"
+msgid "19xxb.zip"
+msgstr "19XX-命运否决战(巴西版951218)"
 
-msgid "captcommjr1.zip"
-msgstr "突击队长(910928日版)"
+msgid "19xxd.zip"
+msgstr "19XX-命运否决战(美版951207凤凰版)(盗版)"
 
-msgid "captcommu.zip"
-msgstr "突击队长(910928美版)"
+msgid "19xx.zip"
+msgstr "19XX-命运否决战(美版951207)"
 
-msgid "captcommr1.zip"
-msgstr "突击队长(911014其他)"
+msgid "19xxjr1.zip"
+msgstr "19XX-命运否决战(日版951207)"
 
-msgid "captcommj.zip"
-msgstr "突击队长(911202日版)"
+msgid "19xxj.zip"
+msgstr "19XX-命运否决战(日版951225)"
 
-msgid "captcomm.zip"
-msgstr "突击队长(911202其他)"
+msgid "19xxh.zip"
+msgstr "19XX-命运否决战(西班牙版951218)"
 
-msgid "captcommb.zip"
-msgstr "突击队长(改版1 911014其他)"
+msgid "19xxa.zip"
+msgstr "19XX-命运否决战(亚洲版951207)"
 
-msgid "captcommb2.zip"
-msgstr "突击队长(改版2)"
+msgid "2020bb.zip"
+msgstr "2020年超级棒球(第1套)"
 
-msgid "cawingbl.zip"
-msgstr "舰载机联队(改版1)"
+msgid "2020bba.zip"
+msgstr "2020年超级棒球(第2套)"
 
-msgid "cawingb2.zip"
-msgstr "舰载机联队(改版2)"
+msgid "2020bbh.zip"
+msgstr "2020年超级棒球(第3套)"
 
-msgid "cawingr1.zip"
-msgstr "舰载机联队(901009通用版)"
+msgid "4play.zip"
+msgstr "4player输入测试"
 
-msgid "cawing.zip"
-msgstr "舰载机联队(901012通用版)"
+msgid "7ordi.zip"
+msgstr "7张牌(韩国版)"
 
-msgid "cawingu.zip"
-msgstr "舰载机联队(901012美版)"
+msgid "eightman.zip"
+msgstr "8号超人"
 
 msgid "cps1demo.zip"
-msgstr "Cps演示"
+msgstr "Chaos演示(CPS-1)"
 
-msgid "chikij.zip"
-msgstr "双麟儿(900619日版)"
-
-msgid "daimakaib.zip"
-msgstr "大魔界村(改版 日版)"
-
-msgid "daimakair.zip"
-msgstr "大魔界村(日版 转售版)"
-
-msgid "daimakai.zip"
-msgstr "大魔界村(日版)"
-
-msgid "dinohunt.zip"
-msgstr "恐龙猎人(改版 930223台湾)"
-
-msgid "dynwar.zip"
-msgstr "吞食天地(美版1)"
-
-msgid "dynwara.zip"
-msgstr "吞食天地(美版2)"
-
-msgid "fcrash.zip"
-msgstr "快打旋风(改版)"
-
-msgid "ffightj1.zip"
-msgstr "快打旋风(900112日版)"
-
-msgid "ffightua.zip"
-msgstr "快打旋风(900112美版)"
-
-msgid "ffightj2.zip"
-msgstr "快打旋风(900305日版)"
-
-msgid "ffightub.zip"
-msgstr "快打旋风(900613美版)"
-
-msgid "ffightj.zip"
-msgstr "快打旋风(日版)"
-
-msgid "ffightu.zip"
-msgstr "快打旋风(美版1)"
-
-msgid "ffightu1.zip"
-msgstr "快打旋风(美版2)"
-
-msgid "ffight.zip"
-msgstr "快打旋风(世界版1)"
-
-msgid "ffighta.zip"
-msgstr "快打旋风(世界版2)"
-
-msgid "forgottnua.zip"
-msgstr "失落的世界(88618B-2 A)"
-
-msgid "forgottnu1.zip"
-msgstr "失落的世界(88618B-2 C)"
-
-msgid "forgottnu.zip"
-msgstr "失落的世界(88621B-2 C)"
-
-msgid "forgottn.zip"
-msgstr "失落的世界(世界版)"
-
-msgid "cps1frog.zip"
-msgstr "青蛙享宴(CPS-1)"
-
-msgid "ganbare.zip"
-msgstr "加油! 马林(2K0411日版)"
-
-msgid "ghoulsu.zip"
-msgstr "大魔界村(美版)"
-
-msgid "ghouls.zip"
-msgstr "大魔界村(世界版)"
-
-msgid "knights.zip"
-msgstr "圆桌骑士(911127通用版)"
-
-msgid "knightsja.zip"
-msgstr "圆桌骑士(日版 89625B-1)"
-
-msgid "knightsj.zip"
-msgstr "圆桌骑士(日版 91634B-2)"
-
-msgid "knightsu.zip"
-msgstr "圆桌骑士(911127美版)"
-
-msgid "knightsb.zip"
-msgstr "圆桌骑士(改版1)"
-
-msgid "knightsb2.zip"
-msgstr "圆桌骑士(改版2 911127通用版)"
-
-msgid "knightsb3.zip"
-msgstr "圆桌骑士(改版3 911127日版)"
-
-msgid "knightsb4.zip"
-msgstr "圆桌骑士(改版4)"
-
-msgid "knightsh.zip"
-msgstr "圆桌骑士(破解1)"
-
-msgid "knightsh2.zip"
-msgstr "圆桌骑士(破解2 911127通用版)"
-
-msgid "lostwrldo.zip"
-msgstr "失落的世界(日版 旧版本)"
-
-msgid "lostwrld.zip"
-msgstr "失落的世界(日版)"
-
-msgid "mswordj.zip"
-msgstr "魔法之剑-勇者的幻想(日版)"
-
-msgid "mswordr1.zip"
-msgstr "魔法之剑-勇者的幻想(其他)"
-
-msgid "msword.zip"
-msgstr "魔法之剑-勇者的幻想(其他2)"
-
-msgid "mswordu.zip"
-msgstr "魔法之剑-勇者的幻想(美版)"
-
-msgid "megamana.zip"
-msgstr "洛克人-力量之战(951006亚洲版)"
-
-msgid "megaman.zip"
-msgstr "洛克人-力量之战(951006美版)"
-
-msgid "mtwins.zip"
-msgstr "双麟儿(900619通用版)"
-
-msgid "mercs.zip"
-msgstr "战场之狼2(900302通用版)"
-
-msgid "mercsur1.zip"
-msgstr "战场之狼2(900302美版)"
-
-msgid "mercsu.zip"
-msgstr "战场之狼2(900608美版)"
-
-msgid "mbomberj.zip"
-msgstr "摔角霸王-身体爆裂(930713日版)"
-
-msgid "mbombdje.zip"
-msgstr "摔角霸王-热血战士(931206日版)"
-
-msgid "mbombrdj.zip"
-msgstr "摔角霸王-热血战士(931206日版)"
-
-msgid "mbombrda.zip"
-msgstr "摔角霸王-终极之站(931206亚洲版)"
-
-msgid "mbombrd.zip"
-msgstr "摔角霸王-终极之站(931206通用版)"
-
-msgid "mbombrdh.zip"
-msgstr "摔角霸王-终极之站(931206西班牙版)"
-
-msgid "mbombrdu.zip"
-msgstr "摔角霸王-终极之站(931206美版)"
-
-msgid "nemoj.zip"
-msgstr "梦幻冒险(901120日版)"
-
-msgid "nemo.zip"
-msgstr "梦幻冒险(901130通用版)"
-
-msgid "pang3r1.zip"
-msgstr "魔法气泡3(950511欧版)"
-
-msgid "pang3.zip"
-msgstr "魔法气泡3(950601欧版)"
-
-msgid "pang3b.zip"
-msgstr "魔法气泡3(改版1 欧版)"
-
-msgid "pang3b2.zip"
-msgstr "魔法气泡3(改版2 欧版)"
-
-msgid "pang3b3.zip"
-msgstr "魔法气泡3(改版3 欧版)"
-
-msgid "pang3j.zip"
-msgstr "魔法气泡3(950511日版)"
-
-msgid "pnickj.zip"
-msgstr "魔法方块(940608日版)"
-
-msgid "pnicku.zip"
-msgstr "魔法方块(940608美版)"
-
-msgid "qadjr.zip"
-msgstr "龙之谜题(940921日版 转售版)"
-
-msgid "qad.zip"
-msgstr "龙之谜题(920701美版)"
-
-msgid "qtono2j.zip"
-msgstr "问答殿样之野望2(日版)"
-
-msgid "rockmanj.zip"
-msgstr "洛克人-力量之战(950922日版)"
-
-msgid "wofa.zip"
-msgstr "三国志2(921005亚洲版)"
-
-msgid "wofah.zip"
-msgstr "三国志2(破解1 921005亚洲版)"
-
-msgid "wofaha.zip"
-msgstr "三国志2(破解2 921005亚洲版)"
-
-msgid "wofahb.zip"
-msgstr "三国志2(破解3 921005亚洲版)"
-
-msgid "wofhfh.zip"
-msgstr "三国志2 火凤凰(中国改版)"
-
-msgid "wof3js.zip"
-msgstr "三国志2 三剑圣(中国改版1)"
-
-msgid "wof3jsa.zip"
-msgstr "三国志2 三剑圣(中国改版2)"
-
-msgid "wof3sj.zip"
-msgstr "三国志2 三剑圣(中国改版1)"
-
-msgid "wof3sja.zip"
-msgstr "三国志2 三剑圣(中国改版2)"
-
-msgid "wofh.zip"
-msgstr "三国志2 三国英雄传(中国改版1)"
-
-msgid "wofha.zip"
-msgstr "三国志2 三国英雄传(中国改版2)"
-
-msgid "sgyxz.zip"
-msgstr "三国志2 三国英雄传(中国改版3)"
-
-msgid "wofsj.zip"
-msgstr "三国志2 圣剑三国(中国改版1)"
-
-msgid "wofsja.zip"
-msgstr "三国志2 圣剑三国(中国改版2)"
-
-msgid "wofsjb.zip"
-msgstr "三国志2 圣剑三国(中国改版3)"
-
-msgid "slammasa.zip"
-msgstr "摔跤霸王(930301亚洲版)"
-
-msgid "slammast.zip"
-msgstr "摔跤霸王(930713通用版)"
-
-msgid "slammash.zip"
-msgstr "摔跤霸王(930713西班牙版)"
-
-msgid "slammastu.zip"
-msgstr "摔跤霸王(930713美版)"
-
-msgid "mercsj.zip"
-msgstr "战场之狼2(900302日版)"
-
-msgid "sfach.zip"
-msgstr "少年霸王"
-
-msgid "sf2amf.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2amf2.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2amf3.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2amf4.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2amf5.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2amf6.zip"
-msgstr "街头霸王2-冠军版"
-
-msgid "sf2ua.zip"
-msgstr "街头霸王2-世界勇士(910206美版)"
-
-msgid "sf2eb.zip"
-msgstr "街头霸王2-世界勇士(910214通用版)"
-
-msgid "sf2ja.zip"
-msgstr "街头霸王2-世界勇士(910214日版)"
-
-msgid "sf2ub.zip"
-msgstr "街头霸王2-世界勇士(910214美版)"
-
-msgid "sf2ee.zip"
-msgstr "街头霸王2-世界勇士(910228通用版)"
-
-msgid "sf2ue.zip"
-msgstr "街头霸王2-世界勇士(910228美版)"
-
-msgid "sf2jc.zip"
-msgstr "街头霸王2-世界勇士(910306日版)"
-
-msgid "sf2uc.zip"
-msgstr "街头霸王2-世界勇士(910306美版)"
-
-msgid "sf2ud.zip"
-msgstr "街头霸王2-世界勇士(910318美版)"
-
-msgid "sf2uf.zip"
-msgstr "街头霸王2-世界勇士(910411美版)"
-
-msgid "sf2.zip"
-msgstr "街头霸王2-世界勇士(910522通用版)"
-
-msgid "sf2ug.zip"
-msgstr "街头霸王2-世界勇士(910522美版"
-
-msgid "sf2ui.zip"
-msgstr "街头霸王2-世界勇士(910522美版"
-
-msgid "sf2uk.zip"
-msgstr "街头霸王2-世界勇士(911101美版)"
-
-msgid "sf2j.zip"
-msgstr "街头霸王2-世界勇士(911210日版)"
-
-msgid "sf2b.zip"
-msgstr "街头霸王2-世界勇士(改版)"
-
-msgid "sf2qp1.zip"
-msgstr "街头霸王2-世界勇士(Quicken)"
-
-msgid "sf2stt.zip"
-msgstr "街头霸王2-世界勇士(STT)"
-
-msgid "sf2ebbl.zip"
-msgstr "街头霸王2-世界勇士(Austria)"
-
-msgid "sf2thndr.zip"
-msgstr "街头霸王2-世界勇士(Thunder)"
-
-msgid "sf2ceeabl.zip"
-msgstr "街头霸王2-冠军版(920313通用版)"
-
-msgid "sf2ceeab2.zip"
-msgstr "街头霸王2-冠军版(920313通用版)"
-
-msgid "sf2ceuabl.zip"
-msgstr "街头霸王2-冠军版(920313美版)"
-
-msgid "sf2ceuab2.zip"
-msgstr "街头霸王2-冠军版(920313美版)"
-
-msgid "sf2ceuab3.zip"
-msgstr "街头霸王2-冠军版(920313美版)"
-
-msgid "sf2ceuab4.zip"
-msgstr "街头霸王2-冠军版(920313美版)"
-
-msgid "sf2cejabl.zip"
-msgstr "街头霸王2-冠军版(920322日版)"
-
-msgid "sf2cejab2.zip"
-msgstr "街头霸王2-冠军版(920322日版)"
-
-msgid "sf2accp2.zip"
-msgstr "街头霸王2-冠军版(加速版)"
-
-msgid "sf2acc.zip"
-msgstr "街头霸王2-冠军版(加速版)"
-
-msgid "sf2acca.zip"
-msgstr "街头霸王2-冠军版(加速版)"
-
-msgid "sf2any.zip"
-msgstr "街头霸王2-冠军版(改版)"
-
-msgid "sf2cebr.zip"
-msgstr "街头霸王2-冠军版(改版 墨西哥版)"
-
-msgid "sf2ceh.zip"
-msgstr "街头霸王2-冠军版(改版 西班牙版)"
-
-msgid "sf2dkot2.zip"
-msgstr "街头霸王2-冠军版(双重K.O)"
-
-msgid "sf2mega.zip"
-msgstr "街头霸王2-冠军版(Mega Co改版)"
-
-msgid "sf2mega2.zip"
-msgstr "街头霸王2-冠军版(Mega Co改版)"
-
-msgid "sf2rb.zip"
-msgstr "街头霸王2-冠军版(彩虹改版)"
-
-msgid "sf2rb2.zip"
-msgstr "街头霸王2-冠军版(彩虹改版)"
-
-msgid "sf2rb3.zip"
-msgstr "街头霸王2-冠军版(彩虹改版)"
-
-msgid "sf2rb4.zip"
-msgstr "街头霸王2-冠军版(彩虹改版)"
-
-msgid "sf2rb5.zip"
-msgstr "街头霸王2-冠军版(彩虹改版)"
-
-msgid "sf2red.zip"
-msgstr "街头霸王2-冠军版(赤色波动改版)"
-
-msgid "sf2red2.zip"
-msgstr "街头霸王2-冠军版(赤色波动改版)"
-
-msgid "sf2ceea.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2ceua.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2ceja.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2ce.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2cejb.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2ceub.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2cejc.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2ceuc.zip"
-msgstr "街头霸王2-冠军版(未知改版)"
-
-msgid "sf2tlona.zip"
-msgstr "街头霸王2-冠军版(屠龙改版)"
-
-msgid "sf2tlonb.zip"
-msgstr "街头霸王2-冠军版(屠龙改版)"
-
-msgid "sf2tlonc.zip"
-msgstr "街头霸王2-冠军版(屠龙改版)"
-
-msgid "sf2v004.zip"
-msgstr "街头霸王2-冠军版(V004改版)"
-
-msgid "sf2v0042.zip"
-msgstr "街头霸王2-冠军版(V004改版)"
-
-msgid "sf2v0043.zip"
-msgstr "街头霸王2-冠军版(V004改版)"
-
-msgid "sf2yyc.zip"
-msgstr "街头霸王2-冠军版(YYC改版)"
-
-msgid "sf2yyc2.zip"
-msgstr "街头霸王2-冠军版(YYC改版)"
-
-msgid "sf2hf.zip"
-msgstr "街头霸王2-超级战斗(未知改版)"
-
-msgid "sf2hfu.zip"
-msgstr "街头霸王2-超级战斗(未知改版)"
-
-msgid "sf2mdt.zip"
-msgstr "街头霸王2-魔法代尔特(改版1)"
-
-msgid "sf2mdta.zip"
-msgstr "街头霸王2-魔法代尔特(改版2)"
-
-msgid "sf2koryu.zip"
-msgstr "街头霸王2-降龙(改版1)"
-
-msgid "sf2koryu2.zip"
-msgstr "街头霸王2-降龙(改版2)"
-
-msgid "sf2koryu3.zip"
-msgstr "街头霸王2-降龙(改版3)"
-
-msgid "sf2hfjb.zip"
-msgstr "街头霸王2加速版-超级战斗(改版1)"
-
-msgid "sf2hfjb2.zip"
-msgstr "街头霸王2加速版-超级战斗(改版2)"
-
-msgid "sf2hfj.zip"
-msgstr "街头霸王2加速版-超级战斗(改版3)"
-
-msgid "sf2dongb.zip"
-msgstr "街头霸王2-冠军版(东方不败改版)"
-
-msgid "sfzbch.zip"
-msgstr "街头霸王Zero(950727西班牙版)"
-
-msgid "sfzech.zip"
-msgstr "街头霸王Zero(950727欧版)"
-
-msgid "sfzhch.zip"
-msgstr "街头霸王Zero(950727西班牙版)"
-
-msgid "sfzach.zip"
-msgstr "街头霸王Zero(950925亚洲版)"
+msgid "neodemo.zip"
+msgstr "Chaos演示(Homebrew)"
 
 msgid "sfzch.zip"
-msgstr "街头霸王Zero(951020日版)"
+msgstr "CPSChanger-少年街霸(日版951020)"
 
-msgid "ffightjh.zip"
-msgstr "快打旋风(日版 破解版)"
+msgid "wofch.zip"
+msgstr "CPSChanger-吞食天地II-赤壁之战(日版921031)"
+
+msgid "tokiu.zip"
+msgstr "JUJU传说(美版)"
+
+msgid "juju.zip"
+msgstr "JUJU传说(日版)"
+
+msgid "jujub.zip"
+msgstr "JUJU传说(日版,盗版)"
+
+msgid "toki.zip"
+msgstr "JUJU传说(世界版第1套)"
+
+msgid "tokia.zip"
+msgstr "JUJU传说(世界版第2套)"
+
+msgid "multchmpk.zip"
+msgstr "Multi冠军(韩国版)"
+
+msgid "multchmp.zip"
+msgstr "Multi冠军(世界版)"
+
+msgid "mchampdx.zip"
+msgstr "Multi冠军豪华版(版本.0106,06/01/2000)"
+
+msgid "mchampdxa.zip"
+msgstr "Multi冠军豪华版(版本.1126,26/11/1999)"
+
+msgid "neo2500.zip"
+msgstr "Neo2500演示(Homebrew)"
+
+msgid "neomrdo.zip"
+msgstr "Neo嘟先生"
+
+msgid "syscheck.zip"
+msgstr "Neo系统测试(ver1.0b,Homebrew)"
+
+msgid "neodrift.zip"
+msgstr "Neo越野赛车"
+
+msgid "neonopon.zip"
+msgstr "Neo智力方块(Beta,Homebrew)"
+
+msgid "neogeo.zip"
+msgstr "Neo-Geo"
+
+msgid "neogeo.zip"
+msgstr "Neo-Geo"
+
+msgid "neocup98.zip"
+msgstr "Neogeo杯'98-胜利之路"
+
+msgid "pgemeni.zip"
+msgstr "P-GeMeni(060123)"
+
+msgid "pgm.zip"
+msgstr "PGM(PolygameMaster)SystemBIOS"
+
+msgid "pgmdemo.zip"
+msgstr "PGM演示(Homebrew)"
+
+msgid "parodiusj.zip"
+msgstr "Q版沙罗曼蛇(日版)"
+
+msgid "parodius.zip"
+msgstr "Q版沙罗曼蛇(世界版)"
+
+msgid "radicav1.zip"
+msgstr "Radica:Volume1(索尼克,兽王记,战斧,魔法气泡外传,变色龙,小鸟菲基)(美版)"
+
+msgid "radicasf.zip"
+msgstr "Radica:街头霸王合集(街头霸王2特别冠军加强版,大魔界村)(欧版)"
+
+msgid "rbff1.zip"
+msgstr "RB饿狼传说"
+
+msgid "rbff1a.zip"
+msgstr "RB饿狼传说(问题修复版)"
+
+msgid "rbff2.zip"
+msgstr "RB饿狼传说2-新的来者(第1套)"
+
+msgid "rbff2h.zip"
+msgstr "RB饿狼传说2-新的来者(第2套)"
+
+msgid "rbff2k.zip"
+msgstr "RB饿狼传说2-新的来者(韩国版)"
+
+msgid "rbffspec.zip"
+msgstr "RB饿狼传说特别版"
+
+msgid "spyu.zip"
+msgstr "S.P.Y.-特别计划Y(美版ver.M)"
+
+msgid "spy.zip"
+msgstr "S.P.Y.-特别计划Y(世界版ver.N)"
+
+msgid "srdmissn.zip"
+msgstr "S.R.D.任务"
+
+msgid "defense.zip"
+msgstr "SDI-守护者(系统16B,FD1089A317-0028)"
+
+msgid "sdibl.zip"
+msgstr "SDI-战略防卫构想(盗版)"
+
+msgid "sdi.zip"
+msgstr "SDI-战略防卫构想(日版,旧,系统16A,FD1089B317-0027)"
+
+msgid "sdib.zip"
+msgstr "SDI-战略防卫构想(系统16B,FD1089A317-0028)"
+
+msgid "sdfight.zip"
+msgstr "SD斗士(韩国版)"
+
+msgid "ssmissin.zip"
+msgstr "SS任务-特命编"
+
+msgid "swatpolc.zip"
+msgstr "SWAT特警组"
+
+msgid "ttmahjng.zip"
+msgstr "T.T麻将"
+
+msgid "tws96.zip"
+msgstr "Tecmo世界杯足球'96"
+
+msgid "earthjkr.zip"
+msgstr "U.N.国防战机:地球战役"
+
+msgid "vfive.zip"
+msgstr "V-5战机(日版)"
+
+msgid "wwfsstaru.zip"
+msgstr "WWF超级巨星(美版)"
+
+msgid "wwfsstara.zip"
+msgstr "WWF超级巨星(美版,新版)"
+
+msgid "wwfsstar.zip"
+msgstr "WWF超级巨星(欧版)"
+
+msgid "wwfsstarj.zip"
+msgstr "WWF超级巨星(日版)"
+
+msgid "wwfwfesta.zip"
+msgstr "WWF狂热摔跤(美版Tecmo)"
+
+msgid "wwfwfestb.zip"
+msgstr "WWF狂热摔跤(美版盗版)"
+
+msgid "wwfwfest.zip"
+msgstr "WWF狂热摔跤(美版第1套)"
+
+msgid "wwfwfestj.zip"
+msgstr "WWF狂热摔跤(日版)"
+
+msgid "xmen2pa.zip"
+msgstr "X-战警(2PlayersverAAA)"
+
+msgid "xmen2pe.zip"
+msgstr "X-战警(2PlayersverEAA)"
+
+msgid "xmen2pj.zip"
+msgstr "X-战警(2PlayersverJAA)"
+
+msgid "xmene.zip"
+msgstr "X-战警(4PlayersverEBA)"
+
+msgid "xmenj.zip"
+msgstr "X-战警(4PlayersverJBA)"
+
+msgid "xmen.zip"
+msgstr "X-战警(4PlayersverUBB)"
+
+msgid "xmen6p.zip"
+msgstr "X-战警(6PlayersverECB)"
+
+msgid "xmen6pu.zip"
+msgstr "X-战警(6PlayersverUCB)"
+
+msgid "xmvsfb.zip"
+msgstr "X-战警对街头霸王(巴西版961023)"
+
+msgid "xmvsfu1d.zip"
+msgstr "X-战警对街头霸王(美版961004凤凰版)(盗版)"
+
+msgid "xmvsfur1.zip"
+msgstr "X-战警对街头霸王(美版961004)"
+
+msgid "xmvsfu.zip"
+msgstr "X-战警对街头霸王(美版961023)"
+
+msgid "xmvsfr1.zip"
+msgstr "X-战警对街头霸王(欧洲版960910)"
+
+msgid "xmvsf.zip"
+msgstr "X-战警对街头霸王(欧洲版961004)"
+
+msgid "xmvsfjr2.zip"
+msgstr "X-战警对街头霸王(日版960909)"
+
+msgid "xmvsfjr1.zip"
+msgstr "X-战警对街头霸王(日版960910)"
+
+msgid "xmvsfj.zip"
+msgstr "X-战警对街头霸王(日版961004)"
+
+msgid "xmvsfh.zip"
+msgstr "X-战警对街头霸王(西班牙版961004)"
+
+msgid "xmvsfar1.zip"
+msgstr "X-战警对街头霸王(亚洲版960919)"
+
+msgid "xmvsfa.zip"
+msgstr "X-战警对街头霸王(亚洲版961023)"
+
+msgid "xmcotau.zip"
+msgstr "X-战警:磁场原子人(美版950105)"
+
+msgid "xmcotad.zip"
+msgstr "X-战警:磁场原子人(欧洲版950105凤凰版)(盗版)"
+
+msgid "xmcota.zip"
+msgstr "X-战警:磁场原子人(欧洲版950105)"
+
+msgid "xmcotajr.zip"
+msgstr "X-战警:磁场原子人(日版941208租借版)"
+
+msgid "xmcotaj2.zip"
+msgstr "X-战警:磁场原子人(日版941219)"
+
+msgid "xmcotaj1.zip"
+msgstr "X-战警:磁场原子人(日版941222)"
+
+msgid "xmcotaj.zip"
+msgstr "X-战警:磁场原子人(日版950105)"
+
+msgid "xmcotah.zip"
+msgstr "X-战警:磁场原子人(西班牙版950331)"
+
+msgid "xmcotaa.zip"
+msgstr "X-战警:磁场原子人(亚洲版941217)"
+
+msgid "sectionz.zip"
+msgstr "Z地带(第1套)"
+
+msgid "sectionza.zip"
+msgstr "Z地带(第2套)"
+
+msgid "zedblade.zip"
+msgstr "Z字军刀/末日之战"
+
+msgid "rygar.zip"
+msgstr "阿尔卑斯古战士(美版第1套)"
+
+msgid "rygar2.zip"
+msgstr "阿尔卑斯古战士(美版第2套)"
+
+msgid "rygar3.zip"
+msgstr "阿尔卑斯古战士(美版第3套旧版)"
+
+msgid "rygarj.zip"
+msgstr "阿尔卑斯古战士(日版)"
+
+msgid "agress.zip"
+msgstr "阿古雷司-导弹大战略"
+
+msgid "agressb.zip"
+msgstr "阿古雷司-导弹大战略(英文盗版)"
+
+msgid "bongo.zip"
+msgstr "阿古历险记"
+
+msgid "arabian.zip"
+msgstr "阿拉丁"
+
+msgid "arabiana.zip"
+msgstr "阿拉丁(Atari)"
+
+msgid "alibaba.zip"
+msgstr "阿里巴巴与四十大盗"
+
+msgid "ambush.zip"
+msgstr "阿米巴契战机"
+
+msgid "ambusht.zip"
+msgstr "阿米巴契战机(Tecfri)"
+
+msgid "ambushv.zip"
+msgstr "阿米巴契战机(VoltElecco-ltd)"
+
+msgid "gatedoom1.zip"
+msgstr "暗黑封印-毁灭之门(美版校正版1)"
+
+msgid "gatedoom.zip"
+msgstr "暗黑封印-毁灭之门(美版校正版4)"
+
+msgid "darksealj.zip"
+msgstr "暗黑封印-毁灭之门(日版)"
+
+msgid "darkseal1.zip"
+msgstr "暗黑封印-毁灭之门(世界版校正版1)"
+
+msgid "darkseal.zip"
+msgstr "暗黑封印-毁灭之门(世界版校正版3)"
+
+msgid "blktiger.zip"
+msgstr "暗黑之虎"
+
+msgid "blkdrgon.zip"
+msgstr "暗黑之龙"
+
+msgid "blktigerb1.zip"
+msgstr "暗黑之龙(盗版第1套)"
+
+msgid "bktigrb2.zip"
+msgstr "暗黑之龙(盗版第2套)"
+
+msgid "blkdrgonb.zip"
+msgstr "暗黑之龙(盗版)"
+
+msgid "blkheart.zip"
+msgstr "暗黑之心"
+
+msgid "blkheartj.zip"
+msgstr "暗黑之心(日版)"
+
+msgid "killbld.zip"
+msgstr "傲剑狂刀(ver.104)"
+
+msgid "killbldt.zip"
+msgstr "傲剑狂刀(ver.109,中文基板)"
+
+msgid "brix.zip"
+msgstr "芭莉斯公丝"
+
+msgid "samsho4k.zip"
+msgstr "霸王传说(韩国审查版侍魂IV)"
+
+msgid "ninjamas.zip"
+msgstr "霸王忍法帖"
+
+msgid "bestbest.zip"
+msgstr "霸中霸"
+
+msgid "berlwall.zip"
+msgstr "柏林墙"
+
+msgid "berlwallt.zip"
+msgstr "柏林墙(盗版?)"
+
+msgid "semibase.zip"
+msgstr "棒球(SemiComBaseball)(韩国版)"
+
+msgid "mvpj.zip"
+msgstr "棒球MVP(第1套,日版,FD1094317-0142)"
+
+msgid "mvp.zip"
+msgstr "棒球MVP(第2套,美版,FD1094317-0143)"
+
+msgid "dokaben.zip"
+msgstr "棒球大饭桶(日版)"
+
+msgid "mjleague.zip"
+msgstr "棒球联盟"
+
+msgid "bstars.zip"
+msgstr "棒球之星(第1套)"
+
+msgid "bstarsh.zip"
+msgstr "棒球之星(第2套)"
+
+msgid "bstars2.zip"
+msgstr "棒球之星2"
+
+msgid "columnsn.zip"
+msgstr "宝石方块(NeoGeo)"
+
+msgid "rollerg.zip"
+msgstr "暴力溜冰(美版)"
+
+msgid "rollergj.zip"
+msgstr "暴力溜冰(日版)"
+
+msgid "breakers.zip"
+msgstr "爆裂人"
+
+msgid "breakrev.zip"
+msgstr "爆烈人复仇/末日英雄加强版"
+
+msgid "bakubrkr.zip"
+msgstr "爆裂战机"
+
+msgid "explbrkr.zip"
+msgstr "爆裂战机Explosive"
+
+msgid "riotcity.zip"
+msgstr "暴乱之城(日版)"
+
+msgid "aliensec.zip"
+msgstr "爆突(第1套)"
+
+msgid "baraduke.zip"
+msgstr "爆突(第2套)"
+
+msgid "lbowling.zip"
+msgstr "爆笑保龄球"
+
+msgid "avengers.zip"
+msgstr "必杀无赖拳(美版第1套)"
+
+msgid "avengers2.zip"
+msgstr "必杀无赖拳(美版第2套)"
+
+msgid "buraiken.zip"
+msgstr "必杀无赖拳(日版)"
+
+msgid "batridj.zip"
+msgstr "蝙蝠骑警-装甲军团-B版本(日版)(FriFeb131998)"
+
+msgid "batridk.zip"
+msgstr "蝙蝠骑警-装甲军团(韩国版)(FriFeb131998)"
+
+msgid "batridu.zip"
+msgstr "蝙蝠骑警-装甲军团(美版)(FriFeb131998)"
+
+msgid "batrid.zip"
+msgstr "蝙蝠骑警-装甲军团(欧洲版)(FriFeb131998)"
+
+msgid "batridja.zip"
+msgstr "蝙蝠骑警-装甲军团(日版)(MonDec221997)"
+
+msgid "batridc.zip"
+msgstr "蝙蝠骑警-装甲军团(中国版)(FriFeb131998)"
+
+msgid "shadfrce.zip"
+msgstr "变身忍者(美版版本2)"
+
+msgid "shadfrcejv2.zip"
+msgstr "变身忍者(日版版本2)"
+
+msgid "shadfrcej.zip"
+msgstr "变身忍者(日版版本3)"
+
+msgid "crospang.zip"
+msgstr "表情气泡"
+
+msgid "msbingo.zip"
+msgstr "宾果小姐拼图方块"
+
+msgid "minefld.zip"
+msgstr "布雷区"
+
+msgid "jumping.zip"
+msgstr "彩虹岛"
+
+msgid "rainbowe.zip"
+msgstr "彩虹岛(额外版)"
+
+msgid "rainbowo.zip"
+msgstr "彩虹岛(旧版)"
+
+msgid "rainbow.zip"
+msgstr "彩虹岛(新版)"
+
+msgid "gnbarich.zip"
+msgstr "彩京砖块物语"
+
+msgid "nost.zip"
+msgstr "超电磁炮"
+
+msgid "nostk.zip"
+msgstr "超电磁炮(韩国版)"
+
+msgid "nostj.zip"
+msgstr "超电磁炮(日版)"
+
+msgid "exedexes.zip"
+msgstr "超浮游要塞"
+
+msgid "savgbees.zip"
+msgstr "超浮游要塞-致命大黄蜂"
+
+msgid "sucasino.zip"
+msgstr "超级赌城"
+
+msgid "sdodgeb.zip"
+msgstr "超级躲避球/热血斗球传说"
+
+msgid "scontra.zip"
+msgstr "超级魂斗罗"
+
+msgid "scontraj.zip"
+msgstr "超级魂斗罗(日版)"
+
+msgid "sfx.zip"
+msgstr "超级火箭"
+
+msgid "spf2xjd.zip"
+msgstr "超级街霸方块IIX(日版960531凤凰版)(盗版)"
+
+msgid "spf2xj.zip"
+msgstr "超级街霸方块IIX(日版960531)"
+
+msgid "spf2t.zip"
+msgstr "超级街霸方块II加速版(美版960620)"
+
+msgid "spf2th.zip"
+msgstr "超级街霸方块II加速版(西班牙版960531)"
+
+msgid "spf2ta.zip"
+msgstr "超级街霸方块II加速版　(亚洲版960529)"
+
+msgid "ssf2ud.zip"
+msgstr "超级街头霸王II-新的挑战者(美版930911凤凰版)(盗版)"
+
+msgid "ssf2u.zip"
+msgstr "超级街头霸王II-新的挑战者(美版930911)"
+
+msgid "ssf2jr2.zip"
+msgstr "超级街头霸王II-新的挑战者(日版930910)"
+
+msgid "ssf2jr1.zip"
+msgstr "超级街头霸王II-新的挑战者(日版930911)"
+
+msgid "ssf2j.zip"
+msgstr "超级街头霸王II-新的挑战者(日版931005)"
+
+msgid "ssf2.zip"
+msgstr "超级街头霸王II-新的挑战者(世界版930911)"
+
+msgid "ssf2h.zip"
+msgstr "超级街头霸王II-新的挑战者(西班牙版930911)"
+
+msgid "ssf2ar1.zip"
+msgstr "超级街头霸王II-新的挑战者(亚洲版930914)"
+
+msgid "ssf2a.zip"
+msgstr "超级街头霸王II-新的挑战者(亚洲版931005)"
+
+msgid "ssf2tbj.zip"
+msgstr "超级街头霸王II-战斗联赛(日版930910)"
+
+msgid "ssf2tbr1.zip"
+msgstr "超级街头霸王II-战斗联赛(世界版930911)"
+
+msgid "ssf2tbd.zip"
+msgstr "超级街头霸王II-战斗联赛(世界版931119凤凰版)(盗版)"
+
+msgid "ssf2tb.zip"
+msgstr "超级街头霸王II-战斗联赛(世界版931119)"
+
+msgid "ssf2xjd.zip"
+msgstr "超级街头霸王IIX向最强挑战(日版940223凤凰版)(盗版)"
+
+msgid "ssf2xj.zip"
+msgstr "超级街头霸王IIX向最强挑战(日版940223)"
+
+msgid "ssf2tur1.zip"
+msgstr "超级街头霸王II加速版(美版940223)"
+
+msgid "ssf2tu.zip"
+msgstr "超级街头霸王II加速版(美版940323)"
+
+msgid "ssf2t.zip"
+msgstr "超级街头霸王II加速版(世界版940223)"
+
+msgid "ssf2ta.zip"
+msgstr "超级街头霸王II加速版(亚洲版940223)"
+
+msgid "upndown.zip"
+msgstr "超级金龟车(315-5030)"
+
+msgid "upndownu.zip"
+msgstr "超级金龟车(未加密)"
+
+msgid "turbofrc.zip"
+msgstr "超级空军"
+
+msgid "sgemfd.zip"
+msgstr "超级口袋战士(美版970904凤凰版)(盗版)"
+
+msgid "sgemf.zip"
+msgstr "超级口袋战士(美版970904)"
+
+msgid "pfghtj.zip"
+msgstr "超级口袋战士(日版970904)"
+
+msgid "sgemfh.zip"
+msgstr "超级口袋战士(西班牙版970904)"
+
+msgid "sgemfa.zip"
+msgstr "超级口袋战士(亚洲版970904)"
+
+msgid "marukin.zip"
+msgstr "超级麻将禁版(日版901017)"
+
+msgid "mshb.zip"
+msgstr "超级漫画英雄(巴西版951117)"
+
+msgid "mshud.zip"
+msgstr "超级漫画英雄(美版951024凤凰版)(盗版)"
+
+msgid "mshu.zip"
+msgstr "超级漫画英雄(美版951024)"
+
+msgid "msh.zip"
+msgstr "超级漫画英雄(欧洲版951024)"
+
+msgid "mshjr1.zip"
+msgstr "超级漫画英雄(日版951024)"
+
+msgid "mshj.zip"
+msgstr "超级漫画英雄(日版951117)"
+
+msgid "mshh.zip"
+msgstr "超级漫画英雄(西班牙版951117)"
+
+msgid "msha.zip"
+msgstr "超级漫画英雄(亚洲版951024)"
+
+msgid "mshvsfb1.zip"
+msgstr "超级漫画英雄对街头霸王(巴西版970625)"
+
+msgid "mshvsfb.zip"
+msgstr "超级漫画英雄对街头霸王(巴西版970827)"
+
+msgid "mshvsfu1.zip"
+msgstr "超级漫画英雄对街头霸王(美版970625)"
+
+msgid "mshvsfu.zip"
+msgstr "超级漫画英雄对街头霸王(美版970827)"
+
+msgid "mshvsf.zip"
+msgstr "超级漫画英雄对街头霸王(欧洲版970625)"
+
+msgid "mshvsfj2.zip"
+msgstr "超级漫画英雄对街头霸王(日版970625)"
+
+msgid "mshvsfj1.zip"
+msgstr "超级漫画英雄对街头霸王(日版970702)"
+
+msgid "mshvsfj.zip"
+msgstr "超级漫画英雄对街头霸王(日版970707)"
+
+msgid "mshvsfh.zip"
+msgstr "超级漫画英雄对街头霸王(西班牙版970625)"
+
+msgid "mshvsfa1.zip"
+msgstr "超级漫画英雄对街头霸王(亚洲版970620)"
+
+msgid "mshvsfa.zip"
+msgstr "超级漫画英雄对街头霸王(亚洲版970625)"
+
+msgid "sbbros.zip"
+msgstr "超级魔鬼气泡(美版901001)"
+
+msgid "spangj.zip"
+msgstr "超级魔鬼气泡(日版901023)"
+
+msgid "spang.zip"
+msgstr "超级魔鬼气泡(世界版900914)"
+
+msgid "sboblboa.zip"
+msgstr "超级魔幻气泡(第1套)"
+
+msgid "sboblbob.zip"
+msgstr "超级魔幻气泡(第2套)"
+
+msgid "smgpja.zip"
+msgstr "超级摩纳哥GP赛车(第1套,日版,RevA,FD1094317-0124a)"
+
+msgid "smgpj.zip"
+msgstr "超级摩纳哥GP赛车(第2套,日版,RevB,FD1094317-0124a)"
+
+msgid "smgpu3.zip"
+msgstr "超级摩纳哥GP赛车(第3套,美版,FD1094317-0125a)"
+
+msgid "smgpu2.zip"
+msgstr "超级摩纳哥GP赛车(第4套,美版,RevA,FD1094317-0125a)"
+
+msgid "smgpu1.zip"
+msgstr "超级摩纳哥GP赛车(第5套,美版,RevB,FD1094317-0125a)"
+
+msgid "smgpu.zip"
+msgstr "超级摩纳哥GP赛车(第6套,美版,RevC,FD1094317-0125a)"
+
+msgid "smgp5.zip"
+msgstr "超级摩纳哥GP赛车(第7套,世界版,'AirDriveCabinet',FD1094317-0126)"
+
+msgid "smgp6.zip"
+msgstr "超级摩纳哥GP赛车(第8套,世界版,RevA,FD1094317-0126a)"
+
+msgid "smgp.zip"
+msgstr "超级摩纳哥GP赛车(第9套,世界版,RevB,'Twin',FD1094317-0126a)"
+
+msgid "shangonle.zip"
+msgstr "超级摩托车"
+
+msgid "shangon3.zip"
+msgstr "超级摩托车(sitdown/直立型,FD1089B317-0034)"
+
+msgid "shangon.zip"
+msgstr "超级摩托车(sitdown/直立型,未保护版)"
+
+msgid "shangon2.zip"
+msgstr "超级摩托车(迷你车,RevA,FD1089B317-0034)"
+
+msgid "superbon.zip"
+msgstr "超级庞德(Scobra硬件)"
+
+msgid "shinobls.zip"
+msgstr "超级忍(Star盗版,系统16A)"
+
+msgid "shinobi1.zip"
+msgstr "超级忍(第1套,系统16A,FD1094317-0050)"
+
+msgid "shinobi2.zip"
+msgstr "超级忍(第2套,系统16B,FD1094317-0049)"
+
+msgid "shinobi3.zip"
+msgstr "超级忍(第3套,系统16B,MC-8123B317-0054)"
+
+msgid "shinobi4.zip"
+msgstr "超级忍(第4套,系统16B,MC-8123B317-0054)"
+
+msgid "shinobi5.zip"
+msgstr "超级忍(第5套,系统16B,未保护版)"
+
+msgid "shinobi.zip"
+msgstr "超级忍(第6套,系统16A,未保护版)"
+
+msgid "suprtrio.zip"
+msgstr "超级三重奏"
+
+msgid "suprglob.zip"
+msgstr "超级水滴"
+
+msgid "theglobp.zip"
+msgstr "超级水滴"
+
+msgid "sprglobp.zip"
+msgstr "超级水滴(Pac-Man硬件)"
+
+msgid "sprglbpg.zip"
+msgstr "超级水滴(Pac-Man硬件)德国版"
+
+msgid "theglob3.zip"
+msgstr "超级水滴(第3套)"
+
+msgid "beastf.zip"
+msgstr "超级水滴BeastieFeastie"
+
+msgid "superg.zip"
+msgstr "超级小蜜蜂(galaxianahack)"
+
+msgid "scobra.zip"
+msgstr "超级眼镜蛇"
+
+msgid "scobrase.zip"
+msgstr "超级眼镜蛇(Sega)"
+
+msgid "scobras.zip"
+msgstr "超级眼镜蛇(Stern)"
+
+msgid "scobrab.zip"
+msgstr "超级眼镜蛇(盗版)"
+
+msgid "suprheli.zip"
+msgstr "超级眼镜蛇(加强版眼镜蛇盗版)"
+
+msgid "majest12.zip"
+msgstr "超级宇宙侵略者'90(日版)"
+
+msgid "ssi.zip"
+msgstr "超级宇宙侵略者'91(世界版)"
+
+msgid "searchey.zip"
+msgstr "超级找一找-搜寻之眼"
+
+msgid "searchp2.zip"
+msgstr "超级找一找-搜寻之眼加强版V2.0"
+
+msgid "suprleag.zip"
+msgstr "超级职棒联盟(FD1094317-0045)"
+
+msgid "swat.zip"
+msgstr "超能战警(315-5048)"
+
+msgid "mpangu.zip"
+msgstr "超强!魔鬼气泡(美版001010)"
+
+msgid "mpangr1.zip"
+msgstr "超强!魔鬼气泡(欧洲版000925)"
+
+msgid "mpang.zip"
+msgstr "超强!魔鬼气泡(欧洲版001010)"
+
+msgid "mpangj.zip"
+msgstr "超强!魔鬼气泡(日版001011)"
+
+msgid "enforce.zip"
+msgstr "超强火力(日版)"
+
+msgid "superman.zip"
+msgstr "超人"
+
+msgid "supermanj.zip"
+msgstr "超人(日版)"
+
+msgid "gowcaizr.zip"
+msgstr "超人学园钢帝王"
+
+msgid "macross.zip"
+msgstr "超时空要塞"
+
+msgid "macross2.zip"
+msgstr "超时空要塞II"
+
+msgid "legiono.zip"
+msgstr "超时迷宫(版本1.05)"
+
+msgid "legion.zip"
+msgstr "超时迷宫(版本2.03)"
+
+msgid "ironclad.zip"
+msgstr "超铁战机(WiiVirtualConsoletoMVSConversion)"
+
+msgid "gprider1.zip"
+msgstr "超真实GP摩托车(第1套,美版,FD1094317-0162)"
+
+msgid "gprider.zip"
+msgstr "超真实GP摩托车(第2套,世界版,FD1094317-0163)"
+
+msgid "solfigtr.zip"
+msgstr "沉默战士(世界版)"
+
+msgid "punisheru.zip"
+msgstr "惩罚者(美版930422)"
+
+msgid "punisherj.zip"
+msgstr "惩罚者(日版930422)"
+
+msgid "punisher.zip"
+msgstr "惩罚者(世界版930422)"
+
+msgid "vigilantu.zip"
+msgstr "成龙踢馆-功夫小子(美版)"
+
+msgid "vigilantj.zip"
+msgstr "成龙踢馆-功夫小子(日版)"
+
+msgid "vigilant.zip"
+msgstr "成龙踢馆-功夫小子(世界版)"
+
+msgid "mspacman.zip"
+msgstr "吃豆人"
+
+msgid "mspacmab.zip"
+msgstr "吃豆人(盗版)"
+
+msgid "mspacmbe.zip"
+msgstr "吃豆人(盗版,加密)"
+
+msgid "mspacmnf.zip"
+msgstr "吃豆人(加速修改版)"
+
+msgid "mspacmat.zip"
+msgstr "吃豆人Attack"
+
+msgid "pacgal.zip"
+msgstr "吃豆人Pac-Gal"
+
+msgid "mspacpls.zip"
+msgstr "吃豆人Plus"
+
+msgid "mschamp.zip"
+msgstr "吃豆人冠军版"
+
+msgid "pacplus.zip"
+msgstr "吃豆人Plus"
+
+msgid "warzard.zip"
+msgstr "赤色大地(日版,961121)"
+
+msgid "vanvan.zip"
+msgstr "冲冲车"
+
+msgid "vanvank.zip"
+msgstr "冲冲车(Karateco)"
+
+msgid "vanvanb.zip"
+msgstr "冲冲车(第3套)"
+
+msgid "rallybik.zip"
+msgstr "冲刺野郎"
+
+msgid "aburner.zip"
+msgstr "冲破火网(日版)"
+
+msgid "aburner2.zip"
+msgstr "冲破火网II"
+
+msgid "crshrace.zip"
+msgstr "冲撞赛车-离合器(第1套)"
+
+msgid "crshrace2.zip"
+msgstr "冲撞赛车-离合器(第2套)"
+
+msgid "zzyzzyxx.zip"
+msgstr "虫虫救美(第1套)"
+
+msgid "zzyzzyxx2.zip"
+msgstr "虫虫救美(第2套)"
+
+msgid "pnyaa.zip"
+msgstr "宠物方块"
+
+msgid "pnyaand.zip"
+msgstr "宠物方块(C解密)"
+
+msgid "liquidku.zip"
+msgstr "丑八怪大冒险(美版)"
+
+msgid "mizubaku.zip"
+msgstr "丑八怪大冒险(日版)"
+
+msgid "liquidk.zip"
+msgstr "丑八怪大冒险(世界版)"
+
+msgid "blswhstl.zip"
+msgstr "出击兵蜂(版本L)"
+
+msgid "detatwin.zip"
+msgstr "出击兵蜂(日版ver.J)"
 
 msgid "strider.zip"
-msgstr "出击飞龙(美版1)"
+msgstr "出击飞龙(美版第1套)"
 
 msgid "striderua.zip"
-msgstr "出击飞龙(美版2)"
+msgstr "出击飞龙(美版第2套)"
 
 msgid "striderjr.zip"
-msgstr "出击飞龙(日版 转售版)"
+msgstr "出击飞龙(日版ResaleVer.)"
 
 msgid "striderj.zip"
 msgstr "出击飞龙(日版)"
 
-msgid "dynwarjr.zip"
-msgstr "吞食天地(日版 转售版)"
+msgid "ddcrew1.zip"
+msgstr "除暴部队(第1套,世界版,4Player,FD1094317-0187)"
+
+msgid "ddcrew2.zip"
+msgstr "除暴部队(第2套,世界版,2Player,FD1094317-0184)"
+
+msgid "ddcrewu.zip"
+msgstr "除暴部队(第3套,美版,4Player,FD1094317-0186)"
+
+msgid "ddcrew.zip"
+msgstr "除暴部队(第4套,世界版,3Player,FD1094317-0190)"
+
+msgid "ddcrewj.zip"
+msgstr "除暴部队(第5套,日版,2Player,FD1094317-0182)"
+
+msgid "legend.zip"
+msgstr "传奇"
+
+msgid "cawingu.zip"
+msgstr "雌虎战机(美版901012)"
+
+msgid "cawingj.zip"
+msgstr "雌虎战机(日版901012)"
+
+msgid "cawingr1.zip"
+msgstr "雌虎战机(世界版901009)"
+
+msgid "cawing.zip"
+msgstr "雌虎战机(世界版901012)"
+
+msgid "exctleag.zip"
+msgstr "刺激大联盟(FD1094317-0079)"
+
+msgid "truxton.zip"
+msgstr "达人"
+
+msgid "truxton2.zip"
+msgstr "达人王II"
+
+msgid "mole.zip"
+msgstr "打地鼠"
+
+msgid "mogura.zip"
+msgstr "打地鼠-柯拿米(日版)"
+
+msgid "s1945k.zip"
+msgstr "打击者1945(韩国版)"
+
+msgid "s1945a.zip"
+msgstr "打击者1945(日版/世界版)"
+
+msgid "s1945j.zip"
+msgstr "打击者1945(日版)"
+
+msgid "s1945jn.zip"
+msgstr "打击者1945(日版,未保护版)"
+
+msgid "s1945.zip"
+msgstr "打击者1945(世界版)"
+
+msgid "s1945ii.zip"
+msgstr "打击者1945II"
+
+msgid "s1945iii.zip"
+msgstr "打击者1945III(世界版)/Strikers1999(日版)"
+
+msgid "s1945p.zip"
+msgstr "打击者1945加强版"
+
+msgid "s1945pn.zip"
+msgstr "打击者1945加强版(C解密)"
+
+msgid "bestri.zip"
+msgstr "打星星(韩国版)"
+
+msgid "wallc.zip"
+msgstr "打砖(第1套)"
+
+msgid "wallca.zip"
+msgstr "打砖(第2套)"
+
+msgid "arknoid2u.zip"
+msgstr "打砖块-DOH复仇(美版)"
+
+msgid "arknoid2j.zip"
+msgstr "打砖块-DOH复仇(日版)"
+
+msgid "arknoid2.zip"
+msgstr "打砖块-DOH复仇(世界版)"
+
+msgid "arkangc.zip"
+msgstr "打砖块(GameCorporation盗版,第1套)"
+
+msgid "arkblock.zip"
+msgstr "打砖块(GameCorporation盗版,第1套)"
+
+msgid "arkangc2.zip"
+msgstr "打砖块(GameCorporation盗版,第2套)"
+
+msgid "arkbloc2.zip"
+msgstr "打砖块(GameCorporation盗版,第2套)"
+
+msgid "arkatayt.zip"
+msgstr "打砖块(Tayto盗版)"
+
+msgid "arktayt2.zip"
+msgstr "打砖块(Tayto盗版,harder)"
+
+msgid "arkgcbl.zip"
+msgstr "打砖块(盗版onBlockhardware,第1套)"
+
+msgid "arkgcbla.zip"
+msgstr "打砖块(盗版onBlockhardware,第2套)"
+
+msgid "arkmcubl.zip"
+msgstr "打砖块(盗版withMCU)"
+
+msgid "ark1ball.zip"
+msgstr "打砖块(盗版withMCU,harder)"
+
+msgid "arkanoidu.zip"
+msgstr "打砖块(美版)"
+
+msgid "arkatour.zip"
+msgstr "打砖块(美版)"
+
+msgid "arkanoiduo.zip"
+msgstr "打砖块(美版,older)"
+
+msgid "arkanoidj.zip"
+msgstr "打砖块(日版)"
+
+msgid "arkanoid.zip"
+msgstr "打砖块(世界版)"
+
+msgid "paddle2.zip"
+msgstr "打砖块2(盗版onBlockhardware)"
+
+msgid "blockgal.zip"
+msgstr "打砖块美女版(MC-8123B,317-0029)"
+
+msgid "bigbucks.zip"
+msgstr "大巴克"
+
+msgid "bigbang.zip"
+msgstr "大轰动(9thNov.1993)"
+
+msgid "raf102j.zip"
+msgstr "大家来找碴(ver.102,日文基版)"
+
+msgid "photoy2k.zip"
+msgstr "大家来找碴(ver.104)"
+
+msgid "bloodwar.zip"
+msgstr "大江户格斗-血忍"
+
+msgid "ckongg.zip"
+msgstr "大金刚(盗版Galaxian硬件)"
+
+msgid "ckongmc.zip"
+msgstr "大金刚(盗版MoonCresta硬件)"
+
+msgid "ckongs.zip"
+msgstr "大金刚(紧急起飞硬件)"
+
+msgid "ckong.zip"
+msgstr "大金刚II(第1套)"
+
+msgid "dkongjrm.zip"
+msgstr "大金刚Jr.(盗版MoonCresta硬件)"
+
+msgid "dkongjr.zip"
+msgstr "大金刚Junior(美版)"
+
+msgid "dunkshot.zip"
+msgstr "大扣篮(FD1089A317-0022)"
+
+msgid "turfmast.zip"
+msgstr "大联盟高尔夫"
+
+msgid "gallag.zip"
+msgstr "大蜜蜂"
+
+msgid "galagamf.zip"
+msgstr "大蜜蜂(Midway第1套快速射击修改版)"
+
+msgid "galagamw.zip"
+msgstr "大蜜蜂(Midway第1套)"
+
+msgid "galagamk.zip"
+msgstr "大蜜蜂(Midway第2套)"
+
+msgid "galaga.zip"
+msgstr "大蜜蜂(Namcorev.B)"
+
+msgid "galagao.zip"
+msgstr "大蜜蜂(Namco)"
+
+msgid "ghoulsu.zip"
+msgstr "大魔界村(美版)"
+
+msgid "daimakair.zip"
+msgstr "大魔界村(日版ResaleVer.)"
+
+msgid "daimakai.zip"
+msgstr "大魔界村(日版)"
+
+msgid "ghouls.zip"
+msgstr "大魔界村(世界版)"
+
+msgid "imsorry.zip"
+msgstr "大头课长捡金块(315-5110,美版)"
+
+msgid "imsorryj.zip"
+msgstr "大头课长捡金块(315-5110,日版)"
+
+msgid "twinhawku.zip"
+msgstr "大旋风(美版)"
+
+msgid "daisenpu.zip"
+msgstr "大旋风(日版)"
+
+msgid "twinhawk.zip"
+msgstr "大旋风(世界版)"
+
+msgid "eyes.zip"
+msgstr "大眼精灵(工艺之星)"
+
+msgid "eyes2.zip"
+msgstr "大眼精灵(洛克奥拉)"
+
+msgid "eyeszac.zip"
+msgstr "大眼精灵(萨卡利亚)"
+
+msgid "stratgyx.zip"
+msgstr "大战略X"
+
+msgid "strongx.zip"
+msgstr "大战略X"
+
+msgid "stratgys.zip"
+msgstr "大战略X(Stern)"
+
+msgid "kangaroo.zip"
+msgstr "袋鼠"
+
+msgid "kangarooa.zip"
+msgstr "袋鼠(Atari)"
+
+msgid "kangaroob.zip"
+msgstr "袋鼠(盗版)"
+
+msgid "feversos.zip"
+msgstr "弹铳(国际版,Ver.98/09/25)"
+
+msgid "dfeveron.zip"
+msgstr "弹铳(日版,Ver.98/09/17)"
+
+msgid "route16b.zip"
+msgstr "道路16(盗版)"
+
+msgid "route16.zip"
+msgstr "道路16(第1套)"
+
+msgid "route16a.zip"
+msgstr "道路16(第2套)"
+
+msgid "routex.zip"
+msgstr "道路16RouteX(盗版)"
+
+msgid "ledstorm.zip"
+msgstr "道路风暴(美版)"
+
+msgid "ledstorm2.zip"
+msgstr "道路风暴2011(美版)"
+
+msgid "losttombh.zip"
+msgstr "盗募者(困难版)"
+
+msgid "losttomb.zip"
+msgstr "盗募者(容易版)"
+
+msgid "ssideki.zip"
+msgstr "得点王-超级队友"
+
+msgid "ssideki2.zip"
+msgstr "得点王2-世界锦标赛"
+
+msgid "ssideki3.zip"
+msgstr "得点王3-光荣的挑战"
+
+msgid "ssideki4.zip"
+msgstr "得点王4-终极十一人"
+
+msgid "viewpoin.zip"
+msgstr "得分王/视点"
+
+msgid "toryumon.zip"
+msgstr "登龙门"
+
+msgid "mshuttle.zip"
+msgstr "登月火箭(美版?)"
+
+msgid "mshuttlej2.zip"
+msgstr "登月火箭(日版第2套)"
+
+msgid "mshuttlej.zip"
+msgstr "登月火箭(日版)"
+
+msgid "dcon.zip"
+msgstr "地球防卫军"
+
+msgid "terraf.zip"
+msgstr "地球自卫队(第1套)"
+
+msgid "terrafa.zip"
+msgstr "地球自卫队(第2套)"
+
+msgid "terrafu.zip"
+msgstr "地球自卫队(美版)"
+
+msgid "catacomb.zip"
+msgstr "地下墓穴"
+
+msgid "hellfire1.zip"
+msgstr "地狱火(1PVer.)"
+
+msgid "hellfire3.zip"
+msgstr "地狱火(1PVer.,alt)"
+
+msgid "hellfire.zip"
+msgstr "地狱火(2PVer.)"
+
+msgid "hellfire2.zip"
+msgstr "地狱火(2PVer.,firstedition)"
+
+msgid "bonzeadvu.zip"
+msgstr "地狱小和尚(美版)"
+
+msgid "jigkmgri.zip"
+msgstr "地狱小和尚(日版)"
+
+msgid "bonzeadvo.zip"
+msgstr "地狱小和尚(世界版,旧版)"
+
+msgid "bonzeadv.zip"
+msgstr "地狱小和尚(世界版,新版)"
+
+msgid "grdians.zip"
+msgstr "电神魔傀II"
+
+msgid "hustler.zip"
+msgstr "电视撞球"
+
+msgid "billiard.zip"
+msgstr "电视撞球(VideoHustler盗版)"
+
+msgid "hustlerb.zip"
+msgstr "电视撞球(盗版)"
+
+msgid "vpool.zip"
+msgstr "电视撞球台(盗版MoonCresta硬件)"
+
+msgid "slapfgtr.zip"
+msgstr "电子作战(盗版)"
+
+msgid "slapfigh.zip"
+msgstr "电子作战(第1套)"
+
+msgid "slapbtjp.zip"
+msgstr "电子作战(日版盗版)"
+
+msgid "slapbtuk.zip"
+msgstr "电子作战(英国版盗版)"
+
+msgid "superspy.zip"
+msgstr "谍报飞龙"
+
+msgid "tpgolf.zip"
+msgstr "顶尖高尔夫"
+
+msgid "tophuntr.zip"
+msgstr "顶尖猎人-罗迪&凯茜(第1套)"
+
+msgid "tophuntrh.zip"
+msgstr "顶尖猎人-罗迪&凯茜(第2套)"
+
+msgid "pdriftj.zip"
+msgstr "动力甩尾(日版)"
+
+msgid "pdrifta.zip"
+msgstr "动力甩尾(世界版)"
+
+msgid "pdrift.zip"
+msgstr "动力甩尾(世界版,RevA)"
+
+msgid "pdrifte.zip"
+msgstr "动力甩尾(世界版,早期版)"
+
+msgid "hachamf.zip"
+msgstr "动物也疯狂(19thSep.1991)"
+
+msgid "bullfgt.zip"
+msgstr "斗牛(315-5065)"
+
+msgid "thetogyu.zip"
+msgstr "斗牛(315-5065,日版)"
+
+msgid "karatblzu.zip"
+msgstr "斗神光辉(美版)"
+
+msgid "karatblzj.zip"
+msgstr "斗神光辉(日版)"
+
+msgid "karatblz.zip"
+msgstr "斗神光辉(世界版)"
+
+msgid "karnovr.zip"
+msgstr "斗士的历史-卡洛夫的复仇"
+
+msgid "trojanr.zip"
+msgstr "斗者挽歌-特洛伊(Romstar)"
+
+msgid "trojan.zip"
+msgstr "斗者挽歌-特洛伊(美版)"
+
+msgid "trojanj.zip"
+msgstr "斗者挽歌-特洛伊(日版)"
+
+msgid "mrdo.zip"
+msgstr "嘟先生!"
+
+msgid "mrdofix.zip"
+msgstr "嘟先生!(bugfixed)"
+
+msgid "mrdot.zip"
+msgstr "嘟先生!(Taito)"
+
+msgid "mrdoy.zip"
+msgstr "嘟先生!(工程版)"
+
+msgid "mrdu.zip"
+msgstr "嘟先生!Mr.Du!"
+
+msgid "mrlo.zip"
+msgstr "嘟先生!Mr.Lo!"
+
+msgid "yankeedo.zip"
+msgstr "嘟先生!YankeeDO!"
+
+msgid "vliner.zip"
+msgstr "赌博机(第1套)"
+
+msgid "vlinero.zip"
+msgstr "赌博机(第2套)"
+
+msgid "jockeygp.zip"
+msgstr "赌马"
+
+msgid "jckygpnd.zip"
+msgstr "赌马(C解密)"
+
+msgid "flipshot.zip"
+msgstr "盾牌大战"
+
+msgid "dotrikun2.zip"
+msgstr "多托君(旧版)"
+
+msgid "dotrikun.zip"
+msgstr "多托君(新版)"
+
+msgid "daraku.zip"
+msgstr "堕落天使"
+
+msgid "blockhl.zip"
+msgstr "俄罗斯方块-黑洞"
+
+msgid "quarth.zip"
+msgstr "俄罗斯方块-黑洞(日版)"
+
+msgid "tetrsark.zip"
+msgstr "俄罗斯方块(D.R.韩国版)"
+
+msgid "tetrisbl.zip"
+msgstr "俄罗斯方块(盗版)"
+
+msgid "tetris1.zip"
+msgstr "俄罗斯方块(第1套,日版,系统16B,FD1094317-0091)"
+
+msgid "tetris2.zip"
+msgstr "俄罗斯方块(第2套,日版,系统16B,FD1094317-0092)"
+
+msgid "tetris3.zip"
+msgstr "俄罗斯方块(第3套,日版,系统16A,FD1094317-0093a)"
+
+msgid "tetris.zip"
+msgstr "俄罗斯方块(第4套,日版,系统16A,FD1094317-0093)"
+
+msgid "tgm2.zip"
+msgstr "俄罗斯方块大师2"
+
+msgid "tgm2p.zip"
+msgstr "俄罗斯方块大师2Plus"
+
+msgid "atomicp.zip"
+msgstr "俄罗斯方块解谜Philko(韩国版)"
+
+msgid "finalttr.zip"
+msgstr "俄罗斯方块终结者-对战篇"
+
+msgid "garoun.zip"
+msgstr "饿狼-群狼之证/狼之烙印(C解密)"
+
+msgid "garoubl.zip"
+msgstr "饿狼-群狼之证/狼之烙印(盗版)"
+
+msgid "garou.zip"
+msgstr "饿狼-群狼之证/狼之烙印(第1套)"
+
+msgid "garouo.zip"
+msgstr "饿狼-群狼之证/狼之烙印(第2套)"
+
+msgid "garoup.zip"
+msgstr "饿狼-群狼之证/狼之烙印(工程版)"
+
+msgid "fatfury1.zip"
+msgstr "饿狼传说-宿命之战"
+
+msgid "fatfury2.zip"
+msgstr "饿狼传说2-新的战斗"
+
+msgid "fatfury3.zip"
+msgstr "饿狼传说3-远古征战"
+
+msgid "fatfursp.zip"
+msgstr "饿狼传说特别版(第1套)"
+
+msgid "fatfursa.zip"
+msgstr "饿狼传说特别版(第2套)"
+
+msgid "devstors3.zip"
+msgstr "饿流祸(ver.V)"
+
+msgid "devstors2.zip"
+msgstr "饿流祸(ver.X)"
+
+msgid "devstors.zip"
+msgstr "饿流祸(ver.Z)"
+
+msgid "garuka.zip"
+msgstr "饿流祸(日版ver.W)"
+
+msgid "hcastleo.zip"
+msgstr "恶魔城(版本K)"
+
+msgid "hcastle.zip"
+msgstr "恶魔城(版本M)"
+
+msgid "hcastljo.zip"
+msgstr "恶魔城(日版版本N)"
+
+msgid "hcastlej.zip"
+msgstr "恶魔城(日版版本P)"
+
+msgid "vsavu.zip"
+msgstr "恶魔救世主-吸血鬼贵族(美版970519)"
+
+msgid "vsavd.zip"
+msgstr "恶魔救世主-吸血鬼贵族(欧洲版970519凤凰版)(盗版)"
+
+msgid "vsav.zip"
+msgstr "恶魔救世主-吸血鬼贵族(欧洲版970519)"
+
+msgid "vsavj.zip"
+msgstr "恶魔救世主-吸血鬼贵族(日版970519)"
+
+msgid "vsavh.zip"
+msgstr "恶魔救世主-吸血鬼贵族(西班牙版970519)"
+
+msgid "vsava.zip"
+msgstr "恶魔救世主-吸血鬼贵族(亚洲版970519)"
+
+msgid "vsav2.zip"
+msgstr "恶魔救世主2-吸血鬼贵族(日版970913)"
+
+msgid "nwarrb.zip"
+msgstr "恶魔猎人-恶魔的复仇(巴西版950403)"
+
+msgid "nwarrud.zip"
+msgstr "恶魔猎人-恶魔的复仇(美版950406凤凰版)(盗版)"
+
+msgid "nwarru.zip"
+msgstr "恶魔猎人-恶魔的复仇(美版950406)"
+
+msgid "nwarr.zip"
+msgstr "恶魔猎人-恶魔的复仇(欧洲版950316)"
+
+msgid "nwarrh.zip"
+msgstr "恶魔猎人-恶魔的复仇(西班牙版950403)"
+
+msgid "nwarra.zip"
+msgstr "恶魔猎人-恶魔的复仇(亚洲版950302)"
+
+msgid "vhunt2r1.zip"
+msgstr "恶魔猎人2-恶魔的复仇(日版970913)"
+
+msgid "vhunt2.zip"
+msgstr "恶魔猎人2-恶魔的复仇(日版970929)"
+
+msgid "dstlku1d.zip"
+msgstr "恶魔战士-午夜斗士(美版940705凤凰版)(盗版)"
+
+msgid "dstlkur1.zip"
+msgstr "恶魔战士-午夜斗士(美版940705)"
+
+msgid "dstlku.zip"
+msgstr "恶魔战士-午夜斗士(美版940818)"
+
+msgid "dstlk.zip"
+msgstr "恶魔战士-午夜斗士(欧洲版940705)"
+
+msgid "vampjr1.zip"
+msgstr "恶魔战士-午夜斗士(日版940630)"
+
+msgid "vampja.zip"
+msgstr "恶魔战士-午夜斗士(日版940705alt)"
+
+msgid "vampj.zip"
+msgstr "恶魔战士-午夜斗士(日版940705)"
+
+msgid "dstlkh.zip"
+msgstr "恶魔战士-午夜斗士(西班牙版940818)"
+
+msgid "dstlka.zip"
+msgstr "恶魔战士-午夜斗士(亚洲版940705)"
+
+msgid "ctomaday.zip"
+msgstr "蕃茄超人"
+
+msgid "contcircu.zip"
+msgstr "方程式赛车-F1巡回赛(美版第1套)"
+
+msgid "contcircua.zip"
+msgstr "方程式赛车-F1巡回赛(美版第2套)"
+
+msgid "contcirc.zip"
+msgstr "方程式赛车-F1巡回赛(世界版)"
+
+msgid "drivfrcp.zip"
+msgstr "方程式赛车Force(Pac-Man转换)"
+
+msgid "drivfrcb.zip"
+msgstr "方程式赛车Force(小蜜蜂转换盗版)"
+
+msgid "drivfrcg.zip"
+msgstr "方程式赛车Force(小蜜蜂转换)"
+
+msgid "azurian.zip"
+msgstr "防卫射击"
+
+msgid "warofbug.zip"
+msgstr "飞虫大作战"
+
+msgid "markham.zip"
+msgstr "飞碟入侵"
+
+msgid "orbitron.zip"
+msgstr "飞碟巡航"
+
+msgid "wschampa.zip"
+msgstr "飞行射击冠军V1.01"
+
+msgid "wschamp.zip"
+msgstr "飞行射击冠军V2.0"
+
+msgid "airwolf.zip"
+msgstr "飞狼"
+
+msgid "skywolf.zip"
+msgstr "飞狼(第1套)"
+
+msgid "skywolf2.zip"
+msgstr "飞狼(第2套)"
+
+msgid "skywolf3.zip"
+msgstr "飞狼(第3套)"
+
+msgid "airwolfa.zip"
+msgstr "飞狼(美版)"
+
+msgid "dragnblz.zip"
+msgstr "飞龙骑士"
+
+msgid "asukaj.zip"
+msgstr "飞鸟&飞鸟(日版)"
+
+msgid "asuka.zip"
+msgstr "飞鸟&飞鸟(世界版)"
+
+msgid "grindstm.zip"
+msgstr "飞鹰风暴"
+
+msgid "grindstma.zip"
+msgstr "飞鹰风暴(旧版)"
+
+msgid "hexion.zip"
+msgstr "蜂巢俄罗斯方块(日版)"
+
+msgid "backfirt.zip"
+msgstr "烽火佳人(Tecmo,盗版)"
+
+msgid "fnkyfish.zip"
+msgstr "疯狂的鱼"
+
+msgid "fbfrenzy.zip"
+msgstr "疯狂橄榄球"
+
+msgid "madgear.zip"
+msgstr "疯狂机车(美版)"
+
+msgid "madgearj.zip"
+msgstr "疯狂机车(日版)"
+
+msgid "gbusters.zip"
+msgstr "疯狂警察(第1套)"
+
+msgid "gbustersa.zip"
+msgstr "疯狂警察(第2套)"
+
+msgid "crazycop.zip"
+msgstr "疯狂警察(日版)"
+
+msgid "funkybee.zip"
+msgstr "疯狂蜜蜂"
+
+msgid "funkybeeb.zip"
+msgstr "疯狂蜜蜂(盗版,harder)"
+
+msgid "cclimbr2.zip"
+msgstr "疯狂爬梯者2(日版)"
+
+msgid "cclimbr2a.zip"
+msgstr "疯狂爬梯者2(日版,难度加强版)"
+
+msgid "batsugun.zip"
+msgstr "疯狂枪支(第1套)"
+
+msgid "batsuguna.zip"
+msgstr "疯狂枪支(第2套)"
+
+msgid "batsugunsp.zip"
+msgstr "疯狂枪支(特别版)"
+
+msgid "tazzmang.zip"
+msgstr "疯狂塔斯(Galaxian硬件)"
+
+msgid "tazmania.zip"
+msgstr "疯狂塔斯(第1套)"
+
+msgid "tazmani2.zip"
+msgstr "疯狂塔斯(第2套)"
+
+msgid "hyperpac.zip"
+msgstr "疯狂小精灵"
+
+msgid "hyperpacb.zip"
+msgstr "疯狂小精灵(盗版)"
+
+msgid "hypsptsp.zip"
+msgstr "疯狂运动会特别版(日版)"
+
+msgid "ridhero.zip"
+msgstr "风速英雄(第1套)"
+
+msgid "ridheroh.zip"
+msgstr "风速英雄(第2套)"
+
+msgid "savagere.zip"
+msgstr "风云默示录-格斗创世"
+
+msgid "kizuna.zip"
+msgstr "风云默示录2-超级组队战"
+
+msgid "acrobatm.zip"
+msgstr "风云战机"
+
+msgid "phoenxp2.zip"
+msgstr "凤凰角色2"
+
+msgid "sonofphx.zip"
+msgstr "凤凰之子"
+
+msgid "repulse.zip"
+msgstr "凤凰之子-星际联邦"
+
+msgid "99lstwar.zip"
+msgstr "凤凰之子/'99最后战争"
+
+msgid "99lstwark.zip"
+msgstr "凤凰之子/'99最后战争(Kyugo)"
+
+msgid "99lstwara.zip"
+msgstr "凤凰之子/'99最后战争(替换版)"
+
+msgid "scregg.zip"
+msgstr "孵蛋大战"
+
+msgid "eggs.zip"
+msgstr "孵蛋大战Eggs"
+
+msgid "mrflea.zip"
+msgstr "弗列克惊异大冒险"
+
+msgid "revenger.zip"
+msgstr "复仇者"
+
+msgid "oscaru.zip"
+msgstr "钢铁金刚(美版)"
+
+msgid "oscarj1.zip"
+msgstr "钢铁金刚(日版校正版1)"
+
+msgid "oscarj2.zip"
+msgstr "钢铁金刚(日版校正版2)"
+
+msgid "oscar.zip"
+msgstr "钢铁金刚(世界版校正版0)"
+
+msgid "strahl.zip"
+msgstr "钢铁要塞(日版第1套)"
+
+msgid "strahla.zip"
+msgstr "钢铁要塞(日版第2套)"
+
+msgid "levers.zip"
+msgstr "杠杆翘板"
+
+msgid "galmedes.zip"
+msgstr "高米达斯星战(日版)"
+
+msgid "srumbler.zip"
+msgstr "高速追击令(第1套)"
+
+msgid "srumbler2.zip"
+msgstr "高速追击令(第2套)"
+
+msgid "rushcrsh.zip"
+msgstr "高速追击令(日版)"
+
+msgid "twinadvk.zip"
+msgstr "哥俩好大冒险(韩国版)"
+
+msgid "twinadv.zip"
+msgstr "哥俩好大冒险(世界版)"
+
+msgid "kog.zip"
+msgstr "格斗之王(盗版)"
+
+msgid "shootbul.zip"
+msgstr "公牛飞镖"
+
+msgid "plumppop.zip"
+msgstr "狗狗乐园(日版)"
+
+msgid "dremshpr.zip"
+msgstr "购物梦语"
+
+msgid "eto.zip"
+msgstr "古今东西干支物语(日版)"
+
+msgid "nob.zip"
+msgstr "怪叔叔救美(日版)"
+
+msgid "nobb.zip"
+msgstr "怪叔叔救美(日版,盗版)"
+
+msgid "dduxbl.zip"
+msgstr "怪鸭冒险记(盗版)"
+
+msgid "ddux1.zip"
+msgstr "怪鸭冒险记(第1套,8751317-0095)"
+
+msgid "ddux.zip"
+msgstr "怪鸭冒险记(第2套,FD1094317-0096)"
+
+msgid "cltchitrj.zip"
+msgstr "关键打者(第1套,日版,FD1094317-0175)"
+
+msgid "cltchitr.zip"
+msgstr "关键打者(第2套,美版,FD1094317-0176)"
+
+msgid "hthero.zip"
+msgstr "冠军杯足球赛(日版)"
+
+msgid "euroch92.zip"
+msgstr "冠军杯足球赛(世界版)"
+
+msgid "footchmp.zip"
+msgstr "冠军杯足球赛(世界版)"
+
+msgid "aurailj.zip"
+msgstr "光环(第1套,日版,FD1089A317-0167)"
+
+msgid "aurail1.zip"
+msgstr "光环(第2套,世界版,FD1089B317-0168)"
+
+msgid "aurail.zip"
+msgstr "光环(第3套,美版,未保护版)"
+
+msgid "spec2k.zip"
+msgstr "光普2000"
+
+msgid "lghostu.zip"
+msgstr "鬼魂射击(第1套,美版,317-0165)"
+
+msgid "lghost.zip"
+msgstr "鬼魂射击(第2套,世界版,317-0166)"
+
+msgid "zintrkcd.zip"
+msgstr "诡计/挑战史来姆(CDtoMVSConversion,Hack)"
+
+msgid "zintrckb.zip"
+msgstr "诡计/挑战史来姆(修改版/盗版)"
+
+msgid "ghostlop.zip"
+msgstr "鬼精灵投球手(工程版)"
+
+msgid "mrkougar.zip"
+msgstr "鬼灵精先生"
+
+msgid "mrkougb.zip"
+msgstr "鬼灵精先生(盗版第1套)"
+
+msgid "mrkougb2.zip"
+msgstr "鬼灵精先生(盗版第2套)"
+
+msgid "mrkougar2.zip"
+msgstr "鬼灵精先生(早期版)"
+
+msgid "kingball.zip"
+msgstr "国王与气球(美版)"
+
+msgid "kingballj.zip"
+msgstr "国王与气球(日版)"
+
+msgid "buccanrs.zip"
+msgstr "海盗(第1套)"
+
+msgid "buccanrsa.zip"
+msgstr "海盗(第2套)"
+
+msgid "pirates.zip"
+msgstr "海盗[经典枪战]"
+
+msgid "higemaru.zip"
+msgstr "海盗船水手"
+
+msgid "800fath.zip"
+msgstr "海底潜航-800海里"
+
+msgid "mariner.zip"
+msgstr "海底潜航-水手"
+
+msgid "aquarium.zip"
+msgstr "海底生物战(日版)"
+
+msgid "porter.zip"
+msgstr "海男(盗版MoonCresta硬件)"
+
+msgid "bayroute1.zip"
+msgstr "海湾战争(第1套,美版,未保护版)"
+
+msgid "bayroutej.zip"
+msgstr "海湾战争(第2套,日版,FD1094317-0115)"
+
+msgid "bayroute.zip"
+msgstr "海湾战争(第3套,世界版,FD1094317-0116)"
+
+msgid "garogun.zip"
+msgstr "韩语问答(韩国版)"
+
+msgid "strkfgtr.zip"
+msgstr "捍卫铁鹰(日版)"
+
+msgid "lastduelb.zip"
+msgstr "行星战争2012(盗版)"
+
+msgid "lastduelo.zip"
+msgstr "行星战争2012(美版旧版)"
+
+msgid "lastduel.zip"
+msgstr "行星战争2012(美版新版)"
+
+msgid "lastduelj.zip"
+msgstr "行星战争2012(日版)"
+
+msgid "plegends.zip"
+msgstr "豪血寺外传-最强传说(美版,Ver.95/06/20)"
+
+msgid "plegendsj.zip"
+msgstr "豪血寺外传-最强传说(日版,Ver.95/06/20)"
+
+msgid "powerins.zip"
+msgstr "豪血寺一族(美版)"
+
+msgid "powerinsa.zip"
+msgstr "豪血寺一族(美版,盗版第1套)"
+
+msgid "powerinsb.zip"
+msgstr "豪血寺一族(美版,盗版第2套)"
+
+msgid "powerinsj.zip"
+msgstr "豪血寺一族(日版)"
+
+msgid "pwrinst2.zip"
+msgstr "豪血寺一族2(美版,Ver.94/04/08)"
+
+msgid "pwrinst2j.zip"
+msgstr "豪血寺一族2(日版,Ver.94/04/08)"
+
+msgid "mslug.zip"
+msgstr "合金弹头-超级战车-001"
+
+msgid "mslug2.zip"
+msgstr "合金弹头2-超级战车-001/II"
+
+msgid "mslug3.zip"
+msgstr "合金弹头3"
+
+msgid "mslug3h.zip"
+msgstr "合金弹头3(程序未加密)"
+
+msgid "mslug3hd.zip"
+msgstr "合金弹头3(未加密,C解密)"
+
+msgid "mslug4nd.zip"
+msgstr "合金弹头4(C解密)"
+
+msgid "mslug4.zip"
+msgstr "合金弹头4(第1套)"
+
+msgid "mslug4h.zip"
+msgstr "合金弹头4(第2套)"
+
+msgid "ms4plus.zip"
+msgstr "合金弹头4增强型Plus(盗版)"
+
+msgid "mslug5.zip"
+msgstr "合金弹头5"
+
+msgid "mslug5h.zip"
+msgstr "合金弹头5(AESCart)"
+
+msgid "mslug5nd.zip"
+msgstr "合金弹头5(C解密)"
+
+msgid "ms5pcb.zip"
+msgstr "合金弹头5(JAMMAPCB)"
+
+msgid "ms5pcbnd.zip"
+msgstr "合金弹头5(JAMMAPCB,C解密)"
+
+msgid "mslug5b.zip"
+msgstr "合金弹头5(盗版)"
+
+msgid "ms5plus.zip"
+msgstr "合金弹头5Plus(盗版)"
+
+msgid "mslug3b6.zip"
+msgstr "合金弹头6(盗版)"
+
+msgid "mslugx.zip"
+msgstr "合金弹头X-超级战车-001"
+
+msgid "metlsavr.zip"
+msgstr "合金救助者"
+
+msgid "nitd.zip"
+msgstr "黑暗守墓者/暗黑恶梦"
+
+msgid "nitdn.zip"
+msgstr "黑暗守墓者/暗黑恶梦(C解密)"
+
+msgid "nitdbl.zip"
+msgstr "黑暗守墓者/暗黑恶梦(盗版)"
+
+msgid "darkplnt.zip"
+msgstr "黑暗星球"
+
+msgid "srdarwinj.zip"
+msgstr "黑暗之风2(日版)"
+
+msgid "srdarwin.zip"
+msgstr "黑暗之风2(世界版)"
+
+msgid "darktowr.zip"
+msgstr "黑暗之塔"
+
+msgid "blkhole.zip"
+msgstr "黑洞"
+
+msgid "metalbj.zip"
+msgstr "黑色合金(日版)"
+
+msgid "metalb.zip"
+msgstr "黑色合金(世界版)"
+
+msgid "redufo.zip"
+msgstr "红飞碟"
+
+msgid "exodus.zip"
+msgstr "红飞碟(盗版?)"
+
+msgid "redeartn.zip"
+msgstr "红色地球(961121,NOCD)"
+
+msgid "redearth.zip"
+msgstr "红色地球(欧洲版,961121)"
+
+msgid "redhawke.zip"
+msgstr "红鹰(ExcellentCo.,Ltd)"
+
+msgid "redhawkb.zip"
+msgstr "红鹰(盗版)"
+
+msgid "redhawk.zip"
+msgstr "红鹰(美版)"
+
+msgid "stagger1.zip"
+msgstr "红鹰(日版)"
+
+msgid "redhawki.zip"
+msgstr "红鹰(意大利版)"
+
+msgid "tigeroadb.zip"
+msgstr "虎之道(美版盗版)"
+
+msgid "tigeroad.zip"
+msgstr "虎之道(美版)"
+
+msgid "toramich.zip"
+msgstr "虎之道(日版)"
+
+msgid "tripool.zip"
+msgstr "花式撞球Tri-Pool(CasinoTech)"
+
+msgid "tripoola.zip"
+msgstr "花式撞球Tri-Pool(CostalGames)"
+
+msgid "spinmast.zip"
+msgstr "滑轮大师/强尼大冒险"
+
+msgid "ponpoko.zip"
+msgstr "欢乐碰碰鸟"
+
+msgid "ponpokov.zip"
+msgstr "欢乐碰碰鸟(VentureLine)"
+
+msgid "3in1semi.zip"
+msgstr "欢乐三合一(SemiCom3-in-1)"
+
+msgid "4in1.zip"
+msgstr "欢乐四合一"
+
+msgid "ecofghtru1.zip"
+msgstr "环保战士(美版931203)"
+
+msgid "ecofghtru.zip"
+msgstr "环保战士(美版940215)"
+
+msgid "uecology.zip"
+msgstr "环保战士(日版931203)"
+
+msgid "ecofghtr.zip"
+msgstr "环保战士(世界版931203)"
+
+msgid "ecofghtra.zip"
+msgstr "环保战士(亚洲版931203)"
+
+msgid "outruno.zip"
+msgstr "环游世界大赛车(sitdown/upright)"
+
+msgid "outrunra.zip"
+msgstr "环游世界大赛车(sitdown/直立型,RevA)"
+
+msgid "outrun.zip"
+msgstr "环游世界大赛车(sitdown/直立型,RevB)"
+
+msgid "outrunb.zip"
+msgstr "环游世界大赛车(盗版)"
+
+msgid "outrundx.zip"
+msgstr "环游世界大赛车(豪华版sitdown)"
+
+msgid "toutrun.zip"
+msgstr "环游世界大赛车加速版(驾驶舱,FD1094317-0118)"
+
+msgid "toutrunu.zip"
+msgstr "环游世界大赛车加速版(升级版,FD1094317-0118)"
+
+msgid "toutrun2.zip"
+msgstr "环游世界大赛车加速版(直立型,FD1094317-未知版本)"
+
+msgid "maglord.zip"
+msgstr "幻魔大战(第1套)"
+
+msgid "maglordh.zip"
+msgstr "幻魔大战(第2套)"
+
+msgid "gunsmokeu.zip"
+msgstr "荒野大镖客(美版第1套)"
+
+msgid "gunsmokeua.zip"
+msgstr "荒野大镖客(美版第2套)"
+
+msgid "gunsmokej.zip"
+msgstr "荒野大镖客(日版)"
+
+msgid "gunsmoke.zip"
+msgstr "荒野大镖客(世界版)"
+
+msgid "dambustr.zip"
+msgstr "皇家空军中队-丹巴斯特(美版,第1套)"
+
+msgid "dambustra.zip"
+msgstr "皇家空军中队-丹巴斯特(美版,第2套)"
+
+msgid "dambustruk.zip"
+msgstr "皇家空军中队-丹巴斯特(英国版)"
+
+msgid "wwallyja.zip"
+msgstr "绘本国大冒险(revA,日版,FD1094317-0197A)"
+
+msgid "wwallyj.zip"
+msgstr "绘本国大冒险(revB,日版,FD1094317-0197B)"
+
+msgid "contrab.zip"
+msgstr "魂斗罗(盗版)"
+
+msgid "gryzor.zip"
+msgstr "魂斗罗(第1套)"
+
+msgid "gryzora.zip"
+msgstr "魂斗罗(第2套)"
+
+msgid "contra.zip"
+msgstr "魂斗罗(美版,第1套)"
+
+msgid "contra1.zip"
+msgstr "魂斗罗(美版,第2套)"
+
+msgid "contrajb.zip"
+msgstr "魂斗罗(日版盗版)"
+
+msgid "contraj.zip"
+msgstr "魂斗罗(日版)"
+
+msgid "blazeon.zip"
+msgstr "魂之光辉(日版)"
+
+msgid "phoenix.zip"
+msgstr "火凤凰(Amstar)"
+
+msgid "batman2.zip"
+msgstr "火凤凰蝙蝠Part2"
+
+msgid "kagekih.zip"
+msgstr "火激(hack)"
+
+msgid "kageki.zip"
+msgstr "火激(美版)"
+
+msgid "kagekij.zip"
+msgstr "火激(日版)"
+
+msgid "lgtnfghtu.zip"
+msgstr "火龙(美版)"
+
+msgid "trigon.zip"
+msgstr "火龙(日版)"
+
+msgid "lgtnfght.zip"
+msgstr "火龙(世界版)"
+
+msgid "lgtnfghta.zip"
+msgstr "火龙(亚洲版)"
+
+msgid "loffireu.zip"
+msgstr "火线行动-爆弹野郎(美版,FD1094317-0135)"
+
+msgid "loffirej.zip"
+msgstr "火线行动-爆弹野郎(日版,FD1094317-0134)"
+
+msgid "loffire.zip"
+msgstr "火线行动-爆弹野郎(世界版,FD1094317-0136)"
+
+msgid "3countb.zip"
+msgstr "火线摔跤"
+
+msgid "mugsmash.zip"
+msgstr "火线追缉"
+
+msgid "mars.zip"
+msgstr "火星"
+
+msgid "mmatrix.zip"
+msgstr "火星矩阵:超固体射击(美版000412)"
+
+msgid "mmatrixd.zip"
+msgstr "火星矩阵:超固体射击(日版000412凤凰版)(盗版)"
+
+msgid "mmatrixj.zip"
+msgstr "火星矩阵:超固体射击(日版000412)"
+
+msgid "firehawk.zip"
+msgstr "火鹰"
+
+msgid "egghunt.zip"
+msgstr "鸡蛋方块"
+
+msgid "sdgndmps.zip"
+msgstr "机动战士SD高达-塞可沙拉曼达的威胁"
+
+msgid "gundamex.zip"
+msgstr "机动战士高达EXRevue"
+
+msgid "neopong.zip"
+msgstr "机皇弹球(ver1.1,Homebrew)"
+
+msgid "roboarmy.zip"
+msgstr "机甲神兵"
+
+msgid "armwaru1.zip"
+msgstr "机甲战士/机甲装备:攻关版(美版940920)"
+
+msgid "armwaru.zip"
+msgstr "机甲战士/机甲装备:攻关版(美版941024)"
+
+msgid "armwar1d.zip"
+msgstr "机甲战士/机甲装备:攻关版(欧洲版941011凤凰版)(盗版)"
+
+msgid "armwarr1.zip"
+msgstr "机甲战士/机甲装备:攻关版(欧洲版941011)"
+
+msgid "armwar.zip"
+msgstr "机甲战士/机甲装备:攻关版(欧洲版941024)"
+
+msgid "pgearr1.zip"
+msgstr "机甲战士/机甲装备:攻关版(日版940916)"
+
+msgid "pgear.zip"
+msgstr "机甲战士/机甲装备:攻关版(日版941024)"
+
+msgid "armwara.zip"
+msgstr "机甲战士/机甲装备:攻关版(亚洲版940920)"
+
+msgid "cybotsu.zip"
+msgstr "机甲战士:全金属狂潮(美版950424)"
+
+msgid "cybots.zip"
+msgstr "机甲战士:全金属狂潮(欧洲版950424)"
+
+msgid "cybotsj.zip"
+msgstr "机甲战士:全金属狂潮(日版950420)"
+
+msgid "tekipaki.zip"
+msgstr "机器人方块"
+
+msgid "dimahoud.zip"
+msgstr "疾风魔法大作战(美版000121凤凰版)(盗版)"
+
+msgid "dimahoou.zip"
+msgstr "疾风魔法大作战(美版000121)"
+
+msgid "dimahoo.zip"
+msgstr "疾风魔法大作战(欧洲版000121)"
+
+msgid "gmahou.zip"
+msgstr "疾风魔法大作战(日版000121)"
+
+msgid "shippumd.zip"
+msgstr "疾风魔法大作战(日版)"
+
+msgid "kingdmgp.zip"
+msgstr "疾风魔法大作战(世界版)"
+
+msgid "overtop.zip"
+msgstr "极速赛车"
+
+msgid "trally.zip"
+msgstr "极速英豪"
+
+msgid "cannonbp.zip"
+msgstr "加农球(吃豆人硬件)"
+
+msgid "omega.zip"
+msgstr "甲虫护蛋"
+
+msgid "checkman.zip"
+msgstr "检查人"
+
+msgid "checkmanj.zip"
+msgstr "检查人(日版)"
+
+msgid "mosyougi.zip"
+msgstr "将棋达人"
+
+msgid "fireshrk.zip"
+msgstr "鲛!鲛!鲛!"
+
+msgid "samesame2.zip"
+msgstr "鲛!鲛!鲛!"
+
+msgid "samesame.zip"
+msgstr "鲛!鲛!鲛!(2player互换版本.)"
+
+msgid "fireshrkd.zip"
+msgstr "鲛!鲛!鲛!(韩国版,第1套,容易)"
+
+msgid "fireshrkdh.zip"
+msgstr "鲛!鲛!鲛!(韩国版,第2套,困难)"
+
+msgid "sfp.zip"
+msgstr "街头霸王(工程版)"
+
+msgid "sfus.zip"
+msgstr "街头霸王(美版)"
+
+msgid "sfj.zip"
+msgstr "街头霸王(日版)"
+
+msgid "sf.zip"
+msgstr "街头霸王(世界版)"
+
+msgid "sf2dkot2.zip"
+msgstr "街头霸王II'-四大天王(DoubleK.O.TurboII,盗版)"
+
+msgid "sf2m10.zip"
+msgstr "街头霸王II'-四大天王(M10,盗版)"
+
+msgid "sf2m11.zip"
+msgstr "街头霸王II'-四大天王(M11,盗版)"
+
+msgid "sf2m12.zip"
+msgstr "街头霸王II'-四大天王(M12,盗版)"
+
+msgid "sf2m2.zip"
+msgstr "街头霸王II'-四大天王(M2,盗版)"
+
+msgid "sf2m3.zip"
+msgstr "街头霸王II'-四大天王(M3,盗版)"
+
+msgid "sf2m4.zip"
+msgstr "街头霸王II'-四大天王(M4,盗版)"
+
+msgid "sf2m5.zip"
+msgstr "街头霸王II'-四大天王(M5,盗版)"
+
+msgid "sf2m7.zip"
+msgstr "街头霸王II'-四大天王(M7,盗版)"
+
+msgid "sf2m8.zip"
+msgstr "街头霸王II'-四大天王(M8,盗版)"
+
+msgid "sf2m9.zip"
+msgstr "街头霸王II'-四大天王(M9,盗版)"
+
+msgid "sf2yyc.zip"
+msgstr "街头霸王II'-四大天王(YYC,盗版)"
+
+msgid "sf2rb.zip"
+msgstr "街头霸王II'-四大天王(彩虹版第1套,盗版)"
+
+msgid "sf2rb2.zip"
+msgstr "街头霸王II'-四大天王(彩虹版第2套,盗版)"
+
+msgid "sf2rb3.zip"
+msgstr "街头霸王II'-四大天王(彩虹版第3套,盗版)"
+
+msgid "sf2red.zip"
+msgstr "街头霸王II'-四大天王(赤色波动,盗版)"
+
+msgid "sf2accp2.zip"
+msgstr "街头霸王II'-四大天王(加速器Pt.II,盗版)"
+
+msgid "sf2acc.zip"
+msgstr "街头霸王II'-四大天王(加速器!,盗版)"
+
+msgid "sf2ceua.zip"
+msgstr "街头霸王II'-四大天王(美版920313)"
+
+msgid "sf2ceub.zip"
+msgstr "街头霸王II'-四大天王(美版920513)"
+
+msgid "sf2ceuc.zip"
+msgstr "街头霸王II'-四大天王(美版920803)"
+
+msgid "sf2cej.zip"
+msgstr "街头霸王II'-四大天王(日版920513)"
+
+msgid "sf2ce.zip"
+msgstr "街头霸王II'-四大天王(世界版920313)"
+
+msgid "sf2koryu.zip"
+msgstr "街头霸王II'-四大天王:降龙(中国盗版第1套)"
+
+msgid "sf2m6.zip"
+msgstr "街头霸王II'-四大天王:降龙(中国盗版第2套)"
+
+msgid "sf2tlona.zip"
+msgstr "街头霸王II'-四大天王:屠龙(中国盗版第1套)"
+
+msgid "sf2tlonb.zip"
+msgstr "街头霸王II'-四大天王:屠龙(中国盗版第2套)"
+
+msgid "sf2qp1.zip"
+msgstr "街头霸王II-天下斗士(加速器Pt-I,盗版)"
+
+msgid "sf2ua.zip"
+msgstr "街头霸王II-天下斗士(美版910206)"
+
+msgid "sf2ub.zip"
+msgstr "街头霸王II-天下斗士(美版910214)"
+
+msgid "sf2ue.zip"
+msgstr "街头霸王II-天下斗士(美版910228)"
+
+msgid "sf2ud.zip"
+msgstr "街头霸王II-天下斗士(美版910318)"
+
+msgid "sf2uf.zip"
+msgstr "街头霸王II-天下斗士(美版910411)"
+
+msgid "sf2ui.zip"
+msgstr "街头霸王II-天下斗士(美版910522)"
+
+msgid "sf2uk.zip"
+msgstr "街头霸王II-天下斗士(美版911101)"
+
+msgid "sf2ja.zip"
+msgstr "街头霸王II-天下斗士(日版910214)"
+
+msgid "sf2jc.zip"
+msgstr "街头霸王II-天下斗士(日版910306)"
+
+msgid "sf2j.zip"
+msgstr "街头霸王II-天下斗士(日版911210)"
+
+msgid "sf2eb.zip"
+msgstr "街头霸王II-天下斗士(世界版910214)"
+
+msgid "sf2ebbl.zip"
+msgstr "街头霸王II-天下斗士(世界版910214,TAB奥地利盗版)"
+
+msgid "sf2.zip"
+msgstr "街头霸王II-天下斗士(世界版910522)"
+
+msgid "sf2m13.zip"
+msgstr "街头霸王II'加速版-战斗宣言(M13,盗版)"
+
+msgid "sf2t.zip"
+msgstr "街头霸王II'加速版-战斗宣言(美版921209)"
+
+msgid "sf2tj.zip"
+msgstr "街头霸王II'加速版-战斗宣言(日版921209)"
+
+msgid "sf2hf.zip"
+msgstr "街头霸王II'加速版-战斗宣言(世界版921209)"
+
+msgid "sf2v004.zip"
+msgstr "街头霸王II!-四大天王(V004,盗版)"
+
+msgid "sfiii2.zip"
+msgstr "街头霸王III-二度冲击巨型攻击(美版,970930)"
+
+msgid "sfiii2j.zip"
+msgstr "街头霸王III-二度冲击巨型攻击(日版,970930)"
+
+msgid "sfiii2n.zip"
+msgstr "街头霸王III-二度冲击巨型攻击(亚洲版,970930,NOCD)"
+
+msgid "sfiii3a.zip"
+msgstr "街头霸王III-三度冲击未来战斗(美版,990512)"
+
+msgid "sfiii3.zip"
+msgstr "街头霸王III-三度冲击未来战斗(美版,990608)"
+
+msgid "sfiii3an.zip"
+msgstr "街头霸王III-三度冲击未来战斗(日版,990512,NOCD)"
+
+msgid "sfiii3n.zip"
+msgstr "街头霸王III-三度冲击未来战斗(日版,990608,NOCD)"
+
+msgid "sfiii.zip"
+msgstr "街头霸王III-新世纪(美版,970204)"
+
+msgid "sfiiij.zip"
+msgstr "街头霸王III-新世纪(日版,970204)"
+
+msgid "sfiiin.zip"
+msgstr "街头霸王III-新世纪(亚洲版,970204,NOCD)"
+
+msgid "streetsm1.zip"
+msgstr "街头快打(美版版本1)"
+
+msgid "streetsm.zip"
+msgstr "街头快打(美版版本2)"
+
+msgid "streetsmj.zip"
+msgstr "街头快打(日版版本1)"
+
+msgid "streetsmw.zip"
+msgstr "街头快打(世界版版本1)"
+
+msgid "strhoop.zip"
+msgstr "街头篮球/梦幻篮球赛"
+
+msgid "bssoccer.zip"
+msgstr "街头足球"
+
+msgid "treahunt.zip"
+msgstr "杰克与魔豆(盗版?)"
+
+msgid "jack.zip"
+msgstr "杰克与魔豆(第1套)"
+
+msgid "jack2.zip"
+msgstr "杰克与魔豆(第2套)"
+
+msgid "jack3.zip"
+msgstr "杰克与魔豆(第3套)"
+
+msgid "pclubys.zip"
+msgstr "解谜俱乐部(YunSung,第1套)"
+
+msgid "pclubysa.zip"
+msgstr "解谜俱乐部(YunSung,第2套)"
+
+msgid "puzzledp.zip"
+msgstr "解谜气泡"
+
+msgid "puzzldpr.zip"
+msgstr "解谜气泡R"
+
+msgid "miexchng.zip"
+msgstr "金钱游戏"
+
+msgid "scramble.zip"
+msgstr "紧急起飞混乱"
+
+msgid "scramblebf.zip"
+msgstr "紧急起飞混乱(Karateko,法国盗版)"
+
+msgid "scrambles.zip"
+msgstr "紧急起飞混乱(Stern)"
+
+msgid "scramb2.zip"
+msgstr "紧急起飞混乱(盗版)"
+
+msgid "strfbomb.zip"
+msgstr "紧急起飞机枪炸弹"
+
+msgid "explorer.zip"
+msgstr "紧急起飞探测器"
+
+msgid "joinem.zip"
+msgstr "精灵鬼"
+
+msgid "hotshock.zip"
+msgstr "惊悚狂热"
+
+msgid "bonkadv.zip"
+msgstr "究极PC原人"
+
+msgid "ajax.zip"
+msgstr "飓风直升机"
+
+msgid "ajaxj.zip"
+msgstr "飓风直升机(日版)"
+
+msgid "typhoon.zip"
+msgstr "飓风直升机Typhoon"
+
+msgid "vulgus.zip"
+msgstr "决战异星球(第1套)"
+
+msgid "vulgus2.zip"
+msgstr "决战异星球(第2套)"
+
+msgid "vulgusj.zip"
+msgstr "决战异星球(日版?)"
+
+msgid "cadashg.zip"
+msgstr "卡达叙传说(德国)"
+
+msgid "cadashf.zip"
+msgstr "卡达叙传说(法国)"
+
+msgid "cadashu.zip"
+msgstr "卡达叙传说(美版)"
+
+msgid "cadashj.zip"
+msgstr "卡达叙传说(日版)"
+
+msgid "cadash.zip"
+msgstr "卡达叙传说(世界版)"
+
+msgid "cadashi.zip"
+msgstr "卡达叙传说(意大利)"
+
+msgid "karianx.zip"
+msgstr "卡琳魔宝(Rev.1.0)"
+
+msgid "karnov.zip"
+msgstr "卡洛夫(美版)"
+
+msgid "karnovj.zip"
+msgstr "卡洛夫(日版)"
+
+msgid "hatena.zip"
+msgstr "卡普空冒险问答2(日版900228)"
+
+msgid "csclub1.zip"
+msgstr "卡普空运动俱乐部(欧洲版970722)"
+
+msgid "csclub.zip"
+msgstr "卡普空运动俱乐部(欧洲版971017)"
+
+msgid "csclubj.zip"
+msgstr "卡普空运动俱乐部(日版970722)"
+
+msgid "csclubjr.zip"
+msgstr "卡普空运动俱乐部(日版970722,租借版)"
+
+msgid "csclubh.zip"
+msgstr "卡普空运动俱乐部(西班牙版970722)"
+
+msgid "cscluba.zip"
+msgstr "卡普空运动俱乐部(亚洲版970722)"
+
+msgid "galhustl.zip"
+msgstr "开仑骗子"
+
+msgid "pgoal.zip"
+msgstr "开心射门/Futsal-5对5迷你足球"
+
+msgid "ppchamp.zip"
+msgstr "柯纳米迷你游戏(韩国版)"
+
+msgid "gotcha.zip"
+msgstr "柯纳米迷你游戏97"
+
+msgid "88games.zip"
+msgstr "柯纳米运动会'88"
+
+msgid "konami88.zip"
+msgstr "柯纳米运动会'88"
+
+msgid "stera.zip"
+msgstr "空间龙(冠登陆艇盗版)"
+
+msgid "spcdrag.zip"
+msgstr "空间龙(冠登陆艇盗版,第1套)"
+
+msgid "spcdraga.zip"
+msgstr "空间龙(冠登陆艇盗版,第2套)"
+
+msgid "megablstu.zip"
+msgstr "空间战机(美版)"
+
+msgid "megablstj.zip"
+msgstr "空间战机(日版)"
+
+msgid "megablst.zip"
+msgstr "空间战机(世界版)"
+
+msgid "sbsgomo.zip"
+msgstr "空间战舰-圣骑士"
+
+msgid "airattck.zip"
+msgstr "空袭(第1套)"
+
+msgid "airattcka.zip"
+msgstr "空袭(第2套)"
+
+msgid "cnbe.zip"
+msgstr "空战代号-血腥天使(060119,Homebrew)"
+
+msgid "gloc.zip"
+msgstr "空战神兵(美版)"
+
+msgid "glocr360.zip"
+msgstr "空战神兵R360"
+
+msgid "bgareggacn.zip"
+msgstr "空战之路-Type2(丹麦版/中国版)(TueApr21996)"
+
+msgid "bgareggat2.zip"
+msgstr "空战之路-Type2(欧洲版/美版/日版/亚洲版)(SatMar21996)"
+
+msgid "bgaregganv.zip"
+msgstr "空战之路-新版本(奥地利版/香港版)(SatMar21996)"
+
+msgid "bgareggahk.zip"
+msgstr "空战之路(奥地利版/香港版)(SatFeb31996)"
+
+msgid "bgaregga.zip"
+msgstr "空战之路(欧洲版/美版/日版/亚洲版)(SatFeb31996)"
+
+msgid "bgareggatw.zip"
+msgstr "空战之路(台湾版/德国版)(ThuFeb11996)"
+
+msgid "airbustrb.zip"
+msgstr "空中堡垒(盗版)"
+
+msgid "airbustrj.zip"
+msgstr "空中堡垒(日版)"
+
+msgid "airbustr.zip"
+msgstr "空中堡垒(世界版)"
+
+msgid "skysmash.zip"
+msgstr "空中打击"
+
+msgid "dinorexu.zip"
+msgstr "恐龙传说(美版)"
+
+msgid "dinorexj.zip"
+msgstr "恐龙传说(日版)"
+
+msgid "dinorex.zip"
+msgstr "恐龙传说(世界版)"
+
+msgid "dinoeh.zip"
+msgstr "恐龙新世纪(hack)"
+
+msgid "dinoh.zip"
+msgstr "恐龙新世纪(盗版/hack,第1套)"
+
+msgid "dinou.zip"
+msgstr "恐龙新世纪(美版930201)"
+
+msgid "dinoj.zip"
+msgstr "恐龙新世纪(日版930201)"
+
+msgid "dino.zip"
+msgstr "恐龙新世纪(世界版930201)"
+
+msgid "dinoha.zip"
+msgstr "恐龙新世纪:97恐龙二代Turbo(盗版第2套)"
+
+msgid "qtorimon.zip"
+msgstr "苦胃头捕物帐(日版)"
+
+msgid "ffightb.zip"
+msgstr "快打旋风(盗版)"
+
+msgid "ffightua.zip"
+msgstr "快打旋风(美版900112)"
+
+msgid "ffightub.zip"
+msgstr "快打旋风(美版900613)"
+
+msgid "ffightu.zip"
+msgstr "快打旋风(美版)"
+
+msgid "ffightj2.zip"
+msgstr "快打旋风(日版900112)"
+
+msgid "ffightj1.zip"
+msgstr "快打旋风(日版900305)"
+
+msgid "ffightj.zip"
+msgstr "快打旋风(日版)"
+
+msgid "ffight.zip"
+msgstr "快打旋风(世界版)"
+
+msgid "spdcoin.zip"
+msgstr "快速硬币(工程版)"
+
+msgid "fightfev.zip"
+msgstr "狂热格斗(第1套)"
+
+msgid "fightfeva.zip"
+msgstr "狂热格斗(第2套)"
+
+msgid "gemini.zip"
+msgstr "昆虫世界"
+
+msgid "chewing.zip"
+msgstr "拉霸"
+
+msgid "manybloc.zip"
+msgstr "拉霸拼图"
+
+msgid "bjourney.zip"
+msgstr "拉吉少年"
+
+msgid "lvgirl94.zip"
+msgstr "拉斯维加斯美女方块(Girl'94)"
+
+msgid "qcrayon2.zip"
+msgstr "蜡笔小新(日版)"
+
+msgid "blueprntj.zip"
+msgstr "蓝色拼图(Jaleco)"
+
+msgid "blueprnt.zip"
+msgstr "蓝色拼图(Midway)"
+
+msgid "shocking.zip"
+msgstr "狼人王"
+
+msgid "tigerhb1.zip"
+msgstr "老虎直升机(盗版第1套)"
+
+msgid "tigerhb2.zip"
+msgstr "老虎直升机(盗版第2套)"
+
+msgid "tigerhb3.zip"
+msgstr "老虎直升机(盗版第3套)"
+
+msgid "tigerh.zip"
+msgstr "老虎直升机(美版)"
+
+msgid "tigerhj.zip"
+msgstr "老虎直升机(日版)"
+
+msgid "raphero.zip"
+msgstr "雷豹英雄"
+
+msgid "amidar.zip"
+msgstr "雷达"
+
+msgid "amidaro.zip"
+msgstr "雷达(Olympia)"
+
+msgid "amidaru.zip"
+msgstr "雷达(Stern)"
+
+msgid "amidarb.zip"
+msgstr "雷达(盗版)"
+
+msgid "amidars.zip"
+msgstr "雷达(紧急起飞硬件)"
+
+msgid "amigo.zip"
+msgstr "雷达Amigo"
+
+msgid "raiden.zip"
+msgstr "雷电"
+
+msgid "raidenk.zip"
+msgstr "雷电(韩国版)"
+
+msgid "raidena.zip"
+msgstr "雷电(互换硬件)"
+
+msgid "raident.zip"
+msgstr "雷电(台湾版)"
+
+msgid "tdragon1.zip"
+msgstr "雷龙(4thJun.1991)"
+
+msgid "tdragon.zip"
+msgstr "雷龙(9thJan.1992)"
+
+msgid "tdragonb.zip"
+msgstr "雷龙(盗版)"
+
+msgid "tdragon2a.zip"
+msgstr "雷龙2(1stOct.1993)"
+
+msgid "tdragon2.zip"
+msgstr "雷龙2(9thNov.1993)"
+
+msgid "gigawingb.zip"
+msgstr "雷鸟之翼(巴西版990222)"
+
+msgid "gigawing.zip"
+msgstr "雷鸟之翼(美版990222)"
+
+msgid "gwingjd.zip"
+msgstr "雷鸟之翼(日版990223凤凰版)(盗版)"
+
+msgid "gigawingj.zip"
+msgstr "雷鸟之翼(日版990223)"
+
+msgid "gigawinga.zip"
+msgstr "雷鸟之翼(亚洲版990222)"
+
+msgid "dogyuun.zip"
+msgstr "雷射战机"
+
+msgid "dogyuunk.zip"
+msgstr "雷射战机(LicensedtoUniteTradingFor韩国版)"
+
+msgid "thunderx.zip"
+msgstr "雷霆战机(第1套)"
+
+msgid "thunderxa.zip"
+msgstr "雷霆战机(第2套)"
+
+msgid "thunderxb.zip"
+msgstr "雷霆战机(第3套)"
+
+msgid "thunderxj.zip"
+msgstr "雷霆战机(日版)"
+
+msgid "thndrx2j.zip"
+msgstr "雷霆战机II(日版)"
+
+msgid "thndrx2.zip"
+msgstr "雷霆战机II(世界版)"
+
+msgid "thndrx2a.zip"
+msgstr "雷霆战机II(亚洲版)"
+
+msgid "stratof.zip"
+msgstr "雷牙(美版)"
+
+msgid "raiga.zip"
+msgstr "雷牙(日版)"
+
+msgid "riot.zip"
+msgstr "雷轧斗"
+
+msgid "welltrisj.zip"
+msgstr "立体空间俄罗斯(日版,2players)"
+
+msgid "welltris.zip"
+msgstr "立体空间俄罗斯(世界版?,2players)"
+
+msgid "blockout.zip"
+msgstr "立体空间方块(第1套)"
+
+msgid "blockout2.zip"
+msgstr "立体空间方块(第2套)"
+
+msgid "blockoutj.zip"
+msgstr "立体空间方块(日版)"
+
+msgid "shackled.zip"
+msgstr "链狱谜城(美版)"
+
+msgid "breywood.zip"
+msgstr "链狱谜城(日版校正版2)"
+
+msgid "turkhunt.zip"
+msgstr "猎鹿USAV1.0"
+
+msgid "deerhuntc.zip"
+msgstr "猎鹿USAV2"
+
+msgid "deerhuntb.zip"
+msgstr "猎鹿USAV4.0"
+
+msgid "deerhunta.zip"
+msgstr "猎鹿USAV4.2"
+
+msgid "deerhunt.zip"
+msgstr "猎鹿USAV4.3"
+
+msgid "bshark.zip"
+msgstr "猎鲨行动(美版)"
+
+msgid "bsharkj.zip"
+msgstr "猎鲨行动(日版)"
+
+msgid "buzzard.zip"
+msgstr "猎鹰直升机"
+
+msgid "zeropnt.zip"
+msgstr "零式枪战(第1套)"
+
+msgid "zeropnta.zip"
+msgstr "零式枪战(第2套)"
+
+msgid "zeropnt2.zip"
+msgstr "零式枪战2"
+
+msgid "zerowing.zip"
+msgstr "零式战机"
+
+msgid "zerowing2.zip"
+msgstr "零式战机(2playersimultaneousver.)"
+
+msgid "popspops.zip"
+msgstr "流行艺术"
+
+msgid "ctribeb.zip"
+msgstr "流氓大混战(盗版第1套)"
+
+msgid "ctribeb2.zip"
+msgstr "流氓大混战(盗版第2套)"
+
+msgid "ctribe1.zip"
+msgstr "流氓大混战(美版第1套?)"
+
+msgid "ctribe.zip"
+msgstr "流氓大混战(美版)"
+
+msgid "ctribej.zip"
+msgstr "流氓大混战(日版)"
+
+msgid "ryukyu.zip"
+msgstr "琉球(日版,FD1094317-5023)"
+
+msgid "rotd.zip"
+msgstr "龙吼-双截龙"
+
+msgid "rotdnd.zip"
+msgstr "龙吼-双截龙(完全解密)"
+
+msgid "aof.zip"
+msgstr "龙虎之拳"
+
+msgid "aof2.zip"
+msgstr "龙虎之拳2(第1套)"
+
+msgid "aof2a.zip"
+msgstr "龙虎之拳2(第2套)"
+
+msgid "aof3.zip"
+msgstr "龙虎之拳3-斗士之路/龙虎之拳外传"
+
+msgid "aof3k.zip"
+msgstr "龙虎之拳3-斗士之路/龙虎之拳外传(韩国版)"
+
+msgid "kodh.zip"
+msgstr "龙王战士(盗版/hack)"
+
+msgid "kodu.zip"
+msgstr "龙王战士(美版910910)"
+
+msgid "kodj.zip"
+msgstr "龙王战士(日版910805)"
+
+msgid "kod.zip"
+msgstr "龙王战士(世界版910711)"
+
+msgid "ddtodur1.zip"
+msgstr "龙与地下城-毁灭之塔(美版940113)"
+
+msgid "ddtodu.zip"
+msgstr "龙与地下城-毁灭之塔(美版940125)"
+
+msgid "ddtodr1.zip"
+msgstr "龙与地下城-毁灭之塔(欧洲版940113)"
+
+msgid "ddtodd.zip"
+msgstr "龙与地下城-毁灭之塔(欧洲版940412凤凰版)(盗版)"
+
+msgid "ddtod.zip"
+msgstr "龙与地下城-毁灭之塔(欧洲版940412)"
+
+msgid "ddtodjr2.zip"
+msgstr "龙与地下城-毁灭之塔(日版940113)"
+
+msgid "ddtodjr1.zip"
+msgstr "龙与地下城-毁灭之塔(日版940125)"
+
+msgid "ddtodj.zip"
+msgstr "龙与地下城-毁灭之塔(日版940412)"
+
+msgid "ddtodhr1.zip"
+msgstr "龙与地下城-毁灭之塔(西班牙版940125)"
+
+msgid "ddtodh.zip"
+msgstr "龙与地下城-毁灭之塔(西班牙版940412)"
+
+msgid "ddtoda.zip"
+msgstr "龙与地下城-毁灭之塔(亚洲版940113)"
+
+msgid "ddsomb.zip"
+msgstr "龙与地下城2-暗黑秘影(巴西版960223)"
+
+msgid "ddsomur1.zip"
+msgstr "龙与地下城2-暗黑秘影(美版960209)"
+
+msgid "ddsomud.zip"
+msgstr "龙与地下城2-暗黑秘影(美版960619凤凰版)(盗版)"
+
+msgid "ddsomu.zip"
+msgstr "龙与地下城2-暗黑秘影(美版960619)"
+
+msgid "ddsomr3.zip"
+msgstr "龙与地下城2-暗黑秘影(欧洲版960208)"
+
+msgid "ddsomr2.zip"
+msgstr "龙与地下城2-暗黑秘影(欧洲版960209)"
+
+msgid "ddsomr1.zip"
+msgstr "龙与地下城2-暗黑秘影(欧洲版960223)"
+
+msgid "ddsom.zip"
+msgstr "龙与地下城2-暗黑秘影(欧洲版960619)"
+
+msgid "ddsomjr1.zip"
+msgstr "龙与地下城2-暗黑秘影(日版960206)"
+
+msgid "ddsomj.zip"
+msgstr "龙与地下城2-暗黑秘影(日版960619)"
+
+msgid "ddsomh.zip"
+msgstr "龙与地下城2-暗黑秘影(西班牙版960223)"
+
+msgid "ddsoma.zip"
+msgstr "龙与地下城2-暗黑秘影(亚洲版960619)"
+
+msgid "qad.zip"
+msgstr "龙之谜题(美版920701)"
+
+msgid "qadj.zip"
+msgstr "龙之谜题(日版940921)"
+
+msgid "twinactn.zip"
+msgstr "孪生劫"
+
+msgid "croquis.zip"
+msgstr "逻辑PRO(德国版)"
+
+msgid "logicpro.zip"
+msgstr "逻辑PRO(日版)"
+
+msgid "logicpr2.zip"
+msgstr "逻辑PRO2(日版)"
+
+msgid "streakng.zip"
+msgstr "裸奔"
+
+msgid "rockmanj.zip"
+msgstr "洛克人-力量对决(CPS1日版950922)"
+
+msgid "megaman.zip"
+msgstr "洛克人-力量对决(CPS1亚洲版951006)"
+
+msgid "mmancp2u.zip"
+msgstr "洛克人-力量对决(CPS2,美版951006,声音采样版)"
+
+msgid "rmancp2j.zip"
+msgstr "洛克人-力量对决(CPS2,日版950922)"
+
+msgid "megamn2d.zip"
+msgstr "洛克人2-力量对决(美版960708凤凰版)(盗版)"
+
+msgid "megaman2.zip"
+msgstr "洛克人2-力量对决(美版960708)"
+
+msgid "rockman2j.zip"
+msgstr "洛克人2-力量对决(日版960708)"
+
+msgid "megaman2h.zip"
+msgstr "洛克人2-力量对决(西班牙版960712)"
+
+msgid "megaman2a.zip"
+msgstr "洛克人2-力量对决(亚洲版960708)"
+
+msgid "ssridersabd.zip"
+msgstr "落日骑士(2PlayersverABD)"
+
+msgid "ssridersebc.zip"
+msgstr "落日骑士(2PlayersverEBC)"
+
+msgid "ssridersebd.zip"
+msgstr "落日骑士(2PlayersverEBD)"
+
+msgid "ssridersjbd.zip"
+msgstr "落日骑士(2PlayersverJBD)"
+
+msgid "ssridersubc.zip"
+msgstr "落日骑士(2PlayersverUBC)"
+
+msgid "ssridersadd.zip"
+msgstr "落日骑士(4PlayersverADD)"
+
+msgid "ssriderseaa.zip"
+msgstr "落日骑士(4PlayersverEAA)"
+
+msgid "ssriders.zip"
+msgstr "落日骑士(4PlayersverEAC)"
+
+msgid "ssridersuac.zip"
+msgstr "落日骑士(4PlayersverUAC)"
+
+msgid "ssridersuda.zip"
+msgstr "落日骑士(4PlayersverUDA)"
+
+msgid "ssridersb.zip"
+msgstr "落日骑士(盗版4PlayersverADD)"
+
+msgid "cameltryau.zip"
+msgstr "骆驼珠(美版,YM2203+M6295)"
+
+msgid "cameltry.zip"
+msgstr "骆驼珠(美版,YM2610)"
+
+msgid "cameltryj.zip"
+msgstr "骆驼珠(日版,YM2610)"
+
+msgid "cameltrya.zip"
+msgstr "骆驼珠(世界版,YM2203+M6295)"
+
+msgid "gberet.zip"
+msgstr "绿色兵团"
+
+msgid "gberetb.zip"
+msgstr "绿色兵团(盗版)"
+
+msgid "rushatck.zip"
+msgstr "绿色兵团(美版)"
+
+msgid "mia2.zip"
+msgstr "绿色兵团2(版本S)"
+
+msgid "mia.zip"
+msgstr "绿色兵团2(版本T)"
+
+msgid "miaj.zip"
+msgstr "绿色兵团2(日版)"
+
+msgid "mjgtaste.zip"
+msgstr "麻雀G-体验"
+
+msgid "minasan.zip"
+msgstr "麻雀大富翁"
+
+msgid "mahretsu.zip"
+msgstr "麻雀狂列传-西日本编"
+
+msgid "sjryuko1.zip"
+msgstr "麻雀雀狼会(第1套,系统16A,FD1089B317-5021)"
+
+msgid "sjryuko.zip"
+msgstr "麻雀雀狼会(第2套,系统16B,FD1089B317-5021)"
+
+msgid "mgakuen.zip"
+msgstr "麻雀学园-卒业编"
+
+msgid "mgakuen2.zip"
+msgstr "麻雀学园2-学园长的复仇"
+
+msgid "megadon.zip"
+msgstr "马嘉登火箭"
+
+msgid "dockman.zip"
+msgstr "码头工人"
+
+msgid "pitfall2.zip"
+msgstr "玛雅历险记II(315-5093)"
+
+msgid "pitfall2a.zip"
+msgstr "玛雅历险记II(315-5093,小鸟妃奇转换)"
+
+msgid "pitfall2u.zip"
+msgstr "玛雅历险记II(未加密)"
+
+msgid "mangchi.zip"
+msgstr "曼翅"
+
+msgid "mvscb.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(巴西版980123)"
+
+msgid "mvscud.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(美版980123凤凰版)(盗版)"
+
+msgid "mvscu.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(美版980123)"
+
+msgid "mvscr1.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(欧洲版980112)"
+
+msgid "mvsc.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(欧洲版980123)"
+
+msgid "mvscjr1.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(日版980112)"
+
+msgid "mvscj.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(日版980123)"
+
+msgid "mvsch.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(西班牙版980123)"
+
+msgid "mvscar1.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(亚洲版980112)"
+
+msgid "mvsca.zip"
+msgstr "漫画英雄对卡普空-超级英雄的冲突(亚洲版980123)"
+
+msgid "kbash.zip"
+msgstr "猫王"
+
+msgid "kbash2.zip"
+msgstr "猫王2(盗版)"
+
+msgid "gumbo.zip"
+msgstr "美女方块"
+
+msgid "paprazzi.zip"
+msgstr "美女杀手"
+
+msgid "mspuzzle.zip"
+msgstr "美少女解谜拼图"
+
+msgid "mspuzzlen.zip"
+msgstr "美少女解谜拼图(裸女)"
+
+msgid "mspuzzleg.zip"
+msgstr "美少女解谜拼图(美女方块的克隆)"
+
+msgid "sailormno.zip"
+msgstr "美少女战士-水手月亮(JUEHTK,Ver.95/03/22)"
+
+msgid "sailormn.zip"
+msgstr "美少女战士-水手月亮(JUEHTK,Ver.95/03/22B)"
+
+msgid "nemoj.zip"
+msgstr "梦幻冒险(日版901120)"
+
+msgid "nemo.zip"
+msgstr "梦幻冒险(世界版901130)"
+
+msgid "twinspri.zip"
+msgstr "梦幻小妖精"
+
+msgid "kikcubicb.zip"
+msgstr "迷宫岛"
+
+msgid "kikcubic.zip"
+msgstr "迷宫岛(日版)"
+
+msgid "dorodon.zip"
+msgstr "迷宫精灵(第1套)"
+
+msgid "dorodon2.zip"
+msgstr "迷宫精灵(第2套)"
+
+msgid "ghostb.zip"
+msgstr "迷宫猎人G(美版2Players)"
+
+msgid "ghostb3.zip"
+msgstr "迷宫猎人G(美版3Players)"
+
+msgid "meikyuh.zip"
+msgstr "迷宫猎人G(日版,第1套)"
+
+msgid "meikyuha.zip"
+msgstr "迷宫猎人G(日版,第2套)"
+
+msgid "minivadr.zip"
+msgstr "迷你小蜜蜂"
+
+msgid "pzloop2.zip"
+msgstr "谜球回路2(欧洲版010302)"
+
+msgid "pzloop2j.zip"
+msgstr "谜球回路2(日版010205)"
+
+msgid "honeydol.zip"
+msgstr "蜜蜂玩偶"
+
+msgid "myststono.zip"
+msgstr "秘石-奇克博士的冒险"
+
+msgid "mystston.zip"
+msgstr "秘石-约翰博士的冒险"
+
+msgid "cottonj.zip"
+msgstr "棉花小魔女(第1套,日版,FD1094317-0179a)"
+
+msgid "cottonu.zip"
+msgstr "棉花小魔女(第2套,美版,FD1094317-0180)"
+
+msgid "cotton.zip"
+msgstr "棉花小魔女(第3套,世界版,FD1094317-0181a)"
+
+msgid "captcommu.zip"
+msgstr "名将(美版910928)"
+
+msgid "captcommj.zip"
+msgstr "名将(日版911202)"
+
+msgid "captcomm.zip"
+msgstr "名将(世界版911014)"
+
+msgid "meijinsn.zip"
+msgstr "名人战"
+
+msgid "hexa.zip"
+msgstr "魔法宝石Hexa"
+
+msgid "mahoudai.zip"
+msgstr "魔法大作战(日版)"
+
+msgid "sstriker.zip"
+msgstr "魔法大作战(世界版)"
+
+msgid "sstrikera.zip"
+msgstr "魔法大作战(世界版,替换版)"
+
+msgid "pnickj.zip"
+msgstr "魔法方块(日版940608)"
+
+msgid "mswordu.zip"
+msgstr "魔法剑-英雄的幻想(美版900725)"
+
+msgid "mswordr1.zip"
+msgstr "魔法剑-英雄的幻想(世界版900623)"
+
+msgid "msword.zip"
+msgstr "魔法剑-英雄的幻想(世界版900725)"
+
+msgid "mswordj.zip"
+msgstr "魔法剑(日版900623)"
+
+msgid "htchctch.zip"
+msgstr "魔法绿兵卫"
+
+msgid "news.zip"
+msgstr "魔法美女气泡(第1套)"
+
+msgid "newsa.zip"
+msgstr "魔法美女气泡(第2套)"
+
+msgid "magicbub.zip"
+msgstr "魔法泡泡"
+
+msgid "magicbuba.zip"
+msgstr "魔法泡泡(成人版)"
+
+msgid "magdrop2.zip"
+msgstr "魔法气泡II"
+
+msgid "magdrop3.zip"
+msgstr "魔法气泡III"
+
+msgid "mgcrystlj.zip"
+msgstr "魔法水晶(日版,92/01/13)"
+
+msgid "mgcrystlo.zip"
+msgstr "魔法水晶(世界版,91/12/10)"
+
+msgid "mgcrystl.zip"
+msgstr "魔法水晶(世界版,92/01/10)"
+
+msgid "racknrol.zip"
+msgstr "魔法台球"
+
+msgid "hexpoola.zip"
+msgstr "魔法台球(Senko)"
+
+msgid "hexpool.zip"
+msgstr "魔法台球(Shinkai)"
+
+msgid "pangb.zip"
+msgstr "魔鬼气泡(盗版,第1套)"
+
+msgid "pangbold.zip"
+msgstr "魔鬼气泡(盗版,第2套)"
+
+msgid "bbros.zip"
+msgstr "魔鬼气泡(美版)"
+
+msgid "pompingw.zip"
+msgstr "魔鬼气泡(日版)"
+
+msgid "pang.zip"
+msgstr "魔鬼气泡(世界版)"
+
+msgid "pang3n.zip"
+msgstr "魔鬼气泡3(欧洲版950511,未加密)"
+
+msgid "pang3.zip"
+msgstr "魔鬼气泡3(欧洲版950601)"
+
+msgid "pang3j.zip"
+msgstr "魔鬼气泡3(日版950511)"
+
+msgid "chokchok.zip"
+msgstr "魔鬼气泡海中对战"
+
+msgid "genix.zip"
+msgstr "魔鬼气泡牛仔版"
+
+msgid "gpilots.zip"
+msgstr "魔鬼战将/幽灵战区(第1套)"
+
+msgid "gpilotsh.zip"
+msgstr "魔鬼战将/幽灵战区(第2套)"
+
+msgid "bublbobl.zip"
+msgstr "魔幻气泡"
+
+msgid "bublbobl1.zip"
+msgstr "魔幻气泡(旧版)"
+
+msgid "bublboblr.zip"
+msgstr "魔幻气泡(美版有选择模式)"
+
+msgid "bublboblr1.zip"
+msgstr "魔幻气泡(美版)"
+
+msgid "boblbobl.zip"
+msgstr "魔幻气泡/BobbleBobble"
+
+msgid "puzlstar.zip"
+msgstr "魔幻星座(ver.100MG)"
+
+msgid "gngbl.zip"
+msgstr "魔界村(盗版withCross)"
+
+msgid "gngt.zip"
+msgstr "魔界村(美版)"
+
+msgid "makaimurc.zip"
+msgstr "魔界村(日版校正版C)"
+
+msgid "makaimurg.zip"
+msgstr "魔界村(日版校正版G)"
+
+msgid "makaimur.zip"
+msgstr "魔界村(日版)"
+
+msgid "gng.zip"
+msgstr "魔界村(世界版?第1套)"
+
+msgid "gnga.zip"
+msgstr "魔界村(世界版?第2套)"
+
+msgid "gngc.zip"
+msgstr "魔界村(世界版?第3套)"
+
+msgid "gngblita.zip"
+msgstr "魔界村(意大利盗版,硬件)"
+
+msgid "gondo.zip"
+msgstr "魔境战士-绝对合体(美版)"
+
+msgid "makyosen.zip"
+msgstr "魔境战士-绝对合体(日版)"
+
+msgid "mcatadv.zip"
+msgstr "魔猫森林"
+
+msgid "mcatadvj.zip"
+msgstr "魔猫森林(日版)"
+
+msgid "catt.zip"
+msgstr "魔猫森林Catt(日版)"
+
+msgid "devilfsh.zip"
+msgstr "魔神鱼类"
+
+msgid "devilfsg.zip"
+msgstr "魔神鱼类(Galaxian硬件,盗版?)"
+
+msgid "majuu.zip"
+msgstr "魔兽王国"
+
+msgid "darkadv.zip"
+msgstr "魔兽王国DarkAdventure"
+
+msgid "devilw.zip"
+msgstr "魔兽王国Devil世界版"
+
+msgid "kotm.zip"
+msgstr "魔兽之王(第1套)"
+
+msgid "kotmh.zip"
+msgstr "魔兽之王(第2套)"
+
+msgid "kotm2.zip"
+msgstr "魔兽之王2"
+
+msgid "rachero.zip"
+msgstr "摩托英雄(FD1094317-0144)"
+
+msgid "scorpionmc.zip"
+msgstr "魔蝎(MoonCresta硬件)"
+
+msgid "scorpion.zip"
+msgstr "魔蝎(第1套)"
+
+msgid "scorpiona.zip"
+msgstr "魔蝎(第2套)"
+
+msgid "scorpionb.zip"
+msgstr "魔蝎(第3套)"
+
+msgid "dondokodu.zip"
+msgstr "木匠兄弟(美版)"
+
+msgid "dondokodj.zip"
+msgstr "木匠兄弟(日版)"
+
+msgid "dondokod.zip"
+msgstr "木匠兄弟(世界版)"
+
+msgid "lastblad.zip"
+msgstr "幕末浪漫月华剑士(第1套)"
+
+msgid "lastbladh.zip"
+msgstr "幕末浪漫月华剑士(第2套)"
+
+msgid "lastbld2.zip"
+msgstr "幕末浪漫第二幕月华剑士-月中芳华,散落月下"
+
+msgid "nouryoku.zip"
+msgstr "脑力向上委员会"
+
+msgid "pspikes2.zip"
+msgstr "能量排球2"
+
+msgid "progear.zip"
+msgstr "能源之岚(美版010117)"
+
+msgid "progerjd.zip"
+msgstr "能源之岚(日版010117凤凰版)(盗版)"
+
+msgid "progearj.zip"
+msgstr "能源之岚(日版010117)"
+
+msgid "progeara.zip"
+msgstr "能源之岚(亚洲版010117)"
+
+msgid "tnzsjo.zip"
+msgstr "纽西兰童话(日版,旧版)(旧版PCB)"
+
+msgid "tnzsj.zip"
+msgstr "纽西兰童话(日版,新版)(新版PCB)"
+
+msgid "tnzsop.zip"
+msgstr "纽西兰童话(世界版,工程版?)(旧版PCB)"
+
+msgid "tnzso.zip"
+msgstr "纽西兰童话(世界版,旧版)(旧版PCB)"
+
+msgid "tnzs.zip"
+msgstr "纽西兰童话(世界版,新版)(新版PCB)"
+
+msgid "farmer.zip"
+msgstr "农夫叛乱物语"
+
+msgid "ikki.zip"
+msgstr "农夫叛乱物语(日版)"
+
+msgid "ikari3nr.zip"
+msgstr "怒III-援救(8-Way操纵杆)"
+
+msgid "ikari3.zip"
+msgstr "怒III(Rotary操纵杆)"
+
+msgid "ddonpach.zip"
+msgstr "怒首领蜂(国际版,MasterVer.97/02/05)"
+
+msgid "ddonpachj.zip"
+msgstr "怒首领蜂(日版,MasterVer.97/02/05)"
+
+msgid "onna34ro.zip"
+msgstr "女三四郎(第1套)"
+
+msgid "onna34roa.zip"
+msgstr "女三四郎(第2套)"
+
+msgid "bodyslam.zip"
+msgstr "女子摔角(8751317-0015)"
+
+msgid "dumpmtmt.zip"
+msgstr "女子摔角(日版,8751317-0011a)"
+
+msgid "fr2ch.zip"
+msgstr "偶像麻雀-最终罗曼史2(CDtoMVSConversion,Hack)"
+
+msgid "scramblb.zip"
+msgstr "爬行(盗版Galaxian硬件)"
+
+msgid "rockclim.zip"
+msgstr "攀岩者"
+
+msgid "pangpang.zip"
+msgstr "乓乓"
+
+msgid "punkshot2.zip"
+msgstr "庞克篮球(美版2Players)"
+
+msgid "punkshot.zip"
+msgstr "庞克篮球(美版4Players)"
+
+msgid "punkshotj.zip"
+msgstr "庞克篮球(日版2Players)"
+
+msgid "gunnail.zip"
+msgstr "炮钉(28thMay.1992)"
+
+msgid "pzlbowl.zip"
+msgstr "泡泡保龄球(日版)"
+
+msgid "pbobblenb.zip"
+msgstr "泡泡龙(Neo-Geo)(盗版)"
+
+msgid "pbobblen.zip"
+msgstr "泡泡龙(Neo-Geo)(第1套)"
+
+msgid "pbobbl2n.zip"
+msgstr "泡泡龙2(Neo-Geo)"
+
+msgid "bubl2000.zip"
+msgstr "泡泡野人版2000"
+
+msgid "hotbubl.zip"
+msgstr "泡泡野人版Hot"
+
+msgid "bangbead.zip"
+msgstr "碰碰球"
+
+msgid "bngbeadn.zip"
+msgstr "碰碰球(C解密)"
+
+msgid "bangbedp.zip"
+msgstr "碰碰球(工程版)"
+
+msgid "flashgal.zip"
+msgstr "霹雳娇娃(第1套)"
+
+msgid "flashgala.zip"
+msgstr "霹雳娇娃(第2套)"
+
+msgid "eswatbl.zip"
+msgstr "霹雳双警(盗版)"
+
+msgid "eswatj.zip"
+msgstr "霹雳双警(第1套,日版,FD1094317-0128)"
+
+msgid "eswatu.zip"
+msgstr "霹雳双警(第2套,美版,FD1094317-0129)"
+
+msgid "eswat.zip"
+msgstr "霹雳双警(第3套,世界版,FD1094317-0130)"
+
+msgid "theroes.zip"
+msgstr "霹雳英雄"
+
+msgid "ladybugg.zip"
+msgstr "瓢虫小姐(盗版Galaxian硬件)"
+
+msgid "acitya.zip"
+msgstr "扑克21点AtlanticCityAction"
+
+msgid "bwcasino.zip"
+msgstr "扑克21点BoardwalkCasino"
+
+msgid "poknight.zip"
+msgstr "扑克之夜(Homebrew,没有声音)"
+
+msgid "pulirulaj.zip"
+msgstr "普利路拉传说(日版)"
+
+msgid "pulirula.zip"
+msgstr "普利路拉传说(世界版)"
+
+msgid "7toitsu.zip"
+msgstr "七对子-一万去还有一万"
+
+msgid "drgnbowl.zip"
+msgstr "七龙珠"
+
+msgid "wakuwak7.zip"
+msgstr "七战士/火热火热7"
+
+msgid "wndrplnt.zip"
+msgstr "奇幻星球(日版)"
+
+msgid "3wondersh.zip"
+msgstr "奇迹三合一(hack?)"
+
+msgid "3wondersu.zip"
+msgstr "奇迹三合一(美版910520)"
+
+msgid "wonder3.zip"
+msgstr "奇迹三合一(日版910520)"
+
+msgid "3wonders.zip"
+msgstr "奇迹三合一(世界版910520)"
+
+msgid "wondstck.zip"
+msgstr "奇迹手杖"
+
+msgid "wondl96.zip"
+msgstr "奇妙联盟'96(韩国版)"
+
+msgid "wlstar.zip"
+msgstr "奇妙联盟之星(韩国版)"
+
+msgid "suratkj.zip"
+msgstr "奇袭-星战大怒吼(日版ver.M)"
+
+msgid "suratk.zip"
+msgstr "奇袭-星战大怒吼(世界版ver.K)"
+
+msgid "suratka.zip"
+msgstr "奇袭-星战大怒吼(亚洲版ver.L)"
+
+msgid "cavelon.zip"
+msgstr "骑士之剑"
+
+msgid "pkunwar.zip"
+msgstr "企鹅大战(美版)"
+
+msgid "pkunwarj.zip"
+msgstr "企鹅大战(日版)"
+
+msgid "penbros.zip"
+msgstr "企鹅兄弟(日版)"
+
+msgid "ballbros.zip"
+msgstr "气球兄弟"
+
+msgid "ginkun.zip"
+msgstr "前代末间大爆笑"
+
+msgid "diverboy.zip"
+msgstr "潜水宝宝"
+
+msgid "calipso.zip"
+msgstr "潜水任务"
+
+msgid "gigandes.zip"
+msgstr "潜艇卫星"
+
+msgid "gigandesj.zip"
+msgstr "潜艇卫星(日版)"
+
+msgid "gunfrontj.zip"
+msgstr "枪之国度(日版)"
+
+msgid "gunfront.zip"
+msgstr "枪之国度(世界版)"
+
+msgid "igmo.zip"
+msgstr "抢救同伴"
+
+msgid "blockbl.zip"
+msgstr "敲砖块(盗版)"
+
+msgid "blockj.zip"
+msgstr "敲砖块(日版910910)"
+
+msgid "block.zip"
+msgstr "敲砖块(世界版911106操纵杆)"
+
+msgid "blockjoy.zip"
+msgstr "敲砖块(世界版911106操纵杆,BadDump?)"
+
+msgid "jojobane.zip"
+msgstr "乔乔的奇妙冒险-未来遗产(欧洲版,990913,NOCD)"
+
+msgid "jojoba.zip"
+msgstr "乔乔的奇妙冒险-未来遗产(日版,990913)"
+
+msgid "jojoban.zip"
+msgstr "乔乔的奇妙冒险-未来遗产(日版,990913,NOCD)"
+
+msgid "jojoa.zip"
+msgstr "乔乔的奇妙冒险(日版,981202)"
+
+msgid "jojo.zip"
+msgstr "乔乔的奇妙冒险(日版,990108)"
+
+msgid "jojoan.zip"
+msgstr "乔乔的奇妙冒险(亚洲版,981202,NOCD)"
+
+msgid "jojon.zip"
+msgstr "乔乔的奇妙冒险(亚洲版,990108,NOCD)"
+
+msgid "retofinv.zip"
+msgstr "侵略者回归"
+
+msgid "retofinv1.zip"
+msgstr "侵略者回归(盗版第1套)"
+
+msgid "retofinv2.zip"
+msgstr "侵略者回归(盗版第2套)"
+
+msgid "retofin3.zip"
+msgstr "侵略者回归(盗版第3套)"
+
+msgid "sscandal.zip"
+msgstr "青春物语(315-5132,日版)"
+
+msgid "froggers.zip"
+msgstr "青蛙过河"
+
+msgid "frogger.zip"
+msgstr "青蛙过河"
+
+msgid "frogf.zip"
+msgstr "青蛙过河(Falcon盗版)"
+
+msgid "frogg.zip"
+msgstr "青蛙过河(Galaxian硬件)"
+
+msgid "froggermc.zip"
+msgstr "青蛙过河(MoonCresta硬件)"
+
+msgid "froggers1.zip"
+msgstr "青蛙过河(Sega第1套)"
+
+msgid "froggers2.zip"
+msgstr "青蛙过河(Sega第2套)"
+
+msgid "loverboy.zip"
+msgstr "求爱男孩"
+
+msgid "cookbib.zip"
+msgstr "曲吉鼠解谜"
+
+msgid "cookbib2.zip"
+msgstr "曲吉鼠解谜2"
+
+msgid "cookbib3.zip"
+msgstr "曲吉鼠解谜3"
+
+msgid "kof2000.zip"
+msgstr "拳皇2000"
+
+msgid "kof2knd.zip"
+msgstr "拳皇2000(C解密)"
+
+msgid "kof2000n.zip"
+msgstr "拳皇2000(程序未加密)"
+
+msgid "kof2001.zip"
+msgstr "拳皇2001(第1套)"
+
+msgid "kof2001h.zip"
+msgstr "拳皇2001(第2套)"
+
+msgid "kof2k1nd.zip"
+msgstr "拳皇2001(完全解密)"
+
+msgid "kf2k1pa.zip"
+msgstr "拳皇2001风云再起Plus(盗版/第2套)"
+
+msgid "kf2k1pls.zip"
+msgstr "拳皇2001增强型Plus(盗版/第1套)"
+
+msgid "kof2002.zip"
+msgstr "拳皇2002-终极挑战"
+
+msgid "kf2k2ps2.zip"
+msgstr "拳皇2002-终极挑战(PlayStation2ver0.4,EGHThack)"
+
+msgid "kof2002b.zip"
+msgstr "拳皇2002-终极挑战(盗版)"
+
+msgid "kof2k2nd.zip"
+msgstr "拳皇2002-终极挑战(完全解密)"
+
+msgid "kf2k2mp.zip"
+msgstr "拳皇2002-终极挑战MagicPlus(盗版)"
+
+msgid "kf2k2mp2.zip"
+msgstr "拳皇2002-终极挑战MagicPlusII(盗版)"
+
+msgid "kf2k2plb.zip"
+msgstr "拳皇2002-终极挑战Plus(盗版/第3套)"
+
+msgid "kf2k2plc.zip"
+msgstr "拳皇2002-终极挑战Super(盗版/第4套)"
+
+msgid "kf2k2pls.zip"
+msgstr "拳皇2002-终极挑战风云再起(盗版第1套)"
+
+msgid "kf2k2pla.zip"
+msgstr "拳皇2002-终极挑战风云再起Plus(盗版第2套)"
+
+msgid "kf2k3bl.zip"
+msgstr "拳皇2003(盗版第1套)"
+
+msgid "kf2k3bla.zip"
+msgstr "拳皇2003(盗版第2套)"
+
+msgid "kof2003.zip"
+msgstr "拳皇2003(第1套)"
+
+msgid "kof2003h.zip"
+msgstr "拳皇2003(第2套)"
+
+msgid "kf2k3pcb.zip"
+msgstr "拳皇2003(日版,JAMMAPCB)"
+
+msgid "k2k3pcbd.zip"
+msgstr "拳皇2003(日版,JAMMAPCB,C解密)"
+
+msgid "kof2k3nd.zip"
+msgstr "拳皇2003(完全解密)"
+
+msgid "kf2k3pl.zip"
+msgstr "拳皇2004EXHero(盗版)"
+
+msgid "kf2k3upl.zip"
+msgstr "拳皇2004EX风云Plus(盗版)"
+
+msgid "kof94.zip"
+msgstr "拳皇'94"
+
+msgid "kof95.zip"
+msgstr "拳皇'95(第1套)"
+
+msgid "kof95h.zip"
+msgstr "拳皇'95(第2套)"
+
+msgid "kof95a.zip"
+msgstr "拳皇'95(第2套)"
+
+msgid "kof96ae.zip"
+msgstr "拳皇'96(AnniversaryEdition,EGHThack)"
+
+msgid "kof96ep.zip"
+msgstr "拳皇'96(盗版/hack)"
+
+msgid "kof96.zip"
+msgstr "拳皇'96(第1套)"
+
+msgid "kof96h.zip"
+msgstr "拳皇'96(第2套)"
+
+msgid "kof96cn.zip"
+msgstr "拳皇'96(中文版1.0,hack)"
+
+msgid "kof97xt.zip"
+msgstr "拳皇'97-最终の决战(hack)"
+
+msgid "kof97.zip"
+msgstr "拳皇'97(第1套)"
+
+msgid "kof97h.zip"
+msgstr "拳皇'97(第2套)"
+
+msgid "kof97pls.zip"
+msgstr "拳皇'97风云再起Plus(盗版)"
+
+msgid "kof97cn.zip"
+msgstr "拳皇'97十周年中文版(EGHThack)"
+
+msgid "kof97pla.zip"
+msgstr "拳皇'97重出江湖Plus2003(盗版)"
+
+msgid "kof98.zip"
+msgstr "拳皇'98-梦战斗未结束"
+
+msgid "kof98ae.zip"
+msgstr "拳皇'98-梦战斗未结束(AnniversaryEdition,EGHThack)"
+
+msgid "kof98k.zip"
+msgstr "拳皇'98-梦战斗未结束(韩国机板)"
+
+msgid "kof98n.zip"
+msgstr "拳皇'98-梦战斗未结束(未加密)"
+
+msgid "kof99n.zip"
+msgstr "拳皇'99-千年之战(程序未加密)"
+
+msgid "kof99.zip"
+msgstr "拳皇'99-千年之战(第1套)"
+
+msgid "kof99a.zip"
+msgstr "拳皇'99-千年之战(第2套)"
+
+msgid "kof99p.zip"
+msgstr "拳皇'99-千年之战(工程版)"
+
+msgid "kof99nd.zip"
+msgstr "拳皇'99-千年之战(完全解密)"
+
+msgid "kof99e.zip"
+msgstr "拳皇'99-千年之战(早期版本)"
+
+msgid "svcpcbnd.zip"
+msgstr "拳皇vs.街霸(JAMMAPCB,第1套,C解密)"
+
+msgid "svcnd.zip"
+msgstr "拳皇vs.街霸(完全解密)"
+
+msgid "svc.zip"
+msgstr "拳皇对街霸"
+
+msgid "svcpcb.zip"
+msgstr "拳皇对街霸(JAMMAPCB,第1套)"
+
+msgid "svcpcba.zip"
+msgstr "拳皇对街霸(JAMMAPCB,第2套)"
+
+msgid "svcboot.zip"
+msgstr "拳皇对街霸(盗版)"
+
+msgid "svcsplus.zip"
+msgstr "拳皇对街霸超级加强版(盗版)"
+
+msgid "svcplus.zip"
+msgstr "拳皇对街霸加强版(盗版第1套)"
+
+msgid "svcplusa.zip"
+msgstr "拳皇对街霸加强版(盗版第2套)"
+
+msgid "kof10th.zip"
+msgstr "拳皇十周年纪念-所有队伍的战斗(盗版)"
+
+msgid "kf2k5uni.zip"
+msgstr "拳皇十周年纪念-所有队伍的战斗2005Unique(盗版)"
+
+msgid "kf10thep.zip"
+msgstr "拳皇十周年纪念-所有队伍的战斗ExtraPlus(盗版)"
+
+msgid "kof2k4se.zip"
+msgstr "拳皇特别版2004(盗版)"
+
+msgid "kf2k4pls.zip"
+msgstr "拳皇特别版2004风云再起(盗版)"
+
+msgid "quizkof.zip"
+msgstr "拳皇问答"
+
+msgid "froundl.zip"
+msgstr "拳击决赛(版本L)"
+
+msgid "fround.zip"
+msgstr "拳击决赛(版本M)"
+
+msgid "hpuncher.zip"
+msgstr "拳击决赛(日版)"
+
+msgid "mainevt2p.zip"
+msgstr "拳击擂台(2Playersver.X)"
+
+msgid "mainevto.zip"
+msgstr "拳击擂台(4Playersver.F)"
+
+msgid "mainevt.zip"
+msgstr "拳击擂台(4Playersver.Y)"
+
+msgid "ringohja.zip"
+msgstr "拳击擂台(日版2Playersver.N)"
+
+msgid "jyangoku.zip"
+msgstr "雀国志:覇王の采牌(日版990527)"
+
+msgid "janshin.zip"
+msgstr "雀神传说-寻找麻将大师"
+
+msgid "burningf.zip"
+msgstr "热血快打(第1套)"
+
+msgid "burningfh.zip"
+msgstr "热血快打(第2套)"
+
+msgid "renegade.zip"
+msgstr "热血硬派(美版)"
+
+msgid "kuniokunb.zip"
+msgstr "热血硬派(日版盗版)"
+
+msgid "kuniokun.zip"
+msgstr "热血硬派(日版)"
+
+msgid "ninja.zip"
+msgstr "忍者(315-5102)"
+
+msgid "ncombat.zip"
+msgstr "忍者大战(第1套)"
+
+msgid "ncombath.zip"
+msgstr "忍者大战(第2套)"
+
+msgid "nprinces.zip"
+msgstr "忍者公主(315-5051,64kVer.盗版?)"
+
+msgid "nprincesb.zip"
+msgstr "忍者公主(315-5051?,128kVer.盗版?)"
+
+msgid "nprinceso.zip"
+msgstr "忍者公主(315-5098,128kVer.)"
+
+msgid "nprincesu.zip"
+msgstr "忍者公主(64kVer.未加密)"
+
+msgid "gaiden.zip"
+msgstr "忍者龙剑传(美版)"
+
+msgid "ryukendn.zip"
+msgstr "忍者龙剑传(日版,第1套)"
+
+msgid "ryukendna.zip"
+msgstr "忍者龙剑传(日版,第2套)"
+
+msgid "shadoww.zip"
+msgstr "忍者龙剑传(世界版,第1套)"
+
+msgid "shadowwa.zip"
+msgstr "忍者龙剑传(世界版,第2套)"
+
+msgid "tmnt2po.zip"
+msgstr "忍者神龟(大洋洲版2Players)"
+
+msgid "tmntu.zip"
+msgstr "忍者神龟(美版4Players,第1套)"
+
+msgid "tmntua.zip"
+msgstr "忍者神龟(美版4Players,第2套)"
+
+msgid "tmnt2pj.zip"
+msgstr "忍者神龟(日版2Players)"
+
+msgid "tmntj.zip"
+msgstr "忍者神龟(日版4Players)"
+
+msgid "tmnt.zip"
+msgstr "忍者神龟(世界版4Players)"
+
+msgid "tmht2p.zip"
+msgstr "忍者神龟(英国版2Players,第1套)"
+
+msgid "tmht2pa.zip"
+msgstr "忍者神龟(英国版2Players,第2套)"
+
+msgid "tmht.zip"
+msgstr "忍者神龟(英国版4Players)"
+
+msgid "tmht22pe.zip"
+msgstr "忍者神龟2(2PlayersverEBA)"
+
+msgid "tmnt22pu.zip"
+msgstr "忍者神龟2(2PlayersverUDA)"
+
+msgid "tmnt2a.zip"
+msgstr "忍者神龟2(4PlayersverADA)"
+
+msgid "tmnt2.zip"
+msgstr "忍者神龟2(4PlayersverUAA)"
+
+msgid "ninjawj.zip"
+msgstr "忍者武士(日版)"
+
+msgid "ninjaw.zip"
+msgstr "忍者武士(世界版)"
+
+msgid "ninjaku.zip"
+msgstr "忍者小子(美版)"
+
+msgid "ninjakj.zip"
+msgstr "忍者小子(日版)"
+
+msgid "ninjak.zip"
+msgstr "忍者小子(世界版)"
+
+msgid "ncommand.zip"
+msgstr "忍者战士"
+
+msgid "choko.zip"
+msgstr "日本益智麻将牌-长江(日版010820)"
+
+msgid "mj4simai.zip"
+msgstr "若草物语-麻雀四姊妹(日版)"
+
+msgid "mofflott.zip"
+msgstr "赛车迷宫(日版)"
+
+msgid "stakwin.zip"
+msgstr "赛马大亨/赏金猎手-GI完全制霸之道"
+
+msgid "stakwin2.zip"
+msgstr "赛马大亨/赏金猎手2"
+
+msgid "kovsh103.zip"
+msgstr "三国战纪-风云再起(ver.103)"
+
+msgid "kovsh.zip"
+msgstr "三国战纪-风云再起(ver.104)"
+
+msgid "kovqhsgs.zip"
+msgstr "三国战纪-拳皇三国特别版(ver.303CN)"
+
+msgid "kovj.zip"
+msgstr "三国战纪(ver.100,日文基版)"
+
+msgid "kov115.zip"
+msgstr "三国战纪(ver.115)"
+
+msgid "kov.zip"
+msgstr "三国战纪(ver.117)"
+
+msgid "kov2p.zip"
+msgstr "三国战纪2-群雄争霸(ver.M204XX)"
+
+msgid "kov2p205.zip"
+msgstr "三国战纪2-群雄争霸(ver.M205XX)"
+
+msgid "kov2.zip"
+msgstr "三国战纪2(ver.100)"
+
+msgid "kov2a.zip"
+msgstr "三国战纪2(ver.101)"
+
+msgid "kov2106.zip"
+msgstr "三国战纪2(ver.106)"
+
+msgid "kovplusa.zip"
+msgstr "三国战纪正宗Plus(ver.119替换版)"
+
+msgid "kovplus.zip"
+msgstr "三国战纪正宗Plus(ver.119)"
+
+msgid "wofjh.zip"
+msgstr "三国志II-赤壁之战(TenchiwoKurau2921031日版盗版)"
+
+msgid "wofu.zip"
+msgstr "三国志II(美版921031)"
+
+msgid "wof.zip"
+msgstr "三国志II(世界版921002)"
+
+msgid "wofa.zip"
+msgstr "三国志II(亚洲版921005)"
+
+msgid "wofhfh.zip"
+msgstr "三国志II:火凤凰(中国盗版)"
+
+msgid "wof3js.zip"
+msgstr "三国志II:三剑圣(中国盗版)"
+
+msgid "wofah.zip"
+msgstr "三国志II(Sangokushi2921005亚洲版盗版第2套)"
+
+msgid "spatter.zip"
+msgstr "三轮车物语"
+
+msgid "ssanchan.zip"
+msgstr "三轮车物语(日版)"
+
+msgid "growlu.zip"
+msgstr "森林保护神(美版)"
+
+msgid "runark.zip"
+msgstr "森林保护神(日版)"
+
+msgid "growl.zip"
+msgstr "森林保护神(世界版)"
+
+msgid "insectx.zip"
+msgstr "杀虫战记(世界版)"
+
+msgid "desertbr.zip"
+msgstr "沙漠王(FD1094317-0196)"
+
+msgid "bakatono.zip"
+msgstr "傻瓜殿下麻雀漫游记"
+
+msgid "twinkle.zip"
+msgstr "闪亮小精灵"
+
+msgid "blazstar.zip"
+msgstr "闪亮之星/炽热星空"
+
+msgid "dealer.zip"
+msgstr "商品买卖"
+
+msgid "sfzbr1.zip"
+msgstr "少年街霸(巴西版950727)"
+
+msgid "sfzb.zip"
+msgstr "少年街霸(巴西版951109)"
+
+msgid "sfzjr2.zip"
+msgstr "少年街霸(日版950605)"
+
+msgid "sfzjr1.zip"
+msgstr "少年街霸(日版950627)"
+
+msgid "sfzj.zip"
+msgstr "少年街霸(日版950727)"
+
+msgid "sfzh.zip"
+msgstr "少年街霸(西班牙版950627)"
+
+msgid "sfza.zip"
+msgstr "少年街霸(亚洲版950627)"
+
+msgid "sfz2br1.zip"
+msgstr "少年街霸2(巴西版960304)"
+
+msgid "sfz2b.zip"
+msgstr "少年街霸2(巴西版960531)"
+
+msgid "sfz2n.zip"
+msgstr "少年街霸2(大洋洲版960229)"
+
+msgid "sfa2u.zip"
+msgstr "少年街霸2(美版960306)"
+
+msgid "sfa2.zip"
+msgstr "少年街霸2(欧洲版960229)"
+
+msgid "sfz2j.zip"
+msgstr "少年街霸2(日版960227)"
+
+msgid "sfz2h.zip"
+msgstr "少年街霸2(西班牙版960304)"
+
+msgid "sfz2ad.zip"
+msgstr "少年街霸2(亚洲版960227凤凰版)(盗版)"
+
+msgid "sfz2a.zip"
+msgstr "少年街霸2(亚洲版960227)"
+
+msgid "sfz2alb.zip"
+msgstr "少年街霸2Alpha(巴西版960813)"
+
+msgid "sfz2alj.zip"
+msgstr "少年街霸2Alpha(日版960805)"
+
+msgid "sfz2alh.zip"
+msgstr "少年街霸2Alpha(西班牙版960813)"
+
+msgid "sfz2ald.zip"
+msgstr "少年街霸2Alpha(亚洲版960826凤凰版)(盗版)"
+
+msgid "sfz2al.zip"
+msgstr "少年街霸2Alpha(亚洲版960826)"
+
+msgid "sfa3b.zip"
+msgstr "少年街霸3(巴西版980629)"
+
+msgid "sfa3ur1.zip"
+msgstr "少年街霸3(美版980629)"
+
+msgid "sfa3ud.zip"
+msgstr "少年街霸3(美版980904凤凰版)(盗版)"
+
+msgid "sfa3u.zip"
+msgstr "少年街霸3(美版980904)"
+
+msgid "sfa3.zip"
+msgstr "少年街霸3(欧洲版980904)"
+
+msgid "sfz3jr2.zip"
+msgstr "少年街霸3(日版980629)"
+
+msgid "sfz3jr1.zip"
+msgstr "少年街霸3(日版980727)"
+
+msgid "sfz3j.zip"
+msgstr "少年街霸3(日版980904)"
+
+msgid "sfz3ar1.zip"
+msgstr "少年街霸3(亚洲版980701)"
+
+msgid "sfz3a.zip"
+msgstr "少年街霸3(亚洲版980904)"
+
+msgid "sfau.zip"
+msgstr "少年街霸:斗士之梦(美版950627)"
+
+msgid "sfar3.zip"
+msgstr "少年街霸:斗士之梦(欧洲版950605)"
+
+msgid "sfar2.zip"
+msgstr "少年街霸:斗士之梦(欧洲版950627)"
+
+msgid "sfar1.zip"
+msgstr "少年街霸:斗士之梦(欧洲版950718)"
+
+msgid "sfad.zip"
+msgstr "少年街霸:斗士之梦(欧洲版950727凤凰版)(盗版)"
+
+msgid "sfa.zip"
+msgstr "少年街霸:斗士之梦(欧洲版950727)"
+
+msgid "eggor.zip"
+msgstr "射蛋"
+
+msgid "goalx3.zip"
+msgstr "射门!射门!射门!"
+
+msgid "theend.zip"
+msgstr "射蜘蛛"
+
+msgid "theends.zip"
+msgstr "射蜘蛛(Stern)"
+
+msgid "vandykejal.zip"
+msgstr "神话战士(Jaleco,第1套)"
+
+msgid "vandykejal2.zip"
+msgstr "神话战士(Jaleco,第2套)"
+
+msgid "vandykeb.zip"
+msgstr "神话战士(盗版PIC16c57)"
+
+msgid "vandyke.zip"
+msgstr "神话战士(日版)"
+
+msgid "ragnagrd.zip"
+msgstr "神凰拳"
+
+msgid "fantzone1.zip"
+msgstr "神奇地带(第1套,未保护版)"
+
+msgid "fantzone.zip"
+msgstr "神奇地带(第2套,未保护版)"
+
+msgid "wboy4.zip"
+msgstr "神奇男孩(315-5162,四次元战士转换)"
+
+msgid "wboyo.zip"
+msgstr "神奇男孩(第1套,315-5135)"
+
+msgid "wboy.zip"
+msgstr "神奇男孩(第1套,315-5177)"
+
+msgid "wboy2.zip"
+msgstr "神奇男孩(第2套,315-5178)"
+
+msgid "wboy2u.zip"
+msgstr "神奇男孩(第2套,未加密)"
+
+msgid "wboy3.zip"
+msgstr "神奇男孩(第3套,315-5135)"
+
+msgid "wboyu.zip"
+msgstr "神奇男孩(工程版?)"
+
+msgid "wb31.zip"
+msgstr "神奇男孩III-在魔界(第1套,系统16A,FD1094317-0084)"
+
+msgid "wb32.zip"
+msgstr "神奇男孩III-在魔界(第2套,日版,系统16B,FD1094317-0085)"
+
+msgid "wb33.zip"
+msgstr "神奇男孩III-在魔界(第3套,世界版,系统16B,FD1094317-0089)"
+
+msgid "wb34.zip"
+msgstr "神奇男孩III-在魔界(第4套,日版,系统16B,FD1094317-0087)"
+
+msgid "wb3.zip"
+msgstr "神奇男孩III-在魔界(第5套,世界版,系统16B,8751317-0098)"
+
+msgid "wbdeluxe.zip"
+msgstr "神奇男孩豪华版"
+
+msgid "biomtoy.zip"
+msgstr "生化玩具兵(未保护版)"
+
+msgid "bioship.zip"
+msgstr "生化战舰-圣骑士"
+
+msgid "gauntlet2pr3.zip"
+msgstr "圣铠(2Players,rev3)"
+
+msgid "gauntlet2p.zip"
+msgstr "圣铠(2Players,rev6)"
+
+msgid "gauntlet2pg1.zip"
+msgstr "圣铠(2Players,德国版,rev1)"
+
+msgid "gauntlet2pg.zip"
+msgstr "圣铠(2Players,德国版,rev4)"
+
+msgid "gauntlet2pj2.zip"
+msgstr "圣铠(2Players,日版,rev2)"
+
+msgid "gauntlet2pj.zip"
+msgstr "圣铠(2Players,日版,rev5)"
+
+msgid "gauntletr1.zip"
+msgstr "圣铠(rev1)"
+
+msgid "gauntlet.zip"
+msgstr "圣铠(rev14)"
+
+msgid "gauntletr2.zip"
+msgstr "圣铠(rev2)"
+
+msgid "gauntletr4.zip"
+msgstr "圣铠(rev4)"
+
+msgid "gauntletr5.zip"
+msgstr "圣铠(rev5)"
+
+msgid "gauntletr7.zip"
+msgstr "圣铠(rev7)"
+
+msgid "gauntletr9.zip"
+msgstr "圣铠(rev9)"
+
+msgid "gauntletg.zip"
+msgstr "圣铠(德国版,rev10)"
+
+msgid "gauntletgr3.zip"
+msgstr "圣铠(德国版,rev3)"
+
+msgid "gauntletgr6.zip"
+msgstr "圣铠(德国版,rev6)"
+
+msgid "gauntletgr8.zip"
+msgstr "圣铠(德国版,rev8)"
+
+msgid "gauntletj12.zip"
+msgstr "圣铠(日版,rev12)"
+
+msgid "gauntletj.zip"
+msgstr "圣铠(日版,rev13)"
+
+msgid "gauntlets.zip"
+msgstr "圣铠(西班牙版,rev15)"
+
+msgid "gaunt2.zip"
+msgstr "圣铠II"
+
+msgid "gaunt22p1.zip"
+msgstr "圣铠II(2Players,rev1)"
+
+msgid "gaunt22p.zip"
+msgstr "圣铠II(2Players,rev2)"
+
+msgid "gaunt22pg.zip"
+msgstr "圣铠II(2Players,德国版)"
+
+msgid "gaunt2g.zip"
+msgstr "圣铠II(德国版)"
+
+msgid "victnine.zip"
+msgstr "胜利棒球"
+
+msgid "trophyh.zip"
+msgstr "胜利打猎-熊&鹿V1.0"
+
+msgid "mjnquestb.zip"
+msgstr "圣雀士龙子(非脱衣版)"
+
+msgid "mjnquest.zip"
+msgstr "圣雀士龙子(日版)"
+
+msgid "crsword.zip"
+msgstr "圣十字剑"
+
+msgid "grdnstrm.zip"
+msgstr "圣战-守护风暴"
+
+msgid "grdnstrmk.zip"
+msgstr "圣战-守护风暴(韩国版)"
+
+msgid "forgottnu.zip"
+msgstr "失落的世界(美版)"
+
+msgid "lostwrld.zip"
+msgstr "失落的世界(日版)"
+
+msgid "forgottn.zip"
+msgstr "失落的世界(世界版)"
+
+msgid "mrviking.zip"
+msgstr "失落的维京人(315-5041)"
+
+msgid "mrvikingj.zip"
+msgstr "失落的维京人(315-5041,日版)"
+
+msgid "timescan1.zip"
+msgstr "时空弹珠台(第1套,系统16A,FD1089B317-0024)"
+
+msgid "timescan.zip"
+msgstr "时空弹珠台(第2套,系统16B)"
+
+msgid "sharrier1.zip"
+msgstr "时空哈利(8751317-0063?)"
+
+msgid "sharrier.zip"
+msgstr "时空哈利(RevA,8751317-0063A?)"
+
+msgid "spinlbrku.zip"
+msgstr "时空英雄(美版)"
+
+msgid "spinlbrkj.zip"
+msgstr "时空英雄(日版)"
+
+msgid "spinlbrk.zip"
+msgstr "时空英雄(世界版)"
+
+msgid "livequiz.zip"
+msgstr "实况问答秀"
+
+msgid "agallet.zip"
+msgstr "石破天惊(JUEHTK)"
+
+msgid "anteater.zip"
+msgstr "食蚁兽"
+
+msgid "anteatg.zip"
+msgstr "食蚁兽(德国版)"
+
+msgid "anteatgb.zip"
+msgstr "食蚁兽(英国版)"
+
+msgid "samsho.zip"
+msgstr "侍魂-十二剑手(第1套)"
+
+msgid "samshoh.zip"
+msgstr "侍魂-十二剑手(第2套)"
+
+msgid "samsho5b.zip"
+msgstr "侍魂Ⅴ/侍魂零(盗版)"
+
+msgid "samsho5.zip"
+msgstr "侍魂Ⅴ/侍魂零(第1套)"
+
+msgid "samsho5h.zip"
+msgstr "侍魂Ⅴ/侍魂零(第2套)"
+
+msgid "samsh5nd.zip"
+msgstr "侍魂Ⅴ/侍魂零(完全解密)"
+
+msgid "ss5shnd.zip"
+msgstr "侍魂ⅤSPECIAL/侍魂零特别版(C解密)"
+
+msgid "samsh5sp.zip"
+msgstr "侍魂ⅤSPECIAL/侍魂零特别版(第1套未删减版)"
+
+msgid "samsh5sph.zip"
+msgstr "侍魂ⅤSPECIAL/侍魂零特别版(第2套,删减版)"
+
+msgid "samsh5spn.zip"
+msgstr "侍魂ⅤSPECIAL/侍魂零特别版(第3套少量删减版)"
+
+msgid "samsho2.zip"
+msgstr "侍魂II/真侍魂-霸王丸地狱变"
+
+msgid "samsho3.zip"
+msgstr "侍魂III/侍魂-斩红郎无双剑(第1套)"
+
+msgid "samsho3h.zip"
+msgstr "侍魂III/侍魂-斩红郎无双剑(第2套)"
+
+msgid "samsho4.zip"
+msgstr "侍魂IV-天草降临"
+
+msgid "mimonkey.zip"
+msgstr "世纪猴王"
+
+msgid "mimonsco.zip"
+msgstr "世纪猴王(盗版onSuperCobra硬件)"
+
+msgid "mimonscr.zip"
+msgstr "世纪猴王(盗版紧急起飞硬件)"
+
+msgid "fpoint1.zip"
+msgstr "世嘉俄罗斯方块解谜(第1套,日版,FD1094317-0127A)"
+
+msgid "fpoint.zip"
+msgstr "世嘉俄罗斯方块解谜(第2套,日版,FD1094317-0127A)"
+
+msgid "fpointbj.zip"
+msgstr "世嘉俄罗斯方块解谜(日版,盗版)"
+
+msgid "fpointbl.zip"
+msgstr "世嘉俄罗斯方块解谜(世界版,盗版)"
+
+msgid "hangon1.zip"
+msgstr "世嘉摩托车大赛"
+
+msgid "hangon.zip"
+msgstr "世嘉摩托车大赛(RevA)"
+
+msgid "seganinj.zip"
+msgstr "世嘉忍者(315-5102)"
+
+msgid "seganinju.zip"
+msgstr "世嘉忍者(未加密)"
+
+msgid "enduror.zip"
+msgstr "世嘉越野机车赛(YM2151,FD1089B317-0013A)"
+
+msgid "enduror1.zip"
+msgstr "世嘉越野机车赛(YM2203,FD1089B317-0013A)"
+
+msgid "endurobl.zip"
+msgstr "世嘉越野机车赛(盗版第1套)"
+
+msgid "bottom9n.zip"
+msgstr "世界棒球(版本N)"
+
+msgid "bottom9.zip"
+msgstr "世界棒球(版本T)"
+
+msgid "mstadium.zip"
+msgstr "世界棒球(日版)"
+
+msgid "wc90t.zip"
+msgstr "世界杯足球'90(trackball第1套)"
+
+msgid "wc90a.zip"
+msgstr "世界杯足球'90(欧洲版第1套)"
+
+msgid "wc90b.zip"
+msgstr "世界杯足球'90(欧洲版第2套)"
+
+msgid "wc90.zip"
+msgstr "世界杯足球'90(世界版)"
+
+msgid "btlkroad.zip"
+msgstr "世界武术格斗比赛"
+
+msgid "wh1.zip"
+msgstr "世界英雄(第1套)"
+
+msgid "wh1h.zip"
+msgstr "世界英雄(第2套)"
+
+msgid "wh1ha.zip"
+msgstr "世界英雄(第3套)"
+
+msgid "wh2.zip"
+msgstr "世界英雄2"
+
+msgid "wh2j.zip"
+msgstr "世界英雄2喷射版(第1套)"
+
+msgid "wh2jh.zip"
+msgstr "世界英雄2喷射版(第2套)"
+
+msgid "whp.zip"
+msgstr "世界英雄完美版"
+
+msgid "donpachikr.zip"
+msgstr "首领蜂(韩国版)"
+
+msgid "donpachi.zip"
+msgstr "首领蜂(美版)"
+
+msgid "donpachij.zip"
+msgstr "首领蜂(日版)"
+
+msgid "donpachihk.zip"
+msgstr "首领蜂(香港版)"
+
+msgid "altbeast2.zip"
+msgstr "兽王记(第2套,MC-8123B317-0066)"
+
+msgid "altbeastj3.zip"
+msgstr "兽王记(第3套,日版,FD1094317-0068)"
+
+msgid "altbeast4.zip"
+msgstr "兽王记(第4套,MC-8123B317-0066)"
+
+msgid "altbeast5.zip"
+msgstr "兽王记(第5套,8751317-0076)"
+
+msgid "altbeastj.zip"
+msgstr "兽王记(第6套,日版,8751317-0077)"
+
+msgid "altbeast.zip"
+msgstr "兽王记(第7套,8751317-0078)"
+
+msgid "mbomberj.zip"
+msgstr "摔跤霸王-肌肉爆弹(日版930713)"
+
+msgid "mbombrdj.zip"
+msgstr "摔跤霸王-热力战士(日版931206)"
+
+msgid "mbombrd.zip"
+msgstr "摔跤霸王-最终之战(世界版931206)"
+
+msgid "slammastu.zip"
+msgstr "摔跤霸王(美版930713)"
+
+msgid "slammast.zip"
+msgstr "摔跤霸王(世界版930713)"
+
+msgid "ringdstd.zip"
+msgstr "摔跤霸王II(欧洲版940902凤凰版)(盗版)"
+
+msgid "ringdest.zip"
+msgstr "摔跤霸王II(欧洲版940902)"
+
+msgid "smbombr1.zip"
+msgstr "摔跤霸王II(日版940808)"
+
+msgid "smbomb.zip"
+msgstr "摔跤霸王II(日版940831)"
+
+msgid "wrestwar1.zip"
+msgstr "摔跤大战(第1套,日版,FD1094317-0090)"
+
+msgid "wrestwar2.zip"
+msgstr "摔跤大战(第2套,世界版,FD1094317-0102)"
+
+msgid "wrestwar.zip"
+msgstr "摔跤大战(第3套,世界版,8751317-0103)"
+
+msgid "doubledr.zip"
+msgstr "双截龙(Neo-Geo)"
+
+msgid "ddragonb.zip"
+msgstr "双截龙(盗版HD6309)"
+
+msgid "ddragonba.zip"
+msgstr "双截龙(盗版M6803)"
+
+msgid "ddragonb2.zip"
+msgstr "双截龙(盗版)"
+
+msgid "ddragonu.zip"
+msgstr "双截龙(美版第1套)"
+
+msgid "ddragonua.zip"
+msgstr "双截龙(美版第2套)"
+
+msgid "ddragon.zip"
+msgstr "双截龙(日版)"
+
+msgid "ddragonw.zip"
+msgstr "双截龙(世界版第1套)"
+
+msgid "ddragonw1.zip"
+msgstr "双截龙(世界版第2套)"
+
+msgid "ddragon3b.zip"
+msgstr "双截龙3-罗塞塔之石(盗版)"
+
+msgid "ddragon3p.zip"
+msgstr "双截龙3-罗塞塔之石(工程版)"
+
+msgid "ddragon3.zip"
+msgstr "双截龙3-罗塞塔之石(美版)"
+
+msgid "ddragon3j.zip"
+msgstr "双截龙3-罗塞塔之石(日版)"
+
+msgid "ddragon2u.zip"
+msgstr "双截龙II-复仇(美版)"
+
+msgid "ddragon2.zip"
+msgstr "双截龙II-复仇(世界版)"
+
+msgid "chikij.zip"
+msgstr "双麒儿(日版900619)"
+
+msgid "mtwins.zip"
+msgstr "双麒儿(世界版900619)"
+
+msgid "pisces.zip"
+msgstr "双鱼座"
+
+msgid "piscesb.zip"
+msgstr "双鱼座(盗版)"
+
+msgid "omni.zip"
+msgstr "双鱼座Omni"
+
+msgid "theglob.zip"
+msgstr "水滴"
+
+msgid "theglob2.zip"
+msgstr "水滴(早期版)"
+
+msgid "silkroad.zip"
+msgstr "丝绸之路"
+
+msgid "deadconxj.zip"
+msgstr "死亡边缘(日版)"
+
+msgid "deadconx.zip"
+msgstr "死亡边缘(世界版)"
+
+msgid "pulstar.zip"
+msgstr "死亡之星/惑星战机"
+
+msgid "4dwarrio.zip"
+msgstr "四次元战士(315-5162)"
+
+msgid "aerofgt.zip"
+msgstr "四国战机"
+
+msgid "aerofgtb.zip"
+msgstr "四国战机(加速力量硬件第1套)"
+
+msgid "aerofgtc.zip"
+msgstr "四国战机(加速力量硬件第2套)"
+
+msgid "sonicwi.zip"
+msgstr "四国战机(日版)"
+
+msgid "sonicwi2.zip"
+msgstr "四国战机2/音速之翼2"
+
+msgid "sonicwi3.zip"
+msgstr "四国战机3/音速之翼3"
+
+msgid "4enraya.zip"
+msgstr "四连线"
+
+msgid "dblaxle.zip"
+msgstr "四驱赛车(美版)"
+
+msgid "pwheelsj.zip"
+msgstr "四驱赛车(日版)"
+
+msgid "taotaido.zip"
+msgstr "苏婆诃格斗-太鸥体道(第1套)"
+
+msgid "taotaidoa.zip"
+msgstr "苏婆诃格斗-太鸥体道(第2套)"
+
+msgid "solomon.zip"
+msgstr "所罗门之钥(美版)"
+
+msgid "solomonj.zip"
+msgstr "所罗门之钥(日版)"
+
+msgid "teddybbo.zip"
+msgstr "泰迪男孩布鲁斯(315-5115,旧版)"
+
+msgid "teddybb.zip"
+msgstr "泰迪男孩布鲁斯(315-5115,新版)"
+
+msgid "brain.zip"
+msgstr "太空登陆战"
+
+msgid "speakres.zip"
+msgstr "太空防卫-Speak&Rescue"
+
+msgid "stratvox.zip"
+msgstr "太空防卫-Stratovox"
+
+msgid "stratvoxb.zip"
+msgstr "太空防卫-Stratovox(盗版)"
+
+msgid "spacecho.zip"
+msgstr "太空防卫(第1套)"
+
+msgid "ad2083.zip"
+msgstr "太空核战2083"
+
+msgid "sraider.zip"
+msgstr "太空雷达"
+
+msgid "freeze.zip"
+msgstr "太空人迷宫"
+
+msgid "spcpostn.zip"
+msgstr "太空赛车(日版)"
+
+msgid "gyrussce.zip"
+msgstr "太空射击战(Centuri)"
+
+msgid "gyruss.zip"
+msgstr "太空射击战(Konami)"
+
+msgid "venus.zip"
+msgstr "太空射击战Venus"
+
+msgid "spacegun.zip"
+msgstr "太空神枪(世界版)"
+
+msgid "sbomberb.zip"
+msgstr "太空炸弹(ver.B)"
+
+msgid "dariuse.zip"
+msgstr "太空战斗机(额外版)(日版)"
+
+msgid "dariuso.zip"
+msgstr "太空战斗机(日版旧版)"
+
+msgid "dariusj.zip"
+msgstr "太空战斗机(日版)"
+
+msgid "darius.zip"
+msgstr "太空战斗机(世界版)"
+
+msgid "darius2.zip"
+msgstr "太空战斗机II(日版)"
+
+msgid "soldivid.zip"
+msgstr "太阳表决"
+
+msgid "snapper.zip"
+msgstr "贪食蛇-鳄龟(韩国版)"
+
+msgid "drtomy.zip"
+msgstr "汤米医生"
+
+msgid "tangtang.zip"
+msgstr "堂堂(版本.0526,26/05/2000)"
+
+msgid "scinegro.zip"
+msgstr "特别刑事调查组(Negro盗版)"
+
+msgid "sciu.zip"
+msgstr "特别刑事调查组(美版)"
+
+msgid "scij.zip"
+msgstr "特别刑事调查组(日版)"
+
+msgid "sci.zip"
+msgstr "特别刑事调查组(世界版第1套)"
+
+msgid "scia.zip"
+msgstr "特别刑事调查组(世界版第2套)"
+
+msgid "galpanic.zip"
+msgstr "天蚕变(未保护)"
+
+msgid "newfant.zip"
+msgstr "天蚕变95-新幻想曲"
+
+msgid "missmw96.zip"
+msgstr "天蚕变'96-世界先生+世界小姐篇(裸体)"
+
+msgid "missw96.zip"
+msgstr "天蚕变'96(裸体)"
+
+msgid "wownfant.zip"
+msgstr "天蚕变新幻想曲"
+
+msgid "fantasia.zip"
+msgstr "天蚕变幻想曲"
+
+msgid "supmodel.zip"
+msgstr "天蚕变幻想曲-超级名模特"
+
+msgid "fantsy95.zip"
+msgstr "天蚕变幻想曲95"
+
+msgid "fantsia2a.zip"
+msgstr "天蚕变幻想曲II(较明确)"
+
+msgid "fantsia2.zip"
+msgstr "天蚕变幻想曲II(明确)"
+
+msgid "skyfox.zip"
+msgstr "天狐"
+
+msgid "exerizrb.zip"
+msgstr "天狐(日版)(盗版)"
+
+msgid "skybase.zip"
+msgstr "天空基地"
+
+msgid "skylancr.zip"
+msgstr "天空雷射枪"
+
+msgid "skylancre.zip"
+msgstr "天空雷射枪(EscoTradingColicense)"
+
+msgid "alexkidd1.zip"
+msgstr "天空魔城(第1套,FD1089A317-unknown)"
+
+msgid "alexkidd.zip"
+msgstr "天空魔城(第2套,未保护版)"
+
+msgid "ohmygod.zip"
+msgstr "天神方块(日版)"
+
+msgid "angelkds.zip"
+msgstr "天使奇妙冒险(日版)"
+
+msgid "skykidd.zip"
+msgstr "天堂鸟(CUS60版)"
+
+msgid "skykids.zip"
+msgstr "天堂鸟(Sipem)"
+
+msgid "skykido.zip"
+msgstr "天堂鸟(旧版)"
+
+msgid "skykid.zip"
+msgstr "天堂鸟(新版)"
+
+msgid "kabukikl.zip"
+msgstr "天外魔境真传-东方伊甸园"
+
+msgid "jumpbug.zip"
+msgstr "跳跳车"
+
+msgid "jumpbugb.zip"
+msgstr "跳跳车(盗版)"
+
+msgid "popbounc.zip"
+msgstr "跳跳球/动物方块"
+
+msgid "jumpshot.zip"
+msgstr "跳跃篮球"
+
+msgid "jumpshtp.zip"
+msgstr "跳跃篮球EngineeringSample"
+
+msgid "jumpkids.zip"
+msgstr "跳跃顽童"
+
+msgid "rchase.zip"
+msgstr "铁道逃生(日版)"
+
+msgid "mazinger.zip"
+msgstr "铁甲万能侠Z(国际版/日版)"
+
+msgid "pkladies.zip"
+msgstr "同花顺"
+
+msgid "pkladiesla.zip"
+msgstr "同花顺(Leprechaunver.401)"
+
+msgid "pkladiesl.zip"
+msgstr "同花顺(Leprechaunver.510)"
+
+msgid "aodk.zip"
+msgstr "痛快GANGAN进行曲/热血进行曲"
+
+msgid "hedpanic.zip"
+msgstr "头槌小子(版本.0117,17/01/2000)"
+
+msgid "hedpanicf.zip"
+msgstr "头槌小子(版本.0315,15/03/2000)"
+
+msgid "dommy.zip"
+msgstr "骰子工厂"
+
+msgid "lans2004.zip"
+msgstr "突击奇兵/雇佣兵2004(盗版)"
+
+msgid "shocktr2.zip"
+msgstr "突击骑兵/敌后奇兵-第二分队"
+
+msgid "shocktro.zip"
+msgstr "突击骑兵/敌后奇兵(第1套)"
+
+msgid "shocktra.zip"
+msgstr "突击骑兵/敌后奇兵(第2套)"
+
+msgid "drgnbstr.zip"
+msgstr "屠龙记"
+
+msgid "saturn.zip"
+msgstr "土星"
+
+msgid "toppyrap.zip"
+msgstr "兔与龟"
+
+msgid "pushmans.zip"
+msgstr "推石超人(Sammy授权)"
+
+msgid "pushman.zip"
+msgstr "推石超人(韩国版,第1套)"
+
+msgid "pushmana.zip"
+msgstr "推石超人(韩国版,第2套)"
+
+msgid "bagman.zip"
+msgstr "推销员"
+
+msgid "bagmanmc.zip"
+msgstr "推销员(盗版MoonCresta硬件)"
+
+msgid "dynwar.zip"
+msgstr "吞食天地(美版第1套)"
+
+msgid "dynwaru.zip"
+msgstr "吞食天地(美版第2套)"
 
 msgid "dynwarj.zip"
 msgstr "吞食天地(日版)"
 
 msgid "wofj.zip"
-msgstr "吞食天地2-赤壁之战(921031日版)"
+msgstr "吞食天地II-赤壁之战(日版921031)"
 
-msgid "wofch.zip"
-msgstr "吞食天地2-赤壁之战"
+msgid "drtoppelu.zip"
+msgstr "托比博士探险队(美版)"
 
-msgid "wofjh.zip"
-msgstr "吞食天地2-赤壁之战(破解 921031日版)"
+msgid "drtoppelj.zip"
+msgstr "托比博士探险队(日版)"
 
-msgid "kodr1.zip"
-msgstr "龙王(910711通用版)"
+msgid "drtoppel.zip"
+msgstr "托比博士探险队(世界版)"
 
-msgid "kod.zip"
-msgstr "龙王(910805通用版)"
+msgid "esckidsj.zip"
+msgstr "脱线行大运(日版,2Players)"
 
-msgid "kodb.zip"
-msgstr "龙王(改版 910731通用版)"
+msgid "esckids.zip"
+msgstr "脱线行大运(亚洲版,4Players)"
 
-msgid "kodh.zip"
-msgstr "龙王(破解版)"
+msgid "pow.zip"
+msgstr "脱狱-战俘(美版版本1)"
 
-msgid "kodja.zip"
-msgstr "龙王(日版910805 89625B-1)"
+msgid "powj.zip"
+msgstr "脱狱-战俘(日版)"
 
-msgid "kodj.zip"
-msgstr "龙王(日版910805 90629B-3)"
+msgid "hunchbkg.zip"
+msgstr "驼背骑士(Galaxian硬件)"
 
-msgid "kodda.zip"
-msgstr "龙王(凤凰改版 910731通用版)"
+msgid "hunchbak.zip"
+msgstr "驼背骑士(第1套)"
 
-msgid "kodu.zip"
-msgstr "龙王(美版910910)"
+msgid "hunchbks.zip"
+msgstr "驼背骑士(紧急起飞硬件)"
 
-msgid "punisher.zip"
-msgstr "惩罚者(930422通用版)"
+msgid "huncholy.zip"
+msgstr "驼背骑士运动会"
 
-msgid "punisherh.zip"
-msgstr "惩罚者(930422西班牙版)"
+msgid "hncholms.zip"
+msgstr "驼背骑士运动会(紧急起飞硬件)"
 
-msgid "punisherj.zip"
-msgstr "惩罚者(930422日版)"
+msgid "zigzag.zip"
+msgstr "挖金子(Galaxian硬件,第1套)"
 
-msgid "punisheru.zip"
-msgstr "惩罚者(930422美版)"
+msgid "zigzag2.zip"
+msgstr "挖金子(Galaxian硬件,第2套)"
 
-msgid "punipic.zip"
-msgstr "惩罚者(改版1 PIC16c57)"
+msgid "ddungeon.zip"
+msgstr "挖掘大冒险"
 
-msgid "punipic2.zip"
-msgstr "惩罚者(改版2 PIC16c57)"
+msgid "diamond.zip"
+msgstr "挖钻石"
 
-msgid "punipic3.zip"
-msgstr "惩罚者(改版3 PIC16c57)"
+msgid "snapjack.zip"
+msgstr "外星小精灵"
 
-msgid "3wondersh.zip"
-msgstr "三个奇迹(改版 910520通用版)"
+msgid "mutnat.zip"
+msgstr "外星游龙"
 
-msgid "3wonders.zip"
-msgstr "三个奇迹(910520通用版)"
+msgid "mwalkbl.zip"
+msgstr "外星战将-麦可杰克森月球漫步(盗版)"
 
-msgid "3wondersu.zip"
-msgstr "三个奇迹(910520美版)"
+msgid "mwalk.zip"
+msgstr "外星战将-麦可杰克森月球漫步(第3套,世界版,FD1094/8751317-0159)"
 
-msgid "unsquad.zip"
-msgstr "战区88(美版)"
+msgid "crush3.zip"
+msgstr "顽皮鬼(Kural-盗版?)"
 
-msgid "cawingj.zip"
-msgstr "舰载机联队(901012日版)"
+msgid "crush2.zip"
+msgstr "顽皮鬼(KuralEsco-盗版?)"
 
-msgid "varthr1.zip"
-msgstr "威虎战机-雷雨行动(920612通用版)"
+msgid "crush.zip"
+msgstr "顽皮鬼(KuralSamno)"
+
+msgid "crush4.zip"
+msgstr "顽皮鬼(KuralTWT)"
+
+msgid "crushs.zip"
+msgstr "顽皮鬼(Sidam盗版)"
+
+msgid "crushbl.zip"
+msgstr "顽皮鬼(盗版)"
+
+msgid "korosuke.zip"
+msgstr "顽皮鬼KorosukeRoller"
+
+msgid "mbrush.zip"
+msgstr "顽皮鬼MagicBrush"
+
+msgid "maketrax.zip"
+msgstr "顽皮鬼MakeTrax(第1套)"
+
+msgid "maketrxb.zip"
+msgstr "顽皮鬼MakeTrax(第2套)"
+
+msgid "nmouse.zip"
+msgstr "顽皮鼠(第1套)"
+
+msgid "nmouseb.zip"
+msgstr "顽皮鼠(第2套)"
+
+msgid "aceattac.zip"
+msgstr "王牌攻击者(FD1094317-0059)"
+
+msgid "aceattaca.zip"
+msgstr "王牌攻击者(日版,系统16A,FD1094317-0060)"
+
+msgid "rastanu.zip"
+msgstr "王者之剑(美版,第1套)"
+
+msgid "rastanu2.zip"
+msgstr "王者之剑(美版,第2套)"
+
+msgid "rastsaga1.zip"
+msgstr "王者之剑(日版Rev1)"
+
+msgid "rastsaga.zip"
+msgstr "王者之剑(日版)"
+
+msgid "rastan.zip"
+msgstr "王者之剑(世界版)"
+
+msgid "passsht.zip"
+msgstr "网球绝招-近身攻击(2Players,FD1094317-0080)"
+
+msgid "passshtj.zip"
+msgstr "网球绝招-近身攻击(日版,4Players,FD1094317-0070)"
+
+msgid "passsht16a.zip"
+msgstr "网球绝招-近身攻击(日版,4Players,系统16A,FD1094317-0071)"
+
+msgid "passshta.zip"
+msgstr "网球绝招-近身攻击(世界版,4Players,FD1094317-0074)"
 
 msgid "varthu.zip"
-msgstr "威虎战机-雷雨行动(920612美版)"
-
-msgid "varth.zip"
-msgstr "威虎战机-雷雨行动(920714通用版)"
+msgstr "威虎战机-雷暴行动(美版920612)"
 
 msgid "varthj.zip"
-msgstr "威虎战机-雷雨行动(920714日版)"
+msgstr "威虎战机-雷暴行动(日版920714)"
 
-msgid "wofr1.zip"
-msgstr "天命勇士(921002通用版)"
+msgid "varthr1.zip"
+msgstr "威虎战机-雷暴行动(世界版920612)"
 
-msgid "wof.zip"
-msgstr "天命勇士(921031通用版)"
-
-msgid "wofu.zip"
-msgstr "天命勇士(921031美版)"
-
-msgid "wofb.zip"
-msgstr "天命勇士(改版 921002通用版)"
-
-msgid "woffr.zip"
-msgstr "天命勇士(法语翻译)"
-
-msgid "willowj.zip"
-msgstr "威洛之旅(日版)"
-
-msgid "willowo.zip"
-msgstr "威洛之旅(美版 旧版本)"
+msgid "varth.zip"
+msgstr "威虎战机-雷暴行动(世界版920714)"
 
 msgid "willow.zip"
 msgstr "威洛之旅(美版)"
 
-msgid "wonder3.zip"
-msgstr "三个奇迹(910520日版)"
+msgid "willowj.zip"
+msgstr "威洛之旅(日版,日语)"
 
-msgid "1944j.zip"
-msgstr "1944-空翻大师(000620日版)"
+msgid "willowje.zip"
+msgstr "威洛之旅(日版,英语)"
 
-msgid "1944d.zip"
-msgstr "1944-空翻大师(000620美版 凤凰版)"
+msgid "scotrsht.zip"
+msgstr "未来滑车大对决"
 
-msgid "1944.zip"
-msgstr "1944-空翻大师(000620美版)"
+msgid "striv.zip"
+msgstr "问答超级百科"
 
-msgid "19xxa.zip"
-msgstr "19XX-命运否决战(951207亚洲版)"
+msgid "quizdai2.zip"
+msgstr "问答大搜查线Part2-问答迷侦探Neo&Geo"
 
-msgid "19xxjr1.zip"
-msgstr "19XX-命运否决战(951207日版)"
-
-msgid "19xxd.zip"
-msgstr "19XX-命运否决战(951207美版 凤凰版)"
-
-msgid "19xx.zip"
-msgstr "19XX-命运否决战(951207美版)"
-
-msgid "19xxb.zip"
-msgstr "19XX-命运否决战(951218墨西哥版)"
-
-msgid "19xxh.zip"
-msgstr "19XX-命运否决战(951218西班牙版)"
-
-msgid "19xxj.zip"
-msgstr "19XX-命运否决战(951225日版)"
-
-msgid "avspa.zip"
-msgstr "异形大战铁血战士(940520亚洲版)"
-
-msgid "avspd.zip"
-msgstr "异形大战铁血战士(940520欧版 凤凰版)"
-
-msgid "avsp.zip"
-msgstr "异形大战铁血战士(940520欧版)"
-
-msgid "avsph.zip"
-msgstr "异形大战铁血战士(940520西班牙版)"
-
-msgid "avspj.zip"
-msgstr "异形大战铁血战士(940520日版)"
-
-msgid "avspu.zip"
-msgstr "异形大战铁血战士(940520美版)"
-
-msgid "armwara.zip"
-msgstr "装甲勇士(940920亚洲版)"
-
-msgid "armwaru1.zip"
-msgstr "装甲勇士(940920美版)"
-
-msgid "armwar1d.zip"
-msgstr "装甲勇士(941011欧版 凤凰版)"
-
-msgid "armwarr1.zip"
-msgstr "装甲勇士(941011欧版 凤凰版)"
-
-msgid "armwar.zip"
-msgstr "装甲勇士(941024欧版 凤凰版)"
-
-msgid "armwaru.zip"
-msgstr "装甲勇士(941024美版)"
-
-msgid "batcira.zip"
-msgstr "战斗回路(970319亚洲版)"
-
-msgid "batcird.zip"
-msgstr "战斗回路(970319欧版 凤凰版)"
-
-msgid "batcir.zip"
-msgstr "战斗回路(970319欧版)"
-
-msgid "batcirj.zip"
-msgstr "战斗回路(970319日版)"
-
-msgid "cscluba.zip"
-msgstr "卡普空运动俱乐部(970722亚洲版)"
-
-msgid "csclub1d.zip"
-msgstr "卡普空运动俱乐部(970722欧版 凤凰版)"
-
-msgid "csclub1.zip"
-msgstr "卡普空运动俱乐部(970722欧版)"
-
-msgid "csclubh.zip"
-msgstr "卡普空运动俱乐部(970722西班牙版)"
-
-msgid "csclubj.zip"
-msgstr "卡普空运动俱乐部(970722日版)"
-
-msgid "csclubjr.zip"
-msgstr "卡普空运动俱乐部(970722日版 租赁版)"
-
-msgid "csclub.zip"
-msgstr "卡普空运动俱乐部(971017欧版)"
-
-msgid "choko.zip"
-msgstr "长江(010820日版)"
-
-msgid "cybotsj.zip"
-msgstr "装甲之战-全金属狂潮(950420日版)"
-
-msgid "cybots.zip"
-msgstr "装甲之战-全金属狂潮(950424欧版)"
-
-msgid "cybotsud).zip"
-msgstr "装甲之战-全金属狂潮(950424美版 凤凰版)"
-
-msgid "cybotsu.zip"
-msgstr "装甲之战-全金属狂潮(950424美版)"
-
-msgid "dstlka.zip"
-msgstr "恶魔战士-午夜斗士(940705亚洲版)"
-
-msgid "dstlk.zip"
-msgstr "恶魔战士-午夜斗士(940705欧版)"
-
-msgid "dstlku1d.zip"
-msgstr "恶魔战士-午夜斗士(940705美版 凤凰版)"
-
-msgid "dstlkur1.zip"
-msgstr "恶魔战士-午夜斗士(940705美版)"
-
-msgid "dstlkh.zip"
-msgstr "恶魔战士-午夜斗士(940818西班牙版)"
-
-msgid "dstlku.zip"
-msgstr "恶魔战士-午夜斗士(940818美版)"
-
-msgid "dimahoo.zip"
-msgstr "超级魔法大作战(000121欧版)"
-
-msgid "dimahoud.zip"
-msgstr "超级魔法大作战(000121美版 凤凰版)"
-
-msgid "dimahoou.zip"
-msgstr "超级魔法大作战(000121美版)"
-
-msgid "ddsomjr1.zip"
-msgstr "龙与地下城：暗黑秘影(960206日版)"
-
-msgid "ddsomr3.zip"
-msgstr "龙与地下城：暗黑秘影(960208欧版)"
-
-msgid "ddsomr2.zip"
-msgstr "龙与地下城：暗黑秘影(960209欧版)"
-
-msgid "ddsomur1.zip"
-msgstr "龙与地下城：暗黑秘影(960209美版)"
-
-msgid "ddsomb.zip"
-msgstr "龙与地下城：暗黑秘影(960223墨西哥版)"
-
-msgid "ddsomr1.zip"
-msgstr "龙与地下城：暗黑秘影(960223欧版)"
-
-msgid "ddsomh.zip"
-msgstr "龙与地下城：暗黑秘影(960223西班牙版)"
-
-msgid "ddsoma.zip"
-msgstr "龙与地下城：暗黑秘影(960619亚洲版)"
-
-msgid "ddsom.zip"
-msgstr "龙与地下城：暗黑秘影(960619欧版)"
-
-msgid "ddsomj.zip"
-msgstr "龙与地下城：暗黑秘影(960619日版)"
-
-msgid "ddsomud.zip"
-msgstr "龙与地下城：暗黑秘影(960619美版 凤凰版)"
-
-msgid "ddsomu.zip"
-msgstr "龙与地下城：暗黑秘影(960619美版)"
-
-msgid "ddtoda.zip"
-msgstr "龙与地下城：毁灭之塔(940113亚洲版)"
-
-msgid "ddtodr1.zip"
-msgstr "龙与地下城：毁灭之塔(940113欧版)"
-
-msgid "ddtodhr2.zip"
-msgstr "龙与地下城：毁灭之塔(940113西班牙版)"
-
-msgid "ddtodjr2.zip"
-msgstr "龙与地下城：毁灭之塔(940113日版)"
-
-msgid "ddtodur1.zip"
-msgstr "龙与地下城：毁灭之塔(940113美版)"
-
-msgid "ddtodhr1.zip"
-msgstr "龙与地下城：毁灭之塔(940125西班牙版)"
-
-msgid "ddtodjr1.zip"
-msgstr "龙与地下城：毁灭之塔(940125日版)"
-
-msgid "ddtodu.zip"
-msgstr "龙与地下城：毁灭之塔(940125美版)"
-
-msgid "ddtodd.zip"
-msgstr "龙与地下城：毁灭之塔(940412欧版 凤凰版)"
-
-msgid "ddtod.zip"
-msgstr "龙与地下城：毁灭之塔(940412欧版)"
-
-msgid "ddtodh.zip"
-msgstr "龙与地下城：毁灭之塔(940412西班牙版)"
-
-msgid "ddtodj.zip"
-msgstr "龙与地下城：毁灭之塔(940412日版)"
-
-msgid "ecofghtra.zip"
-msgstr "扭转战斗机(931203亚洲版)"
-
-msgid "ecofghtr.zip"
-msgstr "扭转战斗机(931203世界版)"
-
-msgid "ecofghtrh.zip"
-msgstr "扭转战斗机(931203西班牙版)"
-
-msgid "ecofghtru1.zip"
-msgstr "扭转战斗机(931203美版)"
-
-msgid "ecofghtrd.zip"
-msgstr "扭转战斗机(931203世界版 凤凰版)"
-
-msgid "ecofghtru.zip"
-msgstr "扭转战斗机(940215美版)"
-
-msgid "gigawinga.zip"
-msgstr "千兆之翼(990222亚洲版)"
-
-msgid "gigawingb.zip"
-msgstr "千兆之翼(990222墨西哥版)"
-
-msgid "gigawingh.zip"
-msgstr "千兆之翼(990222西班牙版)"
-
-msgid "gigawingd.zip"
-msgstr "千兆之翼(990222美版 凤凰版)"
-
-msgid "gigawing.zip"
-msgstr "千兆之翼(990222美版)"
-
-msgid "gigawingjd.zip"
-msgstr "千兆之翼(990223日版 凤凰版)"
-
-msgid "gigawingj.zip"
-msgstr "千兆之翼(990223日版)"
-
-msgid "gigaman2.zip"
-msgstr "洛克人2-强大的战士(改版)"
-
-msgid "gmahou.zip"
-msgstr "超级魔法大作战(000121日版)"
-
-msgid "hsf2j.zip"
-msgstr "终极街头霸王2: 周年纪念版1"
-
-msgid "hsf2d.zip"
-msgstr "终极街头霸王2: 周年纪念版2"
-
-msgid "hsf2a.zip"
-msgstr "终极街头霸王2: 周年纪念版3"
-
-msgid "hsf2.zip"
-msgstr "终极街头霸王2: 周年纪念版4"
-
-msgid "jyangoku.zip"
-msgstr "雀之国-霸王的彩牌(990527日版)"
-
-msgid "mmatrixj.zip"
-msgstr "火星矩阵-终极立体射击(000412日版)"
-
-msgid "mmatrixd.zip"
-msgstr "火星矩阵-终极立体射击(000412美版 凤凰版)"
-
-msgid "mmatrix.zip"
-msgstr "火星矩阵-终极立体射击(000412美版)"
-
-msgid "msha.zip"
-msgstr "超级漫画英雄(951024亚洲版)"
-
-msgid "msh.zip"
-msgstr "超级漫画英雄(951024欧版)"
-
-msgid "mshjr1.zip"
-msgstr "超级漫画英雄(951024日版)"
-
-msgid "mshud.zip"
-msgstr "超级漫画英雄(951024美版 凤凰版)"
-
-msgid "mshu.zip"
-msgstr "超级漫画英雄(951024美版)"
-
-msgid "mshb.zip"
-msgstr "超级漫画英雄(951117墨西哥版)"
-
-msgid "mshh.zip"
-msgstr "超级漫画英雄(951117西班牙版)"
-
-msgid "mshj.zip"
-msgstr "超级漫画英雄(951117日版)"
-
-msgid "mshvsfa1.zip"
-msgstr "超级漫画英雄对街头霸王(970620亚洲版)"
-
-msgid "mshvsfa.zip"
-msgstr "超级漫画英雄对街头霸王(970625亚洲版)"
-
-msgid "mshvsfb1.zip"
-msgstr "超级漫画英雄对街头霸王(970625墨西哥版)"
-
-msgid "mshvsf.zip"
-msgstr "超级漫画英雄对街头霸王(970625欧版)"
-
-msgid "mshvsfh.zip"
-msgstr "超级漫画英雄对街头霸王(970625西班牙版)"
-
-msgid "mshvsfj2.zip"
-msgstr "超级漫画英雄对街头霸王(970625日版)"
-
-msgid "mshvsfu1d.zip"
-msgstr "超级漫画英雄对街头霸王(970625美版 凤凰版)"
-
-msgid "mshvsfu1.zip"
-msgstr "超级漫画英雄对街头霸王(970625美版)"
-
-msgid "mshvsfj1.zip"
-msgstr "超级漫画英雄对街头霸王(970702日版)"
-
-msgid "mshvsfj.zip"
-msgstr "超级漫画英雄对街头霸王(970707日版)"
-
-msgid "mshvsfb.zip"
-msgstr "超级漫画英雄对街头霸王(970827墨西哥版)"
-
-msgid "mshvsfu.zip"
-msgstr "超级漫画英雄对街头霸王(970827美版)"
-
-msgid "mvscur1.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(971222美版)"
-
-msgid "mvscar1.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980112亚洲版)"
-
-msgid "mvscr1.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980112欧版)"
-
-msgid "mvscjr1.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980112日版)"
-
-msgid "mvsca.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123亚洲版)"
-
-msgid "mvscb.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123墨西哥版)"
-
-msgid "mvsc.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123欧版)"
-
-msgid "mvsch.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123西班牙版)"
-
-msgid "mvscj.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123日版)"
-
-msgid "mvscjsing.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123日版)"
-
-msgid "mvscud.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(美版 凤凰版)"
-
-msgid "mvscu.zip"
-msgstr "超级漫画英雄对卡普空-英雄乱斗(980123美版)"
-
-msgid "mmancp2u.zip"
-msgstr "洛克人-力量之战(951006美版 简化版)"
-
-msgid "megaman2a.zip"
-msgstr "洛克人2-强大的战士(960708亚洲版)"
-
-msgid "megamn2d.zip"
-msgstr "洛克人2-强大的战士(960708美版 凤凰版)"
-
-msgid "megaman2.zip"
-msgstr "洛克人2-强大的战士(960708美版)"
-
-msgid "megaman2h.zip"
-msgstr "洛克人2-强大的战士(960712西班牙版)"
-
-msgid "mpangr1.zip"
-msgstr "超强魔法泡泡(000925欧版)"
-
-msgid "mpang.zip"
-msgstr "超强魔法泡泡(001010欧版)"
-
-msgid "mpangu.zip"
-msgstr "超强魔法泡泡(001010美版)"
-
-msgid "mpangj.zip"
-msgstr "超强魔法泡泡(001011日版)"
-
-msgid "nwarra.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950302亚洲版)"
-
-msgid "nwarr.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950316欧版)"
-
-msgid "nwarrb.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950403墨西哥版)"
-
-msgid "nwarrh.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950403西班牙版)"
-
-msgid "nwarrud.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950406美版 凤凰版)"
-
-msgid "nwarru.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950406美版)"
-
-msgid "pfghtj.zip"
-msgstr "超级宝石战士(970904日版)"
-
-msgid "pgearr1.zip"
-msgstr "装甲勇士-战略装甲(版本1)"
-
-msgid "pgear.zip"
-msgstr "装甲勇士-战略装甲(版本2)"
-
-msgid "progeara.zip"
-msgstr "逆转之岚(010117亚洲版)"
-
-msgid "progear.zip"
-msgstr "逆转之岚(010117美版)"
-
-msgid "progearjd.zip"
-msgstr "逆转之岚(010117日版 凤凰版)"
-
-msgid "progearj.zip"
-msgstr "逆转之岚(010117日版)"
-
-msgid "progearjbl.zip"
-msgstr "逆转之岚(010117日版 解密版)"
-
-msgid "progearud.zip"
-msgstr "逆转之岚(010117美版 凤凰版)"
-
-msgid "pzloop2jr1.zip"
-msgstr "智力循环2(010205日版)"
-
-msgid "pzloop2j.zip"
-msgstr "智力循环2(010226日版)"
-
-msgid "pzloop2.zip"
-msgstr "智力循环2(010302欧版)"
+msgid "qzchikyu.zip"
+msgstr "问答地球防卫军(日版)"
 
 msgid "qndream.zip"
-msgstr "七彩梦：虹色城的奇迹"
+msgstr "问答虹色町的奇迹(日版960826)"
 
-msgid "ringdesta.zip"
-msgstr "超级摔角霸王2-连环爆裂(940831亚洲版)"
+msgid "cworld.zip"
+msgstr "问答卡普空世界(日版)"
 
-msgid "ringdstd.zip"
-msgstr "超级摔角霸王2-连环爆裂(940902欧版 凤凰版)"
+msgid "cworld2j.zip"
+msgstr "问答卡普空世界2(日版920611)"
 
-msgid "ringdest.zip"
-msgstr "超级摔角霸王2-连环爆裂(940902欧版)"
+msgid "qcrayon.zip"
+msgstr "问答蜡笔小新(日版)"
 
-msgid "rockman2j.zip"
-msgstr "洛克人2-强大的战士(960708日版)"
+msgid "quiz18k.zip"
+msgstr "问答诺奇医生诊察室"
 
-msgid "rmancp2j.zip"
-msgstr "洛克人-力量之战(950922日版)"
+msgid "qjinsei.zip"
+msgstr "问答人生剧场(日版)"
 
-msgid "sfar3.zip"
-msgstr "少年街霸-斗士之梦(950605欧版)"
+msgid "qsangoku.zip"
+msgstr "问答三国志-智略的霸者(日版)"
 
-msgid "sfar2.zip"
-msgstr "少年街霸-斗士之梦(950627欧版)"
+msgid "qtono1.zip"
+msgstr "问答信长之野望(日版)"
 
-msgid "sfau.zip"
-msgstr "少年街霸-斗士之梦(950627美版)"
+msgid "qtono2.zip"
+msgstr "问答信长之野望2全国版(日版950123)"
 
-msgid "sfar1.zip"
-msgstr "少年街霸-斗士之梦(950718欧版)"
+msgid "qgakumon.zip"
+msgstr "问答学问大抢答(日版ver.JA2TypeL)"
 
-msgid "sfad.zip"
-msgstr "少年街霸-斗士之梦(950727欧版 凤凰版)"
+msgid "rocktrv2.zip"
+msgstr "问答音乐摇滚(Part2)"
 
-msgid "sfa.zip"
-msgstr "少年街霸-斗士之梦(950727欧版)"
+msgid "quizo.zip"
+msgstr "问答奥林匹克(第1套)"
 
-msgid "sfaud.zip"
-msgstr "少年街霸-斗士之梦(950727美版 凤凰版)"
+msgid "quizhq.zip"
+msgstr "问答大本营(日版)"
 
-msgid "sfa2.zip"
-msgstr "少年街霸2(960229欧版)"
+msgid "quizdais.zip"
+msgstr "问答大搜查线-最后倒计时"
 
-msgid "sfa2ur1.zip"
-msgstr "少年街霸2(960306美版)"
+msgid "qzquest.zip"
+msgstr "问答搜查-英雄美女物语(日版)"
 
-msgid "sfa2u.zip"
-msgstr "少年街霸2(960430美版)"
+msgid "myherok.zip"
+msgstr "我的英雄(韩国版)"
 
-msgid "sfa3b.zip"
-msgstr "少年街霸3(980629墨西哥版)"
+msgid "myhero.zip"
+msgstr "我的英雄(美版,未加密)"
 
-msgid "sfa3hr1.zip"
-msgstr "少年街霸3(980629西班牙版)"
+msgid "cthd2k3a.zip"
+msgstr "卧虎藏龙2003(盗版/第2套)"
 
-msgid "sfa3ur1.zip"
-msgstr "少年街霸3(980629美版)"
+msgid "cthd2003.zip"
+msgstr "卧虎藏龙2003(盗版)"
 
-msgid "sfa3.zip"
-msgstr "少年街霸3(980904欧版)"
+msgid "ct2k3sa.zip"
+msgstr "卧虎藏龙2003SuperPlus替换版(盗版)"
 
-msgid "sfa3h.zip"
-msgstr "少年街霸3(980904西班牙版)"
+msgid "ct2k3sp.zip"
+msgstr "卧虎藏龙2003风云SuperPlus(盗版)"
 
-msgid "sfa3ud.zip"
-msgstr "少年街霸3(980904美版 凤凰版)"
+msgid "garyoret.zip"
+msgstr "卧龙列传(日版)"
 
-msgid "sfa3u.zip"
-msgstr "少年街霸3(980904美版)"
+msgid "turpin.zip"
+msgstr "乌龟冒险"
 
-msgid "sfzjr2.zip"
-msgstr "少年街霸(950605日版)"
+msgid "turtles.zip"
+msgstr "乌龟冒险"
 
-msgid "sfza.zip"
-msgstr "少年街霸(950627亚洲版)"
+msgid "600.zip"
+msgstr "乌龟冒险600"
 
-msgid "sfzhr1.zip"
-msgstr "少年街霸(950627西班牙版)"
+msgid "koshien.zip"
+msgstr "呜呼荣光甲子园(日版)"
 
-msgid "sfzjr1.zip"
-msgstr "少年街霸(950627日版)"
+msgid "opwolfb.zip"
+msgstr "乌兹冲锋枪-野狼行动(盗版)"
 
-msgid "sfzh.zip"
-msgstr "少年街霸(950718西班牙版)"
+msgid "opwolf.zip"
+msgstr "乌兹冲锋枪-野狼行动(世界版,第1套)"
 
-msgid "sfzbr1.zip"
-msgstr "少年街霸(950727墨西哥版)"
+msgid "opwolfa.zip"
+msgstr "乌兹冲锋枪-野狼行动(世界版,第2套)"
 
-msgid "sfzj.zip"
-msgstr "少年街霸(950727日版)"
+msgid "opwolfu.zip"
+msgstr "乌兹冲锋枪-野狼行动(美版)"
 
-msgid "sfzb.zip"
-msgstr "少年街霸(951109墨西哥版)"
+msgid "opwolfj.zip"
+msgstr "乌兹冲锋枪-野狼行动(日版)"
 
-msgid "sfz2ad.zip"
-msgstr "少年街霸2(960227亚洲版 凤凰版)"
+msgid "ganryu.zip"
+msgstr "武藏严流记"
 
-msgid "sfz2a.zip"
-msgstr "少年街霸2(960227亚洲版)"
+msgid "ganryun.zip"
+msgstr "武藏严流记(C解密)"
 
-msgid "sfz2jd.zip"
-msgstr "少年街霸2(960227日版 凤凰版)"
+msgid "nightstru.zip"
+msgstr "午夜出击(美版)"
 
-msgid "sfz2jr1.zip"
-msgstr "少年街霸2(960227日版)"
+msgid "nightstrj.zip"
+msgstr "午夜出击(日版)"
 
-msgid "sfz2n.zip"
-msgstr "少年街霸2(960229大洋洲版)"
+msgid "nightstr.zip"
+msgstr "午夜出击(世界版)"
 
-msgid "sfz2br1.zip"
-msgstr "少年街霸2(960304墨西哥版)"
+msgid "mrgoemon.zip"
+msgstr "五右卫门先生(日版)"
 
-msgid "sfz2h.zip"
-msgstr "少年街霸2(960304西班牙版)"
+msgid "armedf.zip"
+msgstr "武装编队"
 
-msgid "sfz2j.zip"
-msgstr "少年街霸2(960430日版)"
+msgid "gunbirdk.zip"
+msgstr "武装飞鸟(韩国版)"
 
-msgid "sfz2b.zip"
-msgstr "少年街霸2(960531墨西哥版)"
+msgid "gunbirdj.zip"
+msgstr "武装飞鸟(日版)"
 
-msgid "sfz2alj.zip"
-msgstr "少年街霸2(960805日版)"
+msgid "gunbird.zip"
+msgstr "武装飞鸟(世界版)"
 
-msgid "sfz2alb.zip"
-msgstr "少年街霸2(960813墨西哥版)"
+msgid "gunbird2.zip"
+msgstr "武装飞鸟2"
 
-msgid "sfz2alh.zip"
-msgstr "少年街霸2(960813西班牙版)"
+msgid "heuksun.zip"
+msgstr "五子棋(韩国版)"
 
-msgid "sfz2ald.zip"
-msgstr "少年街霸2(960826亚洲版 凤凰版)"
+msgid "jpopnics.zip"
+msgstr "吸尘器小子(Nics,韩国盗版狗狗乐园)"
 
-msgid "sfz2al.zip"
-msgstr "少年街霸2(960826亚洲版)"
+msgid "tumbleb.zip"
+msgstr "吸尘器小子(盗版第1套)"
 
-msgid "sfz3jr2d.zip"
-msgstr "少年街霸3(980629日版 凤凰版)"
+msgid "tumbleb2.zip"
+msgstr "吸尘器小子(盗版第2套)"
 
-msgid "sfz3jr2.zip"
-msgstr "少年街霸3(980629日版)"
+msgid "tumblep.zip"
+msgstr "吸尘器小子(世界版)"
 
-msgid "sfz3ar1.zip"
-msgstr "少年街霸3(980701亚洲版)"
+msgid "jumppop.zip"
+msgstr "吸尘器小子2001"
 
-msgid "sfz3jr1.zip"
-msgstr "少年街霸3(980727日版)"
+msgid "bionicc1.zip"
+msgstr "希特勒复活(美版第1套)"
 
-msgid "sfz3a.zip"
-msgstr "少年街霸3(980904亚洲版)"
+msgid "bionicc2.zip"
+msgstr "希特勒复活(美版第2套)"
 
-msgid "sfz3j.zip"
-msgstr "少年街霸3(980904日版)"
+msgid "bionicc.zip"
+msgstr "希特勒复活(欧版)"
 
-msgid "sgemfa.zip"
-msgstr "超级宝石战士迷你混音(970904亚洲版)"
-
-msgid "sgemfh.zip"
-msgstr "超级宝石战士迷你混音(970904西班牙版)"
-
-msgid "sgemfd.zip"
-msgstr "超级宝石战士迷你混音(970904美版 凤凰版)"
-
-msgid "sgemf.zip"
-msgstr "超级宝石战士迷你混音(970904美版)"
-
-msgid "smbombr1.zip"
-msgstr "超级摔角霸王2-连环爆裂"
-
-msgid "smbomb.zip"
-msgstr "超级摔角霸王2-连环爆裂"
-
-msgid "spf2ta.zip"
-msgstr "超级方块战士2-加速版"
-
-msgid "spf2th.zip"
-msgstr "超级方块战士2-加速版"
-
-msgid "spf2td.zip"
-msgstr "超级方块战士2-加速版"
-
-msgid "spf2t.zip"
-msgstr "超级方块战士2-加速版"
-
-msgid "spf2xjd.zip"
-msgstr "超级方块战士2-加速版 X"
-
-msgid "spf2xj.zip"
-msgstr "超级方块战士2-加速版 X"
-
-msgid "ssf2jr2.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2d.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2h.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2jr1.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2ud.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2u.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2ar1.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2a.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2j.zip"
-msgstr "超级街头霸王2-新的挑战者"
-
-msgid "ssf2tbr1.zip"
-msgstr "超级街头霸王2-国际联赛"
-
-msgid "ssf2tbj.zip"
-msgstr "超级街头霸王2-国际联赛"
-
-msgid "ssf2tbh.zip"
-msgstr "超级街头霸王2-国际联赛"
-
-msgid "ssf2tbd.zip"
-msgstr "超级街头霸王2-国际联赛"
-
-msgid "ssf2tb.zip"
-msgstr "超级街头霸王2-国际联赛"
-
-msgid "ssf2ta.zip"
-msgstr "超级街头霸王2-加速版"
-
-msgid "ssf2td.zip"
-msgstr "超级街头霸王2-加速版"
-
-msgid "ssf2t.zip"
-msgstr "超级街头霸王2-加速版"
-
-msgid "ssf2tur1.zip"
-msgstr "超级街头霸王2-加速版"
-
-msgid "ssf2tu.zip"
-msgstr "超级街头霸王2-加速版"
-
-msgid "ssf2xjd.zip"
-msgstr "超级街头霸王2X大师挑战赛"
-
-msgid "ssf2xjr.zip"
-msgstr "超级街头霸王2X大师挑战赛"
-
-msgid "ssf2xj.zip"
-msgstr "超级街头霸王2X大师挑战赛"
-
-msgid "uecology.zip"
-msgstr "终极扭转战斗机(931203日版)"
-
-msgid "vampjr1.zip"
-msgstr "吸血鬼猎人-暗夜勇士(940630日版)"
-
-msgid "vampj.zip"
-msgstr "吸血鬼猎人-暗夜勇士(940705日版)"
-
-msgid "vampja.zip"
-msgstr "吸血鬼猎人-暗夜勇士(940705日版)"
+msgid "topsecrt.zip"
+msgstr "希特勒复活(日版)"
 
 msgid "vhuntjr2.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950302日版)"
-
-msgid "vhuntjr1s.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950307日版)"
+msgstr "吸血鬼猎人-恶魔的复仇(日版950302)"
 
 msgid "vhuntjr1.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950307日版)"
+msgstr "吸血鬼猎人-恶魔的复仇(日版950307)"
 
 msgid "vhuntj.zip"
-msgstr "吸血鬼猎人-恶魔的复仇(950316日版)"
+msgstr "吸血鬼猎人-恶魔的复仇(日版950316)"
 
-msgid "vhunt2d.zip"
-msgstr "吸血鬼猎人2-恶魔的复仇(970913日版)"
+msgid "sonson.zip"
+msgstr "西游记"
 
-msgid "vhunt2r1.zip"
-msgstr "吸血鬼猎人2-恶魔的复仇(970913日版)"
+msgid "sonsonj.zip"
+msgstr "西游记(日版)"
 
-msgid "vhunt2.zip"
-msgstr "吸血鬼猎人2-恶魔的复仇(970929日版)"
+msgid "orlegendca.zip"
+msgstr "西游释厄传(altver.112,中文基板)"
 
-msgid "vsava.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519亚洲版)"
+msgid "orlegend105k.zip"
+msgstr "西游释厄传(ver.105,韩文基板)"
 
-msgid "vsavd.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519欧版 凤凰版)"
+msgid "orlegend111c.zip"
+msgstr "西游释厄传(ver.111,中文基板)"
 
-msgid "vsav.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519欧版)"
+msgid "orlegende.zip"
+msgstr "西游释厄传(ver.112)"
 
-msgid "vsavh.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519西班牙版)"
+msgid "orlegendc.zip"
+msgstr "西游释厄传(ver.112,中文基板)"
 
-msgid "vsavj.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519日版)"
+msgid "orlegend.zip"
+msgstr "西游释厄传(ver.126)"
 
-msgid "vsavu.zip"
-msgstr "吸血鬼猎人-吸血皇族(970519美版)"
+msgid "olds100a.zip"
+msgstr "西游释厄传Super(ver.100替换版)"
 
-msgid "vsav2d.zip"
-msgstr "吸血鬼猎人2-吸血皇族(970913日版 凤凰版)"
+msgid "olds100.zip"
+msgstr "西游释厄传Super(ver.100)"
 
-msgid "vsav2.zip"
-msgstr "吸血鬼猎人2-吸血皇族(970913日版)"
+msgid "olds.zip"
+msgstr "西游释厄传Super(ver.101,韩文基板)"
 
-msgid "xmcotajr.zip"
-msgstr "X战警-磁场原子人(941208日版 租赁版)"
+msgid "csilverj.zip"
+msgstr "锡鲁巴船长(日版)"
 
-msgid "xmcotaar1.zip"
-msgstr "X战警-磁场原子人(941217亚洲版)"
+msgid "csilver.zip"
+msgstr "锡鲁巴船长(世界版)"
 
-msgid "xmcotaj3.zip"
-msgstr "X战警-磁场原子人(941217日版)"
+msgid "lizwiz.zip"
+msgstr "蜥蜴巫师大作战"
 
-msgid "xmcotaj2.zip"
-msgstr "X战警-磁场原子人(941219日版)"
+msgid "flstory.zip"
+msgstr "仙境物语"
 
-msgid "xmcotaj1.zip"
-msgstr "X战警-磁场原子人(941222日版)"
+msgid "flstoryj.zip"
+msgstr "仙境物语(日版)"
 
-msgid "xmcotaa.zip"
-msgstr "X战警-磁场原子人(950105亚洲版)"
+msgid "cactus.zip"
+msgstr "仙人掌(盗版仙人掌兄弟)"
 
-msgid "xmcotar1d.zip"
-msgstr "X战警-磁场原子人(950105欧版 凤凰版)"
+msgid "sabotenb.zip"
+msgstr "仙人掌兄弟(第1套)"
 
-msgid "xmcotar1.zip"
-msgstr "X战警-磁场原子人(950105欧版)"
+msgid "sabotenba.zip"
+msgstr "仙人掌兄弟(第2套)"
 
-msgid "xmcotahr1.zip"
-msgstr "X战警-磁场原子人(950105西班牙版)"
+msgid "ultraman.zip"
+msgstr "咸蛋超人-空想特摄系列(日版)"
 
-msgid "xmcotaj.zip"
-msgstr "X战警-磁场原子人(950105日版)"
+msgid "abscam.zip"
+msgstr "小精灵"
 
-msgid "xmcotau.zip"
-msgstr "X战警-磁场原子人(950105美版)"
+msgid "popeyeman.zip"
+msgstr "小精灵-大力水手"
 
-msgid "xmcota.zip"
-msgstr "X战警-磁场原子人(950331欧版)"
+msgid "piranha.zip"
+msgstr "小精灵-食人鱼"
 
-msgid "xmcotah.zip"
-msgstr "X战警-磁场原子人(950331西班牙版)"
+msgid "piranhao.zip"
+msgstr "小精灵-食人鱼(旧版)"
 
-msgid "xmvsfjr2.zip"
-msgstr "X战警对街头霸王(960909日版)"
+msgid "piranhah.zip"
+msgstr "小精灵-食人鱼(修改版)"
 
-msgid "xmvsfar2.zip"
-msgstr "X战警对街头霸王(960910亚洲版)"
+msgid "puckmanh.zip"
+msgstr "小精灵(Falcom?)"
 
-msgid "xmvsfr1.zip"
-msgstr "X战警对街头霸王(960910欧版)"
+msgid "puckmanf.zip"
+msgstr "小精灵(日版第1套加速修改版)"
 
-msgid "xmvsfjr1.zip"
-msgstr "X战警对街头霸王(960910日版)"
+msgid "puckman.zip"
+msgstr "小精灵(日版第1套)"
 
-msgid "xmvsfar1.zip"
-msgstr "X战警对街头霸王(960919亚洲版)"
+msgid "puckmana.zip"
+msgstr "小精灵(日版第2套)"
 
-msgid "xmvsf.zip"
-msgstr "X战警对街头霸王(961004欧版)"
+msgid "puckmod.zip"
+msgstr "小精灵(日版第3套)"
 
-msgid "xmvsfh.zip"
-msgstr "X战警对街头霸王(961004西班牙版)"
+msgid "gmgalax.zip"
+msgstr "小精灵Galaxian(盗版)"
 
-msgid "xmvsfj.zip"
-msgstr "X战警对街头霸王(961004日版)"
+msgid "ctrpllrp.zip"
+msgstr "小精灵Hack"
 
-msgid "xmvsfu1d.zip"
-msgstr "X战警对街头霸王(961004美版 凤凰版)"
+msgid "hangly.zip"
+msgstr "小精灵Hangly-Man(第1套)"
 
-msgid "xmvsfur1.zip"
-msgstr "X战警对街头霸王(961004美版)"
+msgid "hangly2.zip"
+msgstr "小精灵Hangly-Man(第2套)"
 
-msgid "xmvsfa.zip"
-msgstr "X战警对街头霸王(961023亚洲版)"
+msgid "hangly3.zip"
+msgstr "小精灵Hangly-Man(第3套)"
 
-msgid "xmvsfb.zip"
-msgstr "X战警对街头霸王(961023墨西哥版)"
+msgid "joyman.zip"
+msgstr "小精灵Joyman"
 
-msgid "xmvsfu.zip"
-msgstr "X战警对街头霸王(961023美版)"
+msgid "newpuckx.zip"
+msgstr "小精灵NewPuck-X"
+
+msgid "newpuc2.zip"
+msgstr "小精灵Newpuc2(第1套)"
+
+msgid "newpuc2b.zip"
+msgstr "小精灵Newpuc2(第2套)"
+
+msgid "pacmanbl.zip"
+msgstr "小精灵Pac-Man(Galaxian硬件,第1套)"
+
+msgid "pacmanbla.zip"
+msgstr "小精灵Pac-Man(Galaxian硬件,第2套)"
+
+msgid "pacman.zip"
+msgstr "小精灵Pac-Man(米德威)"
+
+msgid "pacmanf.zip"
+msgstr "小精灵Pac-Man(米德威,加速修改版)"
+
+msgid "pacmod.zip"
+msgstr "小精灵Pac-Man(米德威,难度加强版)"
+
+msgid "pacheart.zip"
+msgstr "小精灵Pac-Man(心形)"
+
+msgid "uopoko.zip"
+msgstr "小猫钓鱼(国际版)"
+
+msgid "uopokoj.zip"
+msgstr "小猫钓鱼(日版)"
+
+msgid "starfght.zip"
+msgstr "小蜜蜂"
+
+msgid "tst_galx.zip"
+msgstr "小蜜蜂-测试版"
+
+msgid "galturbo.zip"
+msgstr "小蜜蜂-极速版(superghack)"
+
+msgid "zerotime.zip"
+msgstr "小蜜蜂-难度加强版"
+
+msgid "moonaln.zip"
+msgstr "小蜜蜂-月球异形"
+
+msgid "galaxianm.zip"
+msgstr "小蜜蜂(Midway第1套)"
+
+msgid "galaxianmo.zip"
+msgstr "小蜜蜂(Midway第2套)"
+
+msgid "galaxian.zip"
+msgstr "小蜜蜂(Namco第1套)"
+
+msgid "galaxiana.zip"
+msgstr "小蜜蜂(Namco第2套)"
+
+msgid "galaxiant.zip"
+msgstr "小蜜蜂(Taito)"
+
+msgid "galaxbsf.zip"
+msgstr "小蜜蜂(盗版)"
+
+msgid "swarm.zip"
+msgstr "小蜜蜂(盗版?)"
+
+msgid "moonal2.zip"
+msgstr "小蜜蜂2-月球异形2"
+
+msgid "moonal2b.zip"
+msgstr "小蜜蜂2-月球异形2(旧版)"
+
+msgid "kamakazi3.zip"
+msgstr "小蜜蜂III(superghack)"
+
+msgid "galap1.zip"
+msgstr "小蜜蜂P1(galaxianahack)"
+
+msgid "galap4.zip"
+msgstr "小蜜蜂P4(hack)"
+
+msgid "galapx.zip"
+msgstr "小蜜蜂PX(moonalnhack)"
+
+msgid "flicky.zip"
+msgstr "小鸟妃奇(128k版本,系统2,315-5051)"
+
+msgid "flickys2.zip"
+msgstr "小鸟妃奇(128k版本,系统2,未加密)"
+
+msgid "flickyo.zip"
+msgstr "小鸟妃奇(64k版本,系统1,315-5051,第1套)"
+
+msgid "flickys1.zip"
+msgstr "小鸟妃奇(64k版本,系统1,315-5051,第2套)"
+
+msgid "ladybug.zip"
+msgstr "小瓢虫"
+
+msgid "ladybugb.zip"
+msgstr "小瓢虫(盗版第1套)"
+
+msgid "ladybgb2.zip"
+msgstr "小瓢虫(盗版第2套)"
+
+msgid "cps1frog.zip"
+msgstr "小青蛙(CPS-1)"
+
+msgid "pgmfrog.zip"
+msgstr "小青蛙(Homebrew)"
+
+msgid "ngfrog.zip"
+msgstr "小青蛙(NeoGeo)"
+
+msgid "legendos.zip"
+msgstr "小拳王"
+
+msgid "marukodq.zip"
+msgstr "小丸子问答"
+
+msgid "turpins.zip"
+msgstr "小乌龟(盗版紧急起飞硬件)"
+
+msgid "dingo.zip"
+msgstr "小熊流浪记"
+
+msgid "tknight.zip"
+msgstr "邪城风云"
+
+msgid "wildfang.zip"
+msgstr "邪城风云/Tecmo骑士"
+
+msgid "yesnoj.zip"
+msgstr "心电图"
+
+msgid "matrim.zip"
+msgstr "新豪血寺一族-斗婚"
+
+msgid "matrimbl.zip"
+msgstr "新豪血寺一族-斗婚(盗版)"
+
+msgid "matrimnd.zip"
+msgstr "新豪血寺一族-斗婚(完全解密)"
+
+msgid "simpsons2pj.zip"
+msgstr "辛普森家庭(2Players日版)"
+
+msgid "simpsons2p.zip"
+msgstr "辛普森家庭(2Players世界版,第1套)"
+
+msgid "simpsons2p2.zip"
+msgstr "辛普森家庭(2Players世界版,第2套)"
+
+msgid "simpsons2pa.zip"
+msgstr "辛普森家庭(2Players亚洲版)"
+
+msgid "simpsons.zip"
+msgstr "辛普森家庭(4Players世界版,第1套)"
+
+msgid "simpsons4pa.zip"
+msgstr "辛普森家庭(4Players世界版,第2套)"
+
+msgid "newsin7.zip"
+msgstr "新辛巴达7"
+
+msgid "gforce2.zip"
+msgstr "星际大争霸2"
+
+msgid "gforce2j.zip"
+msgstr "星际大争霸2(日版)"
+
+msgid "starjack.zip"
+msgstr "星际母舰(Sega)"
+
+msgid "starjacks.zip"
+msgstr "星际母舰(Stern)"
+
+msgid "fx.zip"
+msgstr "星际任务"
+
+msgid "gtstarb1.zip"
+msgstr "星球守护者(盗版第1套)"
+
+msgid "gtstarb2.zip"
+msgstr "星球守护者(盗版第2套)"
+
+msgid "getstar.zip"
+msgstr "星球守护者(美版)"
+
+msgid "reguluso.zip"
+msgstr "星球战车(315-5033)"
+
+msgid "regulus.zip"
+msgstr "星球战车(315-5033,RevA.)"
+
+msgid "regulusu.zip"
+msgstr "星球战车(未加密)"
+
+msgid "zupapa.zip"
+msgstr "星星大战!"
+
+msgid "zupapan.zip"
+msgstr "星星大战!(C解密)"
+
+msgid "quarteta.zip"
+msgstr "星战四人组(8751315-5194)"
+
+msgid "quartet.zip"
+msgstr "星战四人组(RevA,8751315-5194)"
+
+msgid "quartet2.zip"
+msgstr "星战四人组2(8751317-0010)"
+
+msgid "quartet2a.zip"
+msgstr "星战四人组2(未保护版)"
+
+msgid "martmastc.zip"
+msgstr "形意拳(ver.101,中文基板)"
+
+msgid "martmast.zip"
+msgstr "形意拳(ver.102)"
+
+msgid "martmast102c.zip"
+msgstr "形意拳(ver.102,中文基板)"
+
+msgid "zerozone.zip"
+msgstr "性感宝石方块"
+
+msgid "funybubl.zip"
+msgstr "性感谜球回路"
+
+msgid "funybublc.zip"
+msgstr "性感谜球回路(Comad版本)"
+
+msgid "luctoday.zip"
+msgstr "幸运日"
+
+msgid "socbrawl.zip"
+msgstr "喧哗足球/机器人足球(第1套)"
+
+msgid "socbrawla.zip"
+msgstr "喧哗足球/机器人足球(第2套)"
+
+msgid "gururin.zip"
+msgstr "旋转方块"
+
+msgid "hotdogst.zip"
+msgstr "眩之风暴(国际版)"
+
+msgid "snowbrosd.zip"
+msgstr "雪人兄弟-尼克和汤姆(Dooyong许可)"
+
+msgid "wintbob.zip"
+msgstr "雪人兄弟-尼克和汤姆(盗版)"
+
+msgid "snowbros.zip"
+msgstr "雪人兄弟-尼克和汤姆(第1套)"
+
+msgid "snowbrosa.zip"
+msgstr "雪人兄弟-尼克和汤姆(第2套)"
+
+msgid "snowbrosb.zip"
+msgstr "雪人兄弟-尼克和汤姆(第3套)"
+
+msgid "snowbrosc.zip"
+msgstr "雪人兄弟-尼克和汤姆(第4套)"
+
+msgid "snowbrosj.zip"
+msgstr "雪人兄弟-尼克和汤姆(日版)"
+
+msgid "snowbro2.zip"
+msgstr "雪人兄弟2-WithNewElves"
+
+msgid "snowbros3.zip"
+msgstr "雪人兄弟3-不可思议的冒险"
+
+msgid "asurabld.zip"
+msgstr "血剑王朝-魔刃降临(日版)"
+
+msgid "asurabus.zip"
+msgstr "血剑王朝2-永恒的战士(日版)"
+
+msgid "gardia.zip"
+msgstr "巡弋飞艇(317-0006)"
+
+msgid "atlantisb.zip"
+msgstr "亚特兰蒂斯大作战(盗版)"
+
+msgid "atlantis.zip"
+msgstr "亚特兰蒂斯大作战(第1套)"
+
+msgid "atlantis2.zip"
+msgstr "亚特兰蒂斯大作战(第2套)"
+
+msgid "cobracomj.zip"
+msgstr "眼睛蛇指令(日版)"
+
+msgid "cobracom.zip"
+msgstr "眼睛蛇指令(世界版校正版5)"
+
+msgid "sunaq.zip"
+msgstr "阳光问答6000学院(940620-6)"
+
+msgid "joyjoy.zip"
+msgstr "阳光方块"
+
+msgid "mstworld.zip"
+msgstr "妖怪世界"
+
+msgid "rockduck.zip"
+msgstr "摇摆鸭子(工程版?)"
+
+msgid "tharrier.zip"
+msgstr "鹞鹰战机"
+
+msgid "tharrierj.zip"
+msgstr "鹞鹰战机(日版)"
+
+msgid "mustangs.zip"
+msgstr "野马战机(25thMay.1990/SeoulTrading)"
+
+msgid "mustang.zip"
+msgstr "野马战机(25thMay.1990)"
+
+msgid "mustangb2.zip"
+msgstr "野马战机(TAB奥地利盗版)"
+
+msgid "mustangb.zip"
+msgstr "野马战机(盗版)"
+
+msgid "beast.zip"
+msgstr "野兽之瞳(Homebrew,没有声音)"
+
+msgid "wjammers.zip"
+msgstr "野外排球/超级飞碟球"
+
+msgid "burglarx.zip"
+msgstr "夜盗X"
+
+msgid "dblpoint.zip"
+msgstr "夜上海"
+
+msgid "dblpointd.zip"
+msgstr "夜上海(东京电子,盗版?)"
+
+msgid "f1gp.zip"
+msgstr "一级方程式GP大赛"
+
+msgid "f1gp2.zip"
+msgstr "一级方程式GP大赛2"
+
+msgid "f1dream.zip"
+msgstr "一级方程式梦语"
+
+msgid "f1dreamb.zip"
+msgstr "一级方程式梦语(盗版)"
+
+msgid "fncywld.zip"
+msgstr "异想世界-地球的危机"
+
+msgid "extrmatnu.zip"
+msgstr "异星毁灭者(美版)"
+
+msgid "extrmatnj.zip"
+msgstr "异星毁灭者(日版)"
+
+msgid "extrmatn.zip"
+msgstr "异星毁灭者(世界版)"
+
+msgid "aliensu.zip"
+msgstr "异形(美版)"
+
+msgid "aliensj.zip"
+msgstr "异形(日版第1套)"
+
+msgid "aliensj2.zip"
+msgstr "异形(日版第2套)"
+
+msgid "aliens.zip"
+msgstr "异形(世界版第1套)"
+
+msgid "aliens2.zip"
+msgstr "异形(世界版第2套)"
+
+msgid "aliens3.zip"
+msgstr "异形(世界版第3套)"
+
+msgid "aliensa.zip"
+msgstr "异形(亚洲版)"
+
+msgid "avspu.zip"
+msgstr "异形对铁血战士(美版940520)"
+
+msgid "avspd.zip"
+msgstr "异形对铁血战士(欧洲版940520凤凰版)(盗版)"
+
+msgid "avsp.zip"
+msgstr "异形对铁血战士(欧洲版940520)"
+
+msgid "avspj.zip"
+msgstr "异形对铁血战士(日版940520)"
+
+msgid "avsph.zip"
+msgstr "异形对铁血战士(西班牙版940520)"
+
+msgid "avspa.zip"
+msgstr "异形对铁血战士(亚洲版940520)"
+
+msgid "searcharu.zip"
+msgstr "异型大作战(美版)"
+
+msgid "searcharj.zip"
+msgstr "异型大作战(日版)"
+
+msgid "searchar.zip"
+msgstr "异型大作战(世界版)"
+
+msgid "astormj.zip"
+msgstr "异形风暴(第1套,日版,2Players,FD1094317-0146)"
+
+msgid "astormu.zip"
+msgstr "异形风暴(第2套,美版,3Players,FD1094317-0147)"
+
+msgid "astorm3.zip"
+msgstr "异形风暴(第3套,世界版,3Players,FD1094317-0148)"
+
+msgid "astorm.zip"
+msgstr "异形风暴(第4套,2Players,FD1094317-?)"
+
+msgid "aliensynjo.zip"
+msgstr "异形入侵(第1套,日版,旧,系统16A,FD1089A317-0033)"
+
+msgid "aliensyn2.zip"
+msgstr "异形入侵(第2套,系统16A,FD1089A317-0033)"
+
+msgid "aliensyn3.zip"
+msgstr "异形入侵(第3套,系统16B,FD1089A317-0033)"
+
+msgid "aliensyn.zip"
+msgstr "异形入侵(第4套,系统16B,未保护版)"
+
+msgid "aliensyn5.zip"
+msgstr "异形入侵(第5套,系统16A,FD1089B317-0037)"
+
+msgid "aliensynj.zip"
+msgstr "异形入侵(第6套,日版,新,系统16B,FD1089A317-0033)"
+
+msgid "outzone.zip"
+msgstr "异域战将(第1套)"
+
+msgid "outzonea.zip"
+msgstr "异域战将(第2套)"
+
+msgid "outzoneb.zip"
+msgstr "异域战将(第3套,工程版?)"
+
+msgid "outzonec.zip"
+msgstr "异域战将(第4套)"
+
+msgid "outzoned.zip"
+msgstr "异域战将(第5套)"
+
+msgid "bballs.zip"
+msgstr "益智弹跳球"
+
+msgid "moremore.zip"
+msgstr "益智迷你游戏"
+
+msgid "moremorp.zip"
+msgstr "益智迷你游戏加强版"
+
+msgid "nmg5.zip"
+msgstr "益智五合一"
+
+msgid "nmg5e.zip"
+msgstr "益智五合一(早期版)"
+
+msgid "4in1boot.zip"
+msgstr "益智游戏王(includesbootlegofSnowBros.)"
+
+msgid "lwingsb.zip"
+msgstr "翼人(盗版)"
+
+msgid "lwings.zip"
+msgstr "翼人(美版第1套)"
+
+msgid "lwings2.zip"
+msgstr "翼人(美版第2套)"
+
+msgid "lwingsj.zip"
+msgstr "翼人(日版)"
+
+msgid "sonicbom.zip"
+msgstr "音速轰炸机(FD1094317-0053)"
+
+msgid "bankp.zip"
+msgstr "银行惊魂记"
+
+msgid "spacempr.zip"
+msgstr "银河帝国(盗版)"
+
+msgid "uniwars.zip"
+msgstr "银河帝国的反击"
+
+msgid "skyraidr.zip"
+msgstr "银河帝国的反击-太空入侵"
+
+msgid "gteikoku.zip"
+msgstr "银河帝国的反击-太空战斗"
+
+msgid "spacbatt.zip"
+msgstr "银河帝国的反击-太空战斗(盗版第1套)"
+
+msgid "spacbat2.zip"
+msgstr "银河帝国的反击-太空战斗(盗版第2套)"
+
+msgid "gteikokb.zip"
+msgstr "银河帝国的反击(盗版第1套)"
+
+msgid "gteikob2.zip"
+msgstr "银河帝国的反击(盗版第2套)"
+
+msgid "galaxyfg.zip"
+msgstr "银河快打/星系格斗"
+
+msgid "ginganin.zip"
+msgstr "银河任侠传(第1套)"
+
+msgid "ginganina.zip"
+msgstr "银河任侠传(第2套)"
+
+msgid "raflesia.zip"
+msgstr "银河系战机(315-5162)"
+
+msgid "vimana.zip"
+msgstr "银河战机"
+
+msgid "vimanan.zip"
+msgstr "银河战机(NovaApparateGMBH&Co)"
+
+msgid "vimana1.zip"
+msgstr "银河战机(旧版)"
+
+msgid "metmqstr.zip"
+msgstr "隐忍(国际版)"
+
+msgid "nmaster.zip"
+msgstr "隐忍(日版)"
+
+msgid "ltorb1.zip"
+msgstr "印第安娜琼斯(050717,Homebrew)"
+
+msgid "shdancer1.zip"
+msgstr "影舞者(第1套)"
+
+msgid "shdancerj.zip"
+msgstr "影舞者(第2套,日版)"
+
+msgid "shdancer.zip"
+msgstr "影舞者(第3套,美版)"
+
+msgid "lkage.zip"
+msgstr "影子传说"
+
+msgid "lkageb.zip"
+msgstr "影子传说(盗版第1套)"
+
+msgid "lkageb2.zip"
+msgstr "影子传说(盗版第2套)"
+
+msgid "lkageb3.zip"
+msgstr "影子传说(盗版第3套)"
+
+msgid "lkageo.zip"
+msgstr "影子传说(旧版第1套)"
+
+msgid "lkageoo.zip"
+msgstr "影子传说(旧版第2套)"
+
+msgid "tturfu.zip"
+msgstr "硬汉(第1套,美版,8751317-0099)"
+
+msgid "tturf.zip"
+msgstr "硬汉(第2套,日版,8751317-0104)"
+
+msgid "bloodbro.zip"
+msgstr "勇士们-血兄弟(第1套)"
+
+msgid "bloodbroa.zip"
+msgstr "勇士们-血兄弟(第2套)"
+
+msgid "androdun.zip"
+msgstr "勇者之击"
+
+msgid "yuyugogo.zip"
+msgstr "悠悠问答GO!GO!(日版)"
+
+msgid "wmatch.zip"
+msgstr "游泳大赛(315-5064)"
+
+msgid "cavenger.zip"
+msgstr "宇宙复仇者"
+
+msgid "abcop.zip"
+msgstr "宇宙骑警(FD1094317-0169b)"
+
+msgid "vulcan.zip"
+msgstr "宇宙巡航舰(新版)"
+
+msgid "gradius2a.zip"
+msgstr "宇宙巡航舰II(日版旧版)"
+
+msgid "gradius2b.zip"
+msgstr "宇宙巡航舰II(日版老版)"
+
+msgid "gradius2.zip"
+msgstr "宇宙巡航舰II(日版新版)"
+
+msgid "gradius3.zip"
+msgstr "宇宙巡航舰III(日版)"
+
+msgid "gradius3e.zip"
+msgstr "宇宙巡航舰III(世界版?)"
+
+msgid "gradius3a.zip"
+msgstr "宇宙巡航舰III(亚洲版)"
+
+msgid "guwange.zip"
+msgstr "狱门山物语(日版,MasterVer.99/06/24)"
+
+msgid "myangel.zip"
+msgstr "育婴问答亲亲小宝贝(日版)"
+
+msgid "myangel2.zip"
+msgstr "育婴问答亲亲小宝贝2(日版)"
+
+msgid "gensitou.zip"
+msgstr "原始岛"
+
+msgid "prehisleu.zip"
+msgstr "原始岛(美版)"
+
+msgid "prehisle.zip"
+msgstr "原始岛(世界版)"
+
+msgid "preisle2.zip"
+msgstr "原始岛2"
+
+msgid "preisl2n.zip"
+msgstr "原始岛2(C解密)"
+
+msgid "bcstry.zip"
+msgstr "原始人梦语(第1套)"
+
+msgid "bcstrya.zip"
+msgstr "原始人梦语(第2套)"
+
+msgid "knghtsha.zip"
+msgstr "圆桌骑士(911127盗版第3套)"
+
+msgid "knightsh.zip"
+msgstr "圆桌骑士(盗版/hack)"
+
+msgid "knightsu.zip"
+msgstr "圆桌骑士(美版911127)"
+
+msgid "knightsj.zip"
+msgstr "圆桌骑士(日版911127)"
+
+msgid "knights.zip"
+msgstr "圆桌骑士(世界版911127)"
+
+msgid "chelnovu.zip"
+msgstr "原子超人(美版)"
+
+msgid "chelnovj.zip"
+msgstr "原子超人(日版)"
+
+msgid "chelnov.zip"
+msgstr "原子超人(世界版)"
+
+msgid "dquizgo.zip"
+msgstr "约会问答大作战(韩国版)"
+
+msgid "mooncrst.zip"
+msgstr "月冠登陆艇-三台合体(日本物产)"
+
+msgid "mooncrstg.zip"
+msgstr "月冠登陆艇(Gremlin)"
+
+msgid "mooncmw.zip"
+msgstr "月冠登陆艇(MoonCresta盗版)"
+
+msgid "mooncrsb.zip"
+msgstr "月冠登陆艇(盗版第1套)"
+
+msgid "mooncrs2.zip"
+msgstr "月冠登陆艇(盗版第2套)"
+
+msgid "mooncrs3.zip"
+msgstr "月冠登陆艇(盗版第3套)"
+
+msgid "fantazia.zip"
+msgstr "月冠登陆艇(盗版?)"
+
+msgid "eagle.zip"
+msgstr "月冠登陆艇(第1套)"
+
+msgid "eagle2.zip"
+msgstr "月冠登陆艇(第2套)"
+
+msgid "eagle3.zip"
+msgstr "月冠登陆艇(第3套)"
+
+msgid "mooncrsto.zip"
+msgstr "月冠登陆艇(日本物产,旧版)"
+
+msgid "mooncrstu.zip"
+msgstr "月冠登陆艇(日本物产,未加密版)"
+
+msgid "mooncrgx.zip"
+msgstr "月冠登陆艇(小蜜蜂硬件)"
+
+msgid "spctbird.zip"
+msgstr "月冠登陆艇Fortrek"
+
+msgid "smooncrs.zip"
+msgstr "月冠登陆艇Super"
+
+msgid "moonqsr.zip"
+msgstr "月球类星体-三台合体"
+
+msgid "moonwar.zip"
+msgstr "月球战争"
+
+msgid "moonwara.zip"
+msgstr "月球战争(旧版)"
+
+msgid "driveout.zip"
+msgstr "越野赛车"
+
+msgid "driftout.zip"
+msgstr "越野赛车(日版)"
+
+msgid "nam1975.zip"
+msgstr "越战-1975"
+
+msgid "bombkick.zip"
+msgstr "炸弹脚力"
+
+msgid "bombjack.zip"
+msgstr "炸弹杰克(第1套)"
+
+msgid "bjtwin.zip"
+msgstr "炸弹杰克(第1套)"
+
+msgid "bombjack2.zip"
+msgstr "炸弹杰克(第2套)"
+
+msgid "bjtwina.zip"
+msgstr "炸弹杰克(第2套)"
+
+msgid "neobombe.zip"
+msgstr "炸弹人:Neo机皇版"
+
+msgid "panicbom.zip"
+msgstr "炸弹人方块"
+
+msgid "mrtnt.zip"
+msgstr "炸药先生"
+
+msgid "gorkans.zip"
+msgstr "炸药先生Gorkans"
+
+msgid "bullet.zip"
+msgstr "战场雄兵(FD1094317-0041)"
+
+msgid "commandoj.zip"
+msgstr "战场之狼"
+
+msgid "commandob.zip"
+msgstr "战场之狼(盗版)"
+
+msgid "sinvasnb.zip"
+msgstr "战场之狼(盗版)"
+
+msgid "commandou.zip"
+msgstr "战场之狼(美版)"
+
+msgid "sinvasn.zip"
+msgstr "战场之狼(欧洲版)"
+
+msgid "commando.zip"
+msgstr "战场之狼(世界版)"
+
+msgid "mercsu.zip"
+msgstr "战场之狼II(美版900302)"
+
+msgid "mercsua.zip"
+msgstr "战场之狼II(美版900608)"
+
+msgid "mercsj.zip"
+msgstr "战场之狼II(日版900302)"
+
+msgid "mercs.zip"
+msgstr "战场之狼II(世界版900302)"
+
+msgid "triplep.zip"
+msgstr "占地为王"
+
+msgid "knockout.zip"
+msgstr "占地为王KnockOut!!"
+
+msgid "cyberlip.zip"
+msgstr "战斗边缘"
+
+msgid "batcird.zip"
+msgstr "战斗回路(欧洲版970319凤凰版)(盗版)"
+
+msgid "batcir.zip"
+msgstr "战斗回路(欧洲版970319)"
+
+msgid "batcirj.zip"
+msgstr "战斗回路(日版970319)"
+
+msgid "batcira.zip"
+msgstr "战斗回路(亚洲版970319)"
+
+msgid "aquajackj.zip"
+msgstr "战斗快艇-杰克小子(日版)"
+
+msgid "aquajack.zip"
+msgstr "战斗快艇-杰克小子(世界版)"
+
+msgid "afighter.zip"
+msgstr "战斗任务(FD1089A317-0018)"
+
+msgid "combh.zip"
+msgstr "战斗神鹰"
+
+msgid "bkraidu.zip"
+msgstr "战斗翔鹰-无限版本(美版)(TueJun81999)"
+
+msgid "bkraiduj.zip"
+msgstr "战斗翔鹰-无限版本(日版)(TueJun81999)"
+
+msgid "bkraidj.zip"
+msgstr "战斗翔鹰(日版)(WedApr71999)"
+
+msgid "gyrodinec.zip"
+msgstr "战斗直升机"
+
+msgid "gyrodine.zip"
+msgstr "战斗直升机(泰德)"
+
+msgid "goldnaxe1.zip"
+msgstr "战斧(第1套,世界版,FD1094317-0110)"
+
+msgid "goldnaxe2.zip"
+msgstr "战斧(第2套,美版,8751317-0112)"
+
+msgid "goldnaxe3.zip"
+msgstr "战斧(第3套,世界版,FD1094317-0120)"
+
+msgid "goldnaxej.zip"
+msgstr "战斧(第4套,日版,FD1094317-0121)"
+
+msgid "goldnaxeu.zip"
+msgstr "战斧(第5套,美版,FD1094317-0122)"
+
+msgid "goldnaxe.zip"
+msgstr "战斧(第6套,美版,8751317-123A)"
+
+msgid "sengoku.zip"
+msgstr "战国传承(第1套)"
+
+msgid "sengokh.zip"
+msgstr "战国传承(第2套)"
+
+msgid "sengoku2.zip"
+msgstr "战国传承2"
+
+msgid "sengoku3.zip"
+msgstr "战国传承3/战国传承2001"
+
+msgid "sngoku3n.zip"
+msgstr "战国传承3/战国传承2001(C解密)"
+
+msgid "sngkace.zip"
+msgstr "战国世纪(日版)"
+
+msgid "samuraia.zip"
+msgstr "战国世纪(世界版)"
+
+msgid "tengaij.zip"
+msgstr "战国之刃"
+
+msgid "tengai.zip"
+msgstr "战国之刃(世界版)"
+
+msgid "unsquad.zip"
+msgstr "战区88(美版)"
+
+msgid "area88.zip"
+msgstr "战区88(日版)"
+
+msgid "fswords.zip"
+msgstr "战士之剑(韩国版侍魂III)"
+
+msgid "esprade.zip"
+msgstr "长空超少年(国际版,Ver.98/04/22)"
+
+msgid "espradejo.zip"
+msgstr "长空超少年(日版,Ver.98/04/14)"
+
+msgid "espradej.zip"
+msgstr "长空超少年(日版,Ver.98/04/21)"
+
+msgid "pass.zip"
+msgstr "长舌超人"
+
+msgid "speedspn.zip"
+msgstr "真实乒乓球"
+
+msgid "samsho2k.zip"
+msgstr "真侍魂(韩国版侍魂II)"
+
+msgid "gaia.zip"
+msgstr "征战者"
+
+msgid "rescue.zip"
+msgstr "拯救直升机"
+
+msgid "aponow.zip"
+msgstr "拯救直升机ApocaljpseNow"
+
+msgid "thndrbld1.zip"
+msgstr "直升机(豪华版/standing,未保护版)"
+
+msgid "thndrbld.zip"
+msgstr "直升机(直立型,FD1094317-0056)"
+
+msgid "ngem2k.zip"
+msgstr "智力符号2000(Beta060118,Homebrew)"
+
+msgid "silkworm.zip"
+msgstr "中东战争(第1套)"
+
+msgid "silkworm2.zip"
+msgstr "中东战争(第2套)"
+
+msgid "drgw2c.zip"
+msgstr "中国龙II(ver.100C,中国版)"
+
+msgid "drgw2j.zip"
+msgstr "中国龙II(ver.100J,日版)"
+
+msgid "drgw2.zip"
+msgstr "中国龙II(ver.110X,海外版)"
+
+msgid "chukataiu.zip"
+msgstr "中华大仙(美版)"
+
+msgid "chukataij.zip"
+msgstr "中华大仙(日版)"
+
+msgid "chukatai.zip"
+msgstr "中华大仙(世界版)"
+
+msgid "irrmaze.zip"
+msgstr "终极电流急急棒"
+
+msgid "hsf2.zip"
+msgstr "终极街头霸王II:十五周年纪念版(美版040202)"
+
+msgid "hsf2j.zip"
+msgstr "终极街头霸王II:十五周年纪念版(日版031222)"
+
+msgid "hsf2d.zip"
+msgstr "终极街头霸王II:十五周年纪念版(亚洲版040202凤凰版)(盗版)"
+
+msgid "hsf2a.zip"
+msgstr "终极街头霸王II:十五周年纪念版(亚洲版040202)"
+
+msgid "uballoon.zip"
+msgstr "终极气球"
+
+msgid "lresort.zip"
+msgstr "终极任务"
+
+msgid "hwchamp.zip"
+msgstr "重量拳击"
+
+msgid "pootan.zip"
+msgstr "猪仔射狼"
+
+msgid "pooyan.zip"
+msgstr "猪仔射狼"
+
+msgid "pooyans.zip"
+msgstr "猪仔射狼(Stern)"
+
+msgid "cuebrickj.zip"
+msgstr "砖块拼图大考验(日版)"
+
+msgid "cuebrick.zip"
+msgstr "砖块拼图大考验(世界版版本D)"
+
+msgid "armorcar.zip"
+msgstr "装甲车(第1套)"
+
+msgid "armorcar2.zip"
+msgstr "装甲车(第2套)"
+
+msgid "metrocrs.zip"
+msgstr "追赶跑跳碰(第1套)"
+
+msgid "metrocrsa.zip"
+msgstr "追赶跑跳碰(第2套)"
+
+msgid "chasehqu.zip"
+msgstr "追踪H.Q.(美版)"
+
+msgid "chasehqj.zip"
+msgstr "追踪H.Q.(日版)"
+
+msgid "chasehq.zip"
+msgstr "追踪H.Q.(世界版)"
+
+msgid "woodpeck.zip"
+msgstr "啄木鸟(第1套)"
+
+msgid "kodure.zip"
+msgstr "子连狼(日版)"
+
+msgid "ozon1.zip"
+msgstr "自走炮1"
+
+msgid "alpham2.zip"
+msgstr "组合战机ASOII-最后的守护神"
+
+msgid "diggerma.zip"
+msgstr "钻地先生"
+
+msgid "crimfght.zip"
+msgstr "罪恶战士(美版4players)"
+
+msgid "crimfghtj.zip"
+msgstr "罪恶战士(日版2Players)"
+
+msgid "crimfght2.zip"
+msgstr "罪恶战士(世界版2Players)"
+
+msgid "vendettaj.zip"
+msgstr "罪恶战士2(日版2Playersver.P)"
+
+msgid "vendetta2p.zip"
+msgstr "罪恶战士2(世界版2Playersver.W)"
+
+msgid "vendettar.zip"
+msgstr "罪恶战士2(世界版4Playersver.R)"
+
+msgid "vendetta.zip"
+msgstr "罪恶战士2(世界版4Playersver.T)"
+
+msgid "vendetta2pd.zip"
+msgstr "罪恶战士2(亚洲版2Playersver.D)"
+
+msgid "vendetta2pu.zip"
+msgstr "罪恶战士2(亚洲版2Playersver.U)"
+
+msgid "lastsold.zip"
+msgstr "最后的战士(韩国版月华剑士)"
+
+msgid "kyustrkr.zip"
+msgstr "最后足球"
+
+msgid "finalbu.zip"
+msgstr "最终打击(美版)"
+
+msgid "finalbj.zip"
+msgstr "最终打击(日版)"
+
+msgid "finalb.zip"
+msgstr "最终打击(世界版)"
+
+msgid "lastmisno.zip"
+msgstr "最终任务(美版校正版5)"
+
+msgid "lastmisn.zip"
+msgstr "最终任务(美版校正版6)"
+
+msgid "lastmisnj.zip"
+msgstr "最终任务(日版)"
+
+msgid "fstarfrc.zip"
+msgstr "最终星际武力(美版)"
+
+msgid "fstarfrcj.zip"
+msgstr "最终星际武力(日版)"
