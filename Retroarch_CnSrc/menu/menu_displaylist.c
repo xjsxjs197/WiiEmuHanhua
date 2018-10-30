@@ -7211,6 +7211,17 @@ bool menu_displaylist_ctl(enum menu_displaylist_ctl_state type, void *data)
             if (frontend_driver_has_fork())
 #endif
             {
+                // added by xjsxjs197 for support zh start
+                if (settings->bools.menu_content_show_playlists)
+                {
+                    menu_entries_append_enum(info->list,
+                        msg_hash_to_str(MENU_ENUM_LABEL_VALUE_PLAYLIST),
+                        msg_hash_to_str(MENU_ENUM_LABEL_CONTENT_COLLECTION_LIST),
+                        MENU_ENUM_LABEL_CONTENT_COLLECTION_LIST,
+                        MENU_SETTING_ACTION, 0, 0);
+                }
+                // added by xjsxjs197 for support zh end
+
             if (settings->bools.menu_show_load_core)
                   menu_displaylist_parse_settings_enum(menu, info,
                         MENU_ENUM_LABEL_CORE_LIST, PARSE_ACTION, false);
