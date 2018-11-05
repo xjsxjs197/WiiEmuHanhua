@@ -13,9 +13,9 @@ void initFreeTypeGX() {
 
 extern "C" void deleteFreeTypeGX();
 void deleteFreeTypeGX() {
-    if (fontSystemOne) {
+    /*if (fontSystemOne) {
         delete fontSystemOne;
-    }
+    }*/
 }
 
 extern "C" uint16_t drawText(int16_t x, int16_t y, wchar_t *text);
@@ -35,5 +35,8 @@ wchar_t* charToWideChar(char* strChar) {
 
 extern "C" void freeWideCharBuf(wchar_t* strWChar);
 void freeWideCharBuf(wchar_t* strWChar) {
-	fontSystemOne->freeWideCharBuf(strWChar);
+    if (strWChar)
+    {
+        delete[] strWChar;
+    }
 }
