@@ -305,20 +305,20 @@ bool mCoreSaveStateNamed(struct mCore* core, struct VFile* vf, int flags) {
 	size_t stateSize = core->stateSize(core);
 
 	if (flags & SAVESTATE_METADATA) {
-		uint64_t creationUsec;
+		uint64_t* creationUsec = malloc(sizeof(*creationUsec));
 #ifndef _MSC_VER
 		struct timeval tv;
 		if (!gettimeofday(&tv, 0)) {
 			uint64_t usec = tv.tv_usec;
 			usec += tv.tv_sec * 1000000LL;
-			STORE_64LE(usec, 0, &creationUsec);
+			STORE_64LE(usec, 0, creationUsec);
 		}
 #else
 		struct timespec ts;
 		if (timespec_get(&ts, TIME_UTC)) {
 			uint64_t usec = ts.tv_nsec / 1000;
 			usec += ts.tv_sec * 1000000LL;
-			STORE_64LE(usec, 0, &creationUsec);
+			STORE_64LE(usec, 0, creationUsec);
 		}
 #endif
 		else {
@@ -326,9 +326,9 @@ bool mCoreSaveStateNamed(struct mCore* core, struct VFile* vf, int flags) {
 		}
 
 		struct mStateExtdataItem item = {
-			.size = sizeof(creationUsec),
-			.data = &creationUsec,
-			.clean = NULL
+			.size = sizeof(*creationUsec),
+			.data = creationUsec,
+			.clean = free
 		};
 		mStateExtdataPut(&extdata, EXTDATA_META_TIME, &item);
 	}
@@ -360,7 +360,6 @@ bool mCoreSaveStateNamed(struct mCore* core, struct VFile* vf, int flags) {
 		}
 	}
 	if (flags & SAVESTATE_RTC) {
-		mLOG(SAVESTATE, INFO, "Loading RTC");
 		struct mStateExtdataItem item;
 		if (core->rtc.d.serialize) {
 			core->rtc.d.serialize(&core->rtc.d, &item);
@@ -409,11 +408,8 @@ void* mCoreExtractState(struct mCore* core, struct VFile* vf, struct mStateExtda
 	}
 #endif
 	ssize_t stateSize = core->stateSize(core);
-	vf->seek(vf, 0, SEEK_SET);
-	if (vf->size(vf) < stateSize) {
-		return false;
-	}
 	void* state = anonymousMemoryMap(stateSize);
+	vf->seek(vf, 0, SEEK_SET);
 	if (vf->read(vf, state, stateSize) != stateSize) {
 		mappedMemoryFree(state, stateSize);
 		return 0;
