@@ -16,8 +16,17 @@ typedef uint32_t u32;				///< 32bit unsigned integer
 #include <malloc.h>
 #include <ogc/tpl.h>
 
+// add by xjsxjs197 start
+extern void InitCnFont();
+extern void DestroyCnFont();
+extern int GetCharHeight(uint16_t glyph);
+extern int GetCharWidth(uint16_t glyph);
+// add by xjsxjs197 end
+
+// upd by xjsxjs197 start
 //#define GLYPH_HEIGHT 24
 #define GLYPH_HEIGHT 30
+// upd by xjsxjs197 end
 #define CELL_HEIGHT 32
 #define CELL_WIDTH 32
 
@@ -27,6 +36,10 @@ struct GUIFont {
 };
 
 struct GUIFont* GUIFontCreate(void) {
+    // add by xjsxjs197 start
+    InitCnFont();
+    // add by xjsxjs197 end
+
 	struct GUIFont* guiFont = malloc(sizeof(struct GUIFont));
 	if (!guiFont) {
 		return 0;
@@ -53,6 +66,10 @@ struct GUIFont* GUIFontCreate(void) {
 }
 
 void GUIFontDestroy(struct GUIFont* font) {
+    // add by xjsxjs197 start
+    DestroyCnFont();
+    // add by xjsxjs197 end
+
 	TPL_CloseTPLFile(&font->tdf);
 	TPL_CloseTPLFile(&font->iconsTdf);
 	free(font);
@@ -60,15 +77,21 @@ void GUIFontDestroy(struct GUIFont* font) {
 
 unsigned GUIFontHeight(const struct GUIFont* font) {
 	UNUSED(font);
-	return GLYPH_HEIGHT;
+	// upd by xjsxjs197 start
+	//return GLYPH_HEIGHT;
+	return GetCharHeight(0) + 1;
+	// upd by xjsxjs197 end
 }
 
 unsigned GUIFontGlyphWidth(const struct GUIFont* font, uint32_t glyph) {
 	UNUSED(font);
-	if (glyph > 0x7F) {
+	// upd by xjsxjs197 start
+	/*if (glyph > 0x7F) {
 		glyph = '?';
 	}
-	return defaultFontMetrics[glyph].width * 2;
+	return defaultFontMetrics[glyph].width * 2;*/
+	return GetCharWidth((uint16_t)glyph);
+	// upd by xjsxjs197 end
 }
 
 void GUIFontIconMetrics(const struct GUIFont* font, enum GUIIcon icon, unsigned* w, unsigned* h) {

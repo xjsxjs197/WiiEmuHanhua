@@ -27,8 +27,6 @@
 #include <mgba-util/memory.h>
 #include <mgba-util/vfs.h>
 
-#include "gettext.h"
-
 #define GCN1_INPUT 0x47434E31
 #define GCN2_INPUT 0x47434E32
 #define WIIMOTE_INPUT 0x5749494D
@@ -37,9 +35,6 @@
 
 #define TEX_W 256
 #define TEX_H 224
-
-extern void initFreeTypeGX();
-extern void deleteFreeTypeGX();
 
 static void _mapKey(struct mInputMap* map, uint32_t binding, int nativeKey, enum GBAKey key) {
 	mInputBindKey(map, binding, __builtin_ctz(nativeKey), key);
@@ -316,10 +311,6 @@ int main(int argc, char* argv[]) {
 
 	font = GUIFontCreate();
 
-    // Added by xjsxjs197 2017/7/18
-    LoadLanguage();
-    initFreeTypeGX();
-
 	fatInitDefault();
 
 	rumble.setRumble = _setRumble;
@@ -554,9 +545,6 @@ int main(int argc, char* argv[]) {
 
 	free(outputBuffer);
 	GUIFontDestroy(font);
-
-	// added by xjsxjs197 2017/7/20
-	deleteFreeTypeGX();
 
 	free(framebuffer[0]);
 	free(framebuffer[1]);

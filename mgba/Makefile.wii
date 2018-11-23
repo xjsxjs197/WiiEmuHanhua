@@ -44,7 +44,8 @@ SOURCES		:=	$(BUILD) \
 				src/third-party/blip_buf \
 				src/third-party/lzma \
 				src/third-party/zlib/contrib/minizip \
-				src/platform/wii 
+				src/platform/wii \
+				src/platform/wii/CnFont
 INCLUDES	:=  include \
                 src  \
 				src/util/guiGx \
@@ -53,7 +54,7 @@ INCLUDES	:=  include \
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
-CFLAGS = -g -O3 -mrvl $(MACHDEP) $(INCLUDE) $(DEFS) -w -Wextra -std=c99 \
+CFLAGS = -g -O2 -mrvl $(MACHDEP) $(INCLUDE) $(DEFS) -w -Wextra -std=c99 \
         -DM_CORE_GBA -DM_CORE_GB -DCOLOR_16_BIT -DCOLOR_5_6_5 -DUSE_VFS_FILE \
         -DRESAMPLE_LIBRARY=RESAMPLE_BLIP_BUF \
 		-D__ATOMIC_RELEASE -D__ATOMIC_ACQUIRE -fasm -DUSE_PNG -DHAVE_LOCALTIME_R \
@@ -99,6 +100,7 @@ CFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.c)))
 CPPFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 sFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.s)))
 SFILES		:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.S)))
+datFILES	:=	$(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.dat)))
 BINFILES	:=	$(foreach dir,$(DATA),$(notdir $(wildcard $(dir)/*.*)))
 
 #---------------------------------------------------------------------------------
@@ -112,9 +114,10 @@ endif
 
 export OFILES	:=	$(addsuffix .o,$(BINFILES)) \
                     $(TPLFILES:.tpl=.tpl.o) \
+					$(datFILES:.dat=.dat.o) \
 					$(TTFFILES:.ttf=.ttf.o) $(LANGFILES:.lang=.lang.o) \
 					$(CPPFILES:.cpp=.o) $(CFILES:.c=.o) \
-					$(sFILES:.s=.o) $(SFILES:.S=.o)
+					$(sFILES:.s=.o) $(SFILES:.S=.o) 
 
 #---------------------------------------------------------------------------------
 # build a list of include paths
@@ -161,6 +164,10 @@ $(OUTPUT).elf: $(OFILES)
 #---------------------------------------------------------------------------------
 #%.jpg.o	:	%.jpg
 #---------------------------------------------------------------------------------
+%.dat.o : %.dat
+	@echo $(notdir $<)
+	$(bin2o)
+
 %.tpl.o : %.tpl
 	@echo $(notdir $<)
 	$(bin2o)

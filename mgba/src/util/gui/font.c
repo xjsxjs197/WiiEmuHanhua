@@ -4,49 +4,38 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 #include <mgba-util/gui/font.h>
+
 #include <mgba-util/string.h>
 
-extern const char *gettext(const char *msg);
-extern uint16_t getWidth(wchar_t *text);
-extern wchar_t* charToWideChar(char* strChar);
-extern uint16_t drawText(int16_t x, int16_t y, wchar_t *text);
-extern void freeWideCharBuf(wchar_t* strWChar);
+// add by xjsxjs197 start
+extern void DrawCnChar(int x, int y, uint32_t color, uint16_t glyph);
+extern int GetCharHeight(uint16_t glyph);
+extern int GetCharWidth(uint16_t glyph);
+// add by xjsxjs197 end
 
 unsigned GUIFontSpanWidth(const struct GUIFont* font, const char* text) {
-
-	wchar_t * widText = charToWideChar((char *)gettext(text));
-	unsigned width = getWidth(widText);
-	freeWideCharBuf(widText);
-
-	return width;
-
-	/*
-	char txtWithoutIcon[5];
-	size_t len = strlen(utf8Txt);
+	unsigned width = 0;
+	size_t len = strlen(text);
 	while (len) {
-		uint32_t c = utf8Char(&utf8Txt, &len);
+		uint32_t c = utf8Char(&text, &len);
 		if (c == '\1') {
-			c = utf8Char(&utf8Txt, &len);
+			c = utf8Char(&text, &len);
 			if (c < GUI_ICON_MAX) {
 				unsigned w;
 				GUIFontIconMetrics(font, c, &w, 0);
 				width += w;
 			}
 		} else {
-		    size_t charLen = toUtf8(c, txtWithoutIcon);
-		    txtWithoutIcon[charLen] = '\0';
-		    wchar_t * widText = charToWideChar(txtWithoutIcon);
-			width += getWidth(widText);
-
-			//freeWideCharBuf(widText);
+		    // upd by xjsxjs197 start
+			//width += GUIFontGlyphWidth(font, c);
+			width += GetCharWidth((uint16_t)c) + 1;
+			// upd by xjsxjs197 end
 		}
 	}
-
-	return width;*/
+	return width;
 }
 
 void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment align, uint32_t color, const char* text) {
-
 	switch (align & GUI_ALIGN_HCENTER) {
 	case GUI_ALIGN_HCENTER:
 		x -= GUIFontSpanWidth(font, text) / 2;
@@ -57,18 +46,11 @@ void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment al
 	default:
 		break;
 	}
-
-    wchar_t * widText = charToWideChar((char *)(gettext(text)));
-    drawText(x, y, widText);
-    freeWideCharBuf(widText);
-
-	/*
-	char txtWithoutIcon[5];
-	size_t len = strlen(utf8Txt);
+	size_t len = strlen(text);
 	while (len) {
-		uint32_t c = utf8Char(&utf8Txt, &len);
+		uint32_t c = utf8Char(&text, &len);
 		if (c == '\1') {
-			c = utf8Char(&utf8Txt, &len);
+			c = utf8Char(&text, &len);
 			if (c < GUI_ICON_MAX) {
 				GUIFontDrawIcon(font, x, y, GUI_ALIGN_BOTTOM, GUI_ORIENT_0, color, c);
 				unsigned w;
@@ -76,15 +58,14 @@ void GUIFontPrint(const struct GUIFont* font, int x, int y, enum GUIAlignment al
 				x += w;
 			}
 		} else {
-			size_t charLen = toUtf8(c, txtWithoutIcon);
-		    txtWithoutIcon[charLen] = '\0';
-		    wchar_t * widText = charToWideChar(txtWithoutIcon);
-			drawText(x, y, widText);
-            x += getWidth(widText);
-
-            //freeWideCharBuf(widText);
+		    // upd by xjsxjs197 start
+			//GUIFontDrawGlyph(font, x, y, color, c);
+			//x += GUIFontGlyphWidth(font, c);
+			DrawCnChar(x, y, color, (uint16_t)c);
+			x += GetCharWidth((uint16_t)c) + 1;
+			// upd by xjsxjs197 end
 		}
-	}*/
+	}
 }
 
 void GUIFontPrintf(const struct GUIFont* font, int x, int y, enum GUIAlignment align, uint32_t color, const char* text, ...) {
