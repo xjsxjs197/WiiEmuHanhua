@@ -79,7 +79,7 @@ unsigned GUIFontHeight(const struct GUIFont* font) {
 	UNUSED(font);
 	// upd by xjsxjs197 start
 	//return GLYPH_HEIGHT;
-	return GetCharHeight(0) + 1;
+	return GetCharHeight(0) + 2;
 	// upd by xjsxjs197 end
 }
 

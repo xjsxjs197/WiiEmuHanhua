@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2016 Jeffrey Pfau
+﻿/* Copyright (c) 2013-2016 Jeffrey Pfau
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -36,13 +36,15 @@ static bool _biosNamed(const char* name) {
 
 void mGUIShowConfig(struct mGUIRunner* runner, struct GUIMenuItem* extra, size_t nExtra) {
 	struct GUIMenu menu = {
-		.title = "Configure",
+		//.title = "Configure",
+		.title = "各种设定",
 		.index = 0,
 		.background = &runner->background.d
 	};
 	GUIMenuItemListInit(&menu.items, 0);
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Frameskip",
+		//.title = "Frameskip",
+		.title = "跳帧",
 		.data = "frameskip",
 		.submenu = 0,
 		.state = 0,
@@ -52,37 +54,44 @@ void mGUIShowConfig(struct mGUIRunner* runner, struct GUIMenuItem* extra, size_t
 		.nStates = 10
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Show framerate",
+		//.title = "Show framerate",
+		.title = "显示帧数",
 		.data = "fpsCounter",
 		.submenu = 0,
 		.state = false,
 		.validStates = (const char*[]) {
-			"Off", "On"
+			//"Off", "On"
+			"关闭", "打开"
 		},
 		.nStates = 2
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Autosave state",
+		//.title = "Autosave state",
+		.title = "自动保存状态",
 		.data = "autosave",
 		.submenu = 0,
 		.state = true,
 		.validStates = (const char*[]) {
-			"Off", "On"
+			//"Off", "On"
+			"关闭", "打开"
 		},
 		.nStates = 2
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Autoload state",
+		//.title = "Autoload state",
+		.title = "自动读取状态",
 		.data = "autoload",
 		.submenu = 0,
 		.state = true,
 		.validStates = (const char*[]) {
-			"Off", "On"
+			//"Off", "On"
+			"关闭", "打开"
 		},
 		.nStates = 2
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Use BIOS if found",
+		//.title = "Use BIOS if found",
+		.title = "如果BIOS存在就使用",
 		.data = "useBios",
 		.submenu = 0,
 		.state = true,
@@ -92,20 +101,24 @@ void mGUIShowConfig(struct mGUIRunner* runner, struct GUIMenuItem* extra, size_t
 		.nStates = 2
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Select GBA BIOS path",
+		//.title = "Select GBA BIOS path",
+		.title = "选择GBA BIOS路径",
 		.data = "gba.bios",
 	};
 #ifdef M_CORE_GB
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Select GB BIOS path",
+		//.title = "Select GB BIOS path",
+		.title = "选择GB BIOS路径",
 		.data = "gb.bios",
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Select GBC BIOS path",
+		//.title = "Select GBC BIOS path",
+		.title = "选择GBC BIOS路径",
 		.data = "gbc.bios",
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Select SGB BIOS path",
+		//.title = "Select SGB BIOS path",
+		.title = "选择SGB BIOS路径",
 		.data = "sgb.bios",
 	};
 #endif
@@ -120,7 +133,8 @@ void mGUIShowConfig(struct mGUIRunner* runner, struct GUIMenuItem* extra, size_t
 			i = 0;
 		}
 		*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-			.title = "Remap controls",
+			//.title = "Remap controls",
+			.title = "重新映射控制器",
 			.data = "*REMAP",
 			.state = 0,
 			.validStates = i ? mapNames : 0,
@@ -131,11 +145,13 @@ void mGUIShowConfig(struct mGUIRunner* runner, struct GUIMenuItem* extra, size_t
 		*GUIMenuItemListAppend(&menu.items) = extra[i];
 	}
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Save",
+		//.title = "Save",
+		.title = "保存",
 		.data = "*SAVE",
 	};
 	*GUIMenuItemListAppend(&menu.items) = (struct GUIMenuItem) {
-		.title = "Cancel",
+		//.title = "Cancel",
+		.title = "取消",
 		.data = 0,
 	};
 	enum GUIMenuExitReason reason;

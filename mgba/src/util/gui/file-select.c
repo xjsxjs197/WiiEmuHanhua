@@ -1,4 +1,4 @@
-/* Copyright (c) 2013-2015 Jeffrey Pfau
+﻿/* Copyright (c) 2013-2015 Jeffrey Pfau
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -54,7 +54,8 @@ static bool _refreshDirectory(struct GUIParams* params, const char* currentPath,
 	if (!dir) {
 		return false;
 	}
-	*GUIMenuItemListAppend(currentFiles) = (struct GUIMenuItem) { .title = "(Up)" };
+	//*GUIMenuItemListAppend(currentFiles) = (struct GUIMenuItem) { .title = "(Up)" };
+	*GUIMenuItemListAppend(currentFiles) = (struct GUIMenuItem) { .title = "(上一级目录)" };
 	size_t i = 0;
 	size_t items = 0;
 	struct VDirEntry* de;
@@ -154,7 +155,8 @@ static bool _refreshDirectory(struct GUIParams* params, const char* currentPath,
 
 bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool (*filterName)(const char* name), bool (*filterContents)(struct VFile*)) {
 	struct GUIMenu menu = {
-		.title = "Select file",
+		//.title = "Select file",
+		.title = "选择游戏",
 		.subtitle = params->currentPath,
 		.index = params->fileIndex,
 	};

@@ -155,7 +155,8 @@ enum GUIMenuExitReason GUIShowMenu(struct GUIParams* params, struct GUIMenu* men
 			int color = 0xE0A0A0A0;
 			if (i == menu->index) {
 				color = 0xFFFFFFFF;
-				GUIFontDrawIcon(params->font, lineHeight * 0.8f, y, GUI_ALIGN_BOTTOM | GUI_ALIGN_RIGHT, GUI_ORIENT_0, 0xFFFFFFFF, GUI_ICON_POINTER);
+				//GUIFontDrawIcon(params->font, lineHeight * 0.8f, y, GUI_ALIGN_BOTTOM | GUI_ALIGN_RIGHT, GUI_ORIENT_0, 0xFFFFFFFF, GUI_ICON_POINTER);
+				GUIFontDrawIcon(params->font, lineHeight * 0.8f, y + 7, GUI_ALIGN_RIGHT, GUI_ORIENT_0, 0xFFFFFFFF, GUI_ICON_POINTER);
 			}
 			struct GUIMenuItem* item = GUIMenuItemListGetPointer(&menu->items, i);
 			GUIFontPrint(params->font, lineHeight, y, GUI_ALIGN_LEFT, color, item->title);
