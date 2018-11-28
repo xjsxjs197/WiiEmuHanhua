@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<app version="1">
+	<name>mGBA</name>
+	<coder>Jeffrey Pfau (endrift)</coder>
+	<version>0.7 b1(20181128)</version>
+	<short_description>mGBA Game Boy Advance emulator</short_description>
+</app>
