@@ -2,6 +2,6 @@
 <app version="1">
 	<name>mGBA</name>
 	<coder>Jeffrey Pfau (endrift)</coder>
-	<version>0.7 b1(20181128)</version>
+	<version>0.7 b1(20181128_IA4)</version>
 	<short_description>mGBA Game Boy Advance emulator</short_description>
 </app>

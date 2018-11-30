@@ -17,7 +17,7 @@
 #define CH_FONT_WIDTH 32
 
 // 字符图片的大小
-#define CHAR_IMG_SIZE CH_FONT_HEIGHT * CH_FONT_WIDTH / 2
+#define CHAR_IMG_SIZE CH_FONT_HEIGHT * CH_FONT_WIDTH
 
 // 保存字符图片映射信息
 static std::map<uint16_t, int> charWidthMap;
@@ -27,17 +27,15 @@ static std::map<uint16_t, u8*> charImgBufMap;
 * 初始化
 */
 void InitCnFont() {
-	int searchLen = (int)(mGba_CnFont_I4_dat_size / (CHAR_IMG_SIZE + 4));
+	int searchLen = (int)(mGba_CnFont_I4_dat_size / (CHAR_IMG_SIZE + 32));
 	int bufIndex = 0;
-	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
+	int skipSetp = (CHAR_IMG_SIZE + 32) / 2;
 
 	uint16_t *zhFontBufTemp = (uint16_t *)mGba_CnFont_I4_dat;
     while (bufIndex < searchLen)
     {
         charWidthMap.insert(std::pair<uint16_t, int>(*zhFontBufTemp, *((u8*)(zhFontBufTemp + 1) + 1)));
-        u8 * tmpPngBuf = (u8*) memalign(32, CHAR_IMG_SIZE);
-        memcpy(tmpPngBuf, (u8*)(zhFontBufTemp + 2), CHAR_IMG_SIZE);
-        charImgBufMap.insert(std::pair<uint16_t, u8*>(*zhFontBufTemp, tmpPngBuf));
+        charImgBufMap.insert(std::pair<uint16_t, u8*>(*zhFontBufTemp, (u8*)(zhFontBufTemp + 16)));
 
         zhFontBufTemp += skipSetp;
         bufIndex++;
@@ -49,18 +47,7 @@ void InitCnFont() {
 */
 void DestroyCnFont() {
     charWidthMap.clear();
-    if (charImgBufMap.size() > 0)
-    {
-         std::map<uint16_t, u8*>::iterator it = charImgBufMap.begin();
-         while (it != charImgBufMap.end())
-         {
-             u8* tmpBuf = it->second;
-             free(tmpBuf);
-             ++it;
-         }
-
-         charImgBufMap.clear();
-    }
+    charImgBufMap.clear();
 }
 
 /**
@@ -84,11 +71,11 @@ void DrawCnChar(int x, int y, uint32_t color, uint16_t glyph) {
     }
     else
     {
-        charPngBug = (u8*)(charImgBufMap[0]);
+        charPngBug = charImgBufMap[0];
     }
 
 
-	GX_InitTexObj(&fontTexObj, charPngBug, CH_FONT_WIDTH, CH_FONT_HEIGHT, GX_TF_I4, GX_CLAMP, GX_CLAMP, GX_FALSE);
+	GX_InitTexObj(&fontTexObj, charPngBug, CH_FONT_WIDTH, CH_FONT_HEIGHT, GX_TF_IA4, GX_CLAMP, GX_CLAMP, GX_FALSE);
     GX_LoadTexObj(&fontTexObj, GX_TEXMAP0);
 
     GX_Begin(GX_QUADS, GX_VTXFMT0, 4);
