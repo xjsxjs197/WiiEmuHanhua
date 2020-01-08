@@ -174,7 +174,6 @@ preparePrefsData ()
 	createXMLSetting("BorderFolder", "SGB Borders Folder", GCSettings.BorderFolder);
 	createXMLSetting("CoverFolder", "Covers Folder", GCSettings.CoverFolder);
 	createXMLSetting("ArtworkFolder", "Artwork Folder", GCSettings.ArtworkFolder);
-	createXMLSetting("ImageFolder", "Image Folder", GCSettings.ImageFolder);
 
 	createXMLSection("Network", "Network Settings");
 
@@ -217,12 +216,13 @@ preparePrefsData ()
 	
 	createXMLSection("Controller", "Controller Settings");
 
-	createXMLSetting("WiiControls", "Match Wii Game", toStr(GCSettings.WiiControls));
 	createXMLController(btnmap[CTRLR_GCPAD], "gcpadmap", "GameCube Pad");
+	createXMLSetting("WiiControls", "Match Wii Game", toStr(GCSettings.WiiControls));
 	createXMLController(btnmap[CTRLR_WIIMOTE], "wmpadmap", "Wiimote");
 	createXMLController(btnmap[CTRLR_CLASSIC], "ccpadmap", "Classic Controller");
 	createXMLController(btnmap[CTRLR_NUNCHUK], "ncpadmap", "Nunchuk");
 	createXMLController(btnmap[CTRLR_WUPC], "wupcpadmap", "Wii U Pro Controller");
+	createXMLController(btnmap[CTRLR_WIIDRC], "drcpadmap", "Wii U Gamepad");
 
 	createXMLSection("Emulation", "Emulation Settings");
 
@@ -489,7 +489,6 @@ decodePrefsData ()
 			loadXMLSetting(GCSettings.BorderFolder, "BorderFolder", sizeof(GCSettings.BorderFolder));
 			loadXMLSetting(GCSettings.CoverFolder, "CoverFolder", sizeof(GCSettings.CoverFolder));
 			loadXMLSetting(GCSettings.ArtworkFolder, "ArtworkFolder", sizeof(GCSettings.ArtworkFolder));
-			loadXMLSetting(GCSettings.ImageFolder, "ImageFolder", sizeof(GCSettings.ImageFolder));
 
 			// Network Settings
 
@@ -525,21 +524,19 @@ decodePrefsData ()
 			loadXMLSetting(&GCSettings.PreviewImage, "PreviewImage");
 
 			// Controller Settings
-
-			loadXMLSetting(&GCSettings.WiiControls, "WiiControls");
 			loadXMLController(btnmap[CTRLR_GCPAD], "gcpadmap");
+			loadXMLSetting(&GCSettings.WiiControls, "WiiControls");
 			loadXMLController(btnmap[CTRLR_WIIMOTE], "wmpadmap");
 			loadXMLController(btnmap[CTRLR_CLASSIC], "ccpadmap");
 			loadXMLController(btnmap[CTRLR_NUNCHUK], "ncpadmap");
 			loadXMLController(btnmap[CTRLR_WUPC], "wupcpadmap");
-			
+			loadXMLController(btnmap[CTRLR_WIIDRC], "drcpadmap");
 			// Emulation Settings
 			
 			loadXMLSetting(&GCSettings.OffsetMinutesUTC, "OffsetMinutesUTC");
 			loadXMLSetting(&GCSettings.GBHardware, "GBHardware");
 			loadXMLSetting(&GCSettings.SGBBorder, "SGBBorder");
 			loadXMLSetting(&GCSettings.BasicPalette, "BasicPalette");
-
 		}
 		mxmlDelete(xml);
 	}
@@ -639,7 +636,6 @@ DefaultSettings ()
 	sprintf (GCSettings.BorderFolder, "%s/borders", APPFOLDER);
 	sprintf (GCSettings.CoverFolder, "%s/covers", APPFOLDER); // Path to cover files
 	sprintf (GCSettings.ArtworkFolder, "%s/artwork", APPFOLDER); // Path to artwork files
-	sprintf (GCSettings.ImageFolder, "%s/screenshots", APPFOLDER);
 
 	GCSettings.AutoLoad = 1;
 	GCSettings.AutoSave = 1;
@@ -665,6 +661,7 @@ DefaultSettings ()
 
 	GCSettings.WiimoteOrientation = 0;
 	GCSettings.ExitAction = 0;
+	GCSettings.AutoloadGame = 0;
 	GCSettings.MusicVolume = 20;
 	GCSettings.SFXVolume = 40;
 	GCSettings.Rumble = 1;
@@ -843,7 +840,7 @@ bool LoadPrefs()
 		FixInvalidSettings();
 
 	// attempt to create directories if they don't exist
-	if(GCSettings.LoadMethod != DEVICE_AUTO) {
+	if(GCSettings.LoadMethod == DEVICE_SD || GCSettings.LoadMethod == DEVICE_USB) {
 		char dirPath[MAXPATHLEN];
 		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ScreenshotsFolder);
 		CreateDirectory(dirPath);
@@ -853,7 +850,13 @@ bool LoadPrefs()
 		CreateDirectory(dirPath);
 	}
 
-	ResetText();
+#ifdef HW_RVL
+	bg_music = (u8 * )bg_music_ogg;
+	bg_music_size = bg_music_ogg_size;
+	LoadBgMusic();
+#endif
+
+	ChangeLanguage();
 	return prefFound;
 }
 

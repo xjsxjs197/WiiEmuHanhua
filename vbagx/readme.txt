@@ -15,7 +15,8 @@ https://github.com/dborth/vbagx/releases
 
 -=[ Features ]=-
 
-* Wiimote, Nunchuk, Classic, and Gamecube controller support
+* Wiimote, Nunchuk, Classic, Wii U Pro, and Gamecube controller support
+* Wii U GamePad support (requires homebrew injection into Wii U VC title)
 * Rotation sensors, Solar sensors, and Rumble support
 * Optional special Wii controls built-in for some games
 * SRAM and State saving
@@ -31,12 +32,37 @@ https://github.com/dborth/vbagx/releases
 * Screenshots can be displayed on the main menu
 * Fixed pixel ratio mode (1x, 2x, and 3x)
 * Borders (from Super Game Boy games or custom from .png)
-* Wii U Pro Controller support
 * 240p support
 
 ื—–ญ—–ญ—–ญ—–ญ –ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ— ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ—–ญ—-ญ—–ญ-–•ฌ
 |0Oื๘oท                         UPDATE HISTORY                        ทo๘ืO0|
 `จ•จจจจจ จจจจจจจจจจจจจจจจ จจจจจจจจจจจจจจจ จจจจจจจจจจจจจจจจจจจจ จจจจจจจจจจจจจ'
+
+[2.4.0 - April 13, 2019]
+
+* Fixed crash when used as wiiflow plugin
+* Fixed crash on launch when using network shares
+* Fixed issues with on-screen keyboard
+* Updated Korean translation
+
+[2.3.9 - January 25, 2019]
+
+* Added ability to load external fonts and activated Japanese/Korean 
+  translations. Simply put the ko.ttf or jp.ttf in the app directory
+* Added ability to customize background music. Simply put a bg_music.ogg
+  in the app directory
+* Added ability to change preview image source with + button (thanks Zalo!)
+* Fixed issue with resetting motion controls
+* Fixed issue with Mode 0 graphics transparency
+
+[2.3.8 - January 4, 2019]
+
+* Restored changes lost from 2.3.0 core upgrade (GameCube virtual memory, 
+  optimizations from dancinninjac, GB color palettes, rotation/tilt for 
+  WarioWare Twisted, in-game rumble) 
+* Improved WiiFlow integration
+* Fixed controllers with no analog sticks
+* Added Wii U GamePad support (thanks Fix94!)
 
 [2.3.7 - August 28, 2018]
 
@@ -724,8 +750,8 @@ Medal Of Honour Underground, Medal Of Honour Infiltrator
 
 One Piece can be played with One Piece Unlimited Adventure controls.
 
-Boktai 1, Boktai 2, Boktai 3, and Kirby's Tilt n Tumble can be played with
-controls designed for them.
+Boktai 1, Boktai 2, Boktai 3, and Kirby's Tilt n Tumble, and WarioWare Twisted
+can be played with controls designed for them.
 
 -=[ Zelda, Match Wii Controls ]=-
 
@@ -893,6 +919,7 @@ ZR = fast forward (8-bit Game Boy only)
 In Super Mario World and Super Mario Land 2, you can use the A or R
 buttons for a spin jump.
 
+
 -=[ Yoshi's Universal Gravitation (Topsy Turvy), Match Wii Controls ]=-
 
 Turn "Match Wii Controls" ON to use these controls.
@@ -984,9 +1011,20 @@ Z or 1 = change element, or change subscreen (L)
 
 -=[ WarioWare Twisted, Match Wii Controls ]=-
 
-NOTE: For unknown reasons (but probably related to the update of the VBA-M
-emulator code), WarioWare Twisted will no longer work on VBA-GX. For now, you
-will need to go back to VBA-GX 2.2.8 to play it.
+Turn "Match Wii Controls" ON to use these controls.
+
+WarioWare Twisted uses similar controls to the Gameboy game.
+
+The Wii WarioWare Twisted controls are:
+=======================================
+
+Rotate the Wii Remote to rotate.
+
+Hold Z to lock the current menu item.
+
+A = Select
+B = Cancel
++ = Start
 
 -=[ Kirby's Tilt n Tumble, Match Wii Controls ]=-
 
@@ -1174,7 +1212,7 @@ switched items since then.
 			Additional coding			Carl Kenner, dancinninjac
 			Menu artwork				the3seashells
 			Menu sound					Peter de Man
-
+                      
 			จจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจจ
 			VBA GameCube/Wii			SoftDev, emukidid
 

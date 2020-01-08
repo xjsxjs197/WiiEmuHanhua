@@ -1,11 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * softdev July 2006
- * svpe June 2007
- * crunchy2 May-July 2007
- * Michniewski 2008
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * filebrowser.cpp
  *
@@ -40,6 +36,10 @@
 #include "snes9x/memmap.h"
 #include "snes9x/cheats.h"
 
+extern "C" {
+extern char* strcasestr(const char *, const char *);
+}
+
 BROWSERINFO browser;
 BROWSERENTRY * browserList = NULL; // list of files/folders in browser
 
@@ -49,6 +49,8 @@ bool inSz = false;
 
 unsigned long SNESROMSize = 0;
 bool loadingFile = false;
+
+extern bool isBSX();
 
 /****************************************************************************
 * autoLoadMethod()
@@ -288,7 +290,10 @@ bool MakeFilePath(char filepath[], int type, char * filename, int filenum)
 					if(filenum == -1)
 						sprintf(file, "%s.%s", filename, ext);
 					else if(filenum == 0)
-						sprintf(file, "%s Auto.%s", filename, ext);
+						if (GCSettings.AppendAuto <= 0)
+							sprintf(file, "%s.%s", filename, ext);
+						else
+							sprintf(file, "%s Auto.%s", filename, ext);
 					else
 						sprintf(file, "%s %i.%s", filename, filenum, ext);
 				}
@@ -346,14 +351,6 @@ int FileSortCallback(const void *f1, const void *f2)
  ***************************************************************************/
 static bool IsValidROM()
 {
-	// file size should be between 32K and 8MB
-	if(browserList[browser.selIndex].length < (1024*32) ||
-		browserList[browser.selIndex].length > Memory.MAX_ROM_SIZE)
-	{
-		ErrorPrompt("Invalid file size!");
-		return false;
-	}
-
 	if (strlen(browserList[browser.selIndex].filename) > 4)
 	{
 		char * p = strrchr(browserList[browser.selIndex].filename, '.');
@@ -453,6 +450,8 @@ int BrowserLoadSz()
 	return szfiles;
 }
 
+static bool bsxBiosLoadFailed;
+
 int WiiFileLoader()
 {
 	size_t size;
@@ -467,7 +466,7 @@ int WiiFileLoader()
 		if(!MakeFilePath(filepath, FILE_ROM))
 			return 0;
 
-		size = LoadFile ((char *)Memory.ROM, filepath, browserList[browser.selIndex].length, NOTSILENT);
+		size = LoadFile ((char *)Memory.ROM, filepath, 0, Memory.MAX_ROM_SIZE, NOTSILENT);
 	}
 	else
 	{
@@ -484,7 +483,16 @@ int WiiFileLoader()
 	if(size <= 0)
 		return 0;
 
-	SNESROMSize = Memory.HeaderRemove(size, Memory.HeaderCount, Memory.ROM);
+	SNESROMSize = Memory.HeaderRemove(size, Memory.ROM);
+	bsxBiosLoadFailed = false;
+
+	if(isBSX()) {
+		sprintf (filepath, "%s%s/BS-X.bin", pathPrefix[GCSettings.LoadMethod], APPFOLDER);
+		if(LoadFile ((char *)Memory.BIOSROM, filepath, 0, 0x100000, SILENT) == 0) {
+			bsxBiosLoadFailed = true;
+		}
+	}
+
 	return SNESROMSize;
 }
 
@@ -501,8 +509,6 @@ int BrowserLoadFile()
 	if(!FindDevice(browser.dir, &device))
 		return 0;
 
-	GetFileSize(browser.selIndex);
-
 	// check that this is a valid ROM
 	if(!IsValidROM())
 		goto done;
@@ -516,9 +522,12 @@ int BrowserLoadFile()
 	S9xDeleteCheats();
 	Memory.LoadROM("ROM");
 
-	if (SNESROMSize <= 0)
+	if (SNESROMSize == 0)
 	{
 		ErrorPrompt("Error loading game!");
+	}
+	else if(bsxBiosLoadFailed) {
+		ErrorPrompt("BS-X BIOS file not found!");
 	}
 	else
 	{
@@ -665,4 +674,33 @@ OpenGameList ()
 	
 	BrowserChangeFolder();
 	return browser.numEntries;
+}
+
+bool AutoloadGame(char* filepath, char* filename) {
+	ResetBrowser();
+
+	selectLoadedFile = 1;
+	std::string dir(filepath);
+	dir.assign(&dir[dir.find_last_of(":") + 2]);
+	strncpy(GCSettings.LoadFolder, dir.c_str(), sizeof(GCSettings.LoadFolder));
+	OpenGameList();
+
+	for(int i = 0; i < browser.numEntries; i++) {
+		// Skip it
+		if (strcmp(browserList[i].filename, ".") == 0 || strcmp(browserList[i].filename, "..") == 0) {
+			continue;
+		}
+		if(strcasestr(browserList[i].filename, filename) != NULL) {
+			browser.selIndex = i;
+			if(IsSz()) {
+				BrowserLoadSz();
+				browser.selIndex = 1;
+			}
+			break;
+		}
+	}
+	if(BrowserLoadFile() > 0) {
+		return true;
+	}
+	return false;
 }

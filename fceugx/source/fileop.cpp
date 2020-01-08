@@ -35,9 +35,14 @@
 #include "filebrowser.h"
 #include "gui/gui.h"
 
+#ifdef HW_RVL
+	#include "mem2.h"
+#endif
+
 #define THREAD_SLEEP 100
 
-unsigned char savebuffer[SAVEBUFFERSIZE] ATTRIBUTE_ALIGN(32);
+unsigned char *savebuffer = NULL;
+u8 *ext_font_ttf = NULL;
 static mutex_t bufferLock = LWP_MUTEX_NULL;
 FILE * file; // file pointer - the only one we should ever use!
 bool unmountRequired[7] = { false, false, false, false, false, false, false };
@@ -475,22 +480,6 @@ static char *GetExt(char *file)
 	return ext;
 }
 
-bool GetFileSize(int i)
-{
-	if(browserList[i].length > 0)
-		return true;
-
-	struct stat filestat;
-	char path[MAXPATHLEN+1];
-	snprintf(path, MAXPATHLEN, "%s%s", browser.dir, browserList[i].filename);
-
-	if(stat(path, &filestat) < 0)
-		return false;
-
-	browserList[i].length = filestat.st_size;
-	return true;
-}
-
 void FindAndSelectLastLoadedFile () 
 {
 	int indexFound = -1;
@@ -675,7 +664,6 @@ ParseDirectory(bool waitParse, bool filter)
 		AddBrowserEntry();
 		sprintf(browserList[0].filename, "..");
 		sprintf(browserList[0].displayname, "Up One Level");
-		browserList[0].length = 0;
 		browserList[0].isdir = 1; // flag this as a dir
 		browserList[0].icon = ICON_FOLDER;
 		browser.numEntries++;
@@ -777,7 +765,7 @@ LoadSzFile(char * filepath, unsigned char * rbuffer)
  * LoadFile
  ***************************************************************************/
 size_t
-LoadFile (char * rbuffer, char *filepath, size_t length, bool silent)
+LoadFile (char * rbuffer, char *filepath, size_t length, size_t buffersize, bool silent)
 {
 	char zipbuffer[2048];
 	size_t size = 0, offset = 0, readsize = 0;
@@ -829,7 +817,7 @@ LoadFile (char * rbuffer, char *filepath, size_t length, bool silent)
 
 			if (IsZipFile (zipbuffer))
 			{
-				size = UnZipBuffer ((unsigned char *)rbuffer); // unzip
+				size = UnZipBuffer ((unsigned char *)rbuffer, buffersize); // unzip
 			}
 			else
 			{
@@ -837,18 +825,23 @@ LoadFile (char * rbuffer, char *filepath, size_t length, bool silent)
 				size = ftello(file);
 				fseeko(file,0,SEEK_SET);
 
-				while(!feof(file))
-				{
-					ShowProgress ("Loading...", offset, size);
-					readsize = fread (rbuffer + offset, 1, 4096, file); // read in next chunk
-
-					if(readsize <= 0)
-						break; // reading finished (or failed)
-
-					offset += readsize;
+				if(size > buffersize) {
+					size = 0;
 				}
-				size = offset;
-				CancelAction();
+				else {
+					while(!feof(file))
+					{
+						ShowProgress ("Loading...", offset, size);
+						readsize = fread (rbuffer + offset, 1, 4096, file); // read in next chunk
+
+						if(readsize <= 0)
+							break; // reading finished (or failed)
+
+						offset += readsize;
+					}
+					size = offset;
+					CancelAction();
+				}
 			}
 		}
 		retry = 0;
@@ -863,8 +856,74 @@ LoadFile (char * rbuffer, char *filepath, size_t length, bool silent)
 
 size_t LoadFile(char * filepath, bool silent)
 {
-	return LoadFile((char *)savebuffer, filepath, 0, silent);
+	return LoadFile((char *)savebuffer, filepath, 0, SAVEBUFFERSIZE, silent);
 }
+
+#ifdef HW_RVL
+size_t LoadFont(char * filepath)
+{
+	FILE *file = fopen (filepath, "rb");
+
+	if(!file) {
+		ErrorPrompt("Font file not found!");
+		return 0;
+	}
+
+	fseeko(file,0,SEEK_END);
+	size_t loadSize = ftello(file);
+
+	if(loadSize == 0) {
+		ErrorPrompt("Error loading font!");
+		return 0;
+	}
+
+	if(ext_font_ttf) {
+		mem2_free(ext_font_ttf);
+	}
+
+	ext_font_ttf = (u8 *)mem2_malloc(loadSize);
+
+	if(!ext_font_ttf) {
+		ErrorPrompt("Font file is too large!");
+		fclose(file);
+		return 0;
+	}
+
+	fseeko(file,0,SEEK_SET);
+	fread (ext_font_ttf, 1, loadSize, file);
+	fclose(file);
+	return loadSize;
+}
+
+void LoadBgMusic()
+{
+	char filepath[MAXPATHLEN];
+	sprintf(filepath, "%s/bg_music.ogg", appPath);
+	FILE *file = fopen (filepath, "rb");
+	if(!file) {
+		return;
+	}
+
+	fseeko(file,0,SEEK_END);
+	size_t ogg_size = ftello(file);
+
+	if(ogg_size == 0) {
+		return;
+	}
+
+	u8 * ogg_data = (u8 *)mem2_malloc(ogg_size);
+
+	if(!ogg_data) {
+		return;
+	}
+
+	fseeko(file, 0, SEEK_SET);
+	fread (ogg_data, 1, ogg_size, file);
+	fclose(file);
+	bg_music = ogg_data;
+	bg_music_size = ogg_size;
+}
+#endif
 
 /****************************************************************************
  * SaveFile

@@ -3,7 +3,7 @@
  *
  * crunchy2 April 2007-July 2007
  * Michniewski 2008
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * sram.cpp
  *
@@ -46,7 +46,7 @@ LoadSRAM (char * filepath, bool silent)
 
 	if (size)
 	{
-		len = LoadFile((char *)Memory.SRAM, filepath, size, silent);
+		len = LoadFile((char *)Memory.SRAM, filepath, 0, 0x20000, silent);
 
 		if (len > 0)
 		{
@@ -59,7 +59,7 @@ LoadSRAM (char * filepath, bool silent)
 				filepath[pathlen-3] = 'r';
 				filepath[pathlen-2] = 't';
 				filepath[pathlen-1] = 'c';
-				LoadFile((char *)RTCData.reg, filepath, 20, silent);
+				LoadFile((char *)RTCData.reg, filepath, 0, 20, silent);
 			}
 			result = true;
 		}
@@ -84,6 +84,9 @@ LoadSRAMAuto (bool silent)
 
 	if (LoadSRAM(filepath, silent))
 		return true;
+
+	if (!GCSettings.AppendAuto)
+		return false;
 
 	// look for file with no number or Auto appended
 	if(!MakeFilePath(filepath, FILE_SRAM, Memory.ROMFilename, -1))

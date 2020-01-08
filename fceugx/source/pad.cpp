@@ -10,7 +10,6 @@
  ****************************************************************************/
 
 #include <gccore.h>
-#include <math.h>
 #include <ogc/lwp_watchdog.h>
 
 #include "fceugx.h"
@@ -23,6 +22,8 @@
 #include "button_mapping.h"
 #include "fceuload.h"
 #include "gui/gui.h"
+
+#define ANALOG_SENSITIVITY 30
 
 int rumbleRequest[4] = {0,0,0,0};
 GuiTrigger userInput[4];
@@ -39,7 +40,7 @@ static unsigned int myzappers[2][3];
 
 u32 nespadmap[11]; // Original NES controller buttons
 u32 zapperpadmap[11]; // Original NES Zapper controller buttons
-u32 btnmap[2][5][12]; // button mapping
+u32 btnmap[2][6][12]; // button mapping
 
 void ResetControls(int consoleCtrl, int wiiCtrl)
 {
@@ -111,7 +112,7 @@ void ResetControls(int consoleCtrl, int wiiCtrl)
 		btnmap[CTRL_PAD][CTRLR_CLASSIC][i++] = WPAD_CLASSIC_BUTTON_FULL_L;
 	}
 
-	/*** Classic Controller Padmap ***/
+	/*** Wii U Pro Padmap ***/
 	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_WUPC))
 	{
 		i=0;
@@ -126,6 +127,24 @@ void ResetControls(int consoleCtrl, int wiiCtrl)
 		btnmap[CTRL_PAD][CTRLR_WUPC][i++] = WPAD_CLASSIC_BUTTON_LEFT;
 		btnmap[CTRL_PAD][CTRLR_WUPC][i++] = WPAD_CLASSIC_BUTTON_RIGHT;
 		btnmap[CTRL_PAD][CTRLR_WUPC][i++] = WPAD_CLASSIC_BUTTON_FULL_L;
+	}
+
+	/*** Wii U Gamepad Padmap ***/
+	if(consoleCtrl == -1 || (consoleCtrl == CTRL_PAD && wiiCtrl == CTRLR_WIIDRC))
+	{
+		i=0;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_A;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_B;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_X;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_Y;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_L;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_R;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_PLUS;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_MINUS;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_UP;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_DOWN;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_LEFT;
+		btnmap[CTRL_PAD][CTRLR_WIIDRC][i++] = WIIDRC_BUTTON_RIGHT;
 	}
 
 	/*** Nunchuk + wiimote Padmap ***/
@@ -208,6 +227,7 @@ void
 UpdatePads()
 {
 	#ifdef HW_RVL
+	WiiDRC_ScanPads();
 	WPAD_ScanPads();
 	#endif
 	
@@ -225,6 +245,18 @@ UpdatePads()
 		userInput[i].pad.triggerL = PAD_TriggerL(i);
 		userInput[i].pad.triggerR = PAD_TriggerR(i);
 	}
+#ifdef HW_RVL
+	if(WiiDRC_Inited() && WiiDRC_Connected())
+	{
+		userInput[0].wiidrcdata.btns_d = WiiDRC_ButtonsDown();
+		userInput[0].wiidrcdata.btns_u = WiiDRC_ButtonsUp();
+		userInput[0].wiidrcdata.btns_h = WiiDRC_ButtonsHeld();
+		userInput[0].wiidrcdata.stickX = WiiDRC_lStickX();
+		userInput[0].wiidrcdata.stickY = WiiDRC_lStickY();
+		userInput[0].wiidrcdata.substickX = WiiDRC_rStickX();
+		userInput[0].wiidrcdata.substickY = WiiDRC_rStickY();
+	}
+#endif
 }
 
 /****************************************************************************
@@ -305,25 +337,25 @@ static int pos_y = 0;
 static void UpdateCursorPosition (int chan)
 {
 	#define ZAPPERPADCAL 20
-	// gc left joystick
+	#define WIIDRCZAPPERPADCAL 30
 
-	if (userInput[chan].pad.stickX > ZAPPERPADCAL)
+	if (userInput[chan].pad.stickX > ANALOG_SENSITIVITY)
 	{
 		pos_x += (userInput[chan].pad.stickX*1.0)/ZAPPERPADCAL;
 		if (pos_x > 256) pos_x = 256;
 	}
-	if (userInput[chan].pad.stickX < -ZAPPERPADCAL)
+	else if (userInput[chan].pad.stickX < -ANALOG_SENSITIVITY)
 	{
 		pos_x -= (userInput[chan].pad.stickX*-1.0)/ZAPPERPADCAL;
 		if (pos_x < 0) pos_x = 0;
 	}
 
-	if (userInput[chan].pad.stickY < -ZAPPERPADCAL)
+	if (userInput[chan].pad.stickY < -ANALOG_SENSITIVITY)
 	{
 		pos_y += (userInput[chan].pad.stickY*-1.0)/ZAPPERPADCAL;
 		if (pos_y > 224) pos_y = 224;
 	}
-	if (userInput[chan].pad.stickY > ZAPPERPADCAL)
+	else if (userInput[chan].pad.stickY > ANALOG_SENSITIVITY)
 	{
 		pos_y -= (userInput[chan].pad.stickY*1.0)/ZAPPERPADCAL;
 		if (pos_y < 0) pos_y = 0;
@@ -340,24 +372,50 @@ static void UpdateCursorPosition (int chan)
 		s8 wm_ax = userInput[chan].WPAD_StickX(0);
 		s8 wm_ay = userInput[chan].WPAD_StickY(0);
 
-		if (wm_ax > ZAPPERPADCAL)
+		if (wm_ax > ANALOG_SENSITIVITY)
 		{
 			pos_x += (wm_ax*1.0)/ZAPPERPADCAL;
 			if (pos_x > 256) pos_x = 256;
 		}
-		if (wm_ax < -ZAPPERPADCAL)
+		else if (wm_ax < -ANALOG_SENSITIVITY)
 		{
 			pos_x -= (wm_ax*-1.0)/ZAPPERPADCAL;
 			if (pos_x < 0) pos_x = 0;
 		}
-		if (wm_ay < -ZAPPERPADCAL)
+		if (wm_ay < -ANALOG_SENSITIVITY)
 		{
 			pos_y += (wm_ay*-1.0)/ZAPPERPADCAL;
 			if (pos_y > 224) pos_y = 224;
 		}
-		if (wm_ay > ZAPPERPADCAL)
+		else if (wm_ay > ANALOG_SENSITIVITY)
 		{
 			pos_y -= (wm_ay*1.0)/ZAPPERPADCAL;
+			if (pos_y < 0) pos_y = 0;
+		}
+
+		/* Wii U Gamepad */
+		s16 wiidrc_ax = userInput[chan].wiidrcdata.stickX;
+		s16 wiidrc_ay = userInput[chan].wiidrcdata.stickY;
+
+		if (wiidrc_ax > WIIDRCZAPPERPADCAL)
+		{
+			pos_x += (wiidrc_ax*1.0)/WIIDRCZAPPERPADCAL;
+			if (pos_x > 256) pos_x = 256;
+		}
+		if (wiidrc_ax < -WIIDRCZAPPERPADCAL)
+		{
+			pos_x -= (wiidrc_ax*-1.0)/WIIDRCZAPPERPADCAL;
+			if (pos_x < 0) pos_x = 0;
+		}
+
+		if (wiidrc_ay < -WIIDRCZAPPERPADCAL)
+		{
+			pos_y += (wiidrc_ay*-1.0)/WIIDRCZAPPERPADCAL;
+			if (pos_y > 224) pos_y = 224;
+		}
+		if (wiidrc_ay > WIIDRCZAPPERPADCAL)
+		{
+			pos_y -= (wiidrc_ay*1.0)/WIIDRCZAPPERPADCAL;
 			if (pos_y < 0) pos_y = 0;
 		}
 	}
@@ -376,8 +434,6 @@ static unsigned char DecodeJoy(unsigned short chan)
 	s8 pad_y = userInput[chan].pad.stickY;
 	u32 jp = userInput[chan].pad.btns_h;
 	unsigned char J = 0;
-	double angle;
-	static const double THRES = 0.38268343236508984; // cos(67.5)
 
 	#ifdef HW_RVL
 	s8 wm_ax = userInput[chan].WPAD_StickX(0);
@@ -388,43 +444,45 @@ static unsigned char DecodeJoy(unsigned short chan)
 	u32 exp_type;
 	if ( WPAD_Probe(chan, &exp_type) != 0 )
 		exp_type = WPAD_EXP_NONE;
+
+	s16 wiidrc_ax = userInput[chan].wiidrcdata.stickX;
+	s16 wiidrc_ay = userInput[chan].wiidrcdata.stickY;
+	u32 wiidrcp = userInput[chan].wiidrcdata.btns_h;
 	#endif
 
 	/***
 	Gamecube Joystick input
 	***/
-	// Is XY inside the "zone"?
-	if (pad_x * pad_x + pad_y * pad_y > PADCAL * PADCAL)
-	{
-		angle = atan2(pad_y, pad_x);
- 
-		if(cos(angle) > THRES)
-			J |= JOY_RIGHT;
-		else if(cos(angle) < -THRES)
-			J |= JOY_LEFT;
-		if(sin(angle) > THRES)
-			J |= JOY_UP;
-		else if(sin(angle) < -THRES)
-			J |= JOY_DOWN;
-	}
+	if (pad_y > ANALOG_SENSITIVITY)
+		J |= JOY_UP;
+	else if (pad_y < -ANALOG_SENSITIVITY)
+		J |= JOY_DOWN;
+	if (pad_x < -ANALOG_SENSITIVITY)
+		J |= JOY_LEFT;
+	else if (pad_x > ANALOG_SENSITIVITY)
+		J |= JOY_RIGHT;
 #ifdef HW_RVL
 	/***
 	Wii Joystick (classic, nunchuk) input
 	***/
-	// Is XY inside the "zone"?
-	if (wm_ax * wm_ax + wm_ay * wm_ay > PADCAL * PADCAL)
-	{
-		angle = atan2(wm_ay, wm_ax);
-		 
-		if(cos(angle) > THRES)
-			J |= JOY_RIGHT;
-		else if(cos(angle) < -THRES)
-			J |= JOY_LEFT;
-		if(sin(angle) > THRES)
-			J |= JOY_UP;
-		else if(sin(angle) < -THRES)
-			J |= JOY_DOWN;
-	}
+	if (wm_ay > ANALOG_SENSITIVITY)
+		J |= JOY_UP;
+	else if (wm_ay < -ANALOG_SENSITIVITY)
+		J |= JOY_DOWN;
+	if (wm_ax < -ANALOG_SENSITIVITY)
+		J |= JOY_LEFT;
+	else if (wm_ax > ANALOG_SENSITIVITY)
+		J |= JOY_RIGHT;
+
+	/* WiiU Gamepad */
+	if (wiidrc_ay > ANALOG_SENSITIVITY)
+		J |= JOY_UP;
+	else if (wiidrc_ay < -ANALOG_SENSITIVITY)
+		J |= JOY_DOWN;
+	if (wiidrc_ax < -ANALOG_SENSITIVITY)
+		J |= JOY_LEFT;
+	else if (wiidrc_ax > ANALOG_SENSITIVITY)
+		J |= JOY_RIGHT;
 #endif
 
 	bool zapper_triggered = false;
@@ -444,6 +502,7 @@ static unsigned char DecodeJoy(unsigned short chan)
 		if ( (jp & btnmap[CTRL_ZAPPER][CTRLR_GCPAD][0])	// gamecube controller
 		#ifdef HW_RVL
 		|| ( (exp_type == WPAD_EXP_NONE) && (wp & btnmap[CTRL_ZAPPER][CTRLR_WIIMOTE][0]) )	// wiimote
+		|| (wiidrcp & btnmap[CTRL_ZAPPER][CTRLR_WIIDRC][0]) // Wii U Gamepad
 		#endif
 		)
 		{
@@ -456,6 +515,7 @@ static unsigned char DecodeJoy(unsigned short chan)
 		if ( (jp & btnmap[CTRL_ZAPPER][CTRLR_GCPAD][1])	// gamecube controller
 		#ifdef HW_RVL
 		|| ( (exp_type == WPAD_EXP_NONE) && (wp & btnmap[CTRL_ZAPPER][CTRLR_WIIMOTE][1]) )	// wiimote
+		|| (wiidrcp & btnmap[CTRL_ZAPPER][CTRLR_WIIDRC][1]) // Wii U Gamepad
 		#endif
 		)
 		{
@@ -489,6 +549,7 @@ static unsigned char DecodeJoy(unsigned short chan)
 		|| ( (exp_type == WPAD_EXP_CLASSIC && !isWUPC) && (wp & btnmap[CTRL_PAD][CTRLR_CLASSIC][i]) )	// classic controller
 		|| ( (exp_type == WPAD_EXP_CLASSIC && isWUPC) && (wp & btnmap[CTRL_PAD][CTRLR_WUPC][i]) )		// wii u pro controller
 		|| ( (exp_type == WPAD_EXP_NUNCHUK) && (wp & btnmap[CTRL_PAD][CTRLR_NUNCHUK][i]) )	// nunchuk + wiimote
+		|| ( (wiidrcp & btnmap[CTRL_PAD][CTRLR_WIIDRC][i]) ) // Wii U Gamepad
 		#endif
 		)
 		{
@@ -538,7 +599,8 @@ bool MenuRequested()
 			(userInput[i].pad.substickX < -70)
 			#ifdef HW_RVL
 			|| (userInput[i].wpad->btns_h & WPAD_BUTTON_HOME) ||
-			(userInput[i].wpad->btns_h & WPAD_CLASSIC_BUTTON_HOME)
+			(userInput[i].wpad->btns_h & WPAD_CLASSIC_BUTTON_HOME) ||
+			(userInput[i].wiidrcdata.btns_h & WIIDRC_BUTTON_HOME)
 			#endif
 		)
 		{
@@ -558,7 +620,7 @@ void GetJoy()
 
 	// Turbo mode
 	// RIGHT on c-stick and on classic ctrlr right joystick
-	if(userInput[0].pad.substickX > 70 || userInput[0].WPAD_StickX(1) > 70)
+	if(userInput[0].pad.substickX > 70 || userInput[0].WPAD_StickX(1) > 70 || userInput[0].wiidrcdata.substickX > 45)
 		turbomode = 1;
 	else
 		turbomode = 0;

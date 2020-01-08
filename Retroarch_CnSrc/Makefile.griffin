@@ -993,6 +993,7 @@ endif
 $(EXT_INTER_TARGET): $(OBJ)
 	$(LINK) $(LINKOUT)$@ $(LDFLAGS) $(LIBDIRS) $(OBJ) $(PLATEXTRA) $(LIBS)
 
+// upd by xjsxjs197 for support zh_cn start
 #---------------------------------------------------------------------------------
 # canned command sequence for binary data
 #---------------------------------------------------------------------------------
@@ -1013,7 +1014,7 @@ endef
 
 %.o: %.cpp
 	$(CXX) $(CFLAGS) -c -o $@ $<
-
+// upd by xjsxjs197 for support zh_cn end
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(OBJOUT)$@ $<
 

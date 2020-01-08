@@ -1,179 +1,8 @@
-/***********************************************************************************
-  Snes9x - Portable Super Nintendo Entertainment System (TM) emulator.
-
-  (c) Copyright 1996 - 2002  Gary Henderson (gary.henderson@ntlworld.com),
-                             Jerremy Koot (jkoot@snes9x.com)
-
-  (c) Copyright 2002 - 2004  Matthew Kendora
-
-  (c) Copyright 2002 - 2005  Peter Bortas (peter@bortas.org)
-
-  (c) Copyright 2004 - 2005  Joel Yliluoma (http://iki.fi/bisqwit/)
-
-  (c) Copyright 2001 - 2006  John Weidman (jweidman@slip.net)
-
-  (c) Copyright 2002 - 2006  funkyass (funkyass@spam.shaw.ca),
-                             Kris Bleakley (codeviolation@hotmail.com)
-
-  (c) Copyright 2002 - 2010  Brad Jorsch (anomie@users.sourceforge.net),
-                             Nach (n-a-c-h@users.sourceforge.net),
-                             zones (kasumitokoduck@yahoo.com)
-
-  (c) Copyright 2006 - 2007  nitsuja
-
-  (c) Copyright 2009 - 2010  BearOso,
-                             OV2
-
-
-  BS-X C emulator code
-  (c) Copyright 2005 - 2006  Dreamer Nom,
-                             zones
-
-  C4 x86 assembler and some C emulation code
-  (c) Copyright 2000 - 2003  _Demo_ (_demo_@zsnes.com),
-                             Nach,
-                             zsKnight (zsknight@zsnes.com)
-
-  C4 C++ code
-  (c) Copyright 2003 - 2006  Brad Jorsch,
-                             Nach
-
-  DSP-1 emulator code
-  (c) Copyright 1998 - 2006  _Demo_,
-                             Andreas Naive (andreasnaive@gmail.com),
-                             Gary Henderson,
-                             Ivar (ivar@snes9x.com),
-                             John Weidman,
-                             Kris Bleakley,
-                             Matthew Kendora,
-                             Nach,
-                             neviksti (neviksti@hotmail.com)
-
-  DSP-2 emulator code
-  (c) Copyright 2003         John Weidman,
-                             Kris Bleakley,
-                             Lord Nightmare (lord_nightmare@users.sourceforge.net),
-                             Matthew Kendora,
-                             neviksti
-
-  DSP-3 emulator code
-  (c) Copyright 2003 - 2006  John Weidman,
-                             Kris Bleakley,
-                             Lancer,
-                             z80 gaiden
-
-  DSP-4 emulator code
-  (c) Copyright 2004 - 2006  Dreamer Nom,
-                             John Weidman,
-                             Kris Bleakley,
-                             Nach,
-                             z80 gaiden
-
-  OBC1 emulator code
-  (c) Copyright 2001 - 2004  zsKnight,
-                             pagefault (pagefault@zsnes.com),
-                             Kris Bleakley
-                             Ported from x86 assembler to C by sanmaiwashi
-
-  SPC7110 and RTC C++ emulator code used in 1.39-1.51
-  (c) Copyright 2002         Matthew Kendora with research by
-                             zsKnight,
-                             John Weidman,
-                             Dark Force
-
-  SPC7110 and RTC C++ emulator code used in 1.52+
-  (c) Copyright 2009         byuu,
-                             neviksti
-
-  S-DD1 C emulator code
-  (c) Copyright 2003         Brad Jorsch with research by
-                             Andreas Naive,
-                             John Weidman
-
-  S-RTC C emulator code
-  (c) Copyright 2001 - 2006  byuu,
-                             John Weidman
-
-  ST010 C++ emulator code
-  (c) Copyright 2003         Feather,
-                             John Weidman,
-                             Kris Bleakley,
-                             Matthew Kendora
-
-  Super FX x86 assembler emulator code
-  (c) Copyright 1998 - 2003  _Demo_,
-                             pagefault,
-                             zsKnight
-
-  Super FX C emulator code
-  (c) Copyright 1997 - 1999  Ivar,
-                             Gary Henderson,
-                             John Weidman
-
-  Sound emulator code used in 1.5-1.51
-  (c) Copyright 1998 - 2003  Brad Martin
-  (c) Copyright 1998 - 2006  Charles Bilyue'
-
-  Sound emulator code used in 1.52+
-  (c) Copyright 2004 - 2007  Shay Green (gblargg@gmail.com)
-
-  SH assembler code partly based on x86 assembler code
-  (c) Copyright 2002 - 2004  Marcus Comstedt (marcus@mc.pp.se)
-
-  2xSaI filter
-  (c) Copyright 1999 - 2001  Derek Liauw Kie Fa
-
-  HQ2x, HQ3x, HQ4x filters
-  (c) Copyright 2003         Maxim Stepin (maxim@hiend3d.com)
-
-  NTSC filter
-  (c) Copyright 2006 - 2007  Shay Green
-
-  GTK+ GUI code
-  (c) Copyright 2004 - 2010  BearOso
-
-  Win32 GUI code
-  (c) Copyright 2003 - 2006  blip,
-                             funkyass,
-                             Matthew Kendora,
-                             Nach,
-                             nitsuja
-  (c) Copyright 2009 - 2010  OV2
-
-  Mac OS GUI code
-  (c) Copyright 1998 - 2001  John Stiles
-  (c) Copyright 2001 - 2010  zones
-
-
-  Specific ports contains the works of other authors. See headers in
-  individual files.
-
-
-  Snes9x homepage: http://www.snes9x.com/
-
-  Permission to use, copy, modify and/or distribute Snes9x in both binary
-  and source form, for non-commercial purposes, is hereby granted without
-  fee, providing that this license information and copyright notice appear
-  with all copies and any derived work.
-
-  This software is provided 'as-is', without any express or implied
-  warranty. In no event shall the authors be held liable for any damages
-  arising from the use of this software or it's derivatives.
-
-  Snes9x is freeware for PERSONAL USE only. Commercial users should
-  seek permission of the copyright holders first. Commercial use includes,
-  but is not limited to, charging money for Snes9x or software derived from
-  Snes9x, including Snes9x or derivatives in commercial game bundles, and/or
-  using Snes9x as a promotion for your commercial product.
-
-  The copyright holders request that bug fixes and improvements to the code
-  should be forwarded to them so everyone can benefit from the modifications
-  in future versions.
-
-  Super NES and Super Nintendo Entertainment System are trademarks of
-  Nintendo Co., Limited and its subsidiary companies.
- ***********************************************************************************/
-
+/*****************************************************************************\
+     Snes9x - Portable Super Nintendo Entertainment System (TM) emulator.
+                This file is licensed under the Snes9x License.
+   For further information, consult the LICENSE file in the root directory.
+\*****************************************************************************/
 
 #include "snes9x.h"
 #include "memmap.h"
@@ -221,66 +50,100 @@
 #define StackRelative					SA1StackRelative
 #define StackRelativeIndirectIndexed	SA1StackRelativeIndirectIndexed
 
-//#undef CPU_SHUTDOWN
 #define SA1_OPCODES
 
 #include "cpuops.cpp"
 
+static void S9xSA1UpdateTimer (void);
+
 
 void S9xSA1MainLoop (void)
 {
-	if (SA1.Flags & NMI_FLAG)
+	if (Memory.FillRAM[0x2200] & 0x60)
 	{
-		if (Memory.FillRAM[0x2200] & 0x10)
-		{
-			SA1.Flags &= ~NMI_FLAG;
-			Memory.FillRAM[0x2301] |= 0x10;
-
-			if (SA1.WaitingForInterrupt)
-			{
-				SA1.WaitingForInterrupt = FALSE;
-				SA1Registers.PCw++;
-			}
-
-			S9xSA1Opcode_NMI();
-		}
+		SA1.Cycles += 6; // FIXME
+		S9xSA1UpdateTimer();
+		return;
 	}
 
-	if (SA1.Flags & IRQ_FLAG)
+	// SA-1 NMI
+	if ((Memory.FillRAM[0x2200] & 0x10) && !(Memory.FillRAM[0x220b] & 0x10))
 	{
-		if (SA1.IRQActive)
+		Memory.FillRAM[0x2301] |= 0x10;
+		Memory.FillRAM[0x220b] |= 0x10;
+
+		if (SA1.WaitingForInterrupt)
 		{
+			SA1.WaitingForInterrupt = FALSE;
+			SA1Registers.PCw++;
+		}
+
+		S9xSA1Opcode_NMI();
+	}
+	else
+	if (!SA1CheckFlag(IRQ))
+	{
+		// SA-1 Timer IRQ
+		if ((Memory.FillRAM[0x220a] & 0x40) && !(Memory.FillRAM[0x220b] & 0x40))
+		{
+			Memory.FillRAM[0x2301] |= 0x40;
+
 			if (SA1.WaitingForInterrupt)
 			{
 				SA1.WaitingForInterrupt = FALSE;
 				SA1Registers.PCw++;
 			}
 
-			if (!SA1CheckFlag(IRQ))
-				S9xSA1Opcode_IRQ();
+			S9xSA1Opcode_IRQ();
 		}
 		else
-			SA1.Flags &= ~IRQ_FLAG;
-	}
+		// SA-1 DMA IRQ
+		if ((Memory.FillRAM[0x220a] & 0x20) && !(Memory.FillRAM[0x220b] & 0x20))
+		{
+			Memory.FillRAM[0x2301] |= 0x20;
 
-	for (int i = 0; i < 3 && SA1.Executing; i++)
+			if (SA1.WaitingForInterrupt)
+			{
+				SA1.WaitingForInterrupt = FALSE;
+				SA1Registers.PCw++;
+			}
+
+			S9xSA1Opcode_IRQ();
+		}
+		else
+		// SA-1 IRQ
+		if ((Memory.FillRAM[0x2200] & 0x80) && !(Memory.FillRAM[0x220b] & 0x80))
+		{
+			Memory.FillRAM[0x2301] |= 0x80;
+
+			if (SA1.WaitingForInterrupt)
+			{
+				SA1.WaitingForInterrupt = FALSE;
+				SA1Registers.PCw++;
+			}
+
+			S9xSA1Opcode_IRQ();
+		}
+	}
+	#undef CPU
+	int cycles = CPU.Cycles * 3;
+	#define CPU SA1
+
+	for (; SA1.Cycles < cycles && !(Memory.FillRAM[0x2200] & 0x60);)
 	{
 	#ifdef DEBUGGER
 		if (SA1.Flags & TRACE_FLAG)
 			S9xSA1Trace();
 	#endif
 
-	#ifdef CPU_SHUTDOWN
-		SA1.PBPCAtOpcodeStart = SA1Registers.PBPC;
-	#endif
-
-		register uint8				Op;
-		register struct SOpcodes	*Opcodes;
+		uint8				Op;
+		struct SOpcodes	*Opcodes;
 
 		if (SA1.PCBase)
 		{
 			SA1OpenBus = Op = SA1.PCBase[Registers.PCw];
 			Opcodes = SA1.S9xOpcodes;
+			SA1.Cycles += SA1.MemSpeed;
 		}
 		else
 		{
@@ -299,5 +162,68 @@ void S9xSA1MainLoop (void)
 		Registers.PCw++;
 		(*Opcodes[Op].S9xOpcode)();
 	}
+
+	S9xSA1UpdateTimer();
 }
 
+static void S9xSA1UpdateTimer (void) // FIXME
+{
+	SA1.PrevHCounter = SA1.HCounter;
+
+	if (Memory.FillRAM[0x2210] & 0x80)
+	{
+		SA1.HCounter += (SA1.Cycles - SA1.PrevCycles);
+		if (SA1.HCounter >= 0x800)
+		{
+			SA1.HCounter -= 0x800;
+			SA1.PrevHCounter -= 0x800;
+			if (++SA1.VCounter >= 0x200)
+				SA1.VCounter = 0;
+		}
+	}
+	else
+	{
+		SA1.HCounter += (SA1.Cycles - SA1.PrevCycles);
+		if (SA1.HCounter >= Timings.H_Max_Master)
+		{
+			SA1.HCounter -= Timings.H_Max_Master;
+			SA1.PrevHCounter -= Timings.H_Max_Master;
+			if (++SA1.VCounter >= Timings.V_Max_Master)
+				SA1.VCounter = 0;
+		}
+	}
+
+	SA1.PrevCycles = SA1.Cycles;
+
+	bool8	thisIRQ = Memory.FillRAM[0x2210] & 0x03;
+
+	if (Memory.FillRAM[0x2210] & 0x01)
+	{
+		if (SA1.PrevHCounter >= SA1.HTimerIRQPos * ONE_DOT_CYCLE || SA1.HCounter < SA1.HTimerIRQPos * ONE_DOT_CYCLE)
+			thisIRQ = FALSE;
+	}
+
+	if (Memory.FillRAM[0x2210] & 0x02)
+	{
+		if (SA1.VCounter != SA1.VTimerIRQPos * ONE_DOT_CYCLE)
+			thisIRQ = FALSE;
+	}
+
+	// SA-1 Timer IRQ control
+	if (!SA1.TimerIRQLastState && thisIRQ)
+	{
+		Memory.FillRAM[0x2301] |= 0x40;
+		if (Memory.FillRAM[0x220a] & 0x40)
+		{
+			Memory.FillRAM[0x220b] &= ~0x40;
+		#ifdef DEBUGGER
+			S9xTraceFormattedMessage("--- SA-1 Timer IRQ triggered  prev HC:%04d  curr HC:%04d  HTimer:%d Pos:%04d  VTimer:%d Pos:%03d",
+				SA1.PrevHCounter, SA1.HCounter,
+				(Memory.FillRAM[0x2210] & 0x01) ? 1 : 0, SA1.HTimerIRQPos * ONE_DOT_CYCLE,
+				(Memory.FillRAM[0x2210] & 0x02) ? 1 : 0, SA1.VTimerIRQPos);
+		#endif
+		}
+	}
+
+	SA1.TimerIRQLastState = thisIRQ;
+}

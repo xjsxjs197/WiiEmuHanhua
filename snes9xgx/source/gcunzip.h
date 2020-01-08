@@ -3,7 +3,7 @@
  *
  * softdev July 2006
  * Michniewski 2008
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * gcunzip.h
  *
@@ -14,7 +14,7 @@
 
 int IsZipFile (char *buffer);
 char * GetFirstZipFilename();
-size_t UnZipBuffer (unsigned char *outbuffer);
+size_t UnZipBuffer (unsigned char *outbuffer, size_t buffersize);
 int SzParse(char * filepath);
 size_t SzExtractFile(int i, unsigned char *buffer);
 void SzClose();

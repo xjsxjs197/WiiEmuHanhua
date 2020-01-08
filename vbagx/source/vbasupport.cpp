@@ -77,7 +77,7 @@ int systemGreenShift = 0;
 int systemColorDepth = 0;
 u16 systemGbPalette[24];
 u16 systemColorMap16[0x10000];
-u32 systemColorMap32[0x10000];
+u32 *systemColorMap32 = NULL;
 
 void gbSetPalette(u32 RRGGBB[]);
 bool StartColorizing();
@@ -827,6 +827,12 @@ static void gbApplyPerImagePreferences()
 		else
 			StopColorizing();
 	}
+}
+
+void ResetTiltAndCursor() {
+	TiltScreen = false;
+	TiltSideways = false;
+	CursorVisible = false;
 }
 
 /****************************************************************************

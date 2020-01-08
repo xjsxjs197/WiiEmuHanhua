@@ -1,7 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * menu.h
  *
@@ -21,7 +21,10 @@ void InfoPrompt(const char * msg);
 void ShowAction (const char *msg);
 void CancelAction();
 void ShowProgress (const char *msg, int done, int total);
-void ResetText();
+void ChangeLanguage();
+
+extern u8 * bg_music;
+extern u32 bg_music_size;
 
 enum
 {
@@ -41,6 +44,7 @@ enum
 	MENU_GAMESETTINGS_MAPPINGS_CTRL,
 	MENU_GAMESETTINGS_MAPPINGS_MAP,
 	MENU_GAMESETTINGS_VIDEO,
+	MENU_GAMESETTINGS_AUDIO,
 	MENU_GAMESETTINGS_CHEATS
 };
 

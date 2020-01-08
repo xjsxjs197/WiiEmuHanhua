@@ -48,7 +48,7 @@ typedef enum
 	GIFLAG_NAME_ALLOC	= (1 << 7),
 } GameInfoFlags;
 
-typedef struct GameInfo
+typedef struct GameInfo 
 {
 	// NOTE: Disc number is stored in Flags.
 	// There aren't any games that take up more
@@ -122,7 +122,7 @@ typedef enum {
 	LKERR_HashNotFound,
 	LKERR_IOS_Open_IOS58_kernel,
 	LKERR_IOS_Read_IOS58_kernel,
-
+	
 } LoadKernelError_t;
 
 /**

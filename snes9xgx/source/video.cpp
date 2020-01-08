@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May 2007
  * Michniewski 2008
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * video.cpp
  *
@@ -638,7 +638,7 @@ ResetVideo_Emu ()
 		else
 			ResetFbWidth(512, rmode);
 		
-		Settings.SoundInputRate = 31950;
+		Settings.SoundInputRate = 31920;
 		UpdatePlaybackRate();
 	}
 
@@ -757,7 +757,9 @@ update_video (int width, int height)
 			fscale = 1;
 #endif
 		ResetVideo_Emu ();	// reset video to emulator rendering settings
-
+#ifdef HW_RVL
+		memset(filtermem, 0, FILTERMEM_SIZE);
+#endif
 		/** Update scaling **/
 		if (GCSettings.render == 0)	// original render mode
 		{
@@ -902,6 +904,16 @@ void TakeScreenshot()
 		PNGU_ReleaseImageContext(pngContext);
 		gameScreenPng = (u8 *)malloc(gameScreenPngSize);
 		memcpy(gameScreenPng, savebuffer, gameScreenPngSize);
+	}
+}
+
+void ClearScreenshot()
+{
+	if(gameScreenPng)
+	{
+		gameScreenPngSize = 0;
+		free(gameScreenPng);
+		gameScreenPng = NULL;
 	}
 }
 

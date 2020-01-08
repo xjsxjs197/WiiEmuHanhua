@@ -17,7 +17,7 @@
 #include "fceultra/driver.h"
 
 #define APPNAME			"FCE Ultra GX"
-#define APPVERSION		"3.4.0"
+#define APPVERSION		"3.4.3"
 #define APPFOLDER 		"fceugx"
 #define PREF_FILE_NAME	"settings.xml"
 
@@ -89,11 +89,10 @@ struct SGCSettings
 	char	LastFileLoaded[MAXPATHLEN]; //Last file loaded filename
 	char	SaveFolder[MAXPATHLEN]; // Path to save files
 	char	CheatFolder[MAXPATHLEN]; // Path to cheat files
-	char	ScreenshotsFolder[MAXPATHLEN]; //Path to screenshots files
-	
-	char	Exit_Dol_File[MAXPATHLEN]; // Exit Path
-	char	LoaderName[20]; // Menu Loader Name
-	u32		Exit_Channel[2]; // Exit Channel
+	char	ScreenshotsFolder[MAXPATHLEN]; // Path to screenshot files
+	char	CoverFolder[MAXPATHLEN]; 	// Path to cover files
+	char	ArtworkFolder[MAXPATHLEN]; 	// Path to artwork files
+	int		AutoloadGame;
 	
 	char	smbip[80];
 	char	smbuser[20];
@@ -105,7 +104,7 @@ struct SGCSettings
 	int		render;		// 0 - original, 1 - filtered, 2 - unfiltered
 	int		videomode; // 0 - automatic, 1 - NTSC (480i), 2 - Progressive (480p), 3 - PAL (50Hz), 4 - PAL (60Hz)
 	int		widescreen;
-	int		hideoverscan;
+	int		hideoverscan; // 0 = off, 1 = vertical, 2 = horizontal, 3 = both
 	int		gamegenie;
 	int		currpal;
 	int		timing;
@@ -120,7 +119,10 @@ struct SGCSettings
 	int		SFXVolume;
 	int		Rumble;
 	int 	language;
+	int		PreviewImage;
 };
+
+char* ImageFolder();
 
 void ExitApp();
 void ShutdownWii();

@@ -1,7 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * Tantric 2009-2010
+ * Tantric 2008-2019
  *
  * filelist.h
  *
@@ -108,6 +108,8 @@ extern const u8		icon_settings_nunchuk_png[];
 extern const u32	icon_settings_nunchuk_png_size;
 extern const u8		icon_settings_wiiupro_png[];
 extern const u32	icon_settings_wiiupro_png_size;
+extern const u8		icon_settings_drc_png[];
+extern const u32	icon_settings_drc_png_size;
 
 extern const u8		icon_settings_snescontroller_png[];
 extern const u32	icon_settings_snescontroller_png_size;
@@ -128,6 +130,8 @@ extern const u8		icon_settings_network_png[];
 extern const u32	icon_settings_network_png_size;
 extern const u8		icon_settings_video_png[];
 extern const u32	icon_settings_video_png_size;
+extern const u8		icon_settings_audio_png[];
+extern const u32	icon_settings_audio_png_size;
 extern const u8		icon_settings_screenshot_png[];
 extern const u32	icon_settings_screenshot_png_size;
 

@@ -17,7 +17,7 @@
 #include "utils/FreeTypeGX.h"
 
 #define APPNAME 		"Visual Boy Advance GX"
-#define APPVERSION 		"2.3.7"
+#define APPVERSION 		"2.4.0"
 #define APPFOLDER 		"vbagx"
 #define PREF_FILE_NAME 	"settings.xml"
 #define PAL_FILE_NAME 	"palettes.xml"
@@ -94,6 +94,7 @@ struct SGCSettings
 	int		Rumble;
 	int 	language;
 	int		PreviewImage;
+	int		AutoloadGame;
 	
 	int		OffsetMinutesUTC; // Used for clock on MBC3 and TAMA5
 	int 	GBHardware;    // Mapped to gbEmulatorType in VBA
@@ -106,18 +107,16 @@ struct SGCSettings
 	char	ScreenshotsFolder[MAXPATHLEN]; //Path to screenshots files
 	char	CoverFolder[MAXPATHLEN]; 	//Path to cover files
 	char	ArtworkFolder[MAXPATHLEN]; 	//Path to artwork files
-	char 	ImageFolder[MAXPATHLEN]; 	//Saved image folder path 
 	char	BorderFolder[MAXPATHLEN];  // Path to Super Game Boy border files
-
-	char	Exit_Dol_File[MAXPATHLEN]; // Exit Path
-	char	LoaderName[20]; // Menu Loader Name
-	u32		Exit_Channel[2]; // Exit Channel
 
 	char	smbip[80];
 	char	smbuser[20];
 	char	smbpwd[20];
 	char	smbshare[20];
 };
+
+char* ImageFolder();
+
 void ExitApp();
 void ShutdownWii();
 bool SupportedIOS(u32 ios);

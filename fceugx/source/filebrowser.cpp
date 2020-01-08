@@ -34,6 +34,10 @@
 #include "pocketnes/goombasav.h"
 #include "pocketnes/pocketnesrom.h"
 
+extern "C" {
+extern char* strcasestr(const char *, const char *);
+}
+
 BROWSERINFO browser;
 BROWSERENTRY * browserList = NULL; // list of files/folders in browser
 
@@ -344,14 +348,6 @@ int FileSortCallback(const void *f1, const void *f2)
  ***************************************************************************/
 static bool IsValidROM()
 {
-	// file size should be between 8K and 3MB
-	if(browserList[browser.selIndex].length < (1024*8) ||
-		browserList[browser.selIndex].length > (1024*1024*4))
-	{
-		ErrorPrompt("Invalid file size!");
-		return false;
-	}
-
 	if (strlen(browserList[browser.selIndex].filename) > 4)
 	{
 		char * p = strrchr(browserList[browser.selIndex].filename, '.');
@@ -477,8 +473,6 @@ int BrowserLoadFile()
 	if(!FindDevice(browser.dir, &device))
 		return 0;
 
-	GetFileSize(browser.selIndex);
-
 	// check that this is a valid ROM
 	if(!IsValidROM())
 		goto done;
@@ -490,27 +484,29 @@ int BrowserLoadFile()
 		if(!MakeFilePath(filepath, FILE_ROM))
 			goto done;
 
-		filesize = LoadFile ((char *)nesrom, filepath, browserList[browser.selIndex].length, NOTSILENT);
+		filesize = LoadFile ((char *)nesrom, filepath, 0, (1024*1024*4), NOTSILENT);
 
-		// check nesrom for PocketNES embedded roms
-		const char *ext = strrchr(filepath, '.');
-		if (ext != NULL && strcmp(ext, ".gba") == 0)
-		{
-			const pocketnes_romheader* rom1 = pocketnes_first_rom(nesrom, filesize);
-			const pocketnes_romheader* rom2 = NULL;
-			if (rom1 != NULL) {
-				rom2 = pocketnes_next_rom(nesrom, filesize, rom1);
-			}
-
-			if (rom1 == NULL)
-				ErrorPrompt("No NES ROMs found in this file.");
-			else if (rom2 != NULL)
-				ErrorPrompt("More than one NES ROM found in this file. Only files with one ROM are supported.");
-			else
+		if(filesize > 0) {
+			// check nesrom for PocketNES embedded roms
+			const char *ext = strrchr(filepath, '.');
+			if (ext != NULL && strcmp(ext, ".gba") == 0)
 			{
-				const void* rom = rom1 + 1;
-				filesize = little_endian_conv_32(rom1->filesize);
-				memcpy(nesrom, rom, filesize);
+				const pocketnes_romheader* rom1 = pocketnes_first_rom(nesrom, filesize);
+				const pocketnes_romheader* rom2 = NULL;
+				if (rom1 != NULL) {
+					rom2 = pocketnes_next_rom(nesrom, filesize, rom1);
+				}
+
+				if (rom1 == NULL)
+					ErrorPrompt("No NES ROMs found in this file.");
+				else if (rom2 != NULL)
+					ErrorPrompt("More than one NES ROM found in this file. Only files with one ROM are supported.");
+				else
+				{
+					const void* rom = rom1 + 1;
+					filesize = little_endian_conv_32(rom1->filesize);
+					memcpy(nesrom, rom, filesize);
+				}
 			}
 		}
 	}
@@ -688,4 +684,33 @@ OpenGameList ()
 	
 	BrowserChangeFolder();
 	return browser.numEntries;
+}
+
+bool AutoloadGame(char* filepath, char* filename) {
+	ResetBrowser();
+
+	selectLoadedFile = 1;
+	std::string dir(filepath);
+	dir.assign(&dir[dir.find_last_of(":") + 2]);
+	strncpy(GCSettings.LoadFolder, dir.c_str(), sizeof(GCSettings.LoadFolder));
+	OpenGameList();
+
+	for(int i = 0; i < browser.numEntries; i++) {
+		// Skip it
+		if (strcmp(browserList[i].filename, ".") == 0 || strcmp(browserList[i].filename, "..") == 0) {
+			continue;
+		}
+		if(strcasestr(browserList[i].filename, filename) != NULL) {
+			browser.selIndex = i;
+			if(IsSz()) {
+				BrowserLoadSz();
+				browser.selIndex = 1;
+			}
+			break;
+		}
+	}
+	if(BrowserLoadFile() > 0) {
+		return true;
+	}
+	return false;
 }

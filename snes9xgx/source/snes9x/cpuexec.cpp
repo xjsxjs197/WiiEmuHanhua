@@ -1,179 +1,8 @@
-/***********************************************************************************
-  Snes9x - Portable Super Nintendo Entertainment System (TM) emulator.
-
-  (c) Copyright 1996 - 2002  Gary Henderson (gary.henderson@ntlworld.com),
-                             Jerremy Koot (jkoot@snes9x.com)
-
-  (c) Copyright 2002 - 2004  Matthew Kendora
-
-  (c) Copyright 2002 - 2005  Peter Bortas (peter@bortas.org)
-
-  (c) Copyright 2004 - 2005  Joel Yliluoma (http://iki.fi/bisqwit/)
-
-  (c) Copyright 2001 - 2006  John Weidman (jweidman@slip.net)
-
-  (c) Copyright 2002 - 2006  funkyass (funkyass@spam.shaw.ca),
-                             Kris Bleakley (codeviolation@hotmail.com)
-
-  (c) Copyright 2002 - 2010  Brad Jorsch (anomie@users.sourceforge.net),
-                             Nach (n-a-c-h@users.sourceforge.net),
-                             zones (kasumitokoduck@yahoo.com)
-
-  (c) Copyright 2006 - 2007  nitsuja
-
-  (c) Copyright 2009 - 2010  BearOso,
-                             OV2
-
-
-  BS-X C emulator code
-  (c) Copyright 2005 - 2006  Dreamer Nom,
-                             zones
-
-  C4 x86 assembler and some C emulation code
-  (c) Copyright 2000 - 2003  _Demo_ (_demo_@zsnes.com),
-                             Nach,
-                             zsKnight (zsknight@zsnes.com)
-
-  C4 C++ code
-  (c) Copyright 2003 - 2006  Brad Jorsch,
-                             Nach
-
-  DSP-1 emulator code
-  (c) Copyright 1998 - 2006  _Demo_,
-                             Andreas Naive (andreasnaive@gmail.com),
-                             Gary Henderson,
-                             Ivar (ivar@snes9x.com),
-                             John Weidman,
-                             Kris Bleakley,
-                             Matthew Kendora,
-                             Nach,
-                             neviksti (neviksti@hotmail.com)
-
-  DSP-2 emulator code
-  (c) Copyright 2003         John Weidman,
-                             Kris Bleakley,
-                             Lord Nightmare (lord_nightmare@users.sourceforge.net),
-                             Matthew Kendora,
-                             neviksti
-
-  DSP-3 emulator code
-  (c) Copyright 2003 - 2006  John Weidman,
-                             Kris Bleakley,
-                             Lancer,
-                             z80 gaiden
-
-  DSP-4 emulator code
-  (c) Copyright 2004 - 2006  Dreamer Nom,
-                             John Weidman,
-                             Kris Bleakley,
-                             Nach,
-                             z80 gaiden
-
-  OBC1 emulator code
-  (c) Copyright 2001 - 2004  zsKnight,
-                             pagefault (pagefault@zsnes.com),
-                             Kris Bleakley
-                             Ported from x86 assembler to C by sanmaiwashi
-
-  SPC7110 and RTC C++ emulator code used in 1.39-1.51
-  (c) Copyright 2002         Matthew Kendora with research by
-                             zsKnight,
-                             John Weidman,
-                             Dark Force
-
-  SPC7110 and RTC C++ emulator code used in 1.52+
-  (c) Copyright 2009         byuu,
-                             neviksti
-
-  S-DD1 C emulator code
-  (c) Copyright 2003         Brad Jorsch with research by
-                             Andreas Naive,
-                             John Weidman
-
-  S-RTC C emulator code
-  (c) Copyright 2001 - 2006  byuu,
-                             John Weidman
-
-  ST010 C++ emulator code
-  (c) Copyright 2003         Feather,
-                             John Weidman,
-                             Kris Bleakley,
-                             Matthew Kendora
-
-  Super FX x86 assembler emulator code
-  (c) Copyright 1998 - 2003  _Demo_,
-                             pagefault,
-                             zsKnight
-
-  Super FX C emulator code
-  (c) Copyright 1997 - 1999  Ivar,
-                             Gary Henderson,
-                             John Weidman
-
-  Sound emulator code used in 1.5-1.51
-  (c) Copyright 1998 - 2003  Brad Martin
-  (c) Copyright 1998 - 2006  Charles Bilyue'
-
-  Sound emulator code used in 1.52+
-  (c) Copyright 2004 - 2007  Shay Green (gblargg@gmail.com)
-
-  SH assembler code partly based on x86 assembler code
-  (c) Copyright 2002 - 2004  Marcus Comstedt (marcus@mc.pp.se)
-
-  2xSaI filter
-  (c) Copyright 1999 - 2001  Derek Liauw Kie Fa
-
-  HQ2x, HQ3x, HQ4x filters
-  (c) Copyright 2003         Maxim Stepin (maxim@hiend3d.com)
-
-  NTSC filter
-  (c) Copyright 2006 - 2007  Shay Green
-
-  GTK+ GUI code
-  (c) Copyright 2004 - 2010  BearOso
-
-  Win32 GUI code
-  (c) Copyright 2003 - 2006  blip,
-                             funkyass,
-                             Matthew Kendora,
-                             Nach,
-                             nitsuja
-  (c) Copyright 2009 - 2010  OV2
-
-  Mac OS GUI code
-  (c) Copyright 1998 - 2001  John Stiles
-  (c) Copyright 2001 - 2010  zones
-
-
-  Specific ports contains the works of other authors. See headers in
-  individual files.
-
-
-  Snes9x homepage: http://www.snes9x.com/
-
-  Permission to use, copy, modify and/or distribute Snes9x in both binary
-  and source form, for non-commercial purposes, is hereby granted without
-  fee, providing that this license information and copyright notice appear
-  with all copies and any derived work.
-
-  This software is provided 'as-is', without any express or implied
-  warranty. In no event shall the authors be held liable for any damages
-  arising from the use of this software or it's derivatives.
-
-  Snes9x is freeware for PERSONAL USE only. Commercial users should
-  seek permission of the copyright holders first. Commercial use includes,
-  but is not limited to, charging money for Snes9x or software derived from
-  Snes9x, including Snes9x or derivatives in commercial game bundles, and/or
-  using Snes9x as a promotion for your commercial product.
-
-  The copyright holders request that bug fixes and improvements to the code
-  should be forwarded to them so everyone can benefit from the modifications
-  in future versions.
-
-  Super NES and Super Nintendo Entertainment System are trademarks of
-  Nintendo Co., Limited and its subsidiary companies.
- ***********************************************************************************/
-
+/*****************************************************************************\
+     Snes9x - Portable Super Nintendo Entertainment System (TM) emulator.
+                This file is licensed under the Snes9x License.
+   For further information, consult the LICENSE file in the root directory.
+\*****************************************************************************/
 
 #include "snes9x.h"
 #include "memmap.h"
@@ -182,102 +11,139 @@
 #include "apu/apu.h"
 #include "fxemu.h"
 #include "snapshot.h"
+#include "movie.h"
 #ifdef DEBUGGER
 #include "debug.h"
 #include "missing.h"
 #endif
 
+static inline void S9xReschedule (void);
 
 void S9xMainLoop (void)
 {
+	#define CHECK_FOR_IRQ_CHANGE() \
+	if (Timings.IRQFlagChanging) \
+	{ \
+		if (Timings.IRQFlagChanging & IRQ_TRIGGER_NMI) \
+		{ \
+			CPU.NMIPending = TRUE; \
+			Timings.NMITriggerPos = CPU.Cycles + 6; \
+		} \
+		if (Timings.IRQFlagChanging & IRQ_CLEAR_FLAG) \
+			ClearIRQ(); \
+		else if (Timings.IRQFlagChanging & IRQ_SET_FLAG) \
+			SetIRQ(); \
+		Timings.IRQFlagChanging = IRQ_NONE; \
+	}
+
+	if (CPU.Flags & SCAN_KEYS_FLAG)
+	{
+		CPU.Flags &= ~SCAN_KEYS_FLAG;
+		S9xMovieUpdate();
+	}
+
 	for (;;)
 	{
-		if (CPU.Flags)
+		if (CPU.NMIPending)
 		{
-			if (CPU.Flags & NMI_FLAG)
+			#ifdef DEBUGGER
+			if (Settings.TraceHCEvent)
+			    S9xTraceFormattedMessage ("Comparing %d to %d\n", Timings.NMITriggerPos, CPU.Cycles);
+			#endif
+			if (Timings.NMITriggerPos <= CPU.Cycles)
 			{
-				if (Timings.NMITriggerPos <= CPU.Cycles)
+				CPU.NMIPending = FALSE;
+				Timings.NMITriggerPos = 0xffff;
+				if (CPU.WaitingForInterrupt)
 				{
-					CPU.Flags &= ~NMI_FLAG;
-					Timings.NMITriggerPos = 0xffff;
-					if (CPU.WaitingForInterrupt)
-					{
-						CPU.WaitingForInterrupt = FALSE;
-						Registers.PCw++;
-					}
-
-					S9xOpcode_NMI();
+					CPU.WaitingForInterrupt = FALSE;
+					Registers.PCw++;
+					CPU.Cycles += TWO_CYCLES + ONE_DOT_CYCLE / 2;
+					while (CPU.Cycles >= CPU.NextEvent)
+						S9xDoHEventProcessing();
 				}
+
+				CHECK_FOR_IRQ_CHANGE();
+				S9xOpcode_NMI();
 			}
-
-		#ifdef DEBUGGER
-			if ((CPU.Flags & BREAK_FLAG) && !(CPU.Flags & SINGLE_STEP_FLAG))
-			{
-				for (int Break = 0; Break != 6; Break++)
-				{
-					if (S9xBreakpoint[Break].Enabled &&
-						S9xBreakpoint[Break].Bank == Registers.PB &&
-						S9xBreakpoint[Break].Address == Registers.PCw)
-					{
-						if (S9xBreakpoint[Break].Enabled == 2)
-							S9xBreakpoint[Break].Enabled = TRUE;
-						else
-							CPU.Flags |= DEBUG_MODE_FLAG;
-					}
-				}
-			}
-		#endif
-
-			if (CPU.Flags & IRQ_FLAG)
-			{
-				if (CPU.IRQPending)
-					// FIXME: In case of IRQ during WRAM refresh
-					CPU.IRQPending--;
-				else
-				{
-					if (CPU.WaitingForInterrupt)
-					{
-						CPU.WaitingForInterrupt = FALSE;
-						Registers.PCw++;
-					}
-
-					if (CPU.IRQActive && !Settings.DisableIRQ)
-					{
-						if (!CheckFlag(IRQ))
-						// in IRQ handler $4211 is supposed to be read, so IRQ_FLAG should be cleared.
-							S9xOpcode_IRQ();
-					}
-					else
-						CPU.Flags &= ~IRQ_FLAG;
-				}
-			}
-
-			if (CPU.Flags & SCAN_KEYS_FLAG)
-				break;
-
-		#ifdef DEBUGGER
-			if (CPU.Flags & DEBUG_MODE_FLAG)
-				break;
-
-			if (CPU.Flags & TRACE_FLAG)
-				S9xTrace();
-
-			if (CPU.Flags & SINGLE_STEP_FLAG)
-			{
-				CPU.Flags &= ~SINGLE_STEP_FLAG;
-				CPU.Flags |= DEBUG_MODE_FLAG;
-			}
-		#endif
 		}
 
-	#ifdef CPU_SHUTDOWN
-		CPU.PBPCAtOpcodeStart = Registers.PBPC;
+		if (CPU.Cycles >= Timings.NextIRQTimer)
+		{
+			#ifdef DEBUGGER
+			S9xTraceMessage ("Timer triggered\n");
+			#endif
+
+			S9xUpdateIRQPositions(false);
+			CPU.IRQLine = TRUE;
+		}
+
+		if (CPU.IRQLine || CPU.IRQExternal)
+		{
+			if (CPU.WaitingForInterrupt)
+			{
+				CPU.WaitingForInterrupt = FALSE;
+				Registers.PCw++;
+				CPU.Cycles += TWO_CYCLES + ONE_DOT_CYCLE / 2;
+				while (CPU.Cycles >= CPU.NextEvent)
+					S9xDoHEventProcessing();
+			}
+
+			if (!CheckFlag(IRQ))
+			{
+				/* The flag pushed onto the stack is the new value */
+				CHECK_FOR_IRQ_CHANGE();
+				S9xOpcode_IRQ();
+			}
+		}
+
+		/* Change IRQ flag for instructions that set it only on last cycle */
+		CHECK_FOR_IRQ_CHANGE();
+
+	#ifdef DEBUGGER
+		if ((CPU.Flags & BREAK_FLAG) && !(CPU.Flags & SINGLE_STEP_FLAG))
+		{
+			for (int Break = 0; Break != 6; Break++)
+			{
+				if (S9xBreakpoint[Break].Enabled &&
+					S9xBreakpoint[Break].Bank == Registers.PB &&
+					S9xBreakpoint[Break].Address == Registers.PCw)
+				{
+					if (S9xBreakpoint[Break].Enabled == 2)
+						S9xBreakpoint[Break].Enabled = TRUE;
+					else
+						CPU.Flags |= DEBUG_MODE_FLAG;
+				}
+			}
+		}
+
+		if (CPU.Flags & DEBUG_MODE_FLAG)
+			break;
+
+		if (CPU.Flags & TRACE_FLAG)
+			S9xTrace();
+
+		if (CPU.Flags & SINGLE_STEP_FLAG)
+		{
+			CPU.Flags &= ~SINGLE_STEP_FLAG;
+			CPU.Flags |= DEBUG_MODE_FLAG;
+		}
 	#endif
 
-		register uint8				Op;
-		register struct	SOpcodes	*Opcodes;
+		if (CPU.Flags & SCAN_KEYS_FLAG)
+		{
+			#ifdef DEBUGGER
+			if (!(CPU.Flags & FRAME_ADVANCE_FLAG))
+			#endif
+			{
+				S9xSyncSpeed();
+			}
 
-		CPU.PrevCycles = CPU.Cycles;
+			break;
+		}
+
+		uint8				Op;
+		struct	SOpcodes	*Opcodes;
 
 		if (CPU.PCBase)
 		{
@@ -304,97 +170,77 @@ void S9xMainLoop (void)
 		Registers.PCw++;
 		(*Opcodes[Op].S9xOpcode)();
 
-		if (SA1.Executing)
+		if (Settings.SA1)
 			S9xSA1MainLoop();
-
-	#if (S9X_ACCURACY_LEVEL <= 2)
-		while (CPU.Cycles >= CPU.NextEvent)
-			S9xDoHEventProcessing();
-	#endif
 	}
 
 	S9xPackStatus();
-
-	if (CPU.Flags & SCAN_KEYS_FLAG)
-	{
-	#ifdef DEBUGGER
-		if (!(CPU.Flags & FRAME_ADVANCE_FLAG))
-	#endif
-		S9xSyncSpeed();
-		CPU.Flags &= ~SCAN_KEYS_FLAG;
-	}
 }
 
-void S9xSetIRQ (uint32 source)
+static inline void S9xReschedule (void)
 {
-	CPU.IRQActive |= source;
-	CPU.IRQPending = Timings.IRQPendCount;
-	CPU.Flags |= IRQ_FLAG;
-
-	if (CPU.WaitingForInterrupt)
+	switch (CPU.WhichEvent)
 	{
-		// Force IRQ to trigger immediately after WAI -
-		// Final Fantasy Mystic Quest crashes without this.
-		CPU.WaitingForInterrupt = FALSE;
-		Registers.PCw++;
+		case HC_HBLANK_START_EVENT:
+			CPU.WhichEvent = HC_HDMA_START_EVENT;
+			CPU.NextEvent  = Timings.HDMAStart;
+			break;
+
+		case HC_HDMA_START_EVENT:
+			CPU.WhichEvent = HC_HCOUNTER_MAX_EVENT;
+			CPU.NextEvent  = Timings.H_Max;
+			break;
+
+		case HC_HCOUNTER_MAX_EVENT:
+			CPU.WhichEvent = HC_HDMA_INIT_EVENT;
+			CPU.NextEvent  = Timings.HDMAInit;
+			break;
+
+		case HC_HDMA_INIT_EVENT:
+			CPU.WhichEvent = HC_RENDER_EVENT;
+			CPU.NextEvent  = Timings.RenderPos;
+			break;
+
+		case HC_RENDER_EVENT:
+			CPU.WhichEvent = HC_WRAM_REFRESH_EVENT;
+			CPU.NextEvent  = Timings.WRAMRefreshPos;
+			break;
+
+		case HC_WRAM_REFRESH_EVENT:
+			CPU.WhichEvent = HC_HBLANK_START_EVENT;
+			CPU.NextEvent  = Timings.HBlankStart;
+			break;
 	}
-	
-#ifdef DEBUGGER
-	S9xTraceMessage("--- /IRQ low");
-#endif
-}
-
-void S9xClearIRQ (uint32 source)
-{
-	CPU.IRQActive &= ~source;
-	if (!CPU.IRQActive)
-		CPU.Flags &= ~IRQ_FLAG;
-
-#ifdef DEBUGGER
-	S9xTraceMessage("--- /IRQ high");
-#endif
 }
 
 void S9xDoHEventProcessing (void)
 {
 #ifdef DEBUGGER
-	static char	eventname[13][32] =
+	static char	eventname[7][32] =
 	{
 		"",
 		"HC_HBLANK_START_EVENT",
-		"HC_IRQ_1_3_EVENT     ",
 		"HC_HDMA_START_EVENT  ",
-		"HC_IRQ_3_5_EVENT     ",
 		"HC_HCOUNTER_MAX_EVENT",
-		"HC_IRQ_5_7_EVENT     ",
 		"HC_HDMA_INIT_EVENT   ",
-		"HC_IRQ_7_9_EVENT     ",
 		"HC_RENDER_EVENT      ",
-		"HC_IRQ_9_A_EVENT     ",
-		"HC_WRAM_REFRESH_EVENT",
-		"HC_IRQ_A_1_EVENT     "
+		"HC_WRAM_REFRESH_EVENT"
 	};
 #endif
 
 #ifdef DEBUGGER
 	if (Settings.TraceHCEvent)
-		S9xTraceFormattedMessage("--- HC event processing  (%s)  expected HC:%04d  executed HC:%04d",
-			eventname[CPU.WhichEvent], CPU.NextEvent, CPU.Cycles);
-#endif
-
-#ifdef CPU_SHUTDOWN
-	CPU.WaitCounter++;
+		S9xTraceFormattedMessage("--- HC event processing  (%s)  expected HC:%04d  executed HC:%04d VC:%04d",
+			eventname[CPU.WhichEvent], CPU.NextEvent, CPU.Cycles, CPU.V_Counter);
 #endif
 
 	switch (CPU.WhichEvent)
 	{
 		case HC_HBLANK_START_EVENT:
-			S9xCheckMissingHTimerPosition(Timings.HBlankStart);
 			S9xReschedule();
 			break;
 
 		case HC_HDMA_START_EVENT:
-			S9xCheckMissingHTimerPosition(Timings.HDMAStart);
 			S9xReschedule();
 
 			if (PPU.HDMA && CPU.V_Counter <= PPU.ScreenHeight)
@@ -417,10 +263,14 @@ void S9xDoHEventProcessing (void)
 
 			S9xAPUEndScanline();
 			CPU.Cycles -= Timings.H_Max;
+			if (Timings.NMITriggerPos != 0xffff)
+				Timings.NMITriggerPos -= Timings.H_Max;
+			if (Timings.NextIRQTimer != 0x0fffffff)
+				Timings.NextIRQTimer -= Timings.H_Max;
 			S9xAPUSetReferenceTime(CPU.Cycles);
 
-			if ((Timings.NMITriggerPos != 0xffff) && (Timings.NMITriggerPos >= Timings.H_Max))
-				Timings.NMITriggerPos -= Timings.H_Max;
+			if (Settings.SA1)
+				SA1.Cycles -= Timings.H_Max * 3;
 
 			CPU.V_Counter++;
 			if (CPU.V_Counter >= Timings.V_Max)	// V ranges from 0 to Timings.V_Max - 1
@@ -445,12 +295,9 @@ void S9xDoHEventProcessing (void)
 
 				// FIXME: reading $4210 will wait 2 cycles, then perform reading, then wait 4 more cycles.
 				Memory.FillRAM[0x4210] = Model->_5A22;
-				CPU.Flags &= ~NMI_FLAG;
-				Timings.NMITriggerPos = 0xffff;
 
 				ICPU.Frame++;
 				PPU.HVBeamCounterLatched = 0;
-				CPU.Flags |= SCAN_KEYS_FLAG;
 			}
 
 			// From byuu:
@@ -477,11 +324,12 @@ void S9xDoHEventProcessing (void)
 			else
 				Timings.WRAMRefreshPos = SNES_WRAM_REFRESH_HC_v1;
 
-			S9xCheckMissingHTimerPosition(0);
-
 			if (CPU.V_Counter == PPU.ScreenHeight + FIRST_VISIBLE_LINE)	// VBlank starts from V=225(240).
 			{
 				S9xEndScreenRefresh();
+
+				CPU.Flags |= SCAN_KEYS_FLAG;
+
 				PPU.HDMA = 0;
 				// Bits 7 and 6 of $4212 are computed when read in S9xGetPPU.
 			#ifdef DEBUGGER
@@ -511,9 +359,13 @@ void S9xDoHEventProcessing (void)
 				Memory.FillRAM[0x4210] = 0x80 | Model->_5A22;
 				if (Memory.FillRAM[0x4200] & 0x80)
 				{
+#ifdef DEBUGGER
+					if (Settings.TraceHCEvent)
+					    S9xTraceFormattedMessage ("NMI Scheduled for next scanline.");
+#endif
 					// FIXME: triggered at HC=6, checked just before the final CPU cycle,
 					// then, when to call S9xOpcode_NMI()?
-					CPU.Flags |= NMI_FLAG;
+					CPU.NMIPending = TRUE;
 					Timings.NMITriggerPos = 6 + 6;
 				}
 
@@ -528,13 +380,11 @@ void S9xDoHEventProcessing (void)
 			if (CPU.V_Counter == FIRST_VISIBLE_LINE)	// V=1
 				S9xStartScreenRefresh();
 
-			CPU.NextEvent = -1;
 			S9xReschedule();
 
 			break;
 
 		case HC_HDMA_INIT_EVENT:
-			S9xCheckMissingHTimerPosition(Timings.HDMAInit);
 			S9xReschedule();
 
 			if (CPU.V_Counter == 0)
@@ -551,7 +401,6 @@ void S9xDoHEventProcessing (void)
 			if (CPU.V_Counter >= FIRST_VISIBLE_LINE && CPU.V_Counter <= PPU.ScreenHeight)
 				RenderLine((uint8) (CPU.V_Counter - FIRST_VISIBLE_LINE));
 
-			S9xCheckMissingHTimerPosition(Timings.RenderPos);
 			S9xReschedule();
 
 			break;
@@ -561,27 +410,10 @@ void S9xDoHEventProcessing (void)
 			S9xTraceFormattedMessage("*** WRAM Refresh  HC:%04d", CPU.Cycles);
 		#endif
 
-			S9xCheckMissingHTimerHalt(Timings.WRAMRefreshPos, SNES_WRAM_REFRESH_CYCLES);
 			CPU.Cycles += SNES_WRAM_REFRESH_CYCLES;
 
-			S9xCheckMissingHTimerPosition(Timings.WRAMRefreshPos);
 			S9xReschedule();
 
-			break;
-
-		case HC_IRQ_1_3_EVENT:
-		case HC_IRQ_3_5_EVENT:
-		case HC_IRQ_5_7_EVENT:
-		case HC_IRQ_7_9_EVENT:
-		case HC_IRQ_9_A_EVENT:
-		case HC_IRQ_A_1_EVENT:
-			if (PPU.HTimerEnabled && (!PPU.VTimerEnabled || (CPU.V_Counter == PPU.VTimerPosition)))
-				S9xSetIRQ(PPU_IRQ_SOURCE);
-			else
-			if (PPU.VTimerEnabled && (CPU.V_Counter == PPU.VTimerPosition))
-				S9xSetIRQ(PPU_IRQ_SOURCE);
-
-			S9xReschedule();
 			break;
 	}
 
@@ -591,4 +423,3 @@ void S9xDoHEventProcessing (void)
 			eventname[CPU.WhichEvent], CPU.NextEvent, CPU.Cycles);
 #endif
 }
-

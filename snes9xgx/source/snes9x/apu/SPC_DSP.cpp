@@ -1,5 +1,7 @@
 // snes_spc 0.9.0. http://www.slack.net/~ant/
 
+#include "snes9x.h"
+
 #include "SPC_DSP.h"
 
 #include "blargg_endian.h"
@@ -127,24 +129,43 @@ static short const gauss [512] =
 
 inline int SPC_DSP::interpolate( voice_t const* v )
 {
-	// Make pointers into gaussian based on fractional position between samples
-	int offset = v->interp_pos >> 4 & 0xFF;
-	short const* fwd = gauss + 255 - offset;
-	short const* rev = gauss       + offset; // mirror left half of gaussian
-	
-	int const* in = &v->buf [(v->interp_pos >> 12) + v->buf_pos];
-	int out;
-	out  = (fwd [  0] * in [0]) >> 11;
-	out += (fwd [256] * in [1]) >> 11;
-	out += (rev [256] * in [2]) >> 11;
-	out = (int16_t) out;
-	out += (rev [  0] * in [3]) >> 11;
-	
-	CLAMP16( out );
-	out &= ~1;
-	return out;
+    int out;
+    int const* in = &v->buf [(v->interp_pos >> 12) + v->buf_pos];
+    switch (Settings.InterpolationMethod)
+    {
+    case 0: // raw
+    {
+        out = v->buf [(v->interp_pos >> 12) + v->buf_pos] & ~1;
+        break;
+    }
+    case 1: // linear interpolation
+    {
+        int fract = v->interp_pos & 0xFFF;
+        out  = (0x1000 - fract) * in [0];
+        out +=           fract  * in [1];
+        out >>= 12;
+        break;
+    }
+    default:
+    case 2: // Original gaussian filter
+    {
+        // Make pointers into gaussian based on fractional position between samples
+        int offset = v->interp_pos >> 4 & 0xFF;
+        short const* fwd = gauss + 255 - offset;
+        short const* rev = gauss       + offset; // mirror left half of gaussian
+        int const* in = &v->buf [(v->interp_pos >> 12) + v->buf_pos];
+        out  = (fwd [  0] * in [0]) >> 11;
+        out += (fwd [256] * in [1]) >> 11;
+        out += (rev [256] * in [2]) >> 11;
+        out = (int16_t) out;
+        out += (rev [  0] * in [3]) >> 11;
+        CLAMP16( out );
+        out &= ~1;
+        break;
+    }
+    }
+    return out;
 }
-
 
 //// Counters
 
@@ -386,7 +407,7 @@ MISC_CLOCK( 30 )
 
 inline VOICE_CLOCK( V1 )
 {
-	m.t_dir_addr = m.t_dir * 0x100 + m.t_srcn * 4;
+	m.t_dir_addr = (m.t_dir * 0x100 + m.t_srcn * 4) & 0xffff;
 	m.t_srcn = VREG(v->regs,srcn);
 }
 inline VOICE_CLOCK( V2 )
@@ -591,7 +612,7 @@ VOICE_CLOCK(V9_V6_V3) { voice_V9(v); voice_V6(v+1); voice_V3(v+2); }
 //// Echo
 
 // Current echo buffer pointer for left/right channel
-#define ECHO_PTR( ch )      (&m.ram [m.t_echo_ptr + ch * 2])
+#define ECHO_PTR( ch )      ((Settings.SeparateEchoBuffer) ? (&m.separate_echo_buffer [m.t_echo_ptr + ch * 2]) : (&m.ram [m.t_echo_ptr + ch * 2]))
 
 // Sample in echo history buffer, where 0 is the oldest
 #define ECHO_FIR( i )       (m.echo_hist_pos [i])
@@ -860,6 +881,8 @@ void SPC_DSP::soft_reset_common()
 	m.echo_offset        = 0;
 	m.phase              = 0;
 	
+	memset(m.separate_echo_buffer, 0, 0x10000);
+
 	init_counter();
 
 	for (int i = 0; i < voice_count; i++)

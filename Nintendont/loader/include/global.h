@@ -48,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // upd by xjsxjs197 start
 //#define ARROW_LEFT			"\xE2\x97\x80"
 //#define ARROW_RIGHT			"\xE2\x96\xB6"
-#define ARROW_LEFT			"‚Äª" //"\xE2\x97\x80"
-#define ARROW_RIGHT			"‚Äª" //"\xE2\x96\xB6"
+#define ARROW_LEFT			"Å¶" //"\xE2\x97\x80"
+#define ARROW_RIGHT			"Å¶" //"\xE2\x96\xB6"
 // upd by xjsxjs197 end
 
 // RGBA Colors
@@ -131,17 +131,17 @@ typedef struct
 	u8	Padding1;			// 0x183
 
 	u64	SystemVersion;		// 0x184
-	u64	TitleID;			// 0x18C
-	u32	TitleType;			// 0x194
-	u16	GroupID;			// 0x198
-	u8	Reserved[62];		// 0x19A
+	u64	TitleID;			// 0x18C 
+	u32	TitleType;			// 0x194 
+	u16	GroupID;			// 0x198 
+	u8	Reserved[62];		// 0x19A 
 	u32	AccessRights;		// 0x1D8
-	u16	TitleVersion;		// 0x1DC
-	u16	ContentCount;		// 0x1DE
+	u16	TitleVersion;		// 0x1DC 
+	u16	ContentCount;		// 0x1DE 
 	u16 BootIndex;			// 0x1E0
-	u8	Padding3[2];		// 0x1E2
+	u8	Padding3[2];		// 0x1E2 
 
-	Content Contents[];		// 0x1E4
+	Content Contents[];		// 0x1E4 
 
 } __attribute__((packed)) TitleMetaData;
 
@@ -162,7 +162,7 @@ static inline bool IsWiiUFastCPU(void)
 const char* const GetRootDevice();
 void RAMInit(void);
 void Initialise(bool autoboot);
-void unzip_data(const void *input, const unsigned int input_size,
+void unzip_data(const void *input, const unsigned int input_size, 
 	void **output, unsigned int *output_size);
 
 /**

@@ -18,6 +18,7 @@
 #include <mxml.h>
 
 #include "fceugx.h"
+#include "filelist.h"
 #include "button_mapping.h"
 #include "filebrowser.h"
 #include "menu.h"
@@ -131,6 +132,8 @@ preparePrefsData ()
 	createXMLSetting("CheatFolder", "Cheats Folder", GCSettings.CheatFolder);
 	createXMLSetting("gamegenie", "Game Genie", toStr(GCSettings.gamegenie));
 	createXMLSetting("ScreenshotsFolder", "Screenshots Folder", GCSettings.ScreenshotsFolder);
+	createXMLSetting("CoverFolder", "Covers Folder", GCSettings.CoverFolder);
+	createXMLSetting("ArtworkFolder", "Artwork Folder", GCSettings.ArtworkFolder);
 
 	createXMLSection("Network", "Network Settings");
 
@@ -163,7 +166,7 @@ preparePrefsData ()
 	createXMLSetting("SFXVolume", "Sound Effects Volume", toStr(GCSettings.SFXVolume));
 	createXMLSetting("Rumble", "Rumble", toStr(GCSettings.Rumble));
 	createXMLSetting("language", "Language", toStr(GCSettings.language));
-	
+	createXMLSetting("PreviewImage", "Preview Image", toStr(GCSettings.PreviewImage));
 
 	createXMLSection("Controller", "Controller Settings");
 
@@ -174,6 +177,7 @@ preparePrefsData ()
 	createXMLController(btnmap[CTRL_PAD][CTRLR_WIIMOTE], "btnmap_pad_wiimote", "NES Pad - Wiimote");
 	createXMLController(btnmap[CTRL_PAD][CTRLR_CLASSIC], "btnmap_pad_classic", "NES Pad - Classic Controller");
 	createXMLController(btnmap[CTRL_PAD][CTRLR_WUPC], "btnmap_pad_wupc", "NES Pad - Wii U Pro Controller");
+	createXMLController(btnmap[CTRL_PAD][CTRLR_WIIDRC], "btnmap_pad_wiidrc", "NES Pad - Wii U Gamepad");
 	createXMLController(btnmap[CTRL_PAD][CTRLR_NUNCHUK], "btnmap_pad_nunchuk", "NES Pad - Nunchuk + Wiimote");
 	createXMLController(btnmap[CTRL_ZAPPER][CTRLR_GCPAD], "btnmap_zapper_gcpad", "Zapper - GameCube Controller");
 	createXMLController(btnmap[CTRL_ZAPPER][CTRLR_WIIMOTE], "btnmap_zapper_wiimote", "Zapper - Wiimote");
@@ -302,6 +306,8 @@ decodePrefsData ()
 			loadXMLSetting(GCSettings.CheatFolder, "CheatFolder", sizeof(GCSettings.CheatFolder));
 			loadXMLSetting(&GCSettings.gamegenie, "gamegenie");
 			loadXMLSetting(GCSettings.ScreenshotsFolder, "ScreenshotsFolder", sizeof(GCSettings.ScreenshotsFolder));
+			loadXMLSetting(GCSettings.CoverFolder, "CoverFolder", sizeof(GCSettings.CoverFolder));
+			loadXMLSetting(GCSettings.ArtworkFolder, "ArtworkFolder", sizeof(GCSettings.ArtworkFolder));
 
 			// Network Settings
 
@@ -332,6 +338,7 @@ decodePrefsData ()
 			loadXMLSetting(&GCSettings.SFXVolume, "SFXVolume");
 			loadXMLSetting(&GCSettings.Rumble, "Rumble");
 			loadXMLSetting(&GCSettings.language, "language");
+			loadXMLSetting(&GCSettings.PreviewImage, "PreviewImage");
 			
 			// Controller Settings
 
@@ -342,6 +349,7 @@ decodePrefsData ()
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_WIIMOTE], "btnmap_pad_wiimote");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_CLASSIC], "btnmap_pad_classic");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_WUPC], "btnmap_pad_wupc");
+			loadXMLController(btnmap[CTRL_PAD][CTRLR_WIIDRC], "btnmap_pad_wiidrc");
 			loadXMLController(btnmap[CTRL_PAD][CTRLR_NUNCHUK], "btnmap_pad_nunchuk");
 			loadXMLController(btnmap[CTRL_ZAPPER][CTRLR_GCPAD], "btnmap_zapper_gcpad");
 			loadXMLController(btnmap[CTRL_ZAPPER][CTRLR_WIIMOTE], "btnmap_zapper_wiimote");
@@ -406,20 +414,29 @@ DefaultSettings ()
 	GCSettings.spritelimit = 1; // enforce 8 sprite limit
 	GCSettings.gamegenie = 0; // Off
 
-	GCSettings.render = 2; // Unfiltered
-	GCSettings.hideoverscan = 2; // hide both horizontal and vertical
+	GCSettings.render = 3; // Filtered (sharp)
+	GCSettings.hideoverscan = 3; // hide both
 
-	GCSettings.widescreen = 0; // no aspect ratio correction
+	GCSettings.widescreen = 0;
+
+#ifdef HW_RVL
+	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9)
+		GCSettings.widescreen = 1;
+#endif
+
 	GCSettings.zoomHor = 1.0; // horizontal zoom level
 	GCSettings.zoomVert = 1.0; // vertical zoom level
 	GCSettings.xshift = 0; // horizontal video shift
 	GCSettings.yshift = 0; // vertical video shift
 
 	GCSettings.WiimoteOrientation = 0;
+	GCSettings.AutoloadGame = 0;
 	GCSettings.ExitAction = 0; // Auto
 	GCSettings.MusicVolume = 20;
 	GCSettings.SFXVolume = 40;
 	GCSettings.Rumble = 1; // Enabled
+	GCSettings.PreviewImage = 0;
+	
 #ifdef HW_RVL
 	GCSettings.language = CONF_GetLanguage();
 	
@@ -440,6 +457,8 @@ DefaultSettings ()
 	sprintf (GCSettings.SaveFolder, "%s/saves", APPFOLDER); // Path to save files
 	sprintf (GCSettings.CheatFolder, "%s/cheats", APPFOLDER); // Path to cheat files
 	sprintf (GCSettings.ScreenshotsFolder, "%s/screenshots", APPFOLDER); // Path to screenshots files
+	sprintf (GCSettings.CoverFolder, "%s/covers", APPFOLDER); // Path to cover files
+	sprintf (GCSettings.ArtworkFolder, "%s/artwork", APPFOLDER); // Path to artwork files
 	GCSettings.AutoLoad = 1; // Auto Load RAM
 	GCSettings.AutoSave = 1; // Auto Save RAM
 }
@@ -595,14 +614,24 @@ bool LoadPrefs()
 		FixInvalidSettings();
 
 	// attempt to create directories if they don't exist
-	if(GCSettings.LoadMethod != DEVICE_AUTO) {
+	if(GCSettings.LoadMethod == DEVICE_SD || GCSettings.LoadMethod == DEVICE_USB) {
 		char dirPath[MAXPATHLEN];
 		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ScreenshotsFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.CoverFolder);
+		CreateDirectory(dirPath);
+		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.ArtworkFolder);
 		CreateDirectory(dirPath);
 		sprintf(dirPath, "%s%s", pathPrefix[GCSettings.LoadMethod], GCSettings.CheatFolder);
 		CreateDirectory(dirPath);
 	}
 
-	ResetText();
+#ifdef HW_RVL
+	bg_music = (u8 * )bg_music_ogg;
+	bg_music_size = bg_music_ogg_size;
+	LoadBgMusic();
+#endif
+
+	ChangeLanguage();
 	return prefFound;
 }

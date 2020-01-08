@@ -15,8 +15,10 @@ Wii homebrew is WiiBrew (www.wiibrew.org).
 |                                                                FEATURES  |
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
 
-* Based on Snes9x 1.52
-* Wiimote, Nunchuk, Classic, and Gamecube controller support
+* Based on Snes9x 1.58 (with faster Blargg S-SMP module)
+* Wiimote, Nunchuk, Classic, Wii U Pro, and Gamecube controller support
+* Wii U GamePad support (requires homebrew injection into Wii U VC title)
+* Retrode support for up to 4 players
 * SNES Superscope, Mouse, Justifier support
 * Cheat support
 * Satellaview (BS-X) support
@@ -32,6 +34,62 @@ Wii homebrew is WiiBrew (www.wiibrew.org).
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
 |                                                          UPDATE HISTORY  |
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
+
+[4.4.4 - October 13, 2019]
+
+* Added retrode support (thanks revvv!)
+* Added L+R+START trigger to go back to emulator
+* Added option to show local time
+* Fixed buttons for all SNES peripherals (thanks niuus!)
+* Fixed bg_preview image (thanks Tanooki16!)
+* Fixed ZL button mapping for Wii U GamePad
+* Fixed SuperFX2 Core Speed (Yoshi's Island was running too fast)
+* Fixed Dragon Ball Z Hyper Dimension black screen
+* Reduce compile time by unmacro Tile file
+
+[4.4.3 - April 13, 2019]
+
+* Game-specific fixes (Chou Aniki, Rendering Rangers R2, Tenshi no Uta, Circuit USA)
+* Increased maximum cheats to 150
+* Fixed BPS patch support
+* Snes9x drawing optimization (3-4% speed boost)
+* Updated to latest upstream Snes9x
+* Updated spanish translation (thanks Psycho RFG)
+* Fixed preview image not displaying on GameCube
+* Added option to not append Auto to save filenames
+* Fixed crash when used as wiiflow plugin
+* Fixed crash on launch when using network shares
+* Fixed issues with on-screen keyboard
+* Updated Korean translation
+
+[4.4.2 - January 25, 2019]
+
+* Fixed Wii U GamePad support
+* Added ability to load external fonts and activated Japanese/Korean 
+  translations. Simply put the ko.ttf or jp.ttf in the app directory
+* Added ability to customize background music. Simply put a bg_music.ogg
+  in the app directory
+* Updated to latest upstream Snes9x
+* Added speed hacks for Super Mario RPG and Kirby's Dreamland 3
+* Added ability to change preview image source with + button (thanks Zalo!)
+
+[4.4.1 - January 4, 2019]
+
+* Fixed controllers with no analog sticks
+* Fixed GameCube build
+
+[4.4.0 - December 23, 2018]
+
+* Updated core to 1.58
+* Improved WiiFlow integration
+* Added Wii U GamePad support (thanks Fix94!)
+* Added setting to change sound interpolation
+* Fixed mangled image when switching between HQ2x and scanlines filters
+* Added BS-X BIOS loading
+* Fixed Tengai Mekyou Zero black screen
+* Fixed Chou Aniki black screen
+* APU Hacks for 1.58 core to fix Earthworm Jim 2
+* Adjusted SA1 settings to fix Super Mario RPG slowdowns with 1.58 core
 
 [4.3.9 - August 24, 2018]
 
@@ -521,6 +579,14 @@ the emulator). Once you've copied the directories to your SD Card you will
 need to place your ROM image(s) into "\snes9xgx\roms" directory and place any
 cheat code files (optional) in the "\snes9xgx\cheats" directory. Once this is
 done you can proceed to run the emulator via the Homebrew Channel.
+
+-=[ Satellaview (BS-X) ]=-
+
+Snes9x GX supports loading BS games. The BSX BIOS is required.
+Download the English + No DRM BS-X ROM here: 
+https://project.satellaview.org/downloads.htm 
+
+Put it in your snes9xgx folder, renamed to BS-X.bin.
 
 •˜———–—––-- - —————————––––– ———–—––-- - —————————––––– ———–—––-- - ————————•
 |                                                           INITIAL SETUP  |

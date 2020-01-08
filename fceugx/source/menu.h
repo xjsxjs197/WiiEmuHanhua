@@ -21,7 +21,10 @@ void InfoPrompt(const char * msg);
 void ShowAction (const char *msg);
 void CancelAction();
 void ShowProgress (const char *msg, int done, int total);
-void ResetText();
+void ChangeLanguage();
+
+extern u8 * bg_music;
+extern u32 bg_music_size;
 
 enum
 {

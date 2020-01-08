@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May 2007-July 2007
  * Michniewski 2008
- * Tantric 2008-2010
+ * Tantric 2008-2019
  *
  * snes9xgx.h
  *
@@ -20,7 +20,7 @@
 #include "filelist.h"
 
 #define APPNAME 			"Snes9x GX"
-#define APPVERSION 			"4.3.9"
+#define APPVERSION 			"4.4.4"
 #define APPFOLDER 			"snes9xgx"
 #define PREF_FILE_NAME		"settings.xml"
 
@@ -85,18 +85,15 @@ struct SGCSettings{
 	int		AutoSave;
 	int		LoadMethod; // For ROMS: Auto, SD, DVD, USB, Network (SMB)
 	int		SaveMethod; // For SRAM, Freeze, Prefs: Auto, SD, USB, SMB
+	int		AppendAuto; // 0 - no, 1 - yes
 	char	LoadFolder[MAXPATHLEN]; 	// Path to game files
-	char	LastFileLoaded[MAXPATHLEN]; //Last file loaded filename
+	char	LastFileLoaded[MAXPATHLEN]; // Last file loaded filename
 	char	SaveFolder[MAXPATHLEN]; 	// Path to save files
 	char	CheatFolder[MAXPATHLEN]; 	// Path to cheat files
-	char	ScreenshotsFolder[MAXPATHLEN]; //Path to screenshots files
-	char	CoverFolder[MAXPATHLEN]; 	//Path to cover files
-	char	ArtworkFolder[MAXPATHLEN]; 	//Path to artwork files
-	char 	ImageFolder[MAXPATHLEN]; 	//Saved image folder path 
-	
-	char	Exit_Dol_File[MAXPATHLEN]; // Exit Path
-	char	LoaderName[20]; // Menu Loader Name
-	u32		Exit_Channel[2]; // Exit Channel
+	char	ScreenshotsFolder[MAXPATHLEN]; // Path to screenshots files
+	char	CoverFolder[MAXPATHLEN]; 	// Path to cover files
+	char	ArtworkFolder[MAXPATHLEN]; 	// Path to artwork files
+	int		AutoloadGame;
 
 	char	smbip[80];
 	char	smbuser[20];
@@ -122,7 +119,11 @@ struct SGCSettings{
 	int		PreviewImage;
 
 	int		sfxOverclock;
+	
+	int		Interpolation;
 };
+
+char* ImageFolder();
 
 void ExitApp();
 void ShutdownWii();

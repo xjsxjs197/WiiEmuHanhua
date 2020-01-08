@@ -16,7 +16,8 @@ https://github.com/dborth/fceugx/releases
 
 -=[ Features ]=-
 
-* Wiimote, Nunchuk, Classic, Wii U Pro and Gamecube controller support
+* Wiimote, Nunchuk, Classic, Wii U Pro, and Gamecube controller support
+* Wii U GamePad support (requires homebrew injection into Wii U VC title)
 * iNES, FDS, VS, UNIF, and NSF ROM support
 * 1-4 Player Support
 * Zapper support
@@ -36,6 +37,30 @@ https://github.com/dborth/fceugx/releases
 ×—–­—–­—–­—–­ –­—–­—–­—–­—–­—–­—–­—–­—–­—–­— ­—–­—–­—–­—–­—–­—–­—–­—-­—–­-–•¬
 |0O×øo·                         UPDATE HISTORY                        ·oø×O0|
 `¨•¨¨¨¨¨ ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ ¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨ ¨¨¨¨¨¨¨¨¨¨¨¨¨'
+
+[3.4.3 - April 13, 2019]
+
+* Updated spanish translation (thanks Psycho RFG)
+* Fixed preview image not displaying on GameCube
+* Fixed crash when used as wiiflow plugin
+* Fixed crash on launch when using network shares
+* Fixed issues with on-screen keyboard
+* Updated Korean translation
+
+[3.4.2 - January 25, 2019]
+
+* Fixed GameCube controllers not working
+* Added ability to load external fonts and activated Japanese/Korean 
+  translations. Simply put the ko.ttf or jp.ttf in the app directory
+* Added ability to customize background music. Simply put a bg_music.ogg
+  in the app directory
+* Added ability to change preview image source with + button (thanks Zalo!)
+
+[3.4.1 - January 4, 2019]
+
+* Improved WiiFlow integration
+* Fixed controllers with no analog sticks
+* Added Wii U GamePad support (thanks Fix94!)
 
 [3.4.0 - August 23, 2018]
 
