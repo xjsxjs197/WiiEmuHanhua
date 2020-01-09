@@ -7,6 +7,7 @@
 
 #include <QAction>
 #include <QDateTime>
+#include <QElapsedTimer>
 #include <QList>
 #include <QMainWindow>
 #include <QTimer>
@@ -14,8 +15,10 @@
 #include <functional>
 #include <memory>
 
+#include <mgba/core/core.h>
 #include <mgba/core/thread.h>
 
+#include "ActionMapper.h"
 #include "InputController.h"
 #include "LoadSaveState.h"
 #include "LogController.h"
@@ -29,6 +32,7 @@ class CoreController;
 class CoreManager;
 class DebuggerConsoleController;
 class Display;
+class FrameView;
 class GDBController;
 class GIFView;
 class LibraryController;
@@ -69,6 +73,7 @@ public slots:
 	void addDirToLibrary();
 #endif
 	void selectSave(bool temporary);
+	void selectState(bool load);
 	void selectPatch();
 	void enterFullScreen();
 	void exitFullScreen();
@@ -96,9 +101,6 @@ public slots:
 
 #ifdef USE_FFMPEG
 	void openVideoWindow();
-#endif
-
-#ifdef USE_MAGICK
 	void openGIFWindow();
 #endif
 
@@ -111,6 +113,7 @@ protected:
 	virtual void keyReleaseEvent(QKeyEvent* event) override;
 	virtual void resizeEvent(QResizeEvent*) override;
 	virtual void showEvent(QShowEvent*) override;
+	virtual void hideEvent(QHideEvent*) override;
 	virtual void closeEvent(QCloseEvent*) override;
 	virtual void focusInEvent(QFocusEvent*) override;
 	virtual void focusOutEvent(QFocusEvent*) override;
@@ -132,7 +135,6 @@ private slots:
 	void mustRestart();
 
 	void recordFrame();
-	void delimitFrames();
 	void showFPS();
 	void focusCheck();
 
@@ -140,8 +142,7 @@ private slots:
 
 private:
 	static const int FPS_TIMER_INTERVAL = 2000;
-	static const int FRAME_LIST_INTERVAL = 100;
-	static const int FRAME_LIST_SIZE = 40;
+	static const int MUST_RESTART_TIMEOUT = 10000;
 
 	void setupMenu(QMenuBar*);
 	void openStateWindow(LoadSave);
@@ -150,6 +151,7 @@ private:
 	void detachWidget(QWidget* widget);
 
 	void appendMRU(const QString& fname);
+	void clearMRU();
 	void updateMRU();
 
 	void openView(QWidget* widget);
@@ -157,8 +159,9 @@ private:
 	template <typename T, typename... A> std::function<void()> openTView(A... arg);
 	template <typename T, typename... A> std::function<void()> openControllerTView(A... arg);
 
-	QAction* addControlledAction(QMenu* menu, QAction* action, const QString& name);
-	QAction* addHiddenAction(QMenu* menu, QAction* action, const QString& name);
+	Action* addGameAction(const QString& visibleName, const QString& name, Action::Function action, const QString& menu = {}, const QKeySequence& = {});
+	template<typename T, typename V> Action* addGameAction(const QString& visibleName, const QString& name, T* obj, V (T::*action)(), const QString& menu = {}, const QKeySequence& = {});
+	Action* addGameAction(const QString& visibleName, const QString& name, Action::BooleanFunction action, const QString& menu = {}, const QKeySequence& = {});
 
 	void updateTitle(float fps = -1);
 
@@ -171,14 +174,17 @@ private:
 
 	std::unique_ptr<Display> m_display;
 	int m_savedScale;
+
 	// TODO: Move these to a new class
-	QList<QAction*> m_gameActions;
-	QList<QAction*> m_nonMpActions;
+	ActionMapper m_actions;
+	QList<Action*> m_gameActions;
+	QList<Action*> m_nonMpActions;
 #ifdef M_CORE_GBA
-	QList<QAction*> m_gbaActions;
+	QMultiMap<mPlatform, Action*> m_platformActions;
 #endif
-	QAction* m_multiWindow;
-	QMap<int, QAction*> m_frameSizes;
+	Action* m_multiWindow;
+	QMap<int, Action*> m_frameSizes;
+
 	LogController m_log{0};
 	LogView* m_logView;
 #ifdef USE_DEBUGGERS
@@ -189,14 +195,11 @@ private:
 	QPixmap m_logo{":/res/mgba-1024.png"};
 	ConfigController* m_config;
 	InputController m_inputController;
-	QList<int> m_frameList;
-	int m_frameCounter = 0;
+	QList<qint64> m_frameList;
+	QElapsedTimer m_frameTimer;
 	QTimer m_fpsTimer;
-	QTimer m_frameTimer;
+	QTimer m_mustRestart;
 	QList<QString> m_mruFiles;
-	QMenu* m_mruMenu = nullptr;
-	QMenu* m_videoLayers;
-	QMenu* m_audioChannels;
 	ShortcutController* m_shortcutController;
 #if defined(BUILD_GL) || defined(BUILD_GLES2)
 	std::unique_ptr<ShaderSelector> m_shaderView;
@@ -208,17 +211,16 @@ private:
 	QString m_pendingPatch;
 	QString m_pendingState;
 	bool m_pendingPause = false;
+	bool m_pendingClose = false;
 
 	bool m_hitUnimplementedBiosCall;
 
 	std::unique_ptr<OverrideView> m_overrideView;
 	std::unique_ptr<SensorView> m_sensorView;
+	FrameView* m_frameView = nullptr;
 
 #ifdef USE_FFMPEG
 	VideoView* m_videoView = nullptr;
-#endif
-
-#ifdef USE_MAGICK
 	GIFView* m_gifView = nullptr;
 #endif
 
@@ -243,6 +245,7 @@ public:
 	void setDimensions(int width, int height);
 	void setLockIntegerScaling(bool lock);
 	void setLockAspectRatio(bool lock);
+	void filter(bool filter);
 
 	const QPixmap& pixmap() const { return m_pixmap; }
 
@@ -256,6 +259,7 @@ private:
 	int m_aspectHeight;
 	bool m_lockAspectRatio;
 	bool m_lockIntegerScaling;
+	bool m_filter;
 };
 
 }

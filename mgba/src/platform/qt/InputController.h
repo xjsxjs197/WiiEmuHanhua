@@ -27,12 +27,11 @@
 
 #ifdef BUILD_QT_MULTIMEDIA
 #include "VideoDumper.h"
+#include <QCamera>
 #endif
 
 struct mRotationSource;
 struct mRumble;
-
-class QCamera;
 
 namespace QGBA {
 
@@ -84,7 +83,7 @@ public:
 	QStringList connectedGamepads(uint32_t type) const;
 	int gamepad(uint32_t type) const;
 	void setGamepad(uint32_t type, int index);
-	void setPreferredGamepad(uint32_t type, const QString& device);
+	void setPreferredGamepad(uint32_t type, int index);
 
 	void registerTiltAxisX(int axis);
 	void registerTiltAxisY(int axis);
@@ -96,6 +95,8 @@ public:
 
 	void stealFocus(QWidget* focus);
 	void releaseFocus(QWidget* focus);
+
+	QList<QPair<QByteArray, QString>> listCameras() const;
 
 	mRumble* rumble();
 	mRotationSource* rotationSource();
@@ -123,7 +124,12 @@ public slots:
 	void loadCamImage(const QString& path);
 	void setCamImage(const QImage& image);
 
+	void setCamera(const QByteArray& id);
+
 private slots:
+#ifdef BUILD_QT_MULTIMEDIA
+	void prepareCamSettings(QCamera::Status);
+#endif
 	void setupCam();
 	void teardownCam();
 

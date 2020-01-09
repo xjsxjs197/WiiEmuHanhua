@@ -79,7 +79,7 @@ mLOG_DECLARE_CATEGORY(GB_STATE);
  *   | bits 0 - 2: Remaining length
  *   | bits 3 - 5: Next step
  *   | bits 6 - 31: Reserved
- * | 0x00098 - 0x0009F: Reserved
+ * | 0x0009C - 0x0009F: Last event
  * | 0x000A0 - 0x000A3: Next event
  * 0x000A4 - 0x000B7: Audio miscellaneous state
  * | TODO: Fix this, they're in big-endian order, but field is little-endian
@@ -195,6 +195,7 @@ DECL_BITS(GBSerializedAudioFlags, Frame, 22, 3);
 DECL_BIT(GBSerializedAudioFlags, Ch1SweepEnabled, 25);
 DECL_BIT(GBSerializedAudioFlags, Ch1SweepOccurred, 26);
 DECL_BIT(GBSerializedAudioFlags, Ch3Readable, 27);
+DECL_BIT(GBSerializedAudioFlags, SkipFrame, 28);
 
 DECL_BITFIELD(GBSerializedAudioEnvelope, uint32_t);
 DECL_BITS(GBSerializedAudioEnvelope, Length, 0, 7);
@@ -223,7 +224,7 @@ struct GBSerializedPSGState {
 	struct {
 		int32_t lfsr;
 		GBSerializedAudioEnvelope envelope;
-		int32_t reserved;
+		int32_t lastEvent;
 		uint32_t nextEvent;
 	} ch4;
 };
@@ -262,6 +263,7 @@ DECL_BITS(GBSerializedSGBFlags, RenderMode, 2, 2);
 DECL_BITS(GBSerializedSGBFlags, BufferIndex, 4, 3);
 DECL_BITS(GBSerializedSGBFlags, CurrentController, 7, 2);
 DECL_BITS(GBSerializedSGBFlags, ReqControllers, 9, 2);
+DECL_BIT(GBSerializedSGBFlags, Increment, 11);
 
 #pragma pack(push, 1)
 struct GBSerializedState {

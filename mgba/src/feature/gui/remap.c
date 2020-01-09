@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2013-2016 Jeffrey Pfau
+/* Copyright (c) 2013-2016 Jeffrey Pfau
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,6 +9,7 @@
 #include <mgba-util/gui/menu.h>
 
 void mGUIRemapKeys(struct GUIParams* params, struct mInputMap* map, const struct GUIInputKeys* keys) {
+    // add xjsxjs197 start
 	struct GUIMenu menu = {
 		//.title = "Remap keys",
 		.title = "重新映射按键",
@@ -64,6 +65,7 @@ void mGUIRemapKeys(struct GUIParams* params, struct mInputMap* map, const struct
 		.title = "取消",
 		.data = 0,
 	};
+	// add xjsxjs197 end
 
 	struct GUIMenuItem* item;
 	while (true) {

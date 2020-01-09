@@ -8,6 +8,7 @@
 #include <QDialog>
 
 #include "ColorPicker.h"
+#include "LogConfigModel.h"
 
 #include <mgba/core/core.h>
 
@@ -28,7 +29,7 @@ class SettingsView : public QDialog {
 Q_OBJECT
 
 public:
-	SettingsView(ConfigController* controller, InputController* inputController, ShortcutController* shortcutController, QWidget* parent = nullptr);
+	SettingsView(ConfigController* controller, InputController* inputController, ShortcutController* shortcutController, LogController* logController, QWidget* parent = nullptr);
 	~SettingsView();
 
 	void setShaderSelector(ShaderSelector* shaderSelector);
@@ -38,6 +39,8 @@ signals:
 	void audioDriverChanged();
 	void displayDriverChanged();
 	void cameraDriverChanged();
+	void cameraChanged(const QByteArray&);
+	void videoRendererChanged();
 	void pathsChanged();
 	void languageChanged();
 	void libraryCleared();
@@ -53,6 +56,7 @@ private:
 	ConfigController* m_controller;
 	InputController* m_input;
 	ShaderSelector* m_shader = nullptr;
+	LogConfigModel m_logModel;
 
 #ifdef M_CORE_GB
 	uint32_t m_gbColors[12]{};
@@ -72,8 +76,8 @@ private:
 	void loadSetting(const char* key, QComboBox*);
 	void loadSetting(const char* key, QDoubleSpinBox*);
 	void loadSetting(const char* key, QLineEdit*);
-	void loadSetting(const char* key, QSlider*);
-	void loadSetting(const char* key, QSpinBox*);
+	void loadSetting(const char* key, QSlider*, int defaultVal = 0);
+	void loadSetting(const char* key, QSpinBox*, int defaultVal = 0);
 	QString loadSetting(const char* key);
 };
 

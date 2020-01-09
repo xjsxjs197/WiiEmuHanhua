@@ -95,6 +95,8 @@ uint16_t GBADMAWriteCNT_HI(struct GBA* gba, int dma, uint16_t control) {
 		if (currentDma->nextDest & (width - 1)) {
 			mLOG(GBA_MEM, GAME_ERROR, "Misaligned DMA destination address: 0x%08X", currentDma->nextDest);
 		}
+		currentDma->nextSource &= -width;
+		currentDma->nextDest &= -width;
 
 		GBADMASchedule(gba, dma, currentDma);
 	}
@@ -182,7 +184,7 @@ void _dmaEvent(struct mTiming* timing, void* context, uint32_t cyclesLate) {
 		dma->nextCount = 0;
 		bool noRepeat = !GBADMARegisterIsRepeat(dma->reg);
 		noRepeat |= GBADMARegisterGetTiming(dma->reg) == GBA_DMA_TIMING_NOW;
-		noRepeat |= memory->activeDMA == 3 && GBADMARegisterGetTiming(dma->reg) == GBA_DMA_TIMING_CUSTOM;
+		noRepeat |= memory->activeDMA == 3 && GBADMARegisterGetTiming(dma->reg) == GBA_DMA_TIMING_CUSTOM && gba->video.vcount == GBA_VIDEO_VERTICAL_PIXELS + 1;
 		if (noRepeat) {
 			dma->reg = GBADMARegisterClearEnable(dma->reg);
 
@@ -193,7 +195,7 @@ void _dmaEvent(struct mTiming* timing, void* context, uint32_t cyclesLate) {
 			dma->nextDest = dma->dest;
 		}
 		if (GBADMARegisterIsDoIRQ(dma->reg)) {
-			GBARaiseIRQ(gba, IRQ_DMA0 + memory->activeDMA);
+			GBARaiseIRQ(gba, IRQ_DMA0 + memory->activeDMA, cyclesLate);
 		}
 		GBADMAUpdate(gba);
 	}
@@ -237,16 +239,11 @@ void GBADMAService(struct GBA* gba, int number, struct GBADMA* info) {
 
 	gba->cpuBlocked = true;
 	if (info->count == info->nextCount) {
-		if (sourceRegion < REGION_CART0 || destRegion < REGION_CART0) {
-			cycles += 2;
-		}
 		if (width == 4) {
 			cycles += memory->waitstatesNonseq32[sourceRegion] + memory->waitstatesNonseq32[destRegion];
 		} else {
 			cycles += memory->waitstatesNonseq16[sourceRegion] + memory->waitstatesNonseq16[destRegion];
 		}
-		source &= -width;
-		dest &= -width;
 	} else {
 		if (width == 4) {
 			cycles += memory->waitstatesSeq32[sourceRegion] + memory->waitstatesSeq32[destRegion];
@@ -263,31 +260,26 @@ void GBADMAService(struct GBA* gba, int number, struct GBADMA* info) {
 		}
 		gba->bus = memory->dmaTransferRegister;
 		cpu->memory.store32(cpu, dest, memory->dmaTransferRegister, 0);
-		memory->dmaTransferRegister &= 0xFFFF0000;
-		memory->dmaTransferRegister |= memory->dmaTransferRegister >> 16;
 	} else {
-		if (sourceRegion == REGION_CART2_EX && memory->savedata.type == SAVEDATA_EEPROM) {
-			if (memory->savedata.type == SAVEDATA_AUTODETECT) {
-				mLOG(GBA_MEM, INFO, "Detected EEPROM savegame");
-				GBASavedataInitEEPROM(&memory->savedata);
-			}
+		if (sourceRegion == REGION_CART2_EX && (memory->savedata.type == SAVEDATA_EEPROM || memory->savedata.type == SAVEDATA_EEPROM512)) {
 			memory->dmaTransferRegister = GBASavedataReadEEPROM(&memory->savedata);
-		} else {
-			if (source) {
-				memory->dmaTransferRegister = cpu->memory.load16(cpu, source, 0);
-			}
+			memory->dmaTransferRegister |= memory->dmaTransferRegister << 16;
+		} else if (source) {
+			memory->dmaTransferRegister = cpu->memory.load16(cpu, source, 0);
+			memory->dmaTransferRegister |= memory->dmaTransferRegister << 16;
 		}
 		if (destRegion == REGION_CART2_EX) {
 			if (memory->savedata.type == SAVEDATA_AUTODETECT) {
 				mLOG(GBA_MEM, INFO, "Detected EEPROM savegame");
 				GBASavedataInitEEPROM(&memory->savedata);
 			}
-			GBASavedataWriteEEPROM(&memory->savedata, memory->dmaTransferRegister, wordsRemaining);
+			if (memory->savedata.type == SAVEDATA_EEPROM512 || memory->savedata.type == SAVEDATA_EEPROM) {
+				GBASavedataWriteEEPROM(&memory->savedata, memory->dmaTransferRegister, wordsRemaining);
+			}
 		} else {
 			cpu->memory.store16(cpu, dest, memory->dmaTransferRegister, 0);
 
 		}
-		memory->dmaTransferRegister |= memory->dmaTransferRegister << 16;
 		gba->bus = memory->dmaTransferRegister;
 	}
 	int sourceOffset = DMA_OFFSET[GBADMARegisterGetSrcControl(info->reg)] * width;
@@ -304,6 +296,9 @@ void GBADMAService(struct GBA* gba, int number, struct GBADMA* info) {
 	info->nextDest = dest;
 	if (!wordsRemaining) {
 		info->nextCount |= 0x80000000;
+		if (sourceRegion < REGION_CART0 || destRegion < REGION_CART0) {
+			info->when += 2;
+		}
 	}
 	GBADMAUpdate(gba);
 }

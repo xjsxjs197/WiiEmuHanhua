@@ -13,7 +13,7 @@
 
 mLOG_DEFINE_CATEGORY(GBA_HW, "GBA Pak Hardware", "gba.hardware");
 
-const int GBA_LUX_LEVELS[10] = { 5, 11, 18, 27, 42, 62, 84, 109, 139, 183 };
+MGBA_EXPORT const int GBA_LUX_LEVELS[10] = { 5, 11, 18, 27, 42, 62, 84, 109, 139, 183 };
 
 static void _readPins(struct GBACartridgeHardware* hw);
 static void _outputPins(struct GBACartridgeHardware* hw, unsigned pins);
@@ -171,7 +171,7 @@ void _rtcReadPins(struct GBACartridgeHardware* hw) {
 	case 1:
 		if ((hw->pinState & 5) == 5) {
 			hw->rtc.transferStep = 2;
-		} else {
+		} else if ((hw->pinState & 5) != 1) {
 			hw->rtc.transferStep = 0;
 		}
 		break;
@@ -539,9 +539,9 @@ void GBAHardwarePlayerUpdate(struct GBA* gba) {
 uint16_t _gbpRead(struct mKeyCallback* callback) {
 	struct GBAGBPKeyCallback* gbpCallback = (struct GBAGBPKeyCallback*) callback;
 	if (gbpCallback->p->gbpInputsPosted == 2) {
-		return 0x30F;
+		return 0xF0;
 	}
-	return 0x3FF;
+	return 0;
 }
 
 uint16_t _gbpSioWriteRegister(struct GBASIODriver* driver, uint32_t address, uint16_t value) {
@@ -584,10 +584,10 @@ void _gbpSioProcessEvents(struct mTiming* timing, void* user, uint32_t cyclesLat
 	++gbp->p->gbpTxPosition;
 	gbp->p->p->memory.io[REG_SIODATA32_LO >> 1] = tx;
 	gbp->p->p->memory.io[REG_SIODATA32_HI >> 1] = tx >> 16;
-	if (gbp->d.p->normalControl.irq) {
-		GBARaiseIRQ(gbp->p->p, IRQ_SIO);
+	if (GBASIONormalIsIrq(gbp->d.p->siocnt)) {
+		GBARaiseIRQ(gbp->p->p, IRQ_SIO, cyclesLate);
 	}
-	gbp->d.p->normalControl.start = 0;
+	gbp->d.p->siocnt = GBASIONormalClearStart(gbp->d.p->siocnt);
 	gbp->p->p->memory.io[REG_SIOCNT >> 1] = gbp->d.p->siocnt & ~0x0080;
 }
 

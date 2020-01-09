@@ -23,7 +23,6 @@
 #include <mgba/gba/interface.h>
 #include <mgba/internal/gba/gba.h>
 #endif
-#include <mgba-util/circle-buffer.h>
 #include <mgba-util/memory.h>
 #include <mgba-util/vfs.h>
 
@@ -55,8 +54,8 @@ static void* data;
 static size_t dataSize;
 static void* savedata;
 static struct mAVStream stream;
-static int rumbleLevel;
-static struct CircleBuffer rumbleHistory;
+static int rumbleUp;
+static int rumbleDown;
 static struct mRumble rumble;
 static struct GBALuminanceSource lux;
 static int luxLevel;
@@ -254,7 +253,6 @@ void retro_init(void) {
 	struct retro_rumble_interface rumbleInterface;
 	if (environCallback(RETRO_ENVIRONMENT_GET_RUMBLE_INTERFACE, &rumbleInterface)) {
 		rumbleCallback = rumbleInterface.set_rumble_state;
-		CircleBufferInit(&rumbleHistory, RUMBLE_PWM);
 		rumble.setRumble = _setRumble;
 	} else {
 		rumbleCallback = 0;
@@ -299,7 +297,18 @@ void retro_run(void) {
 			.value = 0
 		};
 		if (environCallback(RETRO_ENVIRONMENT_GET_VARIABLE, &var) && var.value) {
-			((struct GBA*) core->board)->allowOpposingDirections = strcmp(var.value, "yes") == 0;
+			struct GBA* gba = core->board;
+			struct GB* gb = core->board;
+			switch (core->platform(core)) {
+			case PLATFORM_GBA:
+				gba->allowOpposingDirections = strcmp(var.value, "yes") == 0;
+				break;
+			case PLATFORM_GB:
+				gb->allowOpposingDirections = strcmp(var.value, "yes") == 0;
+				break;
+			default:
+				break;
+			}
 		}
 
 		var.key = "mgba_frameskip";
@@ -347,6 +356,18 @@ void retro_run(void) {
 	unsigned width, height;
 	core->desiredVideoDimensions(core, &width, &height);
 	videoCallback(outputBuffer, width, height, BYTES_PER_PIXEL * 256);
+
+	if (rumbleCallback) {
+		if (rumbleUp) {
+			rumbleCallback(0, RETRO_RUMBLE_STRONG, rumbleUp * 0xFFFF / (rumbleUp + rumbleDown));
+			rumbleCallback(0, RETRO_RUMBLE_WEAK, rumbleUp * 0xFFFF / (rumbleUp + rumbleDown));
+		} else {
+			rumbleCallback(0, RETRO_RUMBLE_STRONG, 0);
+			rumbleCallback(0, RETRO_RUMBLE_WEAK, 0);
+		}
+		rumbleUp = 0;
+		rumbleDown = 0;
+	}
 }
 
 static void _setupMaps(struct mCore* core) {
@@ -437,9 +458,8 @@ void retro_reset(void) {
 	core->reset(core);
 	_setupMaps(core);
 
-	if (rumbleCallback) {
-		CircleBufferClear(&rumbleHistory);
-	}
+	rumbleUp = 0;
+	rumbleDown = 0;
 }
 
 bool retro_load_game(const struct retro_game_info* game) {
@@ -480,6 +500,7 @@ bool retro_load_game(const struct retro_game_info* game) {
 	core->setPeripheral(core, mPERIPH_RUMBLE, &rumble);
 
 	savedata = anonymousMemoryMap(SIZE_CART_FLASH1M);
+	memset(savedata, 0xFF, SIZE_CART_FLASH1M);
 	struct VFile* save = VFileFromMemory(savedata, SIZE_CART_FLASH1M);
 
 	_reloadSettings();
@@ -552,12 +573,12 @@ void retro_unload_game(void) {
 	if (!core) {
 		return;
 	}
+	mCoreConfigDeinit(&core->config);
 	core->deinit(core);
 	mappedMemoryFree(data, dataSize);
 	data = 0;
 	mappedMemoryFree(savedata, SIZE_CART_FLASH1M);
 	savedata = 0;
-	CircleBufferDeinit(&rumbleHistory);
 }
 
 size_t retro_serialize_size(void) {
@@ -605,24 +626,50 @@ void retro_cheat_set(unsigned index, bool enabled, const char* code) {
 		cheatSet = device->createSet(device, NULL);
 		mCheatAddSet(device, cheatSet);
 	}
-	// Convert the super wonky unportable libretro format to something normal
-	char realCode[] = "XXXXXXXX XXXXXXXX";
-	size_t len = strlen(code) + 1; // Include null terminator
-	size_t i, pos;
-	for (i = 0, pos = 0; i < len; ++i) {
-		if (isspace((int) code[i]) || code[i] == '+') {
-			realCode[pos] = ' ';
-		} else {
-			realCode[pos] = code[i];
+// Convert the super wonky unportable libretro format to something normal
+#ifdef M_CORE_GBA
+	if (core->platform(core) == PLATFORM_GBA) {
+		char realCode[] = "XXXXXXXX XXXXXXXX";
+		size_t len = strlen(code) + 1; // Include null terminator
+		size_t i, pos;
+		for (i = 0, pos = 0; i < len; ++i) {
+			if (isspace((int) code[i]) || code[i] == '+') {
+				realCode[pos] = ' ';
+			} else {
+				realCode[pos] = code[i];
+			}
+			if ((pos == 13 && (realCode[pos] == ' ' || !realCode[pos])) || pos == 17) {
+				realCode[pos] = '\0';
+				mCheatAddLine(cheatSet, realCode, 0);
+				pos = 0;
+				continue;
+			}
+			++pos;
 		}
-		if ((pos == 13 && (realCode[pos] == ' ' || !realCode[pos])) || pos == 17) {
-			realCode[pos] = '\0';
-			mCheatAddLine(cheatSet, realCode, 0);
-			pos = 0;
-			continue;
-		}
-		++pos;
 	}
+#endif
+#ifdef M_CORE_GB
+	if (core->platform(core) == PLATFORM_GB) {
+		char realCode[] = "XXX-XXX-XXX";
+		size_t len = strlen(code) + 1; // Include null terminator
+		size_t i, pos;
+		for (i = 0, pos = 0; i < len; ++i) {
+			if (isspace((int) code[i]) || code[i] == '+') {
+				realCode[pos] = '\0';
+			} else {
+				realCode[pos] = code[i];
+			}
+			if (pos == 11 || !realCode[pos]) {
+				realCode[pos] = '\0';
+				mCheatAddLine(cheatSet, realCode, 0);
+				pos = 0;
+				continue;
+			}
+			++pos;
+		}
+	}
+#endif
+	cheatSet->refresh(cheatSet, device);
 }
 
 unsigned retro_get_region(void) {
@@ -729,15 +776,11 @@ static void _setRumble(struct mRumble* rumble, int enable) {
 	if (!rumbleCallback) {
 		return;
 	}
-	rumbleLevel += enable;
-	if (CircleBufferSize(&rumbleHistory) == RUMBLE_PWM) {
-		int8_t oldLevel;
-		CircleBufferRead8(&rumbleHistory, &oldLevel);
-		rumbleLevel -= oldLevel;
+	if (enable) {
+		++rumbleUp;
+	} else {
+		++rumbleDown;
 	}
-	CircleBufferWrite8(&rumbleHistory, enable);
-	rumbleCallback(0, RETRO_RUMBLE_STRONG, rumbleLevel * 0xFFFF / RUMBLE_PWM);
-	rumbleCallback(0, RETRO_RUMBLE_WEAK, rumbleLevel * 0xFFFF / RUMBLE_PWM);
 }
 
 static void _updateLux(struct GBALuminanceSource* lux) {

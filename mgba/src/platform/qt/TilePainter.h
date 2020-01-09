@@ -19,6 +19,8 @@ Q_OBJECT
 public:
 	TilePainter(QWidget* parent = nullptr);
 
+	QPixmap backing() const { return m_backing; }
+
 public slots:
 	void setTile(int index, const color_t*);
 	void setTileCount(int tiles);
@@ -26,6 +28,7 @@ public slots:
 
 signals:
 	void indexPressed(int index);
+	void needsRedraw();
 
 protected:
 	void paintEvent(QPaintEvent*) override;

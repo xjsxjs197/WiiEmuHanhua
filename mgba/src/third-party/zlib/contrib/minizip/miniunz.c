@@ -531,131 +531,130 @@ int do_extract_onefile(uf,filename,opt_extract_without_path,opt_overwrite,passwo
 }
 
 
-//int main(argc,argv)
-//    int argc;
-//    char *argv[];
-//{
-//    const char *zipfilename=NULL;
-//    const char *filename_to_extract=NULL;
-//    const char *password=NULL;
-//    char filename_try[MAXFILENAME+16] = "";
-//    int i;
-//    int ret_value=0;
-//    int opt_do_list=0;
-//    int opt_do_extract=1;
-//    int opt_do_extract_withoutpath=0;
-//    int opt_overwrite=0;
-//    int opt_extractdir=0;
-//    const char *dirname=NULL;
-//    unzFile uf=NULL;
-//
-//    do_banner();
-//    if (argc==1)
-//    {
-//        do_help();
-//        return 0;
-//    }
-//    else
-//    {
-//        for (i=1;i<argc;i++)
-//        {
-//            if ((*argv[i])=='-')
-//            {
-//                const char *p=argv[i]+1;
-//
-//                while ((*p)!='\0')
-//                {
-//                    char c=*(p++);;
-//                    if ((c=='l') || (c=='L'))
-//                        opt_do_list = 1;
-//                    if ((c=='v') || (c=='V'))
-//                        opt_do_list = 1;
-//                    if ((c=='x') || (c=='X'))
-//                        opt_do_extract = 1;
-//                    if ((c=='e') || (c=='E'))
-//                        opt_do_extract = opt_do_extract_withoutpath = 1;
-//                    if ((c=='o') || (c=='O'))
-//                        opt_overwrite=1;
-//                    if ((c=='d') || (c=='D'))
-//                    {
-//                        opt_extractdir=1;
-//                        dirname=argv[i+1];
-//                    }
-//
-//                    if (((c=='p') || (c=='P')) && (i+1<argc))
-//                    {
-//                        password=argv[i+1];
-//                        i++;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                if (zipfilename == NULL)
-//                    zipfilename = argv[i];
-//                else if ((filename_to_extract==NULL) && (!opt_extractdir))
-//                        filename_to_extract = argv[i] ;
-//            }
-//        }
-//    }
-//
-//    if (zipfilename!=NULL)
-//    {
-//
-//#        ifdef USEWIN32IOAPI
-//        zlib_filefunc64_def ffunc;
-//#        endif
-//
-//        strncpy(filename_try, zipfilename,MAXFILENAME-1);
-//        /* strncpy doesnt append the trailing NULL, of the string is too long. */
-//        filename_try[ MAXFILENAME ] = '\0';
-//
-//#        ifdef USEWIN32IOAPI
-//        fill_win32_filefunc64A(&ffunc);
-//        uf = unzOpen2_64(zipfilename,&ffunc);
-//#        else
-//        uf = unzOpen64(zipfilename);
-//#        endif
-//        if (uf==NULL)
-//        {
-//            strcat(filename_try,".zip");
-//#            ifdef USEWIN32IOAPI
-//            uf = unzOpen2_64(filename_try,&ffunc);
-//#            else
-//            uf = unzOpen64(filename_try);
-//#            endif
-//        }
-//    }
-//
-//    if (uf==NULL)
-//    {
-//        printf("Cannot open %s or %s.zip\n",zipfilename,zipfilename);
-//        return 1;
-//    }
-//    printf("%s opened\n",filename_try);
-//
-//    if (opt_do_list==1)
-//        ret_value = do_list(uf);
-//    else if (opt_do_extract==1)
-//    {
-//#ifdef _WIN32
-//        if (opt_extractdir && _chdir(dirname))
-//#else
-//        if (opt_extractdir && chdir(dirname))
-//#endif
-//        {
-//          printf("Error changing into %s, aborting\n", dirname);
-//          exit(-1);
-//        }
-//
-//        if (filename_to_extract == NULL)
-//            ret_value = do_extract(uf, opt_do_extract_withoutpath, opt_overwrite, password);
-//        else
-//            ret_value = do_extract_onefile(uf, filename_to_extract, opt_do_extract_withoutpath, opt_overwrite, password);
-//    }
-//
-//    unzClose(uf);
-//
-//    return ret_value;
-//}
-//
+int main(argc,argv)
+    int argc;
+    char *argv[];
+{
+    const char *zipfilename=NULL;
+    const char *filename_to_extract=NULL;
+    const char *password=NULL;
+    char filename_try[MAXFILENAME+16] = "";
+    int i;
+    int ret_value=0;
+    int opt_do_list=0;
+    int opt_do_extract=1;
+    int opt_do_extract_withoutpath=0;
+    int opt_overwrite=0;
+    int opt_extractdir=0;
+    const char *dirname=NULL;
+    unzFile uf=NULL;
+
+    do_banner();
+    if (argc==1)
+    {
+        do_help();
+        return 0;
+    }
+    else
+    {
+        for (i=1;i<argc;i++)
+        {
+            if ((*argv[i])=='-')
+            {
+                const char *p=argv[i]+1;
+
+                while ((*p)!='\0')
+                {
+                    char c=*(p++);;
+                    if ((c=='l') || (c=='L'))
+                        opt_do_list = 1;
+                    if ((c=='v') || (c=='V'))
+                        opt_do_list = 1;
+                    if ((c=='x') || (c=='X'))
+                        opt_do_extract = 1;
+                    if ((c=='e') || (c=='E'))
+                        opt_do_extract = opt_do_extract_withoutpath = 1;
+                    if ((c=='o') || (c=='O'))
+                        opt_overwrite=1;
+                    if ((c=='d') || (c=='D'))
+                    {
+                        opt_extractdir=1;
+                        dirname=argv[i+1];
+                    }
+
+                    if (((c=='p') || (c=='P')) && (i+1<argc))
+                    {
+                        password=argv[i+1];
+                        i++;
+                    }
+                }
+            }
+            else
+            {
+                if (zipfilename == NULL)
+                    zipfilename = argv[i];
+                else if ((filename_to_extract==NULL) && (!opt_extractdir))
+                        filename_to_extract = argv[i] ;
+            }
+        }
+    }
+
+    if (zipfilename!=NULL)
+    {
+
+#        ifdef USEWIN32IOAPI
+        zlib_filefunc64_def ffunc;
+#        endif
+
+        strncpy(filename_try, zipfilename,MAXFILENAME-1);
+        /* strncpy doesnt append the trailing NULL, of the string is too long. */
+        filename_try[ MAXFILENAME ] = '\0';
+
+#        ifdef USEWIN32IOAPI
+        fill_win32_filefunc64A(&ffunc);
+        uf = unzOpen2_64(zipfilename,&ffunc);
+#        else
+        uf = unzOpen64(zipfilename);
+#        endif
+        if (uf==NULL)
+        {
+            strcat(filename_try,".zip");
+#            ifdef USEWIN32IOAPI
+            uf = unzOpen2_64(filename_try,&ffunc);
+#            else
+            uf = unzOpen64(filename_try);
+#            endif
+        }
+    }
+
+    if (uf==NULL)
+    {
+        printf("Cannot open %s or %s.zip\n",zipfilename,zipfilename);
+        return 1;
+    }
+    printf("%s opened\n",filename_try);
+
+    if (opt_do_list==1)
+        ret_value = do_list(uf);
+    else if (opt_do_extract==1)
+    {
+#ifdef _WIN32
+        if (opt_extractdir && _chdir(dirname))
+#else
+        if (opt_extractdir && chdir(dirname))
+#endif
+        {
+          printf("Error changing into %s, aborting\n", dirname);
+          exit(-1);
+        }
+
+        if (filename_to_extract == NULL)
+            ret_value = do_extract(uf, opt_do_extract_withoutpath, opt_overwrite, password);
+        else
+            ret_value = do_extract_onefile(uf, filename_to_extract, opt_do_extract_withoutpath, opt_overwrite, password);
+    }
+
+    unzClose(uf);
+
+    return ret_value;
+}

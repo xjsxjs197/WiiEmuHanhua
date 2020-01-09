@@ -8,6 +8,8 @@
 #include "CoreController.h"
 #include "GBAApp.h"
 
+#include <QAction>
+#include <QClipboard>
 #include <QFontDatabase>
 #include <QTimer>
 
@@ -25,6 +27,9 @@ TileView::TileView(std::shared_ptr<CoreController> controller, QWidget* parent)
 	m_ui.tile->setController(controller);
 
 	connect(m_ui.tiles, &TilePainter::indexPressed, m_ui.tile, &AssetTile::selectIndex);
+	connect(m_ui.tiles, &TilePainter::needsRedraw, this, [this]() {
+		updateTiles(true);
+	});
 	connect(m_ui.paletteId, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &TileView::updatePalette);
 
 	switch (m_controller->platform()) {
@@ -62,9 +67,42 @@ TileView::TileView(std::shared_ptr<CoreController> controller, QWidget* parent)
 		}
 		updateTiles(true);
 	});
-	connect(m_ui.magnification, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this]() {
+	connect(m_ui.magnification, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this](int mag) {
+		if (!m_ui.tileFit->isChecked()) {
+			m_ui.tiles->setMinimumSize(mag * 8 * m_ui.tilesPerRow->value(), m_ui.tiles->minimumSize().height());
+		}
 		updateTiles(true);
 	});
+
+	connect(m_ui.tilesPerRow, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this](int count) {
+		m_ui.tiles->setMinimumSize(m_ui.magnification->value() * 8 * count, m_ui.tiles->minimumSize().height());
+		updateTiles(true);
+	});
+
+	connect(m_ui.tileFit, &QAbstractButton::toggled, [this](bool selected) {
+		if (!selected) {
+			m_ui.tiles->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+			m_ui.tiles->setMinimumSize(m_ui.magnification->value() * 8 * m_ui.tilesPerRow->value(), m_ui.tiles->minimumSize().height());
+		} else {
+			m_ui.tiles->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+		}
+		updateTiles(true);
+	});
+
+	connect(m_ui.exportAll, &QAbstractButton::clicked, this, &TileView::exportTiles);
+	connect(m_ui.exportOne, &QAbstractButton::clicked, this, &TileView::exportTile);
+	connect(m_ui.copyAll, &QAbstractButton::clicked, this, &TileView::copyTiles);
+	connect(m_ui.copyOne, &QAbstractButton::clicked, this, &TileView::copyTile);
+
+	QAction* exportAll = new QAction(this);
+	exportAll->setShortcut(QKeySequence::Save);
+	connect(exportAll, &QAction::triggered, this, &TileView::exportTiles);
+	addAction(exportAll);
+
+	QAction* copyOne = new QAction(this);
+	copyOne->setShortcut(QKeySequence::Copy);
+	connect(copyOne, &QAction::triggered, this, &TileView::copyTile);
+	addAction(copyOne);
 }
 
 #ifdef M_CORE_GBA
@@ -134,4 +172,41 @@ void TileView::updatePalette(int palette) {
 	m_paletteId = palette;
 	m_ui.tile->setPalette(palette);
 	updateTiles(true);
+}
+
+void TileView::exportTiles() {
+	QString filename = GBAApp::app()->getSaveFileName(this, tr("Export tiles"),
+	                                                  tr("Portable Network Graphics (*.png)"));
+	if (filename.isNull()) {
+		return;
+	}
+	CoreController::Interrupter interrupter(m_controller);
+	updateTiles(false);
+	QPixmap pixmap(m_ui.tiles->backing());
+	pixmap.save(filename, "PNG");
+}
+
+void TileView::exportTile() {
+	QString filename = GBAApp::app()->getSaveFileName(this, tr("Export tile"),
+	                                                  tr("Portable Network Graphics (*.png)"));
+	if (filename.isNull()) {
+		return;
+	}
+	CoreController::Interrupter interrupter(m_controller);
+	updateTiles(false);
+	QImage image(m_ui.tile->activeTile());
+	image.save(filename, "PNG");
+}
+
+void TileView::copyTiles() {
+	CoreController::Interrupter interrupter(m_controller);
+	updateTiles(false);
+	QPixmap pixmap();
+	GBAApp::app()->clipboard()->setPixmap(m_ui.tiles->backing());
+}
+
+void TileView::copyTile() {
+	CoreController::Interrupter interrupter(m_controller);
+	updateTiles(false);
+	GBAApp::app()->clipboard()->setImage(m_ui.tile->activeTile());
 }

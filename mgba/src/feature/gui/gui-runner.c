@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2013-2016 Jeffrey Pfau
+/* Copyright (c) 2013-2016 Jeffrey Pfau
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -43,6 +43,7 @@ enum {
 static const struct mInputPlatformInfo _mGUIKeyInfo = {
 	.platformName = "gui",
 	.keyId = (const char*[GUI_INPUT_MAX]) {
+	    // upd xjsxjs197 start
 		/*"Select",
 		"Back",
 		"Cancel",
@@ -69,6 +70,7 @@ static const struct mInputPlatformInfo _mGUIKeyInfo = {
 		[mGUI_INPUT_SCREENSHOT] = "屏幕截图",
 		[mGUI_INPUT_FAST_FORWARD_HELD] = "快进 (暂停)",
 		[mGUI_INPUT_FAST_FORWARD_TOGGLE] = "快进 (切换)",
+		// upd xjsxjs197 end
 	},
 	.nKeys = GUI_INPUT_MAX
 };
@@ -225,13 +227,18 @@ void mGUIInit(struct mGUIRunner* runner, const char* port) {
 
 	const char* lastPath = mCoreConfigGetValue(&runner->config, "lastDirectory");
 	if (lastPath) {
-		strncpy(runner->params.currentPath, lastPath, PATH_MAX - 1);
-		runner->params.currentPath[PATH_MAX - 1] = '\0';
+		struct VDir* dir = VDirOpen(lastPath);
+		if (dir) {
+			dir->close(dir);
+			strncpy(runner->params.currentPath, lastPath, PATH_MAX - 1);
+			runner->params.currentPath[PATH_MAX - 1] = '\0';
+		}
 	}
 
 #ifndef DISABLE_THREADING
 	if (!runner->autosave.running) {
 		runner->autosave.running = true;
+		runner->autosave.core = NULL;
 		MutexInit(&runner->autosave.mutex);
 		ConditionInit(&runner->autosave.cond);
 		ThreadCreate(&runner->autosave.thread, mGUIAutosaveThread, &runner->autosave);
@@ -246,7 +253,7 @@ void mGUIDeinit(struct mGUIRunner* runner) {
 	ConditionWake(&runner->autosave.cond);
 	MutexUnlock(&runner->autosave.mutex);
 
-	ThreadJoin(runner->autosave.thread);
+	ThreadJoin(&runner->autosave.thread);
 
 	ConditionDeinit(&runner->autosave.cond);
 	MutexDeinit(&runner->autosave.mutex);
@@ -284,7 +291,34 @@ static void _log(struct mLogger* logger, int category, enum mLogLevel level, con
 	if (len >= sizeof(log2)) {
 		len = sizeof(log2) - 1;
 	}
-	guiLogger->vf->write(guiLogger->vf, log2, len);
+	if (guiLogger->vf->write(guiLogger->vf, log2, len) < 0) {
+		char path[PATH_MAX];
+		mCoreConfigDirectory(path, PATH_MAX);
+		strncat(path, PATH_SEP "log", PATH_MAX - strlen(path));
+		guiLogger->vf->close(guiLogger->vf);
+		guiLogger->vf = VFileOpen(path, O_CREAT | O_WRONLY | O_APPEND);
+		if (guiLogger->vf->write(guiLogger->vf, log2, len) < 0) {
+			guiLogger->vf->close(guiLogger->vf);
+			guiLogger->vf = NULL;
+		}
+	}
+}
+
+static void _updateLoading(size_t read, size_t size, void* context) {
+	struct mGUIRunner* runner = context;
+	if (read & 0x3FFFF) {
+		return;
+	}
+
+	runner->params.drawStart();
+	if (runner->params.guiPrepare) {
+		runner->params.guiPrepare();
+	}
+	GUIFontPrintf(runner->params.font, runner->params.width / 2, (GUIFontHeight(runner->params.font) + runner->params.height) / 2, GUI_ALIGN_HCENTER, 0xFFFFFFFF, "Loading...%i%%", 100 * read / size);
+	if (runner->params.guiFinish) {
+		runner->params.guiFinish();
+	}
+	runner->params.drawEnd();
 }
 
 void mGUIRun(struct mGUIRunner* runner, const char* path) {
@@ -296,6 +330,7 @@ void mGUIRun(struct mGUIRunner* runner, const char* path) {
 		.screenshot = 0,
 		.screenshotId = 0
 	};
+	// upd xjsxjs197 start
 	struct GUIMenu pauseMenu = {
 		//.title = "Game Paused",
 		.title = "游戏暂停中",
@@ -382,6 +417,7 @@ void mGUIRun(struct mGUIRunner* runner, const char* path) {
 	}
 	//GUIFontPrint(runner->params.font, runner->params.width / 2, (GUIFontHeight(runner->params.font) + runner->params.height) / 2, GUI_ALIGN_HCENTER, 0xFFFFFFFF, "Loading...");
 	GUIFontPrint(runner->params.font, runner->params.width / 2, (GUIFontHeight(runner->params.font) + runner->params.height) / 2, GUI_ALIGN_HCENTER, 0xFFFFFFFF, "加载游戏中...");
+	// upd xjsxjs197 end
 	if (runner->params.guiFinish) {
 		runner->params.guiFinish();
 	}
@@ -395,17 +431,21 @@ void mGUIRun(struct mGUIRunner* runner, const char* path) {
 		runner->core->init(runner->core);
 		mCoreInitConfig(runner->core, runner->port);
 		mInputMapInit(&runner->core->inputMap, &GBAInputInfo);
-		found = mCoreLoadFile(runner->core, path);
+
+		found = mCorePreloadFileCB(runner->core, path, _updateLoading, runner);
 		if (!found) {
 			mLOG(GUI_RUNNER, WARN, "Failed to load %s!", path);
+			mCoreConfigDeinit(&runner->core->config);
 			runner->core->deinit(runner->core);
 		}
 	}
 
 	if (!found) {
 		mLOG(GUI_RUNNER, WARN, "Failed to find core for %s!", path);
+		// upd xjsxjs197 start
 		//GUIShowMessageBox(&runner->params, GUI_MESSAGE_BOX_OK, 240, "Load failed!");
 		GUIShowMessageBox(&runner->params, GUI_MESSAGE_BOX_OK, 240, "游戏加载失败!");
+		// upd xjsxjs197 end
 		return;
 	}
 	if (runner->core->platform(runner->core) == PLATFORM_GBA) {
@@ -595,6 +635,10 @@ void mGUIRun(struct mGUIRunner* runner, const char* path) {
 			runner->params.drawStart();
 			runner->drawFrame(runner, true);
 			runner->params.drawEnd();
+#ifdef _3DS
+			// XXX: Why does this fix #1294?
+			usleep(1000);
+#endif
 			GUIPollInput(&runner->params, 0, &keys);
 		}
 		if (runner->unpaused) {
@@ -639,6 +683,7 @@ void mGUIRun(struct mGUIRunner* runner, const char* path) {
 	}
 	mInputMapDeinit(&runner->core->inputMap);
 	mLOG(GUI_RUNNER, DEBUG, "Deinitializing core...");
+	mCoreConfigDeinit(&runner->core->config);
 	runner->core->deinit(runner->core);
 	runner->core = NULL;
 
@@ -658,10 +703,18 @@ void mGUIRunloop(struct mGUIRunner* runner) {
 	}
 	while (true) {
 		char path[PATH_MAX];
-		if (!GUISelectFile(&runner->params, path, sizeof(path), _testExtensions, NULL)) {
+		const char* preselect = mCoreConfigGetValue(&runner->config, "lastGame");
+		if (preselect) {
+			preselect = strrchr(preselect, '/');
+		}
+		if (preselect) {
+			++preselect;
+		}
+		if (!GUISelectFile(&runner->params, path, sizeof(path), _testExtensions, NULL, preselect)) {
 			break;
 		}
 		mCoreConfigSetValue(&runner->config, "lastDirectory", runner->params.currentPath);
+		mCoreConfigSetValue(&runner->config, "lastGame", path);
 		mCoreConfigSave(&runner->config);
 		mGUIRun(runner, path);
 	}

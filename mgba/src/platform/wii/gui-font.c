@@ -6,9 +6,11 @@
 #include <mgba-util/gui/font.h>
 #include <mgba-util/gui/font-metrics.h>
 
+// add by xjsxjs197 start
 typedef uint8_t u8;					///< 8bit unsigned integer
 typedef uint16_t u16;				///< 16bit unsigned integer
 typedef uint32_t u32;				///< 32bit unsigned integer
+// add by xjsxjs197 end
 
 #include "icons_tpl.h"
 #include "font_tpl.h"
@@ -46,6 +48,7 @@ struct GUIFont* GUIFontCreate(void) {
 	}
 
 	// libogc's TPL code modifies and frees this itself...
+	// upd by xjsxjs197 start
 	void* fontTpl = memalign(32, font_tpl_size);
 	if (!fontTpl) {
 		free(guiFont);
@@ -62,6 +65,7 @@ struct GUIFont* GUIFontCreate(void) {
 	}
 	memcpy(iconsTpl, icons_tpl, icons_tpl_size);
 	TPL_OpenTPLFromMemory(&guiFont->iconsTdf, iconsTpl, icons_tpl_size);
+	// upd by xjsxjs197 end
 	return guiFont;
 }
 

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2013-2015 Jeffrey Pfau
+/* Copyright (c) 2013-2015 Jeffrey Pfau
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -47,15 +47,17 @@ static int _strpcmp(const void* a, const void* b) {
 	return strcasecmp(((const struct GUIMenuItem*) a)->title, ((const struct GUIMenuItem*) b)->title);
 }
 
-static bool _refreshDirectory(struct GUIParams* params, const char* currentPath, struct GUIMenuItemList* currentFiles, bool (*filterName)(const char* name), bool (*filterContents)(struct VFile*)) {
+static bool _refreshDirectory(struct GUIParams* params, const char* currentPath, struct GUIMenuItemList* currentFiles, bool (*filterName)(const char* name), bool (*filterContents)(struct VFile*), const char* preselect) {
 	_cleanFiles(currentFiles);
 
 	struct VDir* dir = VDirOpen(currentPath);
 	if (!dir) {
 		return false;
 	}
+	// upd xjsxjs197 start
 	//*GUIMenuItemListAppend(currentFiles) = (struct GUIMenuItem) { .title = "(Up)" };
 	*GUIMenuItemListAppend(currentFiles) = (struct GUIMenuItem) { .title = "(上一级目录)" };
+	// upd xjsxjs197 end
 	size_t i = 0;
 	size_t items = 0;
 	struct VDirEntry* de;
@@ -145,6 +147,9 @@ static bool _refreshDirectory(struct GUIParams* params, const char* currentPath,
 			free((char*) testItem->title);
 			GUIMenuItemListShift(currentFiles, item, 1);
 		} else {
+			if (preselect && strncmp(testItem->title, preselect, PATH_MAX) == 0) {
+				params->fileIndex = item;
+			}
 			++item;
 		}
 	}
@@ -153,15 +158,17 @@ static bool _refreshDirectory(struct GUIParams* params, const char* currentPath,
 	return true;
 }
 
-bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool (*filterName)(const char* name), bool (*filterContents)(struct VFile*)) {
+bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool (*filterName)(const char* name), bool (*filterContents)(struct VFile*), const char* preselect) {
 	struct GUIMenu menu = {
+	    // upd xjsxjs197 start
 		//.title = "Select file",
 		.title = "选择游戏",
+		// upd xjsxjs197 end
 		.subtitle = params->currentPath,
-		.index = params->fileIndex,
 	};
 	GUIMenuItemListInit(&menu.items, 0);
-	_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents);
+	_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents, preselect);
+	menu.index = params->fileIndex;
 
 	while (true) {
 		struct GUIMenuItem* item;
@@ -176,7 +183,7 @@ bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool 
 					continue;
 				}
 				_upDirectory(params->currentPath);
-				if (!_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents)) {
+				if (!_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents, NULL)) {
 					break;
 				}
 			} else {
@@ -189,7 +196,7 @@ bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool 
 
 				struct GUIMenuItemList newFiles;
 				GUIMenuItemListInit(&newFiles, 0);
-				if (!_refreshDirectory(params, outPath, &newFiles, filterName, filterContents)) {
+				if (!_refreshDirectory(params, outPath, &newFiles, filterName, filterContents, NULL)) {
 					_cleanFiles(&newFiles);
 					GUIMenuItemListDeinit(&newFiles);
 					_cleanFiles(&menu.items);
@@ -210,7 +217,7 @@ bool GUISelectFile(struct GUIParams* params, char* outPath, size_t outLen, bool 
 				break;
 			}
 			_upDirectory(params->currentPath);
-			if (!_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents)) {
+			if (!_refreshDirectory(params, params->currentPath, &menu.items, filterName, filterContents, NULL)) {
 				break;
 			}
 			params->fileIndex = 0;
