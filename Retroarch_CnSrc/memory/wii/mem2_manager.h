@@ -9,8 +9,10 @@ uint32_t gx_mem2_used(void);
 
 uint32_t gx_mem2_total(void);
 
+// add xjsxjs197 start
 void *_mem2_memalign(uint8_t align, uint32_t size);
 
 void _mem2_free(void *ptr);
+// add xjsxjs197 end
 
 #endif
