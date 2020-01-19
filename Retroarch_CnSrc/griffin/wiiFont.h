@@ -29,6 +29,8 @@ public:
 	wchar_t* charToWideChar(const char* strChar);
 	void getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen);
 	int getMaxLen(const char* msg, int maxPixelLen);
+	int getMsgPxLen(const char* msg);
+	int getAllMsgPxLen(const char* msg);
 	void setFontBufByMsg(uint16_t* rguiFramebuf, const char* msg, size_t pitch, int x, int y, uint16_t color);
 	void setFontBufByMsgW(uint16_t* rguiFramebuf, wchar_t* msg, size_t pitch, int x, int y, uint16_t color);
 	void setTextMsg(const char* msg, int x, int y, int width, int height, bool double_width, bool double_strike);

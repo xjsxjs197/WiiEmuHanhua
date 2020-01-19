@@ -314,6 +314,63 @@ int wiiFont::getMaxLen(const char* msg, int maxPixelLen)
 }
 
 /**
+* 取得一个字符串像素长度
+* @param msg 单字节字符串
+* @return 一个字符串像素长度
+*/
+int wiiFont::getMsgPxLen(const char* msg)
+{
+    int retWid = 0;
+    uint16_t * charDataPosPtr;
+    uint8_t * charInfoPtr;
+    wchar_t* unicodeMsg = charToWideChar(gettext(msg));
+    wchar_t* freePtr = unicodeMsg;
+    charDataPosPtr = getPngPosByCharCode(*unicodeMsg);
+    charInfoPtr = (uint8_t *)charDataPosPtr;
+    charDataPosPtr++;
+
+    retWid += *(charInfoPtr + 1); // x + charWidth
+    if (*unicodeMsg >= 256)
+    {
+        retWid++;
+    }
+
+    free(freePtr);
+    return retWid;
+}
+
+/**
+* 取得当前字符串显示时的像素长度
+* @param msg 单字节字符串
+* @return 当前字符串显示时的像素长度
+*/
+int wiiFont::getAllMsgPxLen(const char* msg)
+{
+    int retWid = 0;
+    uint16_t * charDataPosPtr;
+    uint8_t * charInfoPtr;
+    wchar_t* unicodeMsg = charToWideChar(gettext(msg));
+    wchar_t* freePtr = unicodeMsg;
+    while (*unicodeMsg)
+    {
+        charDataPosPtr = getPngPosByCharCode(*unicodeMsg);
+        charInfoPtr = (uint8_t *)charDataPosPtr;
+        charDataPosPtr++;
+
+        retWid += *(charInfoPtr + 1); // x + charWidth
+        if (*unicodeMsg >= 256)
+        {
+            retWid++;
+        }
+
+        unicodeMsg++;
+    }
+
+    free(freePtr);
+    return retWid;
+}
+
+/**
 * 设置当前字符串显示时的最大长度信息
 * @param lenInfo 最大长度信息（0：可以显示的最大文字个数，1：可以显示的最大像素长度，2：是否超过可以显示的最大长度）
 * @param msg 单字节字符串
@@ -550,6 +607,16 @@ extern "C" {
     int wiiFont_getMaxLen(const char* msg, int maxPixelLen)
     {
         return wiiFont::getInstance().getMaxLen(msg, maxPixelLen);
+    }
+	
+	int wiiFont_getMsgPxLen(const char* msg)
+    {
+        return wiiFont::getInstance().getMsgPxLen(msg);
+    }
+	
+	int wiiFont_getAllMsgPxLen(const char* msg)
+    {
+        return wiiFont::getInstance().getAllMsgPxLen(msg);
     }
 
     void wiiFont_getMsgMaxLen(int lenInfo[3], const char* msg, int maxPixelLen)

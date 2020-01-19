@@ -500,6 +500,7 @@ static const rgui_theme_t rgui_theme_anti_zenburn = {
    0xE0B090B0  /* particle_color */
 };
 
+#if 0
 static const rgui_theme_t rgui_theme_flux = {
    0xFF6FCB9F, /* hover_color */
    0xFF666547, /* normal_color */
@@ -511,6 +512,7 @@ static const rgui_theme_t rgui_theme_flux = {
    0xE0FFE28A, /* shadow_color */
    0xE0FB2E01  /* particle_color */
 };
+#endif
 
 typedef struct
 {
@@ -2175,15 +2177,20 @@ static const rgui_theme_t *get_theme(rgui_t *rgui)
 
 static void load_custom_theme(rgui_t *rgui, rgui_theme_t *theme_colors, const char *theme_path)
 {
-   unsigned normal_color, hover_color, title_color,
-      bg_dark_color, bg_light_color,
-      border_dark_color, border_light_color,
-      shadow_color, particle_color;
    char wallpaper_file[PATH_MAX_LENGTH];
-   config_file_t *conf  = NULL;
-   char *wallpaper_key  = NULL;
-   settings_t *settings = config_get_ptr();
-   bool success         = false;
+   unsigned normal_color       = 0;
+   unsigned hover_color        = 0;
+   unsigned title_color        = 0;
+   unsigned bg_dark_color      = 0;
+   unsigned bg_light_color     = 0;
+   unsigned border_dark_color  = 0;
+   unsigned border_light_color = 0;
+   unsigned shadow_color       = 0;
+   unsigned particle_color     = 0;
+   config_file_t *conf         = NULL;
+   char *wallpaper_key         = NULL;
+   settings_t *settings        = config_get_ptr();
+   bool success                = false;
 
    /* Determine which type of wallpaper to load */
    switch (settings->uints.menu_rgui_aspect_ratio)
@@ -2422,8 +2429,7 @@ static void blit_line_regular(unsigned fb_width, int x, int y,
 static void blit_line_regular_shadow(unsigned fb_width, int x, int y,
       const char *message, uint16_t color, uint16_t shadow_color)
 {
-   // upd by xjsxjs197 start
-   /*uint16_t *frame_buf_data     = rgui_frame_buf.data;
+   uint16_t *frame_buf_data     = rgui_frame_buf.data;
    uint16_t color_buf[2];
    uint16_t shadow_color_buf[2];
 
@@ -2453,10 +2459,10 @@ static void blit_line_regular_shadow(unsigned fb_width, int x, int y,
                {
                   uint16_t *frame_buf_ptr = frame_buf_data + buff_offset + i;
 
-                  // Text pixel + right shadow //
+                  /* Text pixel + right shadow */
                   memcpy(frame_buf_ptr, color_buf, sizeof(color_buf));
 
-                  // Bottom shadow //
+                  /* Bottom shadow */
                   frame_buf_ptr += fb_width;
                   memcpy(frame_buf_ptr, shadow_color_buf, sizeof(shadow_color_buf));
                }
@@ -2465,19 +2471,17 @@ static void blit_line_regular_shadow(unsigned fb_width, int x, int y,
       }
 
       x += FONT_WIDTH_STRIDE;
-   }*/
-   // upd by xjsxjs197 end
+   }
 }
 
 static void blit_line_extended(unsigned fb_width, int x, int y,
       const char *message, uint16_t color, uint16_t shadow_color)
 {
-   // upd by xjsxjs197 start
-   /*uint16_t *frame_buf_data = rgui_frame_buf.data;
+   uint16_t *frame_buf_data = rgui_frame_buf.data;
 
    while (!string_is_empty(message))
    {
-      // Deal with spaces first, for efficiency //
+      /* Deal with spaces first, for efficiency */
       if (*message == ' ')
          message++;
       else
@@ -2490,9 +2494,9 @@ static void blit_line_extended(unsigned fb_width, int x, int y,
           * waste CPU cycles performing a conversion from
           * the unicode values...
           * (Note: This is only really required for msg_hash_fr.h) */
-         /*if (symbol == 339) // Latin small ligature oe //
+         if (symbol == 339) /* Latin small ligature oe */
             symbol = 156;
-         if (symbol == 338) // Latin capital ligature oe //
+         if (symbol == 338) /* Latin capital ligature oe */
             symbol = 140;
 
          if (symbol >= NUM_FONT_GLYPHS_EXTENDED)
@@ -2511,15 +2515,13 @@ static void blit_line_extended(unsigned fb_width, int x, int y,
       }
 
       x += FONT_WIDTH_STRIDE;
-   }*/
-   // upd by xjsxjs197 end
+   }
 }
 
 static void blit_line_extended_shadow(unsigned fb_width, int x, int y,
       const char *message, uint16_t color, uint16_t shadow_color)
 {
-   // upd by xjsxjs197 start
-   /*uint16_t *frame_buf_data     = rgui_frame_buf.data;
+   uint16_t *frame_buf_data     = rgui_frame_buf.data;
    uint16_t color_buf[2];
    uint16_t shadow_color_buf[2];
 
@@ -2531,7 +2533,7 @@ static void blit_line_extended_shadow(unsigned fb_width, int x, int y,
 
    while (!string_is_empty(message))
    {
-      // Deal with spaces first, for efficiency //
+      /* Deal with spaces first, for efficiency */
       if (*message == ' ')
          message++;
       else
@@ -2544,9 +2546,9 @@ static void blit_line_extended_shadow(unsigned fb_width, int x, int y,
           * waste CPU cycles performing a conversion from
           * the unicode values...
           * (Note: This is only really required for msg_hash_fr.h) */
-         /*if (symbol == 339) // Latin small ligature oe //
+         if (symbol == 339) /* Latin small ligature oe */
             symbol = 156;
-         if (symbol == 338) // Latin capital ligature oe //
+         if (symbol == 338) /* Latin capital ligature oe */
             symbol = 140;
 
          if (symbol >= NUM_FONT_GLYPHS_EXTENDED)
@@ -2562,10 +2564,10 @@ static void blit_line_extended_shadow(unsigned fb_width, int x, int y,
                {
                   uint16_t *frame_buf_ptr = frame_buf_data + buff_offset + i;
 
-                  // Text pixel + right shadow //
+                  /* Text pixel + right shadow */
                   memcpy(frame_buf_ptr, color_buf, sizeof(color_buf));
 
-                  // Bottom shadow //
+                  /* Bottom shadow */
                   frame_buf_ptr += fb_width;
                   memcpy(frame_buf_ptr, shadow_color_buf, sizeof(shadow_color_buf));
                }
@@ -2574,8 +2576,7 @@ static void blit_line_extended_shadow(unsigned fb_width, int x, int y,
       }
 
       x += FONT_WIDTH_STRIDE;
-   }*/
-   // upd by xjsxjs197 end
+   }
 }
 
 static void (*blit_line)(unsigned fb_width, int x, int y,
@@ -2686,7 +2687,8 @@ static void (*blit_symbol)(unsigned fb_width, int x, int y,
 
 static void rgui_set_blit_functions(bool draw_shadow, bool extended_ascii)
 {
-   if (draw_shadow)
+   // upd xjsxjs197 start
+   /*if (draw_shadow)
    {
       if (extended_ascii)
          blit_line = blit_line_extended_shadow;
@@ -2703,7 +2705,10 @@ static void rgui_set_blit_functions(bool draw_shadow, bool extended_ascii)
          blit_line = blit_line_regular;
       
       blit_symbol = blit_symbol_regular;
-   }
+   }*/
+   blit_line = blit_line_regular;
+   blit_symbol = blit_symbol_regular;
+   // upd xjsxjs197 end
 }
 
 /* ==============================
@@ -2769,9 +2774,15 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
    menu_display_get_fb_size(&fb_width, &fb_height,
          &fb_pitch);
 
+   // add by xjsxjs197 for support zh_cn start
+   int16_t  *unicodeMsgLen = (int16_t*)calloc(list->size + 1, sizeof(int16_t));
+   int msgMaxLen[3];
+   // add by xjsxjs197 for support zh_cn end
+
    for (i = 0; i < list->size; i++)
    {
-      unsigned line_width;
+      // upd by xjsxjs197 for support zh_cn start
+      /*unsigned line_width;
       char     *msg   = list->elems[i].data;
       unsigned msglen = (unsigned)utf8len(msg);
 
@@ -2783,16 +2794,39 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
          msg[rgui_term_layout.width + 1] = '\0';
          msglen = rgui_term_layout.width;
       }
-
-      line_width   = msglen * FONT_WIDTH_STRIDE - 1 + 6 + 10;
+	  
+	  line_width   = msglen * FONT_WIDTH_STRIDE - 1 + 6 + 10;
       width        = MAX(width, line_width);
       glyphs_width = MAX(glyphs_width, msglen);
+	  */
+	  char     *msg   = list->elems[i].data;
+	  wiiFont_getMsgMaxLen(msgMaxLen, msg, rgui_term_layout.width * FONT_WIDTH_STRIDE);
+	  unicodeMsgLen[i] = msgMaxLen[1];
+	  if (msgMaxLen[2] == 1)
+      {
+          *(list->elems[i].data + (msgMaxLen[0] - 3)) = '.';
+          *(list->elems[i].data + (msgMaxLen[0] - 2)) = '.';
+          *(list->elems[i].data + (msgMaxLen[0] - 1)) = '.';
+          *(list->elems[i].data + (msgMaxLen[0])) = '\0';
+      }
+
+      width        = MAX(width, unicodeMsgLen[i] + 10);
+	  // upd by xjsxjs197 for support zh_cn end
+
+      
    }
 
    height = (unsigned)(FONT_HEIGHT_STRIDE * list->size + 6 + 10);
    x      = (fb_width  - width) / 2;
    y      = (fb_height - height) / 2;
 
+   // add by xjsxjs197 for support zh_cn start
+   if (y < 0)
+   {
+       y = 10;
+   }
+   // add by xjsxjs197 for support zh_cn end
+   
    if (rgui_frame_buf.data)
    {
       uint16_t border_dark_color  = rgui->colors.border_dark_color;
@@ -2840,7 +2874,10 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
    for (i = 0; i < list->size; i++)
    {
       const char *msg = list->elems[i].data;
-      int offset_x    = (int)(FONT_WIDTH_STRIDE * (glyphs_width - utf8len(msg)) / 2);
+	  // upd xjsxjs197 start
+      //int offset_x    = (int)(FONT_WIDTH_STRIDE * (glyphs_width - utf8len(msg)) / 2);
+	  int offset_x    = (int)((width - unicodeMsgLen[i]) / 2);
+	  // upd xjsxjs197 end
       int offset_y    = (int)(FONT_HEIGHT_STRIDE * i);
 
       if (rgui_frame_buf.data)
@@ -2848,6 +2885,10 @@ static void rgui_render_messagebox(rgui_t *rgui, const char *message)
                rgui->colors.normal_color, rgui->colors.shadow_color);
    }
 
+   // add by xjsxjs197 for support zh_cn start
+   free(unicodeMsgLen);
+   // add by xjsxjs197 for support zh_cn end
+   
 end:
    string_list_free(list);
 }
@@ -3416,23 +3457,29 @@ static void rgui_render(void *data,
             if (menu_animation_ticker_smooth(&ticker_smooth))
                title_width            = ticker_smooth.field_width;
             else
-               title_width            = (unsigned)(utf8len(thumbnail_title_buf) * FONT_WIDTH_STRIDE);
+			   // upd by xjsxjs197 for support zh_cn start
+               //title_width            = (unsigned)(utf8len(thumbnail_title_buf) * FONT_WIDTH_STRIDE);
+			   title_width              = wiiFont_getAllMsgPxLen(thumbnail_title_buf);
+			   // upd by xjsxjs197 for support zh_cn end
          }
          else
          {
             ticker.s        = thumbnail_title_buf;
-			// // upd by xjsxjs197 for support zh_cn start
+			// upd by xjsxjs197 for support zh_cn start
             //ticker.len      = rgui_term_layout.width - 10;
 			int msgMaxLen[3];
             wiiFont_getMsgMaxLen(msgMaxLen, thumbnail_title, (rgui_term_layout.width - 10) * FONT_WIDTH_STRIDE);
             ticker.len = msgMaxLen[0];
-			// // upd by xjsxjs197 for support zh_cn end
+			// upd by xjsxjs197 for support zh_cn end
             ticker.str      = thumbnail_title;
             ticker.selected = true;
 
             menu_animation_ticker(&ticker);
 
-            title_width     = (unsigned)(utf8len(thumbnail_title_buf) * FONT_WIDTH_STRIDE);
+            // upd by xjsxjs197 for support zh_cn start
+            //title_width     = (unsigned)(utf8len(thumbnail_title_buf) * FONT_WIDTH_STRIDE);
+			title_width     = msgMaxLen[1];
+			// upd by xjsxjs197 for support zh_cn end
          }
 
          title_x = rgui_term_layout.start_x + ((rgui_term_layout.width * FONT_WIDTH_STRIDE) - title_width) / 2;
@@ -3460,11 +3507,16 @@ static void rgui_render(void *data,
 	  // upd xjsxjs197 start
       //unsigned timedate_x            = term_end_x - (5 * FONT_WIDTH_STRIDE);
       //unsigned core_name_len         = ((timedate_x - rgui_term_layout.start_x) / FONT_WIDTH_STRIDE) - 3;
-	  unsigned timedate_x            = term_end_x - (3 * FONT_WIDTH_STRIDE);
+	  unsigned timedate_x            = term_end_x - (4 * FONT_WIDTH_STRIDE);
       unsigned core_name_len         = ((timedate_x - rgui_term_layout.start_x) / FONT_WIDTH_STRIDE) - 2;
 	  // upd xjsxjs197 end
 	  // add xjsxjs197 start
 	  int msgMaxLen[3];
+	  int title_len_px               = 0;
+	  int title_max_len_px           = 0;
+	  int entry_title_max_len_px     = 0;
+	  int entry_value_len_px;
+	  int entry_value_maxLen_px      = 10 * FONT_WIDTH_STRIDE;
 	  // add xjsxjs197 end
       bool show_mini_thumbnails      = rgui->is_playlist && settings->bools.menu_rgui_inline_thumbnails;
       bool show_thumbnail            = false;
@@ -3563,6 +3615,9 @@ static void rgui_render(void *data,
 
       /* Print title */
       title_max_len = rgui_term_layout.width - 5 - (powerstate_len > 5 ? powerstate_len : 5);
+	  // add xjsxjs197 start
+	  title_max_len_px = (rgui_term_layout.width - 3) * FONT_WIDTH_STRIDE;
+	  // add xjsxjs197 end
       title_buf[0] = '\0';
 
       if (use_smooth_ticker)
@@ -3575,18 +3630,31 @@ static void rgui_render(void *data,
          ticker_smooth.x_offset    = &ticker_x_offset;
 
          /* If title is scrolling, then title_len == title_max_len */
-         if (menu_animation_ticker_smooth(&ticker_smooth))
+		 // upd by xjsxjs197 for support zh_cn start
+         /*if (menu_animation_ticker_smooth(&ticker_smooth))
             title_len = title_max_len;
          else
+            title_len = utf8len(title_buf);*/
+		 if (menu_animation_ticker_smooth(&ticker_smooth))
+		 {
+            title_len = title_max_len;
+			title_len_px = title_max_len * FONT_WIDTH_STRIDE;
+		 }
+         else
+		 {
             title_len = utf8len(title_buf);
+			title_len_px = wiiFont_getAllMsgPxLen(title_buf);
+		 }
+		 // upd by xjsxjs197 for support zh_cn end
       }
       else
       {
          ticker.s        = title_buf;
 		 // upd by xjsxjs197 for support zh_cn start
          //ticker.len      = title_max_len;
-		 wiiFont_getMsgMaxLen(msgMaxLen, rgui->menu_title, title_max_len * FONT_WIDTH_STRIDE);
+		 wiiFont_getMsgMaxLen(msgMaxLen, rgui->menu_title, title_max_len_px);
 		 ticker.len = msgMaxLen[0];
+		 title_len_px = msgMaxLen[1];
 		 // upd by xjsxjs197 for support zh_cn end
          ticker.str      = rgui->menu_title;
          ticker.selected = true;
@@ -3598,8 +3666,12 @@ static void rgui_render(void *data,
 
       string_to_upper(title_buf);
 
-      title_x = ticker_x_offset + rgui_term_layout.start_x +
-                (rgui_term_layout.width - title_len) * FONT_WIDTH_STRIDE / 2;
+      // upd by xjsxjs197 for support zh_cn start
+      //title_x = ticker_x_offset + rgui_term_layout.start_x +
+      //          (rgui_term_layout.width - title_len) * FONT_WIDTH_STRIDE / 2;
+	  title_x = ticker_x_offset + rgui_term_layout.start_x +
+                  (rgui_term_layout.width * FONT_WIDTH_STRIDE - title_len_px) / 2;
+      // upd by xjsxjs197 for support zh_cn end
 
       /* Title is always centred, unless it is long enough
        * to infringe upon the battery indicator, in which case
@@ -3649,6 +3721,9 @@ static void rgui_render(void *data,
 
          /* Get base length of entry title field */
          entry_title_max_len = rgui_term_layout.width - (1 + 2);
+		 // add xjsxjs197 start
+		 entry_title_max_len_px = (rgui_term_layout.width - 2) * FONT_WIDTH_STRIDE;
+		 // add xjsxjs197 end
 
          /* If showing mini thumbnails, reduce title field length accordingly */
          if (show_mini_thumbnails)
@@ -3684,9 +3759,15 @@ static void rgui_render(void *data,
             }
 
             entry_title_max_len -= (thumbnail_width / FONT_WIDTH_STRIDE) + 1;
+			// add xjsxjs197 start
+		    entry_title_max_len_px -= thumbnail_width + FONT_WIDTH_STRIDE;
+		    // add xjsxjs197 end
          }
 
          /* Determine whether entry has a value component */
+		 // add xjsxjs197 start
+		 entry_value_len_px = 0;
+		 // add xjsxjs197 end
          if (!string_is_empty(entry_value))
          {
             if (settings->bools.menu_rgui_full_width_layout)
@@ -3704,14 +3785,26 @@ static void rgui_render(void *data,
 
             /* Update width of entry title field */
             entry_title_max_len -= entry_value_len + 2;
+			
+			// add xjsxjs197 start
+			wiiFont_getMsgMaxLen(msgMaxLen, entry_value, entry_value_maxLen_px);
+			entry_value_len = msgMaxLen[0];
+            entry_value_len_px = msgMaxLen[1];
+			
+			entry_title_max_len_px -= entry_value_len_px + FONT_WIDTH_STRIDE;
+			// add xjsxjs197 end
          }
 
          /* Format entry title string */
          if (use_smooth_ticker)
          {
             ticker_smooth.selected    = entry_selected;
-            ticker_smooth.field_width = entry_title_max_len * FONT_WIDTH_STRIDE;
-            ticker_smooth.src_str     = entry_label;
+			// upd by xjsxjs197 for support zh_cn start
+            //ticker_smooth.field_width = entry_title_max_len * FONT_WIDTH_STRIDE;
+			//ticker_smooth.src_str     = entry_label;
+			ticker_smooth.field_width = entry_title_max_len_px;
+			ticker_smooth.src_str     = wiiFont_getChTitle(entry_label);
+			// upd by xjsxjs197 for support zh_cn end
             ticker_smooth.dst_str     = entry_title_buf;
             ticker_smooth.dst_str_len = sizeof(entry_title_buf);
             ticker_smooth.x_offset    = &ticker_x_offset;
@@ -3723,27 +3816,37 @@ static void rgui_render(void *data,
             ticker.s        = entry_title_buf;
 			// upd by xjsxjs197 for support zh_cn start
             //ticker.len      = entry_title_max_len;
-			wiiFont_getMsgMaxLen(msgMaxLen, entry_label, (entry_title_max_len + 1) * FONT_WIDTH_STRIDE + (FONT_WIDTH_STRIDE >> 1));
+			//ticker.str      = entry_label;
+			wiiFont_getMsgMaxLen(msgMaxLen, entry_label, entry_title_max_len_px);
             ticker.len = msgMaxLen[0];
+			ticker.str      = wiiFont_getChTitle(entry_label);
 			// upd by xjsxjs197 for support zh_cn end
-            ticker.str      = entry_label;
             ticker.selected = entry_selected;
 
             menu_animation_ticker(&ticker);
          }
 
          /* Print entry title */
-         blit_line(fb_width, ticker_x_offset + x + (2 * FONT_WIDTH_STRIDE), y,
+		 // upd xjsxjs197 start
+         //blit_line(fb_width, ticker_x_offset + x + (2 * FONT_WIDTH_STRIDE), y,
+		 blit_line(fb_width, ticker_x_offset + x + FONT_WIDTH_STRIDE, y,
+		 // upd xjsxjs197 end
                entry_title_buf,
                entry_color, rgui->colors.shadow_color);
 
          /* Print entry value, if required */
-         if (entry_value_len > 0)
+		 // upd xjsxjs197 start
+         //if (entry_value_len > 0)
+		 if (entry_value_len_px > 0)
+		 // upd xjsxjs197 end
          {
             /* Format entry value string */
             if (use_smooth_ticker)
             {
-               ticker_smooth.field_width = entry_value_len * FONT_WIDTH_STRIDE;
+			   // upd xjsxjs197 start
+               //ticker_smooth.field_width = entry_value_len * FONT_WIDTH_STRIDE;
+			   ticker_smooth.field_width = entry_value_maxLen_px;
+			   // upd xjsxjs197 end
                ticker_smooth.src_str     = entry_value;
                ticker_smooth.dst_str     = type_str_buf;
                ticker_smooth.dst_str_len = sizeof(type_str_buf);
@@ -3754,18 +3857,17 @@ static void rgui_render(void *data,
             else
             {
                ticker.s        = type_str_buf;
-			   // upd by xjsxjs197 for support zh_cn start
-               //ticker.len      = entry_value_len;
-			   wiiFont_getMsgMaxLen(msgMaxLen, entry_value, entry_value_len * FONT_WIDTH_STRIDE);
-               ticker.len = msgMaxLen[0];
-			   // upd by xjsxjs197 for support zh_cn end
+               ticker.len      = entry_value_len;
                ticker.str      = entry_value;
 
                menu_animation_ticker(&ticker);
             }
 
             /* Print entry value */
-            blit_line(fb_width, ticker_x_offset + term_end_x - ((entry_value_len + 1) * FONT_WIDTH_STRIDE), y,
+			// upd xjsxjs197 start
+            //blit_line(fb_width, ticker_x_offset + term_end_x - ((entry_value_len + 1) * FONT_WIDTH_STRIDE), y,
+			blit_line(fb_width, ticker_x_offset + term_end_x - entry_value_len_px - FONT_WIDTH_STRIDE, y,
+			// upd xjsxjs197 end
                   type_str_buf,
                   entry_color, rgui->colors.shadow_color);
          }
@@ -3813,7 +3915,7 @@ static void rgui_render(void *data,
             ticker.s        = sublabel_buf;
 			// upd xjsxjs197 start
             //ticker.len      = core_name_len;
-			wiiFont_getMsgMaxLen(msgMaxLen, rgui->menu_sublabel, core_name_len * FONT_WIDTH_STRIDE);
+			wiiFont_getMsgMaxLen(msgMaxLen, rgui->menu_sublabel, (core_name_len + 6) * FONT_WIDTH_STRIDE);
 			ticker.len = msgMaxLen[0];
 			// upd xjsxjs197 end
             ticker.str      = rgui->menu_sublabel;
@@ -3853,7 +3955,7 @@ static void rgui_render(void *data,
             ticker.s        = core_title_buf;
 			// upd xjsxjs197 start
             //ticker.len      = core_name_len;
-			wiiFont_getMsgMaxLen(msgMaxLen, core_title, core_name_len * FONT_WIDTH_STRIDE);
+			wiiFont_getMsgMaxLen(msgMaxLen, core_title, (core_name_len + 6) * FONT_WIDTH_STRIDE);
 			ticker.len = msgMaxLen[0];
 			// upd xjsxjs197 end
             ticker.str      = core_title;
