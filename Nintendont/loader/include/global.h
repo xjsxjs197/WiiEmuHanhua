@@ -1,4 +1,4 @@
-/*
+Ôªø/*
 
 Nintendont (Loader) - Playing Gamecubes in Wii mode on a Wii U
 
@@ -48,8 +48,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // upd by xjsxjs197 start
 //#define ARROW_LEFT			"\xE2\x97\x80"
 //#define ARROW_RIGHT			"\xE2\x96\xB6"
-#define ARROW_LEFT			"Å¶" //"\xE2\x97\x80"
-#define ARROW_RIGHT			"Å¶" //"\xE2\x96\xB6"
+#define ARROW_LEFT			"‚Äª" //"\xE2\x97\x80"
+#define ARROW_RIGHT			"‚Äª" //"\xE2\x96\xB6"
 // upd by xjsxjs197 end
 
 // RGBA Colors

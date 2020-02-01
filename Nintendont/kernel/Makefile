@@ -16,11 +16,7 @@ AS	:= $(PREFIX)as
 LD	:= $(PREFIX)gcc
 OBJCOPY	:= $(PREFIX)objcopy
 
-ifeq ($(windows), 1)
-	ZIP = zip/zip.exe
-else
-	ZIP = zip
-endif
+ZIP = zip/zip.exe
 
 CFLAGS	:= -mbig-endian -O3 -std=gnu89 -g -I. -Wall \
 	   -mcpu=arm926ej-s -msoft-float -mfloat-abi=soft \
