@@ -1,0 +1,122 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+  "default_core_name": "genesis_plus_gx.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Md/超级忍2 (简).md",
+      "label": "超级忍2 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/大航海时代1 (简).md",
+      "label": "大航海时代1 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/大航海时代2 (简).md",
+      "label": "大航海时代2 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/封神英杰传 (简).md",
+      "label": "封神英杰传 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/光明力量1 - 诸神之遗产 (简).md",
+      "label": "光明力量1 - 诸神之遗产 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/光明力量2 - 古代之封印 (简).md",
+      "label": "光明力量2 - 古代之封印 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/皇帝的财宝 - 秘境魔宝 (简).md",
+      "label": "皇帝的财宝 - 秘境魔宝 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/魂斗罗4 - 铁血兵团 (简).md",
+      "label": "魂斗罗4 - 铁血兵团 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/梦幻模拟战2 (简).md",
+      "label": "梦幻模拟战2 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/梦幻之星4 - 千年纪的终结 (简) (共享版).md",
+      "label": "梦幻之星4 - 千年纪的终结 (简) (共享版)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/怒之铁拳2 - 死斗安魂曲 (简).md",
+      "label": "怒之铁拳2 - 死斗安魂曲 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/怒之铁拳3 (简).md",
+      "label": "怒之铁拳3 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/幽游白书 - 魔强统一战 (简).md",
+      "label": "幽游白书 - 魔强统一战 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Md/中国象棋 (简).md",
+      "label": "中国象棋 (简)",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    }
+  ]
+}

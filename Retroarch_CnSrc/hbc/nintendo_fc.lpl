@@ -1,0 +1,522 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/fceumm.dol",
+  "default_core_name": "fceumm.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fc/1942.nes",
+      "label": "1942",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1942无敌版.nes",
+      "label": "1942无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1943.nes",
+      "label": "1943",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1943无敌版.nes",
+      "label": "1943无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1944.nes",
+      "label": "1944",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1944超强版.nes",
+      "label": "1944超强版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/1945(无限命弹).nes",
+      "label": "1945(无限命弹)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/超级马里奥2.nes",
+      "label": "超级马里奥2",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/超级马里奥USA(马里奥2美版).nes",
+      "label": "超级马里奥USA(马里奥2美版)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/吃豆小精灵(无限命).nes",
+      "label": "吃豆小精灵(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/吃豆小精灵.nes",
+      "label": "吃豆小精灵",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/赤色要塞加强版.nes",
+      "label": "赤色要塞加强版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/赤色要塞无敌版.nes",
+      "label": "赤色要塞无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/赤影战士(select键加血).nes",
+      "label": "赤影战士(select键加血)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/赤影战士超强版.nes",
+      "label": "赤影战士超强版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/俄罗斯方块1.nes",
+      "label": "俄罗斯方块1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/俄罗斯方块2.nes",
+      "label": "俄罗斯方块2",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/俄罗斯方块2任天堂版.nes",
+      "label": "俄罗斯方块2任天堂版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/恶魔城外传-王子传奇.nes",
+      "label": "恶魔城外传-王子传奇",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/古巴战士(革命英雄)无限命版.nes",
+      "label": "古巴战士(革命英雄)无限命版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/魂斗罗1(S枪+30条命).nes",
+      "label": "魂斗罗1(S枪+30条命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/魂斗罗1.nes",
+      "label": "魂斗罗1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/魂斗罗2(超级魂斗罗).nes",
+      "label": "魂斗罗2(超级魂斗罗)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/魂斗罗2菜单版.nes",
+      "label": "魂斗罗2菜单版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/魂斗罗2超强版.nes",
+      "label": "魂斗罗2超强版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/空中魂斗罗.nes",
+      "label": "空中魂斗罗",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/空中魂斗罗无敌版.nes",
+      "label": "空中魂斗罗无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/绿色兵团(无限命).nes",
+      "label": "绿色兵团(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/绿色兵团.nes",
+      "label": "绿色兵团",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/绿色兵团无敌版.nes",
+      "label": "绿色兵团无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/马戏团(无限人).nes",
+      "label": "马戏团(无限人)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/马戏团.nes",
+      "label": "马戏团",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/冒险岛1.nes",
+      "label": "冒险岛1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/冒险岛2(无限命).nes",
+      "label": "冒险岛2(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/冒险岛3(无限命).nes",
+      "label": "冒险岛3(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/冒险岛4.nes",
+      "label": "冒险岛4",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传1.nes",
+      "label": "忍者龙剑传1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传1无敌版.nes",
+      "label": "忍者龙剑传1无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传2.nes",
+      "label": "忍者龙剑传2",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传2无敌版.nes",
+      "label": "忍者龙剑传2无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传3.nes",
+      "label": "忍者龙剑传3",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者龙剑传3无敌版.nes",
+      "label": "忍者龙剑传3无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟1.nes",
+      "label": "忍者神龟1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟1无敌版.nes",
+      "label": "忍者神龟1无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟2.nes",
+      "label": "忍者神龟2",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟2无敌版.nes",
+      "label": "忍者神龟2无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟3(无限命).nes",
+      "label": "忍者神龟3(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/忍者神龟3.nes",
+      "label": "忍者神龟3",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/沙罗曼蛇.nes",
+      "label": "沙罗曼蛇",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/沙罗曼蛇无敌版.nes",
+      "label": "沙罗曼蛇无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/双截龙2(无限命).nes",
+      "label": "双截龙2(无限命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/双截龙3(无敌可跳关).nes",
+      "label": "双截龙3(无敌可跳关)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/双截龙3(无限血).nes",
+      "label": "双截龙3(无限血)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/松鼠大战1.nes",
+      "label": "松鼠大战1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/松鼠大战1无敌版.nes",
+      "label": "松鼠大战1无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/松鼠大战2.nes",
+      "label": "松鼠大战2",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/松鼠大战2无敌版.nes",
+      "label": "松鼠大战2无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞1(猫和老鼠1).nes",
+      "label": "汤姆和杰瑞1(猫和老鼠1)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞1无敌版.nes",
+      "label": "汤姆和杰瑞1无敌版",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞3(猫和老鼠3).nes",
+      "label": "汤姆和杰瑞3(猫和老鼠3)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/脱狱1(select键换武器+99命).nes",
+      "label": "脱狱1(select键换武器+99命)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/脱狱1(无限血弹).nes",
+      "label": "脱狱1(无限血弹)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/脱狱1.nes",
+      "label": "脱狱1",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fc/脱狱2(血火纵横).nes",
+      "label": "脱狱2(血火纵横)",
+      "core_path": "usb:/retroarch/core/fceumm.dol",
+      "core_name": "fceumm.dol",
+      "crc32": "00000000|crc",
+      "db_name": "nintendo_fc.lpl"
+    }
+  ]
+}
