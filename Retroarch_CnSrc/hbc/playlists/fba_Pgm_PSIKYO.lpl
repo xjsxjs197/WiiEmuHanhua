@@ -1,0 +1,114 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+  "default_core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fba/pgm/kov.zip",
+      "label": "三国战纪(ver.117)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/pgm/orlegend.zip",
+      "label": "西游释厄传(ver.126)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/dragnblz.zip",
+      "label": "飞龙骑士",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/gnbarich.zip",
+      "label": "彩京砖块物语",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/gunbird.zip",
+      "label": "武装飞鸟(世界版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/hotdebut.zip",
+      "label": "偶像问答",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/loderndf.zip",
+      "label": "淘金者考古之站",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/mjgtaste.zip",
+      "label": "麻雀G-体验",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/s1945ii.zip",
+      "label": "打击者1945II",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/samuraia.zip",
+      "label": "战国世纪(世界版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/sbomber.zip",
+      "label": "太空炸弹人",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/soldivid.zip",
+      "label": "太阳表决",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/PSIKYO/tengai.zip",
+      "label": "战国之刃(世界版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
+      "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_Pgm_PSIKYO.lpl"
+    }
+  ]
+}

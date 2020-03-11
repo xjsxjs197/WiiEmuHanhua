@@ -1,0 +1,226 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+  "default_core_name": "fba_neogeo.lpl",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/fatfury1.zip",
+      "label": "饿狼传说-宿命之战",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/fatfury2.zip",
+      "label": "饿狼传说2-新的战斗",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/fatfury3.zip",
+      "label": "饿狼传说3-远古征战",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/garou.zip",
+      "label": "饿狼-群狼之证/狼之烙印(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof97.zip",
+      "label": "拳皇97(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof98.zip",
+      "label": "拳皇98-梦战斗未结束",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof99.zip",
+      "label": "拳皇99-千年之战(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof2000.zip",
+      "label": "拳皇2000",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof2001.zip",
+      "label": "拳皇2001(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof2002.zip",
+      "label": "拳皇2002-终极挑战",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kf2k2pls.zip",
+      "label": "拳皇2002-终极挑战风云再起(盗版第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof2003.zip",
+      "label": "拳皇2003(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kof2k4se.zip",
+      "label": "拳皇特别版2004(盗版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/kf2k5uni.zip",
+      "label": "拳皇十周年纪念-所有队伍的战斗2005Unique(盗版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/matrim.zip",
+      "label": "新豪血寺一族-斗婚",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/mslug.zip",
+      "label": "合金弹头",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/mslug2.zip",
+      "label": "合金弹头2",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/mslug3.zip",
+      "label": "合金弹头3",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/mslug4.zip",
+      "label": "合金弹头4",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/mslug5.zip",
+      "label": "合金弹头5",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/preisle2.zip",
+      "label": "原始岛2",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/rotd.zip",
+      "label": "龙吼-双截龙",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/s1945p.zip",
+      "label": "打击者1945加强版",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/samsh5sp.zip",
+      "label": "侍魂ⅤSPECIAL/侍魂零特别版",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/samsho5.zip",
+      "label": "侍魂Ⅴ/侍魂零(第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/shocktr2.zip",
+      "label": "突击骑兵/敌后奇兵-第二分队",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/neogeo/svc.zip",
+      "label": "拳皇对街霸",
+      "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
+      "core_name": "fba_neogeo.lpl",
+      "crc32": "00000000|crc",
+      "db_name": "fba_neogeo.lpl"
+    }
+  ]
+}

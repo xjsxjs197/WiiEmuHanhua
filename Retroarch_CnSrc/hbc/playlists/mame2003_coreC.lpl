@@ -1,0 +1,98 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+  "default_core_name": "mame2003_coreC.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/airwolf.zip",
+      "label": "飞狼",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/block.zip",
+      "label": "敲砖块(世界版911106操纵杆)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/cworld.zip",
+      "label": "问答卡普空世界(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/dokaben.zip",
+      "label": "棒球大饭桶(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/flashgal.zip",
+      "label": "霹雳娇娃(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/gyrodine.zip",
+      "label": "战斗直升机(泰德)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/legend.zip",
+      "label": "传奇",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/pang.zip",
+      "label": "魔鬼气泡(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/repulse.zip",
+      "label": "凤凰之子-星际联邦",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/spang.zip",
+      "label": "超级魔鬼气泡(世界版900914)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreC/srdmissn.zip",
+      "label": "S.R.D.任务",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreC.dol",
+      "core_name": "mame2003_coreC.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreC.lpl"
+    }
+  ]
+}

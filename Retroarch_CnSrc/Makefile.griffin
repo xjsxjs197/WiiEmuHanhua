@@ -205,7 +205,7 @@ else ifeq ($(libogc_platform), 1)
    ifeq ($(platform), wii)
       HAVE_AUDIOMIXER          := 1
       # upd by xjsxjs197 start
-      HAVE_LANGEXTRA          := 1
+      HAVE_LANGEXTRA           := 1
       # upd by xjsxjs197 end
       HAVE_WIIUSB_HID          := 1
       HAVE_RARCH_EXEC          := 1
@@ -828,7 +828,7 @@ else
 endif
 
 # upd xjsxjs197 start
-OBJ = griffin/griffin.o griffin/wiiFont.o griffin/gettext.o $(PLATOBJS)
+OBJ = griffin/griffin.o griffin/wiiFont.o $(PLATOBJS)
 # upd xjsxjs197 end
 
 ifeq ($(HAVE_GRIFFIN_CPP), 1)

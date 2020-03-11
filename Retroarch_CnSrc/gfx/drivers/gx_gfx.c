@@ -1183,7 +1183,7 @@ static void gx_blit_line(gx_video_t *gx,
       message++;
    }*/
 
-   wiiFont_setTextMsg(message, x, y, width, height, double_width, gx->double_strike);
+   //wiiFont_setTextMsg(message, x, y, width, height, double_width, gx->double_strike);
    // upd by xjsxjs197 for support zh_cn end
 }
 

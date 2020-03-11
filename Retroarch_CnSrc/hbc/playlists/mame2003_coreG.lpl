@@ -1,0 +1,714 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+  "default_core_name": "mame2003_coreG.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/4enraya.zip",
+      "label": "四连线",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/aerofgt.zip",
+      "label": "四国战机",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/airbustr.zip",
+      "label": "空中堡垒(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/ambush.zip",
+      "label": "阿米巴契战机",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/aquarium.zip",
+      "label": "海底生物战(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/arabian.zip",
+      "label": "阿拉丁",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/arbalest.zip",
+      "label": "劲弩战机",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/asurabld.zip",
+      "label": "血剑王朝-魔刃降临(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/asurabus.zip",
+      "label": "血剑王朝2-永恒的战士(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/atehate.zip",
+      "label": "巴格达神灯",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/bballs.zip",
+      "label": "益智弹跳球",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/berlwall.zip",
+      "label": "柏林墙",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/bigkarnk.zip",
+      "label": "古埃及卡纳克传说",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/biomtoy.zip",
+      "label": "生化玩具兵(未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/blandia.zip",
+      "label": "古罗马对决",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/blmbycar.zip",
+      "label": "布鲁比拉力赛车",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/blockcar.zip",
+      "label": "黑色嘉年华",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/bloodbro.zip",
+      "label": "勇士们-血兄弟(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/blueprnt.zip",
+      "label": "蓝色拼图(Midway)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/bssoccer.zip",
+      "label": "街头足球",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/bubl2000.zip",
+      "label": "泡泡野人版2000",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/calibr50.zip",
+      "label": "超猛火力50",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/crospang.zip",
+      "label": "表情气泡",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/crshrace.zip",
+      "label": "冲撞赛车-离合器(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/daioh.zip",
+      "label": "大王",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/dcon.zip",
+      "label": "地球防卫军",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/diverboy.zip",
+      "label": "潜水宝宝",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/drgnunit.zip",
+      "label": "龙之城堡",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/eightfrc.zip",
+      "label": "8号火力",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/extdwnhl.zip",
+      "label": "滑雪极限滑降",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/fnkyfish.zip",
+      "label": "疯狂的鱼",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/funkybee.zip",
+      "label": "疯狂蜜蜂",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/funybubl.zip",
+      "label": "性感谜球回路",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/grdians.zip",
+      "label": "电神魔傀II",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/grdnstrm.zip",
+      "label": "圣战-守护风暴",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/gundamex.zip",
+      "label": "机动战士高达EXRevue",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/gundhara.zip",
+      "label": "铳弹岚",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/hedpanic.zip",
+      "label": "头槌小子(版本.0117,17/01/2000)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/hexa.zip",
+      "label": "魔法宝石Hexa",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/ikki.zip",
+      "label": "农夫叛乱物语(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/jjsquawk.zip",
+      "label": "鹦鹉历险记",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/kamenrid.zip",
+      "label": "假面骑士俱乐部",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/kangaroo.zip",
+      "label": "袋鼠",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/karatblz.zip",
+      "label": "斗神光辉(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/lvgirl94.zip",
+      "label": "拉斯维加斯美女方块(Girl'94)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/madshark.zip",
+      "label": "狂鲨任务",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/mcatadv.zip",
+      "label": "魔猫森林",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/metafox.zip",
+      "label": "沙漠之狐",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/mj4simai.zip",
+      "label": "若草物语-麻雀四姊妹(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/momoko.zip",
+      "label": "桃子娃娃大作战",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/msgundam.zip",
+      "label": "机动战士高达",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/mugsmash.zip",
+      "label": "火线追缉",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/multchmp.zip",
+      "label": "Multi冠军(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/myangel.zip",
+      "label": "育婴问答亲亲小宝贝(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/myangel2.zip",
+      "label": "育婴问答亲亲小宝贝2(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/naname.zip",
+      "label": "娜娜米魔法方块",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/neobattl.zip",
+      "label": "机动战士",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/news.zip",
+      "label": "魔法美女气泡(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/nost.zip",
+      "label": "超电磁炮",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/ohmygod.zip",
+      "label": "天神方块(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/oisipuzl.zip",
+      "label": "益智博士",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/penbros.zip",
+      "label": "企鹅兄弟(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/pzlbowl.zip",
+      "label": "泡泡保龄球(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/qzkklgy2.zip",
+      "label": "qzkklgy2",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/qzkklogy.zip",
+      "label": "qzkklogy",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/rezon.zip",
+      "label": "雷杀之星",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/silkroad.zip",
+      "label": "丝绸之路",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/skyfox.zip",
+      "label": "天狐",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/skylancr.zip",
+      "label": "天空雷射枪",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/skysmash.zip",
+      "label": "空中打击",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/sokonuke.zip",
+      "label": "心愿猫咪对战",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/spinlbrk.zip",
+      "label": "时空英雄(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/stagger1.zip",
+      "label": "红鹰(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/stg.zip",
+      "label": "重装战机",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/thoop.zip",
+      "label": "thoop",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/thunderl.zip",
+      "label": "雷光打砖块",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/toki.zip",
+      "label": "JUJU传说(世界版第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/turbofrc.zip",
+      "label": "超级空军",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/twineagl.zip",
+      "label": "双鹰",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/uballoon.zip",
+      "label": "终极气球",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/umanclub.zip",
+      "label": "咸蛋超人俱乐部",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/utoukond.zip",
+      "label": "咸蛋超人奥特曼斗魂传说",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/wits.zip",
+      "label": "威兹超人",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/wrofaero.zip",
+      "label": "航天音速战机",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/zerozone.zip",
+      "label": "性感宝石方块",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/zingzip.zip",
+      "label": "真真急炮",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/zombraid.zip",
+      "label": "巫毒射击",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreG/zzyzzyxx.zip",
+      "label": "虫虫救美(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreG.dol",
+      "core_name": "mame2003_coreG.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreG.lpl"
+    }
+  ]
+}

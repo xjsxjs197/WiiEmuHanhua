@@ -1,0 +1,682 @@
+﻿{
+  "version": "1.2",
+  "default_core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+  "default_core_name": "mame2003_coreD.dol",
+  "label_display_mode": 0,
+  "right_thumbnail_mode": 0,
+  "left_thumbnail_mode": 0,
+  "items": [
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/4dwarrio.zip",
+      "label": "四次元战士(315-5162)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/actfancr.zip",
+      "label": "超级攻击性武器",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/afighter.zip",
+      "label": "战斗任务(FD1089A317-0018)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/alexkidd.zip",
+      "label": "天空魔城(第2套,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/aliensyn.zip",
+      "label": "异形入侵(第4套,系统16B,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/atomicp.zip",
+      "label": "俄罗斯方块解谜Philko(韩国版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/aurail.zip",
+      "label": "光环(第3套,美版,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bayroute.zip",
+      "label": "海湾战争(第3套,世界版,FD1094317-0116)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bcstry.zip",
+      "label": "原始人梦语(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/blockgal.zip",
+      "label": "打砖块美女版(MC-8123B,317-0029)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bloxeed.zip",
+      "label": "俄罗斯方块擂台",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bodyslam.zip",
+      "label": "女子摔角(8751317-0015)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bombjack.zip",
+      "label": "炸弹杰克(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/brain.zip",
+      "label": "太空登陆战",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/bullfgt.zip",
+      "label": "斗牛(315-5065)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/chelnov.zip",
+      "label": "原子超人(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/chinatwn.zip",
+      "label": "唐人街",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/cobracom.zip",
+      "label": "眼睛蛇指令(世界版校正版5)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/cotton.zip",
+      "label": "棉花小魔女(第3套,世界版,FD1094317-0181a)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/csilver.zip",
+      "label": "锡鲁巴船长(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/darkseal.zip",
+      "label": "暗黑封印-毁灭之门(世界版校正版3)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/dietgo.zip",
+      "label": "乐乐小子",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/dunkshot.zip",
+      "label": "大扣篮(FD1089A317-0022)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/eswat.zip",
+      "label": "霹雳双警(第3套,世界版,FD1094317-0130)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/fantzone.zip",
+      "label": "神奇地带(第2套,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/flicky.zip",
+      "label": "小鸟妃奇(128k版本,系统2,315-5051)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/fpoint.zip",
+      "label": "世嘉俄罗斯方块解谜(第2套,日版,FD1094317-0127A)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/fstarfrc.zip",
+      "label": "最终星际武力(美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/gardia.zip",
+      "label": "巡弋飞艇(317-0006)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/garyoret.zip",
+      "label": "卧龙列传(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/gemini.zip",
+      "label": "昆虫世界",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/ginkun.zip",
+      "label": "前代末间大爆笑",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/goldnaxe.zip",
+      "label": "战斧(第6套,美版,8751317-123A)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/hangon.zip",
+      "label": "世嘉摩托车大赛(RevA)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/hvymetal.zip",
+      "label": "hvymetal",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/imsorry.zip",
+      "label": "大头课长捡金块(315-5110,美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/karianx.zip",
+      "label": "卡琳魔宝(Rev.1.0)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/karnov.zip",
+      "label": "卡洛夫(美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/lastmisn.zip",
+      "label": "最终任务(美版校正版6)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/lemmings.zip",
+      "label": "lemmings",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/logicpr2.zip",
+      "label": "逻辑PRO2(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/logicpro.zip",
+      "label": "逻辑PRO(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/mjleague.zip",
+      "label": "棒球联盟",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/mrviking.zip",
+      "label": "失落的维京人(315-5041)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/mvp.zip",
+      "label": "棒球MVP(第2套,美版,FD1094317-0143)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/myhero.zip",
+      "label": "我的英雄(美版,未加密)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/oscar.zip",
+      "label": "钢铁金刚(世界版校正版0)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/outrun.zip",
+      "label": "环游世界大赛车(sitdown/直立型,RevB)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/passsht.zip",
+      "label": "网球绝招-近身攻击(2Players,FD1094317-0080)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/pitfall2.zip",
+      "label": "玛雅历险记II(315-5093)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/pktgaldx.zip",
+      "label": "美女花式桌球",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/raflesia.zip",
+      "label": "银河系战机(315-5162)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/regulus.zip",
+      "label": "星球战车(315-5033,RevA.)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/riot.zip",
+      "label": "雷轧斗",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/riotcity.zip",
+      "label": "暴乱之城(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/rygar.zip",
+      "label": "阿尔卑斯古战士(美版第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/ryukyu.zip",
+      "label": "琉球(日版,FD1094317-5023)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/seganinj.zip",
+      "label": "世嘉忍者(315-5102)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/shackled.zip",
+      "label": "链狱谜城(美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/shadoww.zip",
+      "label": "忍者龙剑传(世界版,第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/shangon.zip",
+      "label": "超级摩托车(sitdown/直立型,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/shdancer.zip",
+      "label": "影舞者(第3套,美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/shinobi.zip",
+      "label": "超级忍(第6套,系统16A,未保护版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/sidepckt.zip",
+      "label": "花式撞球瞄准腰袋",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/silkworm.zip",
+      "label": "中东战争(第1套)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/solomon.zip",
+      "label": "所罗门之钥(美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/spatter.zip",
+      "label": "三轮车物语",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/srdarwin.zip",
+      "label": "黑暗之风2(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/starjack.zip",
+      "label": "星际母舰(Sega)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/stratof.zip",
+      "label": "雷牙(美版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/supbtime.zip",
+      "label": "汉堡时代",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/suprloco.zip",
+      "label": "suprloco",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/swat.zip",
+      "label": "超能战警(315-5048)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/teddybb.zip",
+      "label": "泰迪男孩布鲁斯(315-5115,新版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/toutrun.zip",
+      "label": "环游世界大赛车加速版(驾驶舱,FD1094317-0118)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/triothep.zip",
+      "label": "超级蒸气火车",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/tumblep.zip",
+      "label": "吸尘器小子(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/upndown.zip",
+      "label": "超级金龟车(315-5030)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wb3.zip",
+      "label": "神奇男孩III-在魔界",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wboy.zip",
+      "label": "神奇男孩(第1套,315-5177)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wc90.zip",
+      "label": "世界杯足球'90(世界版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wildfang.zip",
+      "label": "邪城风云/Tecmo骑士",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wizdfire.zip",
+      "label": "暗黑城堡",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/Mame2003/coreD/wndrplnt.zip",
+      "label": "奇幻星球(日版)",
+      "core_path": "usb:/retroarch/core/mame2003_plus_coreD.dol",
+      "core_name": "mame2003_coreD.dol",
+      "crc32": "00000000|crc",
+      "db_name": "mame2003_coreD.lpl"
+    }
+  ]
+}

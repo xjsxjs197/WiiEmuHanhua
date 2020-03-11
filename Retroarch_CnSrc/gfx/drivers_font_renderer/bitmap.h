@@ -18,8 +18,8 @@
 #define __RARCH_FONT_BITMAP_H
 
 // upd xjsxjs197 start
-#define FONT_WIDTH 13
-#define FONT_HEIGHT 13
+#define FONT_WIDTH 14
+#define FONT_HEIGHT 14
 #define FONT_HEIGHT_BASELINE 8
 #define FONT_WIDTH_STRIDE (FONT_WIDTH)
 #define FONT_HEIGHT_STRIDE (FONT_HEIGHT)

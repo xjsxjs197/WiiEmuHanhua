@@ -3803,7 +3803,7 @@ static void rgui_render(void *data,
             //ticker_smooth.field_width = entry_title_max_len * FONT_WIDTH_STRIDE;
 			//ticker_smooth.src_str     = entry_label;
 			ticker_smooth.field_width = entry_title_max_len_px;
-			ticker_smooth.src_str     = wiiFont_getChTitle(entry_label);
+			ticker_smooth.src_str     = entry_label;
 			// upd by xjsxjs197 for support zh_cn end
             ticker_smooth.dst_str     = entry_title_buf;
             ticker_smooth.dst_str_len = sizeof(entry_title_buf);
@@ -3819,7 +3819,7 @@ static void rgui_render(void *data,
 			//ticker.str      = entry_label;
 			wiiFont_getMsgMaxLen(msgMaxLen, entry_label, entry_title_max_len_px);
             ticker.len = msgMaxLen[0];
-			ticker.str      = wiiFont_getChTitle(entry_label);
+			ticker.str      = entry_label;
 			// upd by xjsxjs197 for support zh_cn end
             ticker.selected = entry_selected;
 
