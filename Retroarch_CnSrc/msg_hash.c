@@ -168,6 +168,9 @@ const char *get_user_language_iso639_1(bool limit)
    //   case RETRO_LANGUAGE_TURKISH:
    //      voice = "tr";
    //      break;
+   //   case RETRO_LANGUAGE_SLOVAK:
+   //      voice = "sk";
+   //      break;
    //   case RETRO_LANGUAGE_RUSSIAN:
    //      voice = "ru";
    //      break;
@@ -238,6 +241,9 @@ const char *msg_hash_to_str(enum msg_hash_enums msg)
    //      break;
    //   case RETRO_LANGUAGE_TURKISH:
    //      ret = msg_hash_to_str_tr(msg);
+   //      break;
+   //   case RETRO_LANGUAGE_SLOVAK:
+   //      ret = msg_hash_to_str_sk(msg);
    //      break;
       default:
          break;

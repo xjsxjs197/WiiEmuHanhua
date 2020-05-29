@@ -20,7 +20,10 @@
 // upd xjsxjs197 start
 #define FONT_WIDTH 14
 #define FONT_HEIGHT 14
-#define FONT_HEIGHT_BASELINE 8
+/* FONT_HEIGHT_BASELINE_OFFSET:
+ * Distance in pixels from top of character
+ * to baseline */
+#define FONT_HEIGHT_BASELINE_OFFSET 8
 #define FONT_WIDTH_STRIDE (FONT_WIDTH)
 #define FONT_HEIGHT_STRIDE (FONT_HEIGHT)
 // upd xjsxjs197 end

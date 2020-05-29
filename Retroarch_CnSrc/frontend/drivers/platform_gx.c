@@ -166,7 +166,7 @@ static void frontend_gx_get_environment_settings(
 
    /* This situation can happen on some loaders so we really need some
       fake args or else retroarch will just crash on parsing NULL pointers */
-   if(*argc == 0 || argv == NULL)
+   if(*argc == 0 || !argv)
    {
       struct rarch_main_wrap *args = (struct rarch_main_wrap*)params_data;
       if (args)
@@ -208,17 +208,11 @@ static void frontend_gx_get_environment_settings(
    device_end = strchr(g_defaults.dirs[DEFAULT_DIR_CORE], '/');
    if (device_end)
       snprintf(g_defaults.dirs[DEFAULT_DIR_PORT], sizeof(g_defaults.dirs[DEFAULT_DIR_PORT]),
-	        // // upd xjsxjs197 start
             "%.*s/retroarch", device_end - g_defaults.dirs[DEFAULT_DIR_CORE],
-			//"%.*s/retroarch1.8.4", device_end - g_defaults.dirs[DEFAULT_DIR_CORE],
-			// // upd xjsxjs197 end
             g_defaults.dirs[DEFAULT_DIR_CORE]);
    else
       fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_PORT], g_defaults.dirs[DEFAULT_DIR_PORT],
-	        // upd xjsxjs197 start
             "retroarch", sizeof(g_defaults.dirs[DEFAULT_DIR_PORT]));
-			//"retroarch1.8.4", sizeof(g_defaults.dirs[DEFAULT_DIR_PORT]));
-			// upd xjsxjs197 end
 
    /* System paths */
    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_CORE_INFO], g_defaults.dirs[DEFAULT_DIR_CORE],
@@ -244,7 +238,7 @@ static void frontend_gx_get_environment_settings(
    fill_pathname_join(g_defaults.path.config, g_defaults.dirs[DEFAULT_DIR_PORT],
          // upd xjsxjs197 start
          //"retroarch.cfg", sizeof(g_defaults.path.config));
-		 "retroarch1.8.4.cfg", sizeof(g_defaults.path.config));
+		 "retroarch1.8.8.cfg", sizeof(g_defaults.path.config));
 		 // upd xjsxjs197 end
    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SYSTEM], g_defaults.dirs[DEFAULT_DIR_PORT],
          "system", sizeof(g_defaults.dirs[DEFAULT_DIR_SYSTEM]));
@@ -375,7 +369,7 @@ static void frontend_gx_exec(const char *path, bool should_load_game)
 #endif
 }
 
-static void frontend_gx_exitspawn(char *s, size_t len)
+static void frontend_gx_exitspawn(char *s, size_t len, char *args)
 {
    bool should_load_game = false;
 #if defined(IS_SALAMANDER)
@@ -576,5 +570,7 @@ frontend_ctx_driver_t frontend_ctx_gx = {
    NULL,                            /* set_sustained_performance_mode */
    NULL,                            /* get_cpu_model_name */
    NULL,                            /* get_user_language */
+   NULL,                         /* is_narrator_running */
+   NULL,                         /* accessibility_speak */
    "gx",
 };
