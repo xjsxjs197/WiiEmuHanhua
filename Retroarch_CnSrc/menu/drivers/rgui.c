@@ -2446,7 +2446,7 @@ static void blit_line_regular(unsigned fb_width, int x, int y,
       x += FONT_WIDTH_STRIDE;
    }*/
    uint16_t *frame_buf_data = rgui_frame_buf.data;
-   size_t pitch = menu_display_get_framebuffer_pitch();
+   size_t pitch = gfx_display_get_framebuffer_pitch();
    wiiFont_setFontBufByMsg(frame_buf_data, message, pitch, x, y, color);
    // upd by xjsxjs197 end
 }
