@@ -16,7 +16,7 @@ Wii上的汉化的模拟器
   mgba_0.8.1          任天堂GBA模拟器  (PPC32 + Libogc_1.8.22)
 
 5、https://github.com/libretro/RetroArch
-  RetroArch_1.8.4     模拟器框架       (PPC29 + Libogc_1.8.17内部自带)
+  RetroArch_1.8.8     模拟器框架       (PPC29 + Libogc_1.8.17内部自带)
   各种内核            模拟器内核       (PPC29 + Libogc_1.8.17)
   
 
