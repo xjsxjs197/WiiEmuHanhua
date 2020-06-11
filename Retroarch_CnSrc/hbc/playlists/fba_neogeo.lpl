@@ -32,7 +32,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/neogeo/garou.zip",
-      "label": "饿狼-群狼之证/狼之烙印(第1套)",
+      "label": "饿狼-狼之烙印(第1套)",
       "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
       "core_name": "fba_neogeo.lpl",
       "crc32": "00000000|crc",
@@ -192,7 +192,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/neogeo/samsh5sp.zip",
-      "label": "侍魂ⅤSPECIAL/侍魂零特别版",
+      "label": "侍魂零特别版",
       "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
       "core_name": "fba_neogeo.lpl",
       "crc32": "00000000|crc",
@@ -200,7 +200,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/neogeo/samsho5.zip",
-      "label": "侍魂Ⅴ/侍魂零(第1套)",
+      "label": "侍魂零(第1套)",
       "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
       "core_name": "fba_neogeo.lpl",
       "crc32": "00000000|crc",
@@ -208,7 +208,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/neogeo/shocktr2.zip",
-      "label": "突击骑兵/敌后奇兵-第二分队",
+      "label": "敌后奇兵-第二分队",
       "core_path": "usb:/retroarch/core/fbalpha2012_neogeoVM6R29.dol",
       "core_name": "fba_neogeo.lpl",
       "crc32": "00000000|crc",

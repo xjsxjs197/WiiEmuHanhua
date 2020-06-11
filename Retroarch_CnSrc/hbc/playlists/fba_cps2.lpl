@@ -24,7 +24,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/armwar.zip",
-      "label": "机甲战士/机甲装备:攻关版(欧洲版941024)",
+      "label": "机甲战士-攻关版(欧洲版941024)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -56,7 +56,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/cybots.zip",
-      "label": "机甲战士:全金属狂潮(欧洲版950424)",
+      "label": "机甲战士-全金属狂潮(欧洲版950424)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -112,7 +112,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/hsf2.zip",
-      "label": "终极街头霸王II:十五周年纪念版(美版040202)",
+      "label": "终极街头霸王II-十五周年纪念版(美版040202)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -120,7 +120,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/jyangoku.zip",
-      "label": "雀国志:覇王の采牌(日版990527)",
+      "label": "雀国志-覇王的采牌(日版990527)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -136,7 +136,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/mmatrix.zip",
-      "label": "火星矩阵:超固体射击(美版000412)",
+      "label": "火星矩阵-超固体射击(美版000412)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -144,7 +144,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/mpang.zip",
-      "label": "超强!魔鬼气泡(欧洲版001010)",
+      "label": "超强魔鬼气泡(欧洲版001010)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -216,7 +216,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/sfa.zip",
-      "label": "少年街霸:斗士之梦(欧洲版950727)",
+      "label": "少年街霸-斗士之梦(欧洲版950727)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -304,7 +304,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/xmcota.zip",
-      "label": "X-战警:磁场原子人(欧洲版950105)",
+      "label": "X战警-磁场原子人(欧洲版950105)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -312,7 +312,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/xmvsf.zip",
-      "label": "X-战警对街头霸王(欧洲版961004)",
+      "label": "X战警对街头霸王(欧洲版961004)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",

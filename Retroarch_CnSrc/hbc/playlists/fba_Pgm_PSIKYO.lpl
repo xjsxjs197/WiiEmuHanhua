@@ -8,7 +8,7 @@
   "items": [
     {
       "path": "usb:/retroarch/Roms/Fba/pgm/kov.zip",
-      "label": "三国战纪(ver.117)",
+      "label": "三国战纪(ver117)",
       "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
       "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
       "crc32": "00000000|crc",
@@ -16,7 +16,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/pgm/orlegend.zip",
-      "label": "西游释厄传(ver.126)",
+      "label": "西游释厄传(ver126)",
       "core_path": "usb:/retroarch/core/fbalpha2012_Pgm_PSIKYO.dol",
       "core_name": "fbalpha2012_Pgm_PSIKYO.dol",
       "crc32": "00000000|crc",

@@ -120,7 +120,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS1/sf2ce.zip",
-      "label": "街头霸王II'-四大天王(世界版920313)",
+      "label": "街头霸王II-四大天王(世界版920313)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
       "core_name": "fbalpha2012_cps1.dol",
       "crc32": "00000000|crc",
@@ -128,7 +128,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS1/sf2koryu.zip",
-      "label": "街头霸王II'-四大天王:降龙(中国盗版第1套)",
+      "label": "街头霸王II-四大天王(降龙中国盗版第1套)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
       "core_name": "fbalpha2012_cps1.dol",
       "crc32": "00000000|crc",
@@ -168,7 +168,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS1/wof3js.zip",
-      "label": "三国志II:三剑圣(中国盗版)",
+      "label": "三国志II-三剑圣(中国盗版)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
       "core_name": "fbalpha2012_cps1.dol",
       "crc32": "00000000|crc",
