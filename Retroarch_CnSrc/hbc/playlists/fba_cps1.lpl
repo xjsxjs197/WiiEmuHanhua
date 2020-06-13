@@ -15,14 +15,6 @@
       "db_name": "fba_cps1.lpl"
     },
     {
-      "path": "usb:/retroarch/Roms/Fba/CPS1/3wonders.zip",
-      "label": "奇迹三合一(世界版910520)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
-      "core_name": "fbalpha2012_cps1.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps1.lpl"
-    },
-    {
       "path": "usb:/retroarch/Roms/Fba/CPS1/area88.zip",
       "label": "战区88(日版)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
@@ -57,22 +49,6 @@
     {
       "path": "usb:/retroarch/Roms/Fba/CPS1/dinou.zip",
       "label": "恐龙新世纪(美版930201)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
-      "core_name": "fbalpha2012_cps1.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps1.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS1/dynwar.zip",
-      "label": "吞食天地(美版第1套)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
-      "core_name": "fbalpha2012_cps1.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps1.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS1/dynwarj.zip",
-      "label": "吞食天地(日版)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
       "core_name": "fbalpha2012_cps1.dol",
       "crc32": "00000000|crc",
@@ -158,6 +134,38 @@
       "crc32": "00000000|crc",
       "db_name": "fba_cps1.lpl"
     },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS1/dynwar.zip",
+      "label": "吞食天地(美版第1套)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
+      "core_name": "fbalpha2012_cps1.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps1.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS1/dynwarj.zip",
+      "label": "吞食天地(日版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
+      "core_name": "fbalpha2012_cps1.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps1.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS1/wofch.zip",
+      "label": "吞食天地II-赤壁之战(中国盗版)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
+      "core_name": "fbalpha2012_cps1.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps1.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS1/wofj.zip",
+      "label": "吞食天地II-赤壁之战(日版921031)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
+      "core_name": "fbalpha2012_cps1.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps1.lpl"
+    },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS1/wof.zip",
       "label": "三国志II(世界版921002)",
@@ -174,17 +182,9 @@
       "crc32": "00000000|crc",
       "db_name": "fba_cps1.lpl"
     },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS1/wofch.zip",
-      "label": "吞食天地II-赤壁之战(中国盗版)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
-      "core_name": "fbalpha2012_cps1.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps1.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS1/wofj.zip",
-      "label": "吞食天地II-赤壁之战(日版921031)",
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS1/3wonders.zip",
+      "label": "奇迹三合一(世界版910520)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps1.dol",
       "core_name": "fbalpha2012_cps1.dol",
       "crc32": "00000000|crc",

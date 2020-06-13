@@ -72,7 +72,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/超级马里奥USA(马里奥2美版).nes",
-      "label": "超级马里奥USA(马里奥2美版)",
+      "label": "超级马里奥USA",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -160,7 +160,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/古巴战士(革命英雄)无限命版.nes",
-      "label": "古巴战士(革命英雄)无限命版",
+      "label": "古巴战士",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -184,7 +184,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/魂斗罗2(超级魂斗罗).nes",
-      "label": "魂斗罗2(超级魂斗罗)",
+      "label": "超级魂斗罗",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -192,7 +192,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/魂斗罗2菜单版.nes",
-      "label": "魂斗罗2菜单版",
+      "label": "超级魂斗罗(菜单版)",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -200,7 +200,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/魂斗罗2超强版.nes",
-      "label": "魂斗罗2超强版",
+      "label": "超级魂斗罗(超强版)",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -272,7 +272,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/冒险岛2(无限命).nes",
-      "label": "冒险岛2(无限命)",
+      "label": "冒险岛2",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -280,7 +280,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/冒险岛3(无限命).nes",
-      "label": "冒险岛3(无限命)",
+      "label": "冒险岛3",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -376,7 +376,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/忍者神龟3(无限命).nes",
-      "label": "忍者神龟3(无限命)",
+      "label": "忍者神龟3无敌版",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -408,7 +408,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/双截龙2(无限命).nes",
-      "label": "双截龙2(无限命)",
+      "label": "双截龙2-复仇(无限命)",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -463,32 +463,8 @@
       "db_name": "nintendo_fc.lpl"
     },
     {
-      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞1(猫和老鼠1).nes",
-      "label": "汤姆和杰瑞1(猫和老鼠1)",
-      "core_path": "usb:/retroarch/core/fceumm.dol",
-      "core_name": "fceumm.dol",
-      "crc32": "00000000|crc",
-      "db_name": "nintendo_fc.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞1无敌版.nes",
-      "label": "汤姆和杰瑞1无敌版",
-      "core_path": "usb:/retroarch/core/fceumm.dol",
-      "core_name": "fceumm.dol",
-      "crc32": "00000000|crc",
-      "db_name": "nintendo_fc.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fc/汤姆和杰瑞3(猫和老鼠3).nes",
-      "label": "汤姆和杰瑞3(猫和老鼠3)",
-      "core_path": "usb:/retroarch/core/fceumm.dol",
-      "core_name": "fceumm.dol",
-      "crc32": "00000000|crc",
-      "db_name": "nintendo_fc.lpl"
-    },
-    {
       "path": "usb:/retroarch/Roms/Fc/脱狱1(select键换武器+99命).nes",
-      "label": "脱狱1(select键换武器+99命)",
+      "label": "脱狱(select键换武器+99命)",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -496,7 +472,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/脱狱1(无限血弹).nes",
-      "label": "脱狱1(无限血弹)",
+      "label": "脱狱(无限血弹)",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",
@@ -504,15 +480,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Fc/脱狱1.nes",
-      "label": "脱狱1",
-      "core_path": "usb:/retroarch/core/fceumm.dol",
-      "core_name": "fceumm.dol",
-      "crc32": "00000000|crc",
-      "db_name": "nintendo_fc.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fc/脱狱2(血火纵横).nes",
-      "label": "脱狱2(血火纵横)",
+      "label": "脱狱",
       "core_path": "usb:/retroarch/core/fceumm.dol",
       "core_name": "fceumm.dol",
       "crc32": "00000000|crc",

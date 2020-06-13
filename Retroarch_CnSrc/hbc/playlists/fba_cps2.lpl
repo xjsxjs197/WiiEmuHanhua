@@ -22,6 +22,78 @@
       "crc32": "00000000|crc",
       "db_name": "fba_cps2.lpl"
     },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa.zip",
+      "label": "少年街霸-斗士之梦(欧洲版950727)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa2.zip",
+      "label": "少年街霸2(欧洲版960229)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/sfz2al.zip",
+      "label": "少年街霸2Alpha(亚洲版960826)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa3.zip",
+      "label": "少年街霸3(欧洲版980904)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/sgemf.zip",
+      "label": "超级口袋战士(美版970904)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/spf2t.zip",
+      "label": "超级街霸方块II加速版(美版960620)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/ssf2t.zip",
+      "label": "超级街头霸王II加速版(世界版940223)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/ssf2.zip",
+      "label": "超级街头霸王II-新的挑战者(世界版930911)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/hsf2.zip",
+      "label": "终极街头霸王II-十五周年纪念版(美版040202)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/armwar.zip",
       "label": "机甲战士-攻关版(欧洲版941024)",
@@ -87,14 +159,6 @@
       "db_name": "fba_cps2.lpl"
     },
     {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/dstlk.zip",
-      "label": "恶魔战士-午夜斗士(欧洲版940705)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
       "path": "usb:/retroarch/Roms/Fba/CPS2/ecofghtr.zip",
       "label": "环保战士(世界版931203)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
@@ -105,14 +169,6 @@
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/gigawing.zip",
       "label": "雷鸟之翼(美版990222)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/hsf2.zip",
-      "label": "终极街头霸王II-十五周年纪念版(美版040202)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -158,6 +214,22 @@
       "crc32": "00000000|crc",
       "db_name": "fba_cps2.lpl"
     },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/xmcota.zip",
+      "label": "X战警-磁场原子人(欧洲版950105)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/xmvsf.zip",
+      "label": "X战警对街头霸王(欧洲版961004)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/mshvsf.zip",
       "label": "超级漫画英雄对街头霸王(欧洲版970625)",
@@ -174,9 +246,41 @@
       "crc32": "00000000|crc",
       "db_name": "fba_cps2.lpl"
     },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/dstlk.zip",
+      "label": "恶魔战士-午夜斗士(欧洲版940705)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/nwarr.zip",
       "label": "恶魔猎人-恶魔的复仇(欧洲版950316)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Fba/CPS2/vhunt2.zip",
+      "label": "恶魔猎人2-恶魔的复仇(日版970929)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/vsav.zip",
+      "label": "恶魔救世主-吸血鬼贵族(欧洲版970519)",
+      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
+      "core_name": "fbalpha2012_cps2.dol",
+      "crc32": "00000000|crc",
+      "db_name": "fba_cps2.lpl"
+    },
+    {
+      "path": "usb:/retroarch/Roms/Fba/CPS2/vsav2.zip",
+      "label": "恶魔救世主2-吸血鬼贵族(日版970913)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",
@@ -209,110 +313,6 @@
     {
       "path": "usb:/retroarch/Roms/Fba/CPS2/ringdest.zip",
       "label": "摔跤霸王II(欧洲版940902)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa.zip",
-      "label": "少年街霸-斗士之梦(欧洲版950727)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa2.zip",
-      "label": "少年街霸2(欧洲版960229)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/sfa3.zip",
-      "label": "少年街霸3(欧洲版980904)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/sfz2al.zip",
-      "label": "少年街霸2Alpha(亚洲版960826)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/sgemf.zip",
-      "label": "超级口袋战士(美版970904)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/spf2t.zip",
-      "label": "超级街霸方块II加速版(美版960620)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/ssf2.zip",
-      "label": "超级街头霸王II-新的挑战者(世界版930911)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/ssf2t.zip",
-      "label": "超级街头霸王II加速版(世界版940223)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/vhunt2.zip",
-      "label": "恶魔猎人2-恶魔的复仇(日版970929)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/vsav.zip",
-      "label": "恶魔救世主-吸血鬼贵族(欧洲版970519)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/vsav2.zip",
-      "label": "恶魔救世主2-吸血鬼贵族(日版970913)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/xmcota.zip",
-      "label": "X战警-磁场原子人(欧洲版950105)",
-      "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
-      "core_name": "fbalpha2012_cps2.dol",
-      "crc32": "00000000|crc",
-      "db_name": "fba_cps2.lpl"
-    },
-    {
-      "path": "usb:/retroarch/Roms/Fba/CPS2/xmvsf.zip",
-      "label": "X战警对街头霸王(欧洲版961004)",
       "core_path": "usb:/retroarch/core/fbalpha2012_cps2.dol",
       "core_name": "fbalpha2012_cps2.dol",
       "crc32": "00000000|crc",

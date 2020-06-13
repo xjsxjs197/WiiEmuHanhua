@@ -8,7 +8,7 @@
   "items": [
     {
       "path": "usb:/retroarch/Roms/Md/超级忍2 (简).md",
-      "label": "超级忍2 (简)",
+      "label": "超级忍2",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -16,7 +16,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/大航海时代1 (简).md",
-      "label": "大航海时代1 (简)",
+      "label": "大航海时代1",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -24,7 +24,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/大航海时代2 (简).md",
-      "label": "大航海时代2 (简)",
+      "label": "大航海时代2",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -32,7 +32,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/封神英杰传 (简).md",
-      "label": "封神英杰传 (简)",
+      "label": "封神英杰传",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -40,7 +40,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/光明力量1 - 诸神之遗产 (简).md",
-      "label": "光明力量1 - 诸神之遗产 (简)",
+      "label": "光明力量1-诸神之遗产",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -48,7 +48,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/光明力量2 - 古代之封印 (简).md",
-      "label": "光明力量2 - 古代之封印 (简)",
+      "label": "光明力量2-古代之封印",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -56,7 +56,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/皇帝的财宝 - 秘境魔宝 (简).md",
-      "label": "皇帝的财宝 - 秘境魔宝 (简)",
+      "label": "皇帝的财宝",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -64,7 +64,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/魂斗罗4 - 铁血兵团 (简).md",
-      "label": "魂斗罗4 - 铁血兵团 (简)",
+      "label": "魂斗罗4-铁血兵团",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -72,7 +72,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/梦幻模拟战2 (简).md",
-      "label": "梦幻模拟战2 (简)",
+      "label": "梦幻模拟战2",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -80,7 +80,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/梦幻之星4 - 千年纪的终结 (简) (共享版).md",
-      "label": "梦幻之星4 - 千年纪的终结 (简) (共享版)",
+      "label": "梦幻之星-千年纪的终结",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -88,7 +88,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/怒之铁拳2 - 死斗安魂曲 (简).md",
-      "label": "怒之铁拳2 - 死斗安魂曲 (简)",
+      "label": "怒之铁拳2",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -96,7 +96,7 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/怒之铁拳3 (简).md",
-      "label": "怒之铁拳3 (简)",
+      "label": "怒之铁拳3",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
@@ -104,7 +104,15 @@
     },
     {
       "path": "usb:/retroarch/Roms/Md/幽游白书 - 魔强统一战 (简).md",
-      "label": "幽游白书 - 魔强统一战 (简)",
+      "label": "幽游白书-魔强统一战",
+      "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
+      "core_name": "genesis_plus_gx.dol",
+      "crc32": "00000000|crc",
+      "db_name": "sega_md.lpl"
+    },
+	{
+      "path": "usb:/retroarch/Roms/Md/Golden Axe III (Japan).smd",
+      "label": "战斧3",
       "core_path": "usb:/retroarch/core/genesis_plus_gx.dol",
       "core_name": "genesis_plus_gx.dol",
       "crc32": "00000000|crc",
