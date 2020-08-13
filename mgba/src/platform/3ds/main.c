@@ -109,8 +109,6 @@ static bool sgbCrop = false;
 static aptHookCookie cookie;
 static bool core2;
 
-extern bool allocateRomBuffer(void);
-
 static bool _initGpu(void) {
 	if (!C3D_Init(C3D_DEFAULT_CMDBUF_SIZE)) {
 		return false;
@@ -124,13 +122,27 @@ static bool _initGpu(void) {
 		return false;
 	}
 
-	if (!C3D_TexInitVRAM(&upscaleBufferTex, 512, 512, GPU_RB_RGB8)) {
+	C3D_FrameBegin(0);
+	C3D_FrameDrawOn(bottomScreen[0]);
+	C3D_RenderTargetClear(bottomScreen[0], C3D_CLEAR_COLOR, 0, 0);
+	C3D_FrameDrawOn(topScreen[0]);
+	C3D_RenderTargetClear(topScreen[0], C3D_CLEAR_COLOR, 0, 0);
+	C3D_RenderTargetSetOutput(topScreen[0], GFX_TOP, GFX_LEFT, GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGB8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8));
+	C3D_RenderTargetSetOutput(bottomScreen[0], GFX_BOTTOM, GFX_LEFT, GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGB8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8));
+	C3D_FrameEnd(0);
+
+	if (!C3D_TexInitVRAM(&upscaleBufferTex, 512, 512, GPU_RGB8)) {
 		return false;
 	}
 	upscaleBuffer = C3D_RenderTargetCreateFromTex(&upscaleBufferTex, GPU_TEXFACE_2D, 0, 0);
 	if (!upscaleBuffer) {
 		return false;
 	}
+
+	C3D_FrameBegin(0);
+	C3D_FrameDrawOn(upscaleBuffer);
+	C3D_RenderTargetClear(upscaleBuffer, C3D_CLEAR_COLOR, 0, 0);
+	C3D_FrameEnd(0);
 
 	return ctrInitGpu();
 }
@@ -195,14 +207,13 @@ static void _drawStart(void) {
 		return;
 	}
 	frameStarted = true;
-	u8 flags = 0;
-	if (!frameLimiter) {
+	if (frameLimiter) {
 		if (tickCounter + 4481000 > svcGetSystemTick()) {
-			flags = C3D_FRAME_NONBLOCK;
+			C3D_FrameSync();
 		}
 		tickCounter = svcGetSystemTick();
 	}
-	C3D_FrameBegin(flags);
+	C3D_FrameBegin(0);
 	ctrStartFrame();
 
 	C3D_FrameDrawOn(bottomScreen[doubleBuffer]);
@@ -809,10 +820,6 @@ int main() {
 	camera.bufferSize = 0;
 	camera.cam = SELECT_IN1;
 
-	if (!allocateRomBuffer()) {
-		return 1;
-	}
-
 	aptHook(&cookie, _aptHook, 0);
 
 	ptmuInit();
@@ -845,6 +852,7 @@ int main() {
 		return 1;
 	}
 
+	C3D_TexSetWrap(&upscaleBufferTex, GPU_CLAMP_TO_EDGE, GPU_CLAMP_TO_EDGE);
 	C3D_TexSetFilter(&upscaleBufferTex, GPU_LINEAR, GPU_LINEAR);
 
 	int i;

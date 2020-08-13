@@ -806,7 +806,6 @@ void Window::gameStopped() {
 		action->setEnabled(false);
 	}
 	setWindowFilePath(QString());
-	updateTitle();
 	detachWidget(m_display.get());
 	m_screenWidget->setDimensions(m_logo.width(), m_logo.height());
 	m_screenWidget->setLockIntegerScaling(false);
@@ -834,6 +833,7 @@ void Window::gameStopped() {
 	m_display->stopDrawing();
 
 	m_controller.reset();
+	updateTitle();
 
 	m_display->setVideoProxy({});
 	if (m_pendingClose) {
@@ -860,8 +860,8 @@ void Window::gameCrashed(const QString& errorMessage) {
 }
 
 void Window::gameFailed() {
-	QMessageBox* fail = new QMessageBox(QMessageBox::Warning, tr("Couldn't Load"),
-	                                    tr("Could not load game. Are you sure it's in the correct format?"),
+	QMessageBox* fail = new QMessageBox(QMessageBox::Warning, tr("Couldn't Start"),
+	                                    tr("Could not start game."),
 	                                    QMessageBox::Ok, this, Qt::Sheet);
 	fail->setAttribute(Qt::WA_DeleteOnClose);
 	fail->show();
@@ -960,6 +960,8 @@ void Window::reloadAudioDriver() {
 	m_audioProcessor->start();
 	connect(m_controller.get(), &CoreController::stopping, m_audioProcessor.get(), &AudioProcessor::stop);
 	connect(m_controller.get(), &CoreController::fastForwardChanged, m_audioProcessor.get(), &AudioProcessor::inputParametersChanged);
+	connect(m_controller.get(), &CoreController::paused, m_audioProcessor.get(), &AudioProcessor::pause);
+	connect(m_controller.get(), &CoreController::unpaused, m_audioProcessor.get(), &AudioProcessor::start);
 }
 
 void Window::tryMakePortable() {
@@ -1011,18 +1013,25 @@ void Window::updateTitle(float fps) {
 		const NoIntroDB* db = GBAApp::app()->gameDB();
 		NoIntroGame game{};
 		uint32_t crc32 = 0;
-		m_controller->thread()->core->checksum(m_controller->thread()->core, &crc32, CHECKSUM_CRC32);
-
-		char gameTitle[17] = { '\0' };
 		mCore* core = m_controller->thread()->core;
-		core->getGameTitle(core, gameTitle);
-		title = gameTitle;
+		core->checksum(m_controller->thread()->core, &crc32, CHECKSUM_CRC32);
+		QString filePath = windowFilePath();
+
+		if (m_config->getOption("showFilename").toInt() && !filePath.isNull()) {
+			QFileInfo fileInfo(filePath);
+			title = fileInfo.fileName();
+		} else {
+			char gameTitle[17] = { '\0' };
+			core->getGameTitle(core, gameTitle);
+			title = gameTitle;
 
 #ifdef USE_SQLITE3
-		if (db && crc32 && NoIntroDBLookupGameByCRC(db, crc32, &game)) {
-			title = QLatin1String(game.name);
-		}
+			if (db && crc32 && NoIntroDBLookupGameByCRC(db, crc32, &game)) {
+				title = QLatin1String(game.name);
+			}
 #endif
+		}
+		
 		MultiplayerController* multiplayer = m_controller->multiplayerController();
 		if (multiplayer && multiplayer->attached() > 1) {
 			title += tr(" -  Player %1 of %2").arg(multiplayer->playerId(m_controller.get()) + 1).arg(multiplayer->attached());
@@ -1105,7 +1114,7 @@ void Window::setupMenu(QMenuBar* menubar) {
 	}, "file");
 #endif
 
-	m_actions.addAction(tr("Replace ROM..."), "replaceROM", this, &Window::replaceROM, "file");
+	addGameAction(tr("Replace ROM..."), "replaceROM", this, &Window::replaceROM, "file");
 
 	Action* romInfo = addGameAction(tr("ROM &info..."), "romInfo", openControllerTView<ROMInfo>(), "file");
 
@@ -1617,6 +1626,13 @@ void Window::setupMenu(QMenuBar* menubar) {
 		}
 	}, this);
 
+	ConfigOption* videoScale = m_config->addOption("videoScale");
+	videoScale->connect([this](const QVariant& value) {
+		if (m_display) {
+			m_display->setVideoScale(value.toInt());
+		}
+	}, this);
+
 	m_actions.addHiddenAction(tr("Exit fullscreen"), "exitFullScreen", this, &Window::exitFullScreen, "frame", QKeySequence("Esc"));
 
 	m_actions.addHeldAction(tr("GameShark Button (held)"), "holdGSButton", [this](bool held) {
@@ -1781,7 +1797,6 @@ void Window::updateFrame() {
 
 void Window::setController(CoreController* controller, const QString& fname) {
 	if (!controller) {
-		gameFailed();
 		return;
 	}
 	if (m_pendingClose) {

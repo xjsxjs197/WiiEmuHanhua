@@ -50,10 +50,6 @@ struct PerfOpts {
 	bool server;
 };
 
-#ifdef _3DS
-extern bool allocateRomBuffer(void);
-FS_Archive sdmcArchive;
-#endif
 #ifdef __SWITCH__
 TimeType __nx_time_type = TimeType_LocalSystemClock;
 #endif
@@ -63,12 +59,13 @@ static void _mPerfShutdown(int signal);
 static bool _parsePerfOpts(struct mSubParser* parser, int option, const char* arg);
 static void _log(struct mLogger*, int, enum mLogLevel, const char*, va_list);
 static bool _mPerfRunCore(const char* fname, const struct mArguments*, const struct PerfOpts*);
-static bool _mPerfRunServer(const char* listen, const struct mArguments*, const struct PerfOpts*);
+static bool _mPerfRunServer(const struct mArguments*, const struct PerfOpts*);
 
 static bool _dispatchExiting = false;
 static struct VFile* _savestate = 0;
 static void* _outputBuffer = NULL;
 static Socket _socket = INVALID_SOCKET;
+static Socket _server = INVALID_SOCKET;
 
 int main(int argc, char** argv) {
 #ifdef _3DS
@@ -76,9 +73,6 @@ int main(int argc, char** argv) {
     gfxInitDefault();
     osSetSpeedupEnable(true);
 	consoleInit(GFX_BOTTOM, NULL);
-	if (!allocateRomBuffer()) {
-		return 1;
-	}
 #elif defined(__SWITCH__)
 	UNUSED(_mPerfShutdown);
 	consoleInit(NULL);
@@ -100,7 +94,7 @@ int main(int argc, char** argv) {
 
 	struct mArguments args = {};
 	bool parsed = parseArguments(&args, argc, argv, &subparser);
-	if (!args.fname) {
+	if (!args.fname && !perfOpts.server) {
 		parsed = false;
 	}
 	if (!parsed || args.showHelp) {
@@ -127,7 +121,7 @@ int main(int argc, char** argv) {
 #endif
 	}
 	if (perfOpts.server) {
-		didFail = !_mPerfRunServer(args.fname, &args, &perfOpts);
+		didFail = !_mPerfRunServer(&args, &perfOpts);
 	} else {
 		didFail = !_mPerfRunCore(args.fname, &args, &perfOpts);
 	}
@@ -266,19 +260,24 @@ static void _mPerfRunloop(struct mCore* core, int* frames, bool quiet) {
 	}
 }
 
-static bool _mPerfRunServer(const char* listen, const struct mArguments* args, const struct PerfOpts* perfOpts) {
+static bool _mPerfRunServer(const struct mArguments* args, const struct PerfOpts* perfOpts) {
 	SocketSubsystemInit();
-	Socket server = SocketOpenTCP(7216, NULL);
-	if (SOCKET_FAILED(server)) {
+	_server = SocketOpenTCP(7216, NULL);
+	if (SOCKET_FAILED(_server)) {
 		SocketSubsystemDeinit();
 		return false;
 	}
-	if (SOCKET_FAILED(SocketListen(server, 0))) {
-		SocketClose(server);
+	if (SOCKET_FAILED(SocketListen(_server, 0))) {
+		SocketClose(_server);
 		SocketSubsystemDeinit();
 		return false;
 	}
-	_socket = SocketAccept(server, NULL);
+	_socket = SocketAccept(_server, NULL);
+	if (SOCKET_FAILED(_socket)) {
+		SocketClose(_server);
+		SocketSubsystemDeinit();
+		return false;
+	}
 	if (perfOpts->csv) {
 		const char* header = "game_code,frames,duration,renderer\n";
 		SocketSend(_socket, header, strlen(header));
@@ -301,7 +300,7 @@ static bool _mPerfRunServer(const char* listen, const struct mArguments* args, c
 		memset(path, 0, sizeof(path));
 	}
 	SocketClose(_socket);
-	SocketClose(server);
+	SocketClose(_server);
 	SocketSubsystemDeinit();
 	return true;
 }
@@ -310,6 +309,7 @@ static void _mPerfShutdown(int signal) {
 	UNUSED(signal);
 	_dispatchExiting = true;
 	SocketClose(_socket);
+	SocketClose(_server);
 }
 
 static bool _parsePerfOpts(struct mSubParser* parser, int option, const char* arg) {

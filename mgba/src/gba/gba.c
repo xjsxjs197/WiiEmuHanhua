@@ -132,7 +132,9 @@ void GBAUnloadROM(struct GBA* gba) {
 		if (gba->yankedRomSize) {
 			gba->yankedRomSize = 0;
 		}
+#if !defined(FIXED_ROM_BUFFER) && !defined(__wii__)
 		mappedMemoryFree(gba->memory.rom, SIZE_CART0);
+#endif
 	}
 
 	if (gba->romVf) {
@@ -238,8 +240,16 @@ void GBAReset(struct ARMCore* cpu) {
 
 	gba->debug = false;
 	memset(gba->debugString, 0, sizeof(gba->debugString));
-	if (gba->pristineRomSize > SIZE_CART0) {
-		GBAMatrixReset(gba);
+
+
+	if (gba->romVf && gba->pristineRomSize > SIZE_CART0) {
+		char ident;
+		gba->romVf->seek(gba->romVf, 0xAC, SEEK_SET);
+		gba->romVf->read(gba->romVf, &ident, 1);
+		gba->romVf->seek(gba->romVf, 0, SEEK_SET);
+		if (ident == 'M') {
+			GBAMatrixReset(gba);
+		}
 	}
 }
 
@@ -249,7 +259,7 @@ void GBASkipBIOS(struct GBA* gba) {
 		if (gba->memory.rom) {
 			cpu->gprs[ARM_PC] = BASE_CART0;
 		} else {
-			cpu->gprs[ARM_PC] = BASE_WORKING_RAM;
+			cpu->gprs[ARM_PC] = BASE_WORKING_RAM + 0xC0;
 		}
 		gba->video.vcount = 0x7D;
 		gba->memory.io[REG_VCOUNT >> 1] = 0x7D;
@@ -376,12 +386,20 @@ bool GBALoadROM(struct GBA* gba, struct VFile* vf) {
 	vf->seek(vf, 0, SEEK_SET);
 	if (gba->pristineRomSize > SIZE_CART0) {
 		gba->isPristine = false;
-		gba->memory.romSize = 0x01000000;
+		char ident;
+		vf->seek(vf, 0xAC, SEEK_SET);
+		vf->read(vf, &ident, 1);
+		if (ident == 'M') {
+			gba->memory.romSize = 0x01000000;
 #ifdef FIXED_ROM_BUFFER
-		gba->memory.rom = romBuffer;
+			gba->memory.rom = romBuffer;
 #else
-		gba->memory.rom = anonymousMemoryMap(SIZE_CART0);
+			gba->memory.rom = anonymousMemoryMap(SIZE_CART0);
 #endif
+		} else {
+			gba->memory.rom = vf->map(vf, SIZE_CART0, MAP_READ);
+			gba->memory.romSize = SIZE_CART0;
+		}
 	} else {
 		gba->isPristine = true;
 		gba->memory.rom = vf->map(vf, gba->pristineRomSize, MAP_READ);
@@ -417,7 +435,7 @@ bool GBALoadROM(struct GBA* gba, struct VFile* vf) {
 
 bool GBALoadSave(struct GBA* gba, struct VFile* sav) {
 	GBASavedataInit(&gba->memory.savedata, sav);
-	return true;
+	return sav;
 }
 
 void GBAYankROM(struct GBA* gba) {
@@ -428,12 +446,20 @@ void GBAYankROM(struct GBA* gba) {
 }
 
 void GBALoadBIOS(struct GBA* gba, struct VFile* vf) {
-	gba->biosVf = vf;
+	if (vf->size(vf) != SIZE_BIOS) {
+		mLOG(GBA, WARN, "Incorrect BIOS size");
+		return;
+	}
 	uint32_t* bios = vf->map(vf, SIZE_BIOS, MAP_READ);
 	if (!bios) {
 		mLOG(GBA, WARN, "Couldn't map BIOS");
 		return;
 	}
+	if (gba->biosVf) {
+		gba->biosVf->unmap(gba->biosVf, gba->memory.bios, SIZE_BIOS);
+		gba->biosVf->close(gba->biosVf);
+	}
+	gba->biosVf = vf;
 	gba->memory.bios = bios;
 	gba->memory.fullBios = 1;
 	uint32_t checksum = GBAChecksum(gba->memory.bios, SIZE_BIOS);
