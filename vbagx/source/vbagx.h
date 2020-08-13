@@ -17,7 +17,7 @@
 #include "utils/FreeTypeGX.h"
 
 #define APPNAME 		"Visual Boy Advance GX"
-#define APPVERSION 		"2.4.0"
+#define APPVERSION 		"2.4.1"
 #define APPFOLDER 		"vbagx"
 #define PREF_FILE_NAME 	"settings.xml"
 #define PAL_FILE_NAME 	"palettes.xml"
@@ -26,7 +26,7 @@
 #define SILENT 1
 
 const char pathPrefix[9][8] =
-{ "", "sd:/", "usb:/", "dvd:/", "smb:/", "carda:/", "cardb:/" };
+{ "", "sd:/", "usb:/", "dvd:/", "smb:/", "carda:/", "cardb:/", "port2:/" };
 
 enum 
 {
@@ -36,7 +36,8 @@ enum
 	DEVICE_DVD,
 	DEVICE_SMB,
 	DEVICE_SD_SLOTA,
-	DEVICE_SD_SLOTB
+	DEVICE_SD_SLOTB,
+	DEVICE_SD_PORT2
 };
 
 enum 
@@ -115,8 +116,6 @@ struct SGCSettings
 	char	smbshare[20];
 };
 
-char* ImageFolder();
-
 void ExitApp();
 void ShutdownWii();
 bool SupportedIOS(u32 ios);
@@ -129,5 +128,14 @@ extern int ExitRequested;
 extern char appPath[];
 
 extern FreeTypeGX *fontSystem[];
+extern bool isWiiVC;
+static inline bool IsWiiU(void)
+{
+	return ((*(vu16*)0xCD8005A0 == 0xCAFE) || isWiiVC);
+}
+static inline bool IsWiiUFastCPU(void)
+{
+	return ((*(vu16*)0xCD8005A0 == 0xCAFE) && ((*(vu32*)0xCD8005B0 & 0x20) == 0));
+}
 
 #endif

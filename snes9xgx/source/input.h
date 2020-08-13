@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May-June 2007
  * Michniewski 2008
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * input.h
  *
@@ -35,5 +35,8 @@ void SetDefaultButtonMap ();
 bool MenuRequested();
 void SetupPads();
 void UpdatePads();
+#ifdef HW_RVL
+char* GetUSBControllerInfo();
+#endif
 
 #endif

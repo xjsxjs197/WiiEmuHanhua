@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May 2007-July 2007
  * Michniewski 2008
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * snes9xgx.h
  *
@@ -20,7 +20,7 @@
 #include "filelist.h"
 
 #define APPNAME 			"Snes9x GX"
-#define APPVERSION 			"4.4.4"
+#define APPVERSION 			"4.4.8"
 #define APPFOLDER 			"snes9xgx"
 #define PREF_FILE_NAME		"settings.xml"
 
@@ -29,7 +29,7 @@
 #define SILENT 1
 
 const char pathPrefix[9][8] =
-{ "", "sd:/", "usb:/", "dvd:/", "smb:/", "carda:/", "cardb:/" };
+{ "", "sd:/", "usb:/", "dvd:/", "smb:/", "carda:/", "cardb:/", "port2:/" };
 
 enum {
 	DEVICE_AUTO,
@@ -38,7 +38,8 @@ enum {
 	DEVICE_DVD,
 	DEVICE_SMB,
 	DEVICE_SD_SLOTA,
-	DEVICE_SD_SLOTB
+	DEVICE_SD_SLOTB,
+	DEVICE_SD_PORT2
 };
 
 enum {
@@ -60,7 +61,7 @@ enum
 };
 
 const char ctrlName[6][24] =
-{ "SNES Controller", "SNES Mouse", "Superscope", "Justifier", "SNES Controllers (2)", "SNES Controllers (4)" };
+{ "SNES Controller", "SNES Mouse", "Super Scope", "Justifier", "SNES Controllers (2)", "SNES Controllers (4)" };
 
 enum {
 	LANG_JAPANESE = 0,
@@ -123,8 +124,6 @@ struct SGCSettings{
 	int		Interpolation;
 };
 
-char* ImageFolder();
-
 void ExitApp();
 void ShutdownWii();
 bool SupportedIOS(u32 ios);
@@ -136,5 +135,13 @@ extern int ShutdownRequested;
 extern int ExitRequested;
 extern char appPath[];
 extern FreeTypeGX *fontSystem[];
-
+extern bool isWiiVC;
+static inline bool IsWiiU(void)
+{
+	return ((*(vu16*)0xCD8005A0 == 0xCAFE) || isWiiVC);
+}
+static inline bool IsWiiUFastCPU(void)
+{
+	return ((*(vu16*)0xCD8005A0 == 0xCAFE) && ((*(vu32*)0xCD8005B0 & 0x20) == 0));
+}
 #endif

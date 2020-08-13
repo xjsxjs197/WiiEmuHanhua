@@ -2,6 +2,8 @@
 
 all: wii
 
+run: wii-run
+
 clean: wii-clean
 
 wii:
@@ -10,5 +12,5 @@ wii:
 wii-clean:
 	$(MAKE) -f Makefile.wii clean
 
-wii-run:
+wii-run: wii
 	$(MAKE) -f Makefile.wii run

@@ -430,12 +430,6 @@ msgstr "网络共享"
 msgid "New"
 msgstr "新的"
 
-msgid "New Snapshot"
-msgstr "新的截图"
-
-msgid "New SRAM"
-msgstr "新的SRAM"
-
 msgid "No"
 msgstr "否"
 
@@ -631,11 +625,8 @@ msgstr "保存游戏"
 msgid "Save RAM and State?"
 msgstr "保存RAM和状态吗？"
 
-msgid "Save Snapshot?"
-msgstr "保存截图吗？"
-
-msgid "Save SRAM and Snapshot?"
-msgstr "保存SRAM和截图吗？"
+msgid "Save SRAM and State?"
+msgstr "保存SRAM和状态吗？"
 
 msgid "Save State?"
 msgstr "保存状态吗？"
@@ -703,12 +694,6 @@ msgstr "SMB共享密码"
 msgid "SMB Share Username"
 msgstr "SMB共享用户名"
 
-msgid "Snapshot"
-msgstr "截图"
-
-msgid "Snapshot (Auto)"
-msgstr "截图(自动)"
-
 msgid "SNES Controller"
 msgstr "超级任天堂 控制器"
 
@@ -763,9 +748,6 @@ msgstr "START"
 msgid "State"
 msgstr "状态"
 
-msgid "State (Auto)"
-msgstr "状态(自动)"
-
 msgid "State file not found"
 msgstr "未找到状态文件"
 
@@ -799,8 +781,8 @@ msgstr "无法定位读取的设备！"
 msgid "Unable to locate a save device!"
 msgstr "无法定位保存的设备！"
 
-msgid "Unable to open snapshot!"
-msgstr "无法打开截图！"
+msgid "Unable to open state!"
+msgstr "无法打开状态！"
 
 msgid "Unfiltered"
 msgstr "没有过滤"
@@ -1039,7 +1021,7 @@ msgstr "截图目录"
 msgid "WiiU Pro controller"
 msgstr "WiiU Pro 控制器"
 
-msgid "ScreenShot"
+msgid "Screenshot"
 msgstr "屏幕截图"
 
 msgid "Preview Screenshot"
@@ -1051,7 +1033,7 @@ msgstr "保存一个新的预览截图吗？ 当前预览截图将会被覆盖�
 msgid "Preview Image"
 msgstr "预览图片"
 
-msgid "Artworks Folder"
+msgid "Artwork Folder"
 msgstr "插图目录"
 
 msgid "Emulation"
@@ -1077,3 +1059,6 @@ msgstr "GBA 固定像素比例"
 
 msgid "GBA Frameskip"
 msgstr "GBA 跳帧"
+
+msgid "Wii U Pro Controller"
+msgstr "Wii U Pro 控制器"

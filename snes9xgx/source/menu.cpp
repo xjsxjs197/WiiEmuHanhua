@@ -1,7 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * menu.cpp
  *
@@ -146,7 +146,7 @@ void ChangeLanguage() {
 		return;
 	}
 
-	if(GCSettings.language == LANG_JAPANESE || GCSettings.language == LANG_KOREAN) {
+	if(GCSettings.language == LANG_JAPANESE || GCSettings.language == LANG_KOREAN || GCSettings.language == LANG_SIMP_CHINESE) {
 #ifdef HW_RVL
 		char filepath[MAXPATHLEN];
 
@@ -156,6 +156,9 @@ void ChangeLanguage() {
 				break;
 			case LANG_JAPANESE:
 				sprintf(filepath, "%s/jp.ttf", appPath);
+				break;
+			case LANG_SIMP_CHINESE:
+				sprintf(filepath, "%s/zh.ttf", appPath);
 				break;
 		}
 
@@ -598,7 +601,7 @@ void InfoPrompt(const char *msg)
 /****************************************************************************
  * AutoSave
  *
- * Automatically saves SRAM/snapshot when returning from in-game to the menu
+ * Automatically saves SRAM/state when returning from in-game to the menu
  ***************************************************************************/
 void AutoSave()
 {
@@ -608,12 +611,12 @@ void AutoSave()
 	}
 	else if (GCSettings.AutoSave == 2)
 	{
-		if (WindowPrompt("Save", "Save Snapshot?", "Save", "Don't Save") )
+		if (WindowPrompt("Save", "Save State?", "Save", "Don't Save") )
 			SaveSnapshotAuto(NOTSILENT);
 	}
 	else if (GCSettings.AutoSave == 3)
 	{
-		if (WindowPrompt("Save", "Save SRAM and Snapshot?", "Save", "Don't Save") )
+		if (WindowPrompt("Save", "Save SRAM and State?", "Save", "Don't Save") )
 		{
 			SaveSRAMAuto(NOTSILENT);
 			SaveSnapshotAuto(NOTSILENT);
@@ -812,7 +815,7 @@ static void WindowCredits(void * ptr)
 	creditsBoxImg.SetAlignment(ALIGN_CENTRE, ALIGN_MIDDLE);
 	creditsWindowBox.Append(&creditsBoxImg);
 
-	int numEntries = 23;
+	int numEntries = 24;
 	GuiText * txt[numEntries];
 
 	txt[i] = new GuiText("Credits", 30, (GXColor){0, 0, 0, 255});
@@ -852,31 +855,46 @@ static void WindowCredits(void * ptr)
 
 	txt[i] = new GuiText("libogc / devkitPPC");
 	txt[i]->SetPosition(60,y); i++;
-	txt[i] = new GuiText("shagkur & wintermute");
+	txt[i] = new GuiText("shagkur & WinterMute");
 	txt[i]->SetPosition(350,y); i++; y+=24;
 	txt[i] = new GuiText("FreeTypeGX");
 	txt[i]->SetPosition(60,y); i++;
 	txt[i] = new GuiText("Armin Tamzarian");
-	txt[i]->SetPosition(350,y); i++; y+=48;
+	txt[i]->SetPosition(350,y); i++;
 
-	GuiText::SetPresets(18, (GXColor){0, 0, 0, 255}, 0, FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP, ALIGN_CENTRE, ALIGN_TOP);
-
-	txt[i] = new GuiText("Snes9x - Copyright (c) Snes9x Team 1996 - 2006");
-	txt[i]->SetPosition(0,y); i++; y+=20;
-	txt[i] = new GuiText("This software is open source and may be copied, distributed, or modified ");
-	txt[i]->SetPosition(0,y); i++; y+=20;
-	txt[i] = new GuiText("under the terms of the GNU General Public License (GPL) Version 2.");
-	txt[i]->SetPosition(0,y); i++; y+=20;
-
-	char iosVersion[20];
+	char wiiDetails[30];
+	char wiiInfo[20];
+	char controllerInfo[70];
 
 #ifdef HW_RVL
-	sprintf(iosVersion, "IOS: %ld", IOS_GetVersion());
+	if(!IsWiiU()) {
+		sprintf(wiiInfo, "Wii");
+	}
+	else if(IsWiiUFastCPU()) {
+		sprintf(wiiInfo, "vWii (1.215 GHz)");
+	}
+	else {
+		sprintf(wiiInfo, "vWii (729 MHz)");
+	}
+	sprintf(wiiDetails, "IOS: %d / %s", IOS_GetVersion(), wiiInfo);
+	sprintf(controllerInfo, GetUSBControllerInfo());
 #endif
 
-	txt[i] = new GuiText(iosVersion, 18, (GXColor){0, 0, 0, 255});
+	txt[i] = new GuiText(controllerInfo, 14, (GXColor){0, 0, 0, 255});
 	txt[i]->SetAlignment(ALIGN_LEFT, ALIGN_BOTTOM);
-	txt[i]->SetPosition(20,-20);
+	txt[i]->SetPosition(20,-60); i++;
+	txt[i] = new GuiText(wiiDetails, 14, (GXColor){0, 0, 0, 255});
+	txt[i]->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	txt[i]->SetPosition(-20,-60); i++;
+
+	GuiText::SetPresets(12, (GXColor){0, 0, 0, 255}, 0, FTGX_JUSTIFY_CENTER | FTGX_ALIGN_TOP, ALIGN_CENTRE, ALIGN_BOTTOM);
+
+	txt[i] = new GuiText("Snes9x - Copyright (c) Snes9x Team 1996 - 2006");
+	txt[i]->SetPosition(0,-44); i++;
+	txt[i] = new GuiText("This software is open source and may be copied, distributed, or modified ");
+	txt[i]->SetPosition(0,-32); i++;
+	txt[i] = new GuiText("under the terms of the GNU General Public License (GPL) Version 2.");
+	txt[i]->SetPosition(0,-20);
 
 	for(i=0; i < numEntries; i++)
 		creditsWindowBox.Append(txt[i]);
@@ -933,6 +951,16 @@ static void WindowCredits(void * ptr)
  * Displays a list of games on the specified load device, and allows the user
  * to browse and select from this list.
  ***************************************************************************/
+static char* getImageFolder()
+{
+	switch(GCSettings.PreviewImage)
+	{
+		case 1 : return GCSettings.CoverFolder; break;
+		case 2 : return GCSettings.ArtworkFolder; break;
+		default: return GCSettings.ScreenshotsFolder; break;
+	}
+}
+
 static int MenuGameSelection()
 {
 	int menu = MENU_NONE;
@@ -1102,27 +1130,18 @@ static int MenuGameSelection()
 		{			
 			previousBrowserIndex = browser.selIndex;
 			previousPreviewImg = GCSettings.PreviewImage;
-			snprintf(imagePath, MAXJOLIET, "%s%s/%s.png", pathPrefix[GCSettings.LoadMethod], ImageFolder(), browserList[browser.selIndex].displayname);
+			snprintf(imagePath, MAXJOLIET, "%s%s/%s.png", pathPrefix[GCSettings.LoadMethod], getImageFolder(), browserList[browser.selIndex].displayname);
 			
-			AllocSaveBuffer();
 			int width, height;
-			if(LoadFile(imagePath, SILENT))
+			if(DecodePNGFromFile(imagePath, &width, &height, imgBuffer, 512, 512))
 			{
-				if(DecodePNG(savebuffer, &width, &height, imgBuffer, 512, 512))
-				{
-					preview.SetImage(imgBuffer, width, height);
-					preview.SetScale( MIN(225.0f / width, 235.0f / height) );
-				}
-				else
-				{
-					preview.SetImage(NULL, 0, 0);
-				}
+				preview.SetImage(imgBuffer, width, height);
+				preview.SetScale( MIN(225.0f / width, 235.0f / height) );
 			}
-			else 
+			else
 			{
 				preview.SetImage(NULL, 0, 0);
 			}
-			FreeSaveBuffer();
 		}
 
 		if(settingsBtn.GetState() == STATE_CLICKED)
@@ -1835,17 +1854,17 @@ static int MenuGameSaves(int action)
 						case FILE_SRAM:
 							strncpy(deletepath, filepath, 1024);
 							deletepath[strlen(deletepath)-4] = 0;
-							sprintf(deletepath, "%s.srm", deletepath);
+							strcat(deletepath, ".srm");
 							remove(deletepath); // Delete the *.srm file (Battery save file)
 						break;
 						case FILE_SNAPSHOT:
 							strncpy(deletepath, filepath, 1024);
 							deletepath[strlen(deletepath)-4] = 0;
-							sprintf(deletepath, "%s.png", deletepath);
+							strcat(deletepath, ".png");
 							remove(deletepath); // Delete the *.png file (Screenshot file)
 							strncpy(deletepath, filepath, 1024);
 							deletepath[strlen(deletepath)-4] = 0;
-							sprintf(deletepath, "%s.frz", deletepath);
+							strcat(deletepath, ".frz");
 							remove(deletepath); // Delete the *.frz file (Save State file)
 						break;
 					}							
@@ -1867,7 +1886,7 @@ static int MenuGameSaves(int action)
 						menu = MENU_GAME_SAVE;
 					}
 				}
-				else if(ret == -1) // new Snapshot
+				else if(ret == -1) // new State
 				{
 					for(i=1; i < 100; i++)
 						if(saves.files[FILE_SNAPSHOT][i] == 0)
@@ -1880,7 +1899,7 @@ static int MenuGameSaves(int action)
 						menu = MENU_GAME_SAVE;
 					}
 				}
-				else // overwrite SRAM/Snapshot
+				else // overwrite SRAM/State
 				{
 					MakeFilePath(filepath, saves.type[ret], saves.filename[ret]);
 					switch(saves.type[ret])
@@ -2032,7 +2051,7 @@ static int MenuGameSettings()
 	controllerBtn.SetTrigger(trig2);
 	controllerBtn.SetEffectGrow();
 
-	GuiText screenshotBtnTxt("ScreenShot", 22, (GXColor){0, 0, 0, 255});
+	GuiText screenshotBtnTxt("Screenshot", 22, (GXColor){0, 0, 0, 255});
 	GuiImage screenshotBtnImg(&btnLargeOutline);
 	GuiImage screenshotBtnImgOver(&btnLargeOutlineOver);
 	GuiImage screenshotBtnIcon(&iconScreenshot);
@@ -2194,7 +2213,7 @@ static int MenuGameCheats()
 
 	for(i=0; i < Cheat.g.size(); i++)
 	{
-		sprintf (options.name[i], "%s", Cheat.g[i].name);
+		snprintf (options.name[i], 50, "%s", Cheat.g[i].name);
 		sprintf (options.value[i], "%s", Cheat.g[i].enabled == true ? "On" : "Off");
 	}
 
@@ -2828,7 +2847,7 @@ static int MenuSettingsMappingsMap()
 	backBtn.SetTrigger(trig2);
 	backBtn.SetEffectGrow();
 
-	GuiText resetBtnTxt("Reset", 22, (GXColor){0, 0, 0, 255});
+	GuiText resetBtnTxt("Reset Mappings", 22, (GXColor){0, 0, 0, 255});
 	GuiImage resetBtnImg(&btnShortOutline);
 	GuiImage resetBtnImgOver(&btnShortOutlineOver);
 	GuiButton resetBtn(btnShortOutline.GetWidth(), btnShortOutline.GetHeight());
@@ -3117,8 +3136,13 @@ static void ScreenPositionWindowUpdate(void * ptr, int x, int y)
 		GCSettings.xshift += x;
 		GCSettings.yshift += y;
 
+		if(!(GCSettings.xshift > -50 && GCSettings.xshift < 50))
+			GCSettings.xshift = 0;
+		if(!(GCSettings.yshift > -50 && GCSettings.yshift < 50))
+			GCSettings.yshift = 0;
+
 		char shift[10];
-		sprintf(shift, "%i, %i", GCSettings.xshift, GCSettings.yshift);
+		sprintf(shift, "%hd, %hd", GCSettings.xshift, GCSettings.yshift);
 		settingText->SetText(shift);
 		b->ResetState();
 	}
@@ -3410,9 +3434,9 @@ static int MenuSettingsVideo()
 				case 0:
 					sprintf (options.value[9], "Default"); break;
 				case 1:
-					sprintf (options.value[9], "40 Mhz"); break;
+					sprintf (options.value[9], "40 MHz"); break;
 				case 2:
-					sprintf (options.value[9], "60 Mhz"); break;
+					sprintf (options.value[9], "60 MHz"); break;
 			}
 			optionBrowser.TriggerUpdate();
 		}
@@ -3844,6 +3868,10 @@ static int MenuSettingsFile()
 				GCSettings.LoadMethod++;
 			if(GCSettings.SaveMethod == DEVICE_SD_SLOTB)
 				GCSettings.SaveMethod++;
+			if(GCSettings.LoadMethod == DEVICE_SD_PORT2)
+				GCSettings.LoadMethod++;
+			if(GCSettings.SaveMethod == DEVICE_SD_PORT2)
+				GCSettings.SaveMethod++;
 			#endif
 
 			// correct load/save methods out of bounds
@@ -3859,6 +3887,7 @@ static int MenuSettingsFile()
 			else if (GCSettings.LoadMethod == DEVICE_SMB) sprintf (options.value[0],"Network");
 			else if (GCSettings.LoadMethod == DEVICE_SD_SLOTA) sprintf (options.value[0],"SD Gecko Slot A");
 			else if (GCSettings.LoadMethod == DEVICE_SD_SLOTB) sprintf (options.value[0],"SD Gecko Slot B");
+			else if (GCSettings.LoadMethod == DEVICE_SD_PORT2) sprintf (options.value[0],"SD in SP2");
 
 			if (GCSettings.SaveMethod == DEVICE_AUTO) sprintf (options.value[1],"Auto Detect");
 			else if (GCSettings.SaveMethod == DEVICE_SD) sprintf (options.value[1],"SD");
@@ -3866,6 +3895,7 @@ static int MenuSettingsFile()
 			else if (GCSettings.SaveMethod == DEVICE_SMB) sprintf (options.value[1],"Network");
 			else if (GCSettings.SaveMethod == DEVICE_SD_SLOTA) sprintf (options.value[1],"SD Gecko Slot A");
 			else if (GCSettings.SaveMethod == DEVICE_SD_SLOTB) sprintf (options.value[1],"SD Gecko Slot B");
+			else if (GCSettings.SaveMethod == DEVICE_SD_PORT2) sprintf (options.value[1],"SD in SP2");
 
 			snprintf (options.value[2], 35, "%s", GCSettings.LoadFolder);
 			snprintf (options.value[3], 35, "%s", GCSettings.SaveFolder);
@@ -3876,11 +3906,11 @@ static int MenuSettingsFile()
 
 			if (GCSettings.AutoLoad == 0) sprintf (options.value[8],"Off");
 			else if (GCSettings.AutoLoad == 1) sprintf (options.value[8],"SRAM");
-			else if (GCSettings.AutoLoad == 2) sprintf (options.value[8],"Snapshot");
+			else if (GCSettings.AutoLoad == 2) sprintf (options.value[8],"State");
 
 			if (GCSettings.AutoSave == 0) sprintf (options.value[9],"Off");
 			else if (GCSettings.AutoSave == 1) sprintf (options.value[9],"SRAM");
-			else if (GCSettings.AutoSave == 2) sprintf (options.value[9],"Snapshot");
+			else if (GCSettings.AutoSave == 2) sprintf (options.value[9],"State");
 			else if (GCSettings.AutoSave == 3) sprintf (options.value[9],"Both");
 
 			if (GCSettings.AppendAuto == 0) sprintf (options.value[10], "Off");
@@ -3996,17 +4026,11 @@ static int MenuSettingsMenu()
 			case 5:
 				GCSettings.language++;
 				
-				if(GCSettings.language >= LANG_LENGTH)
+				if(GCSettings.language == LANG_TRAD_CHINESE) // skip (not supported)
+					GCSettings.language = LANG_KOREAN;
+				else if(GCSettings.language >= LANG_LENGTH)
 					GCSettings.language = LANG_JAPANESE;
-
-				if(GCSettings.language == LANG_SIMP_CHINESE)
-				    // update start by xjsxjs197
-					//GCSettings.language = LANG_KOREAN;
-					GCSettings.language = LANG_SIMP_CHINESE;
-					// update end by xjsxjs197
-	
 				break;
-				
 			case 6:
 				GCSettings.PreviewImage++;
 				if(GCSettings.PreviewImage > 2)

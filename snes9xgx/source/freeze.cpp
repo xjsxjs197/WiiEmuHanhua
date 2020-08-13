@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May 2007-July 2007
  * Michniewski 2008
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * freeze.cpp
  ***************************************************************************/
@@ -54,7 +54,7 @@ SaveSnapshot (char * filepath, bool silent)
 		char screenpath[1024];
 		strcpy(screenpath, filepath);
 		screenpath[strlen(screenpath)-4] = 0;
-		sprintf(screenpath, "%s.png", screenpath);
+		strcat(screenpath, ".png");
 		SaveFile((char *)gameScreenPng, screenpath, gameScreenPngSize, silent);
 	}
 
@@ -102,7 +102,7 @@ LoadSnapshot (char * filepath, bool silent)
 	if(!fp)
 	{
 		if(!silent)
-			ErrorPrompt("Unable to open snapshot!");
+			ErrorPrompt("Unable to open state!");
 		return 0;
 	}
 
@@ -157,7 +157,7 @@ int SavePreviewImg (char * filepath, bool silent)
 		char screenpath[1024];
 		strcpy(screenpath, filepath);
 		screenpath[strlen(screenpath)] = 0;
-		sprintf(screenpath, "%s.png", screenpath);
+		strcat(screenpath, ".png");
 		SaveFile((char *)gameScreenPng, screenpath, gameScreenPngSize, silent);
 	}
 	return 1;

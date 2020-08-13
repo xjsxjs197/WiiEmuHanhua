@@ -672,13 +672,8 @@ DefaultSettings ()
 #ifdef HW_RVL
 	GCSettings.language = CONF_GetLanguage();
 
-	if(GCSettings.language == LANG_JAPANESE || 
-	    // upd start by xjsxjs197 2018/09/03
-		//GCSettings.language == LANG_SIMP_CHINESE || 
-		// upd end by xjsxjs197 2018/09/03
-		GCSettings.language == LANG_TRAD_CHINESE || 
-		GCSettings.language == LANG_KOREAN)
-		GCSettings.language = LANG_ENGLISH;
+	if(GCSettings.language == LANG_TRAD_CHINESE)
+		GCSettings.language = LANG_SIMP_CHINESE;
 #else
 	GCSettings.language = LANG_ENGLISH;
 #endif
@@ -821,9 +816,10 @@ bool LoadPrefs()
 	sprintf(filepath[3], "sd:/%s", APPFOLDER);
 	sprintf(filepath[4], "usb:/%s", APPFOLDER);
 #else
-	numDevices = 2;
+	numDevices = 3;
 	sprintf(filepath[0], "carda:/%s", APPFOLDER);
 	sprintf(filepath[1], "cardb:/%s", APPFOLDER);
+	sprintf(filepath[2], "port2:/%s", APPFOLDER);
 #endif
 
 	for(int i=0; i<numDevices; i++)

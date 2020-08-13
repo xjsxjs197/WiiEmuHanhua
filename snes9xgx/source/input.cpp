@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May-June 2007
  * Michniewski 2008
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * input.cpp
  *
@@ -37,6 +37,8 @@
 
 #ifdef HW_RVL
 #include "utils/retrode.h"
+#include "utils/xbox360.h"
+#include "utils/hornet.h"
 #endif
 
 #define ANALOG_SENSITIVITY 30
@@ -335,6 +337,8 @@ UpdatePads()
 	#ifdef HW_RVL
 	WiiDRC_ScanPads();
 	Retrode_ScanPads();
+	XBOX360_ScanPads();
+	Hornet_ScanPads();
 	WPAD_ScanPads();
 	#endif
 
@@ -536,6 +540,8 @@ static void decodepad (int chan)
 	u32 wiidrcp = userInput[chan].wiidrcdata.btns_h;
 
 	jp |= Retrode_ButtonsHeld(chan);
+    jp |= XBOX360_ButtonsHeld(chan);
+	jp |= Hornet_ButtonsHeld(chan);
 #endif
 
 	/***
@@ -896,3 +902,12 @@ void SetDefaultButtonMap ()
 
 	SetControllers();
 }
+
+#ifdef HW_RVL
+char* GetUSBControllerInfo()
+{
+    static char info[70];
+    snprintf(info, 70, "Retrode: %s, XBOX360: %s, Hornet: %s", Retrode_Status(), XBOX360_Status(), Hornet_Status());
+    return info;
+}
+#endif
