@@ -68,19 +68,6 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib) \
 # a list of source
 #---------------------------------------------------------------------------------
 OBJ_SRC    =fonts/mGba_CnFont_I4.dat.o \
-        lang/ca.lang.o \
-        lang/de.lang.o \
-        lang/en.lang.o \
-        lang/es.lang.o \
-        lang/fr.lang.o \
-        lang/it.lang.o \
-        lang/jp.lang.o \
-        lang/ko.lang.o \
-        lang/nl.lang.o \
-        lang/pt.lang.o \
-        lang/pt_br.lang.o \
-        lang/tr.lang.o \
-        lang/zh.lang.o \
         src/platform/wii/CnFont/CnFont.o \
         src/core/bitmap-cache.o \
         src/core/cache-set.o \
@@ -246,8 +233,6 @@ ALL_D_FILES = $(foreach dir,./src,$(wildcard $(dir)/*.d))
 clean:
 	find ./fonts -name '*.o' -print0 | xargs -0r rm -f
 	find ./fonts -name '*.d' -print0 | xargs -0r rm -f
-	find ./lang -name '*.o' -print0 | xargs -0r rm -f
-	find ./lang -name '*.d' -print0 | xargs -0r rm -f
 	find . -name '*_lang.h' -print0 | xargs -0r rm -f
 	find . -name '*_dat.h' -print0 | xargs -0r rm -f
 	@rm -fr ALL_O_FILES
