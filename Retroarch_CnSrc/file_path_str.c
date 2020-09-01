@@ -212,7 +212,7 @@ const char *file_path_str(enum file_path_enum enum_idx)
       case FILE_PATH_MAIN_CONFIG:
 	     // upd xjsxjs197 start
          //str = "retroarch.cfg";
-		 str = "retroarch1.8.8.cfg";
+		 str = "retroarch1.9.0.cfg";
 		 // upd xjsxjs197 end
          break;
       case FILE_PATH_BACKGROUND_IMAGE:
@@ -232,6 +232,15 @@ const char *file_path_str(enum file_path_enum enum_idx)
          break;
       case FILE_PATH_DISK_CONTROL_INDEX_EXTENSION:
          str = ".ldci";
+         break;
+      case FILE_PATH_CORE_BACKUP_EXTENSION:
+         str = ".lcbk";
+         break;
+      case FILE_PATH_CORE_BACKUP_EXTENSION_NO_DOT:
+         str = "lcbk";
+         break;
+      case FILE_PATH_LOCK_EXTENSION:
+         str = ".lck";
          break;
       case FILE_PATH_UNKNOWN:
       default:

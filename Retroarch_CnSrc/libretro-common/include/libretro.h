@@ -279,6 +279,10 @@ enum retro_language
    //RETRO_LANGUAGE_ARABIC              = 16,
    //RETRO_LANGUAGE_GREEK               = 17,
    //RETRO_LANGUAGE_TURKISH             = 18,
+   //RETRO_LANGUAGE_SLOVAK              = 19,
+   //RETRO_LANGUAGE_PERSIAN             = 20,
+   //RETRO_LANGUAGE_HEBREW              = 21,
+   //RETRO_LANGUAGE_ASTURIAN            = 22,
    RETRO_LANGUAGE_CHINESE_SIMPLIFIED  = 1,
    // upd xjsxjs197 end
    RETRO_LANGUAGE_LAST,

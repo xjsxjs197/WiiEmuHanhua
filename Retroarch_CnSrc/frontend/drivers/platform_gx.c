@@ -238,7 +238,7 @@ static void frontend_gx_get_environment_settings(
    fill_pathname_join(g_defaults.path.config, g_defaults.dirs[DEFAULT_DIR_PORT],
          // upd xjsxjs197 start
          //"retroarch.cfg", sizeof(g_defaults.path.config));
-		 "retroarch1.8.8.cfg", sizeof(g_defaults.path.config));
+		 "retroarch1.9.0.cfg", sizeof(g_defaults.path.config));
 		 // upd xjsxjs197 end
    fill_pathname_join(g_defaults.dirs[DEFAULT_DIR_SYSTEM], g_defaults.dirs[DEFAULT_DIR_PORT],
          "system", sizeof(g_defaults.dirs[DEFAULT_DIR_SYSTEM]));
