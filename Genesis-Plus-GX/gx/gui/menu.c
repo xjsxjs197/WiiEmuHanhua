@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX menu
  *
- *  Copyright Eke-Eke (2009-2017)
+ *  Copyright Eke-Eke (2009-2019)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -432,7 +432,7 @@ static gui_item items_prefs[] =
   {NULL,NULL,"Show CD Leds: OFF",   "Enable/Disable CD leds display",                  56,132,276,48},
   {NULL,NULL,"Show FPS: OFF",       "Enable/Disable FPS counter",                      56,132,276,48},
 #ifdef HW_RVL
-  {NULL,NULL,"Wiimote Timeout: OFF","Enable/Disable Wii remote automatic shutodwn",    56,132,276,48},
+  {NULL,NULL,"Wiimote Timeout: OFF","Enable/Disable Wii remote automatic shutdown",    56,132,276,48},
   {NULL,NULL,"Wiimote Calibration: AUTO","Calibrate Wii remote pointer",               56,132,276,48},
 #endif
 };
@@ -720,12 +720,14 @@ static void prefmenu ()
   if (config.s_device == 1) sprintf (items[4].text, "Saves Device: MCARD A");
   else if (config.s_device == 2) sprintf (items[4].text, "Saves Device: MCARD B");
   else sprintf (items[4].text, "Saves Device: FAT");
+  // upd xjsxjs 197 start
   //sprintf (items[5].text, "SFX Volume: %1.1f", config.sfx_volume);
   //sprintf (items[6].text, "BGM Volume: %1.1f", config.bgm_volume);
   sprintf (items[5].text, JoinString("SFX Volume:", " %1.1f"), config.sfx_volume);
   sprintf (items[6].text, JoinString("BGM Volume:", " %1.1f"), config.bgm_volume);
   sprintf (items[7].text, "BG Overlay: %s", config.bg_overlay ? "ON":"OFF");
   sprintf (items[8].text, JoinString("Screen Width:", " %d"), config.screen_w);
+  // upd xjsxjs 197 end
   sprintf (items[9].text, "Show CD Leds: %s", config.cd_leds ? "ON":"OFF");
   sprintf (items[10].text, "Show FPS: %s", config.fps ? "ON":"OFF");
 #ifdef HW_RVL
@@ -785,12 +787,16 @@ static void prefmenu ()
 
       case 5:   /*** Sound effects volume ***/
         GUI_OptionBox(m,0,"SFX Volume",(void *)&config.sfx_volume,10.0,0.0,100.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[5].text, JoinString("SFX Volume:", " %1.1f"), config.sfx_volume);
+		// upd xjsxjs 197 end
         break;
 
       case 6:   /*** Background music volume ***/
         GUI_OptionBox(m,update_bgm,"BGM Volume",(void *)&config.bgm_volume,10.0,0.0,100.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[6].text, JoinString("BGM Volume:", " %1.1f"), config.bgm_volume);
+		// upd xjsxjs 197 end
         break;
 
       case 7:   /*** Background overlay ***/
@@ -817,7 +823,9 @@ static void prefmenu ()
 
       case 8:   /*** Screen Width ***/
         GUI_OptionBox(m,update_screen_w,"Screen Width",(void *)&config.screen_w,2,640,VI_MAX_WIDTH_NTSC,1);
+		// upd xjsxjs 197 start
         sprintf (items[8].text, JoinString("Screen Width:", " %d"), config.screen_w);
+		// upd xjsxjs 197 end
         break;
 
       case 9:   /*** CD LEDS ***/
@@ -910,8 +918,10 @@ static void soundmenu ()
   sprintf (items[2].text, "High-Quality FM: %s", config.hq_fm? "ON":"OFF");
   sprintf (items[3].text, "High-Quality PSG: %s", config.hq_psg? "ON":"OFF");
 
+  // upd xjsxjs 197 start
   sprintf (items[4].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
   sprintf (items[5].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
+  // upd xjsxjs 197 end
   sprintf (items[6].text, "Audio Output: %s", config.mono ? "MONO":"STEREO");
 
   if (config.filter == 2)
@@ -921,19 +931,23 @@ static void soundmenu ()
     float hg = (float)config.hg/100.0;
 
     sprintf(items[7].text, "Filtering: 3-BAND EQ");
+	// upd xjsxjs 197 start
     sprintf(items[8].text, JoinString("Low Gain:", " %1.2f"), lg);
     strcpy(items[8].comment, "Adjust EQ Low Band Gain");
     sprintf(items[9].text, JoinString("Middle Gain:", " %1.2f"), mg);
     sprintf(items[10].text, JoinString("High Gain:", " %1.2f"), hg);
     sprintf(items[11].text, JoinString("Low Freq:", " %d"), config.low_freq);
     sprintf(items[12].text, JoinString("High Freq:", " %d"), config.high_freq);
+	// upd xjsxjs 197 end
     m->max_items = 13;
   }
   else if (config.filter == 1)
   {
     int16 lp_range = (config.lp_range * 100 + 0xffff) / 0x10000;
     sprintf (items[7].text, "Filtering: LOW-PASS");
+	// upd xjsxjs 197 start
     sprintf (items[8].text, JoinString("Low-Pass Rate:", " %d %%"), lp_range);
+	// upd xjsxjs 197 end
     strcpy (items[8].comment, "Adjust Low Pass filter");
     m->max_items = 9;
   }
@@ -1000,7 +1014,9 @@ static void soundmenu ()
       case 4:
       {
         GUI_OptionBox(m,0,"FM Volume",(void *)&fm_volume,0.01,0.0,5.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[4].text, JoinString("FM Volume:", " %1.2f"), fm_volume);
+		// upd xjsxjs 197 end
         config.fm_preamp = (int)(fm_volume * 100.0 + 0.5);
         break;
       }
@@ -1008,7 +1024,9 @@ static void soundmenu ()
       case 5:
       {
         GUI_OptionBox(m,0,"PSG Volume",(void *)&psg_volume,0.01,0.0,5.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[5].text, JoinString("PSG Volume:", " %1.2f"), psg_volume);
+		// upd xjsxjs 197 end
         config.psg_preamp = (int)(psg_volume * 100.0 + 0.5);
         if ((system_hw & SYSTEM_PBC) == SYSTEM_MD)
         {
@@ -1035,7 +1053,9 @@ static void soundmenu ()
         {
           float lg = (float)config.lg/100.0;
           sprintf (items[7].text, "Filtering: 3-BAND EQ");
+		  // upd xjsxjs 197 start
           sprintf (items[8].text, JoinString("Low Gain:", " %1.2f"), lg);
+		  // upd xjsxjs 197 end
           strcpy (items[8].comment, "Adjust EQ Low Band Gain");
           m->max_items = 13;
           audio_set_equalizer();
@@ -1044,7 +1064,9 @@ static void soundmenu ()
         {
           int lp_range = (config.lp_range * 100 + 0xffff) / 0x10000;
           sprintf (items[7].text, "Filtering: LOW-PASS");
+		  // upd xjsxjs 197 start
           sprintf (items[8].text, JoinString("Low-Pass Rate:", " %d %%"), lp_range);
+		  // upd xjsxjs 197 end
           strcpy (items[8].comment, "Adjust Low Pass filter");
           m->max_items = 9;
         }
@@ -1067,15 +1089,19 @@ static void soundmenu ()
         if (config.filter == 1)
         {
           int16 lp_range = (config.lp_range * 100 + 0xffff) / 0x10000;
+		  // upd xjsxjs 197 start
           GUI_OptionBox(m,0,JoinString("Low-Pass Rate", " (%)"),(void *)&lp_range,1,0,100,1);
           sprintf (items[8].text, JoinString("Low-Pass Rate:", " %d %%"), lp_range);
+		  // upd xjsxjs 197 end
           config.lp_range = (lp_range * 0x10000) / 100;
         }
         else
         {
           float lg = (float)config.lg/100.0;
           GUI_OptionBox(m,0,"Low Gain",(void *)&lg,0.01,0.0,2.0,0);
+		  // upd xjsxjs 197 start
           sprintf (items[8].text, JoinString("Low Gain:", " %1.2f"), lg);
+		  // upd xjsxjs 197 end
           config.lg = (int)(lg * 100.0);
           audio_set_equalizer();
         }
@@ -1086,7 +1112,9 @@ static void soundmenu ()
       {
         float mg = (float)config.mg/100.0;
         GUI_OptionBox(m,0,"Middle Gain",(void *)&mg,0.01,0.0,2.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[9].text, JoinString("Middle Gain:", " %1.2f"), mg);
+		// upd xjsxjs 197 end
         config.mg = (int)(mg * 100.0);
         audio_set_equalizer();
         break;
@@ -1096,7 +1124,9 @@ static void soundmenu ()
       {
         float hg = (float)config.hg/100.0;
         GUI_OptionBox(m,0,"High Gain",(void *)&hg,0.01,0.0,2.0,0);
+		// upd xjsxjs 197 start
         sprintf (items[10].text, JoinString("High Gain:", " %1.2f"), hg);
+		// upd xjsxjs 197 end
         config.hg = (int)(hg * 100.0);
         audio_set_equalizer();
         break;
@@ -1105,7 +1135,9 @@ static void soundmenu ()
       case 11:
       {
         GUI_OptionBox(m,0,"Low Frequency",(void *)&config.low_freq,10,0,config.high_freq,1);
+		// upd xjsxjs 197 start
         sprintf (items[11].text, JoinString("Low Freq:", " %d"), config.low_freq);
+		// upd xjsxjs 197 end
         audio_set_equalizer();
         break;
       }
@@ -1113,7 +1145,9 @@ static void soundmenu ()
       case 12:
       {
         GUI_OptionBox(m,0,"High Frequency",(void *)&config.high_freq,100,config.low_freq,30000,1);
+		// upd xjsxjs 197 start
         sprintf (items[12].text, JoinString("High Freq:", " %d"), config.high_freq);
+		// upd xjsxjs 197 end
         audio_set_equalizer();
         break;
       }
@@ -1325,7 +1359,9 @@ static void systemmenu ()
 
   if (svp)
   {
+    // upd xjsxjs 197 start
     sprintf (items[10].text, JoinString("SVP Cycles:", " %d"), SVP_cycles);
+	// upd xjsxjs 197 end
     m->max_items = 11;
   }
   else
@@ -1583,7 +1619,9 @@ static void systemmenu ()
       case 10:  /*** SVP cycles per line ***/
       {
         GUI_OptionBox(m,0,"SVP Cycles",(void *)&SVP_cycles,1,1,1500,1);
+		// upd xjsxjs 197 start
         sprintf (items[10].text, JoinString("SVP Cycles:", " %d"), SVP_cycles);
+		// upd xjsxjs 197 end
         break;
       }
 
@@ -1704,13 +1742,17 @@ static void videomenu ()
 
 #ifdef HW_RVL
   sprintf (items[5].text, "Trap Filter: %s", config.trap ? " ON" : "OFF");
+  // upd xjsxjs 197 start
   sprintf (items[6].text, JoinString("Gamma Correction:", " %1.1f"), config.gamma);
+  // upd xjsxjs 197 end
 #endif
 
   if (config.lcd > 0)
   {
     int ratio = ((config.lcd * 100) + 254) / 255;
+	// upd xjsxjs 197 start
     sprintf (items[VI_OFFSET].text, JoinString("LCD Ghosting Filter:", " %d%%"), ratio);
+	// upd xjsxjs 197 end
   }
   else
   {
@@ -1726,11 +1768,13 @@ static void videomenu ()
   else if (config.ntsc == 4)
   {
     sprintf (items[VI_OFFSET+1].text, "NTSC Filter: MANUAL");
+	// upd xjsxjs 197 start
     sprintf(items[VI_OFFSET+2].text, JoinString("NTSC Sharpness:", " %1.2f"), config.ntsc_sharpness);
     sprintf(items[VI_OFFSET+3].text, JoinString("NTSC Resolution:", " %1.2f"), config.ntsc_resolution);
     sprintf(items[VI_OFFSET+4].text, JoinString("NTSC Artifacts:", " %1.2f"), config.ntsc_artifacts);
     sprintf(items[VI_OFFSET+5].text, JoinString("NTSC Color Bleed:", " %1.2f"), config.ntsc_bleed);
     sprintf(items[VI_OFFSET+6].text, JoinString("NTSC Color Fringing:", " %1.2f"), config.ntsc_fringing);
+	// upd xjsxjs 197 end
     strcpy(items[VI_OFFSET+2].comment, "Adjust edge contrast enhancement/blurring");
     strcpy(items[VI_OFFSET+3].comment, "Adjust image resolution");
     strcpy(items[VI_OFFSET+4].comment, "Adjust artifacts caused by color changes");
@@ -1767,11 +1811,14 @@ static void videomenu ()
     sprintf (items[VI_OFFSET+4+ntsc_offset].text, "Aspect: SCALED");
   }
 
+  // upd xjsxjs 197 start
   sprintf (items[VI_OFFSET+5+ntsc_offset].text, JoinString("Screen Position:", " (%s%02d,%s%02d)"),
+  // upd xjsxjs 197 end
     (config.xshift < 0) ? "":"+", config.xshift,
     (config.yshift < 0) ? "":"+", config.yshift);
-
+  // upd xjsxjs 197 start
   sprintf (items[VI_OFFSET+6+ntsc_offset].text, JoinString("Screen Scaling:", " (%s%02d,%s%02d)"),
+  // upd xjsxjs 197 end
     (config.xscale < 0) ? "":"+", config.xscale,
     (config.yscale < 0) ? "":"+", config.yscale);
 
@@ -1879,7 +1926,9 @@ static void videomenu ()
           m->arrows[1]->state = state[1];
           m->screenshot = 0;
           strcpy(m->title,"Video Settings");
+		  // upd xjsxjs 197 start
           sprintf (items[6].text, JoinString("Gamma Correction:", " %1.1f"), config.gamma);
+		  // upd xjsxjs 197 end
           VIDEO_SetGamma(VI_GM_1_0);
           VIDEO_Flush();
         }
@@ -1900,10 +1949,14 @@ static void videomenu ()
         }
 
         int16 ratio = ((config.lcd * 100) + 254) / 255;
+		// upd xjsxjs 197 start
         GUI_OptionBox(m,0,JoinString("LCD Ghosting Ratio", " (%)"),(void *)&ratio,1,0,100,1);
+		// upd xjsxjs 197 end
         if (ratio > 0)
         {
+		  // upd xjsxjs 197 start
           sprintf (items[VI_OFFSET].text, JoinString("LCD Ghosting Filter:", " %d%%"), ratio);
+		  // upd xjsxjs 197 end
         }
         else
         {
@@ -1947,11 +2000,13 @@ static void videomenu ()
           strcpy(items[VI_OFFSET+5+4].comment, items[VI_OFFSET+4].comment);
           strcpy(items[VI_OFFSET+5+5].comment, items[VI_OFFSET+5].comment);
           strcpy(items[VI_OFFSET+5+6].comment, items[VI_OFFSET+6].comment);
+		  // upd xjsxjs 197 start
           sprintf(items[VI_OFFSET+2].text, JoinString("NTSC Sharpness:", " %1.1f"), config.ntsc_sharpness);
           sprintf(items[VI_OFFSET+3].text, JoinString("NTSC Resolution:", " %1.1f"), config.ntsc_resolution);
           sprintf(items[VI_OFFSET+4].text, JoinString("NTSC Artifacts:", " %1.1f"), config.ntsc_artifacts);
           sprintf(items[VI_OFFSET+5].text, JoinString("NTSC Color Bleed:", " %1.1f"), config.ntsc_bleed);
           sprintf(items[VI_OFFSET+6].text, JoinString("NTSC Color Fringing:", " %1.1f"), config.ntsc_fringing);
+		  // upd xjsxjs 197 end
           strcpy(items[VI_OFFSET+2].comment, "Adjust edge contrast enhancement/blurring");
           strcpy(items[VI_OFFSET+3].comment, "Adjust image resolution");
           strcpy(items[VI_OFFSET+4].comment, "Adjust artifacts caused by color changes");
@@ -1978,7 +2033,7 @@ static void videomenu ()
         }
         break;
       }
-
+      // upd xjsxjs 197 start
       case VI_OFFSET+2: /*** NTSC Sharpness ***/
         GUI_OptionBox(m,update_bgm,"NTSC Sharpness",(void *)&config.ntsc_sharpness,0.01,-1.0,1.0,0);
         sprintf(items[VI_OFFSET+2].text, JoinString("NTSC Sharpness:", " %1.2f"), config.ntsc_sharpness);
@@ -2003,7 +2058,8 @@ static void videomenu ()
         GUI_OptionBox(m,update_bgm,"NTSC Color Fringing",(void *)&config.ntsc_fringing,0.01,-1.0,1.0,0);
         sprintf(items[VI_OFFSET+6].text, JoinString("NTSC Color Fringing:", " %1.2f"), config.ntsc_fringing);
         break;
-
+      // upd xjsxjs 197 end
+	  
       case VI_OFFSET+7: /*** overscan emulation ***/
       {
         config.overscan = (config.overscan + 1) & 3;
@@ -2080,7 +2136,9 @@ static void videomenu ()
         }
         else
         {
+		  // upd xjsxjs 197 start
           GUI_WaitPrompt("Error","Please load a game first !");
+		  // upd xjsxjs 197 end
         }
         break;
       }
@@ -2110,7 +2168,9 @@ static void videomenu ()
         }
         else
         {
+		  // upd xjsxjs 197 start
           GUI_WaitPrompt("Error","Please load a game first !");
+		  // upd xjsxjs 197 end
         }
         break;
       }
@@ -2321,6 +2381,7 @@ static void ctrlmenu(void)
     }
   };
 
+  // upd xjsxjs 197 start
   /* Specific controller options */
   gui_item items_special[4][4] =
   {
@@ -2372,6 +2433,7 @@ static void ctrlmenu(void)
     {NULL,ctrl_gamecube_png   ,"InputDevice","Select Input Controller",530,246,36,24}
   };
 #endif
+  // upd xjsxjs 197 end
 
   /* initialize menu */
   gui_menu *m = &menu_ctrls;
@@ -2860,7 +2922,8 @@ static void ctrlmenu(void)
               if (exp == WPAD_EXP_CLASSIC)
               {
                 WPADData *data = WPAD_Data(config.input[player].port);
-                exp = data->exp.classic.rjs.max.x;
+                if (data->exp.classic.type == 2)
+                  exp = 255;
               }
 
               /* try next port if no wimote available */
@@ -3660,7 +3723,7 @@ static void showcredits(void)
     gxClearScreen ((GXColor)BLACK);
     if (texture)
       gxDrawTexture(texture, (640-texture->width)/2, (480-texture->height)/2, texture->width, texture->height,255);
-
+    // upd xjsxjs 197 start
     FONT_writeCenterOld("Genesis Plus GX Core", 24, 0, 640, 480 - offset, (GXColor)LIGHT_BLUE);
     FONT_writeCenterOld("improved emulation code & additional features by Eke-Eke", 18, 0, 640, 516 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("original Genesis Plus (1.3) version by Charles MacDonald", 18, 0, 640, 534 - offset, (GXColor)WHITE);
@@ -3699,7 +3762,7 @@ static void showcredits(void)
     FONT_writeCenterOld("Softdev, Tmbinc, Costis, Emukiddid, Team Twiizer", 18, 0, 640, 1212 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("Brakken & former Tehskeen members for their support", 18, 0, 640, 1230 - offset, (GXColor)WHITE);
     FONT_writeCenterOld("Anca, my wife, for her patience & various ideas", 18, 0, 640, 1248 - offset, (GXColor)WHITE);
-
+    // upd xjsxjs 197 end
     gxSetScreen();
     p = m_input.keys;
     gxSetScreen();
@@ -3800,6 +3863,7 @@ static void mainmenu_cb(void)
   else
     strcpy(temp,"OFF");
 
+  // upd xjsxjs 197 start
   /* Display informations */
   if (m->selected == 6)
   {
@@ -3811,6 +3875,7 @@ static void mainmenu_cb(void)
     FONT_writeCenter("ActionReplay", 12, m->items[6].x + 4, m->items[6].x + 54, m->items[6].y + (m->items[6].h - 24)/2 + 12, (GXColor)DARK_GREY);
     FONT_writeCenter(temp, 10, m->items[6].x + 56, m->items[6].x + 78, m->items[6].y + (m->items[6].h - 10)/2 + 10, (GXColor)DARK_GREY);
   }
+  // upd xjsxjs 197 end
 }
 
 void mainmenu(void)
