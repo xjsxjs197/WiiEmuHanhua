@@ -2,9 +2,9 @@
 Wii上的汉化的模拟器
 
 1、https://github.com/dborth
-  fceugx_3.4.7        任天堂FC模拟器   (PPC32 + Libogc_1.8.20)
-  snes9xgx_4.4.8      任天堂SFC模拟器  (PPC32 + Libogc_1.8.20)
-  vbagx_2.4.1         任天堂GBA模拟器  (PPC32 + Libogc_1.8.20)
+  fceugx_3.4.7        任天堂FC模拟器   (PPC38 + Libogc_2.1.0 + 程序自带libfreetype)
+  snes9xgx_4.4.8      任天堂SFC模拟器  (PPC38 + Libogc_2.1.0 + 程序自带libfreetype)
+  vbagx_2.4.1         任天堂GBA模拟器  (PPC38 + Libogc_2.1.0 + 程序自带libfreetype)
 
 2、https://github.com/ekeeke/Genesis-Plus-GX
   GenesisPlusGX_1.7.5 世嘉的各种模拟器 (PPC26 + Libogc_1.8.11.1(libfat.a使用Old))
