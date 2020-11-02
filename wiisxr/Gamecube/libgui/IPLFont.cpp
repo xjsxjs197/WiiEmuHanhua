@@ -45,7 +45,7 @@ IplFont::IplFont()
 
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
-	FILE* charPngFile = fopen("sd:/wiisxr/fonts/FontCn_IA8.dat", "rb");
+	FILE* charPngFile = fopen("sd:/wiisxrx/fonts/FontCn_IA8.dat", "rb");
 	GXtexCache = (heap_cntrl*)malloc(sizeof(heap_cntrl));
 	__lwp_heap_init(GXtexCache, CN_FONT_LO, CN_FONT_SIZE, 32);
 	u8 *ZhBufFont_dat = (u8*) __lwp_heap_allocate(GXtexCache, ZhBufFont_size);

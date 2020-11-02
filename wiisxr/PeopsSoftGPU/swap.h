@@ -1,8 +1,8 @@
 
 // byteswappings
 
-#define SWAP16(x) (((x & 0xff00)>>8) | ((x & 0xff)<<8))
-#define SWAP32(x) (((x & 0xff000000ul)>>24) | ((x & 0xff0000ul)>>8) | ((x & 0xff00ul)<<8) | ((x & 0xfful)<<24))
+#define SWAP16(x) (((x)>>8 & 0xff) | ((x)<<8 & 0xff00))
+#define SWAP32(x) (((x)>>24 & 0xfful) | ((x)>>8 & 0xff00ul) | ((x)<<8 & 0xff0000ul) | ((x)<<24 & 0xff000000ul))
 
 // big endian config
 #define HOST2LE32(x) SWAP32(x)
@@ -19,6 +19,7 @@
 #define GETLEs32(X) ((short)GETLE32((unsigned short *)X))
 
 #ifdef _BIG_ENDIAN
+// upd xjxjs197 start
 inline unsigned short GETLE16(unsigned short *ptr) {
     unsigned short ret; __asm__ ("lhbrx %0, 0, %1" : "=r" (ret) : "r" (ptr));
     return ret;
@@ -41,6 +42,7 @@ inline void PUTLE16(unsigned short *ptr, unsigned short val) {
 inline void PUTLE32(unsigned long *ptr, unsigned long val) {
     __asm__ ("stwbrx %0, 0, %1" : : "r" (val), "r" (ptr) : "memory");
 }
+// upd xjxjs197 end
 #else // _BIG_ENDIAN
 #define GETLE16(X) ((unsigned short *)X)
 #define GETLE32(X) ((unsigned long *)X)

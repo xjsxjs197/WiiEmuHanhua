@@ -22,6 +22,11 @@ void ppcInit() {
 void ppcSetPtr(u32 *ptr) {
 	ppcPtr = ptr;
 }
+inline void ppcAlign() {
+	// forward align (if we need to)
+	if((u32)ppcPtr%4)
+	  ppcPtr = (u32*)(((u32)ppcPtr + 4) & ~(3));
+}
 
 void ppcShutdown() {
 }

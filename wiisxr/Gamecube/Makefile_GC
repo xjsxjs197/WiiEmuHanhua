@@ -21,7 +21,7 @@ GPU = Soft
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET		:=	CubeSXR
+TARGET		:=	CubeSXRX
 BUILD		:=	build
 SOURCES		:=	. ../cdrmooby28/ ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ ../franspu/
 
@@ -52,7 +52,7 @@ LIBS	:=	-laesnd -lz -lm -lfat -logc
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= 
+LIBDIRS	:= $(PORTLIBS)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional

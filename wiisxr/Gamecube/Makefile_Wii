@@ -21,15 +21,15 @@ GPU = Soft
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET		:=	WiiSXR
+TARGET		:=	WiiSXRX
 BUILD		:=	build
 SOURCES		:=	../lang \
                 . ../cdrmooby28/ ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ ../franspu/ \
 				./libgui/gui2
 
-DATA		:=	data
+DATA		:=	data  
 
-INCLUDES	:=
+INCLUDES	:=	
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -37,13 +37,13 @@ INCLUDES	:=
 
 CFLAGS	= -flto -Ofast -w $(MACHDEP) $(INCLUDE) -D__GAMECUBE__ -DWII -DHW_RVL -D__ppc__ \
 		  -D__GX__ \
-		  -DTHREADED_AUDIO #-DRELEASE
+		  -DTHREADED_AUDIO -D_GNU_SOURCE #-DRELEASE
 
 CXXFLAGS	=	$(CFLAGS)
 
 ASFLAGS := -DHW_RVL
 
-LDFLAGS	=	$(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,wiiuse_register
+LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,wiiuse_register
 
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
@@ -116,7 +116,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile_Wii
+	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile_Wii -j4
 	@echo creating ... $(notdir $(OUTPUT)).dol
 	@$(DEVKITPPC)/bin/elf2dol $(OUTPUT).elf $(OUTPUT).dol
 

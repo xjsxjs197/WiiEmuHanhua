@@ -12,7 +12,8 @@ unsigned short  FRAN_SPU_readDMA(void)
 // READ DMA (many values)
 void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 {
-	if (spuAddr+(iSize<<1)>=0x80000)
+	// upd xjsxjs197 start
+	/*if (spuAddr+(iSize<<1)>=0x80000)
  	{
  		memcpy(pusPSXMem,&spuMem[spuAddr>>1],0x7ffff-spuAddr+1);
 		memcpy(pusPSXMem+(0x7ffff-spuAddr+1),spuMem,(iSize<<1)-(0x7ffff-spuAddr+1));
@@ -20,7 +21,20 @@ void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 	} else {
 		memcpy(pusPSXMem,&spuMem[spuAddr>>1],iSize<<1);
 		spuAddr+=(iSize<<1);	
+	}*/
+	
+	iSize <<= 1;
+	if (spuAddr + iSize >= 0x80000)
+ 	{
+ 		int tmpAddr = 0x80000 - spuAddr;
+ 		memcpy(pusPSXMem, spuMem + (spuAddr >> 1), tmpAddr);
+ 		spuAddr = iSize - tmpAddr;
+		memcpy(pusPSXMem + tmpAddr, spuMem, spuAddr);
+	} else {
+		memcpy(pusPSXMem, spuMem + (spuAddr >> 1), iSize);
+		spuAddr += iSize;
 	}
+	// upd xjsxjs197 end
 }
 
 // WRITE DMA (one value)
@@ -34,7 +48,8 @@ void  FRAN_SPU_writeDMA(unsigned short val)
 // WRITE DMA (many values)
 void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 {
-	if (spuAddr+(iSize<<1)>0x7ffff)
+	// upd xjsxjs197 start
+	/*if (spuAddr+(iSize<<1)>0x7ffff)
 	{
  		memcpy(&spuMem[spuAddr>>1],pusPSXMem,0x7ffff-spuAddr+1);
 		memcpy(spuMem,pusPSXMem+(0x7ffff-spuAddr+1),(iSize<<1)-(0x7ffff-spuAddr+1));
@@ -42,5 +57,18 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
   	} else {
   		memcpy(&spuMem[spuAddr>>1],pusPSXMem,iSize<<1);
   		spuAddr+=(iSize<<1);	
+  	}*/
+	
+	iSize <<= 1;
+	if (spuAddr + iSize > 0x7ffff)
+	{
+		int tmpAddr = 0x80000 - spuAddr;
+ 		memcpy(spuMem + (spuAddr >> 1), pusPSXMem, tmpAddr);
+		spuAddr = iSize - tmpAddr;
+		memcpy(spuMem, pusPSXMem + tmpAddr, spuAddr);
+  	} else {
+  		memcpy(spuMem + (spuAddr >> 1), pusPSXMem, iSize);
+  		spuAddr += iSize;
   	}
+	// upd xjsxjs197 end
 }

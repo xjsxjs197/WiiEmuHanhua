@@ -100,9 +100,16 @@ void psxException(u32 code, u32 bd) {
 	psxRegs.CP0.n.Status = (psxRegs.CP0.n.Status &~0x3f) |
 						  ((psxRegs.CP0.n.Status & 0xf) << 2);
 
-	if (!Config.HLE && (((PSXMu32(psxRegs.CP0.n.EPC) >> 24) & 0xfe) == 0x4a)) {
+	// upd xjsxjs197 start
+	//if (!Config.HLE && (((PSXMu32(psxRegs.CP0.n.EPC) >> 24) & 0xfe) == 0x4a)) {
+	if (!Config.HLE) {
+		u32 tmp = PSXMu32(psxRegs.CP0.n.EPC);
+		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
+			PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAPu32(~0x02000000);
+		}
 		// "hokuto no ken" / "Crash Bandicot 2" ... fix
-		PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAPu32(~0x02000000);
+		//PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAPu32(~0x02000000);
+	// upd xjsxjs197 end
 	}
 
 	if (Config.HLE) psxBiosException();

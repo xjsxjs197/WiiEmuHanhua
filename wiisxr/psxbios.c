@@ -1635,7 +1635,10 @@ void psxBios_Krom2RawAdd() { // 0x51
 #if 1
 	// FPSE rip
 	{
-		FONTXHDR *font = (FONTXHDR *)&psxRs8ref(0x20000);
+		// upd xjsxjs197 start
+		//FONTXHDR *font = (FONTXHDR *)&psxRs8ref(0x20000);
+		FONTXHDR *font = (FONTXHDR *)psxRs8ref(0x20000);
+		// upd xjsxjs197 end
 		unsigned short *ptbl = font->codetbl;
 		int size = ((font->w+7)/8)*font->h;
 		int code, n=0,i;
