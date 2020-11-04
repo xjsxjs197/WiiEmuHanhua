@@ -145,43 +145,16 @@ extern "C" {
 long MoobyCDRgetTN(unsigned char *buffer);
 };
 
-// add xjsxjs197 start
-int ChkString(char * str1, char * str2, int len)
-{
-	int tmpIdx = 0;
-	while (str1[tmpIdx] == str2[tmpIdx])
-	{
-		tmpIdx++;
-		if (tmpIdx >= len)
-		{
-			return 1;
-		}
-	}
-	
-	return 0;
-}
-// add xjsxjs197 end
-
 void Func_ShowRomInfo()
 {
 	char RomInfo[256] = "";
 	char buffer [50];
 	
 	sprintf(buffer,"CD-ROM Label: %s\n",CdromLabel);
-	// add xjsxjs197 start
-	if (ChkString(CdromLabel, "Parasite Eve 2", strlen("Parasite Eve 2"))) {
-        Config.RCntFix = 1;
-    }
-	if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
-        Config.RCntFix = 1;
-    }
-	if (ChkString(CdromLabel, "Silent Hill", strlen("Silent Hill"))) {
-        Config.RCntFix = 1;
-    }
-	// add xjsxjs197 end
   strcat(RomInfo,buffer);
   sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
-  strcat(RomInfo,buffer);
+	 
+	strcat(RomInfo,buffer);
   sprintf(buffer,"ISO Size: %u Mb\n",isoFile.size/1024/1024);
   strcat(RomInfo,buffer);
   sprintf(buffer,"Country: %s\n",(!Config.PsxType) ? "NTSC":"PAL");

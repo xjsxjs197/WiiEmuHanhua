@@ -460,6 +460,23 @@ extern "C" {
 void newCD(fileBrowser_file *file);
 }
 
+// add xjsxjs197 start
+int ChkString(char * str1, char * str2, int len)
+{
+	int tmpIdx = 0;
+	while (str1[tmpIdx] == str2[tmpIdx])
+	{
+		tmpIdx++;
+		if (tmpIdx >= len)
+		{
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+// add xjsxjs197 end
+
 void fileBrowserFrame_LoadFile(int i)
 {
 	char feedback_string[256] = "Failed to load ISO";
@@ -495,6 +512,19 @@ void fileBrowserFrame_LoadFile(int i)
 			strcat(RomInfo,feedback_string);
 			sprintf(buffer,"\nCD-ROM Label: %s\n",CdromLabel);
 			strcat(RomInfo,buffer);
+			// add xjsxjs197 start
+			if (ChkString(CdromLabel, "Parasite Eve 2", strlen("Parasite Eve 2"))) {
+		        Config.RCntFix = 1;
+		    }
+			if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
+		        Config.RCntFix = 1;
+		    }
+			if (ChkString(CdromLabel, "SLPM86192", strlen("SLPM86192"))) {
+		        Config.RCntFix = 1;
+		    }
+			sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
+			strcat(RomInfo,buffer);
+			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);
 			sprintf(buffer,"ISO Size: %u Mb\n",isoFile.size/1024/1024);
