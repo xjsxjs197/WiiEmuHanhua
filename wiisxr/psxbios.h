@@ -39,4 +39,7 @@ extern void (*biosA0[256])();
 extern void (*biosB0[256])();
 extern void (*biosC0[256])();
 
+// xjsxjs197 merged from PCSX-Reloaded start
+extern bool hleSoftCall;
+// xjsxjs197 merged from PCSX-Reloaded end
 #endif /* __PSXBIOS_H__ */
