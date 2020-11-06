@@ -1293,6 +1293,33 @@ void psxBios__96_remove() { // 72
 	pc0 = ra;
 }
 
+void psxBios_SetMem() { // 9f
+	u32 new = psxHu32(0x1060);
+
+#ifdef PSXBIOS_LOG
+	PSXBIOS_LOG("psxBios_%s: %x, %x\n", biosA0n[0x9f], a0, a1);
+#endif
+
+	switch(a0) {
+		case 2:
+			psxHu32ref(0x1060) = SWAP32(new);
+			psxMu32ref(0x060) = a0;
+			//SysPrintf("Change effective memory : %d MBytes\n",a0);
+			break;
+
+		case 8:
+			psxHu32ref(0x1060) = SWAP32(new | 0x300);
+			psxMu32ref(0x060) = a0;
+			//SysPrintf("Change effective memory : %d MBytes\n",a0);
+
+		default:
+			//SysPrintf("Effective memory must be 2/8 MBytes\n");
+		break;
+	}
+
+	pc0 = ra;
+}
+
 /* TODO FIXME : Not compliant. -1 indicates failure but using 1 for now. */
 void psxBios_get_cd_status(void) //a6
 {
@@ -2531,7 +2558,7 @@ int psxBiosSetupTables()
 	//biosA0[0x9c] = psxBios_SetConf;
 	//biosA0[0x9d] = psxBios_GetConf;
 	//biosA0[0x9e] = psxBios_sys_a0_9e;
-	//biosA0[0x9f] = psxBios_SetMem;
+	biosA0[0x9f] = psxBios_SetMem;
 	//biosA0[0xa0] = psxBios__boot;
 	//biosA0[0xa1] = psxBios_SystemError;
 	//biosA0[0xa2] = psxBios_EnqueueCdIntr;

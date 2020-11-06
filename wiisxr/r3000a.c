@@ -61,7 +61,10 @@ void psxReset() {
 	psxHwReset();
 	psxBiosInit();
 
-	if (!Config.HLE) psxExecuteBios();
+    // upd xjsxjs197 start
+	//if (!Config.HLE) psxExecuteBios();
+	psxExecuteBios();
+	// upd xjsxjs197 end
 
 #ifdef EMU_LOG
 	EMU_LOG("*BIOS END*\n");
