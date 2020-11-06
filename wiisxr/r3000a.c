@@ -78,7 +78,7 @@ void psxShutdown() {
 
 void psxException(u32 code, u32 bd) {
 	// Set the Cause
-	psxRegs.CP0.n.Cause = code;
+	psxRegs.CP0.n.Cause = (psxRegs.CP0.n.Cause & 0x300) | code;
 
 	// Set the EPC & PC
 	if (bd) {
@@ -86,7 +86,7 @@ void psxException(u32 code, u32 bd) {
 		PSXCPU_LOG("bd set!!!\n");
 #endif
 		SysPrintf("bd set!!!\n");
-		psxRegs.CP0.n.Cause|= 0x80000000;
+		psxRegs.CP0.n.Cause |= 0x80000000;
 		psxRegs.CP0.n.EPC = (psxRegs.pc - 4);
 	} else
 		psxRegs.CP0.n.EPC = (psxRegs.pc);

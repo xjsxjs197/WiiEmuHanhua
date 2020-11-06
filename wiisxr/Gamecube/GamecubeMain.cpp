@@ -691,7 +691,8 @@ int SysInit() {
 		return -1;
   
 	//Init biosFile pointers and stuff
-	if(biosDevice != BIOSDEVICE_HLE) {
+	// upd xjsxjs197 start
+	/*if(biosDevice != BIOSDEVICE_HLE) {
 		biosFile_dir = (biosDevice == BIOSDEVICE_SD) ? &biosDir_libfat_Default : &biosDir_libfat_USB;
 		biosFile_readFile  = fileBrowser_libfat_readFile;
 		biosFile_open      = fileBrowser_libfat_open;
@@ -702,15 +703,32 @@ int SysInit() {
 	 	}
 		biosFile = (fileBrowser_file*)memalign(32,sizeof(fileBrowser_file));
 		memcpy(biosFile,biosFile_dir,sizeof(fileBrowser_file));
-		// upd xjsxjs197 start
-		strcat(biosFile->name, GetGameBios(biosFile->name, filenameFromAbsPath(isoFile.name)));
-		//strcat(biosFile->name, "/SCPH1001.BIN");
-		// upd xjsxjs197 end
+		strcat(biosFile->name, "/SCPH1001.BIN");
 		biosFile_init(biosFile);  //initialize the bios device (it might not be the same as ISO device)
 		Config.HLE = BIOS_USER_DEFINED;
 	} else {
 		Config.HLE = BIOS_HLE;
+	}*/
+	
+	if(biosDevice != BIOSDEVICE_HLE) {
+		Config.HLE = BIOS_USER_DEFINED;
+	} else {
+		Config.HLE = BIOS_HLE;
 	}
+	
+	biosFile_dir = &biosDir_libfat_Default;
+	biosFile_readFile  = fileBrowser_libfat_readFile;
+	biosFile_open      = fileBrowser_libfat_open;
+	biosFile_init      = fileBrowser_libfat_init;
+	biosFile_deinit    = fileBrowser_libfat_deinit;
+	if(biosFile) {
+		free(biosFile);
+ 	}
+	biosFile = (fileBrowser_file*)memalign(32,sizeof(fileBrowser_file));
+	memcpy(biosFile,biosFile_dir,sizeof(fileBrowser_file));
+	strcat(biosFile->name, GetGameBios(biosFile->name, filenameFromAbsPath(isoFile.name)));
+	biosFile_init(biosFile);  //initialize the bios device (it might not be the same as ISO device)
+	// upd xjsxjs197 end
 
 	return 0;
 }

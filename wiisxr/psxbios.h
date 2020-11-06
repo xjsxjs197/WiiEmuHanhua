@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 #ifndef __PSXBIOS_H__
@@ -39,7 +39,5 @@ extern void (*biosA0[256])();
 extern void (*biosB0[256])();
 extern void (*biosC0[256])();
 
-// xjsxjs197 merged from PCSX-Reloaded start
 extern bool hleSoftCall;
-// xjsxjs197 merged from PCSX-Reloaded end
 #endif /* __PSXBIOS_H__ */
