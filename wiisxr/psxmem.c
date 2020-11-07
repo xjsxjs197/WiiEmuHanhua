@@ -100,10 +100,10 @@ int psxMemInit() {
 }
 
 void psxMemReset() {
-  //printf("BIOS file %s\n",biosFile->name);
+    //printf("BIOS file %s\n",biosFile->name);
   int temp;
 	memset(psxM, 0, 0x00200000);
-	memset(psxP, 0, 0x00010000);
+	memset(psxP, 0xff, 0x00010000);
   memset(psxR, 0, 0x80000);
 	// upd xjsxjs197 start
   /*if(!biosFile || (biosDevice == BIOSDEVICE_HLE)) {
@@ -131,14 +131,19 @@ void psxMemReset() {
 	biosFile->offset = 0; //must reset otherwise the if statement will fail!
     if (biosFile_readFile(biosFile, &temp, 4) == 4) {  //bios file exists
        biosFile->offset = 0;
-	   if(biosFile_readFile(biosFile, psxR, 0x80000) != 0x80000) { //failed size
+	   //printf("BIOS file exists\n");
+	   if (biosFile_readFile(biosFile, psxR, 0x80000) != 0x80000) { //failed size
 	       Config.HLE = BIOS_HLE;
+	       //printf("BIOS file read %x\n", temp);
        }
     }
 	
 	if(!biosFile || (biosDevice == BIOSDEVICE_HLE)) {
         Config.HLE = BIOS_HLE;
     }
+	else {
+	    Config.HLE = BIOS_USER_DEFINED;
+	}
 	// upd xjsxjs197 end
 }
 
@@ -155,8 +160,8 @@ u8 psxMemRead8(u32 mem) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			return psxHu8(mem);
 		else
 			return psxHwRead8(mem);
@@ -177,8 +182,8 @@ u16 psxMemRead16(u32 mem) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			return psxHu16(mem);
 		else
 			return psxHwRead16(mem);
@@ -199,8 +204,8 @@ u32 psxMemRead32(u32 mem) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			return psxHu32(mem);
 		else
 			return psxHwRead32(mem);
@@ -221,8 +226,8 @@ void psxMemWrite8(u32 mem, u8 value) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			psxHu8(mem) = value;
 		else
 			psxHwWrite8(mem, value);
@@ -245,8 +250,8 @@ void psxMemWrite16(u32 mem, u16 value) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			psxHu16ref(mem) = SWAPu16(value);
 		else
 			psxHwWrite16(mem, value);
@@ -255,7 +260,7 @@ void psxMemWrite16(u32 mem, u16 value) {
 		if (p != NULL) {
 			*(u16 *)(p + (mem & 0xffff)) = SWAPu16(value);
 #ifdef PSXREC
-			psxCpu->Clear((mem&(~1)), 1);
+			psxCpu->Clear((mem & (~3)), 1);
 #endif
 		} else {
 #ifdef PSXMEM_LOG
@@ -270,8 +275,8 @@ void psxMemWrite32(u32 mem, u32 value) {
 
 //	if ((mem&0x1fffff) == 0x71E18 || value == 0x48088800) SysPrintf("t2fix!!\n");
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			psxHu32ref(mem) = SWAPu32(value);
 		else
 			psxHwWrite32(mem, value);
@@ -299,16 +304,16 @@ void psxMemWrite32(u32 mem, u32 value) {
 					case 0x800: case 0x804:
 						if (writeok == 0) break;
 						writeok = 0;
-						memset(psxMemWLUT + 0x0000, 0, 0x80 * sizeof(void*));
-						memset(psxMemWLUT + 0x8000, 0, 0x80 * sizeof(void*));
-						memset(psxMemWLUT + 0xa000, 0, 0x80 * sizeof(void*));
+						memset(psxMemWLUT + 0x0000, 0, 0x80 * sizeof(void *));
+						memset(psxMemWLUT + 0x8000, 0, 0x80 * sizeof(void *));
+						memset(psxMemWLUT + 0xa000, 0, 0x80 * sizeof(void *));
 						break;
-					case 0x1e988:
+					case 0x00: case 0x1e988:
 						if (writeok == 1) break;
 						writeok = 1;
-						for (i=0; i<0x80; i++) psxMemWLUT[i + 0x0000] = (void*)&psxM[(i & 0x1f) << 16];
-						memcpy(psxMemWLUT + 0x8000, psxMemWLUT, 0x80 * sizeof(void*));
-						memcpy(psxMemWLUT + 0xa000, psxMemWLUT, 0x80 * sizeof(void*));
+						for (i = 0; i < 0x80; i++) psxMemWLUT[i + 0x0000] = (void *)&psxM[(i & 0x1f) << 16];
+						memcpy(psxMemWLUT + 0x8000, psxMemWLUT, 0x80 * sizeof(void *));
+						memcpy(psxMemWLUT + 0xa000, psxMemWLUT, 0x80 * sizeof(void *));
 						break;
 					default:
 #ifdef PSXMEM_LOG
@@ -325,8 +330,8 @@ void *psxMemPointer(u32 mem) {
 	u32 t;
 
 	t = mem >> 16;
-	if (t == 0x1f80) {
-		if (mem < 0x1f801000)
+	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
+		if ((mem & 0xffff) < 0x400)
 			return (void *)&psxH[mem];
 		else
 			return NULL;

@@ -35,6 +35,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
+#include <zlib.h>
 
 #include <gccore.h>
 extern char mcd1Written;
@@ -998,6 +999,59 @@ void psxBios_malloc() { // 0x33
 	pc0 = ra;
 }
 
+void psxBios_free() { // 0x34
+
+#ifdef PSXBIOS_LOG
+	PSXBIOS_LOG("psxBios_%s\n", biosA0n[0x34]);
+#endif
+
+	SysPrintf("free %x: %x bytes\n", a0, *(u32*)(Ra0-4));
+
+	if (a0)
+		*(u32*)(Ra0-4) |= 1;	// set chunk to free
+	pc0 = ra;
+}
+
+void psxBios_calloc() { // 0x37
+	void *pv0;
+#ifdef PSXBIOS_LOG
+	PSXBIOS_LOG("psxBios_%s\n", biosA0n[0x37]);
+#endif
+
+	a0 = a0 * a1;
+	psxBios_malloc();
+	pv0 = Rv0;
+	if (pv0)
+		memset(pv0, 0, a0);
+}
+
+void psxBios_realloc() { // 0x38
+	u32 block = a0;
+	u32 size = a1;
+#ifdef PSXBIOS_LOG
+	PSXBIOS_LOG("psxBios_%s\n", biosA0n[0x38]);
+#endif
+
+	a0 = block;
+	/* If "old_buf" is zero, executes malloc(new_size), and returns r2=new_buf (or 0=failed). */
+	if (block == 0)
+	{
+		psxBios_malloc();
+	}
+	/* Else, if "new_size" is zero, executes free(old_buf), and returns r2=garbage. */
+	else if (size == 0)
+	{
+		psxBios_free();
+	}
+	/* Else, executes malloc(new_size), bcopy(old_buf,new_buf,new_size), and free(old_buf), and returns r2=new_buf (or 0=failed). */
+	/* Note that it is not quite implemented this way here. */
+	else
+	{
+		psxBios_free();
+		a0 = size;
+		psxBios_malloc();
+	}
+}
 void psxBios_InitHeap() { // 39
 	malloc_chunk *chunk;
 
@@ -1029,9 +1083,9 @@ void psxBios_printf() { // 0x3f
 	u32 save[4];
 	char *ptmp = tmp;
 	int n=1, i=0, j;
-	char *psp;
+	void *psp;
 
-	psp = (char*)SANE_PSXM(sp);
+	psp = (void*)SANE_PSXM(sp);
 	if (psp) {
 		memcpy(save, psp, 4 * 4);
 		psxMu32ref(sp) = SWAP32((u32)a0);
@@ -2377,6 +2431,8 @@ void (*biosA0[256])();
 void (*biosB0[256])();
 void (*biosC0[256])();
 
+#include "sjisfont.h"
+
 int psxBiosSetupTables()
 {
 	u32 base, size;
@@ -2453,11 +2509,11 @@ int psxBiosSetupTables()
 	//biosA0[0x31] = psxBios_qsort;
 	//biosA0[0x32] = psxBios_strtod;
 	biosA0[0x33] = psxBios_malloc;
-	//biosA0[0x34] = psxBios_free;
+	biosA0[0x34] = psxBios_free;
     //biosA0[0x35] = psxBios_lsearch;
     //biosA0[0x36] = psxBios_bsearch;
-    //biosA0[0x37] = psxBios_calloc;
-    //biosA0[0x38] = psxBios_realloc;
+    biosA0[0x37] = psxBios_calloc;
+    biosA0[0x38] = psxBios_realloc;
 	biosA0[0x39] = psxBios_InitHeap;
 	//biosA0[0x3a] = psxBios__exit;
 	biosA0[0x3b] = psxBios_getchar;
@@ -2721,6 +2777,7 @@ int psxBiosSetupTables()
 
 void psxBiosInit() {
 	u32 *ptr; 
+	uLongf len;
 	
 	if (!psxBiosSetupTables())
 		return;
@@ -2768,6 +2825,15 @@ void psxBiosInit() {
 
 	// initial stack pointer for BIOS interrupt
 	psxMu32ref(0x6c80) = SWAPu32(0x000085c8);
+
+	// initial RNG seed
+	psxMu32ref(0x9010) = SWAPu32(0xac20cc00);
+
+	// fonts
+	len = 0x80000 - 0x66000;
+	uncompress((Bytef *)(psxR + 0x66000), &len, font_8140, sizeof(font_8140));
+	len = 0x80000 - 0x69d68;
+	uncompress((Bytef *)(psxR + 0x69d68), &len, font_889f, sizeof(font_889f));
 
 	// memory size 2 MB
 	psxHu32ref(0x1060) = SWAPu32(0x00000b88);
