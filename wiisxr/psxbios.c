@@ -2814,10 +2814,10 @@ void psxBiosInit() {
 	psxMu32ref(0x9010) = SWAPu32(0xac20cc00);
 
 	// fonts
-	len = 0x80000 - 0x66000;
+	/*len = 0x80000 - 0x66000;
 	uncompress((Bytef *)(psxR + 0x66000), &len, font_8140, sizeof(font_8140));
 	len = 0x80000 - 0x69d68;
-	uncompress((Bytef *)(psxR + 0x69d68), &len, font_889f, sizeof(font_889f));
+	uncompress((Bytef *)(psxR + 0x69d68), &len, font_889f, sizeof(font_889f));*/
 
 	// memory size 2 MB
 	psxHu32ref(0x1060) = SWAPu32(0x00000b88);
