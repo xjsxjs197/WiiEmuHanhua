@@ -1743,15 +1743,15 @@ void psxBios_PAD_init() { // 15
 #ifdef PSXBIOS_LOG
 	PSXBIOS_LOG("psxBios_%s\n", biosB0n[0x15]);
 #endif
-	if (!(a0 == 0x20000000 || a0 == 0x20000001)) // TO DO SWAP32 ?
+	/*if (!(a0 == SWAP32(0x20000000) || a0 == SWAP32(0x20000001))) // TO DO SWAP32 ?
 	{
 		v0 = 0;
 		pc0 = ra;
 		return;
-	}
+	}*/
 	psxHwWrite16(0x1f801074, (u16)(psxHwRead16(0x1f801074) | 0x1));
 	pad_buf = (int *)Ra1;
-	*pad_buf = SWAP32(-1);
+	*pad_buf = -1;
 	psxRegs.CP0.n.Status |= 0x401;
 	v0 = 2;
 	pc0 = ra;
@@ -2761,10 +2761,10 @@ void psxBiosInit() {
 	if (!psxBiosSetupTables())
 		return;
 	
-	ptr = (u32*)&psxM[0x0874]; // b0 table
+	ptr = (u32 *)&psxM[0x0874]; // b0 table
 	ptr[0] = SWAPu32(0x4c54 - 0x884);
 
-	ptr = (u32*)&psxM[0x0674]; // c0 table
+	ptr = (u32 *)&psxM[0x0674]; // c0 table
 	ptr[6] = SWAPu32(0xc80);
 
 	memset(SysIntRP, 0, sizeof(SysIntRP));
@@ -2844,6 +2844,8 @@ void psxBiosInit() {
 void psxBiosShutdown() {
 }
 
+void netError();
+
 #define psxBios_PADpoll(pad) { \
 	PAD##pad##_startPoll(pad); \
 	pad_buf##pad[0] = 0; \
@@ -2860,43 +2862,43 @@ void psxBiosShutdown() {
 	} \
 }
 
-void netError();
-
 void biosInterrupt() {
 	int i, bufcount;
 
 //	if (psxHu32(0x1070) & 0x1) { // Vsync
-		if (pad_buf) {
+		if (pad_buf != NULL) {
 			u32 *buf = (u32*)pad_buf;
 
 			if (!Config.UseNet) {
 				PAD1_startPoll(1);
 				if (PAD1_poll(0x42) == 0x23) {
 					PAD1_poll(0);
-					*buf = SWAP32(PAD1_poll(0) << 8);
-					*buf|= SWAP32(PAD1_poll(0));
+					*buf = PAD1_poll(0) << 8;
+					*buf |= PAD1_poll(0);
 					PAD1_poll(0);
-					*buf&= SWAP32(~((PAD1_poll(0)>0x20)?1<<6:0));
-					*buf&= SWAP32(~((PAD1_poll(0)>0x20)?1<<7:0));
+					*buf &= ~((PAD1_poll(0) > 0x20) ? 1 << 6 : 0);
+					*buf &= ~((PAD1_poll(0) > 0x20) ? 1 << 7 : 0);
 				} else {
 					PAD1_poll(0);
-					*buf = SWAP32(PAD1_poll(0) << 8);
-					*buf|= SWAP32(PAD1_poll(0));
+					*buf = PAD1_poll(0) << 8;
+					*buf|= PAD1_poll(0);
 				}
 
 				PAD2_startPoll(2);
 				if (PAD2_poll(0x42) == 0x23) {
 					PAD2_poll(0);
-					*buf|= SWAP32(PAD2_poll(0) << 24);
-					*buf|= SWAP32(PAD2_poll(0) << 16);
+					*buf |= PAD2_poll(0) << 24;
+					*buf |= PAD2_poll(0) << 16;
 					PAD2_poll(0);
-					*buf&= SWAP32(~((PAD2_poll(0)>0x20)?1<<22:0));
-					*buf&= SWAP32(~((PAD2_poll(0)>0x20)?1<<23:0));
+					*buf &= ~((PAD2_poll(0) > 0x20) ? 1 << 22 : 0);
+					*buf &= ~((PAD2_poll(0) > 0x20) ? 1 << 23 : 0);
 				} else {
 					PAD2_poll(0);
-					*buf|= SWAP32(PAD2_poll(0) << 24);
-					*buf|= SWAP32(PAD2_poll(0) << 16);
+					*buf |= PAD2_poll(0) << 24;
+					*buf |= PAD2_poll(0) << 16;
 				}
+				
+				*buf = SWAP32(*buf);
 			} else {
 				u16 data;
 

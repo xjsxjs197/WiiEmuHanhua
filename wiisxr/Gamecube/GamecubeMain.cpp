@@ -91,7 +91,7 @@ fileBrowser_file subFile;  //the SUB file
 fileBrowser_file *biosFile = NULL;  //BIOS file
 
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
 FILE *emuLog;
 #endif
 
@@ -681,8 +681,8 @@ void go(void) {
 
 int SysInit() {
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
-	emuLog = fopen("/PSXISOS/emu.log", "w");
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	emuLog = fopen("sd:/wiisxrx/emu.log", "w");
 #endif
 	Config.Cpu = dynacore;  //cpu may have changed  
 	psxInit();
@@ -749,7 +749,7 @@ void SysClose()
 	ClosePlugins();
 	ReleasePlugins();
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
 	if (emuLog != NULL) fclose(emuLog);
 #endif
 }
@@ -767,7 +767,7 @@ void SysPrintf(const char *fmt, ...)
 	//if (Config.PsxOut) printf ("%s", msg);
 	DEBUG_print(msg, DBG_USBGECKO);
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
 	fprintf(emuLog, "%s", msg);
 #endif
 #endif

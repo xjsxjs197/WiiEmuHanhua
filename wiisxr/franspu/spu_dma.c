@@ -1,5 +1,7 @@
 #include "franspu.h"
 
+extern void *cacheable_kernel_memcpy(void *to, const void *from, size_t len);
+
 // READ DMA (one value)
 unsigned short  FRAN_SPU_readDMA(void)
 {
@@ -27,11 +29,11 @@ void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 	if (spuAddr + iSize >= 0x80000)
  	{
  		int tmpAddr = 0x80000 - spuAddr;
- 		memcpy(pusPSXMem, spuMem + (spuAddr >> 1), tmpAddr);
+ 		cacheable_kernel_memcpy(pusPSXMem, spuMem + (spuAddr >> 1), tmpAddr);
  		spuAddr = iSize - tmpAddr;
-		memcpy(pusPSXMem + tmpAddr, spuMem, spuAddr);
+		cacheable_kernel_memcpy(pusPSXMem + tmpAddr, spuMem, spuAddr);
 	} else {
-		memcpy(pusPSXMem, spuMem + (spuAddr >> 1), iSize);
+		cacheable_kernel_memcpy(pusPSXMem, spuMem + (spuAddr >> 1), iSize);
 		spuAddr += iSize;
 	}
 	// upd xjsxjs197 end
@@ -63,11 +65,11 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 	if (spuAddr + iSize > 0x7ffff)
 	{
 		int tmpAddr = 0x80000 - spuAddr;
- 		memcpy(spuMem + (spuAddr >> 1), pusPSXMem, tmpAddr);
+ 		cacheable_kernel_memcpy(spuMem + (spuAddr >> 1), pusPSXMem, tmpAddr);
 		spuAddr = iSize - tmpAddr;
-		memcpy(spuMem, pusPSXMem + tmpAddr, spuAddr);
+		cacheable_kernel_memcpy(spuMem, pusPSXMem + tmpAddr, spuAddr);
   	} else {
-  		memcpy(spuMem + (spuAddr >> 1), pusPSXMem, iSize);
+  		cacheable_kernel_memcpy(spuMem + (spuAddr >> 1), pusPSXMem, iSize);
   		spuAddr += iSize;
   	}
 	// upd xjsxjs197 end
