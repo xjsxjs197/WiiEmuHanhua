@@ -2,7 +2,7 @@
  * WiiSX - PadWiiSX.c
  * Copyright (C) 1999-2002  Pcsx Team
  * Copyright (C) 2010 sepp256
- *
+ * 
  * PAD plugin for WiiSX based on Pcsxbox sources
  *
  * WiiSX homepage: http://www.emulatemii.com
@@ -29,12 +29,6 @@
 #include "../psemu_plugin_defs.h"
 #include "gc_input/controller.h"
 #include "wiiSXconfig.h"
-
-// upd by xjsxjs197 start
-#include <setjmp.h>
-
-extern jmp_buf jmpBuf;
-// upd by xjsxjs197 end
 
 extern virtualControllers_t virtualControllers[2];
 extern int stop;
@@ -91,19 +85,13 @@ long PAD__readPort1(PadDataS* ppad)
 #endif
 	if(virtualControllers[Control].inUse)
 		if(DO_CONTROL(Control, GetKeys, (BUTTONS*)&PAD_1, virtualControllers[Control].config))
-        {
-            // upd by xjsxjs197 start
-            stop = 1;
-            //longjmp(jmpBuf, 1);
-            // upd by xjsxjs197 end
-        }
-
+			stop = 1;
 
 
     ppad->buttonStatus = (PAD_1.btns.All&0xFFFF);
 	if ( controllerType == CONTROLLERTYPE_ANALOG )
 	{
-		ppad->controllerType = PSE_PAD_TYPE_ANALOGPAD;
+		ppad->controllerType = PSE_PAD_TYPE_ANALOGPAD; 
 		//ppad->controllerType = PSE_PAD_TYPE_ANALOGJOY ;
 		ppad->leftJoyX = PAD_1.leftStickX; ppad->leftJoyY = PAD_1.leftStickY;
 		ppad->rightJoyX = PAD_1.rightStickX; ppad->rightJoyY = PAD_1.rightStickY;
@@ -140,18 +128,13 @@ long PAD__readPort2(PadDataS* ppad)
 #endif
 	if(virtualControllers[Control].inUse)
 		if(DO_CONTROL(Control, GetKeys, (BUTTONS*)&PAD_2, virtualControllers[Control].config))
-        {
-            // upd by xjsxjs197 start
-            stop = 1;
-            //longjmp(jmpBuf, 1);
-            // upd by xjsxjs197 end
-        }
+			stop = 1;
 
 
     ppad->buttonStatus = (PAD_2.btns.All&0xFFFF);
 	if ( controllerType == CONTROLLERTYPE_ANALOG )
 	{
-		ppad->controllerType = PSE_PAD_TYPE_ANALOGPAD;
+		ppad->controllerType = PSE_PAD_TYPE_ANALOGPAD; 
 		//ppad->controllerType = PSE_PAD_TYPE_ANALOGJOY ;
 		ppad->leftJoyX = PAD_2.leftStickX; ppad->leftJoyY = PAD_2.leftStickY;
 		ppad->rightJoyX = PAD_2.rightStickX; ppad->rightJoyY = PAD_2.rightStickY;

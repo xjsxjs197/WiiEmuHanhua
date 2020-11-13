@@ -4,7 +4,7 @@
  * softdev July 2006
  * crunchy2 May 2007-July 2007
  * Michniewski 2008
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * snes9xgx.cpp
  *
@@ -57,6 +57,7 @@ int ConfigRequested = 0;
 int ShutdownRequested = 0;
 int ResetRequested = 0;
 int ExitRequested = 0;
+bool isWiiVC = false;
 char appPath[1024] = { 0 };
 static int currentMode;
 
@@ -423,6 +424,7 @@ int main(int argc, char *argv[])
 	SYS_SetResetCallback(ResetCB);
 	
 	WiiDRC_Init();
+	isWiiVC = WiiDRC_Inited();
 	WPAD_Init();
 	WPAD_SetPowerButtonCallback((WPADShutdownCallback)ShutdownCB);
 	DI_Init();
@@ -449,11 +451,10 @@ int main(int argc, char *argv[])
 	savebuffer = (unsigned char *)mem2_malloc(SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)mem2_malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 #else
+	savebuffer = (unsigned char *)memalign(32,SAVEBUFFERSIZE);
 #ifdef USE_VM
-	savebuffer = (unsigned char *)vm_malloc(SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)vm_malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 #else
-	savebuffer = (unsigned char *)memalign(32,SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)memalign(32,sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 #endif
 #endif
@@ -521,6 +522,7 @@ int main(int argc, char *argv[])
 		ScreenshotRequested = 0;
 		SwitchAudioMode(0);
 
+		Settings.AutoDisplayMessages = (Settings.DisplayFrameRate || Settings.DisplayTime ? true : false);
 		Settings.MultiPlayer5Master = (GCSettings.Controller == CTRL_PAD4 ? true : false);
 		Settings.SuperScopeMaster = (GCSettings.Controller == CTRL_SCOPE ? true : false);
 		Settings.MouseMaster = (GCSettings.Controller == CTRL_MOUSE ? true : false);
@@ -562,14 +564,4 @@ int main(int argc, char *argv[])
 			#endif
 		} // emulation loop
 	} // main loop
-}
-
-char* ImageFolder()
-{
-	switch(GCSettings.PreviewImage)
-	{
-		case 1 : return GCSettings.CoverFolder; break;
-		case 2 : return GCSettings.ArtworkFolder; break;
-		default: return GCSettings.ScreenshotsFolder; break;
-	}
 }

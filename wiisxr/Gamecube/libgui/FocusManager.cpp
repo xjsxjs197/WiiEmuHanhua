@@ -84,12 +84,14 @@ void Focus::updateFocus()
 
 	for (int i=0; i<4; i++)
 	{
+#ifdef HW_RVL
 		u32 currentButtonsWiiUPro = WUPC_ButtonsHeld(i);
 		u16 currentButtonsWiiUGamepad;
 		if(i == 0)
 			currentButtonsWiiUGamepad = WiiDRC_ButtonsHeld();
 		else
 			currentButtonsWiiUGamepad = 0;
+#endif
 		u16 currentButtonsGC = PAD_ButtonsHeld(i);
 		if (currentButtonsGC ^ previousButtonsGC[i])
 		{

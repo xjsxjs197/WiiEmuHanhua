@@ -146,7 +146,7 @@ inline bool extensionMatches(const std::string& file, const std::string& ext)
 inline std::string getProgramName(void)
 {
    //std::string toReturn;
-   return "WiiSX";
+   return "WiiSXRX";
 }
 
 #endif

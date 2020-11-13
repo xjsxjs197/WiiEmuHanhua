@@ -18,6 +18,7 @@
 #include <malloc.h>
 #include <ogc/texconv.h>
 #include <ogc/lwp_watchdog.h>
+#include <ogc/machine/processor.h>
 
 #include "fceugx.h"
 #include "fceusupport.h"
@@ -468,8 +469,11 @@ static GXRModeObj * FindVideoMode()
 			/* we have component cables, but the preferred mode is interlaced
 			 * why don't we switch into progressive?
 			 * on the Wii, the user can do this themselves on their Wii Settings */
-			if(VIDEO_HaveComponentCable())
-				mode = &TVNtsc480Prog;
+			// upd by xjsxjs197 start
+			//if(VIDEO_HaveComponentCable())
+			//	mode = &TVNtsc480Prog;
+			mode = &TVNtsc480IntDf;
+		    // upd by xjsxjs197 end
 			#endif
 
 			break;
@@ -592,6 +596,14 @@ InitGCVideo ()
 	xfb[1] = (u32 *) MEM_K0_TO_K1 (xfb[1]);
 
 	GXRModeObj *rmode = FindVideoMode();
+
+	#ifdef HW_RVL
+	if (CONF_GetAspectRatio() == CONF_ASPECT_16_9 && (*(u32*)(0xCD8005A0) >> 16) == 0xCAFE) // Wii U
+	{
+		write32(0xd8006a0, 0x30000004), mask32(0xd8006a8, 0, 2);
+	}
+	#endif
+
 	SetupVideoMode(rmode);
 	LWP_CreateThread (&vbthread, vbgetback, NULL, vbstack, TSTACK, 68);
 

@@ -40,10 +40,12 @@
 #ifndef _FONT_H
 #define _FONT_H
 
+// upd xjsxjs 197 start
 //extern "C" int  FONT_Init(void);
 //extern "C" void FONT_Shutdown(void);
 //extern "C" int  FONT_write(char *string, int size, int x, int y, int max_width, GXColor color);
 //extern "C" int  FONT_writeCenter(char *string, int size, int x1, int x2, int y, GXColor color);
 //extern "C" int  FONT_alignRight(char *string, int size, int x, int y, GXColor color);
+// upd xjsxjs 197 end
 
 #endif

@@ -286,7 +286,10 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
             	case H_SPUaddr: return (unsigned short)(spuAddr>>3);
     		case H_SPUdata: 
     		{
-      			unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
+			    // upd xjsxjs197 start
+      			//unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
+				unsigned short s = SWAP16p(spuMem + (spuAddr >> 1));
+				// upd xjsxjs197 end
       			spuAddr+=2;
       			if(spuAddr>0x7ffff) spuAddr=0;
       			return s;

@@ -3,7 +3,7 @@
  * Copyright (C) 2007, 2008, 2009 Mike Slegeir
  * Copyright (C) 2007, 2008, 2009, 2010 sepp256
  * Copyright (C) 2007, 2008, 2009 emu_kidid
- *
+ * 
  * Basic Analog PAD plugin for WiiSX
  *
  * WiiSX homepage: http://www.emulatemii.com
@@ -42,12 +42,6 @@
 #include "wiiSXconfig.h"
 #include "PadSSSPSX.h"
 
-// upd by xjsxjs197 start
-#include <setjmp.h>
-
-extern jmp_buf jmpBuf;
-// upd by xjsxjs197 end
-
 //static BUTTONS PAD_1;
 //static BUTTONS PAD_2;
 extern PadDataS lastport1;
@@ -61,7 +55,7 @@ static struct
 	u16 padStat[2];		//Digital Buttons
 	int padID[2];
 	int padMode1[2];	//0 = digital, 1 = analog
-	int padMode2[2];
+	int padMode2[2];	
 	int padModeE[2];	//Config/Escape mode??
 	int padModeC[2];
 	int padModeF[2];
@@ -136,12 +130,7 @@ static void UpdateState (const int pad) //Note: pad = 0 or 1
 	if(virtualControllers[Control].inUse)
 	{
 		if(DO_CONTROL(Control, GetKeys, (BUTTONS*)&PAD_Data, virtualControllers[Control].config))
-        {
-            // upd by xjsxjs197 start
-            stop = 1;
-            //longjmp(jmpBuf, 1);
-            // upd by xjsxjs197 end
-        }
+			stop = 1;
 	}
 	else
 	{	//TODO: Emulate no controller present in this case.
@@ -164,7 +153,7 @@ static void UpdateState (const int pad) //Note: pad = 0 or 1
 		lastport2.rightJoyX = PAD_Data.rightStickX; lastport2.rightJoyY = PAD_Data.rightStickY;
 		lastport2.buttonStatus = global.padStat[pad];
 	}
-
+	
 	/* Small Motor */
 	if ((global.padVibF[pad][2] != vib0) )
 	{
@@ -232,7 +221,7 @@ static const u8 cmd45[8] = //Get more status info
 };
 // Following commands always issued in sequence: 46, 46, 47, 4C, 4C; Also, only works in config mode (0xF3)
 static const u8 cmd46[8] = //Read unknown constant value from controller (called twice)
-{	//Note this is the first 5 bytes for Katana Wireless pad.
+{	//Note this is the first 5 bytes for Katana Wireless pad. 
 	//May need to change or implement 2nd response, which is indicated by 4th command byte
 	0xff, 0x5a, 0x00, 0x00, 0x01, 0x02, 0x00, 0x0a,
 };
@@ -418,7 +407,7 @@ long SSS_PADreadPort1 (PadDataS* pads)
 	//#PADreadPort1 not used in PCSX
 /*
 	pads->buttonStatus = global.padStat[0];
-
+ 
 	memset (pads, 0, sizeof (PadDataS));
 	if ((global.padID[0] & 0xf0) == 0x40)
 	{
@@ -445,13 +434,7 @@ long SSS_PADreadPort1 (PadDataS* pads)
 #endif
 		if(virtualControllers[Control].inUse)
 			if(DO_CONTROL(Control, GetKeys, (BUTTONS*)&PAD_1, virtualControllers[Control].config))
-            {
-                // upd by xjsxjs197 start
-                stop = 1;
-                //longjmp(jmpBuf, 1);
-                // upd by xjsxjs197 end
-            }
-
+				stop = 1;
 
 		pads->leftJoyX = PAD_1.leftStickX; pads->leftJoyY = PAD_1.leftStickY;
 		pads->rightJoyX = PAD_1.rightStickX; pads->rightJoyY = PAD_1.rightStickY;
@@ -494,13 +477,7 @@ long SSS_PADreadPort2 (PadDataS* pads)
 #endif
 		if(virtualControllers[Control].inUse)
 			if(DO_CONTROL(Control, GetKeys, (BUTTONS*)&PAD_2, virtualControllers[Control].config))
-            {
-                // upd by xjsxjs197 start
-                stop = 1;
-                //longjmp(jmpBuf, 1);
-                // upd by xjsxjs197 end
-            }
-
+				stop = 1;
 
 		pads->leftJoyX = PAD_2.leftStickX; pads->leftJoyY = PAD_2.leftStickY;
 		pads->rightJoyX = PAD_2.rightStickX; pads->rightJoyY = PAD_2.rightStickY;

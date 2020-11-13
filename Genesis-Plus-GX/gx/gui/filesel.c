@@ -1,6 +1,6 @@
 /*
  *  filesel.c
- *
+ * 
  *  File Browser
  *
  *  Copyright Eke-Eke (2009-2014)
@@ -158,6 +158,7 @@ static gui_menu menu_selector =
   selector_cb
 };
 
+// upd xjsxjs 197 start
 wchar_t* charToWideChar(char* strChar) {
 	wchar_t strWChar[strlen(strChar) + 1];
 
@@ -172,13 +173,16 @@ wchar_t* charToWideChar(char* strChar) {
 
 	return strWChar;
 }
+// upd xjsxjs 197 end
 
 static void selector_cb(void)
 {
   int i;
+  // upd xjsxjs 197 start
   //char text[MAXPATHLEN];
   wchar_t strWChar[MAXPATHLEN >> 1];
   wchar_t *tmpWChar;
+  // upd xjsxjs 197 end
   int yoffset = 108;
 
   /* Draw browser array */
@@ -201,6 +205,7 @@ static void selector_cb(void)
       /* selection bar */
       gxDrawTexture(bar_over.texture,bar_over.x,yoffset+bar_over.y,bar_over.w,bar_over.h,255);
 
+      // upd xjsxjs 197 start
       /* scrolling text */
       int txtStartPos = (int) (string_offset / SCROLL_SPEED);
       tmpWChar = charToWideChar(filelist[i].filename);
@@ -256,6 +261,7 @@ static void selector_cb(void)
           string_offset ++;
         }
       }
+	  // upd xjsxjs 197 end
     }
     else
     {
@@ -273,8 +279,8 @@ static void selector_cb(void)
 
     yoffset += 26;
   }
-}
-
+}  
+  
 
 /****************************************************************************
  * FileSelector
@@ -282,7 +288,7 @@ static void selector_cb(void)
  * Browse directories and select a file from the file listing
  * return ROM size
  *
- ****************************************************************************/
+ ****************************************************************************/ 
 int FileSelector(int type)
 {
   short p;
@@ -582,7 +588,7 @@ int FileSelector(int type)
         strcpy(action_select.comment,"Load File");
       }
     }
-
+ 
     /* Draw menu*/
     GUI_DrawMenu(m);
 
@@ -678,7 +684,7 @@ int FileSelector(int type)
     }
 
     /* go back one page */
-    else if (p & (PAD_TRIGGER_L | PAD_BUTTON_LEFT))
+    else if (p & (PAD_TRIGGER_L | PAD_BUTTON_LEFT)) 
     {
       if (maxfiles >= 10)
       {

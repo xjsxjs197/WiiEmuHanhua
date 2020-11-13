@@ -28,6 +28,7 @@
 #include "../libgui/MessageBox.h"
 #include "../libgui/FocusManager.h"
 #include "../libgui/CursorManager.h"
+
 #include "../../psxcommon.h"
 
 extern "C" {
@@ -208,7 +209,7 @@ void FileBrowserFrame::drawChildren(menu::Graphics &gfx)
 				previousButtonsWii[i] = wiiPad[i].btns_h;
 				if (wiiPad[i].exp.type == WPAD_EXP_CLASSIC)
 				{
-					if (currentButtonsDownWii & CLASSIC_CTRL_BUTTON_ZR)
+					if (currentButtonsDownWii & WPAD_CLASSIC_BUTTON_ZR)
 					{
 						// Change sort method
 						fileSortMode ^= 1;
@@ -252,7 +253,6 @@ void FileBrowserFrame::drawChildren(menu::Graphics &gfx)
 					else if (currentButtonsDownWii & WPAD_BUTTON_PLUS)
 					{
 						//move to next set & return
-						if(current_page+1 < max_page) 
 						current_page = (current_page + 1) % max_page;
 						fileBrowserFrame_FillPage();
 						menu::Focus::getInstance().clearPrimaryFocus();
@@ -455,9 +455,27 @@ extern char CdromId[10];
 extern char CdromLabel[33];
 extern signed char autoSaveLoaded;
 void Func_SetPlayGame();
+void Func_PlayGame();
 extern "C" {
 void newCD(fileBrowser_file *file);
 }
+
+// add xjsxjs197 start
+int ChkString(char * str1, char * str2, int len)
+{
+	int tmpIdx = 0;
+	while (str1[tmpIdx] == str2[tmpIdx])
+	{
+		tmpIdx++;
+		if (tmpIdx >= len)
+		{
+			return 1;
+		}
+	}
+	
+	return 0;
+}
+// add xjsxjs197 end
 
 void fileBrowserFrame_LoadFile(int i)
 {
@@ -473,8 +491,19 @@ void fileBrowserFrame_LoadFile(int i)
 	} else if (fileBrowserMode == FileBrowserFrame::FILEBROWSER_LOADISO) {
 		// We must select this file
 		int ret = loadISO( &dir_entries[i] );
-		
+
 		if(!ret){	// If the read succeeded.
+			if(Autoboot){
+				// FIXME: The MessageBox is a hacky way to fix input not responding.
+				// No time to improve this...
+				menu::MessageBox::getInstance().setMessage("Autobooting game...");
+				Func_SetPlayGame();
+				Func_PlayGame();
+				pMenuContext->setActiveFrame(MenuContext::FRAME_MAIN);
+				Autoboot = false;
+				return;
+			}
+			
 			strcpy(feedback_string, "Loaded ");
 			strncat(feedback_string, filenameFromAbsPath(dir_entries[i].name), 36-7);
 
@@ -483,6 +512,19 @@ void fileBrowserFrame_LoadFile(int i)
 			strcat(RomInfo,feedback_string);
 			sprintf(buffer,"\nCD-ROM Label: %s\n",CdromLabel);
 			strcat(RomInfo,buffer);
+			// add xjsxjs197 start
+			if (ChkString(CdromLabel, "Parasite Eve 2", strlen("Parasite Eve 2"))) {
+		        Config.RCntFix = 1;
+		    }
+			if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
+		        Config.RCntFix = 1;
+		    }
+			if (ChkString(CdromLabel, "SLPM86192", strlen("SLPM86192"))) {
+		        Config.RCntFix = 1;
+		    }
+			sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
+			strcat(RomInfo,buffer);
+			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);
 			sprintf(buffer,"ISO Size: %u Mb\n",isoFile.size/1024/1024);
@@ -563,4 +605,13 @@ void fileBrowserFrame_LoadFile(int i)
 	  }
 	  pMenuContext->setActiveFrame(MenuContext::FRAME_MAIN);
 	}
+}
+
+void fileBrowserFrame_AutoBootFile()
+{
+	int i;
+	for(i = 0; i < num_entries - 1; i++)
+		if(strcasestr(dir_entries[i].name, AutobootROM) != NULL)
+			break;
+	fileBrowserFrame_LoadFile(i);
 }

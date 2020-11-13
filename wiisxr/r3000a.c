@@ -47,8 +47,6 @@ int psxInit() {
 }
 
 void psxReset() {
-	psxCpu->Reset();
-
 	psxMemReset();
 
 	memset(&psxRegs, 0, sizeof(psxRegs));
@@ -58,15 +56,18 @@ void psxReset() {
 	psxRegs.CP0.r[12] = 0x10900000; // COP0 enabled | BEV = 1 | TS = 1
 	psxRegs.CP0.r[15] = 0x00000002; // PRevID = Revision ID, same as R3000A
 
+	psxCpu->Reset();
+
 	psxHwReset();
 	psxBiosInit();
 
-	if (!Config.HLE) psxExecuteBios();
+	if (!Config.HLE)
+		psxExecuteBios();
 
 #ifdef EMU_LOG
 	EMU_LOG("*BIOS END*\n");
 #endif
-	Log=0;
+	Log = 0;
 }
 
 void psxShutdown() {
@@ -77,8 +78,26 @@ void psxShutdown() {
 }
 
 void psxException(u32 code, u32 bd) {
+	// add xjsxjs197 start
+	if (!Config.HLE) {
+	    // "hokuto no ken" / "Crash Bandicot 2" ...
+		// BIOS does not allow to return to GTE instructions
+		// (just skips it, supposedly because it's scheduled already)
+		// so we execute it here
+		u32 tmp = PSXMu32(psxRegs.CP0.n.EPC);
+		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
+		    u32* tmp2 = (u32*)PSXM(psxRegs.CP0.n.EPC);
+			if (tmp2 != NULL) {
+			    *tmp2 &= SWAPu32(~0x02000000);
+			}
+		}
+		// "hokuto no ken" / "Crash Bandicot 2" ... fix
+		//PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
+	}
+	// add xjsxjs197 end
+	
 	// Set the Cause
-	psxRegs.CP0.n.Cause = code;
+	psxRegs.CP0.n.Cause = (psxRegs.CP0.n.Cause & 0x300) | code;
 
 	// Set the EPC & PC
 	if (bd) {
@@ -86,7 +105,7 @@ void psxException(u32 code, u32 bd) {
 		PSXCPU_LOG("bd set!!!\n");
 #endif
 		SysPrintf("bd set!!!\n");
-		psxRegs.CP0.n.Cause|= 0x80000000;
+		psxRegs.CP0.n.Cause |= 0x80000000;
 		psxRegs.CP0.n.EPC = (psxRegs.pc - 4);
 	} else
 		psxRegs.CP0.n.EPC = (psxRegs.pc);
@@ -100,10 +119,11 @@ void psxException(u32 code, u32 bd) {
 	psxRegs.CP0.n.Status = (psxRegs.CP0.n.Status &~0x3f) |
 						  ((psxRegs.CP0.n.Status & 0xf) << 2);
 
-	if (!Config.HLE && (((PSXMu32(psxRegs.CP0.n.EPC) >> 24) & 0xfe) == 0x4a)) {
-		// "hokuto no ken" / "Crash Bandicot 2" ... fix
-		PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAPu32(~0x02000000);
-	}
+	// upd xjsxjs197 start
+	//if (!Config.HLE && (((PSXMu32(psxRegs.CP0.n.EPC) >> 24) & 0xfe) == 0x4a)) {
+	//    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
+	//}
+	// upd xjsxjs197 end
 
 	if (Config.HLE) psxBiosException();
 }

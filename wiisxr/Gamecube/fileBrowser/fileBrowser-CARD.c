@@ -78,8 +78,8 @@ int fileBrowser_CARD_seekFile(fileBrowser_file* file, unsigned int where, unsign
 int fileBrowser_CARD_readFile(fileBrowser_file* file, void* buffer, unsigned int length){
 	card_file CardFile;
 	int slot = file->discoffset;
-	u32 SectorSize = 0;
-    CARD_GetSectorSize (slot, &SectorSize);
+	unsigned int SectorSize = 0;
+	CARD_GetSectorSize (slot, &SectorSize);
     
 	if(CARD_Open(slot, (const char*)file->name, &CardFile) != CARD_ERROR_NOFILE){
 	  /* Allocate a temporary buffer */
@@ -109,8 +109,7 @@ int fileBrowser_CARD_writeFile(fileBrowser_file* file, void* buffer, unsigned in
 	card_stat CardStat;
 	int slot = file->discoffset;
 	char *tmpBuffer = NULL;
-	unsigned int status,newLength;
-	u32 SectorSize = 0;
+	unsigned int status,SectorSize,newLength;
 	
 	newLength = length + sizeof(CARDIcon) + 0x40;
 	

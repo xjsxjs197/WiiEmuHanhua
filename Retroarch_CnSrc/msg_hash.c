@@ -27,11 +27,11 @@
 
 #include "msg_hash.h"
 
+/* TODO/FIXME - static public global variable */
 static unsigned uint_user_language;
 
-int menu_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
+int msg_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
 {
-#ifdef HAVE_MENU
    int ret = -1;
 
 #ifdef HAVE_LANGEXTRA
@@ -75,21 +75,33 @@ int menu_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
    //      ret = menu_hash_get_help_vn_enum(msg, s, len);
    //      break;
       case RETRO_LANGUAGE_CHINESE_SIMPLIFIED:
-         ret = menu_hash_get_help_chs_enum(msg, s, len);
+         ret = msg_hash_get_help_chs_enum(msg, s, len);
          break;
    //   case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
-   //      ret = menu_hash_get_help_cht_enum(msg, s, len);
+   //      ret = msg_hash_get_help_cht_enum(msg, s, len);
    //      break;
    //   case RETRO_LANGUAGE_ARABIC:
-   //      ret = menu_hash_get_help_ar_enum(msg, s, len);
+   //      ret = msg_hash_get_help_ar_enum(msg, s, len);
    //      break;
    //   case RETRO_LANGUAGE_GREEK:
-   //      ret = menu_hash_get_help_el_enum(msg, s, len);
+   //      ret = msg_hash_get_help_el_enum(msg, s, len);
    //      break;
    //   case RETRO_LANGUAGE_TURKISH:
-   //      ret = menu_hash_get_help_tr_enum(msg, s, len);
+   //      ret = msg_hash_get_help_tr_enum(msg, s, len);
    //      break;
-   // upd xjsxjs197 end
+   //   case RETRO_LANGUAGE_SLOVAK:
+   //      ret = msg_hash_get_help_sk_enum(msg, s, len);
+   //      break;
+   //   case RETRO_LANGUAGE_PERSIAN:
+   //      ret = msg_hash_get_help_fa_enum(msg, s, len);
+   //      break;
+   //   case RETRO_LANGUAGE_HEBREW:
+   //      ret = msg_hash_get_help_he_enum(msg, s, len);
+   //      break;
+   //   case RETRO_LANGUAGE_ASTURIAN:
+   //      ret = msg_hash_get_help_ast_enum(msg, s, len);
+   //      break;
+    // upd xjsxjs197 end
       default:
          break;
    }
@@ -98,10 +110,7 @@ int menu_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
    if (ret == 0)
       return ret;
 
-   return menu_hash_get_help_us_enum(msg, s, len);
-#else
-   return 0;
-#endif
+   return msg_hash_get_help_us_enum(msg, s, len);
 }
 
 const char *get_user_language_iso639_1(bool limit)
@@ -174,8 +183,16 @@ const char *get_user_language_iso639_1(bool limit)
    //   case RETRO_LANGUAGE_RUSSIAN:
    //      voice = "ru";
    //      break;
+   //   case RETRO_LANGUAGE_PERSIAN:
+   //      voice = "fa";
+   //      break;
+   //   case RETRO_LANGUAGE_HEBREW:
+   //      voice = "he";
+   //      break;
+   //   case RETRO_LANGUAGE_ASTURIAN:
+   //      voice = "ast";
+   //      break;
    // upd xjsxjs197 end
-
    }
    return voice;
 }
@@ -245,6 +262,16 @@ const char *msg_hash_to_str(enum msg_hash_enums msg)
    //   case RETRO_LANGUAGE_SLOVAK:
    //      ret = msg_hash_to_str_sk(msg);
    //      break;
+   //   case RETRO_LANGUAGE_PERSIAN:
+   //      ret = msg_hash_to_str_fa(msg);
+   //      break;
+   //   case RETRO_LANGUAGE_HEBREW:
+   //      ret = msg_hash_to_str_he(msg);
+   //      break;
+   //   case RETRO_LANGUAGE_ASTURIAN:
+   //      ret = msg_hash_to_str_ast(msg);
+   //      break;
+   // upd xjsxjs197 start
       default:
          break;
    }

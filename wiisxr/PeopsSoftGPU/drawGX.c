@@ -1,7 +1,7 @@
 /***************************************************************************
     drawGX.m
     PeopsSoftGPU for cubeSX/wiiSX
-
+  
     Created by sepp256 on Thur Jun 26 2008.
     Copyright (c) 2008 Gil Pedersen.
     Adapted from draw.c by Pete Bernet and drawgl.m by Gil Pedersen.
@@ -94,13 +94,13 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 
  // TODO: visual rumble
 
-/*
-  if(iRumbleTime)
+/*     
+  if(iRumbleTime) 
    {
-    ScreenRect.left+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
-    ScreenRect.right+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
-    ScreenRect.top+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
-    ScreenRect.bottom+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
+    ScreenRect.left+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
+    ScreenRect.right+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
+    ScreenRect.top+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
+    ScreenRect.bottom+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
     iRumbleTime--;
    }
 */
@@ -120,10 +120,7 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 //	if(usCursorActive) ShowGunCursor(pBackBuffer,PreviousPSXDisplay.Range.x0+PreviousPSXDisplay.Range.x1);
 
 // TODO: Show menu text
-    // upd by xjsxjs197 start
-	//if(ulKeybits&KEY_SHOWFPS) //DisplayText();               // paint menu text
-    if (showFPSonScreen)
-    // upd by xjsxjs197 send
+	if(ulKeybits&KEY_SHOWFPS) //DisplayText();               // paint menu text
 	{
 		if(szDebugText[0] && ((time(NULL) - tStart) < 2))
 		{
@@ -148,12 +145,7 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 void DoClearScreenBuffer(void)                         // CLEAR DX BUFFER
 {
 	// clear the screen, and DON'T flush it
-	// upd by xjsxjs197 start
-	//DEBUG_print("DoClearScreenBuffer",DBG_GPU1);
-	#ifdef SHOW_DEBUG
 	DEBUG_print("DoClearScreenBuffer",DBG_GPU1);
-	#endif // SHOW_DEBUG
-	// upd by xjsxjs197 send
 //	printf("DoClearScreenBuffer\n");
 //	whichfb ^= 1;
 //	GX_CopyDisp(xfb[1], GX_TRUE);
@@ -168,8 +160,7 @@ void DoClearScreenBuffer(void)                         // CLEAR DX BUFFER
 void DoClearFrontBuffer(void)                          // CLEAR DX BUFFER
 {
 	if (menuActive) return;
-    // upd by xjsxjs197 start
-    /*
+
 	// clear the screen, and flush it
 	DEBUG_print("DoClearFrontBuffer",DBG_GPU1);
 //	printf("DoClearFrontBuffer\n");
@@ -184,24 +175,7 @@ void DoClearFrontBuffer(void)                          // CLEAR DX BUFFER
 	DEBUG_update();
 	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
 		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
-    */
 
-	if (showFPSonScreen)
-    {
-        GXColor fontColor = {150,255,150,255};
-	    IplFont_drawInit(fontColor);
-        IplFont_drawString(10,35,szDispBuf, 1.0, false);
-    }
-
-    #ifdef SHOW_DEBUG
-    DEBUG_print("DoClearFrontBuffer",DBG_GPU1);
-
-	int i = 0;
-	DEBUG_update();
-	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
-		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
-    #endif
-    // upd by xjsxjs197 end
    //reset swap table from GUI/DEBUG
 	GX_SetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
 	GX_SetTevSwapMode(GX_TEVSTAGE0, GX_TEV_SWAP0, GX_TEV_SWAP0);
@@ -476,8 +450,6 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 	  GX_TexCoord2f32( 0.0, 1.0);
 	GX_End();
 
-    // upd by xjsxjs197 start
-    /*
 	//Write menu/debug text on screen
 	GXColor fontColor = {150,255,150,255};
 	IplFont_drawInit(fontColor);
@@ -488,24 +460,7 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 	DEBUG_update();
 	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
 		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
-    */
-    //Write menu/debug text on screen
-
-	if(showFPSonScreen)
-    {
-        GXColor fontColor = {150,255,150,255};
-	    IplFont_drawInit(fontColor);
-        IplFont_drawString(10,35,szDispBuf, 1.0, false);
-    }
-
-    #ifdef SHOW_DEBUG
-	int i = 0;
-	DEBUG_update();
-	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
-		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
-    #endif
-    // upd by xjsxjs197 end
-
+		
    //reset swap table from GUI/DEBUG
 	GX_SetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
 	GX_SetTevSwapMode(GX_TEVSTAGE0, GX_TEV_SWAP0, GX_TEV_SWAP0);

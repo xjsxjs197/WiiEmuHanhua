@@ -33,7 +33,7 @@ extern char *disRNameCP0[];
 char* disR3000AF(u32 code, u32 pc);
 
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
 extern FILE *emuLog;
 #endif
 
@@ -60,6 +60,10 @@ FILE *gteLog;
 #if defined (PSXCPU_LOG) || defined(PSXDMA_LOG) || defined(CDR_LOG) || defined(PSXHW_LOG) || \
 	defined(PSXBIOS_LOG) || defined(PSXMEM_LOG) || defined(GTE_LOG)    || defined(PAD_LOG)
 #define EMU_LOG __Log
+#endif
+
+#if defined(PSXBIOS_LOG)
+    #define PSXBIOS_LOG printf
 #endif
 
 #endif /* __DEBUG_H__ */

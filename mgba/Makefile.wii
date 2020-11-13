@@ -241,7 +241,7 @@ $(DOL): $(ELF)
 	elf2dol $(ELF) $(DOL)
 
 ALL_O_FILES = $(foreach dir,./src,$(wildcard $(dir)/*.o))
-ALL_D_FILES = $(foreach dir,./src,$(wildcard $(dir)/*.d))
+ALL_D_FILES = $(foreach dir,/src,$(wildcard $(dir)/*.d))
 
 clean:
 	find ./fonts -name '*.o' -print0 | xargs -0r rm -f
@@ -250,9 +250,9 @@ clean:
 	find ./lang -name '*.d' -print0 | xargs -0r rm -f
 	find . -name '*_lang.h' -print0 | xargs -0r rm -f
 	find . -name '*_dat.h' -print0 | xargs -0r rm -f
-	@rm -fr ALL_O_FILES
-	@rm -fr ALL_D_FILES
-	@rm -fr $(ELF) $(ELF).map $(DOL) font_tpl.h icons_tpl.h
+	rm -f $(ALL_OBJ)
+	rm -f $(ALL_D_FILES)
+	rm -f $(ELF) $(ELF).map $(DOL) font_tpl.h icons_tpl.h
 
 #---------------------------------------------------------------------------------
 # canned command sequence for binary data

@@ -235,7 +235,7 @@ void sioWrite8(unsigned char value) {
 			}
 			mcdst = 5;
 			return;
-		case 5:	
+		case 5:
 			parp++;
 			if (rdwr == 2) {
 				if (parp < 128) buf[parp+1] = value;
@@ -330,7 +330,7 @@ int LoadMcd(int mcd, fileBrowser_file *savepath) {
   fileBrowser_file saveFile;
 	memcpy(&saveFile, savepath, sizeof(fileBrowser_file));
 	memset(&saveFile.name[0],0,FILE_BROWSER_MAX_PATH_LEN);
-	
+
 	if(mcd == 1) {
 	  sprintf((char*)saveFile.name,"%s/%s.mcd",savepath->name,CdromId);
 	  data = &Mcd1Data[0];
@@ -362,15 +362,28 @@ int LoadMcds(fileBrowser_file *mcd1, fileBrowser_file *mcd2) {
   return 0;
 }
 
+// add xjsxjs197 start
+int SaveMcdByNum(int mcd) {
+    if (saveFile_dir)
+	{
+	    return SaveMcd(mcd, saveFile_dir);
+	}
+    else
+	{
+	    return -1;
+	}
+}
+// add xjsxjs197 end
+
 //call me from menu, takes slot and save path as args
 int SaveMcd(int mcd, fileBrowser_file *savepath) {
   bool ret = 0;
   char *data = NULL;
   fileBrowser_file saveFile;
-  
+
 	memcpy(&saveFile, savepath, sizeof(fileBrowser_file));
 	memset(&saveFile.name[0],0,FILE_BROWSER_MAX_PATH_LEN);
-	
+
 	if(mcd == 1) {
 	  sprintf((char*)saveFile.name,"%s/%s.mcd",savepath->name,CdromId);
 	  data = &Mcd1Data[0];
@@ -379,10 +392,10 @@ int SaveMcd(int mcd, fileBrowser_file *savepath) {
   	sprintf((char*)saveFile.name,"%s/slot2.mcd",savepath->name);
   	data = &Mcd2Data[0];
 	}
-	
+
   if(saveFile_writeFile(&saveFile, data, MCD_SIZE)==MCD_SIZE)
     ret = 1;
-  
+
   return ret;
 }
 
@@ -428,14 +441,14 @@ void ConvertMcd(char *mcd, char *data) {
 	/*FILE *f;
 	int i=0;
 	int s = MCD_SIZE;
-	
-	if (strstr(mcd, ".gme")) {		
+
+	if (strstr(mcd, ".gme")) {
 		f = fopen(mcd, "wb");
-		if (f != NULL) {		
+		if (f != NULL) {
 			fwrite(data-3904, 1, MCD_SIZE+3904, f);
 			fclose(f);
-		}		
-		f = fopen(mcd, "r+");		
+		}
+		f = fopen(mcd, "r+");
 		s = s + 3904;
 		fputc('1', f); s--;
 		fputc('2', f); s--;
@@ -450,7 +463,7 @@ void ConvertMcd(char *mcd, char *data) {
 		fputc('D', f); s--;
 		for(i=0;i<7;i++) {
 			fputc(0, f); s--;
-		}		
+		}
 		fputc(1, f); s--;
 		fputc(0, f); s--;
 		fputc(1, f); s--;
@@ -463,14 +476,14 @@ void ConvertMcd(char *mcd, char *data) {
 		fputc(0xff, f);
 		while (s-- > (MCD_SIZE+1)) fputc(0, f);
 		fclose(f);
-	} else if(strstr(mcd, ".mem") || strstr(mcd,".vgs")) {		
+	} else if(strstr(mcd, ".mem") || strstr(mcd,".vgs")) {
 		f = fopen(mcd, "wb");
-		if (f != NULL) {		
+		if (f != NULL) {
 			fwrite(data-64, 1, MCD_SIZE+64, f);
 			fclose(f);
-		}		
-		f = fopen(mcd, "r+");		
-		s = s + 64;				
+		}
+		f = fopen(mcd, "r+");
+		s = s + 64;
 		fputc('V', f); s--;
 		fputc('g', f); s--;
 		fputc('s', f); s--;
@@ -487,7 +500,7 @@ void ConvertMcd(char *mcd, char *data) {
 		fclose(f);
 	} else {
 		f = fopen(mcd, "wb");
-		if (f != NULL) {		
+		if (f != NULL) {
 			fwrite(data, 1, MCD_SIZE, f);
 			fclose(f);
 		}

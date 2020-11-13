@@ -285,7 +285,10 @@ static int _nextPsxRegUse(u32 pc, int psxreg, int numInstr)
 				reguse = REGUSE_WRITE;
 				break;
 		  }
-		  code = SWAP32(*ptr);
+    	  // upd xjsxjs197 start
+		  //code = SWAP32(*ptr);
+    	  code = SWAP32p(ptr);
+    	  // upd xjsxjs197 end
 		  // get usage patterns for instruction
 		  int use = getRegUse(code);
 		  // find the use of psxreg in the instruction

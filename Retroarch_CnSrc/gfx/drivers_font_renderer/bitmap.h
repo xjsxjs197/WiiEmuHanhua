@@ -18,8 +18,10 @@
 #define __RARCH_FONT_BITMAP_H
 
 // upd xjsxjs197 start
-#define FONT_WIDTH 14
-#define FONT_HEIGHT 14
+#define FONT_WIDTH 13
+#define FONT_HEIGHT 13
+//#define FONT_WIDTH 14
+//#define FONT_HEIGHT 14
 /* FONT_HEIGHT_BASELINE_OFFSET:
  * Distance in pixels from top of character
  * to baseline */

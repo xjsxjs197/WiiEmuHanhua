@@ -3,7 +3,7 @@
  *
  *  generic GUI Engine (using GX rendering)
  *
- *  Copyright Eke-Eke (2009-2014)
+ *  Copyright Eke-Eke (2009-2019)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -914,6 +914,7 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     gxDrawTexture(window,xwindow,ywindow-yoffset,window->width,window->height,230);
     gxDrawTexture(top,xwindow,ywindow-yoffset,top->width,top->height,255);
 
+    // upd xjsxjs 197 start
     /* draw title */
     FONT_writeCenterOld(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
 
@@ -946,6 +947,7 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     {
       FONT_writeCenterOld(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize,(GXColor)WHITE);
     }
+	// upd xjsxjs 197 end
 
 #ifdef HW_RVL
     if (Shutdown)
@@ -990,13 +992,14 @@ void GUI_TextWindow(gui_menu *parent, char *title, char items[][64], u8 nb_items
     gxDrawTexture(window,xwindow,ywindow-yoffset,window->width,window->height,230);
     gxDrawTexture(top,xwindow,ywindow-yoffset,top->width,top->height,255);
 
+    // upd xjsxjs 197 start
     /* draw title */
     FONT_writeCenterOld(title,20,xwindow,xwindow+window->width,ywindow+(top->height-20)/2+20-yoffset,(GXColor)WHITE);
 
     /* draw  text */
     for (i=0; i<nb_items; i++)
       FONT_writeCenterOld(items[i],fontsize,xwindow,xwindow+window->width,ypos+i*fontsize-yoffset,(GXColor)WHITE);
-
+    // upd xjsxjs 197 end
     /* update display */
     gxSetScreen();
 
@@ -1770,6 +1773,7 @@ static void *MsgBox_Thread(gui_message *message_box)
     /* draw exit message */
     if (message_box->buttonA)
     {
+	  // upd xjsxjs 197 start
       if (message_box->buttonB)
       {
         FONT_writeCenter("        Confirm      Cancel      ",18,166,166+message_box->window->width,248+18+8,(GXColor)WHITE);
@@ -1784,6 +1788,7 @@ static void *MsgBox_Thread(gui_message *message_box)
         //gxDrawTexture(message_box->buttonA, 166+116, 248+4+(18-message_box->buttonA->height)/2,message_box->buttonA->width, message_box->buttonA->height,255);
         gxDrawTexture(message_box->buttonA, 166+126, 248+7+(18-message_box->buttonA->height)/2,message_box->buttonA->width, message_box->buttonA->height,255);
       }
+	  // upd xjsxjs 197 end
     }
 
     /* update display */
@@ -1802,10 +1807,12 @@ static void *MsgBox_Thread(gui_message *message_box)
 /* update current Message Box */
 void GUI_MsgBoxUpdate(char *title, char *msg)
 {
+  // upd xjsxjs 197 start
   if (title)
     strncpy(message_box.title,gettext(title),64);
   if (msg)
     strncpy(message_box.msg,gettext(msg),64);
+   // upd xjsxjs 197 end
 }
 
 /* setup current Message Box */

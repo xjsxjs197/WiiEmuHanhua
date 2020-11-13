@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX input support
  *
- *  Copyright Eke-Eke (2007-2017)
+ *  Copyright Eke-Eke (2007-2019)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -523,6 +523,15 @@ static int wpad_StickX(WPADData *data, u8 right)
     int max = js->max.x;
     int center = js->center.x;
  
+    /* some 3rd party controllers return invalid analog sticks calibration data */
+    if ((min >= center) || (max <= center))
+    {
+      /* force default calibration settings */
+      min = js->min.x = 0;
+      max = js->max.x = right ? 32 : 64;
+      center = js->center.x  = right ? 16 : 32;
+    }
+
     /* value returned could be above calibration limits */
     if (pos > max) return 127;
     if (pos < min) return -128;
@@ -572,6 +581,15 @@ static int wpad_StickY(WPADData *data, u8 right)
     int max = js->max.y;
     int center = js->center.y;
  
+    /* some 3rd party controllers return invalid analog sticks calibration data */
+    if ((min >= center) || (max <= center))
+    {
+      /* force default calibration settings */
+      min = js->min.y = 0;
+      max = js->max.y = right ? 32 : 64;
+      center = js->center.y  = right ? 16 : 32;
+    }
+
     /* value returned could be above calibration limits */
     if (pos > max) return 127;
     if (pos < min) return -128;
@@ -1284,7 +1302,7 @@ int gx_input_FindDevices(void)
           if (wpad == WPAD_EXP_CLASSIC)
           {
             WPADData *data = WPAD_Data(config.input[player].port);
-            if (data->exp.classic.rjs.max.x != 255)
+            if (data->exp.classic.type != 2)
             {
               found++;
             }
@@ -1453,11 +1471,12 @@ void gx_input_SetDefault(void)
         {
           /* make sure this is not a Wii U Pro Controller */
           WPADData *data = WPAD_Data(config.input[j].port);
-          if (data->exp.classic.rjs.max.x != 255)
+          if (data->exp.classic.type != 2)
           {
             /* Wiimote is available */
             config.input[i].device = 1;
             config.input[i].port = j;
+            break;
           }
         }
       }

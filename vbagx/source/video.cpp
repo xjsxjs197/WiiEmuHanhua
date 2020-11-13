@@ -310,8 +310,11 @@ static GXRModeObj * FindVideoMode()
 			/* we have component cables, but the preferred mode is interlaced
 			 * why don't we switch into progressive?
 			 * on the Wii, the user can do this themselves on their Wii Settings */
-			if(VIDEO_HaveComponentCable())
-				mode = &TVNtsc480Prog;
+			// upd by xjsxjs197 start
+			//if(VIDEO_HaveComponentCable())
+			//	mode = &TVNtsc480Prog;
+			mode = &TVNtsc480IntDf;
+			// upd by xjsxjs197 end
 			#endif
 
 			break;

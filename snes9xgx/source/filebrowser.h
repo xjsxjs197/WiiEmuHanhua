@@ -1,7 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * filebrowser.h
  *
@@ -13,7 +13,7 @@
 
 #include <unistd.h>
 #include <gccore.h>
-#include <snes9xgx.h>
+#include "snes9xgx.h"
 
 #define MAXJOLIET 255
 #ifdef HW_DOL

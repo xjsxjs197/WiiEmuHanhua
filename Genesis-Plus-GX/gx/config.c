@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX configuration file support
  *
- *  Copyright Eke-Eke (2007-2017)
+ *  Copyright Eke-Eke (2007-2019)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -95,7 +95,7 @@ void config_save(void)
 void config_default(void)
 {
   /* version TAG */
-  strncpy(config.version,CONFIG_VERSION,16);
+  memcpy(config.version,CONFIG_VERSION,16);
 
   /* sound options */
   config.psg_preamp     = 150;
@@ -156,7 +156,7 @@ void config_default(void)
     case VI_EURGB60:
       config.tv_mode = 2; /* 50/60hz */
       break;
-
+    
     default:
       config.tv_mode = 0; /* 60hz only */
       break;
@@ -258,7 +258,7 @@ void config_default(void)
 
   /* try to restore user config */
   int loaded = config_load();
-
+  
 #ifdef HW_RVL
   /* initialize WPAD timeout */
   WPAD_SetIdleTimeout(config.autosleep ? 300 : 1800);
@@ -300,7 +300,9 @@ void config_default(void)
   /* inform user if default config is used */
   if (!loaded)
   {
+    // upd xjsxjs 197 start
     //GUI_WaitPrompt("Warning","Default Settings restored");
+	// upd xjsxjs 197 end
     gx_input_SetDefault();
   }
 

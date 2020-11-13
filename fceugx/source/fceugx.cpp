@@ -73,6 +73,7 @@ int ConfigRequested = 0;
 int ShutdownRequested = 0;
 int ResetRequested = 0;
 int ExitRequested = 0;
+bool isWiiVC = false;
 char appPath[1024] = { 0 };
 
 int frameskip = 0;
@@ -387,6 +388,7 @@ int main(int argc, char *argv[])
 	SYS_SetResetCallback(ResetCB);
 	
 	WiiDRC_Init();
+	isWiiVC = WiiDRC_Inited();
 	WPAD_Init();
 	WPAD_SetPowerButtonCallback((WPADShutdownCallback)ShutdownCB);
 	DI_Init();
@@ -410,12 +412,11 @@ int main(int argc, char *argv[])
 	DefaultSettings(); // Set defaults
 	InitialiseAudio();
 	InitFreeType((u8*)font_ttf, font_ttf_size); // Initialize font system
+	savebuffer = (unsigned char *)memalign(32,SAVEBUFFERSIZE);
 #ifdef USE_VM
-	savebuffer = (unsigned char *)vm_malloc(SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)vm_malloc(sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 	nesrom = (unsigned char *)vm_malloc(1024*1024*4);
 #else
-	savebuffer = (unsigned char *)memalign(32,SAVEBUFFERSIZE);
 	browserList = (BROWSERENTRY *)memalign(32,sizeof(BROWSERENTRY)*MAX_BROWSER_SIZE);
 	nesrom = (unsigned char *)memalign(32,1024*1024*4);
 #endif
@@ -560,14 +561,4 @@ int main(int argc, char *argv[])
 
 		} // emulation loop
 	} // main loop
-}
-
-char* ImageFolder()
-{
-	switch(GCSettings.PreviewImage)
-	{
-		case 1 : return GCSettings.CoverFolder; break;
-		case 2 : return GCSettings.ArtworkFolder; break;
-		default: return GCSettings.ScreenshotsFolder; break;
-	}
 }

@@ -16,7 +16,7 @@
  *                                                                         *
  ***************************************************************************/
 
-//*************************************************************************//
+//*************************************************************************// 
 // History of changes:
 //
 // 2005/04/15 - Pete
@@ -27,7 +27,7 @@
 //
 // 2002/12/14 - Pete
 // - Added dithering menu item
-//
+//                                    
 // 2002/05/25 - Pete
 // - Added menu support for linuzappz's fast forward skipping
 //
@@ -35,17 +35,17 @@
 // - Added timing for the szDebugText (to 2 secs)
 //
 // 2001/12/22 - syo
-// - modified for "transparent menu"
+// - modified for "transparent menu" 
 //   (Pete: added 'V' display for WaitVBlank)
 //
 // 2001/11/09 - Darko Matesic
-// - added recording status
+// - added recording status 
 //   (Pete: added terminate zero to the menu buffer ;)
 //
-// 2001/10/28 - Pete
+// 2001/10/28 - Pete  
 // - generic cleanup for the Peops release
 //
-//*************************************************************************//
+//*************************************************************************// 
 
 #include "stdafx.h"
 
@@ -57,9 +57,6 @@
 #include "gpu.h"
 
 unsigned long dwCoreFlags=0;
-// upd by xjsxjs197 start
-extern char showFPSonScreen;
-// upd by xjsxjs197 end
 
 ////////////////////////////////////////////////////////////////////////
 // create lists/stuff for fonts (actually there are no more lists, but I am too lazy to change the func names ;)
@@ -97,38 +94,18 @@ void DisplayText(void)                                 // DISPLAY TEXT
 
 void BuildDispMenu(int iInc)
 {
- // upd by xjsxjs197 start
- //if(!(ulKeybits&KEY_SHOWFPS)) return;                  // mmm, cheater ;)
- if (!showFPSonScreen) return;                  // mmm, cheater ;)
- // upd by xjsxjs197 end
+ if(!(ulKeybits&KEY_SHOWFPS)) return;                  // mmm, cheater ;)
 
  iMPos+=iInc;                                          // up or down
  if(iMPos<0) iMPos=3;                                  // wrap around
  if(iMPos>3) iMPos=0;
 
- strcpy(szMenuBuf,"   FL   FS   DI   GF        ");     // main menu items
-
- if(UseFrameLimit)                                     // set marks
-  {
-   if(iFrameLimit==1) szMenuBuf[2]  = '+';
-   else               szMenuBuf[2]  = '*';
-  }
- if(iFastFwd)       szMenuBuf[7]  = '~';
- else
- if(UseFrameSkip)   szMenuBuf[7]  = '*';
-
- if(iUseDither)                                        // set marks
-  {
-   if(iUseDither==1) szMenuBuf[12]  = '+';
-   else              szMenuBuf[12]  = '*';
-  }
-
- if(dwActFixes)     szMenuBuf[17] = '*';
+ strcpy(szMenuBuf,"        ");     // main menu items
 
  if(dwCoreFlags&1)  szMenuBuf[23]  = 'A';
  if(dwCoreFlags&2)  szMenuBuf[23]  = 'M';
 
- if(dwCoreFlags&0xff00)                                //A/M/G/D
+ if(dwCoreFlags&0xff00)                                //A/M/G/D   
   {
    if((dwCoreFlags&0x0f00)==0x0000)                    // D
     szMenuBuf[23]  = 'D';
@@ -146,10 +123,6 @@ void BuildDispMenu(int iInc)
   }
 
 
- if(lSelectedSlot)  szMenuBuf[26]  = '0'+(char)lSelectedSlot;
-
- szMenuBuf[(iMPos+1)*5]='<';                           // set arrow
-
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -158,10 +131,7 @@ void BuildDispMenu(int iInc)
 
 void SwitchDispMenu(int iStep)                         // SWITCH DISP MENU
 {
-    // upd by xjsxjs197 start
- //if(!(ulKeybits&KEY_SHOWFPS)) return;                  // tststs
-    if (!showFPSonScreen) return;                  // tststs
-    // upd by xjsxjs197 end
+ if(!(ulKeybits&KEY_SHOWFPS)) return;                  // tststs
 
  switch(iMPos)
   {//////////////////////////////////////////////////////

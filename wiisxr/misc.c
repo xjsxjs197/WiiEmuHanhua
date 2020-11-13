@@ -413,7 +413,7 @@ int Load(fileBrowser_file *exe) {
 // STATES
 void LoadingBar_showBar(float percent, const char* string);
 const char PcsxHeader[32] = "STv3 PCSX v";
-char* statespath = "/wiisxr/saves/";
+char* statespath = "/wiisxrx/savestates/";
 static unsigned int savestates_slot = 0;
 extern unsigned char  *psxVub;
 extern unsigned short  spuMem[256*1024];
@@ -678,7 +678,7 @@ void __Log(char *fmt, ...) {
 	va_start(list, fmt);
 #ifndef LOG_STDOUT
 #if defined (CPU_LOG) || defined(DMA_LOG) || defined(CDR_LOG) || defined(HW_LOG) || \
-	defined(BIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
+	defined(PSXBIOS_LOG) || defined(GTE_LOG) || defined(PAD_LOG)
 	vfprintf(emuLog, fmt, list);
 #endif
 #else

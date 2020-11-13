@@ -54,6 +54,8 @@ extern int bSPUIsOpen;
 #define SWAPSPU16(x) (((x)>>8 & 0xff) | ((x)<<8 & 0xff00))
 #define SWAPSPU32(x) (((x)>>24 & 0xfful) | ((x)>>8 & 0xff00ul) | ((x)<<8 & 0xff0000ul) | ((x)<<24 & 0xff000000ul))
 
+#define SWAP16p(ptr) ({u16 __ret, *__ptr=(ptr); __asm__ ("lhbrx %0, 0, %1" : "=r" (__ret) : "r" (__ptr)); __ret;})
+
 #define HOST2LE16(x) SWAPSPU16(x)
 #define HOST2BE16(x) (x)
 #define LE2HOST16(x) SWAPSPU16(x)

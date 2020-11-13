@@ -153,7 +153,8 @@ void Func_ShowRomInfo()
 	sprintf(buffer,"CD-ROM Label: %s\n",CdromLabel);
   strcat(RomInfo,buffer);
   sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
-  strcat(RomInfo,buffer);
+	 
+	strcat(RomInfo,buffer);
   sprintf(buffer,"ISO Size: %u Mb\n",isoFile.size/1024/1024);
   strcat(RomInfo,buffer);
   sprintf(buffer,"Country: %s\n",(!Config.PsxType) ? "NTSC":"PAL");
@@ -298,7 +299,7 @@ void Func_SaveGame()
   result += SaveMcd(2,saveFile_dir);
   saveFile_deinit(saveFile_dir);
 
-	if (result==amountSaves) {	
+	if (result>=amountSaves) {	
 		switch (nativeSaveDevice)
 		{
 			case NATIVESAVEDEVICE_SD:

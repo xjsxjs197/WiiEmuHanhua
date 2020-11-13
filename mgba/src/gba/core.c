@@ -347,6 +347,20 @@ static void _GBACoreReloadConfigOption(struct mCore* core, const char* option, c
 		}
 		return;
 	}
+#if defined(BUILD_GLES2) || defined(BUILD_GLES3)
+	struct GBACore* gbacore = (struct GBACore*) core;
+	if (strcmp("videoScale", option) == 0) {
+		if (config != &core->config) {
+			mCoreConfigCopyValue(&core->config, config, "videoScale");
+		}
+		if (gbacore->glRenderer.outputTex != (unsigned) -1 && mCoreConfigGetIntValue(&core->config, "hwaccelVideo", &fakeBool) && fakeBool) {
+			int scale;
+			mCoreConfigGetIntValue(config, "videoScale", &scale);
+			GBAVideoGLRendererSetScale(&gbacore->glRenderer, scale);
+		}
+		return;
+	}
+#endif
 }
 
 static void _GBACoreDesiredVideoDimensions(struct mCore* core, unsigned* width, unsigned* height) {
@@ -354,6 +368,7 @@ static void _GBACoreDesiredVideoDimensions(struct mCore* core, unsigned* width, 
 	struct GBACore* gbacore = (struct GBACore*) core;
 	int scale = gbacore->glRenderer.scale;
 #else
+	UNUSED(core);
 	int scale = 1;
 #endif
 
@@ -507,11 +522,11 @@ static void _GBACoreReset(struct mCore* core) {
 	    || gbacore->glRenderer.outputTex != (unsigned) -1
 #endif
 	) {
-		struct GBAVideoRenderer* renderer;
+		struct GBAVideoRenderer* renderer = NULL;
 		if (gbacore->renderer.outputBuffer) {
 			renderer = &gbacore->renderer.d;
 		}
-		int fakeBool;
+		int fakeBool ATTRIBUTE_UNUSED;
 #if defined(BUILD_GLES2) || defined(BUILD_GLES3)
 		if (gbacore->glRenderer.outputTex != (unsigned) -1 && mCoreConfigGetIntValue(&core->config, "hwaccelVideo", &fakeBool) && fakeBool) {
 			renderer = &gbacore->glRenderer.d;
@@ -526,13 +541,15 @@ static void _GBACoreReset(struct mCore* core) {
 		}
 #endif
 #ifndef MINIMAL_CORE
-		if (core->videoLogger) {
+		if (renderer && core->videoLogger) {
 			gbacore->proxyRenderer.logger = core->videoLogger;
 			GBAVideoProxyRendererCreate(&gbacore->proxyRenderer, renderer);
 			renderer = &gbacore->proxyRenderer.d;
 		}
 #endif
-		GBAVideoAssociateRenderer(&gba->video, renderer);
+		if (renderer) {
+			GBAVideoAssociateRenderer(&gba->video, renderer);
+		}
 	}
 
 #ifndef MINIMAL_CORE
@@ -584,14 +601,14 @@ static void _GBACoreReset(struct mCore* core) {
 				bios = NULL;
 			}
 		}
-		if (bios) {
+		if (found && bios) {
 			GBALoadBIOS(gba, bios);
 		}
 	}
 #endif
 
 	ARMReset(core->cpu);
-	if (core->opts.skipBios && (gba->romVf || gba->memory.rom)) {
+	if ((core->opts.skipBios && (gba->romVf || gba->memory.rom)) || (gba->romVf && GBAIsMB(gba->romVf))) {
 		GBASkipBIOS(core->board);
 	}
 }
@@ -599,7 +616,8 @@ static void _GBACoreReset(struct mCore* core) {
 static void _GBACoreRunFrame(struct mCore* core) {
 	struct GBA* gba = core->board;
 	int32_t frameCounter = gba->video.frameCounter;
-	while (gba->video.frameCounter == frameCounter) {
+	uint32_t startCycle = mTimingCurrentTime(&gba->timing);
+	while (gba->video.frameCounter == frameCounter && mTimingCurrentTime(&gba->timing) - startCycle < VIDEO_TOTAL_LENGTH + VIDEO_HORIZONTAL_LENGTH) {
 		ARMRunLoop(core->cpu);
 	}
 }
@@ -819,12 +837,10 @@ void* _GBAGetMemoryBlock(struct mCore* core, size_t id, size_t* sizeOut) {
 static bool _GBACoreSupportsDebuggerType(struct mCore* core, enum mDebuggerType type) {
 	UNUSED(core);
 	switch (type) {
+	case DEBUGGER_CUSTOM:
 	case DEBUGGER_CLI:
-		return true;
-#ifdef USE_GDB_STUB
 	case DEBUGGER_GDB:
 		return true;
-#endif
 	default:
 		return false;
 	}

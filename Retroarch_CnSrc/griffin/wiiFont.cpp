@@ -37,8 +37,8 @@ extern "C" {
   #include "../verbosity.h"
 }
 
-//#define CHAR_IMG_SIZE 13 * 13 * 2
-#define CHAR_IMG_SIZE 14 * 14 * 2
+#define CHAR_IMG_SIZE 13 * 13 * 2
+//#define CHAR_IMG_SIZE 14 * 14 * 2
 static std::map<wchar_t, int> charCodeMap;
 static std::map<uint16_t, uint16_t> colorMap;
 static uint8_t *ZhBufFont_dat;
@@ -67,7 +67,7 @@ void wiiFont::wiiFontInit()
 {
     //int ZhBufFont_size = 2384766; // RGB5A3
 	//int ZhBufFont_size = 1295838; // RGB5A3
-	int ZhBufFont_size = 703296; // RGB5A3
+	int ZhBufFont_size = 631332; // RGB5A3
 	//int ZhBufFont_size = (int)Zh13X13NoBlock_RGB5A3_dat_size;
 	int searchLen = (int)(ZhBufFont_size / (4 + CHAR_IMG_SIZE));
 	int bufIndex = 0;
@@ -75,8 +75,8 @@ void wiiFont::wiiFontInit()
 
     // 读取中文字库信息到Mem2
     FILE *charPngFile;
-    //charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
-	charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont14X14NoBlock_RGB5A3.dat", "rb");
+    charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont13X13NoBlock_RGB5A3.dat", "rb");
+	//charPngFile = fopen("sd:/apps/retroarchCnFont/ZhBufFont14X14NoBlock_RGB5A3.dat", "rb");
 	ZhBufFont_dat = (uint8_t *)_mem2_memalign(32, ZhBufFont_size);
 
 	fseek(charPngFile, 0, SEEK_SET);
@@ -314,107 +314,109 @@ void wiiFont::wiiFontInit()
 	colorMap.insert(std::pair<uint16_t, uint16_t>(62204, 33152));*/
 	
 	colorMap.insert(std::pair<uint16_t, uint16_t>(0, 0));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47871, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62057, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56768, 32992));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(32777, 32768));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(53151, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56947, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62455, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47104, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56782, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57335, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57235, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(41984, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(32782, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57070, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56768, 32992));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(47868, 33152));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(52512, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(33239, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52979, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(33075, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62463, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42620, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65427, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(53143, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62190, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(32782, 32768));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(57343, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65532, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56777, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47113, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52846, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57340, 33280));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52521, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65431, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57239, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65262, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57087, 33152));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(53148, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52855, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65262, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62057, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(33239, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(33075, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62190, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42615, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65535, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57235, 33216));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(41993, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47411, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62460, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(53143, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47104, 32768));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47871, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42620, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47863, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57070, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62463, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65427, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(41984, 32768));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57340, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52526, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57335, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47118, 32768));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(65527, 33280));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(62355, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42455, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62199, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47740, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52851, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52860, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57247, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62367, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52991, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56937, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62364, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65267, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57084, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52526, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47113, 32768));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62455, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65431, 33216));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(57079, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62359, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52855, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52691, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52841, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(33235, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(65436, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57244, 33216));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(33065, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47566, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42291, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42272, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(41998, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47118, 32768));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62067, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47863, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42611, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52988, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42281, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62062, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57247, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62460, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62199, 33152));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(65271, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47401, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47731, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(62195, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65532, 33280));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52841, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65267, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56782, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52979, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57084, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62364, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62367, 33216));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(47575, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(57075, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42615, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47552, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47735, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47411, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56777, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(65436, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47740, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52521, 32896));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(52983, 33152));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42446, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(33070, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47392, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52672, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52681, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42286, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42606, 33056));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47561, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(42451, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(52531, 32896));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(56942, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56937, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57087, 33152));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(33230, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62067, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52860, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(33235, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56947, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42455, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62359, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57239, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42291, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62062, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56942, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47392, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57244, 33216));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52691, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(33070, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52851, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(57075, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(62195, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(41998, 32768));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52988, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52991, 33152));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(33065, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47731, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42281, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42446, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47566, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42451, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52846, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52681, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42272, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42611, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52672, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47401, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47552, 32992));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(52686, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47406, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47735, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(47561, 32992));
 	colorMap.insert(std::pair<uint16_t, uint16_t>(47571, 32992));
-	colorMap.insert(std::pair<uint16_t, uint16_t>(47859, 33152));
-
+	colorMap.insert(std::pair<uint16_t, uint16_t>(42286, 32896));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52695, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56956, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56787, 32992));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(56951, 33056));
+	colorMap.insert(std::pair<uint16_t, uint16_t>(52531, 32896));
 
     /*// 读取街机游戏文件名映射文件
     FILE *titleMapFile;

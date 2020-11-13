@@ -24,6 +24,8 @@
 #include "psxcounters.h"
 #include "Gamecube/DEBUG.h"
 
+// upd xjsxjs197 [/ BIAS] => [>> 1]
+
 static int cnts = 4;
 psxCounter psxCounters[5];
 
@@ -32,9 +34,11 @@ static void psxRcntUpd(unsigned long index) {
 	if (((!(psxCounters[index].mode & 1)) || (index!=2)) &&
 		psxCounters[index].mode & 0x30) {
 		if (psxCounters[index].mode & 0x10) { // Interrupt on target
-			psxCounters[index].Cycle = ((psxCounters[index].target - psxCounters[index].count) * psxCounters[index].rate) / BIAS;
+			//psxCounters[index].Cycle = ((psxCounters[index].target - psxCounters[index].count) * psxCounters[index].rate) / BIAS;
+			psxCounters[index].Cycle = ((psxCounters[index].target - psxCounters[index].count) * psxCounters[index].rate) >> 1;
 		} else { // Interrupt on 0xffff
-			psxCounters[index].Cycle = ((0xffff - psxCounters[index].count) * psxCounters[index].rate) / BIAS;
+			//psxCounters[index].Cycle = ((0xffff - psxCounters[index].count) * psxCounters[index].rate) / BIAS;
+			psxCounters[index].Cycle = ((0xffff - psxCounters[index].count) * psxCounters[index].rate) >> 1;
 		}
 	} else psxCounters[index].Cycle = 0xffffffff;
 //	if (index == 2) SysPrintf("Cycle %x\n", psxCounters[index].Cycle);
@@ -102,19 +106,49 @@ void psxRcntInit() {
 }
 
 void psxUpdateVSyncRate() {
-	if (Config.PsxType) // ntsc - 0 | pal - 1
+	/*if (Config.PsxType) // ntsc - 0 | pal - 1
 	     psxCounters[3].rate = (PSXCLK / 50);// / BIAS;
 	else psxCounters[3].rate = (PSXCLK / 60);// / BIAS;
 	psxCounters[3].rate-= (psxCounters[3].rate / 262) * 22;
-	if (Config.VSyncWA) psxCounters[3].rate/= 2;
+	if (Config.VSyncWA) psxCounters[3].rate/= 2;*/
+	if (Config.PsxType) // ntsc - 0 | pal - 1
+	{
+		//psxCounters[3].rate = (PSXCLK / 50) - ((PSXCLK * 22) / (50 * 262));
+		psxCounters[3].rate = 620498;
+	}
+	else 
+	{
+		//psxCounters[3].rate = (PSXCLK / 60) - ((PSXCLK * 22) / (60 * 262));
+		psxCounters[3].rate = 517081;
+	}
+	
+	if (Config.VSyncWA)
+	{
+		psxCounters[3].rate = psxCounters[3].rate >> 1;
+	}
 }
 
 void psxUpdateVSyncRateEnd() {
-	if (Config.PsxType) // ntsc - 0 | pal - 1
+	/*if (Config.PsxType) // ntsc - 0 | pal - 1
 	     psxCounters[3].rate = (PSXCLK / 50);// / BIAS;
 	else psxCounters[3].rate = (PSXCLK / 60);// / BIAS;
 	psxCounters[3].rate = (psxCounters[3].rate / 262) * 22;
-	if (Config.VSyncWA) psxCounters[3].rate/= 2;
+	if (Config.VSyncWA) psxCounters[3].rate/= 2;*/
+	if (Config.PsxType) // ntsc - 0 | pal - 1
+	{
+		//psxCounters[3].rate = (PSXCLK * 22) / (50 * 262);
+		psxCounters[3].rate = 56878;
+	}
+	else
+	{
+		//psxCounters[3].rate = (PSXCLK * 22) / (60 * 262);
+		psxCounters[3].rate = 47399;
+	}
+	
+	if (Config.VSyncWA) 
+	{
+		psxCounters[3].rate = psxCounters[3].rate >> 1;
+	}
 }
 
 void psxRcntUpdate() {
@@ -180,7 +214,8 @@ void psxRcntWmode(u32 index, u32 value)  {
 	if(index == 0) {
 		switch (value & 0x300) {
 			case 0x100:
-				psxCounters[index].rate = ((psxCounters[3].rate /** BIAS*/) / 386) / 262; // seems ok
+				//psxCounters[index].rate = ((psxCounters[3].rate /** BIAS*/) / 386) / 262; // seems ok
+			    psxCounters[index].rate = psxCounters[3].rate / (386 * 262); // seems ok
 				break;
 			default:
 				psxCounters[index].rate = 1;
@@ -225,12 +260,15 @@ u32 psxRcntRcount(u32 index) {
 			if (Config.RCntFix) { // Parasite Eve 2
 				ret = (psxCounters[index].count + /*BIAS **/ ((psxRegs.cycle - psxCounters[index].sCycle) / psxCounters[index].rate)) & 0xffff;
 			} else {
-				ret = (psxCounters[index].count + BIAS * ((psxRegs.cycle - psxCounters[index].sCycle) / psxCounters[index].rate)) & 0xffff;
+				//ret = (psxCounters[index].count + BIAS * ((psxRegs.cycle - psxCounters[index].sCycle) / psxCounters[index].rate)) & 0xffff;
+				ret = (psxCounters[index].count + (((psxRegs.cycle - psxCounters[index].sCycle) / psxCounters[index].rate) << 1)) & 0xffff;
 			}
 		} else { // Wrap at 0xffff
-			ret = (psxCounters[index].count + BIAS * (psxRegs.cycle / psxCounters[index].rate)) & 0xffff;
+			//ret = (psxCounters[index].count + BIAS * (psxRegs.cycle / psxCounters[index].rate)) & 0xffff;
+			ret = (psxCounters[index].count + ((psxRegs.cycle / psxCounters[index].rate) << 1)) & 0xffff;
 			if (Config.RCntFix) { // Vandal Hearts 1/2
-				ret/= 16;
+				//ret/= 16;
+				ret = ret >> 4;
 			}
 		}
 //		return (psxCounters[index].count + BIAS * ((psxRegs.cycle - psxCounters[index].sCycle) / psxCounters[index].rate)) & 0xffff;

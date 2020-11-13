@@ -75,10 +75,6 @@ float  fps_cur  = 0;
 
 #define MAXLACE 16
 
-// upd by xjsxjs197 start
-extern char showFPSonScreen;
-// upd by xjsxjs197 end
-
 void CheckFrameRate(void)
 {
 #ifdef PROFILE
@@ -108,13 +104,7 @@ void CheckFrameRate(void)
  else                                                  // non-skipping mode:
   {
    if(UseFrameLimit) FrameCap();                       // -> do it
-   // upd by xjsxjs197 start
-   //if(ulKeybits&KEY_SHOWFPS) calcfps();                // -> and calc fps display
-   if(showFPSonScreen)
-   {
-       calcfps();                // -> and calc fps display
-   }
-   // upd by xjsxjs197 end
+   if(ulKeybits&KEY_SHOWFPS) calcfps();                // -> and calc fps display
   }
 #ifdef PROFILE
 	end_section(IDLE_SECTION);
@@ -231,7 +221,7 @@ void FrameSkip(void)
   }
  else                                                  // ok, no additional skipping has to be done...
   {                                                    // we check now, if some limitation is needed, or a new skipping has to get started
-   DWORD      dwWaitTime;
+   DWORD dwWaitTime;
    static DWORD curticks, lastticks, _ticks_since_last_update;
 
    if(bInitCap || bSkipNextFrame)                      // first time or we skipped before?

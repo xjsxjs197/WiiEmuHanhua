@@ -1,7 +1,7 @@
 /****************************************************************************
  * Snes9x Nintendo Wii/Gamecube Port
  *
- * Tantric 2008-2019
+ * Tantric 2008-2020
  *
  * preferences.cpp
  *
@@ -466,13 +466,8 @@ DefaultSettings ()
 #ifdef HW_RVL
 	GCSettings.language = CONF_GetLanguage();
 
-	if(GCSettings.language == LANG_JAPANESE || 
-	    // delete start by xjsxjs197
-		//GCSettings.language == LANG_SIMP_CHINESE || 
-		// delete end by xjsxjs197
-		GCSettings.language == LANG_TRAD_CHINESE || 
-		GCSettings.language == LANG_KOREAN)
-		GCSettings.language = LANG_ENGLISH;
+	if(GCSettings.language == LANG_TRAD_CHINESE)
+		GCSettings.language = LANG_SIMP_CHINESE;
 #else
 	GCSettings.language = LANG_ENGLISH;
 #endif
@@ -517,7 +512,7 @@ DefaultSettings ()
 	Settings.SkipFrames = AUTO_FRAMERATE;
 	Settings.TurboSkipFrames = 19;
 	Settings.DisplayFrameRate = false;
-	Settings.AutoDisplayMessages = true;
+	Settings.AutoDisplayMessages = false;
 	Settings.InitialInfoStringTimeout = 200; // # frames to display messages for
 	Settings.DisplayTime = false;
 
@@ -668,9 +663,10 @@ bool LoadPrefs()
 	sprintf(filepath[3], "sd:/%s", APPFOLDER);
 	sprintf(filepath[4], "usb:/%s", APPFOLDER);
 #else
-	numDevices = 2;
+	numDevices = 3;
 	sprintf(filepath[0], "carda:/%s", APPFOLDER);
 	sprintf(filepath[1], "cardb:/%s", APPFOLDER);
+	sprintf(filepath[2], "port2:/%s", APPFOLDER);
 #endif
 
 	for(int i=0; i<numDevices; i++)

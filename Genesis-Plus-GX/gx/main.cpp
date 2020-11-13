@@ -3,7 +3,7 @@
  *
  *  Genesis Plus GX
  *
- *  Copyright Eke-Eke (2007-2014), based on original work from Softdev (2006)
+ *  Copyright Eke-Eke (2007-2019), based on original work from Softdev (2006)
  *
  *  Redistribution and use of this code or any derivative works are permitted
  *  provided that the following conditions are met:
@@ -36,7 +36,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  ****************************************************************************************/
-
+// upd start xjsxjs197
 extern "C" {
 #include "shared.h"
 #include "gui.h"
@@ -54,12 +54,13 @@ extern "C" {
 #include "FreeTypeGX.h"
 
 #include <fat.h>
+#include <sys/stat.h>
 
 #ifdef HW_RVL
 #include <iso9660.h>
+#include <sdcard/wiisd_io.h>
 #include <ogc/usbmouse.h>
 extern "C" {
-extern bool sdio_Deinitialize();
 extern void USBStorage_Deinitialize();
 
 // Fonts
@@ -72,6 +73,7 @@ u32 Shutdown = 0;
 u32 ConfigRequested = 1;
 
 extern FreeTypeGX *fontSystemOne;
+// upd end xjsxjs197
 
 #ifdef HW_RVL
 /****************************************************************************
@@ -92,7 +94,7 @@ static void Reload_cb(void)
 #endif
 
 /****************************************************************************
- * Reset Button callback
+ * Reset Button callback 
  ***************************************************************************/
 static void Reset_cb(void)
 {
@@ -218,7 +220,7 @@ static void run_emulation(void)
     /* stop video & audio */
     gx_audio_Stop();
     gx_video_Stop();
-
+    
     /* show menu */
     ConfigRequested = 0;
     mainmenu();
@@ -257,7 +259,7 @@ double get_framerate(void)
 }
 
 /*******************************************
-  Restart emulation when loading a new game
+  Restart emulation when loading a new game 
 ********************************************/
 void reloadrom(void)
 {
@@ -285,7 +287,7 @@ void reloadrom(void)
     /* Initialize audio emulation */
     interlaced = 0;
     audio_init(48000, get_framerate());
-
+     
     /* System Power-On */
     system_init();
     system_reset();
@@ -296,7 +298,7 @@ void reloadrom(void)
 
   /* Auto-Load Backup RAM */
   slot_autoload(0,config.s_device);
-
+            
   /* Auto-Load State */
   slot_autoload(config.s_default,config.s_device);
 
@@ -331,9 +333,10 @@ void shutdown(void)
 
   /* shutdown all devices */
   DI_Close();
-  sdio_Deinitialize();
+  __io_wiisd.shutdown();
   USBStorage_Deinitialize();
   MOUSE_Deinit();
+  USB_Deinitialize();
 #endif
 }
 
@@ -346,14 +349,14 @@ int main (int argc, char *argv[])
  #ifdef HW_RVL
   /* enable 64-byte fetch mode for L2 cache */
   L2Enhance();
-
+  
   /* disable DVD cache */
   DI_UseCache(0);
 
   /* autodetect loader arguments */
   if ((argc >= 3) && (argv[1] != NULL))
   {
-    /* check if autoloading from USB is requested */
+    /* check if autoloading from USB is requested */ 
     if (!strncasecmp(argv[1], "usb:/", 5))
     {
       /* reload to IOS58 for USB2 support  */
@@ -393,7 +396,7 @@ int main (int argc, char *argv[])
     if (dir) closedir(dir);
     else mkdir(pathname,S_IRWXU);
 
-    /* default SRAM & Savestate files directories */
+    /* default SRAM & Savestate files directories */ 
     sprintf (pathname, "%s/saves",DEFAULT_PATH);
     dir = opendir(pathname);
     if (dir) closedir(dir);
@@ -419,7 +422,7 @@ int main (int argc, char *argv[])
     if (dir) closedir(dir);
     else mkdir(pathname,S_IRWXU);
 
-    /* default Snapshot files directories */
+    /* default Snapshot files directories */ 
     sprintf (pathname, "%s/snaps",DEFAULT_PATH);
     dir = opendir(pathname);
     if (dir) closedir(dir);
@@ -445,7 +448,7 @@ int main (int argc, char *argv[])
     if (dir) closedir(dir);
     else mkdir(pathname,S_IRWXU);
 
-    /* default Cheat files directories */
+    /* default Cheat files directories */ 
     sprintf (pathname, "%s/cheats",DEFAULT_PATH);
     dir = opendir(pathname);
     if (dir) closedir(dir);
@@ -471,13 +474,13 @@ int main (int argc, char *argv[])
     if (dir) closedir(dir);
     else mkdir(pathname,S_IRWXU);
 
-    /* default BIOS ROM files directories */
+    /* default BIOS ROM files directories */ 
     sprintf (pathname, "%s/bios",DEFAULT_PATH);
     dir = opendir(pathname);
     if (dir) closedir(dir);
     else mkdir(pathname,S_IRWXU);
 
-    /* default LOCK-ON ROM files directories */
+    /* default LOCK-ON ROM files directories */ 
     sprintf (pathname, "%s/lock-on",DEFAULT_PATH);
     dir = opendir(pathname);
     if (dir) closedir(dir);
@@ -487,9 +490,10 @@ int main (int argc, char *argv[])
   /* initialize audio engine */
   gx_audio_Init();
 
-// added by xjsxjs197 2017/6/28
+    // upd start xjsxjs197
     fontSystemOne = NULL;
     LoadLanguage();
+	// upd end xjsxjs197
 
   /* initialize emulation */
   history_default();
@@ -567,7 +571,7 @@ int main (int argc, char *argv[])
 #endif
 
   /* RESET button callback */
-  SYS_SetResetCallback(Reset_cb);
+  SYS_SetResetCallback((resetcallback)Reset_cb);
 
   /* main emulation loop */
   run_emulation();

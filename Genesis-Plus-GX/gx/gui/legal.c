@@ -110,8 +110,10 @@ void legal ()
     if (vis)
     {
       FONT_writeCenter("Press    button to continue.",24,0,640,366,(GXColor)SKY_BLUE);
+	  // upd xjsxjs 197 start
       //gxDrawTexture(button, 220, 366-24+(24-button->height)/2,  button->width, button->height,255);
       gxDrawTexture(button, 280, 366-20+(24-button->height)/2,  button->width, button->height,255);
+	  // upd xjsxjs 197 end
     }
     gxDrawTexture(logo, (640-logo->width)/2, 480-24-logo->height, logo->width, logo->height,255);
     gxSetScreen();
