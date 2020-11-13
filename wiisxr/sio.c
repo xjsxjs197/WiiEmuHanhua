@@ -364,7 +364,14 @@ int LoadMcds(fileBrowser_file *mcd1, fileBrowser_file *mcd2) {
 
 // add xjsxjs197 start
 int SaveMcdByNum(int mcd) {
-  return SaveMcd(mcd, saveFile_dir);
+    if (saveFile_dir)
+	{
+	    return SaveMcd(mcd, saveFile_dir);
+	}
+    else
+	{
+	    return -1;
+	}
 }
 // add xjsxjs197 end
 

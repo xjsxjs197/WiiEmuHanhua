@@ -345,26 +345,27 @@ static inline void LoadRegs() {
 //               System calls A0             */
 
 
-#define buread(Ra1, mcd, length) { \
-	/*SysPrintf("read %d: %x,%x (%s)\n", FDesc[1 + mcd].mcfile, FDesc[1 + mcd].offset, a2, Mcd##mcd##Data + 128 * FDesc[1 + mcd].mcfile + 0xa);*/ \
-	ptr = Mcd##mcd##Data + 8192 * FDesc[1 + mcd].mcfile + FDesc[1 + mcd].offset; \
+#define buread(Ra1, slot, length) { \
+	/*SysPrintf("read %d: %x,%x (%s)\n", FDesc[1 + slot].mcfile, FDesc[1 + slot].offset, a2, Mcd##slot##Data + 128 * FDesc[1 + slot].mcfile + 0xa);*/ \
+	ptr = Mcd##slot##Data + 8192 * FDesc[1 + slot].mcfile + FDesc[1 + slot].offset; \
 	memcpy(Ra1, ptr, length); \
-	if (FDesc[1 + mcd].mode & 0x8000) { \
+	if (FDesc[1 + slot].mode & 0x8000) { \
 	DeliverEvent(0x11, 0x2); /* 0xf0000011, 0x0004 */ \
 	DeliverEvent(0x81, 0x2); /* 0xf4000001, 0x0004 */ \
 	v0 = 0; } \
 	else v0 = length; \
-	FDesc[1 + mcd].offset += v0; \
+	FDesc[1 + slot].offset += v0; \
 }
 
-#define buwrite(Ra1, mcd, length) { \
-	u32 offset =  + 8192 * FDesc[1 + mcd].mcfile + FDesc[1 + mcd].offset; \
-	/*SysPrintf("write %d: %x,%x\n", FDesc[1 + mcd].mcfile, FDesc[1 + mcd].offset, a2);*/ \
-	ptr = Mcd##mcd##Data + offset; \
+#define buwrite(Ra1, slot, length) { \
+	u32 offset =  + 8192 * FDesc[1 + slot].mcfile + FDesc[1 + slot].offset; \
+	/*SysPrintf("write %d: %x,%x\n", FDesc[1 + slot].mcfile, FDesc[1 + slot].offset, a2);*/ \
+	ptr = Mcd##slot##Data + offset; \
 	memcpy(ptr, Ra1, length); \
-	FDesc[1 + mcd].offset += length; \
-	SaveMcdByNum(mcd); \
-	if (FDesc[1 + mcd].mode & 0x8000) { \
+	FDesc[1 + slot].offset += length; \
+	SaveMcdByNum(slot); \
+	mcd##slot##Written = 1; \
+	if (FDesc[1 + slot].mode & 0x8000) { \
 	DeliverEvent(0x11, 0x2); /* 0xf0000011, 0x0004 */ \
 	DeliverEvent(0x81, 0x2); /* 0xf4000001, 0x0004 */ \
 	v0 = 0; } \
@@ -2000,6 +2001,7 @@ int nfile;
 			break; \
 		} \
 		SaveMcdByNum(slot); \
+		mcd##slot##Written = 1; \
 		/* shouldn't this return ENOSPC if i == 16? */ \
 	} \
 }
@@ -2106,7 +2108,7 @@ void psxBios_write() { // 0x35/0x03
 
 		v0 = a2;
 		while (a2 > 0) {
-			//SysPrintf("%c", *ptr++); a2--;
+			SysPrintf("%c", *ptr++); a2--;
 		}
 		pc0 = ra; return;
 	}
@@ -2245,10 +2247,10 @@ void psxBios_nextfile() { // 43
 	pc0 = ra;
 }
 
-#define burename(mcd) { \
+#define burename(slot) { \
 	for (i=1; i<16; i++) { \
 		int namelen, j, xor = 0; \
-		ptr = Mcd##mcd##Data + 128 * i; \
+		ptr = Mcd##slot##Data + 128 * i; \
 		if ((*ptr & 0xF0) != 0x50) continue; \
 		if (strcmp(Ra0+5, ptr+0xa)) continue; \
 		namelen = strlen(Ra1+5); \
@@ -2259,7 +2261,8 @@ void psxBios_nextfile() { // 43
 		v0 = 1; \
 		break; \
 	} \
-	SaveMcdByNum(mcd); \
+	SaveMcdByNum(slot); \
+	mcd##slot##Written = 1; \
 }
 
 /*
@@ -2299,8 +2302,8 @@ void psxBios_rename() { // 44
 		if (strcmp(Ra0+5, ptr+0xa)) continue; \
 		*ptr = (*ptr & 0xf) | 0xA0; \
 		SaveMcdByNum(slot); \
-		/*SysPrintf("delete %s\n", ptr+0xa);*/ \
 		mcd##slot##Written = 1; \
+		/*SysPrintf("delete %s\n", ptr+0xa);*/ \
 		v0 = 1; \
 		break; \
 	} \
@@ -2388,9 +2391,11 @@ void psxBios__card_write() { // 0x4e
 		if (port == 0) {
 			memcpy(Mcd1Data + a1 * 128, pa2, 128);
 			SaveMcdByNum(1);
+			mcd1Written = 1;
 		} else {
 			memcpy(Mcd2Data + a1 * 128, pa2, 128);
 			SaveMcdByNum(2);
+			mcd2Written = 1;
 		}
 	}
 
