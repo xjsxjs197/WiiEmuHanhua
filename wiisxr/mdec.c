@@ -357,11 +357,17 @@ unsigned short* rl2blk(int *blk,unsigned short *mdec_rl) {
 		if (i>1) iqtab = iq_y;
 
 		// zigzag transformation
-		int rl = SWAP16(*mdec_rl); mdec_rl++;
+		// upd xjsxjs197 start
+		//int rl = SWAP16(*mdec_rl); mdec_rl++;
+		int rl = SWAP16p(mdec_rl); mdec_rl++;
+		// upd xjsxjs197 end
 		int q_scale = RUNOF(rl);
 		blk[0] = iqtab[0]*VALOF(rl);
 		for(k = 0;;) {
-			rl = SWAP16(*mdec_rl); mdec_rl++;
+			// upd xjsxjs197 start
+			//rl = SWAP16(*mdec_rl); mdec_rl++;
+			rl = SWAP16p(mdec_rl); mdec_rl++;
+			// upd xjsxjs197 end
 			if (rl==NOP) break;
 			k += RUNOF(rl)+1;	// skip level zero-coefficients
 			if (k > 63) break;

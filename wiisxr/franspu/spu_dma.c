@@ -5,7 +5,10 @@ extern void *cacheable_kernel_memcpy(void *to, const void *from, size_t len);
 // READ DMA (one value)
 unsigned short  FRAN_SPU_readDMA(void)
 {
- 	unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
+    // upd xjsxjs197 start
+ 	//unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
+	unsigned short s = SWAP16p(spuMem + (spuAddr >> 1));
+	// upd xjsxjs197 end
  	spuAddr+=2;
  	if(spuAddr>=0x80000) spuAddr=0;
  	return s;

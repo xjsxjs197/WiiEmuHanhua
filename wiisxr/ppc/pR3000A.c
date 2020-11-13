@@ -2782,7 +2782,10 @@ static void recRecompile() {
 	for (count=0; count<500;) {
 		char *p = (char *)PSXM(pc);
 		if (p == NULL) recError();
-		psxRegs.code = SWAP32(*(u32 *)p);
+		// upd xjsxjs197 start
+		//psxRegs.code = SWAP32(*(u32 *)p);
+		psxRegs.code = SWAP32p(p);
+		// upd xjsxjs197 end
 		pc+=4; count++;
 		recBSC[psxRegs.code>>26]();
 

@@ -32,6 +32,18 @@
 #define SWAPu32(v) SWAP32((u32)(v))
 //#define SWAPs32(v) SWAP32((s32)(v))
 
+#define SWAP32_Ptr(ptr) ({ \
+	u8* tmpPtr = (u8 *)ptr; \
+	u8 tmpVal; \
+	tmpVal = *tmpPtr; \
+	* tmpPtr = *(tmpPtr + 3); \
+	*(tmpPtr + 3) = tmpVal; \
+	tmpVal = *(tmpPtr + 1); \
+	*(tmpPtr + 1) = *(tmpPtr + 2); \
+	*(tmpPtr + 2) = tmpVal; \
+	*(u32 *)ptr; \
+})
+
 #define SWAPu16(v) SWAP16((u16)(v))
 //#define SWAPs16(v) SWAP16((s16)(v))
 
