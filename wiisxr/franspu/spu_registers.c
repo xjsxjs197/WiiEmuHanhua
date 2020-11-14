@@ -40,7 +40,7 @@ void FModOn(int start,int end,unsigned short val)      // FMOD ON PSX COMMAND
   	{
    		if(val&1)                                     // -> fmod on/off
     		{
-     			if(ch>0) 
+     			if(ch>0)
       			{
        				s_chan[ch].bFMod=1;           // --> sound channel
        				s_chan[ch-1].bFMod=2;         // --> freq channel
@@ -59,7 +59,7 @@ void NoiseOn(int start,int end,unsigned short val)     // NOISE ON PSX COMMAND
   	{
    		if(val&1)                                     // -> noise on/off
      			s_chan[ch].bNoise=1;
-   		else 
+   		else
      			s_chan[ch].bNoise=0;
   	}
 }
@@ -96,11 +96,11 @@ void SetVolumeR(unsigned char ch,short vol)            // RIGHT VOLUME
    		short sInc=1;
    		if(vol&0x2000) sInc=-1;
    		if(vol&0x1000) vol^=0xffff;
-   		vol=((vol&0x7f)+1)/2;        
+   		vol=((vol&0x7f)+1)/2;
    		vol+=vol/(2*sInc);
    		vol*=128;
   	}
- 	else            
+ 	else
   	{
    		if(vol&0x4000)
     			vol=0x3fff-(vol&0x3fff);
@@ -138,22 +138,22 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
    		int ch=(r>>4)-0xc0;                           // calc channel
    		switch(r&0x0f)
     		{
-     			case 0:                                           
+     			case 0:
        				SetVolumeL((unsigned char)ch,val);			// l volume
        				break;
-     			case 2:                                           
+     			case 2:
        				SetVolumeR((unsigned char)ch,val);			// r volume
        				break;
-     			case 4:                                           
+     			case 4:
        				SetPitch(ch,val);					// pitch
        				break;
-     			case 6:      
+     			case 6:
        				s_chan[ch].pStart=spuMemC+((unsigned long) val<<3);	// start
        				break;
      			case 8:								// level with pre-calcs
        			{
         			const unsigned long lval=val;
-        			s_chan[ch].ADSRX.AttackModeExp=(lval&0x8000)?1:0; 
+        			s_chan[ch].ADSRX.AttackModeExp=(lval&0x8000)?1:0;
         			s_chan[ch].ADSRX.AttackRate = ((lval>>8) & 0x007f)^0x7f;
         			s_chan[ch].ADSRX.DecayRate = 4*(((lval>>4) & 0x000f)^0x1f);
         			s_chan[ch].ADSRX.SustainLevel = (lval & 0x000f) << 27;
@@ -170,7 +170,7 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
       				break;
       			}
      			case 12: // adsr volume... mmm have to investigate this
-       				break; 
+       				break;
      			case 14: // loop?
        				s_chan[ch].pLoop=spuMemC+((unsigned long) val<<3);
        				s_chan[ch].bIgnoreLoop=1;
@@ -183,9 +183,14 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
    	{
     		case H_SPUaddr    : spuAddr = (unsigned long) val<<3; break;
     		case H_SPUdata:
-      			spuMem[spuAddr>>1] = HOST2LE16(val);
-      			spuAddr+=2;
-      			if(spuAddr>0x7ffff) spuAddr=0;
+    		    // upd xjsxjs197 start
+      			//spuMem[spuAddr>>1] = HOST2LE16(val);
+      			//spuAddr+=2;
+      			//if(spuAddr>0x7ffff) spuAddr=0;
+      			STORE_SWAP16p(spuMem + (spuAddr >> 1), val);
+      			spuAddr += 2;
+      			spuAddr &= 0x7fffe;
+      			// upd xjsxjs197 end
       			break;
     		case H_SPUctrl    : spuCtrl=val; 		break;
     		case H_SPUstat    : spuStat=val & 0xf800; 	break;
@@ -265,7 +270,7 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
        				const int ch=(r>>4)-0xc0;
        				if(s_chan[ch].bNew) return 1;                   // we are started, but not processed? return 1
        				if(s_chan[ch].ADSRX.lVolume &&                  // same here... we haven't decoded one sample yet, so no envelope yet. return 1 as well
-          				!s_chan[ch].ADSRX.EnvelopeVol)                   
+          				!s_chan[ch].ADSRX.EnvelopeVol)
         				return 1;
        				return (unsigned short)(s_chan[ch].ADSRX.EnvelopeVol>>16);
       			}
@@ -284,14 +289,17 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
     		case H_SPUctrl: return spuCtrl;
 		case H_SPUstat: return spuStat;
             	case H_SPUaddr: return (unsigned short)(spuAddr>>3);
-    		case H_SPUdata: 
+    		case H_SPUdata:
     		{
 			    // upd xjsxjs197 start
       			//unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
-				unsigned short s = SWAP16p(spuMem + (spuAddr >> 1));
+				unsigned short s = LOAD_SWAP16p(spuMem + (spuAddr >> 1));
 				// upd xjsxjs197 end
       			spuAddr+=2;
-      			if(spuAddr>0x7ffff) spuAddr=0;
+      			// upd xjsxjs197 start
+      			//if(spuAddr>0x7ffff) spuAddr=0;
+      			spuAddr &= 0x7fffe;
+      			// upd xjsxjs197 end
       			return s;
      		}
     		case H_SPUirqAddr: return spuIrq;
@@ -299,4 +307,4 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
 
  	return regArea[(r-0xc00)>>1];
 }
- 
+

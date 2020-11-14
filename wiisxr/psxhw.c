@@ -25,6 +25,11 @@
 #include "mdec.h"
 #include "cdrom.h"
 
+// add xjsxjs197 start
+u32 tmpVal;
+u16 tmpVal16;
+// add xjsxjs197 end
+
 void psxHwReset() {
     if (Config.Sio) psxHu32ref(0x1070) |= SWAP32(0x80);
     if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAP32(0x200);
@@ -40,20 +45,20 @@ u8 psxHwRead8(u32 add) {
 	unsigned char hard;
 
 	switch (add) {
-		case 0x1f801040: hard = sioRead8();break; 
+		case 0x1f801040: hard = sioRead8();break;
       //  case 0x1f801050: hard = serial_read8(); break;//for use of serial port ignore for now
 		case 0x1f801800: hard = cdrRead0(); break;
 		case 0x1f801801: hard = cdrRead1(); break;
 		case 0x1f801802: hard = cdrRead2(); break;
 		case 0x1f801803: hard = cdrRead3(); break;
 		default:
-			hard = psxHu8(add); 
+			hard = psxHu8(add);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unkwnown 8bit read at address %lx\n", add);
 #endif
 			return hard;
 	}
-	
+
 #ifdef PSXHW_LOG
 	PSXHW_LOG("*Known 8bit read at address %lx value %x\n", add, hard);
 #endif
@@ -110,7 +115,7 @@ u16 psxHwRead16(u32 add) {
 	 //	case 0x1f801054: hard = serial_status_read(); break;
 	 //	case 0x1f80105a: hard = serial_control_read(); break;
 	 //	case 0x1f80105e: hard = serial_baud_read(); break;
-	
+
 		case 0x1f801100:
 			hard = psxRcntRcount(0);
 #ifdef PSXHW_LOG
@@ -165,7 +170,7 @@ u16 psxHwRead16(u32 add) {
 			PSXHW_LOG("T2 target read16: %x\n", hard);
 #endif
 			return hard;
-	
+
 		//case 0x1f802030: hard =   //int_2000????
 		//case 0x1f802040: hard =//dip switches...??
 
@@ -173,14 +178,17 @@ u16 psxHwRead16(u32 add) {
 			if (add>=0x1f801c00 && add<0x1f801e00) {
             	hard = SPU_readRegister(add);
 			} else {
-				hard = psxHu16(add); 
+			    // upd xjsxjs197 start
+				//hard = psxHu16(add);
+				hard = LOAD_SWAP16p(psxHAddr(add));
+				// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 				PSXHW_LOG("*Unkwnown 16bit read at address %lx\n", add);
 #endif
 			}
             return hard;
 	}
-	
+
 #ifdef PSXHW_LOG
 	PSXHW_LOG("*Known 16bit read at address %lx value %x\n", add, hard);
 #endif
@@ -200,7 +208,7 @@ u32 psxHwRead32(u32 add) {
 			PAD_LOG("sio read32 ;ret = %lx\n", hard);
 #endif
 			return hard;
-			
+
 	//	case 0x1f801050: hard = serial_read32(); break;//serial port
 #ifdef PSXHW_LOG
 		case 0x1f801060:
@@ -322,7 +330,10 @@ u32 psxHwRead32(u32 add) {
 			return hard;
 
 		default:
-			hard = psxHu32(add); 
+            // upd xjsxjs197 start
+			//hard = psxHu32(add);
+			hard = LOAD_SWAP32p(psxHAddr(add));
+			// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unkwnown 32bit read at address %lx\n", add);
 #endif
@@ -395,20 +406,38 @@ void psxHwWrite16(u32 add, u16 value) {
 	//	case 0x1f80105e: serial_baud_write(value); break;
 	//	case 0x1f801054: serial_status_write(value); break;
 
-		case 0x1f801070: 
+		case 0x1f801070:
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IREG 16bit write %x\n", value);
 #endif
-			if (Config.Sio) psxHu16ref(0x1070) |= SWAPu16(0x80);
-			if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
-			psxHu16ref(0x1070) &= SWAPu16((psxHu16(0x1074) & value));
+            // upd xjsxjs197 start
+			//if (Config.Sio) psxHu16ref(0x1070) |= SWAPu16(0x80);
+			//if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
+			//psxHu16ref(0x1070) &= SWAPu16((psxHu16(0x1074) & value));
+			if (Config.Sio)
+            {
+                tmpVal16 = 0x80;
+                STORE_SWAP16p(psxHAddr(0x1070), tmpVal16);
+            }
+            if (Config.SpuIrq)
+            {
+                tmpVal16 = 0x200;
+                STORE_SWAP16p(psxHAddr(0x1070), tmpVal16);
+            }
+            tmpVal16 = psxHu16ref(0x1070);
+            STORE_SWAP16p(psxHAddr(0x1070), (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
+            psxHu16ref(0x1070) &= tmpVal16;
+			// upd xjsxjs197 end
 			return;
 
 		case 0x1f801074:
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IMASK 16bit write %x\n", value);
 #endif
-			psxHu16ref(0x1074) = SWAPu16(value);
+            // upd xjsxjs197 start
+			//psxHu16ref(0x1074) = SWAPu16(value);
+			STORE_SWAP16p(psxHAddr(0x1074), value);
+			// upd xjsxjs197 end
 			psxRegs.interrupt|= 0x80000000;
 			return;
 
@@ -466,13 +495,19 @@ void psxHwWrite16(u32 add, u16 value) {
 				return;
 			}
 
-			psxHu16ref(add) = SWAPu16(value);
+            // upd xjsxjs197 start
+			//psxHu16ref(add) = SWAPu16(value);
+			STORE_SWAP16p(psxHAddr(add), value);
+			// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 16bit write at address %lx value %x\n", add, value);
 #endif
 			return;
 	}
-	psxHu16ref(add) = SWAPu16(value);
+	// upd xjsxjs197 start
+	//psxHu16ref(add) = SWAPu16(value);
+	STORE_SWAP16p(psxHAddr(add), value);
+	// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 	PSXHW_LOG("*Known 16bit write at address %lx value %x\n", add, value);
 #endif
@@ -506,19 +541,37 @@ void psxHwWrite32(u32 add, u32 value) {
 			return; // Ram size
 #endif
 
-		case 0x1f801070: 
+		case 0x1f801070:
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IREG 32bit write %lx\n", value);
 #endif
-			if (Config.Sio) psxHu32ref(0x1070) |= SWAPu32(0x80);
-			if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
-			psxHu32ref(0x1070) &= SWAPu32((psxHu32(0x1074) & value));
+            // upd xjsxjs197 start
+			//if (Config.Sio) psxHu32ref(0x1070) |= SWAPu32(0x80);
+			//if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
+			//psxHu32ref(0x1070) &= SWAPu32((psxHu32(0x1074) & value));
+			if (Config.Sio)
+            {
+                tmpVal = 0x80;
+                STORE_SWAP32p(psxHAddr(0x1070), tmpVal);
+            }
+            if (Config.SpuIrq)
+            {
+                tmpVal = 0x200;
+                STORE_SWAP32p(psxHAddr(0x1070), tmpVal);
+            }
+            tmpVal = psxHu32ref(0x1070);
+            STORE_SWAP32p(psxHAddr(0x1070), (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
+            psxHu32ref(0x1070) &= tmpVal;
+			// upd xjsxjs197 end
 			return;
 		case 0x1f801074:
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IMASK 32bit write %lx\n", value);
 #endif
-			psxHu32ref(0x1074) = SWAPu32(value);
+            // upd xjsxjs197 start
+			//psxHu32ref(0x1074) = SWAPu32(value);
+			STORE_SWAP32p(psxHAddr(0x1074), value);
+			// upd xjsxjs197 end
 			psxRegs.interrupt|= 0x80000000;
 			return;
 
@@ -551,7 +604,7 @@ void psxHwWrite32(u32 add, u32 value) {
 #endif
 			DmaExec(1);                  // DMA1 chcr (MDEC out DMA)
 			return;
-		
+
 #ifdef PSXHW_LOG
 		case 0x1f8010a0:
 			PSXHW_LOG("DMA2 MADR 32bit write %lx\n", value);
@@ -580,7 +633,7 @@ void psxHwWrite32(u32 add, u32 value) {
 			PSXHW_LOG("DMA3 CHCR 32bit write %lx\n", value);
 #endif
 			DmaExec(3);                  // DMA3 chcr (CDROM DMA)
-			
+
 			return;
 
 #ifdef PSXHW_LOG
@@ -701,13 +754,19 @@ void psxHwWrite32(u32 add, u32 value) {
 			psxRcntWtarget(2, value & 0xffff); return;
 
 		default:
-			psxHu32ref(add) = SWAPu32(value);
+		    // upd xjsxjs197 start
+			//psxHu32ref(add) = SWAPu32(value);
+			STORE_SWAP32p(psxHAddr(add), value);
+			// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 32bit write at address %lx value %lx\n", add, value);
 #endif
 			return;
 	}
-	psxHu32ref(add) = SWAPu32(value);
+	// upd xjsxjs197 start
+	//psxHu32ref(add) = SWAPu32(value);
+	STORE_SWAP32p(psxHAddr(add), value);
+	// upd xjsxjs197 end
 #ifdef PSXHW_LOG
 	PSXHW_LOG("*Known 32bit write at address %lx value %lx\n", add, value);
 #endif

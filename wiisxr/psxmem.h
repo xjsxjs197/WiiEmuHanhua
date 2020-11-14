@@ -52,6 +52,8 @@
 #define SWAP16_U(v) (u16)SWAP16(v)
 #define SWAP32_S(v) (s32)SWAP32(v)
 #define SWAP32_U(v) (u32)SWAP32(v)
+
+#define psxHAddr(mem) (psxH + (((mem) << 16) >> 16))
 // add xjsxjs197 end
 
 #define SWAP16p(ptr) ({u16 __ret, *__ptr=(ptr); __asm__ ("lhbrx %0, 0, %1" : "=r" (__ret) : "r" (__ptr)); __ret;})

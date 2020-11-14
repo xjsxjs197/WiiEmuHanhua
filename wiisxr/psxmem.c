@@ -18,22 +18,22 @@
  ***************************************************************************/
 
 /*  Playstation Memory Map (from Playstation doc by Joshua Walker)
-0x0000_0000-0x0000_ffff		Kernel (64K)	
-0x0001_0000-0x001f_ffff		User Memory (1.9 Meg)	
-		
-0x1f00_0000-0x1f00_ffff		Parallel Port (64K)	
-		
-0x1f80_0000-0x1f80_03ff		Scratch Pad (1024 bytes)	
-		
-0x1f80_1000-0x1f80_2fff		Hardware Registers (8K)	
-		
-0x8000_0000-0x801f_ffff		Kernel and User Memory Mirror (2 Meg) Cached	
-		
-0xa000_0000-0xa01f_ffff		Kernel and User Memory Mirror (2 Meg) Uncached	
-		
+0x0000_0000-0x0000_ffff		Kernel (64K)
+0x0001_0000-0x001f_ffff		User Memory (1.9 Meg)
+
+0x1f00_0000-0x1f00_ffff		Parallel Port (64K)
+
+0x1f80_0000-0x1f80_03ff		Scratch Pad (1024 bytes)
+
+0x1f80_1000-0x1f80_2fff		Hardware Registers (8K)
+
+0x8000_0000-0x801f_ffff		Kernel and User Memory Mirror (2 Meg) Cached
+
+0xa000_0000-0xa01f_ffff		Kernel and User Memory Mirror (2 Meg) Uncached
+
 0xbfc0_0000-0xbfc7_ffff		BIOS (512K)
 */
- 
+
 /*
 * PSX memory functions.
 */
@@ -70,14 +70,14 @@ int psxMemInit() {
 	psxP = &psxM[0x200000];
 	psxH = &psxM[0x210000];
 	//psxR = (s8*)memalign(32,0x00080000);
-	/*if (psxMemRLUT == NULL || psxMemWLUT == NULL || 
+	/*if (psxMemRLUT == NULL || psxMemWLUT == NULL ||
 		psxM == NULL || psxP == NULL || psxH == NULL) {
 		SysMessage(_("Error allocating memory!")); return -1;
 	}*/
 
 // MemR
 	for (i=0; i<0x80; i++) psxMemRLUT[i + 0x0000] = (u8*)&psxM[(i & 0x1f) << 16];
-	
+
 	memcpy(psxMemRLUT + 0x8000, psxMemRLUT, 0x80 * sizeof(void*));
 	memcpy(psxMemRLUT + 0xa000, psxMemRLUT, 0x80 * sizeof(void*));
 
@@ -127,7 +127,7 @@ void psxMemReset() {
     	Config.HLE = BIOS_HLE;
   	}
 	}*/
-	
+
 	biosFile->offset = 0; //must reset otherwise the if statement will fail!
     if (biosFile_readFile(biosFile, &temp, 4) == 4) {  //bios file exists
        biosFile->offset = 0;
@@ -137,7 +137,7 @@ void psxMemReset() {
 	       //printf("BIOS file read %x\n", temp);
        }
     }
-	
+
 	if(!biosFile || (biosDevice == BIOSDEVICE_HLE)) {
         Config.HLE = BIOS_HLE;
     }
@@ -184,13 +184,19 @@ u16 psxMemRead16(u32 mem) {
 	t = mem >> 16;
 	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
 		if ((mem & 0xffff) < 0x400)
-			return psxHu16(mem);
+            // upd xjsxjs197 start
+			//return psxHu16(mem);
+			return LOAD_SWAP16p(psxHAddr(mem));
+            // upd xjsxjs197 end
 		else
 			return psxHwRead16(mem);
 	} else {
 		char *p = (char *)(psxMemRLUT[t]);
 		if (p != NULL) {
-			return SWAPu16(*(u16 *)(p + (mem & 0xffff)));
+            // upd xjsxjs197 start
+			//return SWAPu16(*(u16 *)(p + (mem & 0xffff)));
+			return LOAD_SWAP16p(p + (mem & 0xffff));
+            // upd xjsxjs197 end
 		} else {
 #ifdef PSXMEM_LOG
 			PSXMEM_LOG("err lh %8.8lx\n", mem);
@@ -206,13 +212,19 @@ u32 psxMemRead32(u32 mem) {
 	t = mem >> 16;
 	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
 		if ((mem & 0xffff) < 0x400)
-			return psxHu32(mem);
+            // upd xjsxjs197 start
+			//return psxHu32(mem);
+			return LOAD_SWAP32p(psxHAddr(mem));
+            // upd xjsxjs197 end
 		else
 			return psxHwRead32(mem);
 	} else {
 		char *p = (char *)(psxMemRLUT[t]);
 		if (p != NULL) {
-			return SWAPu32(*(u32 *)(p + (mem & 0xffff)));
+            // upd xjsxjs197 start
+			//return SWAPu32(*(u32 *)(p + (mem & 0xffff)));
+			return LOAD_SWAP32p(p + (mem & 0xffff));
+            // upd xjsxjs197 end
 		} else {
 #ifdef PSXMEM_LOG
 			if (writeok) { PSXMEM_LOG("err lw %8.8lx\n", mem); }
@@ -252,13 +264,19 @@ void psxMemWrite16(u32 mem, u16 value) {
 	t = mem >> 16;
 	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
 		if ((mem & 0xffff) < 0x400)
-			psxHu16ref(mem) = SWAPu16(value);
+            // upd xjsxjs197 start
+			//psxHu16ref(mem) = SWAPu16(value);
+			STORE_SWAP16p(psxHAddr(mem), value);
+            // upd xjsxjs197 end
 		else
 			psxHwWrite16(mem, value);
 	} else {
 		char *p = (char *)(psxMemWLUT[t]);
 		if (p != NULL) {
-			*(u16 *)(p + (mem & 0xffff)) = SWAPu16(value);
+            // upd xjsxjs197 start
+			//*(u16 *)(p + (mem & 0xffff)) = SWAPu16(value);
+			STORE_SWAP16p((p + (mem & 0xffff)), value);
+            // upd xjsxjs197 end
 #ifdef PSXREC
 			psxCpu->Clear((mem & (~3)), 1);
 #endif
@@ -277,13 +295,19 @@ void psxMemWrite32(u32 mem, u32 value) {
 	t = mem >> 16;
 	if (t == 0x1f80 || t == 0x9f80 || t == 0xbf80) {
 		if ((mem & 0xffff) < 0x400)
-			psxHu32ref(mem) = SWAPu32(value);
+            // upd xjsxjs197 start
+			//psxHu32ref(mem) = SWAPu32(value);
+			STORE_SWAP32p(psxHAddr(mem), value);
+            // upd xjsxjs197 end
 		else
 			psxHwWrite32(mem, value);
 	} else {
 		char *p = (char *)(psxMemWLUT[t]);
 		if (p != NULL) {
-			*(u32 *)(p + (mem & 0xffff)) = SWAPu32(value);
+            // upd xjsxjs197 start
+			//*(u32 *)(p + (mem & 0xffff)) = SWAPu32(value);
+			STORE_SWAP32p((p + (mem & 0xffff)), value);
+            // upd xjsxjs197 end
 #ifdef PSXREC
 			psxCpu->Clear(mem, 1);
 #endif
