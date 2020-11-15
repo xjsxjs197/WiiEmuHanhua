@@ -61,23 +61,23 @@ void idct(int *block,int k)
 
   ptr = block;
   for (i = 0; i< DCTSIZE; i++,ptr++) {
-    
+
     if ((ptr[DCTSIZE*1] | ptr[DCTSIZE*2] | ptr[DCTSIZE*3] |
 	 ptr[DCTSIZE*4] | ptr[DCTSIZE*5] | ptr[DCTSIZE*6] |
 	 ptr[DCTSIZE*7]) == 0) {
       ptr[DCTSIZE*0] =
-      ptr[DCTSIZE*1] = 
-      ptr[DCTSIZE*2] = 
-      ptr[DCTSIZE*3] = 
-      ptr[DCTSIZE*4] = 
-      ptr[DCTSIZE*5] = 
-      ptr[DCTSIZE*6] = 
-      ptr[DCTSIZE*7] = 
+      ptr[DCTSIZE*1] =
+      ptr[DCTSIZE*2] =
+      ptr[DCTSIZE*3] =
+      ptr[DCTSIZE*4] =
+      ptr[DCTSIZE*5] =
+      ptr[DCTSIZE*6] =
+      ptr[DCTSIZE*7] =
       	ptr[DCTSIZE*0];
-      
+
       continue;
     }
-    
+
     z10 = ptr[DCTSIZE*0] + ptr[DCTSIZE*4];
     z11 = ptr[DCTSIZE*0] - ptr[DCTSIZE*4];
     z13 = ptr[DCTSIZE*2] + ptr[DCTSIZE*6];
@@ -87,7 +87,7 @@ void idct(int *block,int k)
     tmp3 = z10 - z13;
     tmp1 = z11 + z12;
     tmp2 = z11 - z12;
-    
+
     z13 = ptr[DCTSIZE*3] + ptr[DCTSIZE*5];
     z10 = ptr[DCTSIZE*3] - ptr[DCTSIZE*5];
     z11 = ptr[DCTSIZE*1] + ptr[DCTSIZE*7];
@@ -109,20 +109,20 @@ void idct(int *block,int k)
     ptr[DCTSIZE*3] = (tmp3 - tmp4);
 
   }
-  
+
   ptr = block;
   for (i = 0; i < DCTSIZE; i++ ,ptr+=DCTSIZE) {
-    
+
     if ((ptr[1] | ptr[2] | ptr[3] | ptr[4] | ptr[5] | ptr[6] |
 	 ptr[7]) == 0) {
       ptr[0] =
-      ptr[1] = 
-      ptr[2] = 
-      ptr[3] = 
-      ptr[4] = 
-      ptr[5] = 
-      ptr[6] = 
-      ptr[7] = 
+      ptr[1] =
+      ptr[2] =
+      ptr[3] =
+      ptr[4] =
+      ptr[5] =
+      ptr[6] =
+      ptr[7] =
       	RANGE(DESCALE(ptr[0], PASS1_BITS+3));;
 
       continue;
@@ -359,14 +359,14 @@ unsigned short* rl2blk(int *blk,unsigned short *mdec_rl) {
 		// zigzag transformation
 		// upd xjsxjs197 start
 		//int rl = SWAP16(*mdec_rl); mdec_rl++;
-		int rl = SWAP16p(mdec_rl); mdec_rl++;
+		int rl = LOAD_SWAP16p(mdec_rl); mdec_rl++;
 		// upd xjsxjs197 end
 		int q_scale = RUNOF(rl);
 		blk[0] = iqtab[0]*VALOF(rl);
 		for(k = 0;;) {
 			// upd xjsxjs197 start
 			//rl = SWAP16(*mdec_rl); mdec_rl++;
-			rl = SWAP16p(mdec_rl); mdec_rl++;
+			rl = LOAD_SWAP16p(mdec_rl); mdec_rl++;
 			// upd xjsxjs197 end
 			if (rl==NOP) break;
 			k += RUNOF(rl)+1;	// skip level zero-coefficients

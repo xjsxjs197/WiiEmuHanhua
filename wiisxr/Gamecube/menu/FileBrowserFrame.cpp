@@ -101,8 +101,8 @@ struct ButtonInfo
 FileBrowserFrame::FileBrowserFrame()
 {
 	for (int i = 0; i < NUM_FRAME_BUTTONS; i++)
-		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString, 
-										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y, 
+		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString,
+										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y,
 										FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].height);
 
 	for (int i = 0; i < NUM_FRAME_BUTTONS; i++)
@@ -115,8 +115,8 @@ FileBrowserFrame::FileBrowserFrame()
 		if (FRAME_BUTTONS[i].clickedFunc) FRAME_BUTTONS[i].button->setClicked(FRAME_BUTTONS[i].clickedFunc);
 		if (FRAME_BUTTONS[i].returnFunc) FRAME_BUTTONS[i].button->setReturn(FRAME_BUTTONS[i].returnFunc);
 		add(FRAME_BUTTONS[i].button);
-		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x, 
-												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y, 
+		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x,
+												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y,
 												FRAME_BUTTONS[i].y+FRAME_BUTTONS[i].height);
 	}
 
@@ -355,16 +355,16 @@ void fileBrowserFrame_OpenDirectory(fileBrowser_file* dir)
 	// Free the old menu stuff
 //	if(menu_items){  free(menu_items);  menu_items  = NULL; }
 	if(dir_entries){ free(dir_entries); dir_entries = NULL; }
-	
+
 	// Read the directories and return on error
 	num_entries = isoFile_readDir(dir, &dir_entries);
 	if(num_entries <= 0)
-	{ 
-		if(dir_entries) { free(dir_entries); dir_entries = NULL; } 
-		fileBrowserFrame_Error(dir, num_entries); 
+	{
+		if(dir_entries) { free(dir_entries); dir_entries = NULL; }
+		fileBrowserFrame_Error(dir, num_entries);
 		return;
 	}
-	
+
 	// Sort the listing
 	qsort(dir_entries, num_entries, sizeof(fileBrowser_file), dir_comparator);
 
@@ -472,7 +472,7 @@ int ChkString(char * str1, char * str2, int len)
 			return 1;
 		}
 	}
-	
+
 	return 0;
 }
 // add xjsxjs197 end
@@ -503,7 +503,7 @@ void fileBrowserFrame_LoadFile(int i)
 				Autoboot = false;
 				return;
 			}
-			
+
 			strcpy(feedback_string, "Loaded ");
 			strncat(feedback_string, filenameFromAbsPath(dir_entries[i].name), 36-7);
 
@@ -513,7 +513,8 @@ void fileBrowserFrame_LoadFile(int i)
 			sprintf(buffer,"\nCD-ROM Label: %s\n",CdromLabel);
 			strcat(RomInfo,buffer);
 			// add xjsxjs197 start
-			if (ChkString(CdromLabel, "Parasite Eve 2", strlen("Parasite Eve 2"))) {
+			Config.RCntFix = 0;
+			if (ChkString(CdromLabel, "SLPS02480", strlen("SLPS02480"))) {
 		        Config.RCntFix = 1;
 		    }
 			if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
@@ -537,8 +538,8 @@ void fileBrowserFrame_LoadFile(int i)
       Mooby2CDRgetTN(&tracks[0]);
       sprintf(buffer,"Number of tracks %u\n", tracks[1]);
 			strcat(RomInfo,buffer);
-    		
-			
+
+
 			switch (autoSaveLoaded)
 			{
 			case NATIVESAVEDEVICE_NONE:
@@ -594,7 +595,7 @@ void fileBrowserFrame_LoadFile(int i)
 		pMenuContext->setActiveFrame(MenuContext::FRAME_MAIN);
 		//if(hasLoadedISO) Func_SetPlayGame();
 		Func_SetPlayGame(); //hasLoadedISO will be set to False if SysInit() fails
-	} 
+	}
 	else if (fileBrowserMode == FileBrowserFrame::FILEBROWSER_SWAPCD) {
 		//TODO: Properly implement this
 		int ret = loadISOSwap( &dir_entries[i] );
