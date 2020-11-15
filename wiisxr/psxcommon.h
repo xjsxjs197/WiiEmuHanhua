@@ -149,7 +149,9 @@ enum {
 #define STORE_SWAP32p(ptr,val) ({u32 __val=(val), *__ptr=(ptr); __asm__ ("stwbrx %0, 0, %1" : : "r" (__val), "r" (__ptr) : "memory");})
 
 extern u32 tmpVal;
+extern u32 tmpAddr[1];
 extern u16 tmpVal16;
+extern u16 tmpAddr16[1];
 // add xjsxjs197 end
 
 #endif /* __PSXCOMMON_H__ */

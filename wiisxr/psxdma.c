@@ -72,7 +72,12 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 #endif
 	}
 
+	// upd xjsxjs197 start
 	HW_DMA4_CHCR &= SWAPu32(~0x01000000);
+	/*tmpVal = (u32)(~0x01000000);
+	STORE_SWAP32p(tmpAddr, tmpVal);
+	HW_DMA4_CHCR &= tmpAddr[0];*/
+	// upd xjsxjs197 end
 	DMA_INTERRUPT(4);
 
 }
@@ -116,7 +121,10 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 			}
 			size = (bcr >> 16) * (bcr & 0xffff);
 			GPU_writeDataMem((unsigned long*)ptr, size);
-			GPUDMA_INT((size / 4) / BIAS);
+			// upd xjsxjs197 start
+			//GPUDMA_INT((size / 4) / BIAS);
+			GPUDMA_INT((size >> 3));
+			// upd xjsxjs197 end
 #ifdef PROFILE
 	end_section(GFX_SECTION);
 #endif
@@ -139,7 +147,12 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 #endif
 	}
 
+	// upd xjsxjs197 start
 	HW_DMA2_CHCR &= SWAPu32(~0x01000000);
+	/*tmpVal = (u32)(~0x01000000);
+	STORE_SWAP32p(tmpAddr, tmpVal);
+	HW_DMA2_CHCR &= tmpAddr[0];*/
+	// upd xjsxjs197 end
 	DMA_INTERRUPT(2);
 #ifdef PROFILE
 	end_section(GFX_SECTION);
@@ -147,7 +160,12 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 }
 
 void gpuInterrupt() {
+	// upd xjsxjs197 start
 	HW_DMA2_CHCR &= SWAPu32(~0x01000000);
+	/*tmpVal = (u32)(~0x01000000);
+	STORE_SWAP32p(tmpAddr, tmpVal);
+	HW_DMA2_CHCR &= tmpAddr[0];*/
+	// upd xjsxjs197 end
 	DMA_INTERRUPT(2);
 }
 
@@ -164,16 +182,32 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
 #ifdef DEBUG_DMA
       DEBUG_print("*** DMA6 OT *** NULL Pointer!!!\n", 12);
 #endif
-			HW_DMA6_CHCR &= SWAPu32(~0x01000000);
+			// upd xjsxjs197 start
+            HW_DMA6_CHCR &= SWAPu32(~0x01000000);
+            /*tmpVal = (u32)(~0x01000000);
+            STORE_SWAP32p(tmpAddr, tmpVal);
+            HW_DMA6_CHCR &= tmpAddr[0];*/
+            // upd xjsxjs197 end
 			DMA_INTERRUPT(6);
 			return;
 		}
 
 		while (bcr--) {
-			*mem-- = SWAPu32((madr - 4) & 0xffffff);
+            // upd xjsxjs197 start
+			//*mem-- = SWAPu32((madr - 4) & 0xffffff);
+			STORE_SWAP32p(tmpAddr, (madr - 4) & 0xffffff);
+			*mem-- = tmpAddr[0];
+			//mem--;
+			//STORE_SWAP32p(mem, (u32)((madr - 4) & 0xffffff));
+            // upd xjsxjs197 end
 			madr -= 4;
 		}
-		mem++; *mem = SWAPu32(0xffffff);
+		// upd xjsxjs197 start
+		//mem++; *mem = SWAPu32(0xffffff);
+		mem++;
+		tmpVal = (u32)(0xffffff);
+		STORE_SWAP32p(mem, tmpVal);
+		// upd xjsxjs197 end
 	}
 #ifdef DEBUG_DMA
 	else {
@@ -183,7 +217,12 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
 	}
 #endif
 
+    // upd xjsxjs197 start
 	HW_DMA6_CHCR &= SWAPu32(~0x01000000);
+	/*tmpVal = (u32)(~0x01000000);
+	STORE_SWAP32p(tmpAddr, tmpVal);
+	HW_DMA6_CHCR &= tmpAddr[0];*/
+	// upd xjsxjs197 end
 	DMA_INTERRUPT(6);
 }
 

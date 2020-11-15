@@ -53,12 +53,21 @@
 #define HW_DMA_PCR   (psxHu32ref(0x10f0))
 #define HW_DMA_ICR   (psxHu32ref(0x10f4))
 
+// upd xjsxjs197 start
+//#define	DMA_INTERRUPT(n) \
+//	if (SWAPu32(HW_DMA_ICR) & (1 << (16 + n))) { \
+//		HW_DMA_ICR|= SWAP32(1 << (24 + n)); \
+//		psxHu32ref(0x1070) |= SWAP32(8);                \
+//		psxRegs.interrupt|= 0x80000000;                 \
+//	}
 #define	DMA_INTERRUPT(n) \
-	if (SWAPu32(HW_DMA_ICR) & (1 << (16 + n))) { \
-		HW_DMA_ICR|= SWAP32(1 << (24 + n)); \
+	if (LOAD_SWAP32p(psxHAddr(0x10f4)) & (1 << (16 + n))) { \
+        STORE_SWAP32p(tmpAddr, 1 << (24 + n)); \
+		HW_DMA_ICR |= tmpAddr[0]; \
 		psxHu32ref(0x1070) |= SWAP32(8);                \
-		psxRegs.interrupt|= 0x80000000;                 \
+		psxRegs.interrupt |= 0x80000000;                 \
 	}
+// upd xjsxjs197 start
 
 // add xjsxjs197 start
 #define PSXGPU_LCF     (1<<31)

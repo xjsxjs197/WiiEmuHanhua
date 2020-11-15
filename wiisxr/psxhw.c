@@ -27,7 +27,9 @@
 
 // add xjsxjs197 start
 u32 tmpVal;
+u32 tmpAddr[1] __attribute__((aligned(32)));
 u16 tmpVal16;
+u16 tmpAddr16[1] __attribute__((aligned(32)));
 // add xjsxjs197 end
 
 void psxHwReset() {
@@ -410,23 +412,12 @@ void psxHwWrite16(u32 add, u16 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IREG 16bit write %x\n", value);
 #endif
-            // upd xjsxjs197 start
-			//if (Config.Sio) psxHu16ref(0x1070) |= SWAPu16(0x80);
-			//if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
+			if (Config.Sio) psxHu16ref(0x1070) |= SWAPu16(0x80);
+			if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
+			// upd xjsxjs197 start
 			//psxHu16ref(0x1070) &= SWAPu16((psxHu16(0x1074) & value));
-			if (Config.Sio)
-            {
-                tmpVal16 = 0x80;
-                STORE_SWAP16p(psxHAddr(0x1070), tmpVal16);
-            }
-            if (Config.SpuIrq)
-            {
-                tmpVal16 = 0x200;
-                STORE_SWAP16p(psxHAddr(0x1070), tmpVal16);
-            }
-            tmpVal16 = psxHu16ref(0x1070);
-            STORE_SWAP16p(psxHAddr(0x1070), (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
-            psxHu16ref(0x1070) &= tmpVal16;
+            STORE_SWAP16p(tmpAddr16, (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
+            psxHu16ref(0x1070) &= tmpAddr16[0];
 			// upd xjsxjs197 end
 			return;
 
@@ -545,23 +536,12 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("IREG 32bit write %lx\n", value);
 #endif
-            // upd xjsxjs197 start
-			//if (Config.Sio) psxHu32ref(0x1070) |= SWAPu32(0x80);
-			//if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
+			if (Config.Sio) psxHu32ref(0x1070) |= SWAPu32(0x80);
+			if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
+			// upd xjsxjs197 start
 			//psxHu32ref(0x1070) &= SWAPu32((psxHu32(0x1074) & value));
-			if (Config.Sio)
-            {
-                tmpVal = 0x80;
-                STORE_SWAP32p(psxHAddr(0x1070), tmpVal);
-            }
-            if (Config.SpuIrq)
-            {
-                tmpVal = 0x200;
-                STORE_SWAP32p(psxHAddr(0x1070), tmpVal);
-            }
-            tmpVal = psxHu32ref(0x1070);
-            STORE_SWAP32p(psxHAddr(0x1070), (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
-            psxHu32ref(0x1070) &= tmpVal;
+            STORE_SWAP32p(tmpAddr, (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
+            psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
 			// upd xjsxjs197 end
 			return;
 		case 0x1f801074:
@@ -684,8 +664,12 @@ void psxHwWrite32(u32 add, u32 value) {
 			PSXHW_LOG("DMA ICR 32bit write %lx\n", value);
 #endif
 		{
-			u32 tmp = (~value) & SWAPu32(HW_DMA_ICR);
-			HW_DMA_ICR = SWAPu32(((tmp ^ value) & 0xffffff) ^ tmp);
+		    // upd xjsxjs197 start
+			//u32 tmp = (~value) & SWAPu32(HW_DMA_ICR);
+			//HW_DMA_ICR = SWAPu32(((tmp ^ value) & 0xffffff) ^ tmp);
+			u32 tmp = (~value) & LOAD_SWAP32p(psxHAddr(0x10f4));
+			STORE_SWAP32p(psxHAddr(0x10f4), (u32)(((tmp ^ value) & 0xffffff) ^ tmp));
+			// upd xjsxjs197 end
 			return;
 		}
 
