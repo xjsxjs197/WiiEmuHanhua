@@ -513,7 +513,7 @@ void psxHwWrite16(u32 add, u16 value) {
 		psxDma##n(SWAPu32(HW_DMA##n##_MADR), SWAPu32(HW_DMA##n##_BCR), SWAPu32(HW_DMA##n##_CHCR)); \
 	} \
 }*/
-#define DmaExec(char, madr, bcr, n) { \
+#define DmaExec(char, bcr, madr, n) { \
 	if (LOAD_SWAP32p(psxHAddr(char)) & 0x01000000) return; \
 	STORE_SWAP32p(psxHAddr(char), value); \
  \
