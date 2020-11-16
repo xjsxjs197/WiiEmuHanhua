@@ -406,11 +406,19 @@ int round(int r) {
 	return r;
 }*/
 
-#define RGB15(n, Y) \
+// upd xjsxjs197 start
+/*#define RGB15(n, Y) \
 	image[n] = MAKERGB15(ROUND(Y + R),ROUND(Y + G),ROUND(Y + B));
 
 #define RGB15BW(n, Y) \
-	image[n] = MAKERGB15(ROUND(Y),ROUND(Y),ROUND(Y));
+	image[n] = MAKERGB15(ROUND(Y),ROUND(Y),ROUND(Y));*/
+
+#define RGB15(n, Y) \
+	STORE_SWAP16p(image + n, (((ROUND(Y + R)) >> 3) << 10) | (((ROUND(Y + G)) >> 3) << 5) | ((ROUND(Y + B)) >> 3));
+
+#define RGB15BW(n, Y) \
+	STORE_SWAP16p(image + n, (((ROUND(Y)) >> 3) << 10) | (((ROUND(Y)) >> 3) << 5) | ((ROUND(Y)) >> 3));
+// upd xjsxjs197 end
 
 #define RGB24(n, Y) \
 	image[n+2] = ROUND(Y + R); \

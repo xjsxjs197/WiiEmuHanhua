@@ -203,10 +203,10 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
 			madr -= 4;
 		}
 		// upd xjsxjs197 start
-		//mem++; *mem = SWAPu32(0xffffff);
-		mem++;
-		tmpVal = (u32)(0xffffff);
-		STORE_SWAP32p(mem, tmpVal);
+		mem++; *mem = SWAPu32(0xffffff);
+		//mem++;
+		//tmpVal = (u32)(0xffffff);
+		//STORE_SWAP32p(mem, tmpVal);
 		// upd xjsxjs197 end
 	}
 #ifdef DEBUG_DMA

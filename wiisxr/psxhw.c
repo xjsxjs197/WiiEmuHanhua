@@ -27,9 +27,9 @@
 
 // add xjsxjs197 start
 u32 tmpVal;
-u32 tmpAddr[1] __attribute__((aligned(32)));
+u32 tmpAddr[1];
 u16 tmpVal16;
-u16 tmpAddr16[1] __attribute__((aligned(32)));
+u16 tmpAddr16[1];
 // add xjsxjs197 end
 
 void psxHwReset() {
@@ -504,14 +504,25 @@ void psxHwWrite16(u32 add, u16 value) {
 #endif
 }
 
-#define DmaExec(n) { \
+// upd xjsxjs197 start
+/*#define DmaExec(n) { \
 	if (SWAPu32(HW_DMA##n##_CHCR) & 0x01000000) return; \
 	HW_DMA##n##_CHCR = SWAPu32(value); \
  \
 	if (SWAPu32(HW_DMA##n##_CHCR) & 0x01000000 && SWAPu32(HW_DMA_PCR) & (8 << (n * 4))) { \
 		psxDma##n(SWAPu32(HW_DMA##n##_MADR), SWAPu32(HW_DMA##n##_BCR), SWAPu32(HW_DMA##n##_CHCR)); \
 	} \
+}*/
+#define DmaExec(char, madr, bcr, n) { \
+	if (LOAD_SWAP32p(psxHAddr(char)) & 0x01000000) return; \
+	STORE_SWAP32p(psxHAddr(char), value); \
+ \
+    tmpVal = LOAD_SWAP32p(psxHAddr(char)); \
+	if (tmpVal & 0x01000000 && LOAD_SWAP32p(psxHAddr(0x10f0)) & (8 << (n * 4))) { \
+		psxDma##n(LOAD_SWAP32p(psxHAddr(madr)), LOAD_SWAP32p(psxHAddr(bcr)), tmpVal); \
+	} \
 }
+// upd xjsxjs197 end
 
 void psxHwWrite32(u32 add, u32 value) {
 	switch (add) {
@@ -567,7 +578,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA0 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(0);	                 // DMA0 chcr (MDEC in DMA)
+			//DmaExec(0);	                 // DMA0 chcr (MDEC in DMA)
+			DmaExec(0x1088, 0x1084, 0x1080, 0);
 			return;
 
 #ifdef PSXHW_LOG
@@ -582,7 +594,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA1 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(1);                  // DMA1 chcr (MDEC out DMA)
+			//DmaExec(1);                  // DMA1 chcr (MDEC out DMA)
+			DmaExec(0x1098, 0x1094, 0x1090, 1);
 			return;
 
 #ifdef PSXHW_LOG
@@ -597,7 +610,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA2 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(2);                  // DMA2 chcr (GPU DMA)
+			//DmaExec(2);                  // DMA2 chcr (GPU DMA)
+			DmaExec(0x10a8, 0x10a4, 0x10a0, 2);
 			return;
 
 #ifdef PSXHW_LOG
@@ -612,8 +626,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA3 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(3);                  // DMA3 chcr (CDROM DMA)
-
+			//DmaExec(3);                  // DMA3 chcr (CDROM DMA)
+            DmaExec(0x10b8, 0x10b4, 0x10b0, 3);
 			return;
 
 #ifdef PSXHW_LOG
@@ -628,7 +642,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA4 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(4);                  // DMA4 chcr (SPU DMA)
+			//DmaExec(4);                  // DMA4 chcr (SPU DMA)
+			DmaExec(0x10c8, 0x10c4, 0x10c0, 4);
 			return;
 
 #if 0
@@ -649,7 +664,8 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("DMA6 CHCR 32bit write %lx\n", value);
 #endif
-			DmaExec(6);                   // DMA6 chcr (OT clear)
+			//DmaExec(6);                   // DMA6 chcr (OT clear)
+			DmaExec(0x10e8, 0x10e4, 0x10e0, 6);
 			return;
 
 #ifdef PSXHW_LOG
