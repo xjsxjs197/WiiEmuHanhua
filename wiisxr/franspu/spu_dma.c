@@ -86,13 +86,16 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 		int tmpAddr = 0x80000 - spuAddr;
  		cacheable_kernel_memcpy(spuMem + (spuAddr >> 1), pusPSXMem, tmpAddr);
 		spuAddr = iSize - tmpAddr;
-		cacheable_kernel_memcpy(spuMem + 0x1010, pusPSXMem + tmpAddr, spuAddr);
-		spuAddr += 0x1010;
-		#ifdef DISP_DEBUG
-		char debug[256];
-		sprintf(debug, "SPU_writeDMAMem==Over====%d", spuAddr);
-		GPU_displayText(debug);
-		#endif
+		if (spuAddr > 0)
+        {
+            cacheable_kernel_memcpy(spuMem + 0x1010, pusPSXMem + tmpAddr, spuAddr);
+            #ifdef DISP_DEBUG
+            char debug[256];
+            sprintf(debug, "SPU_writeDMAMem==Over====%d", spuAddr);
+            GPU_displayText(debug);
+            #endif
+            spuAddr += 0x1010;
+        }
   	} else {
   		cacheable_kernel_memcpy(spuMem + (spuAddr >> 1), pusPSXMem, iSize);
   		spuAddr += iSize;
