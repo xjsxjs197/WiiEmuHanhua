@@ -157,10 +157,7 @@ void psxUpdateVSyncRateEnd() {
 }
 
 void psxRcntUpdate() {
-    // upd xjsxjs197 start
-	//if ((psxRegs.cycle - psxCounters[3].sCycle) >= psxCounters[3].Cycle) {
-	if (psxRegs.cycle >= (psxCounters[3].sCycle + psxCounters[3].Cycle)) {
-    // upd xjsxjs197 end
+	if ((psxRegs.cycle - psxCounters[3].sCycle) >= psxCounters[3].Cycle) {
 		if (psxCounters[3].mode & 0x10000) { // VSync End (22 hsyncs)
 			psxCounters[3].mode&=~0x10000;
 			psxUpdateVSyncRate();
@@ -179,28 +176,19 @@ void psxRcntUpdate() {
 		}
 	}
 
-    // upd xjsxjs197 start
-	//if ((psxRegs.cycle - psxCounters[0].sCycle) >= psxCounters[0].Cycle) {
-	if (psxRegs.cycle >= (psxCounters[0].sCycle + psxCounters[0].Cycle)) {
-    // upd xjsxjs197 end
+	if ((psxRegs.cycle - psxCounters[0].sCycle) >= psxCounters[0].Cycle) {
 		psxRcntReset(0);
 	}
-    // upd xjsxjs197 start
-	if (psxRegs.cycle >= (psxCounters[1].sCycle + psxCounters[1].Cycle)) {
-    // upd xjsxjs197 end
+    if ((psxRegs.cycle - psxCounters[1].sCycle) >= psxCounters[1].Cycle) {
 		psxRcntReset(1);
 	}
 
-    // upd xjsxjs197 start
-	if (psxRegs.cycle >= (psxCounters[2].sCycle + psxCounters[2].Cycle)) {
-    // upd xjsxjs197 end
+    if ((psxRegs.cycle - psxCounters[2].sCycle) >= psxCounters[2].Cycle) {
 		psxRcntReset(2);
 	}
 
 	if (cnts >= 5) {
-        // upd xjsxjs197 start
-		if (psxRegs.cycle >= (psxCounters[4].sCycle + psxCounters[4].Cycle)) {
-        // upd xjsxjs197 end
+        if ((psxRegs.cycle - psxCounters[4].sCycle) >= psxCounters[4].Cycle) {
 #ifdef PROFILE
   start_section(AUDIO_SECTION);
 #endif

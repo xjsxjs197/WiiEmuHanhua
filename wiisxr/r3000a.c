@@ -129,49 +129,36 @@ void psxException(u32 code, u32 bd) {
 }
 
 void psxBranchTest() {
-    // upd xjsxjs197 start
-	//if ((psxRegs.cycle - psxNextsCounter) >= psxNextCounter)
-    if (psxRegs.cycle >= (psxNextCounter + psxNextsCounter))
-    // upd xjsxjs197 end
+	if ((psxRegs.cycle - psxNextsCounter) >= psxNextCounter)
 		psxRcntUpdate();
 
 	if (psxRegs.interrupt) {
 		if ((psxRegs.interrupt & 0x80) && (!Config.Sio)) { // sio
-            // upd xjsxjs197 start
-			if (psxRegs.cycle >= (psxRegs.intCycle[7] + psxRegs.intCycle[7+1])) {
-            // upd xjsxjs197 end
+            if ((psxRegs.cycle - psxRegs.intCycle[7]) >= psxRegs.intCycle[7+1]) {
 				psxRegs.interrupt&=~0x80;
 				sioInterrupt();
 			}
 		}
 		if (psxRegs.interrupt & 0x04) { // cdr
-            // upd xjsxjs197 start
-			if (psxRegs.cycle >= (psxRegs.intCycle[2] + psxRegs.intCycle[2+1])) {
-            // upd xjsxjs197 end
+            if ((psxRegs.cycle - psxRegs.intCycle[2]) >= psxRegs.intCycle[2+1]) {
 				psxRegs.interrupt&=~0x04;
 				cdrInterrupt();
 			}
 		}
 		if (psxRegs.interrupt & 0x040000) { // cdr read
-		    // upd xjsxjs197 start
-			if (psxRegs.cycle >= (psxRegs.intCycle[2+16] + psxRegs.intCycle[2+16+1])) {
-            // upd xjsxjs197 end
+		    if ((psxRegs.cycle - psxRegs.intCycle[2+16]) >= psxRegs.intCycle[2+16+1]) {
 				psxRegs.interrupt&=~0x040000;
 				cdrReadInterrupt();
 			}
 		}
 		if (psxRegs.interrupt & 0x01000000) { // gpu dma
-		    // upd xjsxjs197 start
-			if (psxRegs.cycle >= (psxRegs.intCycle[3+24] + psxRegs.intCycle[3+24+1])) {
-            // upd xjsxjs197 end
+		    if ((psxRegs.cycle - psxRegs.intCycle[3+24]) >= psxRegs.intCycle[3+24+1]) {
 				psxRegs.interrupt&=~0x01000000;
 				gpuInterrupt();
 			}
 		}
 		if (psxRegs.interrupt & 0x02000000) { // mdec out dma
-		    // upd xjsxjs197 start
-			if (psxRegs.cycle >= (psxRegs.intCycle[5+24] + psxRegs.intCycle[5+24+1])) {
-            // upd xjsxjs197 end
+		    if ((psxRegs.cycle - psxRegs.intCycle[5+24]) >= psxRegs.intCycle[5+24+1]) {
 				psxRegs.interrupt&=~0x02000000;
 				mdec1Interrupt();
 			}
@@ -186,7 +173,10 @@ void psxBranchTest() {
 }
 
 void psxTestHWInts() {
-	if (psxHu32(0x1070) & psxHu32(0x1074)) {
+    // upd xjsxjs197 start
+	//if (psxHu32(0x1070) & psxHu32(0x1074)) {
+	if (LOAD_SWAP32p(psxHAddr(0x1070)) & LOAD_SWAP32p(psxHAddr(0x1074))) {
+    // upd xjsxjs197 end
 		if ((psxRegs.CP0.n.Status & 0x401) == 0x401) {
 #ifdef PSXCPU_LOG
 			PSXCPU_LOG("Interrupt: %x %x\n", psxHu32(0x1070), psxHu32(0x1074));
