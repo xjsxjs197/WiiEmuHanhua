@@ -50,7 +50,12 @@ static void psxRcntReset(unsigned long index) {
 	psxRcntUpd(index);
 
 //	if (index == 2) SysPrintf("rcnt2 %x\n", psxCounters[index].mode);
-	psxHu32ref(0x1070)|= SWAPu32(psxCounters[index].interrupt);
+    // upd xjsxjs197 start
+	//psxHu32ref(0x1070)|= SWAPu32(psxCounters[index].interrupt);
+	tmpVal = psxHu32ref(0x1070);
+	STORE_SWAP32p(psxHAddr(0x1070), psxCounters[index].interrupt);
+	psxHu32ref(0x1070) |= tmpVal;
+	// upd xjsxjs197 end
 	psxRegs.interrupt|= 0x80000000;
 	if (!(psxCounters[index].mode & 0x40)) { // Only 1 interrupt
 		psxCounters[index].Cycle = 0xffffffff;
@@ -116,12 +121,12 @@ void psxUpdateVSyncRate() {
 		//psxCounters[3].rate = (PSXCLK / 50) - ((PSXCLK * 22) / (50 * 262));
 		psxCounters[3].rate = 620498;
 	}
-	else 
+	else
 	{
 		//psxCounters[3].rate = (PSXCLK / 60) - ((PSXCLK * 22) / (60 * 262));
 		psxCounters[3].rate = 517081;
 	}
-	
+
 	if (Config.VSyncWA)
 	{
 		psxCounters[3].rate = psxCounters[3].rate >> 1;
@@ -144,15 +149,18 @@ void psxUpdateVSyncRateEnd() {
 		//psxCounters[3].rate = (PSXCLK * 22) / (60 * 262);
 		psxCounters[3].rate = 47399;
 	}
-	
-	if (Config.VSyncWA) 
+
+	if (Config.VSyncWA)
 	{
 		psxCounters[3].rate = psxCounters[3].rate >> 1;
 	}
 }
 
 void psxRcntUpdate() {
-	if ((psxRegs.cycle - psxCounters[3].sCycle) >= psxCounters[3].Cycle) {
+    // upd xjsxjs197 start
+	//if ((psxRegs.cycle - psxCounters[3].sCycle) >= psxCounters[3].Cycle) {
+	if (psxRegs.cycle >= (psxCounters[3].sCycle + psxCounters[3].Cycle)) {
+    // upd xjsxjs197 end
 		if (psxCounters[3].mode & 0x10000) { // VSync End (22 hsyncs)
 			psxCounters[3].mode&=~0x10000;
 			psxUpdateVSyncRate();
@@ -162,7 +170,7 @@ void psxRcntUpdate() {
 #ifdef GTE_LOG
 			GTE_LOG("VSync\n");
 #endif
-		} else { // VSync Start (240 hsyncs) 
+		} else { // VSync Start (240 hsyncs)
 			psxCounters[3].mode|= 0x10000;
 			psxUpdateVSyncRateEnd();
 			psxRcntUpd(3);
@@ -171,20 +179,28 @@ void psxRcntUpdate() {
 		}
 	}
 
-	if ((psxRegs.cycle - psxCounters[0].sCycle) >= psxCounters[0].Cycle) {
+    // upd xjsxjs197 start
+	//if ((psxRegs.cycle - psxCounters[0].sCycle) >= psxCounters[0].Cycle) {
+	if (psxRegs.cycle >= (psxCounters[0].sCycle + psxCounters[0].Cycle)) {
+    // upd xjsxjs197 end
 		psxRcntReset(0);
 	}
-
-	if ((psxRegs.cycle - psxCounters[1].sCycle) >= psxCounters[1].Cycle) {
+    // upd xjsxjs197 start
+	if (psxRegs.cycle >= (psxCounters[1].sCycle + psxCounters[1].Cycle)) {
+    // upd xjsxjs197 end
 		psxRcntReset(1);
 	}
 
-	if ((psxRegs.cycle - psxCounters[2].sCycle) >= psxCounters[2].Cycle) {
+    // upd xjsxjs197 start
+	if (psxRegs.cycle >= (psxCounters[2].sCycle + psxCounters[2].Cycle)) {
+    // upd xjsxjs197 end
 		psxRcntReset(2);
 	}
 
 	if (cnts >= 5) {
-		if ((psxRegs.cycle - psxCounters[4].sCycle) >= psxCounters[4].Cycle) {
+        // upd xjsxjs197 start
+		if (psxRegs.cycle >= (psxCounters[4].sCycle + psxCounters[4].Cycle)) {
+        // upd xjsxjs197 end
 #ifdef PROFILE
   start_section(AUDIO_SECTION);
 #endif
