@@ -1,7 +1,7 @@
 /***************************************************************************
     drawGX.m
     PeopsSoftGPU for cubeSX/wiiSX
-  
+
     Created by sepp256 on Thur Jun 26 2008.
     Copyright (c) 2008 Gil Pedersen.
     Adapted from draw.c by Pete Bernet and drawgl.m by Gil Pedersen.
@@ -94,13 +94,13 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 
  // TODO: visual rumble
 
-/*     
-  if(iRumbleTime) 
+/*
+  if(iRumbleTime)
    {
-    ScreenRect.left+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
-    ScreenRect.right+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
-    ScreenRect.top+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
-    ScreenRect.bottom+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2); 
+    ScreenRect.left+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
+    ScreenRect.right+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
+    ScreenRect.top+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
+    ScreenRect.bottom+=((rand()*iRumbleVal)/RAND_MAX)-(iRumbleVal/2);
     iRumbleTime--;
    }
 */
@@ -122,7 +122,7 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 // TODO: Show menu text
 	if(ulKeybits&KEY_SHOWFPS) //DisplayText();               // paint menu text
 	{
-		if(szDebugText[0] && ((time(NULL) - tStart) < 2))
+		if(szDebugText[0] && ((time(NULL) - tStart) < 6))
 		{
 			strcpy(szDispBuf,szDebugText);
 		}
@@ -460,7 +460,7 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 	DEBUG_update();
 	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
 		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
-		
+
    //reset swap table from GUI/DEBUG
 	GX_SetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
 	GX_SetTevSwapMode(GX_TEVSTAGE0, GX_TEV_SWAP0, GX_TEV_SWAP0);

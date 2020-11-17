@@ -31,6 +31,10 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 	u16 *ptr;
 	u32 size;
 
+#ifdef DISP_DEBUG
+    char debug[256];
+#endif
+
 	switch (chcr) {
 		case 0x01000201: //cpu to spu transfer
 #ifdef DEBUG_DMA
@@ -42,6 +46,9 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 #ifdef DEBUG_DMA
         DEBUG_print("*** DMA4 SPU - mem2spu *** NULL Pointer!!!\n", 5);
 #endif
+                #ifdef DISP_DEBUG
+                GPU_displayText("*** DMA4 SPU - mem2spu *** NULL Pointer!!!");
+                #endif
 				break;
 			}
 			SPU_writeDMAMem(ptr, (bcr >> 16) * (bcr & 0xffff) * 2);
@@ -57,6 +64,9 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 #ifdef DEBUG_DMA
         DEBUG_print("*** DMA4 SPU - spu2mem *** NULL Pointer!!!\n", 6);
 #endif
+                #ifdef DISP_DEBUG
+                GPU_displayText("*** DMA4 SPU - spu2mem *** NULL Pointer!!!");
+                #endif
 				break;
 			}
 			size = (bcr >> 16) * (bcr & 0xffff) * 2;
