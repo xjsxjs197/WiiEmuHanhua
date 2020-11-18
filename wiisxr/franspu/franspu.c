@@ -108,10 +108,16 @@ void VoiceChangeFrequency(SPUCHAN * pChannel)
 void FModChangeFrequency(SPUCHAN * pChannel,int ns)
 {
 	int NP=pChannel->iRawPitch;
-	NP=((32768L+iFMod[ns])*NP)/32768L;
+	// upd xjsxjs197 start
+	//NP=((32768L+iFMod[ns])*NP)/32768L;
+	NP = ((32768L + iFMod[ns]) * NP) >> 15;
+	// upd xjsxjs197 end
 	if(NP>0x3fff) NP=0x3fff;
 	if(NP<0x1)    NP=0x1;
-	NP=(44100L*NP)/(4096L);                               // calc frequency
+	// upd xjsxjs197 start
+	//NP=(44100L*NP)/(4096L);                               // calc frequency
+	NP = (44100L * NP) >> 12;                               // calc frequency
+	// upd xjsxjs197 end
 	pChannel->iActFreq=NP;
 	pChannel->iUsedFreq=NP;
 	pChannel->sinc=(((NP/10)<<16)/4410);
