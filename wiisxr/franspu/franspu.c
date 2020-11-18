@@ -339,7 +339,10 @@ void FRAN_SPU_async(unsigned long cycle)
 	SoundFeedStreamData((unsigned char*)pSpuBuffer,
 			((unsigned char *)pS)-((unsigned char *)pSpuBuffer));
 	pSpuBuffer = spuBuffer[whichBuffer =
-			((whichBuffer + 1) % NUM_SPU_BUFFERS)];
+	        // upd xjsxjs197 start
+			//((whichBuffer + 1) % NUM_SPU_BUFFERS)];
+			((whichBuffer + 1) & 3)];
+            // upd xjsxjs197 end
 	pS=(short *)pSpuBuffer;
 }
 
