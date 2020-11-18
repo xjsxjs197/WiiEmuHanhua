@@ -63,17 +63,17 @@ void mmssdd( char *b, char *p )
 #else
 	int block = *((int*)b);
 #endif
-	
+
 	block += 150;
 	m = block / 4500;			// minuten
 	block = block - m * 4500;	// minuten rest
 	s = block / 75;				// sekunden
 	d = block - s * 75;			// sekunden rest
-	
+
 	m = ( ( m / 10 ) << 4 ) | m % 10;
 	s = ( ( s / 10 ) << 4 ) | s % 10;
-	d = ( ( d / 10 ) << 4 ) | d % 10;	
-	
+	d = ( ( d / 10 ) << 4 ) | d % 10;
+
 	p[0] = m;
 	p[1] = s;
 	p[2] = d;
@@ -112,7 +112,7 @@ int GetCdromFile(u8 *mdir, u8 *time, char *filename) {
 
 	// only try to scan if a filename is given
 	if(!strlen((char*)filename)) return -1;
-	
+
 	i = 0;
 	while (i < 4096) {
 		dir = (struct iso_directory_record*) &mdir[i];
@@ -124,7 +124,7 @@ int GetCdromFile(u8 *mdir, u8 *time, char *filename) {
 		if (dir->flags[0] & 0x2) { // it's a dir
 			if (!strnicmp((char*)&dir->name[0], (char*)filename, dir->name_len[0])) {
 				if (filename[dir->name_len[0]] != '\\') continue;
-				
+
 				filename+= dir->name_len[0] + 1;
 
 				mmssdd(dir->extent, (char*)time);
@@ -159,7 +159,7 @@ int LoadCdrom() {
 	READTRACK();
 
 	// skip head and sub, and go to the root directory record
-	dir = (struct iso_directory_record*) &buf[12+156]; 
+	dir = (struct iso_directory_record*) &buf[12+156];
 
 	mmssdd(dir->extent, (char*)time);
 
@@ -194,12 +194,12 @@ int LoadCdrom() {
 		READTRACK();
 	}
 
-	
+
 	memcpy(&tmpHead, buf+12, sizeof(EXE_HEADER));
 
 	psxRegs.pc = SWAP32(tmpHead.pc0);
 	psxRegs.GPR.n.gp = SWAP32(tmpHead.gp0);
-	psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr); 
+	psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr);
 	if (psxRegs.GPR.n.sp == 0) psxRegs.GPR.n.sp = 0x801fff00;
 
 	tmpHead.t_size = SWAP32(tmpHead.t_size);
@@ -234,7 +234,7 @@ int LoadCdromFile(char *filename, EXE_HEADER *head) {
 	READTRACK();
 
 	// skip head and sub, and go to the root directory record
-	dir = (struct iso_directory_record*) &buf[12+156]; 
+	dir = (struct iso_directory_record*) &buf[12+156];
 
 	mmssdd(dir->extent, (char*)time);
 
@@ -278,7 +278,7 @@ int CheckCdrom() {
 	strncpy(CdromLabel, (char*)buf+52, 32);
 
 	// skip head and sub, and go to the root directory record
-	dir = (struct iso_directory_record*) &buf[12+156]; 
+	dir = (struct iso_directory_record*) &buf[12+156];
 
 	mmssdd(dir->extent, (char*)time);
 
@@ -388,7 +388,7 @@ int Load(fileBrowser_file *exe) {
 				isoFile_readFile(exe, (void *)PSXM(SWAP32(tmpHead.t_addr)), SWAP32(tmpHead.t_size));
 				psxRegs.pc = SWAP32(tmpHead.pc0);
 				psxRegs.GPR.n.gp = SWAP32(tmpHead.gp0);
-				psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr); 
+				psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr);
 				if (psxRegs.GPR.n.sp == 0)
 					psxRegs.GPR.n.sp = 0x801fff00;
 				retval = 0;
@@ -416,7 +416,10 @@ const char PcsxHeader[32] = "STv3 PCSX v";
 char* statespath = "/wiisxrx/savestates/";
 static unsigned int savestates_slot = 0;
 extern unsigned char  *psxVub;
-extern unsigned short  spuMem[256*1024];
+// upd xjsxjs197 start
+//extern unsigned short  spuMem[256*1024];
+extern unsigned char  spuMem[512 * 1024];
+// upd xjsxjs197 end
 #define iGPUHeight 512
 #define SAVE_STATE_MSG "Saving State .."
 #define LOAD_STATE_MSG "Loading State .."
@@ -430,17 +433,17 @@ void savestates_select_slot(unsigned int s)
 }
 
 int SaveState() {
-   
+
   gzFile f;
   GPUFreeze_t *gpufP;
 	SPUFreeze_t *spufP;
 	int Size;
 	unsigned char *pMem;
 	char *filename;
-	
+
   /* fix the filename to %s.st%u format */
 	filename = malloc(1024);
-	
+
 #ifdef HW_RVL
   sprintf(filename, "%s%s%s.st%u",(saveStateDevice==SAVESTATEDEVICE_USB)?"usb:":"sd:",
                            statespath, CdromId, savestates_slot);
@@ -450,15 +453,15 @@ int SaveState() {
 
 	f = gzopen(filename, "wb");
   free(filename);
-   	
+
   if(!f) {
   	return 0;
 	}
-	
+
   LoadingBar_showBar(0.0f, SAVE_STATE_MSG);
-  pauseRemovalThread(); 
+  pauseRemovalThread();
   GPU_updateLace();
-    
+
 	gzwrite(f, (void*)PcsxHeader, 32);
 
 	pMem = (unsigned char *) malloc(128*96*3);
@@ -499,7 +502,7 @@ int SaveState() {
   // spu spuMem save (save directly to save memory)
   gzwrite(f, &spuMem[0], 0x80000);
   LoadingBar_showBar(0.90f, SAVE_STATE_MSG);
-  
+
 	sioFreeze(f, 1);
 	cdrFreeze(f, 1);
 	psxHwFreeze(f, 1);
@@ -507,7 +510,7 @@ int SaveState() {
 	mdecFreeze(f, 1);
   LoadingBar_showBar(0.99f, SAVE_STATE_MSG);
 	gzclose(f);
-	
+
 	continueRemovalThread();
   LoadingBar_showBar(1.0f, SAVE_STATE_MSG);
 	return 1; //ok
@@ -520,7 +523,7 @@ int LoadState() {
 	int Size;
 	char header[32];
 	char *filename;
-	
+
   /* fix the filename to %s.st%u format */
 	filename = malloc(1024);
 #ifdef HW_RVL
@@ -532,7 +535,7 @@ int LoadState() {
 
 	f = gzopen(filename, "rb");
   free(filename);
-   	
+
   if(!f) {
   	return 0;
 	}
@@ -540,7 +543,7 @@ int LoadState() {
 	pauseRemovalThread();
 	LoadingBar_showBar(0.0f, LOAD_STATE_MSG);
 	//SysReset();
-	
+
 	psxCpu->Reset();
   LoadingBar_showBar(0.10f, LOAD_STATE_MSG);
 	gzread(f, header, 32);
@@ -567,7 +570,7 @@ int LoadState() {
 	// gpu VRAM load (load directly to save memory)
 	gzread(f, &psxVub[0], 1024*iGPUHeight*2);
 	LoadingBar_showBar(0.80f, LOAD_STATE_MSG);
-	
+
 	// spu
 	gzread(f, &Size, 4);
 	spufP = (SPUFreeze_t *) malloc (Size);
@@ -577,7 +580,7 @@ int LoadState() {
   // spu spuMem save (save directly to save memory)
   gzread(f, &spuMem[0], 0x80000);
   LoadingBar_showBar(0.99f, LOAD_STATE_MSG);
-  
+
 	sioFreeze(f, 0);
 	cdrFreeze(f, 0);
 	psxHwFreeze(f, 0);
@@ -587,7 +590,7 @@ int LoadState() {
 	gzclose(f);
   continueRemovalThread();
   LoadingBar_showBar(1.0f, LOAD_STATE_MSG);
-  
+
 	return 1;
 }
 
@@ -651,7 +654,7 @@ int RecvPcsxInfo() {
 	if (tmp != Config.Cpu) {
 		psxCpu->Shutdown();
 #ifdef PSXREC
-		if (Config.Cpu)	
+		if (Config.Cpu)
 			 psxCpu = &psxInt;
 		else psxCpu = &psxRec;
 #else

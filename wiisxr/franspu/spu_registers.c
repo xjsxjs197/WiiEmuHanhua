@@ -1,4 +1,5 @@
 #include "franspu.h"
+#include "../plugins.h"
 
 // we have a timebase of 1.020408f ms, not 1 ms... so adjust adsr defines
 #define ATTACK_MS      494L
@@ -27,8 +28,13 @@ void SoundOff(int start,int end,unsigned short val)    // SOUND OFF PSX COMMAND
  	int ch;
  	for(ch=start;ch<end;ch++,val>>=1)                     // loop channels
   	{
-   		if(val&1)                                     // && s_chan[i].bOn)  mmm...
-     			s_chan[ch].bStop=1;
+   		if(val&1)
+        {// && s_chan[i].bOn)  mmm...
+     		s_chan[ch].bStop=1;
+     		// add xjsxjs197 start
+     		s_chan[ch].ADSRX.State = ADSR_RELEASE;
+     		// add xjsxjs197 end
+        }
   	}
 }
 
@@ -47,7 +53,15 @@ void FModOn(int start,int end,unsigned short val)      // FMOD ON PSX COMMAND
       			}
     		}
    		else
-     			s_chan[ch].bFMod=0;                   // --> turn off fmod
+        {
+            s_chan[ch].bFMod=0;                   // --> turn off fmod
+            // add xjsxjs197 start
+            if (ch > 0 && s_chan[ch - 1].bFMod == 2)
+            {
+                s_chan[ch - 1].bFMod = 0;
+            }
+            // add xjsxjs197 end
+        }
   	}
 }
 
@@ -57,10 +71,13 @@ void NoiseOn(int start,int end,unsigned short val)     // NOISE ON PSX COMMAND
  	int ch;
  	for(ch=start;ch<end;ch++,val>>=1)                     // loop channels
   	{
-   		if(val&1)                                     // -> noise on/off
+  	    // upd xjsxjs197 start
+   		/*if(val&1)                                     // -> noise on/off
      			s_chan[ch].bNoise=1;
    		else
-     			s_chan[ch].bNoise=0;
+     			s_chan[ch].bNoise=0;*/
+        s_chan[ch].bNoise = val & 1;
+        // upd xjsxjs197 end
   	}
 }
 
@@ -172,7 +189,10 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
      			case 12: // adsr volume... mmm have to investigate this
        				break;
      			case 14: // loop?
-       				s_chan[ch].pLoop=spuMemC+((unsigned long) val<<3);
+     			    // upd xjsxjs197 start
+       				//s_chan[ch].pLoop=spuMemC+((unsigned long) val<<3);
+       				s_chan[ch].pLoop=spuMemC + ((((unsigned long)val) & ~1) << 3);
+       				// upd xjsxjs197 end
        				s_chan[ch].bIgnoreLoop=1;
        				break;
     		}
@@ -187,9 +207,17 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
       			//spuMem[spuAddr>>1] = HOST2LE16(val);
       			//spuAddr+=2;
       			//if(spuAddr>0x7ffff) spuAddr=0;
-      			STORE_SWAP16p(spuMem + (spuAddr >> 1), val);
+      			STORE_SWAP16p(spuMem + spuAddr, val);
       			spuAddr += 2;
-      			spuAddr &= 0x7fffe;
+      			#ifdef DISP_DEBUG
+      			if (spuAddr > 0x7ffff)
+                {
+                    char debug[256];
+                    sprintf(debug, "FRAN_SPU_writeRegister==Reset spuAddr!");
+                    GPU_displayText(debug);
+                }
+                #endif
+                spuAddr &= 0x7fffe;
       			// upd xjsxjs197 end
       			break;
     		case H_SPUctrl    : spuCtrl=val; 		break;
@@ -293,12 +321,20 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
     		{
 			    // upd xjsxjs197 start
       			//unsigned short s=LE2HOST16(spuMem[spuAddr>>1]);
-				unsigned short s = LOAD_SWAP16p(spuMem + (spuAddr >> 1));
+				unsigned short s = LOAD_SWAP16p(spuMem + spuAddr);
 				// upd xjsxjs197 end
       			spuAddr+=2;
       			// upd xjsxjs197 start
       			//if(spuAddr>0x7ffff) spuAddr=0;
-      			spuAddr &= 0x7fffe;
+      			#ifdef DISP_DEBUG
+      			if (spuAddr > 0x7ffff)
+                {
+                    char debug[256];
+                    sprintf(debug, "FRAN_SPU_readRegister==Reset spuAddr!");
+                    GPU_displayText(debug);
+                }
+                #endif
+                spuAddr &= 0x7fffe;
       			// upd xjsxjs197 end
       			return s;
      		}
