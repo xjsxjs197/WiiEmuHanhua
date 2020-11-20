@@ -30,8 +30,8 @@
 
 // TODO: implement all system calls, count the exact CPU cycles of system calls.
 
-#include <stdlib.h> 
-#include <stdio.h> 
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
 #include <ctype.h>
@@ -520,7 +520,7 @@ void psxBios_longjmp() { // 0x14
 	sp = SWAP32(jmp_buf[1]); /* sp */
 	fp = SWAP32(jmp_buf[2]); /* fp */
 	for (i=0; i<8; i++) // s0-s7
-	   psxRegs.GPR.r[16+i] = SWAP32(jmp_buf[3+i]);		
+	   psxRegs.GPR.r[16+i] = SWAP32(jmp_buf[3+i]);
 	gp = SWAP32(jmp_buf[11]); /* gp */
 
 	v0 = a1; pc0 = ra;
@@ -1709,7 +1709,7 @@ void psxBios_TestEvent() { // 0b
 	ev   = a0 & 0xff;
 	spec = (a0 >> 8) & 0xff;
 
-	if (EventCB[ev][spec].status == SWAP32(EvStALREADY)) 
+	if (EventCB[ev][spec].status == SWAP32(EvStALREADY))
 	{
 		if (!(EventCB[ev][spec].mode == SWAP32(EvMdINTR))) EventCB[ev][spec].status = SWAP32(EvStACTIVE);
 		v0 = 1;
@@ -2593,11 +2593,11 @@ void psxBios_ChangeClearRCnt() { // 0a
 	pc0 = ra;
 }
 
-void psxBios_dummy() { 
+void psxBios_dummy() {
 #ifdef PSXBIOS_LOG
 	PSXBIOS_LOG("unk %lx call: %lx\n", pc0 & 0x1fffff, t1);
 #endif
-	pc0 = ra; 
+	pc0 = ra;
 }
 
 void (*biosA0[256])();
@@ -2944,17 +2944,17 @@ int psxBiosSetupTables()
 	UeEV = EventCB + 32 * 3;
 	SwEV = EventCB + 32 * 4;
 	ThEV = EventCB + 32 * 5;
-	
+
 	return 1;
 }
 
 void psxBiosInit() {
-	u32 *ptr; 
+	u32 *ptr;
 	uLongf len;
-	
+
 	if (!psxBiosSetupTables())
 		return;
-	
+
 	ptr = (u32 *)&psxM[0x0874]; // b0 table
 	ptr[0] = SWAPu32(0x4c54 - 0x884);
 
@@ -3091,7 +3091,7 @@ void biosInterrupt() {
 					*buf |= PAD2_poll(0) << 24;
 					*buf |= PAD2_poll(0) << 16;
 				}
-				
+
 				*buf = SWAP32(*buf);
 			} else {
 				u16 data;
@@ -3258,20 +3258,20 @@ void psxBiosException() {
 static void biosSwap()
 {
 	int i, j;
-	
+
 	for (i=0; i<sizeof(regs)/4; i++) {
 		regs[i] = SWAP32p(&regs[i]);
 	}
-	
+
 	for (i=0; i<sizeof(SysIntRP)/4; i++) {
 		SysIntRP[i] = SWAP32p(&SysIntRP[i]);
 	}
-	
+
 	for (i=0; i<sizeof(ThreadCB)/sizeof(TCB); i++) {
 		ThreadCB[i].status = SWAP32p((u32*)&ThreadCB[i].status);
 		ThreadCB[i].mode = SWAP32p((u32*)&ThreadCB[i].mode);
 		ThreadCB[i].func = SWAP32p(&ThreadCB[i].func);
-		
+
 		for (j=0; j<32; j++) {
 			ThreadCB[i].reg[j] = SWAP32p(&ThreadCB[i].reg[j]);
 		}
@@ -3288,12 +3288,12 @@ static void biosSwap()
 void psxBiosFreeze(int Mode) {
 	u32 base = 0x40000;
 	char signature[4] = {'H','L','E', ' '};
-	
+
 	if ((Mode == 1) && Config.HLE)
 		return;
-	
+
 	biosSwap();
-	
+
 	bfreezes(&signature);
 	if (Mode == 0) {
 		if (memcmp(signature, "HLE ", 4) == 0) {
@@ -3304,7 +3304,7 @@ void psxBiosFreeze(int Mode) {
 			return;
 		}
 	}
-	
+
 	bfreezepsxMptr(jmp_int, u32);
 	bfreezepsxMptr(pad_buf, int);
 	bfreezepsxMptr(pad_buf1, char);
@@ -3321,6 +3321,6 @@ void psxBiosFreeze(int Mode) {
 	bfreezel(&card_active_chan);
 	bfreezel(&pad_stopped);
 	//bfreezel(&heap_size);
-	
+
 	biosSwap();
 }

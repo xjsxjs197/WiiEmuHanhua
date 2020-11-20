@@ -13,6 +13,13 @@ unsigned long * XAEnd   = NULL;
 unsigned long   XARepeat  = 0;
 // add xjsxjs197 start
 unsigned long   XALastVal = 0;
+
+unsigned int  * CDDAFeed;
+unsigned int  * CDDAPlay;
+unsigned int  * CDDAStart;
+unsigned int  * CDDAEnd;
+
+#define CDDA_BUFFER_SIZE (16384 * sizeof(uint32_t)) // must be power of 2
 // add xjsxjs197 end
 
 int             iLeftXAVol  = 32767;
@@ -157,4 +164,43 @@ void FeedXA(xa_decode_t *xap)
 			spos += sinc;
 		}
 	}
+}
+
+////////////////////////////////////////////////////////////////////////
+// FEED CDDA
+////////////////////////////////////////////////////////////////////////
+int FeedCDDA(unsigned char *pcm, int nBytes)
+{
+    int space;
+    space = ((CDDAPlay - CDDAFeed -1) << 2) & (CDDA_BUFFER_SIZE - 1);
+    if (space < nBytes)
+    {
+        return 0x7761; // rearmed_wait
+    }
+
+    while (nBytes > 0)
+    {
+        if (CDDAFeed == CDDAEnd)
+        {
+            CDDAFeed = CDDAStart;
+        }
+
+        space = ((CDDAPlay - CDDAFeed - 1) << 2) & (CDDA_BUFFER_SIZE - 1);
+        if (CDDAFeed + (space >> 2) > CDDAEnd)
+        {
+            space = (CDDAEnd - CDDAFeed) << 2;
+        }
+
+        if (space > nBytes)
+        {
+            space = nBytes;
+        }
+
+        memcpy(CDDAFeed, pcm, space);
+        CDDAFeed += space >> 2;
+        nBytes -= space;
+        pcm += space;
+    }
+
+    return 0x676f; // rearmed_go
 }

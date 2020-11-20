@@ -345,8 +345,8 @@ SettingsFrame::SettingsFrame()
 		: activeSubmenu(SUBMENU_GENERAL)
 {
 	for (int i = 0; i < NUM_FRAME_BUTTONS; i++)
-		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString, 
-										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y, 
+		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString,
+										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y,
 										FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].height);
 
 	for (int i = 0; i < NUM_FRAME_BUTTONS; i++)
@@ -359,15 +359,15 @@ SettingsFrame::SettingsFrame()
 		if (FRAME_BUTTONS[i].clickedFunc) FRAME_BUTTONS[i].button->setClicked(FRAME_BUTTONS[i].clickedFunc);
 		if (FRAME_BUTTONS[i].returnFunc) FRAME_BUTTONS[i].button->setReturn(FRAME_BUTTONS[i].returnFunc);
 		add(FRAME_BUTTONS[i].button);
-		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x, 
-												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y, 
+		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x,
+												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y,
 												FRAME_BUTTONS[i].y+FRAME_BUTTONS[i].height);
 	}
 
 	for (int i = 0; i < NUM_FRAME_TEXTBOXES; i++)
 	{
-		FRAME_TEXTBOXES[i].textBox = new menu::TextBox(&FRAME_TEXTBOXES[i].textBoxString, 
-										FRAME_TEXTBOXES[i].x, FRAME_TEXTBOXES[i].y, 
+		FRAME_TEXTBOXES[i].textBox = new menu::TextBox(&FRAME_TEXTBOXES[i].textBoxString,
+										FRAME_TEXTBOXES[i].x, FRAME_TEXTBOXES[i].y,
 										FRAME_TEXTBOXES[i].scale, FRAME_TEXTBOXES[i].centered);
 		add(FRAME_TEXTBOXES[i].textBox);
 	}
@@ -503,10 +503,12 @@ void SettingsFrame::activateSubmenu(int submenu)
 				FRAME_BUTTONS[i].button->setVisible(true);
 				FRAME_BUTTONS[i].button->setActive(true);
 			}
-			for (int i = 43; i <= 44; i++)	//disable CDDA buttons
+			// upd xjsxjs197 start
+			/*for (int i = 43; i <= 44; i++)	//disable CDDA buttons
 			{
 				FRAME_BUTTONS[i].button->setActive(false);
-			}
+			}*/
+			// upd xjsxjs197 end
 			break;
 		case SUBMENU_SAVES:
 			setDefaultFocus(FRAME_BUTTONS[4].button);
@@ -551,7 +553,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 				if (currentButtonsDownGC & PAD_TRIGGER_R)
 				{
 					//move to next tab
-					if(activeSubmenu < SUBMENU_SAVES) 
+					if(activeSubmenu < SUBMENU_SAVES)
 					{
 						activateSubmenu(activeSubmenu+1);
 						menu::Focus::getInstance().clearPrimaryFocus();
@@ -561,7 +563,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 				else if (currentButtonsDownGC & PAD_TRIGGER_L)
 				{
 					//move to the previous tab
-					if(activeSubmenu > SUBMENU_GENERAL) 
+					if(activeSubmenu > SUBMENU_GENERAL)
 					{
 						activateSubmenu(activeSubmenu-1);
 						menu::Focus::getInstance().clearPrimaryFocus();
@@ -579,7 +581,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 					if (currentButtonsDownWii & WPAD_CLASSIC_BUTTON_FULL_R)
 					{
 						//move to next tab
-						if(activeSubmenu < SUBMENU_SAVES) 
+						if(activeSubmenu < SUBMENU_SAVES)
 						{
 							activateSubmenu(activeSubmenu+1);
 							menu::Focus::getInstance().clearPrimaryFocus();
@@ -589,7 +591,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 					else if (currentButtonsDownWii & WPAD_CLASSIC_BUTTON_FULL_L)
 					{
 						//move to the previous tab
-						if(activeSubmenu > SUBMENU_GENERAL) 
+						if(activeSubmenu > SUBMENU_GENERAL)
 						{
 							activateSubmenu(activeSubmenu-1);
 							menu::Focus::getInstance().clearPrimaryFocus();
@@ -602,7 +604,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 					if (currentButtonsDownWii & WPAD_BUTTON_PLUS)
 					{
 						//move to next tab
-						if(activeSubmenu < SUBMENU_SAVES) 
+						if(activeSubmenu < SUBMENU_SAVES)
 						{
 							activateSubmenu(activeSubmenu+1);
 							menu::Focus::getInstance().clearPrimaryFocus();
@@ -612,7 +614,7 @@ void SettingsFrame::drawChildren(menu::Graphics &gfx)
 					else if (currentButtonsDownWii & WPAD_BUTTON_MINUS)
 					{
 						//move to the previous tab
-						if(activeSubmenu > SUBMENU_GENERAL) 
+						if(activeSubmenu > SUBMENU_GENERAL)
 						{
 							activateSubmenu(activeSubmenu-1);
 							menu::Focus::getInstance().clearPrimaryFocus();
@@ -771,11 +773,11 @@ void Func_BiosSelectHLE()
 	}
 }
 
-int checkBiosExists(int testDevice) 
+int checkBiosExists(int testDevice)
 {
 	fileBrowser_file testFile;
 	memset(&testFile, 0, sizeof(fileBrowser_file));
-	
+
 	biosFile_dir = (testDevice == BIOSDEVICE_SD) ? &biosDir_libfat_Default : &biosDir_libfat_USB;
 	sprintf(&testFile.name[0], "%s/SCPH1001.BIN", &biosFile_dir->name[0]);
 	biosFile_readFile  = fileBrowser_libfat_readFile;
@@ -852,11 +854,11 @@ void Func_BootBiosYes()
 		menu::MessageBox::getInstance().setMessage("You must select a BIOS, not HLE");
 		return;
 	}*/
-	
+
 	for (int i = 11; i <= 12; i++)
 		FRAME_BUTTONS[i].button->setSelected(false);
 	FRAME_BUTTONS[11].button->setSelected(true);
-	
+
 	LoadCdBios = BOOTTHRUBIOS_YES;
 }
 

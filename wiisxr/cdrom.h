@@ -40,6 +40,16 @@ typedef struct {
 	unsigned char Transfer[2352];
 	unsigned char *pTransfer;
 
+    // add xjsxjs197 start
+    struct {
+		unsigned char Track;
+		unsigned char Index;
+		unsigned char Relative[3];
+		unsigned char Absolute[3];
+	} subq;
+	unsigned char TrackChanged;
+	// add xjsxjs197 end
+
 	unsigned char Prev[4];
 	unsigned char Param[8];
 	unsigned char Result[8];
@@ -55,6 +65,11 @@ typedef struct {
 
 	unsigned char ResultTN[6];
 	unsigned char ResultTD[4];
+	// add xjsxjs197 start
+	unsigned char SetlocPending;
+	unsigned char SetSectorPlay[4];
+	unsigned char SetSectorEnd[4];
+	// add xjsxjs197 end
 	unsigned char SetSector[4];
 	unsigned char SetSectorSeek[4];
 	unsigned char Track;

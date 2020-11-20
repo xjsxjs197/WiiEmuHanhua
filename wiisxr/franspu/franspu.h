@@ -378,5 +378,8 @@ extern int MixADSR(SPUCHAN *ch);
 extern unsigned long SoundGetBytesBuffered(void);
 extern void FeedXA(xa_decode_t *xap);
 extern void MixXA(void);
+// add xjsxjs197 start
+extern int  FeedCDDA(unsigned char *pcm, int nBytes);
+// add xjsxjs197 end
 
 #endif

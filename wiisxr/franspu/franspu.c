@@ -353,6 +353,17 @@ void FRAN_SPU_playADPCMchannel(xa_decode_t *xap)
 		FeedXA(xap); // call main XA feeder
 }
 
+// add xjsxjs197 start
+// CDDA AUDIO
+int FRAN_SPU_playCDDAchannel(short *pcm, int nbytes)
+{
+    if (!pcm)      return -1;
+    if (nbytes <= 0) return -1;
+
+    return FeedCDDA((unsigned char *)pcm, nbytes);
+}
+// add xjsxjs197 end
+
 // SPUINIT: this func will be called first by the main emu
 long FRAN_SPU_init(void)
 {

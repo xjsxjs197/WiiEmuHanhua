@@ -26,11 +26,11 @@
 typedef void* HWND;
 #define CALLBACK
 typedef long (* GPUopen)(unsigned long *, char *, char *);
-long GPU__open(void);          
+long GPU__open(void);
 typedef long (* SPUopen)(void);
-long SPU__open(void);			
+long SPU__open(void);
 typedef long (* PADopen)(unsigned long *);
-long PAD1__open(void);			
+long PAD1__open(void);
 long PAD2__open(void);
 typedef long (* NETopen)(unsigned long *);
 
@@ -47,7 +47,7 @@ typedef unsigned long (CALLBACK* PSEgetLibType)(void);
 typedef unsigned long (CALLBACK* PSEgetLibVersion)(void);
 typedef char *(CALLBACK* PSEgetLibName)(void);
 
-///GPU PLUGIN STUFF 
+///GPU PLUGIN STUFF
 typedef long (CALLBACK* GPUinit)(void);
 typedef long (CALLBACK* GPUshutdown)(void);
 typedef long (CALLBACK* GPUclose)(void);
@@ -82,7 +82,7 @@ typedef void (CALLBACK* GPUclearDynarec)(void (CALLBACK *callback)(void));
 //Gpu function pointers
 GPUupdateLace    GPU_updateLace;
 GPUinit          GPU_init;
-GPUshutdown      GPU_shutdown; 
+GPUshutdown      GPU_shutdown;
 GPUconfigure     GPU_configure;
 GPUtest          GPU_test;
 GPUabout         GPU_about;
@@ -91,7 +91,7 @@ GPUclose         GPU_close;
 GPUreadStatus    GPU_readStatus;
 GPUreadData      GPU_readData;
 GPUreadDataMem   GPU_readDataMem;
-GPUwriteStatus   GPU_writeStatus; 
+GPUwriteStatus   GPU_writeStatus;
 GPUwriteData     GPU_writeData;
 GPUwriteDataMem  GPU_writeDataMem;
 GPUdmaChain      GPU_dmaChain;
@@ -133,15 +133,18 @@ struct SubQ {
 	unsigned char TrackRelativeAddress[3];
 	unsigned char Filler;
 	unsigned char AbsoluteAddress[3];
+	// add xjsxjs197 start
+	unsigned char CRC[2];
+	// add xjsxjs197 end
 	char res1[72];
 };
 typedef unsigned char* (CALLBACK* CDRgetBufferSub)(void);
 
-//cd rom function pointers 
+//cd rom function pointers
 CDRinit               CDR_init;
 CDRshutdown           CDR_shutdown;
 CDRopen               CDR_open;
-CDRclose              CDR_close; 
+CDRclose              CDR_close;
 CDRtest               CDR_test;
 CDRgetTN              CDR_getTN;
 CDRgetTD              CDR_getTD;
@@ -157,32 +160,36 @@ CDRabout              CDR_about;
 CDRsetfilename        CDR_setfilename;
 
 // spu plugin
-typedef long (CALLBACK* SPUinit)(void);				
-typedef long (CALLBACK* SPUshutdown)(void);	
-typedef long (CALLBACK* SPUclose)(void);			
-typedef void (CALLBACK* SPUplaySample)(unsigned char);		
-typedef void (CALLBACK* SPUstartChannels1)(unsigned short);	
+typedef long (CALLBACK* SPUinit)(void);
+typedef long (CALLBACK* SPUshutdown)(void);
+typedef long (CALLBACK* SPUclose)(void);
+typedef void (CALLBACK* SPUplaySample)(unsigned char);
+typedef void (CALLBACK* SPUstartChannels1)(unsigned short);
 typedef void (CALLBACK* SPUstartChannels2)(unsigned short);
-typedef void (CALLBACK* SPUstopChannels1)(unsigned short);	
-typedef void (CALLBACK* SPUstopChannels2)(unsigned short);	
-typedef void (CALLBACK* SPUputOne)(uint32_t,unsigned short);			
-typedef unsigned short (CALLBACK* SPUgetOne)(uint32_t);			
-typedef void (CALLBACK* SPUsetAddr)(unsigned char, unsigned short);			
-typedef void (CALLBACK* SPUsetPitch)(unsigned char, unsigned short);		
-typedef void (CALLBACK* SPUsetVolumeL)(unsigned char, short );		
-typedef void (CALLBACK* SPUsetVolumeR)(unsigned char, short );		
+typedef void (CALLBACK* SPUstopChannels1)(unsigned short);
+typedef void (CALLBACK* SPUstopChannels2)(unsigned short);
+typedef void (CALLBACK* SPUputOne)(uint32_t,unsigned short);
+typedef unsigned short (CALLBACK* SPUgetOne)(uint32_t);
+typedef void (CALLBACK* SPUsetAddr)(unsigned char, unsigned short);
+typedef void (CALLBACK* SPUsetPitch)(unsigned char, unsigned short);
+typedef void (CALLBACK* SPUsetVolumeL)(unsigned char, short );
+typedef void (CALLBACK* SPUsetVolumeR)(unsigned char, short );
 //psemu pro 2 functions from now..
-typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short);	
-typedef unsigned short (CALLBACK* SPUreadRegister)(unsigned long);		
+typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short);
+typedef unsigned short (CALLBACK* SPUreadRegister)(unsigned long);
 typedef void (CALLBACK* SPUwriteDMA)(unsigned short);
 typedef unsigned short (CALLBACK* SPUreadDMA)(void);
 typedef void (CALLBACK* SPUwriteDMAMem)(unsigned short *, int);
 typedef void (CALLBACK* SPUreadDMAMem)(unsigned short *, int);
 typedef void (CALLBACK* SPUplayADPCMchannel)(xa_decode_t *);
+// add xjsxjs197 start
+// CDDA AUDIO
+typedef int (CALLBACK* SPUplayCDDAchannel)(short *pcm, int nbytes);
+// add xjsxjs197 end
 typedef void (CALLBACK* SPUregisterCallback)(void (CALLBACK *callback)(void));
 typedef void (CALLBACK* SPUregisterCDDAVolume)(void (*CDDAVcallback)(unsigned short,unsigned short));
 typedef long (CALLBACK* SPUconfigure)(void);
-typedef long (CALLBACK* SPUtest)(void);			
+typedef long (CALLBACK* SPUtest)(void);
 typedef void (CALLBACK* SPUabout)(void);
 typedef struct
 {
@@ -191,7 +198,7 @@ typedef struct
  unsigned long ulFreezeSize;
  unsigned char cSPUPort[0x200];
  //unsigned char cSPURam[0x80000];
- xa_decode_t   xaS;     
+ xa_decode_t   xaS;
 } SPUFreeze_t;
 typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *);
 typedef void (CALLBACK* SPUasync)(uint32_t);
@@ -222,6 +229,10 @@ SPUreadDMA          SPU_readDMA;
 SPUwriteDMAMem      SPU_writeDMAMem;
 SPUreadDMAMem       SPU_readDMAMem;
 SPUplayADPCMchannel SPU_playADPCMchannel;
+// add xjsxjs197 start
+// CDDA AUDIO
+SPUplayCDDAchannel  SPU_playCDDAchannel;
+// add xjsxjs197 end
 SPUfreeze           SPU_freeze;
 SPUregisterCallback SPU_registerCallback;
 SPUregisterCDDAVolume SPU_registerCDDAVolume;
@@ -232,8 +243,8 @@ SPUasync            SPU_async;
 typedef long (CALLBACK* PADconfigure)(void);
 typedef void (CALLBACK* PADabout)(void);
 typedef long (CALLBACK* PADinit)(long);
-typedef long (CALLBACK* PADshutdown)(void);	
-typedef long (CALLBACK* PADtest)(void);		
+typedef long (CALLBACK* PADshutdown)(void);
+typedef long (CALLBACK* PADtest)(void);
 typedef long (CALLBACK* PADclose)(void);
 typedef long (CALLBACK* PADquery)(void);
 typedef long (CALLBACK*	PADreadPort1)(PadDataS*);
@@ -310,11 +321,11 @@ typedef long (CALLBACK* NETkeypressed)(int)
 ;
 
 
-// NET function pointers 
+// NET function pointers
 NETinit               NET_init;
 NETshutdown           NET_shutdown;
 NETopen               NET_open;
-NETclose              NET_close; 
+NETclose              NET_close;
 NETtest               NET_test;
 NETconfigure          NET_configure;
 NETabout              NET_about;
