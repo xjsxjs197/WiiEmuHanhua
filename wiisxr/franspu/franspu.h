@@ -55,6 +55,13 @@ enum ADSR_State {
     ADSR_SUSTAIN = 2,
     ADSR_RELEASE = 3,
 };
+
+unsigned int  * CDDAFeed;
+unsigned int  * CDDAPlay;
+unsigned int  * CDDAStart;
+unsigned int  * CDDAEnd;
+
+#define CDDA_BUFFER_SIZE (16384 * sizeof(uint32_t)) // must be power of 2
 // add xjsxjs197 end
 
 // byteswappings

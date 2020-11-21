@@ -397,6 +397,12 @@ s32 FRAN_SPU_open(void)
 	XAPlay  = XAStart;
 	XAFeed  = XAStart;
 	XAEnd   = XAStart + 44100;
+	// add xjsxjs197 start
+    CDDAStart = (uint32_t *)memalign(32, CDDA_BUFFER_SIZE);  // alloc cdda buffer
+    CDDAEnd   = CDDAStart + 16384;
+    CDDAPlay  = CDDAStart;
+    CDDAFeed  = CDDAStart;
+	// add xjsxjs197 end
 	for(i=0;i<MAXCHAN;i++)                                // loop sound channels
 	{
 		s_chan[i].ADSRX.SustainLevel = 0xf<<27;       // -> init sustain

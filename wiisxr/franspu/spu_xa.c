@@ -13,13 +13,6 @@ unsigned long * XAEnd   = NULL;
 unsigned long   XARepeat  = 0;
 // add xjsxjs197 start
 unsigned long   XALastVal = 0;
-
-unsigned int  * CDDAFeed;
-unsigned int  * CDDAPlay;
-unsigned int  * CDDAStart;
-unsigned int  * CDDAEnd;
-
-#define CDDA_BUFFER_SIZE (16384 * sizeof(uint32_t)) // must be power of 2
 // add xjsxjs197 end
 
 int             iLeftXAVol  = 32767;
@@ -83,6 +76,15 @@ void MixXA(void)
         }
 
         XALastVal = v;
+    }
+
+    for(i = 0; i < NSSIZE && CDDAPlay != CDDAFeed && (CDDAPlay != CDDAEnd - 1 || CDDAFeed != CDDAStart); i++)
+    {
+        v = *CDDAPlay++;
+        if (CDDAPlay == CDDAEnd) CDDAPlay = CDDAStart;
+
+        (*ssuml++) += (((int)(short)(v & 0xffff)) * leftvol) >> 15;
+        (*ssumr++) += (((int)(short)((v >> 16) & 0xffff)) * rightvol) >> 15;
     }
 	// upd xjsxjs197 end
 }
