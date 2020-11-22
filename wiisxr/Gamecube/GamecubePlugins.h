@@ -416,7 +416,7 @@ unsigned char * CALLBACK Mooby2CDRgetBuffer(void);
 
 #define FRANSPU_PLUGIN \
 	{ "SPU",      \
-	  18,         \
+	  19,         \
 	  { { "SPUinit",  \
 	      (void*)FRAN_SPU_init }, \
 	    { "SPUshutdown",	\

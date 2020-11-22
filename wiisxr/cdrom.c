@@ -23,19 +23,6 @@
 
 #include "cdrom.h"
 
-// add xjsxjs197 start
-/* Modes flags */
-#define MODE_SPEED       (1<<7) // 0x80
-#define MODE_STRSND      (1<<6) // 0x40 ADPCM on/off
-#define MODE_SIZE_2340   (1<<5) // 0x20
-#define MODE_SIZE_2328   (1<<4) // 0x10
-#define MODE_SIZE_2048   (0<<4) // 0x00
-#define MODE_SF          (1<<3) // 0x08 channel on/off
-#define MODE_REPORT      (1<<2) // 0x04
-#define MODE_AUTOPAUSE   (1<<1) // 0x02
-#define MODE_CDDA        (1<<0) // 0x01
-// add xjsxjs197 end
-
 /* CD-ROM magic numbers */
 #define CdlSync        0
 #define CdlNop         1
@@ -111,103 +98,14 @@ unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 #define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
 //#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))		/* BCD to u_char */
 //#define itob(i)		((((i) / 10) << 4) + ((i) & 9))		/* u_char to BCD */
+extern void PEOPS_GPUdisplayText(char * pText);
+#ifdef DISP_DEBUG
+char debug[256];
+#endif
 // upd xjsxjs197 end
 
 static struct CdrStat stat;
 static struct SubQ *subq;
-
-// add xjsxjs197 start
-// for cdr.Seeked
-enum seeked_state {
-	SEEK_PENDING = 0,
-	SEEK_DONE = 1,
-};
-// redump.org SBI files, slightly different handling from PCSX-Reloaded
-unsigned char *sbi_sectors;
-
-#define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
-
-unsigned int msf2sec(const u8 *msf) {
-	return ((msf[0] * 60 + msf[1]) * 75) + msf[2];
-}
-
-// for that weird psemu API..
-unsigned int fsm2sec(const u8 *msf) {
-	return ((msf[2] * 60 + msf[1]) * 75) + msf[0];
-}
-
-void sec2msf(unsigned int s, u8 *msf) {
-	msf[0] = s / 75 / 60;
-	s = s - msf[0] * 75 * 60;
-	msf[1] = s / 75;
-	s = s - msf[1] * 75;
-	msf[2] = s;
-}
-
-int LoadSBI(const char *fname, int sector_count) {
-	char buffer[16];
-	FILE *sbihandle;
-	u8 sbitime[3], t;
-	int s;
-
-	sbihandle = fopen(fname, "rb");
-	if (sbihandle == NULL)
-		return -1;
-
-	sbi_sectors = calloc(1, sector_count / 8);
-	if (sbi_sectors == NULL) {
-		fclose(sbihandle);
-		return -1;
-	}
-
-	// 4-byte SBI header
-	fread(buffer, 1, 4, sbihandle);
-	while (1) {
-		s = fread(sbitime, 1, 3, sbihandle);
-		if (s != 3)
-			break;
-		fread(&t, 1, 1, sbihandle);
-		switch (t) {
-		default:
-		case 1:
-			s = 10;
-			break;
-		case 2:
-		case 3:
-			s = 3;
-			break;
-		}
-		fseek(sbihandle, s, SEEK_CUR);
-
-		s = MSF2SECT(btoi(sbitime[0]), btoi(sbitime[1]), btoi(sbitime[2]));
-		if (s < sector_count)
-			sbi_sectors[s >> 3] |= 1 << (s&7);
-		else
-			SysPrintf(_("SBI sector %d >= %d?\n"), s, sector_count);
-	}
-
-	fclose(sbihandle);
-
-	return 0;
-}
-
-void UnloadSBI(void) {
-	if (sbi_sectors) {
-		free(sbi_sectors);
-		sbi_sectors = NULL;
-	}
-}
-
-inline int CheckSBI(const u8 *t)
-{
-	int s;
-	if (sbi_sectors == NULL)
-		return 0;
-
-	s = MSF2SECT(t[0], t[1], t[2]);
-	return (sbi_sectors[s >> 3] >> (s & 7)) & 1;
-}
-// add xjsxjs197 end
 
 #define CDR_INT(eCycle) { \
 	psxRegs.interrupt|= 0x4; \
@@ -247,105 +145,6 @@ inline int CheckSBI(const u8 *t)
 	cdr.ResultReady = 1; \
 }
 
-// add xjsxjs197 start
-void Find_CurTrack(const u8 *time)
-{
-	int current, sect;
-
-	current = msf2sec(time);
-
-	for (cdr.CurTrack = 1; cdr.CurTrack < cdr.ResultTN[1]; cdr.CurTrack++) {
-		CDR_getTD(cdr.CurTrack + 1, cdr.ResultTD);
-		sect = fsm2sec(cdr.ResultTD);
-		if (sect - current >= 150)
-			break;
-	}
-}
-
-/*void generate_subq(const u8 *time)
-{
-	unsigned char start[3], next[3];
-	unsigned int this_s, start_s, next_s, pregap;
-	int relative_s;
-
-	CDR_getTD(cdr.CurTrack, start);
-	if (cdr.CurTrack + 1 <= cdr.ResultTN[1]) {
-		pregap = 150;
-		CDR_getTD(cdr.CurTrack + 1, next);
-	}
-	else {
-		// last track - cd size
-		pregap = 0;
-		next[0] = cdr.SetSectorEnd[2];
-		next[1] = cdr.SetSectorEnd[1];
-		next[2] = cdr.SetSectorEnd[0];
-	}
-
-	this_s = msf2sec(time);
-	start_s = fsm2sec(start);
-	next_s = fsm2sec(next);
-
-	cdr.TrackChanged = FALSE;
-
-	if (next_s - this_s < pregap) {
-		cdr.TrackChanged = TRUE;
-		cdr.CurTrack++;
-		start_s = next_s;
-	}
-
-	cdr.subq.Index = 1;
-
-	relative_s = this_s - start_s;
-	if (relative_s < 0) {
-		cdr.subq.Index = 0;
-		relative_s = -relative_s;
-	}
-	sec2msf(relative_s, cdr.subq.Relative);
-
-	cdr.subq.Track = itob(cdr.CurTrack);
-	cdr.subq.Relative[0] = itob(cdr.subq.Relative[0]);
-	cdr.subq.Relative[1] = itob(cdr.subq.Relative[1]);
-	cdr.subq.Relative[2] = itob(cdr.subq.Relative[2]);
-	cdr.subq.Absolute[0] = itob(time[0]);
-	cdr.subq.Absolute[1] = itob(time[1]);
-	cdr.subq.Absolute[2] = itob(time[2]);
-}*/
-/*
-void ReadTrack(const u8 *time) {
-	unsigned char tmp[3];
-	struct SubQ *subq;
-	u16 crc;
-
-	tmp[0] = itob(time[0]);
-	tmp[1] = itob(time[1]);
-	tmp[2] = itob(time[2]);
-
-	if (memcmp(cdr.Prev, tmp, 3) == 0)
-		return;
-
-	cdr.RErr = CDR_readTrack(tmp);
-	memcpy(cdr.Prev, tmp, 3);
-
-    /*
-	if (CheckSBI(time))
-		return;
-
-	subq = (struct SubQ *)CDR_getBufferSub();
-	if (subq != NULL && cdr.CurTrack == 1) {
-		crc = calcCrc((u8 *)subq + 12, 10);
-		if (crc == (((u16)subq->CRC[0] << 8) | subq->CRC[1])) {
-			cdr.subq.Track = subq->TrackNumber;
-			cdr.subq.Index = subq->IndexNumber;
-			memcpy(cdr.subq.Relative, subq->TrackRelativeAddress, 3);
-			memcpy(cdr.subq.Absolute, subq->AbsoluteAddress, 3);
-		}
-	}
-	else {
-		generate_subq(time);
-	}
-}*/
-// add xjsxjs197 end
-// upd xjsxjs197 start
 void ReadTrack() {
 	cdr.Prev[0] = itob(cdr.SetSector[0]);
 	cdr.Prev[1] = itob(cdr.SetSector[1]);
@@ -356,7 +155,6 @@ void ReadTrack() {
 #endif
 	cdr.RErr = CDR_readTrack(cdr.Prev);
 }
-// upd xjsxjs197 end
 
 void AddIrqQueue(unsigned char irq, unsigned long ecycle) {
 	cdr.Irq = irq;
@@ -370,9 +168,6 @@ void AddIrqQueue(unsigned char irq, unsigned long ecycle) {
 void cdrInterrupt() {
 	int i;
 	unsigned char Irq = cdr.Irq;
-	// add xjsxjs197 start
-	unsigned int seekTime = 0;
-	// add xjsxjs197 end
 
 	if (cdr.Stat) {
 		CDR_INT(0x800);
@@ -419,13 +214,17 @@ void cdrInterrupt() {
 			break;
 
 		case CdlPlay:
+		    #ifdef DISP_DEBUG
+            sprintf(debug, "========CdlPlay1 Config.Cdda %d !", Config.Cdda);
+            PEOPS_GPUdisplayText(debug);
+            #endif
 			cdr.CmdProcess = 0;
 			SetResultSize(1);
 			cdr.StatP|= 0x2;
 			cdr.Result[0] = cdr.StatP;
 			cdr.Stat = Acknowledge;
 			cdr.StatP|= 0x80;
-//			if ((cdr.Mode & 0x5) == 0x5) AddIrqQueue(REPPLAY, cdReadTime);
+			if ((cdr.Mode & 0x5) == 0x5) AddIrqQueue(REPPLAY, cdReadTime);
 			break;
 
     	case CdlForward:
@@ -820,6 +619,12 @@ void cdrReadInterrupt() {
 #ifdef CDR_LOG
 	fprintf(emuLog, "cdrReadInterrupt() Log: cdr.Transfer %x:%x:%x\n", cdr.Transfer[0], cdr.Transfer[1], cdr.Transfer[2]);
 #endif
+    #ifdef DISP_DEBUG
+    if (cdr.Mode & 1) {
+        sprintf(debug, "========cdrReadInterrupt Cdda On");
+        PEOPS_GPUdisplayText(debug);
+    }
+    #endif
 
 	if ((cdr.Muted == 1) && (cdr.Mode & 0x40) && (!Config.Xa) && (cdr.FirstSector != -1)) { // CD-XA
 		if ((cdr.Transfer[4+2] & 0x4) &&
@@ -835,7 +640,6 @@ void cdrReadInterrupt() {
 		}
 	}
 
-    // upd xjsxjs197 start
 	cdr.SetSector[2]++;
     if (cdr.SetSector[2] == 75) {
         cdr.SetSector[2] = 0;
@@ -845,16 +649,6 @@ void cdrReadInterrupt() {
             cdr.SetSector[0]++;
         }
     }
-    /*cdr.SetSectorPlay[2]++;
-	if (cdr.SetSectorPlay[2] == 75) {
-		cdr.SetSectorPlay[2] = 0;
-		cdr.SetSectorPlay[1]++;
-		if (cdr.SetSectorPlay[1] == 60) {
-			cdr.SetSectorPlay[1] = 0;
-			cdr.SetSectorPlay[0]++;
-		}
-	}*/
-	// upd xjsxjs197 end
 
     cdr.Readed = 0;
 
@@ -921,21 +715,27 @@ void cdrWrite0(unsigned char rt) {
 }
 
 unsigned char cdrRead1(void) {
-    if (cdr.ResultReady) { // && cdr.Ctrl & 0x1) {
+    // upd xjsxjs197 start
+    /*if (cdr.ResultReady) { // && cdr.Ctrl & 0x1) {
 		psxHu8(0x1801) = cdr.Result[cdr.ResultP++];
 		if (cdr.ResultP == cdr.ResultC) cdr.ResultReady = 0;
 	} else psxHu8(0x1801) = 0;
 #ifdef CDR_LOG
 	CDR_LOG("cdrRead1() Log: CD1 Read: %x\n", psxHu8(0x1801));
-#endif
+#endif*/
+    if ((cdr.ResultP & 0xf) < cdr.ResultC)
+		psxHu8(0x1801) = cdr.Result[cdr.ResultP & 0xf];
+	else
+		psxHu8(0x1801) = 0;
+	cdr.ResultP++;
+	if (cdr.ResultP == cdr.ResultC)
+		cdr.ResultReady = 0;
+    // upd xjsxjs197 end
 	return psxHu8(0x1801);
 }
 
 void cdrWrite1(unsigned char rt) {
 	int i;
-	// add xjsxjs197 start
-	unsigned int seekTime = 0;
-	// add xjsxjs197 end
 
 #ifdef CDR_LOG
 	CDR_LOG("cdrWrite1() Log: CD1 write: %x (%s)\n", rt, CmdName[rt]);
@@ -943,6 +743,14 @@ void cdrWrite1(unsigned char rt) {
 //	psxHu8(0x1801) = rt;
     cdr.Cmd = rt;
 	cdr.OCUP = 0;
+    #ifdef DISP_DEBUG
+    if (cdr.Cmd == CdlPlay)
+    {
+        sprintf(debug, "========cdrWrite1  %8x !", cdr.Ctrl);
+        PEOPS_GPUdisplayText(debug);
+    }
+
+    #endif
 
 #ifdef CDRCMD_DEBUG
 	SysPrintf("cdrWrite1() Log: CD1 write: %x (%s)", rt, CmdName[rt]);
@@ -980,63 +788,15 @@ void cdrWrite1(unsigned char rt) {
         	cdr.Stat = NoIntr;
     		AddIrqQueue(cdr.Cmd, 0x800);
         	break;
-
 // add xjsxjs197 start
 do_CdlPlay:
 // add xjsxjs197 end
     	case CdlPlay:
-    	    // add xjsxjs197 start
-    	    StopCdda();
-    	    /*if (cdr.Seeked == SEEK_PENDING) {
-				// XXX: wrong, should seek instead..
-				cdr.Seeked = SEEK_DONE;
-			}
-			if (cdr.SetlocPending) {
-				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
-				cdr.SetlocPending = 0;
-			}
-
-			// BIOS CD Player
-			// - Pause player, hit Track 01/02/../xx (Setloc issued!!)
-
-			if (cdr.ParamC == 0 || cdr.Param[0] == 0) {
-				//CDR_LOG("PLAY Resume @ %d:%d:%d\n",
-				//	cdr.SetSectorPlay[0], cdr.SetSectorPlay[1], cdr.SetSectorPlay[2]);
-			}
-			else
-			{
-				int track = btoi( cdr.Param[0] );
-
-				if (track <= cdr.ResultTN[1])
-					cdr.CurTrack = track;
-
-				//CDR_LOG("PLAY track %d\n", cdr.CurTrack);
-
-				if (CDR_getTD((u8)cdr.CurTrack, cdr.ResultTD) != -1) {
-					cdr.SetSectorPlay[0] = cdr.ResultTD[2];
-					cdr.SetSectorPlay[1] = cdr.ResultTD[1];
-					cdr.SetSectorPlay[2] = cdr.ResultTD[0];
-				}
-			}
-*/
-			/*
-			Rayman: detect track changes
-			- fixes logo freeze
-
-			Twisted Metal 2: skip PREGAP + starting accurate SubQ
-			- plays tracks without retry play
-
-			Wild 9: skip PREGAP + starting accurate SubQ
-			- plays tracks without retry play
-			*/
-			/*Find_CurTrack(cdr.SetSectorPlay);
-			ReadTrack(cdr.SetSectorPlay);
-			cdr.TrackChanged = FALSE;
-
-			if (!Config.Cdda)
-				CDR_play(cdr.SetSectorPlay);*/
-    	    // add xjsxjs197 end
-    	    // upd xjsxjs197 start
+    	    // add xjxjs197 start
+    	    #ifdef DISP_DEBUG
+            sprintf(debug, "========CdlPlay2 Config.Cdda %d !", Config.Cdda);
+            PEOPS_GPUdisplayText(debug);
+            #endif
         	if (!cdr.SetSector[0] && !cdr.SetSector[1] && !cdr.SetSector[2]) {
             	if (CDR_getTN(cdr.ResultTN) != -1) {
 	                if (cdr.CurTrack > cdr.ResultTN[1]) cdr.CurTrack = cdr.ResultTN[1];
@@ -1044,12 +804,29 @@ do_CdlPlay:
 		               	int tmp = cdr.ResultTD[2];
                         cdr.ResultTD[2] = cdr.ResultTD[0];
 						cdr.ResultTD[0] = tmp;
-	                    if (!Config.Cdda) CDR_play(cdr.ResultTD);
+	                    if (!Config.Cdda)
+                        {
+                            // add xjxjs197 start
+                            #ifdef DISP_DEBUG
+                            sprintf(debug, "========CdlPlay ResultTD !");
+                            PEOPS_GPUdisplayText(debug);
+                            #endif
+                            CDR_play(cdr.ResultTD);
+                        }
 					}
                 }
 			}
-    		else if (!Config.Cdda) CDR_play(cdr.SetSector);
-    		// upd xjsxjs197 end
+    		else if (!Config.Cdda)
+            {
+                // add xjxjs197 start
+                ReadTrack();
+                #ifdef DISP_DEBUG
+                sprintf(debug, "========CdlPlay SetSector !");
+                PEOPS_GPUdisplayText(debug);
+                #endif
+                CDR_play(cdr.SetSector);
+            }
+
     		cdr.Play = 1;
 			cdr.Ctrl|= 0x80;
     		cdr.Stat = NoIntr;
@@ -1073,37 +850,14 @@ do_CdlPlay:
     	case CdlReadN:
         // add xjsxjs197 start
         case CdlReadS:
-            /*if (cdr.SetlocPending) {
-				seekTime = abs(msf2sec(cdr.SetSectorPlay) - msf2sec(cdr.SetSector)) * (cdReadTime / 200);
-				if(seekTime > 1000000) seekTime = 1000000;
-				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
-				cdr.SetlocPending = 0;
-			}
-			Find_CurTrack(cdr.SetSectorPlay);
-
-			if ((cdr.Mode & MODE_CDDA) && cdr.CurTrack > 1)
+            if ((cdr.Mode & 1) && cdr.CurTrack > 1)
 				// Read* acts as play for cdda tracks in cdda mode
-				goto do_CdlPlay;*/
+				goto do_CdlPlay;
         // add xjsxjs197 end
 			cdr.Irq = 0;
 			StopReading();
 			cdr.Ctrl|= 0x80;
         	cdr.Stat = NoIntr;
-        	// add xjsxjs197 start
-			/*cdr.FirstSector = 1;
-
-			// Fighting Force 2 - update subq time immediately
-			// - fixes new game
-			ReadTrack(cdr.SetSectorPlay);
-
-			// Crusaders of Might and Magic - update getlocl now
-			// - fixes cutscene speech
-			{
-				u8 *buf = CDR_getBuffer();
-				if (buf != NULL)
-					memcpy(cdr.Transfer, buf, 8);
-			}*/
-			// add xjsxjs197 end
 			StartReading(1);
         	break;
 
@@ -1286,6 +1040,10 @@ void cdrWrite2(unsigned char rt) {
 
 			default:
 				cdr.Reg2 = rt;
+				// add xjsxjs197 start
+				if (cdr.Stat & cdr.Reg2)
+		            psxHu32ref(0x1070) |= SWAP32((u32)0x4);
+                // add xjsxjs197 end
 				break;
 		}
     } else if (!(cdr.Ctrl & 0x1) && cdr.ParamP < 8) {

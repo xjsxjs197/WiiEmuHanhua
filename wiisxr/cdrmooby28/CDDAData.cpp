@@ -23,9 +23,22 @@ static sem_t audioReady;
 #define PLAYONE   2
 static int repeatPref = REPEATALL;
 
-static void* CDDAThread(void* userData){
-	return NULL;
+// add xjxjs197 start
+//extern cdrStruct cdr;
+#define CD_FRAMESIZE_RAW 2352
+static unsigned char sndbuffer[CD_FRAMESIZE_RAW * 10];
+
+// add xjsxjs197 start
+extern "C" {
+    int FeedCDDA(unsigned char *pcm, int nBytes);
+    void PEOPS_GPUdisplayText(char * pText);
 }
+// CDDA AUDIO
+//typedef int (CALLBACK* SPUplayCDDAchannel)(short *pcm, int nbytes);
+// add xjsxjs197 end
+
+//extern SPUplayCDDAchannel  SPU_playCDDAchannel;
+// add xjxjs197 end
 
 // this callback repeats one track over and over
 int CDDACallbackRepeat(  void *inputBuffer, void *outputBuffer,
@@ -36,10 +49,10 @@ int CDDACallbackRepeat(  void *inputBuffer, void *outputBuffer,
 /* Cast data passed through stream to our structure type. */
    PlayCDDAData* data = (PlayCDDAData*)userData;
    short* out = (short*)outputBuffer;
-    
+
    data->theCD->seek(data->CDDAPos);
    short* buffer = (short*)data->theCD->getBuffer();
-   
+
    buffer += data->frameOffset;
 
    float volume = data->volume;
@@ -131,13 +144,43 @@ int CDDACallbackOneTrackStop(  void *inputBuffer, void *outputBuffer,
    return 0;
 }
 
+static void* CDDAThread(void* userData){
+    // add xjxjs197 start
+    #ifdef DISP_DEBUG
+ 	char debug[256];
+    sprintf(debug, "========CDDAThread!");
+    PEOPS_GPUdisplayText(debug);
+    #endif
+
+    int ret = 0;
+    PlayCDDAData* data = (PlayCDDAData*)userData;
+    while (data->playing) {
+
+		//if (cdr.Muted == 1)
+        {
+			// can't do it yet due to readahead..
+			//cdrAttenuate((short *)sndbuffer, s / 4, 1);
+			CDDACallbackOneTrackStop(NULL, sndbuffer, 10, userData);
+			do {
+				ret = FeedCDDA(sndbuffer, 10 << 2);
+				if (ret == 0x7761)
+                {
+					usleep(6 * 1000);
+                }
+			} while (ret == 0x7761 && data->playing); // rearmed_wait
+		}
+	}
+	// add xjxjs197 end
+	return NULL;
+}
+
 PlayCDDAData::PlayCDDAData(const std::vector<TrackInfo> &ti, const CDTime &gapLength)
    : stream(NULL), volume(1),
      frameOffset(0), theCD(NULL), trackList(ti), playing(false),
      repeat(false), endOfTrack(false), pregapLength(gapLength)
 {
    memset(nullAudio, 0, sizeof(nullAudio));
-   
+
    live = true;
    LWP_SemInit(&audioReady, 1, 1);
    LWP_SemInit(&firstAudio, 0, 1);
@@ -147,7 +190,7 @@ PlayCDDAData::PlayCDDAData(const std::vector<TrackInfo> &ti, const CDTime &gapLe
 
 PlayCDDAData::~PlayCDDAData()
 {
-	if (playing) stop(); 
+	if (playing) stop();
 	live = false;
 	LWP_SemPost(firstAudio);
 	LWP_SemDestroy(audioReady);
@@ -157,7 +200,7 @@ PlayCDDAData::~PlayCDDAData()
 }
 
 // initialize the CDDA file data and initalize the audio stream
-void PlayCDDAData::openFile(const std::string& file, int type) 
+void PlayCDDAData::openFile(const std::string& file, int type)
 {
    std::string extension;
    theCD = FileInterfaceFactory(file, extension, type);
@@ -165,15 +208,20 @@ void PlayCDDAData::openFile(const std::string& file, int type)
       // disable extra caching on the file interface
    theCD->setCacheMode(FileInterface::oldMode);
 }
-   
+
 // start playing the data
 int PlayCDDAData::play(const CDTime& startTime)
 {
+    #ifdef DISP_DEBUG
+ 	char debug[256];
+    sprintf(debug, "========CDDA Start play!");
+    PEOPS_GPUdisplayText(debug);
+    #endif
    CDTime localStartTime = startTime;
-   
+
       // if play was called with the same time as the previous call,
       // dont restart it.  this fixes a problem with FPSE's play call.
-      // of course, if play is called with a different track, 
+      // of course, if play is called with a different track,
       // stop playing the current stream.
    if (playing)
    {
@@ -231,13 +279,13 @@ int PlayCDDAData::play(const CDTime& startTime)
    CDDAPos = localStartTime;
 
    endOfTrack = false;
-   
+
    playing = true;
 
       // open a stream - pass in this CDDA object as the user data.
       // depending on the play mode, use a different callback
    LWP_SemPost(firstAudio);
-   
+
    return 0;
 }
 
