@@ -26,7 +26,9 @@
 #include "psxdma.h"
 #include "cdrom.h"
 #include "mdec.h"
-
+// add xjsxjs197 start
+extern void PEOPS_GPUdisplayText(char * pText);
+// add xjsxjs197 end
 R3000Acpu *psxCpu;
 psxRegisters psxRegs;
 
@@ -79,7 +81,7 @@ void psxShutdown() {
 
 void psxException(u32 code, u32 bd) {
 	// add xjsxjs197 start
-	if (!Config.HLE) {
+	/*if (!Config.HLE) {
 	    // "hokuto no ken" / "Crash Bandicot 2" ...
 		// BIOS does not allow to return to GTE instructions
 		// (just skips it, supposedly because it's scheduled already)
@@ -93,7 +95,7 @@ void psxException(u32 code, u32 bd) {
 		}
 		// "hokuto no ken" / "Crash Bandicot 2" ... fix
 		//PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
-	}
+	}*/
 	// add xjsxjs197 end
 
 	// Set the Cause
@@ -120,9 +122,15 @@ void psxException(u32 code, u32 bd) {
 						  ((psxRegs.CP0.n.Status & 0xf) << 2);
 
 	// upd xjsxjs197 start
-	//if (!Config.HLE && (((PSXMu32(psxRegs.CP0.n.EPC) >> 24) & 0xfe) == 0x4a)) {
-	//    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
-	//}
+	if (!Config.HLE && (((SWAP32(*(u32*)PSXM(psxRegs.CP0.n.EPC)) >> 24) & 0xfe) == 0x4a)) {
+	    // "hokuto no ken" / "Crash Bandicot 2" ... fix
+	    //PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
+	    #ifdef DISP_DEBUG
+        char debug[256];
+        sprintf(debug, "========hokuto no ken Fix ");
+        PEOPS_GPUdisplayText(debug);
+        #endif
+    }
 	// upd xjsxjs197 end
 
 	if (Config.HLE) psxBiosException();

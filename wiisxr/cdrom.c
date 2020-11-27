@@ -94,10 +94,10 @@ unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 #define cdReadTime ((PSXCLK / 75) / BIAS)
 
 // upd xjsxjs197 start
-#define btoi(b)		((b)/16*10 + (b)%16)		/* BCD to u_char */
+//#define btoi(b)		((b)/16*10 + (b)%16)		/* BCD to u_char */
+#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))	                              /* BCD to u_char */
 #define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
-//#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))		/* BCD to u_char */
-//#define itob(i)		((((i) / 10) << 4) + ((i) & 9))		/* u_char to BCD */
+//#define itob(i)		((((i) / 10) << 4) + ((i) & 8 == 8 ? ((i) & 9) : ((i) & 7)))  /* u_char to BCD */
 extern void PEOPS_GPUdisplayText(char * pText);
 #ifdef DISP_DEBUG
 char debug[256];
@@ -716,20 +716,20 @@ void cdrWrite0(unsigned char rt) {
 
 unsigned char cdrRead1(void) {
     // upd xjsxjs197 start
-    /*if (cdr.ResultReady) { // && cdr.Ctrl & 0x1) {
+    if (cdr.ResultReady) { // && cdr.Ctrl & 0x1) {
 		psxHu8(0x1801) = cdr.Result[cdr.ResultP++];
 		if (cdr.ResultP == cdr.ResultC) cdr.ResultReady = 0;
 	} else psxHu8(0x1801) = 0;
 #ifdef CDR_LOG
 	CDR_LOG("cdrRead1() Log: CD1 Read: %x\n", psxHu8(0x1801));
-#endif*/
-    if ((cdr.ResultP & 0xf) < cdr.ResultC)
+#endif
+    /*if ((cdr.ResultP & 0xf) < cdr.ResultC)
 		psxHu8(0x1801) = cdr.Result[cdr.ResultP & 0xf];
 	else
 		psxHu8(0x1801) = 0;
 	cdr.ResultP++;
 	if (cdr.ResultP == cdr.ResultC)
-		cdr.ResultReady = 0;
+		cdr.ResultReady = 0;*/
     // upd xjsxjs197 end
 	return psxHu8(0x1801);
 }
