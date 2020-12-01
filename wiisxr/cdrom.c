@@ -98,8 +98,8 @@ unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 #define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))	                              /* BCD to u_char */
 #define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
 //#define itob(i)		((((i) / 10) << 4) + ((i) & 8 == 8 ? ((i) & 9) : ((i) & 7)))  /* u_char to BCD */
-extern void PEOPS_GPUdisplayText(char * pText);
 #ifdef DISP_DEBUG
+extern void PEOPS_GPUdisplayText(char * pText);
 char debug[256];
 #endif
 // upd xjsxjs197 end
@@ -957,6 +957,10 @@ do_CdlPlay:
         	break;
 
     	case CdlSeekL:
+    	    // add xjsxjs197 start
+    	    StopCdda();
+			StopReading();
+			// add xjsxjs197 end
 //			((u32 *)cdr.SetSectorSeek)[0] = ((u32 *)cdr.SetSector)[0];
 			cdr.Ctrl|= 0x80;
     		cdr.Stat = NoIntr;
@@ -964,6 +968,10 @@ do_CdlPlay:
         	break;
 
     	case CdlSeekP:
+    	    // add xjsxjs197 start
+    	    StopCdda();
+			StopReading();
+			// add xjsxjs197 end
 //        	((u32 *)cdr.SetSectorSeek)[0] = ((u32 *)cdr.SetSector)[0];
 			cdr.Ctrl|= 0x80;
     		cdr.Stat = NoIntr;

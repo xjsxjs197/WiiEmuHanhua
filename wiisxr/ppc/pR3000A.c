@@ -33,6 +33,13 @@
 #include "../psxhle.h"
 #include "../Gamecube/DEBUG.h"
 
+// add xjsxjs197 start
+#ifdef DISP_DEBUG
+extern void PEOPS_GPUdisplayText(char * pText);
+char debug[256];
+#endif
+// add xjsxjs197 end
+
 /* variable declarations */
 static u32 psxRecLUT[0x010000];
 static char recMem[RECMEM_SIZE] __attribute__((aligned(32)));	/* the recompiled blocks will be here */
@@ -149,16 +156,24 @@ static int GetFreeHWReg()
 	if (HWRegisters[index].usage != HWUSAGE_NONE) {
 		SysPrintf("RegUse too big. Flushing %i\n", HWRegisters[index].code);
 	}*/
+	#ifdef DISP_DEBUG
 	if (HWRegisters[index].usage & (HWUSAGE_RESERVED | HWUSAGE_HARDWIRED)) {
 		if (HWRegisters[index].usage & HWUSAGE_RESERVED) {
-			SysPrintf("Error! Trying to map a new register to a reserved register (r%i)",
+			//SysPrintf("Error! Trying to map a new register to a reserved register (r%i)",
+			//			HWRegisters[index].code);
+			sprintf(debug, "Error! Trying to map a new register to a reserved register (r%i)",
 						HWRegisters[index].code);
+			PEOPS_GPUdisplayText(debug);
 		}
 		if (HWRegisters[index].usage & HWUSAGE_HARDWIRED) {
-			SysPrintf("Error! Trying to map a new register to a hardwired register (r%i)",
+			//SysPrintf("Error! Trying to map a new register to a hardwired register (r%i)",
+			//			HWRegisters[index].code);
+			sprintf(debug, "Error! Trying to map a new register to a hardwired register (r%i)",
 						HWRegisters[index].code);
+			PEOPS_GPUdisplayText(debug);
 		}
 	}
+	#endif
 
 	if (HWRegisters[index].lastUsed != 0) {
 		UniqueRegAlloc = 0;
@@ -197,9 +212,13 @@ static void DisposeHWReg(int index)
 	if (HWRegisters[index].usage == HWUSAGE_NONE) return;
 
 	HWRegisters[index].usage &= ~(HWUSAGE_READ | HWUSAGE_WRITE);
+	#ifdef DISP_DEBUG
 	if (HWRegisters[index].usage == HWUSAGE_NONE) {
-		SysPrintf("Error! not correctly disposing register (r%i)", HWRegisters[index].code);
+		//SysPrintf("Error! not correctly disposing register (r%i)", HWRegisters[index].code);
+		sprintf(debug, "Error! not correctly disposing register (r%i)", HWRegisters[index].code);
+        PEOPS_GPUdisplayText(debug);
 	}
+	#endif
 
 	FlushHWReg(index);
 }
@@ -285,7 +304,11 @@ static int GetHWRegFromCPUReg(int cpureg)
 		}
 	}
 
-	SysPrintf("Error! Register location failure (r%i)", cpureg);
+    #ifdef DISP_DEBUG
+	//SysPrintf("Error! Register location failure (r%i)", cpureg);
+	sprintf(debug, "Error! Register location failure (r%i)", cpureg);
+    PEOPS_GPUdisplayText(debug);
+	#endif
 	return 0;
 }
 
@@ -327,9 +350,13 @@ static void MapPsxReg32(int reg)
     HWRegisters[hwreg].flush = FlushPsxReg32;
     HWRegisters[hwreg].private = reg;
 
+    #ifdef DISP_DEBUG
     if (iRegs[reg].reg != -1) {
-        SysPrintf("error: double mapped psx register");
+        //SysPrintf("error: double mapped psx register");
+        sprintf(debug, "error: double mapped psx register");
+        PEOPS_GPUdisplayText(debug);
     }
+    #endif
 
     iRegs[reg].reg = hwreg;
     iRegs[reg].state |= ST_MAPPED;
@@ -339,9 +366,13 @@ static void FlushPsxReg32(int hwreg)
 {
 	int reg = HWRegisters[hwreg].private;
 
+    #ifdef DISP_DEBUG
 	if (iRegs[reg].reg == -1) {
-		SysPrintf("error: flushing unmapped psx register");
+		//SysPrintf("error: flushing unmapped psx register");
+		sprintf(debug, "error: flushing unmapped psx register");
+        PEOPS_GPUdisplayText(debug);
 	}
+	#endif
 
 	if (HWRegisters[hwreg].usage & HWUSAGE_WRITE) {
 		if (branch) {
@@ -482,7 +513,11 @@ static int GetHWRegSpecial(int which)
 		switch (which) {
 			case PSXREGS:
 			case PSXMEM:
-				SysPrintf("error! shouldn't be here!\n");
+			    #ifdef DISP_DEBUG
+				//SysPrintf("error! shouldn't be here!\n");
+				sprintf(debug, "GetHWRegSpecial which:%d : error! shouldn't be here!", which);
+                PEOPS_GPUdisplayText(debug);
+				#endif
 				//HWRegisters[index].flush = NULL;
 				//LIW(HWRegisters[index].code, (u32)&psxRegs);
 				break;
@@ -514,7 +549,11 @@ static int GetHWRegSpecial(int which)
 				LWZ(HWRegisters[index].code, 0, GetHWRegSpecial(TARGETPTR));
 				break;
 			default:
-				SysPrintf("Error: Unknown special register in GetHWRegSpecial()\n");
+			    #ifdef DISP_DEBUG
+				//SysPrintf("Error: Unknown special register in GetHWRegSpecial()\n");
+				sprintf(debug, "GetHWRegSpecial which:%d : Error: Unknown special register in GetHWRegSpecial()", which);
+                PEOPS_GPUdisplayText(debug);
+				#endif
 				break;
 		}
 		HWRegisters[index].usage &= ~HWUSAGE_RESERVED;
@@ -545,7 +584,11 @@ static int PutHWRegSpecial(int which)
 	switch (which) {
 		case PSXREGS:
 		case TARGETPTR:
-			SysPrintf("Error: Read-only special register in PutHWRegSpecial()\n");
+		    #ifdef DISP_DEBUG
+            //SysPrintf("Error: Read-only special register in PutHWRegSpecial()\n");
+            sprintf(debug, "PutHWRegSpecial which:%d : Error: Read-only special register in PutHWRegSpecial()", which);
+            PEOPS_GPUdisplayText(debug);
+            #endif
 		case REG_WZERO:
 			if (index >= 0) {
 					if (HWRegisters[index].usage & HWUSAGE_WRITE)
@@ -649,7 +692,10 @@ static void Return()
 
 static void iRet() {
     /* store cycle */
-    count = idlecyclecount + (pc - pcold)/4;
+    // upd xjsxjs197 start
+    //count = idlecyclecount + (pc - pcold)/4;
+    count = idlecyclecount + (pc - pcold) >> 2;
+    // upd xjsxjs197 end
     ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
     Return();
 }
@@ -701,7 +747,10 @@ static void SetBranch() {
 		LIW(0, psxRegs.code);
 		STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
 		/* store cycle */
-		count = idlecyclecount + (pc - pcold)/4;
+		// upd xjsxjs197 start
+		//count = idlecyclecount + (pc - pcold)/4;
+		count = idlecyclecount + (pc - pcold) >> 2;
+		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
 		treg = GetHWRegSpecial(TARGET);
@@ -724,7 +773,10 @@ static void SetBranch() {
 	DisposeHWReg(GetHWRegFromCPUReg(treg));
 	FlushAllHWReg();
 
-	count = idlecyclecount + (pc - pcold)/4;
+    // upd xjsxjs197 start
+	//count = idlecyclecount + (pc - pcold)/4;
+	count = idlecyclecount + (pc - pcold) >> 2;
+	// upd xjsxjs197 end
         ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();
 	CALLFunc((u32)psxBranchTest);
@@ -744,7 +796,10 @@ static void iJump(u32 branchPC) {
 		LIW(0, psxRegs.code);
 		STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
 		/* store cycle */
-		count = idlecyclecount + (pc - pcold)/4;
+		// upd xjsxjs197 start
+		//count = idlecyclecount + (pc - pcold)/4;
+		count = idlecyclecount + (pc - pcold) >> 2;
+		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
 		LIW(PutHWRegSpecial(ARG2), branchPC);
@@ -763,7 +818,10 @@ static void iJump(u32 branchPC) {
 	LIW(PutHWRegSpecial(PSXPC), branchPC);
 	FlushAllHWReg();
 
-	count = idlecyclecount + (pc - pcold)/4;
+    // upd xjsxjs197 start
+	//count = idlecyclecount + (pc - pcold)/4;
+	count = idlecyclecount + (pc - pcold) >> 2;
+	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
         //} else {
@@ -824,7 +882,10 @@ static void iBranch(u32 branchPC, int savectx) {
 		LIW(0, psxRegs.code);
 		STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
 		/* store cycle */
-		count = idlecyclecount + ((pc+4) - pcold)/4;
+		// upd xjsxjs197 start
+		//count = idlecyclecount + ((pc+4) - pcold)/4;
+		count = idlecyclecount + ((pc + 4) - pcold) >> 2;
+		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
 		LIW(PutHWRegSpecial(ARG2), branchPC);
@@ -845,7 +906,10 @@ static void iBranch(u32 branchPC, int savectx) {
 	FlushAllHWReg();
 
 	/* store cycle */
-	count = idlecyclecount + (pc - pcold)/4;
+	// upd xjsxjs197 start
+	//count = idlecyclecount + (pc - pcold)/4;
+	count = idlecyclecount + (pc - pcold) >> 2;
+	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
         //} else {
@@ -2666,7 +2730,10 @@ static void recHLE() {
 		CALLFunc((u32)psxHLEt[0]); // call dummy function
 	}
 
-	count = idlecyclecount + (pc - pcold)/4 + 20;
+    // upd xjsxjs197 start
+	//count = idlecyclecount + (pc - pcold)/4 + 20;
+	count = idlecyclecount + ((pc - pcold) >> 2) + 20;
+	// upd xjsxjs197 end
 	ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();
 	CALLFunc((u32)psxBranchTest);
