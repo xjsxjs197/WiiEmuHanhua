@@ -14,12 +14,12 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 /*
-* PSX assembly interpreter.
-*/
+ * PSX assembly interpreter.
+ */
 
 #include "psxcommon.h"
 #include "r3000a.h"
@@ -35,7 +35,7 @@ extern int stop;
 // These macros are used to assemble the repassembler functions
 
 #ifdef PSXCPU_LOG
-#define debugI() PSXCPU_LOG("%s\n", disR3000AF(psxRegs.code, psxRegs.pc)); 
+#define debugI() PSXCPU_LOG("%s\n", disR3000AF(psxRegs.code, psxRegs.pc));
 #else
 #define debugI()
 #endif
@@ -61,13 +61,13 @@ static void delayRead(int reg, u32 bpc) {
 
 	psxRegs.pc = bpc;
 
-	psxBranchTest();
+	branch = 0;
 
 	psxRegs.GPR.r[reg] = rold;
 	execI(); // first branch opcode
 	psxRegs.GPR.r[reg] = rnew;
 
-	branch = 0;
+	psxBranchTest();
 }
 
 static void delayWrite(int reg, u32 bpc) {
@@ -155,8 +155,12 @@ int psxTestLoadDelay(int reg, u32 tmp) {
 
 		case 0x01: // REGIMM
 			switch (_tRt_) {
-				case 0x00: case 0x02:
-				case 0x10: case 0x12: // BLTZ/BGEZ...
+				case 0x00: case 0x01:
+				case 0x10: case 0x11: // BLTZ/BGEZ...
+					// Xenogears - lbu v0 / beq v0
+					// - no load delay (fixes battle loading)
+					break;
+
 					if (_tRs_ == reg) return 2;
 					break;
 			}
@@ -168,10 +172,18 @@ int psxTestLoadDelay(int reg, u32 tmp) {
 			break;
 
 		case 0x04: case 0x05: // BEQ/BNE
+			// Xenogears - lbu v0 / beq v0
+			// - no load delay (fixes battle loading)
+			break;
+
 			if (_tRs_ == reg || _tRt_ == reg) return 2;
 			break;
 
 		case 0x06: case 0x07: // BLEZ/BGTZ
+			// Xenogears - lbu v0 / beq v0
+			// - no load delay (fixes battle loading)
+			break;
+
 			if (_tRs_ == reg) return 2;
 			break;
 
@@ -255,8 +267,8 @@ void psxDelayTest(int reg, u32 bpc) {
 	u32 *code;
 	u32 tmp;
 
-	code = (u32*)PSXM(bpc);
-	tmp = code == NULL ? 0 : SWAP32(*code);
+	code = (u32 *)PSXM(bpc);
+	tmp = ((code == NULL) ? 0 : SWAP32(*code));
 	branch = 1;
 
 	switch (psxTestLoadDelay(reg, tmp)) {
@@ -275,6 +287,128 @@ void psxDelayTest(int reg, u32 bpc) {
 	psxBranchTest();
 }
 
+__inline u32 psxBranchNoDelay(void) {
+	u32 *code;
+	u32 temp;
+
+	code = (u32 *)PSXM(psxRegs.pc);
+	psxRegs.code = ((code == NULL) ? 0 : SWAP32(*code));
+	switch (_Op_) {
+		case 0x00: // SPECIAL
+			switch (_Funct_) {
+				case 0x08: // JR
+					return _u32(_rRs_);
+				case 0x09: // JALR
+					temp = _u32(_rRs_);
+					if (_Rd_) { _SetLink(_Rd_); }
+					return temp;
+			}
+			break;
+		case 0x01: // REGIMM
+			switch (_Rt_) {
+				case 0x00: // BLTZ
+					if (_i32(_rRs_) < 0)
+						return _BranchTarget_;
+					break;
+				case 0x01: // BGEZ
+					if (_i32(_rRs_) >= 0)
+						return _BranchTarget_;
+					break;
+				case 0x08: // BLTZAL
+					if (_i32(_rRs_) < 0) {
+						_SetLink(31);
+						return _BranchTarget_;
+					}
+					break;
+				case 0x09: // BGEZAL
+					if (_i32(_rRs_) >= 0) {
+						_SetLink(31);
+						return _BranchTarget_;
+					}
+					break;
+			}
+			break;
+		case 0x02: // J
+			return _JumpTarget_;
+		case 0x03: // JAL
+			_SetLink(31);
+			return _JumpTarget_;
+		case 0x04: // BEQ
+			if (_i32(_rRs_) == _i32(_rRt_))
+				return _BranchTarget_;
+			break;
+		case 0x05: // BNE
+			if (_i32(_rRs_) != _i32(_rRt_))
+				return _BranchTarget_;
+			break;
+		case 0x06: // BLEZ
+			if (_i32(_rRs_) <= 0)
+				return _BranchTarget_;
+			break;
+		case 0x07: // BGTZ
+			if (_i32(_rRs_) > 0)
+				return _BranchTarget_;
+			break;
+	}
+
+	return (u32)-1;
+}
+
+__inline int psxDelayBranchExec(u32 tar) {
+	execI();
+
+	branch = 0;
+	psxRegs.pc = tar;
+	psxRegs.cycle += BIAS;
+	psxBranchTest();
+	return 1;
+}
+
+__inline int psxDelayBranchTest(u32 tar1) {
+	u32 tar2, tmp1, tmp2;
+
+	tar2 = psxBranchNoDelay();
+	if (tar2 == (u32)-1)
+		return 0;
+
+	debugI();
+
+	/*
+	 * Branch in delay slot:
+	 * - execute 1 instruction at tar1
+	 * - jump to tar2 (target of branch in delay slot; this branch
+	 *   has no normal delay slot, instruction at tar1 was fetched instead)
+	 */
+	psxRegs.pc = tar1;
+	tmp1 = psxBranchNoDelay();
+	if (tmp1 == (u32)-1) {
+		return psxDelayBranchExec(tar2);
+	}
+	debugI();
+	psxRegs.cycle++;
+
+	/*
+	 * Got a branch at tar1:
+	 * - execute 1 instruction at tar2
+	 * - jump to target of that branch (tmp1)
+	 */
+	psxRegs.pc = tar2;
+	tmp2 = psxBranchNoDelay();
+	if (tmp2 == (u32)-1) {
+		return psxDelayBranchExec(tmp1);
+	}
+	debugI();
+	psxRegs.cycle++;
+
+	/*
+	 * Got a branch at tar2:
+	 * - execute 1 instruction at tmp1
+	 * - jump to target of that branch (tmp2)
+	 */
+	psxRegs.pc = tmp1;
+	return psxDelayBranchExec(tmp2);
+}
+
 __inline void doBranch(u32 tar) {
 	u32 *code;
 	u32 tmp;
@@ -282,8 +416,12 @@ __inline void doBranch(u32 tar) {
 	branch2 = branch = 1;
 	branchPC = tar;
 
-	code = (u32*)PSXM(psxRegs.pc);
-	psxRegs.code = code == NULL ? 0 : SWAP32(*code);
+	// check for branch in delay slot
+	if (psxDelayBranchTest(tar))
+		return;
+
+	code = (u32 *)PSXM(psxRegs.pc);
+	psxRegs.code = ((code == NULL) ? 0 : SWAP32(*code));
 
 	debugI();
 
@@ -367,12 +505,20 @@ void psxDIV() {
 		_i32(_rLo_) = _i32(_rRs_) / _i32(_rRt_);
 		_i32(_rHi_) = _i32(_rRs_) % _i32(_rRt_);
 	}
+	else {
+		_i32(_rLo_) = _i32(_rRs_) >= 0 ? 0xffffffff : 1;
+		_i32(_rHi_) = _i32(_rRs_);
+	}
 }
 
 void psxDIVU() {
 	if (_rRt_ != 0) {
 		_rLo_ = _rRs_ / _rRt_;
 		_rHi_ = _rRs_ % _rRt_;
+	}
+	else {
+		_i32(_rLo_) = 0xffffffff;
+		_i32(_rHi_) = _i32(_rRs_);
 	}
 }
 
@@ -634,10 +780,9 @@ void psxMFC0() { if (!_Rt_) return; _i32(_rRt_) = (int)_rFs_; }
 void psxCFC0() { if (!_Rt_) return; _i32(_rRt_) = (int)_rFs_; }
 
 void psxTestSWInts() {
-	// the next code is untested, if u know please
-	// tell me if it works ok or not (linuzappz)
 	if (psxRegs.CP0.n.Cause & psxRegs.CP0.n.Status & 0x0300 &&
-		psxRegs.CP0.n.Status & 0x1) {
+	   psxRegs.CP0.n.Status & 0x1) {
+		psxRegs.CP0.n.Cause &= ~0x7c;
 		psxException(psxRegs.CP0.n.Cause, branch);
 	}
 }
@@ -652,7 +797,11 @@ __inline void MTC0(int reg, u32 val) {
 			break;
 
 		case 13: // Cause
-			psxRegs.CP0.n.Cause = val & ~(0xfc00);
+		    // upd xjsxjs197 start
+			//psxRegs.CP0.n.Cause = val & ~(0xfc00);
+			psxRegs.CP0.n.Cause &= ~0x0300;
+			psxRegs.CP0.n.Cause |= val & 0x0300;
+			// upd xjsxjs197 end
 			psxTestSWInts();
 			break;
 
@@ -743,7 +892,7 @@ void (*psxCP2[64])() = {
 	gteDPCS , gteINTPL, gteMVMVA, gteNCDS, gteCDP , psxNULL , gteNCDT , psxNULL, // 10
 	psxNULL , psxNULL , psxNULL , gteNCCS, gteCC  , psxNULL , gteNCS  , psxNULL, // 18
 	gteNCT  , psxNULL , psxNULL , psxNULL, psxNULL, psxNULL , psxNULL , psxNULL, // 20
-	gteSQR  , gteDCPL , gteDPCT , psxNULL, psxNULL, gteAVSZ3, gteAVSZ4, psxNULL, // 28 
+	gteSQR  , gteDCPL , gteDPCT , psxNULL, psxNULL, gteAVSZ3, gteAVSZ4, psxNULL, // 28
 	gteRTPT , psxNULL , psxNULL , psxNULL, psxNULL, psxNULL , psxNULL , psxNULL, // 30
 	psxNULL , psxNULL , psxNULL , psxNULL, psxNULL, gteGPF  , gteGPL  , gteNCCT  // 38
 };
@@ -771,7 +920,7 @@ static void intExecute() {
 }
 
 static void intExecuteDbg() {
-	/*for (;;) 
+	/*for (;;)
 		execIDbg();*/
 }
 
@@ -792,19 +941,19 @@ static void intShutdown() {
 }
 
 // interpreter execution
-inline void execI() { 
-	u32 *code = (u32*)PSXM(psxRegs.pc); 
-	psxRegs.code = code == NULL ? 0 : SWAP32(*code);	
- 
+inline void execI() {
+	u32 *code = (u32 *)PSXM(psxRegs.pc);
+	psxRegs.code = ((code == NULL) ? 0 : SWAP32(*code));
+
 	debugI();
- 
-	psxRegs.pc+= 4; psxRegs.cycle++; 
-	psxBSC[psxRegs.code >> 26](); 
+
+	psxRegs.pc+= 4; psxRegs.cycle++;
+	psxBSC[psxRegs.code >> 26]();
 
 }
 
 /* debugger version */
-inline void execIDbg() { 
+inline void execIDbg() {
 /*	u32 *code = PSXM(psxRegs.pc);
 	psxRegs.code = code == NULL ? 0 : SWAP32(*code);
 
@@ -823,7 +972,7 @@ inline void execIDbg() {
 		psxBSC[psxRegs.code >> 26]();
 		hdb_pause = 1;
 	}
-	
+
 	// wait for breakpoint
 	if(hdb_pause == 3) {
 		psxRegs.pc+= 4; psxRegs.cycle++;

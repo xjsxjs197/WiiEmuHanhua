@@ -114,7 +114,10 @@ void psxException(u32 code, u32 bd) {
 	// add xjsxjs197 end
 
 	// Set the Cause
-	psxRegs.CP0.n.Cause = code;
+	// upd xjsxjs197 start
+	//psxRegs.CP0.n.Cause = code;
+	psxRegs.CP0.n.Cause = (psxRegs.CP0.n.Cause & 0x300) | code;
+	// upd xjsxjs197 end
 
 	// Set the EPC & PC
 	if (bd) {
@@ -159,8 +162,8 @@ void psxException(u32 code, u32 bd) {
             #endif
 		    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
 
-			extern void (*psxCP2[64])(void *cp2regs);
-		    psxCP2[psxRegs.code & 0x3f](&psxRegs.CP2D);
+			//extern void (*psxCP2[64])(void *cp2regs);
+		    //psxCP2[psxRegs.code & 0x3f](&psxRegs.CP2D);
 		}
 		else if (tmp == NULL )
         {
