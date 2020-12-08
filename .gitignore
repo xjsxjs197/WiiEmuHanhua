@@ -30,5 +30,8 @@ vbagx/executables/*.elf
 vbagx/executables/*.dol
 vbagx/build_wii/*.*
 Nintendont/loader/loader.dol
-wiisxr/Gamecube/WiiSXRX.dol
-wiisxr/Gamecube/WiiSXRX.elf
+wiisxr/Gamecube/*.dol
+wiisxr/Gamecube/*.elf
+wiisxr/Gamecube/build_debug/*.*
+wiisxr/Gamecube/build_release/*.*
+
