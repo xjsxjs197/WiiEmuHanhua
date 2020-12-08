@@ -46,10 +46,6 @@ extern char mcd2Written;
 
 //We try to emulate bios :) HELP US :P
 
-// add xjsxjs197 start
-extern void PEOPS_GPUdisplayText(char * pText);
-// add xjsxjs197 end
-
 char *biosA0n[256] = {
 // 0x00
 	"open",		"lseek",	"read",		"write",
@@ -1255,9 +1251,7 @@ _start:
 		}
 	}
 	*ptmp = 0;
-	#ifdef DISP_DEBUG
-    PEOPS_GPUdisplayText(tmp);
-    #endif
+	PRINT_LOG1("=====psxBios_printf==%s", tmp);
 
 	if (psp)
 		memcpy(psp, save, 4 * 4);
@@ -2143,21 +2137,13 @@ void psxBios_close() { // 0x36
 
 void psxBios_putchar() { // 3d
 	//SysPrintf("%c", (char)a0);
-	#ifdef DISP_DEBUG
-    char debug[256];
-    sprintf(debug, "========psxBios_putchar %c ", (char)a0);
-    PEOPS_GPUdisplayText(debug);
-    #endif
+	PRINT_LOG1("========psxBios_putchar %c ", (char)a0);
 	pc0 = ra;
 }
 
 void psxBios_puts() { // 3e/3f
 	//SysPrintf("%s", Ra0);
-	#ifdef DISP_DEBUG
-    char debug[256];
-    sprintf(debug, "========psxBios_puts %s ", Ra0);
-    PEOPS_GPUdisplayText(debug);
-    #endif
+	PRINT_LOG1("========psxBios_puts %s ", Ra0);
 	pc0 = ra;
 }
 

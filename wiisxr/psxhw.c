@@ -30,6 +30,9 @@ u32 tmpVal;
 u32 tmpAddr[1];
 u16 tmpVal16;
 u16 tmpAddr16[1];
+#ifdef DISP_DEBUG
+char debug[256];
+#endif // DISP_DEBUG
 // add xjsxjs197 end
 
 void psxHwReset() {
@@ -58,6 +61,7 @@ u8 psxHwRead8(u32 add) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unkwnown 8bit read at address %lx\n", add);
 #endif
+            PRINT_LOG1("*Unkwnown 8bit read at address %lx\n", add);
 			return hard;
 	}
 
@@ -187,6 +191,7 @@ u16 psxHwRead16(u32 add) {
 #ifdef PSXHW_LOG
 				PSXHW_LOG("*Unkwnown 16bit read at address %lx\n", add);
 #endif
+			    PRINT_LOG1("*Unkwnown 16bit read at address %lx\n", add);
 			}
             return hard;
 	}
@@ -339,6 +344,7 @@ u32 psxHwRead32(u32 add) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unkwnown 32bit read at address %lx\n", add);
 #endif
+            PRINT_LOG1("*Unkwnown 32bit read at address %lx\n", add);
 			return hard;
 	}
 #ifdef PSXHW_LOG
@@ -361,6 +367,7 @@ void psxHwWrite8(u32 add, u8 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 8bit write at address %lx value %x\n", add, value);
 #endif
+            PRINT_LOG2("*Unknown 8bit write at address %lx value %x\n", add, value);
 			return;
 	}
 	psxHu8(add) = value;
@@ -493,6 +500,7 @@ void psxHwWrite16(u32 add, u16 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 16bit write at address %lx value %x\n", add, value);
 #endif
+            PRINT_LOG2("*Unknown 16bit write at address %lx value %x\n", add, value);
 			return;
 	}
 	// upd xjsxjs197 start
@@ -761,6 +769,7 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 32bit write at address %lx value %lx\n", add, value);
 #endif
+            PRINT_LOG2("*Unknown 32bit write at address %lx value %x\n", add, value);
 			return;
 	}
 	// upd xjsxjs197 start

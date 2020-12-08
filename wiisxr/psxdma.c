@@ -31,10 +31,6 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 	u16 *ptr;
 	u32 size;
 
-#ifdef DISP_DEBUG
-    char debug[256];
-#endif
-
 	switch (chcr) {
 		case 0x01000201: //cpu to spu transfer
 #ifdef DEBUG_DMA
@@ -46,9 +42,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 #ifdef DEBUG_DMA
         DEBUG_print("*** DMA4 SPU - mem2spu *** NULL Pointer!!!\n", 5);
 #endif
-                #ifdef DISP_DEBUG
-                GPU_displayText("*** DMA4 SPU - mem2spu *** NULL Pointer!!!");
-                #endif
+                PRINT_LOG("*** DMA4 SPU - mem2spu *** NULL Pointer!!!");
 				break;
 			}
 			SPU_writeDMAMem(ptr, (bcr >> 16) * (bcr & 0xffff) * 2);
@@ -64,9 +58,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 #ifdef DEBUG_DMA
         DEBUG_print("*** DMA4 SPU - spu2mem *** NULL Pointer!!!\n", 6);
 #endif
-                #ifdef DISP_DEBUG
-                GPU_displayText("*** DMA4 SPU - spu2mem *** NULL Pointer!!!");
-                #endif
+                PRINT_LOG("*** DMA4 SPU - spu2mem *** NULL Pointer!!!");
 				break;
 			}
 			size = (bcr >> 16) * (bcr & 0xffff) * 2;
@@ -74,12 +66,13 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 			psxCpu->Clear(madr, size);
 			break;
 
-#ifdef DEBUG_DMA
 		default:
-  		sprintf(txtbuffer,"*** DMA4 SPU - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
-      DEBUG_print(txtbuffer, 7);
+		    #ifdef DEBUG_DMA
+            sprintf(txtbuffer,"*** DMA4 SPU - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
+            DEBUG_print(txtbuffer, 7);
+            #endif
+            PRINT_LOG3("*** DMA4 SPU - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
 			break;
-#endif
 	}
 
 	HW_DMA4_CHCR &= SWAPu32(~0x01000000);
@@ -144,12 +137,13 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 			GPU_dmaChain((u32 *)psxM, madr & 0x1fffff);
 			break;
 
-#ifdef DEBUG_DMA
 		default:
-		  sprintf(txtbuffer,"*** DMA 2 - GPU unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
-      DEBUG_print(txtbuffer, 11);
+		    #ifdef DEBUG_DMA
+		    sprintf(txtbuffer,"*** DMA 2 - GPU unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
+            DEBUG_print(txtbuffer, 11);
+            #endif
+            PRINT_LOG3("*** DMA 2 - GPU unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
 			break;
-#endif
 	}
 
 	HW_DMA2_CHCR &= SWAPu32(~0x01000000);
@@ -194,11 +188,12 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
 		}
 		mem++; *mem = SWAPu32(0xffffff);
 	}
-#ifdef DEBUG_DMA
+#ifdef DISP_DEBUG
 	else {
 		// Unknown option
-		sprintf(txtbuffer,"*** DMA6 OT - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
-    DEBUG_print(txtbuffer, 13);
+		//sprintf(txtbuffer,"*** DMA6 OT - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
+        //DEBUG_print(txtbuffer, 13);
+        PRINT_LOG3("*** DMA6 OT - unknown *** %08x addr = %08x size = %08x\n", chcr, madr, bcr);
 	}
 #endif
 

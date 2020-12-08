@@ -98,10 +98,6 @@ unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 #define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))	                              /* BCD to u_char */
 #define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
 //#define itob(i)		((((i) / 10) << 4) + ((i) & 8 == 8 ? ((i) & 9) : ((i) & 7)))  /* u_char to BCD */
-#ifdef DISP_DEBUG
-extern void PEOPS_GPUdisplayText(char * pText);
-char debug[256];
-#endif
 // upd xjsxjs197 end
 
 static struct CdrStat stat;
@@ -214,10 +210,7 @@ void cdrInterrupt() {
 			break;
 
 		case CdlPlay:
-		    #ifdef DISP_DEBUG
-            sprintf(debug, "========CdlPlay1 Config.Cdda %d !", Config.Cdda);
-            PEOPS_GPUdisplayText(debug);
-            #endif
+		    PRINT_LOG1("========CdlPlay1 Config.Cdda %d !", Config.Cdda);
 			cdr.CmdProcess = 0;
 			SetResultSize(1);
 			cdr.StatP|= 0x2;
@@ -619,12 +612,6 @@ void cdrReadInterrupt() {
 #ifdef CDR_LOG
 	fprintf(emuLog, "cdrReadInterrupt() Log: cdr.Transfer %x:%x:%x\n", cdr.Transfer[0], cdr.Transfer[1], cdr.Transfer[2]);
 #endif
-    #ifdef DISP_DEBUG
-    if (cdr.Mode & 1) {
-        sprintf(debug, "========cdrReadInterrupt Cdda On");
-        PEOPS_GPUdisplayText(debug);
-    }
-    #endif
 
 	if ((cdr.Muted == 1) && (cdr.Mode & 0x40) && (!Config.Xa) && (cdr.FirstSector != -1)) { // CD-XA
 		if ((cdr.Transfer[4+2] & 0x4) &&
@@ -743,14 +730,6 @@ void cdrWrite1(unsigned char rt) {
 //	psxHu8(0x1801) = rt;
     cdr.Cmd = rt;
 	cdr.OCUP = 0;
-    #ifdef DISP_DEBUG
-    if (cdr.Cmd == CdlPlay)
-    {
-        sprintf(debug, "========cdrWrite1  %8x !", cdr.Ctrl);
-        PEOPS_GPUdisplayText(debug);
-    }
-
-    #endif
 
 #ifdef CDRCMD_DEBUG
 	SysPrintf("cdrWrite1() Log: CD1 write: %x (%s)", rt, CmdName[rt]);
@@ -793,10 +772,8 @@ do_CdlPlay:
 // add xjsxjs197 end
     	case CdlPlay:
     	    // add xjxjs197 start
-    	    #ifdef DISP_DEBUG
-            sprintf(debug, "========CdlPlay2 Config.Cdda %d !", Config.Cdda);
-            PEOPS_GPUdisplayText(debug);
-            #endif
+    	    PRINT_LOG1("========CdlPlay2 Config.Cdda %d !", Config.Cdda);
+    	    // add xjxjs197 end
         	if (!cdr.SetSector[0] && !cdr.SetSector[1] && !cdr.SetSector[2]) {
             	if (CDR_getTN(cdr.ResultTN) != -1) {
 	                if (cdr.CurTrack > cdr.ResultTN[1]) cdr.CurTrack = cdr.ResultTN[1];
@@ -807,10 +784,8 @@ do_CdlPlay:
 	                    if (!Config.Cdda)
                         {
                             // add xjxjs197 start
-                            #ifdef DISP_DEBUG
-                            sprintf(debug, "========CdlPlay ResultTD !");
-                            PEOPS_GPUdisplayText(debug);
-                            #endif
+                            PRINT_LOG("========CdlPlay ResultTD !");
+                            // add xjxjs197 end
                             CDR_play(cdr.ResultTD);
                         }
 					}
@@ -820,10 +795,8 @@ do_CdlPlay:
             {
                 // add xjxjs197 start
                 ReadTrack();
-                #ifdef DISP_DEBUG
-                sprintf(debug, "========CdlPlay SetSector !");
-                PEOPS_GPUdisplayText(debug);
-                #endif
+                PRINT_LOG("========CdlPlay SetSector !");
+                // add xjxjs197 end
                 CDR_play(cdr.SetSector);
             }
 
@@ -1010,6 +983,7 @@ do_CdlPlay:
 #ifdef CDR_LOG
 			CDR_LOG("cdrWrite1() Log: Unknown command: %x\n", cdr.Cmd);
 #endif
+			PRINT_LOG1("cdrWrite1() Log: Unknown command: %x\n", cdr.Cmd);
 			return;
     }
 	if (cdr.Stat != NoIntr) {
@@ -1112,6 +1086,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 #ifdef CDR_LOG
 				CDR_LOG("psxDma3() Log: *** DMA 3 *** NOT READY\n");
 #endif
+				PRINT_LOG("Cdrom psxDma3() Log: *** DMA 3 *** NOT READY");
 				break;
 			}
 
@@ -1122,6 +1097,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 #ifdef CPU_LOG
 				CDR_LOG("psxDma3() Log: *** DMA 3 *** NULL Pointer!\n");
 #endif
+				PRINT_LOG("Cdrom psxDma3() Log: *** DMA 3 *** NULL Pointer!\n");
 				break;
 			}
 			memcpy(ptr, cdr.pTransfer, cdsize);
@@ -1133,6 +1109,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 #ifdef CDR_LOG
 			CDR_LOG("psxDma3() Log: Unknown cddma %lx\n", chcr);
 #endif
+			PRINT_LOG1("Cdrom psxDma3() Log: Unknown cddma %lx\n", chcr);
 			break;
 	}
 

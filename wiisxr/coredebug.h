@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
  ***************************************************************************/
 
-/* 
+/*
 * Specficies which logs should be activated.
 * Ryan TODO: These should ALL be definable with configure flags.
 */
@@ -65,5 +65,34 @@ FILE *gteLog;
 #if defined(PSXBIOS_LOG)
     #define PSXBIOS_LOG printf
 #endif
+
+// add xjsxjs197 start
+#ifdef DISP_DEBUG
+    //extern void PEOPS_GPUdisplayText(char * pText);
+    extern char debug[256];
+
+    #define PRINT_LOG(msg) { \
+                sprintf(debug, msg);\
+                PEOPS_GPUdisplayText(debug); \
+            }
+    #define PRINT_LOG1(msg, val) { \
+                sprintf(debug, msg, val);\
+                PEOPS_GPUdisplayText(debug); \
+            }
+    #define PRINT_LOG2(msg, val1, val2) { \
+                sprintf(debug, msg, val1, val2);\
+                PEOPS_GPUdisplayText(debug); \
+            }
+    #define PRINT_LOG3(msg, val1, val2, val3) { \
+                sprintf(debug, msg, val1, val2, val3);\
+                PEOPS_GPUdisplayText(debug); \
+            }
+#else
+    #define PRINT_LOG(msg)
+    #define PRINT_LOG1(msg, val)
+    #define PRINT_LOG2(msg, val1, val2)
+    #define PRINT_LOG3(msg, val1, val2, val3)
+#endif
+// add xjsxjs197 end
 
 #endif /* __DEBUG_H__ */

@@ -212,9 +212,7 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
       			#ifdef DISP_DEBUG
       			if (spuAddr > 0x7ffff)
                 {
-                    char debug[256];
-                    sprintf(debug, "FRAN_SPU_writeRegister==Reset spuAddr!");
-                    GPU_displayText(debug);
+                    PRINT_LOG("FRAN_SPU_writeRegister==Reset spuAddr!");
                 }
                 #endif
                 spuAddr &= 0x7fffe;
@@ -329,9 +327,7 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
       			#ifdef DISP_DEBUG
       			if (spuAddr > 0x7ffff)
                 {
-                    char debug[256];
-                    sprintf(debug, "FRAN_SPU_readRegister==Reset spuAddr!");
-                    GPU_displayText(debug);
+                    PRINT_LOG("FRAN_SPU_readRegister==Reset spuAddr!");
                 }
                 #endif
                 spuAddr &= 0x7fffe;

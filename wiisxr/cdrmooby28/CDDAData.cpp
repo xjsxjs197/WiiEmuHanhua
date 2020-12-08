@@ -30,6 +30,7 @@ static unsigned char sndbuffer[CD_FRAMESIZE_RAW * 10];
 
 // add xjsxjs197 start
 extern "C" {
+    #include "../coredebug.h"
     int FeedCDDA(unsigned char *pcm, int nBytes);
     void PEOPS_GPUdisplayText(char * pText);
 }
@@ -146,11 +147,7 @@ int CDDACallbackOneTrackStop(  void *inputBuffer, void *outputBuffer,
 
 static void* CDDAThread(void* userData){
     // add xjxjs197 start
-    #ifdef DISP_DEBUG
- 	char debug[256];
-    sprintf(debug, "========CDDAThread!");
-    PEOPS_GPUdisplayText(debug);
-    #endif
+    PRINT_LOG("========CDDAThread!");
 
     int ret = 0;
     PlayCDDAData* data = (PlayCDDAData*)userData;
@@ -212,11 +209,7 @@ void PlayCDDAData::openFile(const std::string& file, int type)
 // start playing the data
 int PlayCDDAData::play(const CDTime& startTime)
 {
-    #ifdef DISP_DEBUG
- 	char debug[256];
-    sprintf(debug, "========CDDA Start play!");
-    PEOPS_GPUdisplayText(debug);
-    #endif
+    PRINT_LOG("========CDDA Start play!");
    CDTime localStartTime = startTime;
 
       // if play was called with the same time as the previous call,

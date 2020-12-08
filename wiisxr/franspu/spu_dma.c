@@ -16,9 +16,7 @@ unsigned short  FRAN_SPU_readDMA(void)
  	#ifdef DISP_DEBUG
  	if (spuAddr > 0x7ffff)
     {
-        char debug[256];
-        sprintf(debug, "FRAN_SPU_readDMA==Reset spuAddr!");
-        GPU_displayText(debug);
+        PRINT_LOG("FRAN_SPU_readDMA==Reset spuAddr!");
     }
     #endif
     spuAddr &= 0x7fffe;
@@ -58,11 +56,7 @@ void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 		if (spuAddr > 0)
         {
             cacheable_kernel_memcpy(pusPSXMem + tmpAddr, spuMem, spuAddr);
-            #ifdef DISP_DEBUG
-            char debug[256];
-            sprintf(debug, "FRAN_SPU_readDMAMem=%d=Over=%d", iSize, spuAddr);
-            GPU_displayText(debug);
-            #endif
+            PRINT_LOG2("FRAN_SPU_readDMAMem=%d=Over=%d", iSize, spuAddr);
         }
 	} else {
 		cacheable_kernel_memcpy(pusPSXMem, spuMem + spuAddr, iSize);
@@ -84,9 +78,7 @@ void  FRAN_SPU_writeDMA(unsigned short val)
  	#ifdef DISP_DEBUG
  	if (spuAddr > 0x7ffff)
     {
-        char debug[256];
-        sprintf(debug, "FRAN_SPU_writeDMA==Reset spuAddr!");
-        GPU_displayText(debug);
+        PRINT_LOG("FRAN_SPU_writeDMA==Reset spuAddr!");
     }
     #endif
     spuAddr &= 0x7fffe;
@@ -126,11 +118,7 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 		if (spuAddr > 0)
         {
             cacheable_kernel_memcpy(spuMem, pusPSXMem + tmpAddr, spuAddr);
-            #ifdef DISP_DEBUG
-            char debug[256];
-            sprintf(debug, "FRAN_SPU_writeDMAMem=%d=Over=%d", iSize, spuAddr);
-            GPU_displayText(debug);
-            #endif
+            PRINT_LOG2("FRAN_SPU_writeDMAMem=%d=Over=%d", iSize, spuAddr);
         }
   	} else {
   		cacheable_kernel_memcpy(spuMem + spuAddr, pusPSXMem, iSize);

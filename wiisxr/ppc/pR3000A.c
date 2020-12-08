@@ -33,13 +33,6 @@
 #include "../psxhle.h"
 #include "../Gamecube/DEBUG.h"
 
-// add xjsxjs197 start
-#ifdef DISP_DEBUG
-extern void PEOPS_GPUdisplayText(char * pText);
-char debug[256];
-#endif
-// add xjsxjs197 end
-
 /* variable declarations */
 static u32 psxRecLUT[0x010000];
 static char recMem[RECMEM_SIZE] __attribute__((aligned(32)));	/* the recompiled blocks will be here */
@@ -161,16 +154,14 @@ static int GetFreeHWReg()
 		if (HWRegisters[index].usage & HWUSAGE_RESERVED) {
 			//SysPrintf("Error! Trying to map a new register to a reserved register (r%i)",
 			//			HWRegisters[index].code);
-			sprintf(debug, "Error! Trying to map a new register to a reserved register (r%i)",
+			PRINT_LOG1("Error! Trying to map a new register to a reserved register (r%i)",
 						HWRegisters[index].code);
-			PEOPS_GPUdisplayText(debug);
 		}
 		if (HWRegisters[index].usage & HWUSAGE_HARDWIRED) {
 			//SysPrintf("Error! Trying to map a new register to a hardwired register (r%i)",
 			//			HWRegisters[index].code);
-			sprintf(debug, "Error! Trying to map a new register to a hardwired register (r%i)",
+			PRINT_LOG1("Error! Trying to map a new register to a hardwired register (r%i)",
 						HWRegisters[index].code);
-			PEOPS_GPUdisplayText(debug);
 		}
 	}
 	#endif
@@ -215,8 +206,7 @@ static void DisposeHWReg(int index)
 	#ifdef DISP_DEBUG
 	if (HWRegisters[index].usage == HWUSAGE_NONE) {
 		//SysPrintf("Error! not correctly disposing register (r%i)", HWRegisters[index].code);
-		sprintf(debug, "Error! not correctly disposing register (r%i)", HWRegisters[index].code);
-        PEOPS_GPUdisplayText(debug);
+		PRINT_LOG1("Error! not correctly disposing register (r%i)", HWRegisters[index].code);
 	}
 	#endif
 
@@ -304,11 +294,8 @@ static int GetHWRegFromCPUReg(int cpureg)
 		}
 	}
 
-    #ifdef DISP_DEBUG
 	//SysPrintf("Error! Register location failure (r%i)", cpureg);
-	sprintf(debug, "Error! Register location failure (r%i)", cpureg);
-    PEOPS_GPUdisplayText(debug);
-	#endif
+	PRINT_LOG1("Error! Register location failure (r%i)", cpureg);
 	return 0;
 }
 
@@ -353,8 +340,7 @@ static void MapPsxReg32(int reg)
     #ifdef DISP_DEBUG
     if (iRegs[reg].reg != -1) {
         //SysPrintf("error: double mapped psx register");
-        sprintf(debug, "error: double mapped psx register");
-        PEOPS_GPUdisplayText(debug);
+        PRINT_LOG("error: double mapped psx register");
     }
     #endif
 
@@ -369,8 +355,7 @@ static void FlushPsxReg32(int hwreg)
     #ifdef DISP_DEBUG
 	if (iRegs[reg].reg == -1) {
 		//SysPrintf("error: flushing unmapped psx register");
-		sprintf(debug, "error: flushing unmapped psx register");
-        PEOPS_GPUdisplayText(debug);
+		PRINT_LOG("error: flushing unmapped psx register");
 	}
 	#endif
 
@@ -513,11 +498,8 @@ static int GetHWRegSpecial(int which)
 		switch (which) {
 			case PSXREGS:
 			case PSXMEM:
-			    #ifdef DISP_DEBUG
 				//SysPrintf("error! shouldn't be here!\n");
-				sprintf(debug, "GetHWRegSpecial which:%d : error! shouldn't be here!", which);
-                PEOPS_GPUdisplayText(debug);
-				#endif
+				PRINT_LOG1("GetHWRegSpecial which:%d : error! shouldn't be here!", which);
 				//HWRegisters[index].flush = NULL;
 				//LIW(HWRegisters[index].code, (u32)&psxRegs);
 				break;
@@ -549,11 +531,8 @@ static int GetHWRegSpecial(int which)
 				LWZ(HWRegisters[index].code, 0, GetHWRegSpecial(TARGETPTR));
 				break;
 			default:
-			    #ifdef DISP_DEBUG
-				//SysPrintf("Error: Unknown special register in GetHWRegSpecial()\n");
-				sprintf(debug, "GetHWRegSpecial which:%d : Error: Unknown special register in GetHWRegSpecial()", which);
-                PEOPS_GPUdisplayText(debug);
-				#endif
+			    //SysPrintf("Error: Unknown special register in GetHWRegSpecial()\n");
+				PRINT_LOG1("GetHWRegSpecial which:%d : Error: Unknown special register in GetHWRegSpecial()", which);
 				break;
 		}
 		HWRegisters[index].usage &= ~HWUSAGE_RESERVED;
@@ -584,11 +563,8 @@ static int PutHWRegSpecial(int which)
 	switch (which) {
 		case PSXREGS:
 		case TARGETPTR:
-		    #ifdef DISP_DEBUG
             //SysPrintf("Error: Read-only special register in PutHWRegSpecial()\n");
-            sprintf(debug, "PutHWRegSpecial which:%d : Error: Read-only special register in PutHWRegSpecial()", which);
-            PEOPS_GPUdisplayText(debug);
-            #endif
+            PRINT_LOG1("PutHWRegSpecial which:%d : Error: Read-only special register in PutHWRegSpecial()", which);
 		case REG_WZERO:
 			if (index >= 0) {
 					if (HWRegisters[index].usage & HWUSAGE_WRITE)

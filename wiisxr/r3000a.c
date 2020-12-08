@@ -26,12 +26,6 @@
 #include "psxdma.h"
 #include "cdrom.h"
 #include "mdec.h"
-// add xjsxjs197 start
-#ifdef DISP_DEBUG
-extern void PEOPS_GPUdisplayText(char * pText);
-char debug[256];
-#endif
-// add xjsxjs197 end
 R3000Acpu *psxCpu;
 psxRegisters psxRegs;
 
@@ -83,36 +77,6 @@ void psxShutdown() {
 }
 
 void psxException(u32 code, u32 bd) {
-	// add xjsxjs197 start
-	/*if (!Config.HLE) {
-	    // "hokuto no ken" / "Crash Bandicot 2" ...
-		// BIOS does not allow to return to GTE instructions
-		// (just skips it, supposedly because it's scheduled already)
-		// so we execute it here
-		u32 tmp = PSXMu32(psxRegs.pc);
-		psxRegs.code = tmp;
-		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
-            #ifdef DISP_DEBUG
-            sprintf(debug, "========hokuto no ken Fix ");
-            PEOPS_GPUdisplayText(debug);
-            #endif
-		    u32* tmp2 = (u32*)PSXM(psxRegs.CP0.n.EPC);
-			if (tmp2 != NULL) {
-			    *tmp2 &= SWAPu32(~0x02000000);
-			}
-			//extern void (*psxCP2[64])(void *cp2regs);
-		    //psxCP2[psxRegs.code & 0x3f](&psxRegs.CP2D);
-		}
-		else if (tmp == NULL )
-        {
-            #ifdef DISP_DEBUG
-            sprintf(debug, "========psxException NULL Pointer");
-            PEOPS_GPUdisplayText(debug);
-            #endif
-        }
-	}*/
-	// add xjsxjs197 end
-
 	// Set the Cause
 	// upd xjsxjs197 start
 	//psxRegs.CP0.n.Cause = code;
@@ -124,11 +88,8 @@ void psxException(u32 code, u32 bd) {
 #ifdef PSXCPU_LOG
 		PSXCPU_LOG("bd set!!!\n");
 #endif
-        #ifdef DISP_DEBUG
-		//SysPrintf("bd set!!!\n");
-		sprintf(debug, "=====bd set!!!");
-        PEOPS_GPUdisplayText(debug);
-        #endif
+        //SysPrintf("bd set!!!\n");
+		PRINT_LOG("=====bd set!!!");
 		psxRegs.CP0.n.Cause |= 0x80000000;
 		psxRegs.CP0.n.EPC = (psxRegs.pc - 4);
 	} else
@@ -156,10 +117,7 @@ void psxException(u32 code, u32 bd) {
 		u32 tmp = PSXMu32(psxRegs.CP0.n.EPC);
 		psxRegs.code = tmp;
 		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
-            #ifdef DISP_DEBUG
-            sprintf(debug, "========hokuto no ken Fix ");
-            PEOPS_GPUdisplayText(debug);
-            #endif
+            PRINT_LOG("========hokuto no ken Fix ");
 		    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
 
 			//extern void (*psxCP2[64])(void *cp2regs);
@@ -171,13 +129,11 @@ void psxException(u32 code, u32 bd) {
             tmp = PSXMu32(psxRegs.CP0.n.EPC + 4);
             if (tmp == NULL)
             {
-                sprintf(debug, "========psxException NULL Pointer, [EPC + 4] also NULL");
-                PEOPS_GPUdisplayText(debug);
+                PRINT_LOG("========psxException NULL Pointer, [EPC + 4] also NULL");
             }
             else
             {
-                sprintf(debug, "========psxException NULL Pointer, [EPC + 4]: %x", tmp);
-                PEOPS_GPUdisplayText(debug);
+                PRINT_LOG1("========psxException NULL Pointer, [EPC + 4]: %x", tmp);
             }
             #endif
         }

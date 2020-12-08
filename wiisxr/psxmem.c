@@ -173,6 +173,7 @@ u8 psxMemRead8(u32 mem) {
 #ifdef PSXMEM_LOG
 			PSXMEM_LOG("err lb %8.8lx\n", mem);
 #endif
+            PRINT_LOG1("psxMemRead8 ErrorMem===== %8.8lx\n", mem);
 			return 0;
 		}
 	}
@@ -201,6 +202,7 @@ u16 psxMemRead16(u32 mem) {
 #ifdef PSXMEM_LOG
 			PSXMEM_LOG("err lh %8.8lx\n", mem);
 #endif
+			PRINT_LOG1("psxMemRead16 ErrorMem===== %8.8lx\n", mem);
 			return 0;
 		}
 	}
@@ -229,6 +231,7 @@ u32 psxMemRead32(u32 mem) {
 #ifdef PSXMEM_LOG
 			if (writeok) { PSXMEM_LOG("err lw %8.8lx\n", mem); }
 #endif
+			PRINT_LOG1("psxMemRead32 ErrorMem===== %8.8lx\n", mem);
 			return 0;
 		}
 	}
@@ -254,6 +257,7 @@ void psxMemWrite8(u32 mem, u8 value) {
 #ifdef PSXMEM_LOG
 			PSXMEM_LOG("err sb %8.8lx\n", mem);
 #endif
+		    PRINT_LOG1("psxMemWrite8 ErrorMem===== %8.8lx\n", mem);
 		}
 	}
 }
@@ -284,6 +288,7 @@ void psxMemWrite16(u32 mem, u16 value) {
 #ifdef PSXMEM_LOG
 			PSXMEM_LOG("err sh %8.8lx\n", mem);
 #endif
+            PRINT_LOG1("psxMemWrite16 ErrorMem===== %8.8lx\n", mem);
 		}
 	}
 }
@@ -321,6 +326,7 @@ void psxMemWrite32(u32 mem, u32 value) {
 #ifdef PSXMEM_LOG
 				if (writeok) { PSXMEM_LOG("err sw %8.8lx\n", mem); }
 #endif
+			    PRINT_LOG1("psxMemWrite32 ErrorMem===== %8.8lx\n", mem);
 			} else {
 				int i;
 
@@ -343,6 +349,7 @@ void psxMemWrite32(u32 mem, u32 value) {
 #ifdef PSXMEM_LOG
 						PSXMEM_LOG("unk %8.8lx = %x\n", mem, value);
 #endif
+						PRINT_LOG2("psxMemWrite32 unk %8.8lx = %x\n", mem, value);
 						break;
 				}
 			}
