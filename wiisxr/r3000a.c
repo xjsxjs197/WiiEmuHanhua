@@ -108,8 +108,15 @@ void psxException(u32 code, u32 bd) {
 	/*if (!Config.HLE && (((SWAP32(*(u32*)PSXM(psxRegs.CP0.n.EPC)) >> 24) & 0xfe) == 0x4a)) {
 	    // "hokuto no ken" / "Crash Bandicot 2" ... fix
 	    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
+
+      if (Config.HLE) psxBiosException();
     }*/
-    if (!Config.HLE) {
+    if (Config.HLE)
+    {
+        psxBiosException();
+    }
+    else
+    {
 	    // "hokuto no ken" / "Crash Bandicot 2" ...
 		// BIOS does not allow to return to GTE instructions
 		// (just skips it, supposedly because it's scheduled already)
@@ -118,29 +125,28 @@ void psxException(u32 code, u32 bd) {
 		psxRegs.code = tmp;
 		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
             PRINT_LOG("========hokuto no ken Fix ");
-		    PSXMu32ref(psxRegs.CP0.n.EPC)&= SWAP32(~0x02000000);
+		    PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
 
-			//extern void (*psxCP2[64])(void *cp2regs);
-		    //psxCP2[psxRegs.code & 0x3f](&psxRegs.CP2D);
+            psxRegs.code = PSXMu32(psxRegs.CP0.n.EPC);
+			extern void (*psxCP2[64])();
+		    psxCP2[psxRegs.code & 0x3f]();
 		}
+		#ifdef DISP_DEBUG
 		else if (tmp == NULL )
         {
-            #ifdef DISP_DEBUG
             tmp = PSXMu32(psxRegs.CP0.n.EPC + 4);
             if (tmp == NULL)
             {
-                PRINT_LOG("========psxException NULL Pointer, [EPC + 4] also NULL");
+                PRINT_LOG("===psxException NULL Pointer, [EPC + 4] also NULL");
             }
             else
             {
-                PRINT_LOG1("========psxException NULL Pointer, [EPC + 4]: %x", tmp);
+                PRINT_LOG1("===psxException NULL Pointer, [EPC + 4]: %x", tmp);
             }
-            #endif
         }
+        #endif
 	}
 	// upd xjsxjs197 end
-
-	if (Config.HLE) psxBiosException();
 }
 
 void psxBranchTest() {

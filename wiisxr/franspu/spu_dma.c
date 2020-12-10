@@ -37,16 +37,6 @@ void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 		memcpy(pusPSXMem,&spuMem[spuAddr>>1],iSize<<1);
 		spuAddr+=(iSize<<1);
 	}*/
-
-	if (Config.PsxType) // ntsc - 0 | pal - 1
-    {
-        SPU_async(0);
-    }
-    else
-    {
-        SPU_async(1);
-    }
-
 	iSize <<= 1;
 	if (spuAddr + iSize > 0x7ffff)
  	{
@@ -99,16 +89,6 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
   		memcpy(&spuMem[spuAddr>>1],pusPSXMem,iSize<<1);
   		spuAddr+=(iSize<<1);
   	}*/
-
-    if (Config.PsxType) // ntsc - 0 | pal - 1
-    {
-        SPU_async(0);
-    }
-    else
-    {
-        SPU_async(1);
-    }
-
 	iSize <<= 1;
 	if (spuAddr + iSize > 0x7ffff)
 	{
