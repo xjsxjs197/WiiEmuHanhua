@@ -22,22 +22,23 @@ int             iRightXAVol = 32767;
 void MixXA(void)
 {
 	int i;
-	unsigned long XALastVal = 0;
+	// upd xjsxjs197 start
+	//unsigned long XALastVal = 0;
+	// upd xjsxjs197 end
 	int leftvol =iLeftXAVol;
 	int rightvol=iRightXAVol;
 	int *ssuml=SSumL;
 	int *ssumr=SSumR;
 
-	for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
+    // upd xjsxjs197 start
+	/*for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
 	{
 		XALastVal=*XAPlay++;
 		if(XAPlay==XAEnd) XAPlay=XAStart;
-		// upd xjsxjs197 start
 		//(*ssuml++)+=(((short)(XALastVal&0xffff))       * leftvol)/32768;
 		//(*ssumr++)+=(((short)((XALastVal>>16)&0xffff)) * rightvol)/32768;
 		(*ssuml++)+=(((int)(short)(XALastVal&0xffff))       * leftvol) >> 15;
 		(*ssumr++)+=(((int)(short)((XALastVal>>16)&0xffff)) * rightvol) >> 15;
-		// upd xjsxjs197 end
 	}
 
 	if(XAPlay==XAFeed && XARepeat)
@@ -45,14 +46,34 @@ void MixXA(void)
 		XARepeat--;
 		for(;i<NSSIZE;i++)
 		{
-		    // upd xjsxjs197 start
 			//(*ssuml++)+=(((short)(XALastVal&0xffff))       * leftvol)/32768;
 			//(*ssumr++)+=(((short)((XALastVal>>16)&0xffff)) * rightvol)/32768;
 			(*ssuml++)+=(((int)(short)(XALastVal&0xffff))       * leftvol) >> 15;
 			(*ssumr++)+=(((int)(short)((XALastVal>>16)&0xffff)) * rightvol) >> 15;
-			// upd xjsxjs197 end
 		}
-	}
+	}*/
+	uint32_t v;
+	if (XAPlay != XAFeed || XARepeat > 0)
+    {
+        if (XAPlay == XAFeed)
+        {
+            XARepeat--;
+        }
+
+        v = XALastVal;
+
+        for (i = 0; i < NSSIZE; i++)
+        {
+            if (XAPlay != XAFeed) v = *XAPlay++;
+            if (XAPlay == XAEnd) XAPlay = XAStart;
+
+            (*ssuml++) += (((int)(short)(v & 0xffff)) * leftvol) >> 15;
+            (*ssumr++) += (((int)(short)((v >> 16) & 0xffff)) * rightvol) >> 15;
+        }
+
+        XALastVal = v;
+    }
+	// upd xjsxjs197 end
 
     // add xjsxjs197 start
     /*for(i = 0; i < NSSIZE && CDDAPlay != CDDAFeed && (CDDAPlay != CDDAEnd - 1 || CDDAFeed != CDDAStart); i++)
