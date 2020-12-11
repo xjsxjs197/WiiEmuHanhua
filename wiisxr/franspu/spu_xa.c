@@ -22,16 +22,13 @@ int             iRightXAVol = 32767;
 void MixXA(void)
 {
 	int i;
-	// upd xjsxjs197 start
-	//unsigned long XALastVal = 0;
-	// upd xjsxjs197 end
+	unsigned long XALastVal = 0;
 	int leftvol =iLeftXAVol;
 	int rightvol=iRightXAVol;
 	int *ssuml=SSumL;
 	int *ssumr=SSumR;
 
-    // upd xjsxjs197 start
-	/*for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
+	for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
 	{
 		XALastVal=*XAPlay++;
 		if(XAPlay==XAEnd) XAPlay=XAStart;
@@ -55,38 +52,18 @@ void MixXA(void)
 			(*ssumr++)+=(((int)(short)((XALastVal>>16)&0xffff)) * rightvol) >> 15;
 			// upd xjsxjs197 end
 		}
-	}*/
-	uint32_t v;
-	if (XAPlay != XAFeed || XARepeat > 0)
-    {
-        if (XAPlay == XAFeed)
-        {
-            XARepeat--;
-        }
+	}
 
-        v = XALastVal;
-
-        for (i = 0; i < NSSIZE; i++)
-        {
-            if (XAPlay != XAFeed) v = *XAPlay++;
-            if (XAPlay == XAEnd) XAPlay = XAStart;
-
-            (*ssuml++) += (((int)(short)(v & 0xffff)) * leftvol) >> 15;
-            (*ssumr++) += (((int)(short)((v >> 16) & 0xffff)) * rightvol) >> 15;
-        }
-
-        XALastVal = v;
-    }
-
-    for(i = 0; i < NSSIZE && CDDAPlay != CDDAFeed && (CDDAPlay != CDDAEnd - 1 || CDDAFeed != CDDAStart); i++)
+    // add xjsxjs197 start
+    /*for(i = 0; i < NSSIZE && CDDAPlay != CDDAFeed && (CDDAPlay != CDDAEnd - 1 || CDDAFeed != CDDAStart); i++)
     {
         v = *CDDAPlay++;
         if (CDDAPlay == CDDAEnd) CDDAPlay = CDDAStart;
 
         (*ssuml++) += (((int)(short)(v & 0xffff)) * leftvol) >> 15;
         (*ssumr++) += (((int)(short)((v >> 16) & 0xffff)) * rightvol) >> 15;
-    }
-	// upd xjsxjs197 end
+    }*/
+	// add xjsxjs197 end
 }
 
 // FEED XA
@@ -113,6 +90,10 @@ void FeedXA(xa_decode_t *xap)
 	if (iSize > iPlace)
     {
         PRINT_LOG2("PlayCDDA(FeedXA) bufSize: %d, DataSize: %d", iPlace, iSize);
+    }
+    else
+    {
+        PRINT_LOG1("PlayCDDA(FeedXA) Play XA DataSize: %d", iSize);
     }
 	#endif
 	if (iPlace == 0) return;

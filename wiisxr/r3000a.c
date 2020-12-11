@@ -137,11 +137,11 @@ void psxException(u32 code, u32 bd) {
             tmp = PSXMu32(psxRegs.CP0.n.EPC + 4);
             if (tmp == NULL)
             {
-                PRINT_LOG("===psxException NULL Pointer, [EPC + 4] also NULL");
+                //PRINT_LOG("===psxException NULL Pointer, [EPC + 4] also NULL");
             }
             else
             {
-                PRINT_LOG1("===psxException NULL Pointer, [EPC + 4]: %x", tmp);
+                //PRINT_LOG1("===psxException NULL Pointer, [EPC + 4]: %x", tmp);
             }
         }
         #endif

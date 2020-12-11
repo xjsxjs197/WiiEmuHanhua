@@ -239,6 +239,7 @@ void SPU_async_1ms(SPUCHAN * pChannel,int *SSumL, int *SSumR, int *iFMod)
 												pSpuIrq <= pChannel->pLoop)))
 						{
 							pChannel->iIrqDone=1;                 // -> debug flag
+							PRINT_LOG("irqCallback Sound===========");
 							irqCallback();                        // -> call main emu
 
 						}
@@ -330,7 +331,11 @@ void FRAN_SPU_async(unsigned long cycle, long psxType)
 {
 	if( iSoundMuted > 0 ) return;
 	// upd xjsxjs197 start
-	if(SoundGetBytesBuffered() > 8*1024) return;
+	if(SoundGetBytesBuffered() > 8*1024)
+	{
+	    PRINT_LOG1("SoundGetBytesBuffered OverFlow: %d", SoundGetBytesBuffered());
+	    return;
+	}
 	//if(iSpuAsyncWait)
 	//{
 	//	iSpuAsyncWait++;
@@ -348,8 +353,9 @@ void FRAN_SPU_async(unsigned long cycle, long psxType)
         iSpuAsyncWait = 0;
     }*/
 	int i;
+	//PRINT_LOG1("====FRAN_SPU_async cycle: %d", cycle);
 	// psxType 0=NTSC 16 ms, 1=PAL 20 ms; do two frames
-	int t = (psxType == 0 ? 18 : 60);
+	int t = (psxType == 0 ? 32 : 40);
 	for (i = 0; i < t; i++)
 	// upd xjsxjs197 end
 		SPU_async_1ms(s_chan,SSumL,SSumR,iFMod); // Calculates 1 ms of sound
