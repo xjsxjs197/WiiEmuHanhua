@@ -96,7 +96,8 @@ unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 // upd xjsxjs197 start
 //#define btoi(b)		((b)/16*10 + (b)%16)		/* BCD to u_char */
 #define btoi(b)		(((b) >> 4) * 10 + ((b) & 15))	                              /* BCD to u_char */
-#define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
+//#define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
+#define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 //#define itob(i)		((((i) / 10) << 4) + ((i) & 8 == 8 ? ((i) & 9) : ((i) & 7)))  /* u_char to BCD */
 // upd xjsxjs197 end
 
@@ -337,11 +338,13 @@ void cdrInterrupt() {
 			SetResultSize(8);
 			subq = (struct SubQ*) CDR_getBufferSub();
 			if (subq != NULL) {
+                PRINT_LOG("cdrom CdlGetlocP subq OK");
 				cdr.Result[0] = subq->TrackNumber;
 				cdr.Result[1] = subq->IndexNumber;
 		    	memcpy(cdr.Result+2, subq->TrackRelativeAddress, 3);
 		    	memcpy(cdr.Result+5, subq->AbsoluteAddress, 3);
 			} else {
+			    PRINT_LOG("cdrom CdlGetlocP NULL");
 	        	cdr.Result[0] = 1;
 	        	cdr.Result[1] = 1;
 	        	cdr.Result[2] = cdr.Prev[0];
@@ -815,8 +818,11 @@ do_CdlPlay:
         // add xjsxjs197 start
         case CdlReadS:
             if ((cdr.Mode & 1) && cdr.CurTrack > 1)
+            {
+                PRINT_LOG("========CdlReadS Goto CdlPlay !");
 				// Read* acts as play for cdda tracks in cdda mode
 				goto do_CdlPlay;
+            }
         // add xjsxjs197 end
 			cdr.Irq = 0;
 			StopReading();
