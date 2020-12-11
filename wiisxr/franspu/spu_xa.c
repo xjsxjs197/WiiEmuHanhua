@@ -92,7 +92,7 @@ void MixXA(void)
 // FEED XA
 void FeedXA(xa_decode_t *xap)
 {
-	int sinc,spos,i,iSize;
+	int sinc,spos,i,iSize,iPlace;
 
 	if(!bSPUIsOpen) return;
 
@@ -103,10 +103,19 @@ void FeedXA(xa_decode_t *xap)
 	if(!iSize) return;                                    // none? bye
 
 	if(XAFeed<XAPlay) {
-		if ((XAPlay-XAFeed)==0) return;               // how much space in my buf?
+		//if ((XAPlay-XAFeed)==0) return;               // how much space in my buf?
+		iPlace = XAPlay - XAFeed;
 	} else {
-		if (((XAEnd-XAFeed) + (XAPlay-XAStart))==0) return;
+		//if (((XAEnd-XAFeed) + (XAPlay-XAStart))==0) return;
+		iPlace = (XAEnd - XAFeed) + (XAPlay - XAStart);
 	}
+	#ifdef DISP_DEBUG
+	if (iSize > iPlace)
+    {
+        PRINT_LOG2("PlayCDDA(FeedXA) bufSize: %d, DataSize: %d", iPlace, iSize);
+    }
+	#endif
+	if (iPlace == 0) return;
 
 	spos=0x10000L;
 	sinc = (xap->nsamples << 16) / iSize;                 // calc freq by num / size

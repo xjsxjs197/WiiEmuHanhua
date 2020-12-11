@@ -94,7 +94,7 @@ void FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize);
 void FRAN_SPU_writeDMA(unsigned short val);
 void FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize);
 //spu.cpp
-void FRAN_SPU_async(unsigned long cycle);
+void FRAN_SPU_async(unsigned long cycle, long psxType);
 void FRAN_SPU_playADPCMchannel(xa_decode_t *xap);
 // add xjsxjs197 start
 // CDDA AUDIO

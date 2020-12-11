@@ -116,11 +116,14 @@ void FModChangeFrequency(SPUCHAN * pChannel,int ns)
 	if(NP<0x1)    NP=0x1;
 	// upd xjsxjs197 start
 	//NP=(44100L*NP)/(4096L);                               // calc frequency
+	pChannel->sinc = NP << 4;
 	NP = (44100L * NP) >> 12;                               // calc frequency
 	// upd xjsxjs197 end
 	pChannel->iActFreq=NP;
 	pChannel->iUsedFreq=NP;
-	pChannel->sinc=(((NP/10)<<16)/4410);
+	// upd xjsxjs197 start
+	//pChannel->sinc=(((NP/10)<<16)/4410);
+	// upd xjsxjs197 end
 	if(!pChannel->sinc) pChannel->sinc=1;
 	iFMod[ns]=0;
 }
@@ -323,18 +326,32 @@ void SPU_async_1ms(SPUCHAN * pChannel,int *SSumL, int *SSumR, int *iFMod)
 	}
 }
 
-void FRAN_SPU_async(unsigned long cycle)
+void FRAN_SPU_async(unsigned long cycle, long psxType)
 {
 	if( iSoundMuted > 0 ) return;
+	// upd xjsxjs197 start
 	if(SoundGetBytesBuffered() > 8*1024) return;
-	if(iSpuAsyncWait)
+	//if(iSpuAsyncWait)
+	//{
+	//	iSpuAsyncWait++;
+	//	if(iSpuAsyncWait<=64) return;
+	//	iSpuAsyncWait=0;
+	//}
+	//int i;
+	//int t=(cycle?32:40); /* cycle 1=NTSC 16 ms, 0=PAL 20 ms; do two frames */for (i=0;i<t;i++)
+	/*if(iSpuAsyncWait++ <= 64)
 	{
-		iSpuAsyncWait++;
-		if(iSpuAsyncWait<=64) return;
-		iSpuAsyncWait=0;
+		return;
 	}
+	else
+    {
+        iSpuAsyncWait = 0;
+    }*/
 	int i;
-	int t=(cycle?32:40); /* cycle 1=NTSC 16 ms, 0=PAL 20 ms; do two frames */for (i=0;i<t;i++)
+	// psxType 0=NTSC 16 ms, 1=PAL 20 ms; do two frames
+	int t = (psxType == 0 ? 18 : 60);
+	for (i = 0; i < t; i++)
+	// upd xjsxjs197 end
 		SPU_async_1ms(s_chan,SSumL,SSumR,iFMod); // Calculates 1 ms of sound
 	SoundFeedStreamData((unsigned char*)pSpuBuffer,
 			((unsigned char *)pS)-((unsigned char *)pSpuBuffer));
@@ -393,10 +410,10 @@ s32 FRAN_SPU_open(void)
 
 	//Setup streams
 	pSpuBuffer = spuBuffer[whichBuffer];            // alloc mixing buffer
-	XAStart = (unsigned long *)memalign(32,44100*4);           // alloc xa buffer
+	XAStart = (unsigned long *)memalign(32, XA_BUFFER_SIZE * 4);           // alloc xa buffer
 	XAPlay  = XAStart;
 	XAFeed  = XAStart;
-	XAEnd   = XAStart + 44100;
+	XAEnd   = XAStart + XA_BUFFER_SIZE;
 	// add xjsxjs197 start
     CDDAStart = (uint32_t *)memalign(32, CDDA_BUFFER_SIZE);  // alloc cdda buffer
     CDDAEnd   = CDDAStart + 16384;

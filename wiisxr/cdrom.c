@@ -217,7 +217,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 			cdr.Stat = Acknowledge;
 			cdr.StatP|= 0x80;
-			if ((cdr.Mode & 0x5) == 0x5) AddIrqQueue(REPPLAY, cdReadTime);
+//			if ((cdr.Mode & 0x5) == 0x5) AddIrqQueue(REPPLAY, cdReadTime);
 			break;
 
     	case CdlForward:
@@ -702,7 +702,6 @@ void cdrWrite0(unsigned char rt) {
 }
 
 unsigned char cdrRead1(void) {
-    // upd xjsxjs197 start
     if (cdr.ResultReady) { // && cdr.Ctrl & 0x1) {
 		psxHu8(0x1801) = cdr.Result[cdr.ResultP++];
 		if (cdr.ResultP == cdr.ResultC) cdr.ResultReady = 0;
@@ -710,14 +709,6 @@ unsigned char cdrRead1(void) {
 #ifdef CDR_LOG
 	CDR_LOG("cdrRead1() Log: CD1 Read: %x\n", psxHu8(0x1801));
 #endif
-    /*if ((cdr.ResultP & 0xf) < cdr.ResultC)
-		psxHu8(0x1801) = cdr.Result[cdr.ResultP & 0xf];
-	else
-		psxHu8(0x1801) = 0;
-	cdr.ResultP++;
-	if (cdr.ResultP == cdr.ResultC)
-		cdr.ResultReady = 0;*/
-    // upd xjsxjs197 end
 	return psxHu8(0x1801);
 }
 
@@ -1022,10 +1013,6 @@ void cdrWrite2(unsigned char rt) {
 
 			default:
 				cdr.Reg2 = rt;
-				// add xjsxjs197 start
-				if (cdr.Stat & cdr.Reg2)
-		            psxHu32ref(0x1070) |= SWAP32((u32)0x4);
-                // add xjsxjs197 end
 				break;
 		}
     } else if (!(cdr.Ctrl & 0x1) && cdr.ParamP < 8) {
