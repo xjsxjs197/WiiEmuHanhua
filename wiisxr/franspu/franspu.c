@@ -333,7 +333,7 @@ void FRAN_SPU_async(unsigned long cycle, long psxType)
 	// upd xjsxjs197 start
 	if(SoundGetBytesBuffered() > 8*1024)
 	{
-	    PRINT_LOG1("SoundGetBytesBuffered OverFlow: %d", SoundGetBytesBuffered());
+	    //PRINT_LOG1("SoundGetBytesBuffered OverFlow: %d", SoundGetBytesBuffered());
 	    return;
 	}
 	//if(iSpuAsyncWait)

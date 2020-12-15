@@ -338,13 +338,11 @@ void cdrInterrupt() {
 			SetResultSize(8);
 			subq = (struct SubQ*) CDR_getBufferSub();
 			if (subq != NULL) {
-                PRINT_LOG("cdrom CdlGetlocP subq OK");
 				cdr.Result[0] = subq->TrackNumber;
 				cdr.Result[1] = subq->IndexNumber;
 		    	memcpy(cdr.Result+2, subq->TrackRelativeAddress, 3);
 		    	memcpy(cdr.Result+5, subq->AbsoluteAddress, 3);
 			} else {
-			    PRINT_LOG("cdrom CdlGetlocP NULL");
 	        	cdr.Result[0] = 1;
 	        	cdr.Result[1] = 1;
 	        	cdr.Result[2] = cdr.Prev[0];

@@ -99,12 +99,14 @@ typedef struct {
 	char Bios[256];
 	char BiosDir[MAXPATHLEN];
 	char PluginsDir[MAXPATHLEN];
+	char PatchesDir[MAXPATHLEN];
 	long Xa;
 	long Sio;
 	long Mdec;
 	long PsxAuto;
 	long PsxType;		/* NTSC or PAL */
 	long Cdda;
+	long AsyncCD;
 	long HLE;
 	long Cpu;
 	long Dbg;

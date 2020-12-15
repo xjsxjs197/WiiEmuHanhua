@@ -535,10 +535,6 @@ void fileBrowserFrame_LoadFile(int i)
 			sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
 			strcat(RomInfo,buffer);
 			unsigned char tracks[2];
-      Mooby2CDRgetTN(&tracks[0]);
-      sprintf(buffer,"Number of tracks %u\n", tracks[1]);
-			strcat(RomInfo,buffer);
-
 
 			switch (autoSaveLoaded)
 			{

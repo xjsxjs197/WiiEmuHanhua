@@ -109,9 +109,10 @@ typedef long (CALLBACK* CDRshutdown)(void);
 typedef long (CALLBACK* CDRopen)(void);
 typedef long (CALLBACK* CDRclose)(void);
 typedef long (CALLBACK* CDRgetTN)(unsigned char *);
-typedef long (CALLBACK* CDRgetTD)(unsigned char , unsigned char *);
+typedef long (CALLBACK* CDRgetTD)(unsigned char, unsigned char *);
 typedef long (CALLBACK* CDRreadTrack)(unsigned char *);
-typedef unsigned char * (CALLBACK* CDRgetBuffer)(void);
+typedef unsigned char* (CALLBACK* CDRgetBuffer)(void);
+typedef unsigned char* (CALLBACK* CDRgetBufferSub)(void);
 typedef long (CALLBACK* CDRconfigure)(void);
 typedef long (CALLBACK* CDRtest)(void);
 typedef void (CALLBACK* CDRabout)(void);
@@ -126,19 +127,17 @@ struct CdrStat {
 typedef long (CALLBACK* CDRgetStatus)(struct CdrStat *);
 typedef char* (CALLBACK* CDRgetDriveLetter)(void);
 struct SubQ {
-	char res0[11];
+	char res0[12];
 	unsigned char ControlAndADR;
 	unsigned char TrackNumber;
 	unsigned char IndexNumber;
 	unsigned char TrackRelativeAddress[3];
 	unsigned char Filler;
 	unsigned char AbsoluteAddress[3];
-	// add xjsxjs197 start
 	unsigned char CRC[2];
-	// add xjsxjs197 end
 	char res1[72];
 };
-typedef unsigned char* (CALLBACK* CDRgetBufferSub)(void);
+typedef long (CALLBACK* CDRreadCDDA)(unsigned char, unsigned char, unsigned char, unsigned char *);
 
 //cd rom function pointers
 CDRinit               CDR_init;
@@ -150,14 +149,15 @@ CDRgetTN              CDR_getTN;
 CDRgetTD              CDR_getTD;
 CDRreadTrack          CDR_readTrack;
 CDRgetBuffer          CDR_getBuffer;
+CDRgetBufferSub       CDR_getBufferSub;
 CDRplay               CDR_play;
 CDRstop               CDR_stop;
 CDRgetStatus          CDR_getStatus;
 CDRgetDriveLetter     CDR_getDriveLetter;
-CDRgetBufferSub       CDR_getBufferSub;
 CDRconfigure          CDR_configure;
 CDRabout              CDR_about;
 CDRsetfilename        CDR_setfilename;
+CDRreadCDDA           CDR_readCDDA;
 
 // spu plugin
 typedef long (CALLBACK* SPUinit)(void);

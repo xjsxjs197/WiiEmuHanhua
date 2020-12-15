@@ -31,9 +31,6 @@ static u32 fill_buffer, play_buffer;
 
 static void aesnd_callback(AESNDPB* voice, u32 state);
 
-// add xjsxjs197 start
-unsigned long bytes_buffered = 0;
-// add xjsxjs197 end
 
 void SetVolume(void)
 {
@@ -71,17 +68,17 @@ void RemoveSound(void)
 
 unsigned long SoundGetBytesBuffered(void)
 {
-    // upd xjsxjs197 start
-	/*unsigned long bytes_buffered = 0, i = fill_buffer;
+	unsigned long bytes_buffered = 0, i = fill_buffer;
 	while(1) {
 		bytes_buffered += buffers[i].len;
 
 		if(i == play_buffer) break;
 
+        // upd xjsxjs197 start
 		//i = (i + NUM_BUFFERS - 1) % NUM_BUFFERS;
 		i = (i + NUM_BUFFERS - 1) & 3;
-	}*/
-	// upd xjsxjs197 end
+		// upd xjsxjs197 end
+	}
 
 	return bytes_buffered;
 }
@@ -93,7 +90,6 @@ static void aesnd_callback(AESNDPB* voice, u32 state){
 					buffers[play_buffer].buffer, buffers[play_buffer].len);
             // upd xjsxjs197 start
 			//play_buffer = (play_buffer + 1) % NUM_BUFFERS;
-			bytes_buffered -= buffers[play_buffer].len;
 			play_buffer = (play_buffer + 1) & 3;
 			// upd xjsxjs197 end
 		}
@@ -111,7 +107,6 @@ void SoundFeedStreamData(unsigned char* pSound,long lBytes)
 	buffers[fill_buffer].len = lBytes;
 	// upd xjsxjs197 start
 	//fill_buffer = (fill_buffer + 1) % NUM_BUFFERS;
-	bytes_buffered += buffers[fill_buffer].len;
 	fill_buffer = (fill_buffer + 1) & 3;
 	// upd xjsxjs197 end
 

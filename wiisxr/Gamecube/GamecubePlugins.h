@@ -305,6 +305,35 @@ unsigned char * CALLBACK Mooby2CDRgetBuffer(void);
 	      (void*)Mooby2CDRgetBufferSub} \
 	       } }
 
+#define CDR_ISO_PLUGIN \
+	{ "CDR",      \
+	  12,         \
+	  { { "CDRinit",  \
+	      (void*)CDR_init }, \
+	    { "CDRshutdown",	\
+	      (void*)CDR_shutdown}, \
+	    { "CDRopen", \
+	      (void*)CDR_open}, \
+	    { "CDRclose", \
+	      (void*)CDR_close}, \
+	    { "CDRgetTN", \
+	      (void*)CDR_getTN}, \
+	    { "CDRgetTD", \
+	      (void*)CDR_getTD}, \
+	    { "CDRreadTrack", \
+	      (void*)CDR_readTrack}, \
+	    { "CDRgetBuffer", \
+	      (void*)CDR_getBuffer}, \
+	    { "CDRplay", \
+	      (void*)CDR_play}, \
+	    { "CDRstop", \
+	      (void*)CDR_stop}, \
+	    { "CDRgetStatus", \
+	      (void*)CDR_getStatus}, \
+	    { "CDRgetBufferSub", \
+	      (void*)CDR_getBufferSub} \
+	       } }
+
 #define CDR_PLUGIN \
 	{ "CDR",      \
 	  12,         \
@@ -521,7 +550,8 @@ unsigned char * CALLBACK Mooby2CDRgetBuffer(void);
 //#define PLUGIN_SLOT_2 PAD2_PLUGIN
 #define PLUGIN_SLOT_2 SSS_PAD2_PLUGIN
 //#define PLUGIN_SLOT_3 CDR_PLUGIN
-#define PLUGIN_SLOT_3 MOOBY28_CDR_PLUGIN
+//#define PLUGIN_SLOT_3 MOOBY28_CDR_PLUGIN
+#define PLUGIN_SLOT_3 CDR_ISO_PLUGIN
 //#define PLUGIN_SLOT_4 SPU_NULL_PLUGIN
 //#define PLUGIN_SLOT_4 SPU_PEOPS_PLUGIN
 #define PLUGIN_SLOT_4 FRANSPU_PLUGIN
