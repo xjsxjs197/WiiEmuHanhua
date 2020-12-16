@@ -175,18 +175,19 @@ typedef void (CALLBACK* SPUsetPitch)(unsigned char, unsigned short);
 typedef void (CALLBACK* SPUsetVolumeL)(unsigned char, short );
 typedef void (CALLBACK* SPUsetVolumeR)(unsigned char, short );
 //psemu pro 2 functions from now..
-typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short);
+typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short, unsigned int);
 typedef unsigned short (CALLBACK* SPUreadRegister)(unsigned long);
 typedef void (CALLBACK* SPUwriteDMA)(unsigned short);
 typedef unsigned short (CALLBACK* SPUreadDMA)(void);
-typedef void (CALLBACK* SPUwriteDMAMem)(unsigned short *, int);
-typedef void (CALLBACK* SPUreadDMAMem)(unsigned short *, int);
+typedef void (CALLBACK* SPUwriteDMAMem)(unsigned short *, int, unsigned int);
+typedef void (CALLBACK* SPUreadDMAMem)(unsigned short *, int, unsigned int);
 typedef void (CALLBACK* SPUplayADPCMchannel)(xa_decode_t *);
 // add xjsxjs197 start
 // CDDA AUDIO
 typedef int (CALLBACK* SPUplayCDDAchannel)(short *pcm, int nbytes);
 // add xjsxjs197 end
 typedef void (CALLBACK* SPUregisterCallback)(void (CALLBACK *callback)(void));
+typedef void (CALLBACK* SPUregisterScheduleCb)(void (CALLBACK *callback)(unsigned int));
 typedef void (CALLBACK* SPUregisterCDDAVolume)(void (*CDDAVcallback)(unsigned short,unsigned short));
 typedef long (CALLBACK* SPUconfigure)(void);
 typedef long (CALLBACK* SPUtest)(void);
@@ -194,13 +195,13 @@ typedef void (CALLBACK* SPUabout)(void);
 typedef struct
 {
  char          szSPUName[8];
- unsigned long ulFreezeVersion;
- unsigned long ulFreezeSize;
+ uint32_t ulFreezeVersion;
+ uint32_t ulFreezeSize;
  unsigned char cSPUPort[0x200];
- //unsigned char cSPURam[0x80000];
+ unsigned char cSPURam[0x80000];
  xa_decode_t   xaS;
 } SPUFreeze_t;
-typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *);
+typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *, uint32_t);
 typedef void (CALLBACK* SPUasync)(uint32_t, long);
 
 //SPU POINTERS
@@ -235,6 +236,7 @@ SPUplayCDDAchannel  SPU_playCDDAchannel;
 // add xjsxjs197 end
 SPUfreeze           SPU_freeze;
 SPUregisterCallback SPU_registerCallback;
+SPUregisterScheduleCb SPU_registerScheduleCb;
 SPUregisterCDDAVolume SPU_registerCDDAVolume;
 SPUasync            SPU_async;
 

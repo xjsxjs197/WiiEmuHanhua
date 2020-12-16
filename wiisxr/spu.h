@@ -25,7 +25,7 @@
 #include "r3000a.h"
 #include "psxmem.h"
 
-#define CALLBACK  
+#define CALLBACK
 
 #define H_SPUirqAddr     0x0da4
 #define H_SPUaddr        0x0da6
@@ -38,5 +38,7 @@
 #define H_SPUoff2        0x0d8e
 
 void CALLBACK SPUirq(void);
+void CALLBACK SPUschedule(unsigned int cycles_after);
+void spuUpdate();
 
 #endif /* __SPU_H__ */

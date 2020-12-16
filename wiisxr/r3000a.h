@@ -133,10 +133,30 @@ typedef struct {
     u32 code;			/* The instruction */
 	u32 cycle;
 	u32 interrupt;
-	u32 intCycle[32];
+	//u32 intCycle[32];
+	struct { u32 sCycle, cycle; } intCycle[32];
 } psxRegisters;
 
 extern psxRegisters psxRegs;
+
+enum {
+	PSXINT_SIO = 0,
+	PSXINT_CDR,
+	PSXINT_CDREAD,
+	PSXINT_GPUDMA,
+	PSXINT_MDECOUTDMA,
+	PSXINT_SPUDMA,
+	PSXINT_GPUBUSY,
+	PSXINT_MDECINDMA,
+	PSXINT_GPUOTCDMA,
+	PSXINT_CDRDMA,
+	PSXINT_NEWDRC_CHECK,
+	PSXINT_RCNT,
+	PSXINT_CDRLID,
+	PSXINT_CDRPLAY,
+	PSXINT_SPU_UPDATE,
+	PSXINT_COUNT
+};
 
 #if defined(HW_RVL) || defined(HW_DOL) || defined(BIG_ENDIAN)
 
@@ -165,11 +185,11 @@ extern psxRegisters psxRegs;
 /**** R3000A Instruction Macros ****/
 #define _PC_       psxRegs.pc       // The next PC to be executed
 
-#define _fOp_(code)		((code >> 26)       )  // The opcode part of the instruction register 
-#define _fFunct_(code)	((code      ) & 0x3F)  // The funct part of the instruction register 
-#define _fRd_(code)		((code >> 11) & 0x1F)  // The rd part of the instruction register 
-#define _fRt_(code)		((code >> 16) & 0x1F)  // The rt part of the instruction register 
-#define _fRs_(code)		((code >> 21) & 0x1F)  // The rs part of the instruction register 
+#define _fOp_(code)		((code >> 26)       )  // The opcode part of the instruction register
+#define _fFunct_(code)	((code      ) & 0x3F)  // The funct part of the instruction register
+#define _fRd_(code)		((code >> 11) & 0x1F)  // The rd part of the instruction register
+#define _fRt_(code)		((code >> 16) & 0x1F)  // The rt part of the instruction register
+#define _fRs_(code)		((code >> 21) & 0x1F)  // The rs part of the instruction register
 #define _fSa_(code)		((code >>  6) & 0x1F)  // The sa part of the instruction register
 #define _fIm_(code)		((u16)code)            // The immediate part of the instruction register
 #define _fTarget_(code)	(code & 0x03ffffff)    // The target part of the instruction register

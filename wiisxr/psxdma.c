@@ -45,7 +45,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
                 PRINT_LOG("*** DMA4 SPU - mem2spu *** NULL Pointer!!!");
 				break;
 			}
-			SPU_writeDMAMem(ptr, (bcr >> 16) * (bcr & 0xffff) * 2);
+			SPU_writeDMAMem(ptr, (bcr >> 16) * (bcr & 0xffff) * 2, psxRegs.cycle);
 			break;
 
 		case 0x01000200: //spu to cpu transfer
@@ -62,7 +62,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 				break;
 			}
 			size = (bcr >> 16) * (bcr & 0xffff) * 2;
-    		SPU_readDMAMem(ptr, size);
+    		SPU_readDMAMem(ptr, size, psxRegs.cycle);
 			psxCpu->Clear(madr, size);
 			break;
 

@@ -1901,14 +1901,14 @@ static void recLHU() {
 					case 0x1f801104: case 0x1f801114: case 0x1f801124:
 						if (!_Rt_) return;
 
-						LIW(PutHWReg32(_Rt_), (u32)&psxCounters[(addr >> 4) & 0x3].mode);
+						LIW(PutHWReg32(_Rt_), (u32)&rcnts[(addr >> 4) & 0x3].mode);
 						LWZ(PutHWReg32(_Rt_), 0, GetHWReg32(_Rt_));
 						return;
 
 					case 0x1f801108: case 0x1f801118: case 0x1f801128:
 						if (!_Rt_) return;
 
-						LIW(PutHWReg32(_Rt_), (u32)&psxCounters[(addr >> 4) & 0x3].target);
+						LIW(PutHWReg32(_Rt_), (u32)&rcnts[(addr >> 4) & 0x3].target);
 						LWZ(PutHWReg32(_Rt_), 0, GetHWReg32(_Rt_));
 						return;
 					}

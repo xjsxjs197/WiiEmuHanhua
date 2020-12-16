@@ -61,9 +61,9 @@ char Mcd1Data[MCD_SIZE], Mcd2Data[MCD_SIZE];
 // 4us * 8bits = ((PSXCLK / 1000000) * 32) / BIAS; (linuzappz)
 #define SIO_INT() { \
 	if (!Config.Sio) { \
-		psxRegs.interrupt|= 0x80; \
-		psxRegs.intCycle[7+1] = 200; /*270;*/ \
-		psxRegs.intCycle[7] = psxRegs.cycle; \
+		psxRegs.interrupt |= (1 << PSXINT_SIO); \
+		psxRegs.intCycle[PSXINT_SIO].cycle = 200; \
+		psxRegs.intCycle[PSXINT_SIO].sCycle = psxRegs.cycle; \
 	} \
 }
 
@@ -308,7 +308,7 @@ void sioWriteCtrl16(unsigned short value) {
 	if ((CtrlReg & SIO_RESET) || (!CtrlReg)) {
 		padst = 0; mcdst = 0; parp = 0;
 		StatReg = TX_RDY | TX_EMPTY;
-		psxRegs.interrupt&=~0x80;
+		psxRegs.interrupt&=~(1 << PSXINT_SIO);
 	}
 }
 

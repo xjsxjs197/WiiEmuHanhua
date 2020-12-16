@@ -141,13 +141,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801104:
-			hard = psxCounters[0].mode;
+			hard = psxRcntRmode(0);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801108:
-			hard = psxCounters[0].target;
+			hard = psxRcntRtarget(0);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 target read16: %x\n", hard);
 #endif
@@ -159,13 +159,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801114:
-			hard = psxCounters[1].mode;
+			hard = psxRcntRmode(1);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801118:
-			hard = psxCounters[1].target;
+			hard = psxRcntRtarget(1);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 target read16: %x\n", hard);
 #endif
@@ -177,13 +177,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801124:
-			hard = psxCounters[2].mode;
+			hard = psxRcntRmode(2);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801128:
-			hard = psxCounters[2].target;
+			hard = psxRcntRtarget(2);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 target read16: %x\n", hard);
 #endif
@@ -308,13 +308,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801104:
-			hard = psxCounters[0].mode;
+			hard = psxRcntRmode(0);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801108:
-			hard = psxCounters[0].target;
+			hard = psxRcntRtarget(0);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 target read32: %lx\n", hard);
 #endif
@@ -326,13 +326,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801114:
-			hard = psxCounters[1].mode;
+			hard = psxRcntRmode(1);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801118:
-			hard = psxCounters[1].target;
+			hard = psxRcntRtarget(1);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 target read32: %lx\n", hard);
 #endif
@@ -344,13 +344,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801124:
-			hard = psxCounters[2].mode;
+			hard = psxRcntRmode(2);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801128:
-			hard = psxCounters[2].target;
+			hard = psxRcntRtarget(2);
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 target read32: %lx\n", hard);
 #endif
@@ -513,7 +513,7 @@ void psxHwWrite16(u32 add, u16 value) {
 
 		default:
 			if (add>=0x1f801c00 && add<0x1f801e00) {
-            	SPU_writeRegister(add, value);
+            	SPU_writeRegister(add, value, psxRegs.cycle);
 				return;
 			}
 
@@ -807,6 +807,13 @@ void psxHwWrite32(u32 add, u32 value) {
 			psxRcntWtarget(2, value & 0xffff); return;
 
 		default:
+		    // Dukes of Hazard 2 - car engine noise
+			if (add>=0x1f801c00 && add<0x1f801e00) {
+				SPU_writeRegister(add, value&0xffff, psxRegs.cycle);
+				SPU_writeRegister(add + 2, value>>16, psxRegs.cycle);
+				return;
+			}
+
 		    // upd xjsxjs197 start
 			//psxHu32ref(add) = SWAPu32(value);
 			STORE_SWAP32p(psxHAddr(add), value);

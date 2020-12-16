@@ -24,8 +24,8 @@ GPU = Soft
 TARGET		:=	WiiSXRX_debug
 BUILD		:=	build_debug
 SOURCES		:=	../lang \
-                . ../cdrmooby28/ ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ ../franspu/ \
-				./libgui/gui2
+                . ../cdrmooby28/ ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ \
+				./libgui/gui2 ../dfsound/
 
 DATA		:=	data
 
