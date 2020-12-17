@@ -660,17 +660,21 @@ static void Return()
 {
 	iFlushRegs(0);
 	FlushAllHWReg();
-	LIW(0, (u32)returnPC);
-	MTLR(0);
-	BLR();
-
+	if (((u32)returnPC & 0x1fffffc) == (u32)returnPC) {
+		BA((u32)returnPC);
+	}
+	else {
+		LIW(0, (u32)returnPC);
+		MTLR(0);
+		BLR();
+	}
 }
 
 static void iRet() {
     /* store cycle */
     // upd xjsxjs197 start
     //count = idlecyclecount + (pc - pcold)/4;
-    count = idlecyclecount + (pc - pcold) >> 2;
+    count = (idlecyclecount + (pc - pcold) >> 2) << 1;
     // upd xjsxjs197 end
     ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
     Return();
@@ -725,7 +729,7 @@ static void SetBranch() {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = (idlecyclecount + (pc - pcold) >> 2) << 1;
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -751,7 +755,7 @@ static void SetBranch() {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = (idlecyclecount + (pc - pcold) >> 2) << 1;
 	// upd xjsxjs197 end
         ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();
@@ -774,7 +778,7 @@ static void iJump(u32 branchPC) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = (idlecyclecount + (pc - pcold) >> 2) << 1;
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -796,7 +800,7 @@ static void iJump(u32 branchPC) {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = (idlecyclecount + (pc - pcold) >> 2) << 1;
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
@@ -860,7 +864,7 @@ static void iBranch(u32 branchPC, int savectx) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + ((pc+4) - pcold)/4;
-		count = idlecyclecount + ((pc + 4) - pcold) >> 2;
+		count = (idlecyclecount + ((pc + 4) - pcold) >> 2) << 1;
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -884,7 +888,7 @@ static void iBranch(u32 branchPC, int savectx) {
 	/* store cycle */
 	// upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = (idlecyclecount + (pc - pcold) >> 2) << 1;
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
@@ -1900,16 +1904,28 @@ static void recLHU() {
 
 					case 0x1f801104: case 0x1f801114: case 0x1f801124:
 						if (!_Rt_) return;
-
-						LIW(PutHWReg32(_Rt_), (u32)&rcnts[(addr >> 4) & 0x3].mode);
-						LWZ(PutHWReg32(_Rt_), 0, GetHWReg32(_Rt_));
+						
+                        ReserveArgs(1);
+                        LIW(PutHWRegSpecial(ARG1), (addr >> 4) & 0x3);
+                        DisposeHWReg(iRegs[_Rt_].reg);
+                        InvalidateCPURegs();
+                        CALLFunc((u32)psxRcntRmode);
+                        
+                        SetDstCPUReg(3);
+                        PutHWReg32(_Rt_);
 						return;
-
+	
 					case 0x1f801108: case 0x1f801118: case 0x1f801128:
 						if (!_Rt_) return;
 
-						LIW(PutHWReg32(_Rt_), (u32)&rcnts[(addr >> 4) & 0x3].target);
-						LWZ(PutHWReg32(_Rt_), 0, GetHWReg32(_Rt_));
+                        ReserveArgs(1);
+                        LIW(PutHWRegSpecial(ARG1), (addr >> 4) & 0x3);
+                        DisposeHWReg(iRegs[_Rt_].reg);
+                        InvalidateCPURegs();
+                        CALLFunc((u32)psxRcntRtarget);
+                        
+                        SetDstCPUReg(3);
+                        PutHWReg32(_Rt_);
 						return;
 					}
 		}
@@ -2708,7 +2724,7 @@ static void recHLE() {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4 + 20;
-	count = idlecyclecount + ((pc - pcold) >> 2) + 20;
+	count = (idlecyclecount + ((pc - pcold) >> 2) + 20) << 1;
 	// upd xjsxjs197 end
 	ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();

@@ -70,7 +70,7 @@ void SetupSound(void)
 	//}
 
 	out_current = &out_drivers[0];
-	printf("selected sound output driver: %s\n", out_current->name);
+	//printf("selected sound output driver: %s\n", out_current->name);
 }
 
 void CubeSoundInit(void)

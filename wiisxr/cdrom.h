@@ -14,11 +14,15 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 #ifndef __CDROM_H__
 #define __CDROM_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "psxcommon.h"
 #include "decode_xa.h"
@@ -27,8 +31,10 @@
 #include "psxmem.h"
 #include "psxhw.h"
 
-#define btoi(b)     ((b) / 16 * 10 + (b) % 16) /* BCD to u_char */
-#define itob(i)     ((i) / 10 * 16 + (i) % 10) /* u_char to BCD */
+//#define btoi(b)     ((b) / 16 * 10 + (b) % 16) /* BCD to u_char */
+#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15)) /* BCD to u_char */
+//#define itob(i)     ((i) / 10 * 16 + (i) % 10) /* u_char to BCD */
+#define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 
 #define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
 
@@ -47,22 +53,20 @@ typedef struct {
 
 	unsigned char StatP;
 
-	unsigned char Transfer[2352];
-	unsigned char *pTransfer;
-
-    // add xjsxjs197 start
-    struct {
+	unsigned char Transfer[DATA_SIZE];
+	struct {
 		unsigned char Track;
 		unsigned char Index;
 		unsigned char Relative[3];
 		unsigned char Absolute[3];
 	} subq;
 	unsigned char TrackChanged;
-	// add xjsxjs197 end
+	unsigned char pad1[3];
+	unsigned int  freeze_ver;
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
-	unsigned char Result[8];
+	unsigned char Result[16];
 
 	unsigned char ParamC;
 	unsigned char ParamP;
@@ -71,21 +75,18 @@ typedef struct {
 	unsigned char ResultReady;
 	unsigned char Cmd;
 	unsigned char Readed;
-	unsigned long Reading;
+	unsigned char SetlocPending;
+	u32 Reading;
 
 	unsigned char ResultTN[6];
 	unsigned char ResultTD[4];
-	// add xjsxjs197 start
-	unsigned char SetlocPending;
 	unsigned char SetSectorPlay[4];
 	unsigned char SetSectorEnd[4];
-	// add xjsxjs197 end
 	unsigned char SetSector[4];
-	unsigned char SetSectorSeek[4];
 	unsigned char Track;
-	int Play;
+	bool Play, Muted;
 	int CurTrack;
-	int Mode, File, Channel, Muted;
+	int Mode, File, Channel;
 	int Reset;
 	int RErr;
 	int FirstSector;
@@ -94,19 +95,35 @@ typedef struct {
 
 	int Init;
 
-	unsigned char Irq;
-	unsigned long eCycle;
+	u16 Irq;
+	u8 IrqRepeated;
+	u32 eCycle;
 
-	int Seeked;
+	u8 Seeked;
 
-	char Unused[4083];
+	u8 DriveState;
+	u8 FastForward;
+	u8 FastBackward;
+	u8 pad;
+
+	u8 AttenuatorLeftToLeft, AttenuatorLeftToRight;
+	u8 AttenuatorRightToRight, AttenuatorRightToLeft;
+	u8 AttenuatorLeftToLeftT, AttenuatorLeftToRightT;
+	u8 AttenuatorRightToRightT, AttenuatorRightToLeftT;
 } cdrStruct;
 
-cdrStruct cdr;
+extern cdrStruct cdr;
 
 void cdrReset();
+void cdrAttenuate(s16 *buf, int samples, int stereo);
+
 void cdrInterrupt();
 void cdrReadInterrupt();
+void cdrRepplayInterrupt();
+void cdrLidSeekInterrupt();
+void cdrPlayInterrupt();
+void cdrDmaInterrupt();
+void LidInterrupt();
 unsigned char cdrRead0(void);
 unsigned char cdrRead1(void);
 unsigned char cdrRead2(void);
@@ -117,4 +134,7 @@ void cdrWrite2(unsigned char rt);
 void cdrWrite3(unsigned char rt);
 int cdrFreeze(gzFile f, int Mode);
 
-#endif /* __CDROM_H__ */
+#ifdef __cplusplus
+}
+#endif
+#endif

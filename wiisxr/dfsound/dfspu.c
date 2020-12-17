@@ -1139,7 +1139,7 @@ void do_samples(unsigned int cycles_to, int do_direct)
   if (unlikely((spu.spuCtrl & CTRL_IRQ)
        && spu.pSpuIrq < spu.spuMemC+0x1000))
    {
-    int irq_pos = (spu.pSpuIrq - spu.spuMemC) / 2 & 0x1ff;
+    int irq_pos = ((spu.pSpuIrq - spu.spuMemC) >> 1) & 0x1ff;
     int left = (irq_pos - spu.decode_pos) & 0x1ff;
     if (0 < left && left <= ns_to)
      {
@@ -1234,7 +1234,7 @@ void schedule_next_irq(void)
 
  if (unlikely(spu.pSpuIrq < spu.spuMemC + 0x1000))
  {
-  int irq_pos = (spu.pSpuIrq - spu.spuMemC) / 2 & 0x1ff;
+  int irq_pos = ((spu.pSpuIrq - spu.spuMemC) >> 1) & 0x1ff;
   int left = (irq_pos - spu.decode_pos) & 0x1ff;
   if (0 < left && left < upd_samples) {
    //xprintf("decode: %3d (%3d/%3d)\n", left, spu.decode_pos, irq_pos);
@@ -1260,6 +1260,7 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
 
  if (flags & 1) {
   out_current->feed(spu.pSpuBuffer, (unsigned char *)spu.pS - spu.pSpuBuffer);
+  spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer = ((spu.whichBuffer + 1) & 3)];
   spu.pS = (short *)spu.pSpuBuffer;
 
   if (spu_config.iTempo) {
@@ -1313,7 +1314,9 @@ void ClearWorkingState(void)
 // SETUPSTREAMS: init most of the spu buffers
 static void SetupStreams(void)
 {
- spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
+ //spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
+ spu.whichBuffer = 0;
+ spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer];            // alloc mixing buffer
  spu.SSumLR = calloc(NSSIZE * 2, sizeof(spu.SSumLR[0]));
 
  spu.XAStart =                                         // alloc xa buffer
@@ -1334,8 +1337,8 @@ static void SetupStreams(void)
 // REMOVESTREAMS: free most buffer
 static void RemoveStreams(void)
 {
- free(spu.pSpuBuffer);                                 // free mixing buffer
- spu.pSpuBuffer = NULL;
+ //free(spu.pSpuBuffer);                                 // free mixing buffer
+ //spu.pSpuBuffer = NULL;
  free(spu.SSumLR);
  spu.SSumLR = NULL;
  free(spu.XAStart);                                    // free XA buffer

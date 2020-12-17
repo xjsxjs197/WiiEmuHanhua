@@ -14,11 +14,15 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 #ifndef __PSXHW_H__
 #define __PSXHW_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "psxcommon.h"
 #include "r3000a.h"
@@ -53,6 +57,9 @@
 #define HW_DMA_PCR   (psxHu32ref(0x10f0))
 #define HW_DMA_ICR   (psxHu32ref(0x10f4))
 
+#define HW_DMA_ICR_BUS_ERROR     (1<<15)
+#define HW_DMA_ICR_GLOBAL_ENABLE (1<<23)
+#define HW_DMA_ICR_IRQ_SENT      (1<<31)
 // upd xjsxjs197 start
 //#define	DMA_INTERRUPT(n) \
 //	if (SWAPu32(HW_DMA_ICR) & (1 << (16 + n))) { \
@@ -60,29 +67,36 @@
 //		psxHu32ref(0x1070) |= SWAP32(8);                \
 //		psxRegs.interrupt|= 0x80000000;                 \
 //	}
+//#define	DMA_INTERRUPT(n) \
+//	if (LOAD_SWAP32p(psxHAddr(0x10f4)) & (1 << (16 + n))) { \
+//      STORE_SWAP32p(tmpAddr, 1 << (24 + n)); \
+//		HW_DMA_ICR |= tmpAddr[0]; \
+//		psxHu32ref(0x1070) |= SWAP32(8);                \
+//		psxRegs.interrupt |= 0x80000000;                 \
+//	}
+//#define DMA_INTERRUPT(n) { \
+//	u32 icr = SWAPu32(HW_DMA_ICR); \
+//	if (icr & (1 << (16 + n))) { \
+//		icr |= 1 << (24 + n); \
+//		if (icr & HW_DMA_ICR_GLOBAL_ENABLE && !(icr & HW_DMA_ICR_IRQ_SENT)) { \
+//			psxHu32ref(0x1070) |= SWAP32(8); \
+//			icr |= HW_DMA_ICR_IRQ_SENT; \
+//		} \
+//		HW_DMA_ICR = SWAP32(icr); \
+//	} \
+//}
 #define	DMA_INTERRUPT(n) \
-	if (LOAD_SWAP32p(psxHAddr(0x10f4)) & (1 << (16 + n))) { \
-        STORE_SWAP32p(tmpAddr, 1 << (24 + n)); \
-		HW_DMA_ICR |= tmpAddr[0]; \
-		psxHu32ref(0x1070) |= SWAP32(8);                \
-		psxRegs.interrupt |= 0x80000000;                 \
+    u32 icr = LOAD_SWAP32p(psxHAddr(0x10f4)); \
+	if (icr & (1 << (16 + n))) { \
+        icr |= 1 << (24 + n); \
+        if (icr & HW_DMA_ICR_GLOBAL_ENABLE && !(icr & HW_DMA_ICR_IRQ_SENT)) { \
+		    psxHu32ref(0x1070) |= SWAP32(8);                \
+		    icr |= HW_DMA_ICR_IRQ_SENT; \
+		} \
+		STORE_SWAP32p(psxHAddr(0x10f4), icr); \
 	}
-// upd xjsxjs197 start
+// upd xjsxjs197 end
 
-// add xjsxjs197 start
-#define PSXGPU_LCF     (1<<31)
-#define PSXGPU_nBUSY   (1<<26)
-
-#define HW_GPU_STATUS psxHu32ref(0x1814)
-
-// TODO: handle com too
-#define PSXGPU_TIMING_BITS (PSXGPU_LCF | PSXGPU_nBUSY)
-
-#define gpuSyncPluginSR() { \
-	HW_GPU_STATUS &= PSXGPU_TIMING_BITS; \
-	HW_GPU_STATUS |= GPU_readStatus() & ~PSXGPU_TIMING_BITS; \
-}
-// add xjsxjs197 end
 
 void psxHwReset();
 u8   psxHwRead8 (u32 add);
@@ -93,4 +107,7 @@ void psxHwWrite16(u32 add, u16 value);
 void psxHwWrite32(u32 add, u32 value);
 int psxHwFreeze(gzFile f, int Mode);
 
-#endif /* __PSXHW_H__ */
+#ifdef __cplusplus
+}
+#endif
+#endif

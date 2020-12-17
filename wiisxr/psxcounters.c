@@ -87,7 +87,7 @@ static inline
 void setIrq( u32 irq )
 {
     psxHu32ref(0x1070) |= SWAPu32(irq);
-    psxRegs.interrupt|= 0x80000000;
+    //psxRegs.interrupt|= 0x80000000;
 }
 
 static
@@ -345,10 +345,10 @@ void psxRcntUpdate()
                 SPU_async( cycle, 1 );
             }
         }
-        else { // VSync Start (240 hsyncs)
-			psxHu32ref(0x1070)|= SWAPu32(1);
-			psxRegs.interrupt|= 0x80000000;
-		}
+        //else { // VSync Start (240 hsyncs)
+		//	psxHu32ref(0x1070)|= SWAPu32(1);
+		//	psxRegs.interrupt|= 0x80000000;
+		//}
 
         // Update lace. (with InuYasha fix)
         if( hSyncCount >= (Config.VSyncWA ? HSyncTotal[Config.PsxType] / BIAS : HSyncTotal[Config.PsxType]) )

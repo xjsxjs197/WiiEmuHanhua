@@ -25,7 +25,7 @@
 
 void CALLBACK SPUirq(void) {
 	psxHu32ref(0x1070)|= SWAPu32(0x200);
-	psxRegs.interrupt|= 0x80000000;
+	//psxRegs.interrupt|= 0x80000000;
 }
 
 // spuUpdate

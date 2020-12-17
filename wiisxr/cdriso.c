@@ -113,11 +113,11 @@ static int numtracks = 0;
 static struct trackinfo ti[MAXTRACKS];
 
 // get a sector from a msf-array
-static unsigned int msf2sec(char *msf) {
+static inline unsigned int msf2sec(char *msf) {
 	return ((msf[0] * 60 + msf[1]) * 75) + msf[2];
 }
 
-static void sec2msf(unsigned int s, char *msf) {
+static inline void sec2msf(unsigned int s, char *msf) {
 	msf[0] = s / 75 / 60;
 	s = s - msf[0] * 75 * 60;
 	msf[1] = s / 75;
@@ -126,7 +126,7 @@ static void sec2msf(unsigned int s, char *msf) {
 }
 
 // divide a string of xx:yy:zz into m, s, f
-static void tok2msf(char *time, char *msf) {
+static inline void tok2msf(char *time, char *msf) {
 	char *token;
 
 	token = strtok(time, ":");
@@ -249,6 +249,7 @@ static void *playthread(void *param)
 	}
 
 	//pthread_exit(0);  // TODO
+	LWP_JoinThread(threadid, NULL);
 	return NULL;
 }
 
@@ -258,10 +259,11 @@ static void stopCDDA() {
 		return;
 	}
 
+    PRINT_LOG("========stopCDDA========");
 	playing = FALSE;
 
 	//pthread_join(threadid, NULL);
-	LWP_SuspendThread(threadid);
+	LWP_JoinThread(threadid, NULL);
 }
 
 // start the CDDA playback
@@ -270,6 +272,7 @@ static void startCDDA(void) {
 		stopCDDA();
 	}
 
+    PRINT_LOG("========startCDDA========");
 	playing = TRUE;
 
 	//pthread_create(&threadid, NULL, playthread, NULL);

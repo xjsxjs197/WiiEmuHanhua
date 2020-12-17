@@ -14,11 +14,15 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 #ifndef __MISC_H__
 #define __MISC_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "psxcommon.h"
 #include "coff.h"
@@ -65,7 +69,13 @@ int CheckState();
 int SendPcsxInfo();
 int RecvPcsxInfo();
 
+void trim(char *str);
+u16 calcCrc(u8 *d, int len);
+
 extern char *LabelAuthors;
 extern char *LabelGreets;
 
-#endif /* __MISC_H__ */
+#ifdef __cplusplus
+}
+#endif
+#endif

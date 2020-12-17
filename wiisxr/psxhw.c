@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 /*
@@ -36,12 +36,12 @@ char debug[256];
 // add xjsxjs197 end
 
 void psxHwReset() {
-    if (Config.Sio) psxHu32ref(0x1070) |= SWAP32(0x80);
-    if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAP32(0x200);
+	if (Config.Sio) psxHu32ref(0x1070) |= SWAP32(0x80);
+	if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAP32(0x200);
 
 	memset(psxH, 0, 0x10000);
 
-	mdecInit(); //intialize mdec decoder
+	mdecInit(); // initialize mdec decoder
 	cdrReset();
 	psxRcntInit();
 }
@@ -57,11 +57,6 @@ u8 psxHwRead8(u32 add) {
 		case 0x1f801801: hard = cdrRead1(); break;
 		case 0x1f801802: hard = cdrRead2(); break;
 		case 0x1f801803: hard = cdrRead3(); break;
-
-		case 0x1f8010f6: // DMA Interrupt Control
-            hard = psxHu8(add);
-            break;
-
 		default:
 			hard = psxHu8(add);
 #ifdef PSXHW_LOG
@@ -81,20 +76,14 @@ u16 psxHwRead16(u32 add) {
 	unsigned short hard;
 
 	switch (add) {
-
-		case 0x1f801070:
-		    #ifdef PSXHW_LOG
-		    PSXHW_LOG("IREG 16bit read %x\n", psxHu16(0x1070));
-		    #endif
-			//return psxHu16(0x1f801070);
-			return LOAD_SWAP16p(psxHAddr(add));
-
-		case 0x1f801074:
-		    #ifdef PSXHW_LOG
-		    PSXHW_LOG("IMASK 16bit read %x\n", psxHu16(0x1074));
-		    #endif
-			//return psxHu16(0x1f801074);
-			return LOAD_SWAP16p(psxHAddr(add));
+#ifdef PSXHW_LOG
+		case 0x1f801070: PSXHW_LOG("IREG 16bit read %x\n", psxHu16(0x1070));
+			return psxHu16(0x1070);
+#endif
+#ifdef PSXHW_LOG
+		case 0x1f801074: PSXHW_LOG("IMASK 16bit read %x\n", psxHu16(0x1074));
+			return psxHu16(0x1074);
+#endif
 
 		case 0x1f801040:
 			hard = sioRead8();
@@ -234,20 +223,14 @@ u32 psxHwRead32(u32 add) {
 			PSXHW_LOG("RAM size read %lx\n", psxHu32(0x1060));
 			return psxHu32(0x1060);
 #endif
-
-		case 0x1f801070:
-		    #ifdef PSXHW_LOG
-		    PSXHW_LOG("IREG 32bit read %x\n", psxHu32(0x1070));
-		    #endif
-			//return psxHu32(0x1070);
-			return LOAD_SWAP32p(psxHAddr(add));
-
-		case 0x1f801074:
-		    #ifdef PSXHW_LOG
-		    PSXHW_LOG("IMASK 32bit read %x\n", psxHu32(0x1074));
-		    #endif
-			//return psxHu32(0x1074);
-			return LOAD_SWAP32p(psxHAddr(add));
+#ifdef PSXHW_LOG
+		case 0x1f801070: PSXHW_LOG("IREG 32bit read %x\n", psxHu32(0x1070));
+			return psxHu32(0x1070);
+#endif
+#ifdef PSXHW_LOG
+		case 0x1f801074: PSXHW_LOG("IMASK 32bit read %x\n", psxHu32(0x1074));
+			return psxHu32(0x1074);
+#endif
 
 		case 0x1f801810:
 			hard = GPU_readData();
@@ -265,31 +248,29 @@ u32 psxHwRead32(u32 add) {
 		case 0x1f801820: hard = mdecRead0(); break;
 		case 0x1f801824: hard = mdecRead1(); break;
 
+#ifdef PSXHW_LOG
 		case 0x1f8010a0:
-			//PSXHW_LOG("DMA2 MADR 32bit read %lx\n", psxHu32(0x10a0));
-			//return SWAPu32(HW_DMA2_MADR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA2 MADR 32bit read %x\n", psxHu32(0x10a0));
+			return SWAPu32(HW_DMA2_MADR);
 		case 0x1f8010a4:
-			//PSXHW_LOG("DMA2 BCR 32bit read %lx\n", psxHu32(0x10a4));
-			//return SWAPu32(HW_DMA2_BCR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA2 BCR 32bit read %x\n", psxHu32(0x10a4));
+			return SWAPu32(HW_DMA2_BCR);
 		case 0x1f8010a8:
-			//PSXHW_LOG("DMA2 CHCR 32bit read %lx\n", psxHu32(0x10a8));
-			//return SWAPu32(HW_DMA2_CHCR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA2 CHCR 32bit read %x\n", psxHu32(0x10a8));
+			return SWAPu32(HW_DMA2_CHCR);
+#endif
 
+#ifdef PSXHW_LOG
 		case 0x1f8010b0:
-			//PSXHW_LOG("DMA3 MADR 32bit read %lx\n", psxHu32(0x10b0));
-			//return SWAPu32(HW_DMA3_MADR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA3 MADR 32bit read %x\n", psxHu32(0x10b0));
+			return SWAPu32(HW_DMA3_MADR);
 		case 0x1f8010b4:
-			//PSXHW_LOG("DMA3 BCR 32bit read %lx\n", psxHu32(0x10b4));
-			//return SWAPu32(HW_DMA3_BCR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA3 BCR 32bit read %x\n", psxHu32(0x10b4));
+			return SWAPu32(HW_DMA3_BCR);
 		case 0x1f8010b8:
-			//PSXHW_LOG("DMA3 CHCR 32bit read %lx\n", psxHu32(0x10b8));
-			//return SWAPu32(HW_DMA3_CHCR);
-			return LOAD_SWAP32p(psxHAddr(add));
+			PSXHW_LOG("DMA3 CHCR 32bit read %x\n", psxHu32(0x10b8));
+			return SWAPu32(HW_DMA3_CHCR);
+#endif
 
 #ifdef PSXHW_LOG
 /*		case 0x1f8010f0:
@@ -382,16 +363,12 @@ void psxHwWrite8(u32 add, u8 value) {
 		case 0x1f801802: cdrWrite2(value); break;
 		case 0x1f801803: cdrWrite3(value); break;
 
-        case 0x1f8010f6: // DMA Interrupt Control
-            psxHu8(add) = value;
-            break;
-
 		default:
 			psxHu8(add) = value;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 8bit write at address %lx value %x\n", add, value);
 #endif
-            PRINT_LOG2("psxHwWrite8 err: 0x%-08x 0x%-08x", add, value);
+            //PRINT_LOG2("psxHwWrite8 err: 0x%-08x 0x%-08x", add, value);
 			return;
 	}
 	psxHu8(add) = value;
@@ -460,7 +437,7 @@ void psxHwWrite16(u32 add, u16 value) {
 			//psxHu16ref(0x1074) = SWAPu16(value);
 			STORE_SWAP16p(psxHAddr(0x1074), value);
 			// upd xjsxjs197 end
-			psxRegs.interrupt|= 0x80000000;
+			//psxRegs.interrupt|= 0x80000000;
 			return;
 
 		case 0x1f801100:
@@ -600,7 +577,7 @@ void psxHwWrite32(u32 add, u32 value) {
 			//psxHu32ref(0x1074) = SWAPu32(value);
 			STORE_SWAP32p(psxHAddr(0x1074), value);
 			// upd xjsxjs197 end
-			psxRegs.interrupt|= 0x80000000;
+			//psxRegs.interrupt|= 0x80000000;
 			return;
 
 		case 0x1f801080:
@@ -736,8 +713,28 @@ void psxHwWrite32(u32 add, u32 value) {
 		    // upd xjsxjs197 start
 			//u32 tmp = (~value) & SWAPu32(HW_DMA_ICR);
 			//HW_DMA_ICR = SWAPu32(((tmp ^ value) & 0xffffff) ^ tmp);
-			u32 tmp = (~value) & LOAD_SWAP32p(psxHAddr(0x10f4));
-			STORE_SWAP32p(psxHAddr(0x10f4), (u32)(((tmp ^ value) & 0xffffff) ^ tmp));
+			//u32 tmp = (~value) & LOAD_SWAP32p(psxHAddr(0x10f4));
+			//STORE_SWAP32p(psxHAddr(0x10f4), (u32)(((tmp ^ value) & 0xffffff) ^ tmp));
+
+			/*u32 tmp = value & 0x00ff803f;
+			tmp |= (SWAPu32(HW_DMA_ICR) & ~value) & 0x7f000000;
+			if ((tmp & HW_DMA_ICR_GLOBAL_ENABLE && tmp & 0x7f000000)
+			    || tmp & HW_DMA_ICR_BUS_ERROR) {
+				if (!(SWAPu32(HW_DMA_ICR) & HW_DMA_ICR_IRQ_SENT))
+					psxHu32ref(0x1070) |= SWAP32(8);
+				tmp |= HW_DMA_ICR_IRQ_SENT;
+			}
+			HW_DMA_ICR = SWAPu32(tmp);*/
+			u32 tmp = value & 0x00ff803f;
+			tmpVal = LOAD_SWAP32p(psxHAddr(0x10f4));
+			tmp |= (tmpVal & ~value) & 0x7f000000;
+			if ((tmp & HW_DMA_ICR_GLOBAL_ENABLE && tmp & 0x7f000000)
+			    || tmp & HW_DMA_ICR_BUS_ERROR) {
+				if (!(tmpVal & HW_DMA_ICR_IRQ_SENT))
+					psxHu32ref(0x1070) |= SWAP32(8);
+				tmp |= HW_DMA_ICR_IRQ_SENT;
+			}
+			STORE_SWAP32p(psxHAddr(0x10f4), tmp);
 			// upd xjsxjs197 end
 			return;
 		}

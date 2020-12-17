@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
  ***************************************************************************/
 
 /*
@@ -189,7 +189,42 @@ void psxBranchTest() {
 				mdec1Interrupt();
 			}
 		}
-
+		if (psxRegs.interrupt & (1 << PSXINT_SPUDMA)) { // spu dma
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_SPUDMA].sCycle) >= psxRegs.intCycle[PSXINT_SPUDMA].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_SPUDMA);
+				spuInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_MDECINDMA)) { // mdec in
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_MDECINDMA].sCycle) >= psxRegs.intCycle[PSXINT_MDECINDMA].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_MDECINDMA);
+				mdec0Interrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_GPUOTCDMA)) { // gpu otc
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_GPUOTCDMA].sCycle) >= psxRegs.intCycle[PSXINT_GPUOTCDMA].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_GPUOTCDMA);
+				gpuotcInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_CDRDMA)) { // cdrom
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRDMA].sCycle) >= psxRegs.intCycle[PSXINT_CDRDMA].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_CDRDMA);
+				cdrDmaInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_CDRPLAY)) { // cdr play timing
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRPLAY].sCycle) >= psxRegs.intCycle[PSXINT_CDRPLAY].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_CDRPLAY);
+				cdrPlayInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_CDRLID)) { // cdr lid states
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRLID].sCycle) >= psxRegs.intCycle[PSXINT_CDRLID].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_CDRLID);
+				cdrLidSeekInterrupt();
+			}
+		}
 		if (psxRegs.interrupt & (1 << PSXINT_SPU_UPDATE)) { // scheduled spu update
 			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_SPU_UPDATE].sCycle) >= psxRegs.intCycle[PSXINT_SPU_UPDATE].cycle) {
 				psxRegs.interrupt &= ~(1 << PSXINT_SPU_UPDATE);
@@ -197,15 +232,15 @@ void psxBranchTest() {
 			}
 		}
 
-		if (psxRegs.interrupt & 0x80000000) {
-			psxRegs.interrupt&=~0x80000000;
+		//if (psxRegs.interrupt & 0x80000000) {
+		//	psxRegs.interrupt&=~0x80000000;
 			psxTestHWInts();
-		}
+		//}
 	}
 //	if (psxRegs.cycle > 0xd29c6500) Log=1;
 }
 
-void psxTestHWInts() {
+inline void psxTestHWInts() {
     // upd xjsxjs197 start
 	//if (psxHu32(0x1070) & psxHu32(0x1074)) {
 	//if (LOAD_SWAP32p(psxHAddr(0x1070)) & LOAD_SWAP32p(psxHAddr(0x1074))) {
