@@ -1,5 +1,4 @@
 #include "franspu.h"
-#include "../plugins.h"
 
 // we have a timebase of 1.020408f ms, not 1 ms... so adjust adsr defines
 #define ATTACK_MS      494L
@@ -209,12 +208,6 @@ void FRAN_SPU_writeRegister(unsigned long reg, unsigned short val)
       			//if(spuAddr>0x7ffff) spuAddr=0;
       			STORE_SWAP16p(spuMem + spuAddr, val);
       			spuAddr += 2;
-      			#ifdef DISP_DEBUG
-      			if (spuAddr > 0x7ffff)
-                {
-                    PRINT_LOG("FRAN_SPU_writeRegister==Reset spuAddr!");
-                }
-                #endif
                 spuAddr &= 0x7fffe;
       			// upd xjsxjs197 end
       			break;
@@ -324,12 +317,6 @@ unsigned short FRAN_SPU_readRegister(unsigned long reg)
       			spuAddr+=2;
       			// upd xjsxjs197 start
       			//if(spuAddr>0x7ffff) spuAddr=0;
-      			#ifdef DISP_DEBUG
-      			if (spuAddr > 0x7ffff)
-                {
-                    PRINT_LOG("FRAN_SPU_readRegister==Reset spuAddr!");
-                }
-                #endif
                 spuAddr &= 0x7fffe;
       			// upd xjsxjs197 end
       			return s;

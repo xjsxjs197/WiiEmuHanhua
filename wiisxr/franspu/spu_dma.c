@@ -1,5 +1,4 @@
 #include "franspu.h"
-#include "../plugins.h"
 
 extern void *cacheable_kernel_memcpy(void *to, const void *from, size_t len);
 
@@ -13,12 +12,6 @@ unsigned short  FRAN_SPU_readDMA(void)
  	spuAddr+=2;
  	// upd xjsxjs197 start
  	//if(spuAddr>=0x80000) spuAddr=0;
- 	#ifdef DISP_DEBUG
- 	if (spuAddr > 0x7ffff)
-    {
-        PRINT_LOG("FRAN_SPU_readDMA==Reset spuAddr!");
-    }
-    #endif
     spuAddr &= 0x7fffe;
  	// upd xjsxjs197 end
  	return s;
@@ -46,7 +39,7 @@ void  FRAN_SPU_readDMAMem(unsigned short * pusPSXMem,int iSize)
 		if (spuAddr > 0)
         {
             cacheable_kernel_memcpy(pusPSXMem + tmpAddr, spuMem, spuAddr);
-            PRINT_LOG2("FRAN_SPU_readDMAMem=%d=Over=%d", iSize, spuAddr);
+            //PRINT_LOG2("FRAN_SPU_readDMAMem=%d=Over=%d", iSize, spuAddr);
         }
 	} else {
 		cacheable_kernel_memcpy(pusPSXMem, spuMem + spuAddr, iSize);
@@ -65,17 +58,10 @@ void  FRAN_SPU_writeDMA(unsigned short val)
  	// upd xjsxjs197 end
  	spuAddr += 2;
  	// upd xjsxjs197 start
- 	#ifdef DISP_DEBUG
- 	if (spuAddr > 0x7ffff)
-    {
-        PRINT_LOG("FRAN_SPU_writeDMA==Reset spuAddr!");
-    }
-    #endif
     spuAddr &= 0x7fffe;
  	// upd xjsxjs197 end
 }
 
-//GPUdisplayText  GPU_displayText2;
 // WRITE DMA (many values)
 void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 {
@@ -98,7 +84,7 @@ void  FRAN_SPU_writeDMAMem(unsigned short * pusPSXMem,int iSize)
 		if (spuAddr > 0)
         {
             cacheable_kernel_memcpy(spuMem, pusPSXMem + tmpAddr, spuAddr);
-            PRINT_LOG2("FRAN_SPU_writeDMAMem=%d=Over=%d", iSize, spuAddr);
+            //PRINT_LOG2("FRAN_SPU_writeDMAMem=%d=Over=%d", iSize, spuAddr);
         }
   	} else {
   		cacheable_kernel_memcpy(spuMem + spuAddr, pusPSXMem, iSize);
