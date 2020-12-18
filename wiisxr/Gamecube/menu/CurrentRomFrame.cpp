@@ -141,9 +141,6 @@ CurrentRomFrame::~CurrentRomFrame()
 extern MenuContext *pMenuContext;
 extern char CdromId[10];
 extern char CdromLabel[33];
-extern "C" {
-long MoobyCDRgetTN(unsigned char *buffer);
-};
 
 void Func_ShowRomInfo()
 {
@@ -161,10 +158,6 @@ void Func_ShowRomInfo()
   strcat(RomInfo,buffer);
   sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
   strcat(RomInfo,buffer);
-  unsigned char tracks[2];
-  Mooby2CDRgetTN(&tracks[0]);
-  sprintf(buffer,"Number of tracks %u\n", tracks[1]);
-	strcat(RomInfo,buffer);
 
 	menu::MessageBox::getInstance().setMessage(RomInfo);
 }

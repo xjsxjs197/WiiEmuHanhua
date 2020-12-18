@@ -122,7 +122,7 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 // TODO: Show menu text
 	if(ulKeybits&KEY_SHOWFPS) //DisplayText();               // paint menu text
 	{
-		if(szDebugText[0] && ((time(NULL) - tStart) < 3))
+		if(szDebugText[0] && ((time(NULL) - tStart) < 2))
 		{
 			strcpy(szDispBuf,szDebugText);
 		}

@@ -62,10 +62,6 @@ FILE *gteLog;
 #define EMU_LOG __Log
 #endif
 
-#if defined(PSXBIOS_LOG)
-    #define PSXBIOS_LOG printf
-#endif
-
 // add xjsxjs197 start
 #ifdef DISP_DEBUG
     //extern void PEOPS_GPUdisplayText(char * pText);
