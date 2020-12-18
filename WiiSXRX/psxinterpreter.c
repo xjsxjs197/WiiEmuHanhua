@@ -359,7 +359,7 @@ __inline int psxDelayBranchExec(u32 tar) {
 
 	branch = 0;
 	psxRegs.pc = tar;
-	psxRegs.cycle++;
+	psxRegs.cycle += BIAS;
 	psxBranchTest();
 	return 1;
 }
@@ -385,7 +385,7 @@ __inline int psxDelayBranchTest(u32 tar1) {
 		return psxDelayBranchExec(tar2);
 	}
 	debugI();
-	psxRegs.cycle++;
+	psxRegs.cycle += BIAS;
 
 	/*
 	 * Got a branch at tar1:
@@ -398,7 +398,7 @@ __inline int psxDelayBranchTest(u32 tar1) {
 		return psxDelayBranchExec(tmp1);
 	}
 	debugI();
-	psxRegs.cycle++;
+	psxRegs.cycle += BIAS;
 
 	/*
 	 * Got a branch at tar2:
@@ -425,7 +425,8 @@ __inline void doBranch(u32 tar) {
 
 	debugI();
 
-	psxRegs.pc+= 4; psxRegs.cycle++;
+	psxRegs.pc += 4;
+	psxRegs.cycle += BIAS;
 
 	// check for load delay
 	tmp = psxRegs.code >> 26;
@@ -946,9 +947,10 @@ inline void execI() {
 	psxRegs.code = ((code == NULL) ? 0 : SWAP32(*code));
 
 	debugI();
- 
-	psxRegs.pc+= 4; psxRegs.cycle++; 
-	psxBSC[psxRegs.code >> 26](); 
+
+	psxRegs.pc += 4;
+	psxRegs.cycle += BIAS;
+	psxBSC[psxRegs.code >> 26]();
 
 }
 
