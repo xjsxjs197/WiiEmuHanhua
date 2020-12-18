@@ -34,4 +34,8 @@ wiisxr/Gamecube/*.dol
 wiisxr/Gamecube/*.elf
 wiisxr/Gamecube/build_debug/*.*
 wiisxr/Gamecube/build_release/*.*
+WiiSXRX/Gamecube/*.dol
+WiiSXRX/Gamecube/*.elf
+WiiSXRX/Gamecube/build_debug/*.*
+WiiSXRX/Gamecube/build_release/*.*
 
