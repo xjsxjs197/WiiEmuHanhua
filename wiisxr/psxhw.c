@@ -605,7 +605,7 @@ void psxHwWrite32(u32 add, u32 value) {
 			//DmaExec(1);                  // DMA1 chcr (MDEC out DMA)
 			DmaExec(0x1098, 0x1094, 0x1090, 1);
 			return;
-		
+
 #ifdef PSXHW_LOG
 		case 0x1f8010a0:
 			PSXHW_LOG("DMA2 MADR 32bit write %lx\n", value);
@@ -796,7 +796,7 @@ void psxHwWrite32(u32 add, u32 value) {
 #ifdef PSXHW_LOG
 			PSXHW_LOG("*Unknown 32bit write at address %lx value %lx\n", add, value);
 #endif
-            PRINT_LOG2("psxHwWrite32 err: 0x%-08x 0x%-08x", add, value);
+            //PRINT_LOG2("psxHwWrite32 err: 0x%-08x 0x%-08x", add, value);
 			return;
 	}
 	// upd xjsxjs197 start
