@@ -48,7 +48,8 @@ static void psxRcntReset(unsigned long index) {
 	psxRcntUpd(index);
 
 //	if (index == 2) SysPrintf("rcnt2 %x\n", psxCounters[index].mode);
-	psxHu32ref(0x1070)|= SWAPu32(psxCounters[index].interrupt);
+	//psxHu32ref(0x1070)|= SWAPu32(psxCounters[index].interrupt);
+	psxHu32ref(0x1070) |= psxCounters[index].interrupt;
 	psxRegs.interrupt|= 0x80000000;
 	if (!(psxCounters[index].mode & 0x40)) { // Only 1 interrupt
 		psxCounters[index].Cycle = 0xffffffff;
@@ -82,11 +83,11 @@ void psxRcntInit() {
 
 	memset(psxCounters, 0, sizeof(psxCounters));
 
-	psxCounters[0].rate = 1; psxCounters[0].interrupt = 0x10;
-	psxCounters[1].rate = 1; psxCounters[1].interrupt = 0x20;
-	psxCounters[2].rate = 1; psxCounters[2].interrupt = 0x40;
+	psxCounters[0].rate = 1; psxCounters[0].interrupt = SWAPu32(0x10);
+	psxCounters[1].rate = 1; psxCounters[1].interrupt = SWAPu32(0x20);
+	psxCounters[2].rate = 1; psxCounters[2].interrupt = SWAPu32(0x40);
 
-	psxCounters[3].interrupt = 1;
+	psxCounters[3].interrupt = SWAPu32(1);
 	psxCounters[3].mode = 0x58; // The VSync counter mode
 	psxCounters[3].target = 1;
 	psxUpdateVSyncRate();
@@ -116,12 +117,12 @@ void psxUpdateVSyncRate() {
 		//psxCounters[3].rate = (PSXCLK / 50) - ((PSXCLK * 22) / (50 * 262));
 		psxCounters[3].rate = 620498;
 	}
-	else 
+	else
 	{
 		//psxCounters[3].rate = (PSXCLK / 60) - ((PSXCLK * 22) / (60 * 262));
 		psxCounters[3].rate = 517081;
 	}
-	
+
 	if (Config.VSyncWA)
 	{
 		psxCounters[3].rate = psxCounters[3].rate >> 1;
@@ -146,8 +147,8 @@ void psxUpdateVSyncRateEnd() {
 		//psxCounters[3].rate = (PSXCLK * 22) / (60 * 262);
 		psxCounters[3].rate = 47399;
 	}
-	
-	if (Config.VSyncWA) 
+
+	if (Config.VSyncWA)
 	{
 		psxCounters[3].rate = psxCounters[3].rate >> 1;
 	}
@@ -164,7 +165,7 @@ void psxRcntUpdate() {
 #ifdef GTE_LOG
 			GTE_LOG("VSync\n");
 #endif
-		} else { // VSync Start (240 hsyncs) 
+		} else { // VSync Start (240 hsyncs)
 			psxCounters[3].mode|= 0x10000;
 			psxUpdateVSyncRateEnd();
 			psxRcntUpd(3);
@@ -190,7 +191,8 @@ void psxRcntUpdate() {
 #ifdef PROFILE
   start_section(AUDIO_SECTION);
 #endif
-			SPU_async((psxRegs.cycle - psxCounters[4].sCycle) * BIAS, Config.PsxType);
+			//SPU_async((psxRegs.cycle - psxCounters[4].sCycle) * BIAS, Config.PsxType);
+			SPU_async(0, Config.PsxType);
 #ifdef PROFILE
 	end_section(AUDIO_SECTION);
 #endif
