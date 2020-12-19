@@ -31,7 +31,7 @@ void MixXA(void)
 	int *ssumr=SSumR;
 
     // upd xjsxjs197 start
-	/*for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
+	for(i=0;i<NSSIZE && XAPlay!=XAFeed;i++)
 	{
 		XALastVal=*XAPlay++;
 		if(XAPlay==XAEnd) XAPlay=XAStart;
@@ -51,8 +51,8 @@ void MixXA(void)
 			(*ssuml++)+=(((int)(short)(XALastVal&0xffff))       * leftvol) >> 15;
 			(*ssumr++)+=(((int)(short)((XALastVal>>16)&0xffff)) * rightvol) >> 15;
 		}
-	}*/
-	uint32_t v;
+	}
+	/*uint32_t v;
 	if (XAPlay != XAFeed || XARepeat > 0)
     {
         if (XAPlay == XAFeed)
@@ -72,7 +72,7 @@ void MixXA(void)
         }
 
         XALastVal = v;
-    }
+    }*/
 	// upd xjsxjs197 end
 
     // add xjsxjs197 start
