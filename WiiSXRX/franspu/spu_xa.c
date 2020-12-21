@@ -110,11 +110,11 @@ void FeedXA(xa_decode_t *xap)
 	#ifdef DISP_DEBUG
 	if (iSize > iPlace)
     {
-        PRINT_LOG2("PlayCDDA(FeedXA) bufSize: %d, DataSize: %d", iPlace, iSize);
+        //PRINT_LOG2("PlayCDDA(FeedXA) bufSize: %d, DataSize: %d", iPlace, iSize);
     }
     else
     {
-        PRINT_LOG1("PlayCDDA(FeedXA) Play XA DataSize: %d", iSize);
+        //PRINT_LOG1("PlayCDDA(FeedXA) Play XA DataSize: %d", iSize);
     }
 	#endif
 	if (iPlace == 0) return;
