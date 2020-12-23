@@ -135,6 +135,8 @@ static void aesnd_callback(AESNDPB* voice, u32 state){
 	}
 }
 
+extern void *cacheable_kernel_memcpy(void *to, const void *from, size_t len);
+
 ////////////////////////////////////////////////////////////////////////
 // FEED SOUND DATA
 ////////////////////////////////////////////////////////////////////////
@@ -143,7 +145,7 @@ void SoundFeedStreamData(unsigned char* pSound,long lBytes)
 	if(!audioEnabled) return;
 
 	//buffers[fill_buffer].buffer = pSound;
-	memcpy(buffers[fill_buffer].buffer, pSound, lBytes);
+	cacheable_kernel_memcpy(buffers[fill_buffer].buffer, pSound, lBytes);
 	buffers[fill_buffer].len = lBytes;
 	// upd xjsxjs197 start
 	//fill_buffer = (fill_buffer + 1) % NUM_BUFFERS;

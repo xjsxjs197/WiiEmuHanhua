@@ -677,7 +677,7 @@ void cdrInterrupt() {
 				error = ERROR_INVALIDARG;
 				goto set_error;
 			}
-			AddIrqQueue(CdlStandby + 0x100, (cdReadTime * 125) >> 1);
+			AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
 			start_rotating = 1;
 			break;
 
@@ -700,7 +700,7 @@ void cdrInterrupt() {
 
 			delay = 0x800;
 			if (cdr.DriveState == DRIVESTATE_STANDBY)
-				delay = cdReadTime * 30 >> 1;
+				delay = cdReadTime * 30 / 2;
 
 			cdr.DriveState = DRIVESTATE_STOPPED;
 			AddIrqQueue(CdlStop + 0x100, delay);
@@ -785,7 +785,7 @@ void cdrInterrupt() {
 
 		case CdlReadT: // SetSession?
 			// really long
-			AddIrqQueue(CdlReadT + 0x100, cdReadTime * 290 >> 2);
+			AddIrqQueue(CdlReadT + 0x100, cdReadTime * 290 / 4);
 			start_rotating = 1;
 			break;
 
@@ -905,7 +905,7 @@ void cdrInterrupt() {
 			break;
 
 		case CdlReadToc:
-			AddIrqQueue(CdlReadToc + 0x100, (cdReadTime * 180) >> 2);
+			AddIrqQueue(CdlReadToc + 0x100, cdReadTime * 180 / 4);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;

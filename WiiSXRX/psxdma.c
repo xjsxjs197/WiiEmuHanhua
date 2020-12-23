@@ -53,7 +53,8 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 			}
 			words = (bcr >> 16) * (bcr & 0xffff);
 			SPU_writeDMAMem(ptr, words * 2);
-			HW_DMA4_MADR = SWAPu32(madr + words << 2);
+			//HW_DMA4_MADR = SWAPu32(madr + (words << 2));
+			STORE_SWAP32p(psxHAddr(0x10c0), madr + (words << 2));
 			SPUDMA_INT(words >> 1);
 			return;
 
@@ -72,7 +73,8 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 			SPU_readDMAMem(ptr, words * 2);
 			psxCpu->Clear(madr, words);
 
-			HW_DMA4_MADR = SWAPu32(madr + words << 2);
+			//HW_DMA4_MADR = SWAPu32(madr + (words << 2));
+			STORE_SWAP32p(psxHAddr(0x10c0), madr + (words << 2));
 			SPUDMA_INT(words >> 1);
 			return;
 
@@ -149,7 +151,8 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 			GPU_readDataMem(ptr, words);
 			psxCpu->Clear(madr, words);
 
-			HW_DMA2_MADR = SWAPu32(madr + words << 2);
+			//HW_DMA2_MADR = SWAPu32(madr + (words << 2));
+			STORE_SWAP32p(psxHAddr(0x10a0), madr + (words << 2));
 
 			// already 32-bit word size ((size * 4) / 4)
 			GPUDMA_INT(words >> 3);
@@ -170,7 +173,8 @@ void psxDma2(u32 madr, u32 bcr, u32 chcr) { // GPU
 			words = (bcr >> 16) * (bcr & 0xffff);
 			GPU_writeDataMem(ptr, words);
 
-			HW_DMA2_MADR = SWAPu32(madr + words << 2);
+			//HW_DMA2_MADR = SWAPu32(madr + (words << 2));
+			STORE_SWAP32p(psxHAddr(0x10a0), madr + (words << 2));
 
 			// already 32-bit word size ((size * 4) / 4)
 			GPUDMA_INT((words >> 3));
