@@ -129,13 +129,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801104:
-			hard = psxRcntRmode(0);
+			hard = rcnts[0].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801108:
-			hard = psxRcntRtarget(0);
+			hard = rcnts[0].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 target read16: %x\n", hard);
 #endif
@@ -147,13 +147,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801114:
-			hard = psxRcntRmode(1);
+			hard = rcnts[1].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801118:
-			hard = psxRcntRtarget(1);
+			hard = rcnts[1].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 target read16: %x\n", hard);
 #endif
@@ -165,13 +165,13 @@ u16 psxHwRead16(u32 add) {
 #endif
 			return hard;
 		case 0x1f801124:
-			hard = psxRcntRmode(2);
+			hard = rcnts[2].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 mode read16: %x\n", hard);
 #endif
 			return hard;
 		case 0x1f801128:
-			hard = psxRcntRtarget(2);
+			hard = rcnts[2].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 target read16: %x\n", hard);
 #endif
@@ -288,13 +288,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801104:
-			hard = psxRcntRmode(0);
+			hard = rcnts[0].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801108:
-			hard = psxRcntRtarget(0);
+			hard = rcnts[0].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T0 target read32: %lx\n", hard);
 #endif
@@ -306,13 +306,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801114:
-			hard = psxRcntRmode(1);
+			hard = rcnts[1].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801118:
-			hard = psxRcntRtarget(1);
+			hard = rcnts[1].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T1 target read32: %lx\n", hard);
 #endif
@@ -324,13 +324,13 @@ u32 psxHwRead32(u32 add) {
 #endif
 			return hard;
 		case 0x1f801124:
-			hard = psxRcntRmode(2);
+			hard = rcnts[2].mode;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 mode read32: %lx\n", hard);
 #endif
 			return hard;
 		case 0x1f801128:
-			hard = psxRcntRtarget(2);
+			hard = rcnts[2].target;
 #ifdef PSXHW_LOG
 			PSXHW_LOG("T2 target read32: %lx\n", hard);
 #endif
@@ -423,8 +423,11 @@ void psxHwWrite16(u32 add, u16 value) {
 			if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
 			// upd xjsxjs197 start
 			//psxHu16ref(0x1070) &= SWAPu16((psxHu16(0x1074) & value));
-            STORE_SWAP16p(tmpAddr16, (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
-            psxHu16ref(0x1070) &= tmpAddr16[0];
+            //STORE_SWAP16p(tmpAddr16, (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
+            //psxHu16ref(0x1070) &= tmpAddr16[0];
+			//psxHu16ref(0x1070) &= SWAPu16(value);
+			STORE_SWAP16p(tmpAddr16, value);
+			psxHu16ref(0x1070) &= tmpAddr16[0];
 			// upd xjsxjs197 end
 			return;
 
@@ -522,7 +525,6 @@ void psxHwWrite16(u32 add, u16 value) {
 	} \
 }*/
 #define DmaExec(char, bcr, madr, n) { \
-	if (LOAD_SWAP32p(psxHAddr(char)) & 0x01000000) return; \
 	STORE_SWAP32p(psxHAddr(char), value); \
  \
     tmpVal = LOAD_SWAP32p(psxHAddr(char)); \
@@ -559,8 +561,11 @@ void psxHwWrite32(u32 add, u32 value) {
 			if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
 			// upd xjsxjs197 start
 			//psxHu32ref(0x1070) &= SWAPu32((psxHu32(0x1074) & value));
-            STORE_SWAP32p(tmpAddr, (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
-            psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
+            //STORE_SWAP32p(tmpAddr, (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
+            //psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
+			//psxHu32ref(0x1070) &= SWAPu32(value);
+			STORE_SWAP32p(tmpAddr, value);
+			psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
 			// upd xjsxjs197 end
 			return;
 		case 0x1f801074:

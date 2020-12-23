@@ -1582,7 +1582,8 @@ static long CALLBACK ISOopen(void) {
 	}
 	fseek(cdHandle, 0, SEEK_SET);
 
-	SysPrintf("%s.\n", image_str);
+	//SysPrintf("%s.\n", image_str);
+	PRINT_LOG1("ISOopen: %s", image_str);
 
 	//PrintTracks();
 

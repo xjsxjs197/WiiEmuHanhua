@@ -86,7 +86,8 @@ u32 psxNextCounter = 0, psxNextsCounter = 0;
 static inline
 void setIrq( u32 irq )
 {
-    psxHu32ref(0x1070) |= SWAPu32(irq);
+    //psxHu32ref(0x1070) |= SWAPu32(irq);
+    psxHu32ref(0x1070) |= irq;
     //psxRegs.interrupt|= 0x80000000;
 }
 
@@ -116,7 +117,7 @@ void _psxRcntWcount( u32 index, u32 value )
 {
     if( value > 0xffff )
     {
-        verboseLog( 1, "[RCNT %i] wcount > 0xffff: %x\n", index, value );
+        //verboseLog( 1, "[RCNT %i] wcount > 0xffff: %x\n", index, value );
         value &= 0xffff;
     }
 
@@ -146,10 +147,10 @@ u32 _psxRcntRcount( u32 index )
     if (rcnts[index].rate > 1)
         count /= rcnts[index].rate;
 
-    if( count > 0x10000 )
-    {
-        verboseLog( 1, "[RCNT %i] rcount > 0x10000: %x\n", index, count );
-    }
+//    if( count > 0x10000 )
+//    {
+//        verboseLog( 1, "[RCNT %i] rcount > 0x10000: %x\n", index, count );
+//    }
     count &= 0xffff;
 
     return count;
@@ -259,7 +260,7 @@ void psxRcntReset( u32 index )
         {
             if( (rcnts[index].mode & RcIrqRegenerate) || (!rcnts[index].irqState) )
             {
-                verboseLog( 3, "[RCNT %i] irq\n", index );
+                //verboseLog( 3, "[RCNT %i] irq\n", index );
                 setIrq( rcnts[index].irq );
                 rcnts[index].irqState = 1;
             }
@@ -288,7 +289,7 @@ void psxRcntReset( u32 index )
         {
             if( (rcnts[index].mode & RcIrqRegenerate) || (!rcnts[index].irqState) )
             {
-                verboseLog( 3, "[RCNT %i] irq\n", index );
+                //verboseLog( 3, "[RCNT %i] irq\n", index );
                 setIrq( rcnts[index].irq );
                 rcnts[index].irqState = 1;
             }
@@ -390,7 +391,7 @@ void psxRcntUpdate()
 
 void psxRcntWcount( u32 index, u32 value )
 {
-    verboseLog( 2, "[RCNT %i] wcount: %x\n", index, value );
+    //verboseLog( 2, "[RCNT %i] wcount: %x\n", index, value );
 
     _psxRcntWcount( index, value );
     psxRcntSet();
@@ -398,7 +399,7 @@ void psxRcntWcount( u32 index, u32 value )
 
 void psxRcntWmode( u32 index, u32 value )
 {
-    verboseLog( 1, "[RCNT %i] wmode: %x\n", index, value );
+    //verboseLog( 1, "[RCNT %i] wmode: %x\n", index, value );
 
     _psxRcntWmode( index, value );
     _psxRcntWcount( index, 0 );
@@ -409,7 +410,7 @@ void psxRcntWmode( u32 index, u32 value )
 
 void psxRcntWtarget( u32 index, u32 value )
 {
-    verboseLog( 1, "[RCNT %i] wtarget: %x\n", index, value );
+    //verboseLog( 1, "[RCNT %i] wtarget: %x\n", index, value );
 
     rcnts[index].target = value;
 
@@ -437,7 +438,7 @@ u32 psxRcntRcount( u32 index )
         }
     }
 
-    verboseLog( 2, "[RCNT %i] rcount: %x\n", index, count );
+    //verboseLog( 2, "[RCNT %i] rcount: %x\n", index, count );
 
     return count;
 }
@@ -449,14 +450,14 @@ u32 psxRcntRmode( u32 index )
     mode = rcnts[index].mode;
     rcnts[index].mode &= 0xe7ff;
 
-    verboseLog( 2, "[RCNT %i] rmode: %x\n", index, mode );
+    //verboseLog( 2, "[RCNT %i] rmode: %x\n", index, mode );
 
     return mode;
 }
 
 u32 psxRcntRtarget( u32 index )
 {
-    verboseLog( 2, "[RCNT %i] rtarget: %x\n", index, rcnts[index].target );
+    //verboseLog( 2, "[RCNT %i] rtarget: %x\n", index, rcnts[index].target );
 
     return rcnts[index].target;
 }
@@ -469,15 +470,15 @@ void psxRcntInit()
 
     // rcnt 0.
     rcnts[0].rate   = 1;
-    rcnts[0].irq    = 0x10;
+    rcnts[0].irq    = SWAPu32(0x10);
 
     // rcnt 1.
     rcnts[1].rate   = 1;
-    rcnts[1].irq    = 0x20;
+    rcnts[1].irq    = SWAPu32(0x20);
 
     // rcnt 2.
     rcnts[2].rate   = 1;
-    rcnts[2].irq    = 0x40;
+    rcnts[2].irq    = SWAPu32(0x40);
 
     // rcnt base.
     rcnts[3].rate   = 1;
