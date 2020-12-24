@@ -959,12 +959,14 @@ void cdrInterrupt() {
 				// - fix cutscene speech (startup)
 
 				// ??? - use more accurate seek time later
-				CDREAD_INT(((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1) + seekTime);
+				//CDREAD_INT(((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1) + seekTime);
+				CDREAD_INT((((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1) + seekTime) >> 1);
 			} else {
 				cdr.StatP |= STATUS_READ;
 				cdr.StatP &= ~STATUS_SEEK;
 
-				CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1);
+				//CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1);
+				CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 4) : cdReadTime / 2);
 			}
 
 			cdr.Result[0] = cdr.StatP;
@@ -1074,7 +1076,8 @@ void cdrReadInterrupt() {
 
 	if (cdr.Irq || cdr.Stat) {
 		CDR_LOG_I("cdrom: read stat hack %02x %x\n", cdr.Irq, cdr.Stat);
-		CDREAD_INT(0x1000);
+		//CDREAD_INT(0x1000);
+		CDREAD_INT(0x800);
 		return;
 	}
 
@@ -1096,7 +1099,8 @@ void cdrReadInterrupt() {
 		memset(cdr.Transfer, 0, DATA_SIZE);
 		cdr.Stat = DiskError;
 		cdr.Result[0] |= STATUS_ERROR;
-		CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
+		//CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
+		CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 4) : cdReadTime / 2);
 		return;
 	}
 
@@ -1138,7 +1142,8 @@ void cdrReadInterrupt() {
 
 	cdr.Readed = 0;
 
-	CDREAD_INT((cdr.Mode & MODE_SPEED) ? (cdReadTime / 2) : cdReadTime);
+	//CDREAD_INT((cdr.Mode & MODE_SPEED) ? (cdReadTime / 2) : cdReadTime);
+	CDREAD_INT((cdr.Mode & MODE_SPEED) ? (cdReadTime / 4) : cdReadTime / 2);
 
 	/*
 	Croc 2: $40 - only FORM1 (*)
