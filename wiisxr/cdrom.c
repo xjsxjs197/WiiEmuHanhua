@@ -371,38 +371,25 @@ static void ReadTrack(const u8 *time) {
 	tmp[1] = itob(time[1]);
 	tmp[2] = itob(time[2]);
 
-	//if (memcmp(cdr.Prev, tmp, 3) == 0)
-	//	return;
-	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
-    {
-        return;
-    }
+	if (memcmp(cdr.Prev, tmp, 3) == 0)
+		return;
 
 	CDR_LOG("ReadTrack *** %02x:%02x:%02x\n", tmp[0], tmp[1], tmp[2]);
 
 	cdr.RErr = CDR_readTrack(tmp);
-	//memcpy(cdr.Prev, tmp, 3);
-	cdr.Prev[0] = tmp[0];
-	cdr.Prev[1] = tmp[1];
-	cdr.Prev[2] = tmp[2];
+	memcpy(cdr.Prev, tmp, 3);
 
 	if (CheckSBI(time))
 		return;
 
 	subq = (struct SubQ *)CDR_getBufferSub();
 	if (subq != NULL && cdr.CurTrack == 1) {
-		crc = (u16)(calcCrc((u8 *)subq + 12, 10));
+		crc = calcCrc((u8 *)subq + 12, 10);
 		if (crc == (((u16)subq->CRC[0] << 8) | subq->CRC[1])) {
 			cdr.subq.Track = subq->TrackNumber;
 			cdr.subq.Index = subq->IndexNumber;
-			//memcpy(cdr.subq.Relative, subq->TrackRelativeAddress, 3);
-			cdr.subq.Relative[0] = subq->TrackRelativeAddress[0];
-			cdr.subq.Relative[1] = subq->TrackRelativeAddress[1];
-			cdr.subq.Relative[2] = subq->TrackRelativeAddress[2];
-			//memcpy(cdr.subq.Absolute, subq->AbsoluteAddress, 3);
-			cdr.subq.Absolute[0] = subq->AbsoluteAddress[0];
-			cdr.subq.Absolute[1] = subq->AbsoluteAddress[1];
-			cdr.subq.Absolute[2] = subq->AbsoluteAddress[2];
+			memcpy(cdr.subq.Relative, subq->TrackRelativeAddress, 3);
+			memcpy(cdr.subq.Absolute, subq->AbsoluteAddress, 3);
 		}
 		else {
 			CDR_LOG_I("subq bad crc @%02x:%02x:%02x\n",
@@ -643,7 +630,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 
 			cdr.StatP |= STATUS_PLAY;
-
+			
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
@@ -1238,7 +1225,7 @@ void cdrWrite1(unsigned char rt) {
 
 	cdr.ResultReady = 0;
 	cdr.Ctrl |= 0x80;
-	// cdr.Stat = NoIntr;
+	// cdr.Stat = NoIntr; 
 	AddIrqQueue(cdr.Cmd, 0x800);
 
 	switch (cdr.Cmd) {
@@ -1432,7 +1419,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 			else if( chcr == 0x11000000 ) {
 				// CDRDMA_INT( (cdsize/4) * 1 );
 				// halted
-				psxRegs.cycle += ((cdsize >> 2) * 24 ) >> 1;
+				psxRegs.cycle += (((cdsize >> 2) * 24 ) >> 1);
 				CDRDMA_INT(16);
 			}
 			return;

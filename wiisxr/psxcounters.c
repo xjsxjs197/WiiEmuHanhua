@@ -334,7 +334,7 @@ void psxRcntUpdate()
         // VSync irq.
         if( hSyncCount == VBlankStart )
         {
-            //HW_GPU_STATUS &= ~PSXGPU_LCF;
+            HW_GPU_STATUS &= ~PSXGPU_LCF;
             //GPU_vBlank( 1, 0 );
             setIrq( 0x01 );
 
@@ -346,20 +346,16 @@ void psxRcntUpdate()
                 SPU_async( cycle, 1 );
             }
         }
-        //else { // VSync Start (240 hsyncs)
-		//	psxHu32ref(0x1070)|= SWAPu32(1);
-		//	psxRegs.interrupt|= 0x80000000;
-		//}
-
+        
         // Update lace. (with InuYasha fix)
         if( hSyncCount >= (Config.VSyncWA ? HSyncTotal[Config.PsxType] / BIAS : HSyncTotal[Config.PsxType]) )
         {
             hSyncCount = 0;
             frame_counter++;
 
-            //gpuSyncPluginSR();
-            //if( (HW_GPU_STATUS & PSXGPU_ILACE_BITS) == PSXGPU_ILACE_BITS )
-            //    HW_GPU_STATUS |= frame_counter << 31;
+            gpuSyncPluginSR();
+            if( (HW_GPU_STATUS & PSXGPU_ILACE_BITS) == PSXGPU_ILACE_BITS )
+                HW_GPU_STATUS |= frame_counter << 31;
             //GPU_vBlank( 0, HW_GPU_STATUS >> 31 );
         }
 
