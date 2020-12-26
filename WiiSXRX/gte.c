@@ -1247,12 +1247,53 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 	gteMAC3 = (long)(gte_BB0 << 4);
 */
 #define GTE_NCDS(vn) \
-	gte_LL1 = F12limA1U((gteL11*gteVX##vn + gteL12*gteVY##vn + gteL13*gteVZ##vn) >> 12); \
-	gte_LL2 = F12limA2U((gteL21*gteVX##vn + gteL22*gteVY##vn + gteL23*gteVZ##vn) >> 12); \
-	gte_LL3 = F12limA3U((gteL31*gteVX##vn + gteL32*gteVY##vn + gteL33*gteVZ##vn) >> 12); \
-	gte_RRLT= F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
-	gte_GGLT= F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
-	gte_BBLT= F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
+	/*gte_LL1 = F12limA1U((gteL11*gteVX##vn + gteL12*gteVY##vn + gteL13*gteVZ##vn) >> 12);*/ \
+	/*gte_LL2 = F12limA2U((gteL21*gteVX##vn + gteL22*gteVY##vn + gteL23*gteVZ##vn) >> 12);*/ \
+	/*gte_LL3 = F12limA3U((gteL31*gteVX##vn + gteL32*gteVY##vn + gteL33*gteVZ##vn) >> 12);*/ \
+	/*gte_RRLT= F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12));*/ \
+	/*gte_GGLT= F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12));*/ \
+	/*gte_BBLT= F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12));*/ \
+	tmpMtx[0][0] = gteL11; \
+    tmpMtx[0][1] = gteL12; \
+    tmpMtx[0][2] = gteL13; \
+    tmpMtx[0][3] = 1.0f; \
+    tmpMtx[1][0] = gteL21; \
+    tmpMtx[1][1] = gteL22; \
+    tmpMtx[1][2] = gteL23; \
+    tmpMtx[1][3] = 1.0f; \
+    tmpMtx[2][0] = gteL31; \
+    tmpMtx[2][1] = gteL32; \
+    tmpMtx[2][2] = gteL33; \
+    tmpMtx[2][3] = 1.0f; \
+     \
+    srcVec.x = gteVX##vn; \
+    srcVec.y = gteVY##vn; \
+    srcVec.z = gteVZ##vn; \
+    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    gte_LL1 = F12limA1U((s64)(dstVec.x) >> 12); \
+    gte_LL2 = F12limA2U((s64)(dstVec.y) >> 12); \
+    gte_LL3 = F12limA3U((s64)(dstVec.z) >> 12); \
+    \
+    tmpMtx[0][0] = gteLR1; \
+    tmpMtx[0][1] = gteLR2; \
+    tmpMtx[0][2] = gteLR3; \
+    tmpMtx[0][3] = 1.0f; \
+    tmpMtx[1][0] = gteLG1; \
+    tmpMtx[1][1] = gteLG2; \
+    tmpMtx[1][2] = gteLG3; \
+    tmpMtx[1][3] = 1.0f; \
+    tmpMtx[2][0] = gteLB1; \
+    tmpMtx[2][1] = gteLB2; \
+    tmpMtx[2][2] = gteLB3; \
+    tmpMtx[2][3] = 1.0f; \
+     \
+    srcVec.x = gte_LL1; \
+    srcVec.y = gte_LL2; \
+    srcVec.z = gte_LL3; \
+    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    gte_RRLT = F12limA1U(gteRBK + ((s64)(dstVec.x) >> 12)); \
+    gte_GGLT = F12limA2U(gteGBK + ((s64)(dstVec.y) >> 12)); \
+    gte_BBLT = F12limA3U(gteBBK + ((s64)(dstVec.z) >> 12)); \
  \
 	gte_RR0 = (long)(((s64)((u32)gteR<<12)*gte_RRLT) >> 12);\
 	gte_GG0 = (long)(((s64)((u32)gteG<<12)*gte_GGLT) >> 12);\
@@ -2046,12 +2087,53 @@ void gteDPCT() {
 #define LOW(a) (((a) < 0) ? 0 : (a))
 
 #define	GTE_NCS(vn)  \
-	gte_LL1 = F12limA1U((gteL11*gteVX##vn + gteL12*gteVY##vn + gteL13*gteVZ##vn) >> 12); \
-	gte_LL2 = F12limA2U((gteL21*gteVX##vn + gteL22*gteVY##vn + gteL23*gteVZ##vn) >> 12); \
-	gte_LL3 = F12limA3U((gteL31*gteVX##vn + gteL32*gteVY##vn + gteL33*gteVZ##vn) >> 12); \
-	gteMAC1 = F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
-	gteMAC2 = F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
-	gteMAC3 = F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12));
+	/*gte_LL1 = F12limA1U((gteL11*gteVX##vn + gteL12*gteVY##vn + gteL13*gteVZ##vn) >> 12);*/ \
+	/*gte_LL2 = F12limA2U((gteL21*gteVX##vn + gteL22*gteVY##vn + gteL23*gteVZ##vn) >> 12);*/ \
+	/*gte_LL3 = F12limA3U((gteL31*gteVX##vn + gteL32*gteVY##vn + gteL33*gteVZ##vn) >> 12);*/ \
+	/*gteMAC1 = F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12));*/ \
+	/*gteMAC2 = F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12));*/ \
+	/*gteMAC3 = F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12));*/ \
+	tmpMtx[0][0] = gteL11; \
+    tmpMtx[0][1] = gteL12; \
+    tmpMtx[0][2] = gteL13; \
+    tmpMtx[0][3] = 1.0f; \
+    tmpMtx[1][0] = gteL21; \
+    tmpMtx[1][1] = gteL22; \
+    tmpMtx[1][2] = gteL23; \
+    tmpMtx[1][3] = 1.0f; \
+    tmpMtx[2][0] = gteL31; \
+    tmpMtx[2][1] = gteL32; \
+    tmpMtx[2][2] = gteL33; \
+    tmpMtx[2][3] = 1.0f; \
+     \
+    srcVec.x = gteVX##vn; \
+    srcVec.y = gteVY##vn; \
+    srcVec.z = gteVZ##vn; \
+    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    gte_LL1 = F12limA1U((s64)(dstVec.x) >> 12); \
+    gte_LL2 = F12limA2U((s64)(dstVec.y) >> 12); \
+    gte_LL3 = F12limA3U((s64)(dstVec.z) >> 12); \
+    \
+    tmpMtx[0][0] = gteLR1; \
+    tmpMtx[0][1] = gteLR2; \
+    tmpMtx[0][2] = gteLR3; \
+    tmpMtx[0][3] = 1.0f; \
+    tmpMtx[1][0] = gteLG1; \
+    tmpMtx[1][1] = gteLG2; \
+    tmpMtx[1][2] = gteLG3; \
+    tmpMtx[1][3] = 1.0f; \
+    tmpMtx[2][0] = gteLB1; \
+    tmpMtx[2][1] = gteLB2; \
+    tmpMtx[2][2] = gteLB3; \
+    tmpMtx[2][3] = 1.0f; \
+     \
+    srcVec.x = gte_LL1; \
+    srcVec.y = gte_LL2; \
+    srcVec.z = gte_LL3; \
+    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    gteMAC1 = F12limA1U(gteRBK + ((s64)(dstVec.x) >> 12)); \
+    gteMAC2 = F12limA2U(gteGBK + ((s64)(dstVec.y) >> 12)); \
+    gteMAC3 = F12limA3U(gteBBK + ((s64)(dstVec.z) >> 12)); \
 
 void gteNCS() {
 	s32 gte_LL1,gte_LL2,gte_LL3;

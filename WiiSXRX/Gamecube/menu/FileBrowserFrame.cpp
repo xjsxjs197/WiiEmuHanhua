@@ -523,8 +523,8 @@ void fileBrowserFrame_LoadFile(int i)
 			if (ChkString(CdromLabel, "SLPM86192", strlen("SLPM86192"))) {
 		        Config.RCntFix = 1;
 		    }
-			sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
-			strcat(RomInfo,buffer);
+			//sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
+			//strcat(RomInfo,buffer);
 			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);
