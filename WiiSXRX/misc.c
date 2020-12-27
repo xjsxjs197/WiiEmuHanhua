@@ -208,23 +208,16 @@ int LoadCdrom() {
 		READTRACK();
 		char exename[256];
 
-		sscanf((char *)buf + 12, "BOOT = cdrom:\\%255s", exename);
+		sscanf((char*)buf+12, "BOOT = cdrom:\\%255s", exename);
 		if (GetCdromFile(mdir, time, exename) == -1) {
-			sscanf((char *)buf + 12, "BOOT = cdrom:%255s", exename);
+			sscanf((char*)buf+12, "BOOT = cdrom:%255s", exename);
 			if (GetCdromFile(mdir, time, exename) == -1) {
-				char *ptr = strstr((char *)buf + 12, "cdrom:");
-				if (ptr != NULL) {
-					ptr += 6;
-					while (*ptr == '\\' || *ptr == '/') ptr++;
-					strncpy(exename, ptr, 255);
-					exename[255] = '\0';
-					ptr = exename;
-					while (*ptr != '\0' && *ptr != '\r' && *ptr != '\n') ptr++;
-					*ptr = '\0';
+				char *ptr = strstr((char*)buf+12, "cdrom:");
+				if(ptr) {
+					strncpy(exename, ptr, 256);
 					if (GetCdromFile(mdir, time, exename) == -1)
 						return -1;
-				} else
-					return -1;
+				}
 			}
 		}
 
@@ -236,16 +229,14 @@ int LoadCdrom() {
 
 	psxRegs.pc = SWAP32(tmpHead.pc0);
 	psxRegs.GPR.n.gp = SWAP32(tmpHead.gp0);
-	psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr);
+	psxRegs.GPR.n.sp = SWAP32(tmpHead.s_addr); 
 	if (psxRegs.GPR.n.sp == 0) psxRegs.GPR.n.sp = 0x801fff00;
 
 	tmpHead.t_size = SWAP32(tmpHead.t_size);
 	tmpHead.t_addr = SWAP32(tmpHead.t_addr);
 
-	psxCpu->Clear(tmpHead.t_addr, tmpHead.t_size / 4);
-
 	// Read the rest of the main executable
-	while (tmpHead.t_size & ~2047) {
+	while (tmpHead.t_size) {
 		void *ptr = (void *)PSXM(tmpHead.t_addr);
 
 		incTime();
@@ -263,41 +254,35 @@ int LoadCdrom() {
 int LoadCdromFile(char *filename, EXE_HEADER *head) {
 	struct iso_directory_record *dir;
 	u8 time[4],*buf;
-	u8 mdir[4096];
-	char exename[256];
+	u8 mdir[4096], exename[256];
 	u32 size, addr;
-	void *mem;
 
-	sscanf(filename, "cdrom:\\%255s", exename);
+	sscanf(filename, "cdrom:\\%256s", exename);
 
 	time[0] = itob(0); time[1] = itob(2); time[2] = itob(0x10);
 
 	READTRACK();
 
 	// skip head and sub, and go to the root directory record
-	dir = (struct iso_directory_record *)&buf[12 + 156];
+	dir = (struct iso_directory_record*) &buf[12+156]; 
 
 	mmssdd(dir->extent, (char*)time);
 
 	READDIR(mdir);
 
-	if (GetCdromFile(mdir, time, exename) == -1) return -1;
+	if (GetCdromFile(mdir, time, (char*)exename) == -1) return -1;
 
 	READTRACK();
 
-	memcpy(head, buf + 12, sizeof(EXE_HEADER));
+	memcpy(head, buf+12, sizeof(EXE_HEADER));
 	size = head->t_size;
 	addr = head->t_addr;
 
-	psxCpu->Clear(addr, size / 4);
-
-	while (size & ~2047) {
+	while (size) {
 		incTime();
 		READTRACK();
 
-		mem = PSXM(addr);
-		if (mem)
-			memcpy(mem, buf + 12, 2048);
+		memcpy((u8*)(psxMemRLUT[(addr) >> 16] + ((addr) & 0xffff)), (char*)buf+12, 2048);
 
 		size -= 2048;
 		addr += 2048;
@@ -308,82 +293,60 @@ int LoadCdromFile(char *filename, EXE_HEADER *head) {
 
 int CheckCdrom() {
 	struct iso_directory_record *dir;
-	unsigned char time[4];
-	char *buf;
+	unsigned char time[4],*buf;
 	unsigned char mdir[4096];
 	char exename[256];
-	int i, len, c;
+	int i;
 
-	FreePPFCache();
+    FreePPFCache();
 
-	time[0] = itob(0);
-	time[1] = itob(2);
-	time[2] = itob(0x10);
+	time[0] = itob(0); time[1] = itob(2); time[2] = itob(0x10);
 
 	READTRACK();
 
-	memset(CdromLabel, 0, sizeof(CdromLabel));
-	memset(CdromId, 0, sizeof(CdromId));
-	memset(exename, 0, sizeof(exename));
+	CdromLabel[32]=0;
+	CdromId[9]=0;
 
-	strncpy(CdromLabel, buf + 52, 32);
+	strncpy(CdromLabel, (char*)buf+52, 32);
 
 	// skip head and sub, and go to the root directory record
-	dir = (struct iso_directory_record *)&buf[12 + 156];
+	dir = (struct iso_directory_record*) &buf[12+156]; 
 
-	mmssdd(dir->extent, (char *)time);
+	mmssdd(dir->extent, (char*)time);
 
 	READDIR(mdir);
 
 	if (GetCdromFile(mdir, time, "SYSTEM.CNF;1") != -1) {
 		READTRACK();
 
-		sscanf(buf + 12, "BOOT = cdrom:\\%255s", exename);
+		sscanf((char*)buf+12, "BOOT = cdrom:\\%255s", exename);
 		if (GetCdromFile(mdir, time, exename) == -1) {
-			sscanf(buf + 12, "BOOT = cdrom:%255s", exename);
+			sscanf((char*)buf+12, "BOOT = cdrom:%255s", exename);
 			if (GetCdromFile(mdir, time, exename) == -1) {
-				char *ptr = strstr(buf + 12, "cdrom:");			// possibly the executable is in some subdir
-				if (ptr != NULL) {
-					ptr += 6;
-					while (*ptr == '\\' || *ptr == '/') ptr++;
-					strncpy(exename, ptr, 255);
-					exename[255] = '\0';
-					ptr = exename;
-					while (*ptr != '\0' && *ptr != '\r' && *ptr != '\n') ptr++;
-					*ptr = '\0';
+				char *ptr = strstr((char*)buf+12, "cdrom:");			// possibly the executable is in some subdir
+				for (i=0; i<32; i++) {
+					if (ptr[i] == ' ') continue;
+					if (ptr[i] == '\\') continue;
+				}
+				if(ptr) {
+					strncpy(exename, ptr, 256);
 					if (GetCdromFile(mdir, time, exename) == -1)
-					 	return -1;		// main executable not found
-				} else
-					return -1;
+				 	return -1;		// main executable not found
+				}
 			}
 		}
-		/* Workaround for Wild Arms EU/US which has non-standard string causing incorrect region detection */
-		if (exename[0] == 'E' && exename[1] == 'X' && exename[2] == 'E' && exename[3] == '\\') {
-			size_t offset = 4;
-			size_t i, len = strlen(exename) - offset;
-			for (i = 0; i < len; i++)
-				exename[i] = exename[i + offset];
-			exename[i] = '\0';
-		}
-	} else if (GetCdromFile(mdir, time, "PSX.EXE;1") != -1) {
-		strcpy(exename, "PSX.EXE;1");
-		strcpy(CdromId, "SLUS99999");
 	} else
-		return -1;		// SYSTEM.CNF and PSX.EXE not found
+		return -1;		// SYSTEM.CNF not found
 
-	if (CdromId[0] == '\0') {
-		len = strlen(exename);
-		c = 0;
-		for (i = 0; i < len; ++i) {
-			if (exename[i] == ';' || c >= sizeof(CdromId) - 1)
-				break;
-			if (isalnum(exename[i]))
-				CdromId[c++] = exename[i];
+	i = strlen(exename);
+	if (i >= 2) {
+		if (exename[i - 2] == ';') i-= 2;
+		int c = 8; i--;
+		while (i >= 0 && c >= 0) {
+			if (isalnum((int) exename[i])) CdromId[c--] = exename[i];
+			i--;
 		}
 	}
-
-	if (CdromId[0] == '\0')
-		strcpy(CdromId, "SLUS99999");
 
 	if (Config.PsxAuto) { // autodetect system (pal or ntsc)
 		if (strstr(exename, "ES") != NULL)
@@ -392,14 +355,23 @@ int CheckCdrom() {
 	}
 	psxUpdateVSyncRate();
 	if (CdromLabel[0] == ' ') {
-		memcpy(CdromLabel, CdromId, 9);
+		strncpy(CdromLabel, CdromId, 9);
 	}
-	SysPrintf(_("CD-ROM Label: %.32s\n"), CdromLabel);
-	SysPrintf(_("CD-ROM ID: %.9s\n"), CdromId);
-	SysPrintf(_("CD-ROM EXE Name: %.255s\n"), exename);
-
-	BuildPPFCache();
-
+	SysPrintf("CD-ROM Label: %.32s\n", CdromLabel);
+	SysPrintf("CD-ROM ID: %.9s\n", CdromId);
+  for(i = 32; i>0; i--) {
+    if(CdromLabel[i]==' ') {
+      CdromLabel[i]=0;
+    }
+  }
+  for(i = 9; i>0; i--) {
+    if(CdromId[i]==' ') {
+      CdromId[i]=0;
+    }
+  }
+  
+  BuildPPFCache();
+  
 	return 0;
 }
 

@@ -195,12 +195,12 @@ void psxBranchTest() {
 				spuInterrupt();
 			}
 		}
-		if (psxRegs.interrupt & (1 << PSXINT_MDECINDMA)) { // mdec in
-			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_MDECINDMA].sCycle) >= psxRegs.intCycle[PSXINT_MDECINDMA].cycle) {
-				psxRegs.interrupt &= ~(1 << PSXINT_MDECINDMA);
-				mdec0Interrupt();
-			}
-		}
+		//if (psxRegs.interrupt & (1 << PSXINT_MDECINDMA)) { // mdec in
+		//	if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_MDECINDMA].sCycle) >= psxRegs.intCycle[PSXINT_MDECINDMA].cycle) {
+		//		psxRegs.interrupt &= ~(1 << PSXINT_MDECINDMA);
+		//		mdec0Interrupt();
+		//	}
+		//}
 		if (psxRegs.interrupt & (1 << PSXINT_GPUOTCDMA)) { // gpu otc
 			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_GPUOTCDMA].sCycle) >= psxRegs.intCycle[PSXINT_GPUOTCDMA].cycle) {
 				psxRegs.interrupt &= ~(1 << PSXINT_GPUOTCDMA);
@@ -243,8 +243,8 @@ void psxBranchTest() {
 inline void psxTestHWInts() {
     // upd xjsxjs197 start
 	//if (psxHu32(0x1070) & psxHu32(0x1074)) {
-	//if (LOAD_SWAP32p(psxHAddr(0x1070)) & LOAD_SWAP32p(psxHAddr(0x1074))) {
-	if (*((u32*)psxHAddr(0x1070)) & *((u32*)psxHAddr(0x1074))) {
+	if (LOAD_SWAP32p(psxHAddr(0x1070)) & LOAD_SWAP32p(psxHAddr(0x1074))) {
+	//if (*((u32*)psxHAddr(0x1070)) & *((u32*)psxHAddr(0x1074))) {
     // upd xjsxjs197 end
 		if ((psxRegs.CP0.n.Status & 0x401) == 0x401) {
 #ifdef PSXCPU_LOG
