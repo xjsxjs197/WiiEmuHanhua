@@ -52,6 +52,8 @@
 #include "Gamecube/fileBrowser/fileBrowser-DVD.h"
 #include "Gamecube/wiiSXconfig.h"
 
+#include <ogc/machine/processor.h>
+
 extern void SysMessage(char *fmt, ...);
 
 s8 psxM[0x00220000] __attribute__((aligned(32)));
@@ -95,6 +97,10 @@ int psxMemInit() {
 	for (i=0; i<0x01; i++) psxMemWLUT[i + 0x1f00] = (u8*)&psxP[i << 16];
 
 	for (i=0; i<0x01; i++) psxMemWLUT[i + 0x1f80] = (u8*)&psxH[i << 16];
+
+    // enable HID2(PSE)
+    u32 hid2 = mfhid2();
+    mthid2(hid2 | 0x20000000);
 
 	return 0;
 }

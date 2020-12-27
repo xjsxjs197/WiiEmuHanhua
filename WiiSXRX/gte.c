@@ -22,7 +22,6 @@
 */
 
 #include "gte.h"
-#include <ogc/gu.h>
 
 #ifdef GTE_DUMP
 #define G_OP(name,delay) fprintf(gteLog, "* : %08X : %02d : %s\n", psxRegs.code, delay, name);
@@ -161,6 +160,13 @@
 #define gteZSF3 ((s16*)psxRegs.CP2C.r)[SEL16(58)]
 #define gteZSF4 ((s16*)psxRegs.CP2C.r)[SEL16(60)]
 #define gteFLAG psxRegs.CP2C.r[31]
+
+typedef struct _vecf {
+	f32 x,y,z;
+} guVector;
+typedef f32	Mtx[3][4];
+
+extern void myps_guVecMultiplySR(register Mtx mt,register guVector *src,register guVector *dst);
 
 Mtx tmpMtx;
 guVector srcVec;
@@ -451,7 +457,7 @@ __inline s32 FlimG2(s64 x) {
     srcVec.x = gteVX##vn; \
     srcVec.y = gteVY##vn; \
     srcVec.z = gteVZ##vn; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gteMAC1 = FNC_OVERFLOW1(((signed long)(dstVec.x) >> 12) + gteTRX); \
     gteMAC2 = FNC_OVERFLOW2(((signed long)(dstVec.y) >> 12) + gteTRY); \
     gteMAC3 = FNC_OVERFLOW3(((signed long)(dstVec.z) >> 12) + gteTRZ); \
@@ -734,7 +740,7 @@ void gteRTPT() {
     srcVec.x = _v0; \
     srcVec.y = _v1; \
     srcVec.z = _v2; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     SSX = (s64)(dstVec.x); \
     SSY = (s64)(dstVec.y); \
     SSZ = (s64)(dstVec.z); \
@@ -1009,7 +1015,7 @@ void gteSQR() {
     srcVec.x = gteVX##vn; \
     srcVec.y = gteVY##vn; \
     srcVec.z = gteVZ##vn; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gte_LL1 = F12limA1U((s64)(dstVec.x) >> 12); \
     gte_LL2 = F12limA2U((s64)(dstVec.y) >> 12); \
     gte_LL3 = F12limA3U((s64)(dstVec.z) >> 12); \
@@ -1030,7 +1036,7 @@ void gteSQR() {
     srcVec.x = gte_LL1; \
     srcVec.y = gte_LL2; \
     srcVec.z = gte_LL3; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gte_RRLT = F12limA1U(gteRBK + ((s64)(dstVec.x) >> 12)); \
     gte_GGLT = F12limA2U(gteGBK + ((s64)(dstVec.y) >> 12)); \
     gte_BBLT = F12limA3U(gteBBK + ((s64)(dstVec.z) >> 12)); \
@@ -1269,7 +1275,7 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
     srcVec.x = gteVX##vn; \
     srcVec.y = gteVY##vn; \
     srcVec.z = gteVZ##vn; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gte_LL1 = F12limA1U((s64)(dstVec.x) >> 12); \
     gte_LL2 = F12limA2U((s64)(dstVec.y) >> 12); \
     gte_LL3 = F12limA3U((s64)(dstVec.z) >> 12); \
@@ -1290,7 +1296,7 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
     srcVec.x = gte_LL1; \
     srcVec.y = gte_LL2; \
     srcVec.z = gte_LL3; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gte_RRLT = F12limA1U(gteRBK + ((s64)(dstVec.x) >> 12)); \
     gte_GGLT = F12limA2U(gteGBK + ((s64)(dstVec.y) >> 12)); \
     gte_BBLT = F12limA3U(gteBBK + ((s64)(dstVec.z) >> 12)); \
@@ -2109,7 +2115,7 @@ void gteDPCT() {
     srcVec.x = gteVX##vn; \
     srcVec.y = gteVY##vn; \
     srcVec.z = gteVZ##vn; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gte_LL1 = F12limA1U((s64)(dstVec.x) >> 12); \
     gte_LL2 = F12limA2U((s64)(dstVec.y) >> 12); \
     gte_LL3 = F12limA3U((s64)(dstVec.z) >> 12); \
@@ -2130,7 +2136,7 @@ void gteDPCT() {
     srcVec.x = gte_LL1; \
     srcVec.y = gte_LL2; \
     srcVec.z = gte_LL3; \
-    guVecMultiply(tmpMtx, &srcVec, &dstVec); \
+    myps_guVecMultiplySR(tmpMtx, &srcVec, &dstVec); \
     gteMAC1 = F12limA1U(gteRBK + ((s64)(dstVec.x) >> 12)); \
     gteMAC2 = F12limA2U(gteGBK + ((s64)(dstVec.y) >> 12)); \
     gteMAC3 = F12limA3U(gteBBK + ((s64)(dstVec.z) >> 12)); \
