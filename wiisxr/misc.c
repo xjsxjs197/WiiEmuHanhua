@@ -398,8 +398,16 @@ int CheckCdrom() {
 	}
 	SysPrintf(_("CD-ROM Label: %.32s\n"), CdromLabel);
 	SysPrintf(_("CD-ROM ID: %.9s\n"), CdromId);
-	SysPrintf(_("CD-ROM EXE Name: %.255s\n"), exename);
-
+  for(i = 32; i>0; i--) {
+    if(CdromLabel[i]==' ') {
+      CdromLabel[i]=0;
+    }
+  }
+  for(i = 9; i>0; i--) {
+    if(CdromId[i]==' ') {
+      CdromId[i]=0;
+    }
+  }
 	BuildPPFCache();
 
 	return 0;

@@ -371,13 +371,20 @@ static void ReadTrack(const u8 *time) {
 	tmp[1] = itob(time[1]);
 	tmp[2] = itob(time[2]);
 
-	if (memcmp(cdr.Prev, tmp, 3) == 0)
-		return;
+	//if (memcmp(cdr.Prev, tmp, 3) == 0)
+	//	return;
+	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
+    {
+        return;
+    }
 
 	CDR_LOG("ReadTrack *** %02x:%02x:%02x\n", tmp[0], tmp[1], tmp[2]);
 
 	cdr.RErr = CDR_readTrack(tmp);
-	memcpy(cdr.Prev, tmp, 3);
+	//memcpy(cdr.Prev, tmp, 3);
+	cdr.Prev[0] = tmp[0];
+	cdr.Prev[1] = tmp[1];
+	cdr.Prev[2] = tmp[2];
 
 	if (CheckSBI(time))
 		return;
