@@ -382,7 +382,7 @@ static void ReadTrack(const u8 *time) {
 	if (CheckSBI(time))
 		return;
 
-	subq = (struct SubQ *)CDR_getBufferSub();
+	/*subq = (struct SubQ *)CDR_getBufferSub();
 	if (subq != NULL && cdr.CurTrack == 1) {
 		crc = calcCrc((u8 *)subq + 12, 10);
 		if (crc == (((u16)subq->CRC[0] << 8) | subq->CRC[1])) {
@@ -398,7 +398,7 @@ static void ReadTrack(const u8 *time) {
 	}
 	else {
 		generate_subq(time);
-	}
+	}*/
 
 	CDR_LOG(" -> %02x,%02x %02x:%02x:%02x %02x:%02x:%02x\n",
 		cdr.subq.Track, cdr.subq.Index,
@@ -558,6 +558,8 @@ void cdrInterrupt() {
 	}
 
 	cdr.Irq = 0;
+	struct SubQ *subq;
+	u16 crc;
 
 	switch (Irq) {
 		case CdlSync:
@@ -630,7 +632,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 
 			cdr.StatP |= STATUS_PLAY;
-			
+
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
@@ -764,6 +766,25 @@ void cdrInterrupt() {
 
 		case CdlGetlocP:
 			SetResultSize(8);
+
+			subq = (struct SubQ *)CDR_getBufferSub();
+            if (subq != NULL && cdr.CurTrack == 1) {
+                crc = calcCrc((u8 *)subq + 12, 10);
+                if (crc == (((u16)subq->CRC[0] << 8) | subq->CRC[1])) {
+                    cdr.subq.Track = subq->TrackNumber;
+                    cdr.subq.Index = subq->IndexNumber;
+                    memcpy(cdr.subq.Relative, subq->TrackRelativeAddress, 3);
+                    memcpy(cdr.subq.Absolute, subq->AbsoluteAddress, 3);
+                }
+                else {
+                    CDR_LOG_I("subq bad crc @%02x:%02x:%02x\n",
+                        tmp[0], tmp[1], tmp[2]);
+                }
+            }
+            else {
+                generate_subq(cdr.SetSectorPlay);
+            }
+
 			memcpy(&cdr.Result, &cdr.subq, 8);
 
 			if (!cdr.Play && !cdr.Reading)
@@ -1225,7 +1246,7 @@ void cdrWrite1(unsigned char rt) {
 
 	cdr.ResultReady = 0;
 	cdr.Ctrl |= 0x80;
-	// cdr.Stat = NoIntr; 
+	// cdr.Stat = NoIntr;
 	AddIrqQueue(cdr.Cmd, 0x800);
 
 	switch (cdr.Cmd) {
