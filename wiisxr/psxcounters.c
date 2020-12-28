@@ -86,8 +86,8 @@ u32 psxNextCounter = 0, psxNextsCounter = 0;
 static inline
 void setIrq( u32 irq )
 {
-    //psxHu32ref(0x1070) |= SWAPu32(irq);
-    psxHu32ref(0x1070) |= irq;
+    psxHu32ref(0x1070) |= SWAPu32(irq);
+    //psxHu32ref(0x1070) |= irq;
     //psxRegs.interrupt|= 0x80000000;
 }
 
@@ -334,7 +334,7 @@ void psxRcntUpdate()
         // VSync irq.
         if( hSyncCount == VBlankStart )
         {
-            HW_GPU_STATUS &= ~PSXGPU_LCF;
+            //HW_GPU_STATUS &= ~PSXGPU_LCF;
             //GPU_vBlank( 1, 0 );
             setIrq( 0x01 );
 
@@ -353,9 +353,9 @@ void psxRcntUpdate()
             hSyncCount = 0;
             frame_counter++;
 
-            gpuSyncPluginSR();
-            if( (HW_GPU_STATUS & PSXGPU_ILACE_BITS) == PSXGPU_ILACE_BITS )
-                HW_GPU_STATUS |= frame_counter << 31;
+            //gpuSyncPluginSR();
+            //if( (HW_GPU_STATUS & PSXGPU_ILACE_BITS) == PSXGPU_ILACE_BITS )
+            //    HW_GPU_STATUS |= frame_counter << 31;
             //GPU_vBlank( 0, HW_GPU_STATUS >> 31 );
         }
 
@@ -466,15 +466,18 @@ void psxRcntInit()
 
     // rcnt 0.
     rcnts[0].rate   = 1;
-    rcnts[0].irq    = SWAPu32(0x10);
+    rcnts[0].irq    = 0x10;
+    //rcnts[0].irq    = SWAPu32(0x10);
 
     // rcnt 1.
     rcnts[1].rate   = 1;
-    rcnts[1].irq    = SWAPu32(0x20);
+    rcnts[1].irq    = 0x20;
+    //rcnts[1].irq    = SWAPu32(0x20);
 
     // rcnt 2.
     rcnts[2].rate   = 1;
-    rcnts[2].irq    = SWAPu32(0x40);
+    rcnts[2].irq    = 0x40;
+    //rcnts[2].irq    = SWAPu32(0x40);
 
     // rcnt base.
     rcnts[3].rate   = 1;
