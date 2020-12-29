@@ -10,6 +10,9 @@ extern void InitADSR(void);
 extern void SetupSound(void);
 extern void RemoveSound(void);
 
+// intended to be ~1 frame
+#define IRQ_NEAR_BLOCKS 32
+
 // Actual SPU Buffer
 #define NUM_SPU_BUFFERS 4
 unsigned char spuBuffer[NUM_SPU_BUFFERS][7200] __attribute__((aligned(32)));
@@ -26,6 +29,7 @@ unsigned char * pSpuBuffer;
 unsigned char * pMixIrq=0;
 
 void (*irqCallback)(void)=0;                  // func of main emu, called on spu irq
+void (*scheduleCallback)(unsigned int);
 unsigned char * pSpuIrq=0;
 int             iSPUIRQWait=0;
 int             iSpuAsyncWait=0;
@@ -103,6 +107,7 @@ void VoiceChangeFrequency(SPUCHAN * pChannel)
 	pChannel->iUsedFreq=pChannel->iActFreq;               // -> take it and calc steps
 	pChannel->sinc=pChannel->iRawPitch<<4;
 	if(!pChannel->sinc) pChannel->sinc=1;
+	pChannel->sinc_inv=0;
 }
 
 void FModChangeFrequency(SPUCHAN * pChannel,int ns)
@@ -126,6 +131,7 @@ void FModChangeFrequency(SPUCHAN * pChannel,int ns)
 	// upd xjsxjs197 end
 	if(!pChannel->sinc) pChannel->sinc=1;
 	iFMod[ns]=0;
+	pChannel->sinc_inv=0;
 }
 
 // noise handler... just produces some noise data
@@ -327,6 +333,91 @@ void SPU_async_1ms(SPUCHAN * pChannel,int *SSumL, int *SSumR, int *iFMod)
 	}
 }
 
+// if irq is going to trigger sooner than in upd_samples, set upd_samples
+static void scan_for_irq(int ch, unsigned int *upd_samples)
+{
+ SPUCHAN *s_chan = &s_chan[ch];
+ int pos, sinc, sinc_inv, end;
+ unsigned char *block;
+ int flags;
+
+ block = s_chan->pCurr;
+ pos = s_chan->spos;
+ sinc = s_chan->sinc;
+ end = pos + *upd_samples * sinc;
+
+ pos += (28 - s_chan->iSBPos) << 16;
+ while (pos < end)
+ {
+  if (block == pSpuIrq)
+   break;
+  flags = block[1];
+  block += 16;
+  if (flags & 1) {                          // 1: stop/loop
+   block = s_chan->pLoop;
+   if (block == pSpuIrq)                // hack.. (see decode_block)
+    break;
+  }
+  pos += 28 << 16;
+ }
+
+ if (pos < end)
+ {
+  sinc_inv = s_chan->sinc_inv;
+  if (sinc_inv == 0)
+   sinc_inv = s_chan->sinc_inv = (0x80000000u / (uint32_t)sinc) << 1;
+
+  pos -= s_chan->spos;
+  *upd_samples = (((uint64_t)pos * sinc_inv) >> 32) + 1;
+  //xprintf("ch%02d: irq sched: %3d %03d\n",
+  // ch, *upd_samples, *upd_samples * 60 * 263 / 44100);
+ }
+}
+
+#ifdef __GNUC__
+#define noinline __attribute__((noinline))
+#define unlikely(x) __builtin_expect((x), 0)
+#else
+#define noinline
+#define unlikely(x) x
+#endif
+
+void schedule_next_irq(void)
+{
+ unsigned int upd_samples;
+ int ch;
+
+ if (scheduleCallback == NULL)
+  return;
+
+ upd_samples = 44100 / 50;
+
+ for (ch = 0; ch < MAXCHAN; ch++)
+ {
+  if (s_chan[ch].bStop)
+   continue;
+  if ((unsigned long)(pSpuIrq - s_chan[ch].pCurr) > IRQ_NEAR_BLOCKS * 16
+    && (unsigned long)(pSpuIrq - s_chan[ch].pLoop) > IRQ_NEAR_BLOCKS * 16)
+   continue;
+
+  scan_for_irq(ch, &upd_samples);
+ }
+
+ if (unlikely(pSpuIrq < spuMemC + 0x1000))
+ {
+  int left = ((pSpuIrq - spuMemC) >> 1) & 0x1ff;
+  //int left = (irq_pos - decode_pos) & 0x1ff;
+  if (0 < left && left < upd_samples) {
+   upd_samples = left;
+  }
+ }
+
+ if (upd_samples < 44100 / 50)
+   scheduleCallback(upd_samples * 768 / 4);
+}
+
+#define CTRL_IRQ                0x40
+
 void FRAN_SPU_async(unsigned long cycle, long psxType)
 {
 	if( iSoundMuted > 0 ) return;
@@ -355,10 +446,16 @@ void FRAN_SPU_async(unsigned long cycle, long psxType)
 	int i;
 	//PRINT_LOG1("====FRAN_SPU_async cycle: %d", cycle);
 	// psxType 0=NTSC 16 ms, 1=PAL 20 ms; do two frames
-	int t = (psxType == 0 ? 32 : 40);
+	int t = (psxType == 0 ? 16 : 20);
 	for (i = 0; i < t; i++)
 	// upd xjsxjs197 end
 		SPU_async_1ms(s_chan,SSumL,SSumR,iFMod); // Calculates 1 ms of sound
+
+    if (spuCtrl & CTRL_IRQ)
+    {
+        schedule_next_irq();
+    }
+
 	SoundFeedStreamData((unsigned char*)pSpuBuffer,
 			((unsigned char *)pS)-((unsigned char *)pSpuBuffer));
 	pSpuBuffer = spuBuffer[whichBuffer =
@@ -634,6 +731,11 @@ long FRAN_SPU_test() {
 
 void FRAN_SPU_registerCallback(void (*callback)(void)) {
 	irqCallback = callback;
+}
+
+void FRAN_SPU_registerScheduleCb(void (*callback)(unsigned int))
+{
+    scheduleCallback = callback;
 }
 
 void FRAN_SPU_registerCDDAVolume(void (*CDDAVcallback)(unsigned short,unsigned short)) {

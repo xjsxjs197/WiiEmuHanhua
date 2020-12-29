@@ -128,6 +128,7 @@ typedef struct
 	int               iSBPos;                             // mixing stuff
 	int               spos;
 	int               sinc;
+	int               sinc_inv;
 	int               SB[32];                             // Pete added another 32 dwords in 1.6 ... prevents overflow issues with gaussian/cubic interpolation (thanx xodnizel!), and can be used for even better interpolations, eh? :)
 	int               sval;
 

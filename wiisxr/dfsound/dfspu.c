@@ -1253,7 +1253,11 @@ void schedule_next_irq(void)
 
 void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
 {
- do_samples(cycle, spu_config.iUseFixedUpdates);
+    int i;
+    for (i = 0; i < 32; i++)
+    {
+        do_samples(cycle, spu_config.iUseFixedUpdates);
+    }
 
  if (spu.spuCtrl & CTRL_IRQ)
   schedule_next_irq();
@@ -1263,12 +1267,12 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
   spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer = ((spu.whichBuffer + 1) & 3)];
   spu.pS = (short *)spu.pSpuBuffer;
 
-  if (spu_config.iTempo) {
-   if (!out_current->busy())
+  //if (spu_config.iTempo) {
+   //if (!out_current->busy())
     // cause more samples to be generated
     // (and break some games because of bad sync)
-    spu.cycles_played -= 44100 / 60 / 2 * 768;
-  }
+    //spu.cycles_played -= 44100 / 60 / 2 * 768;
+  //}
  }
 }
 

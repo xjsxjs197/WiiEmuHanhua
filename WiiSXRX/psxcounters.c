@@ -196,6 +196,7 @@ void psxRcntUpdate() {
 	end_section(AUDIO_SECTION);
 #endif
 			psxRcntReset(4);
+			psxCounters[4].Cycle = psxCounters[4].Cycle >> 2;
 		}
 	}
 

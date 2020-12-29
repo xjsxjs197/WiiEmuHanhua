@@ -109,6 +109,7 @@ void FRAN_SPU_setConfigFile(char *cfgfile);
 void FRAN_SPU_About();
 void FRAN_SPU_test();
 void FRAN_SPU_registerCallback(void (*callback)(void));
+void FRAN_SPU_registerScheduleCb(void (*callback)(void));
 void FRAN_SPU_registerCDDAVolume(void (*CDDAVcallback)(unsigned short,unsigned short));
 
 /* dfsound */
@@ -468,7 +469,7 @@ unsigned char * CALLBACK Mooby2CDRgetBuffer(void);
 
 #define FRANSPU_PLUGIN \
 	{ "SPU",      \
-	  19,         \
+	  20,         \
 	  { { "SPUinit",  \
 	      (void*)FRAN_SPU_init }, \
 	    { "SPUshutdown",	\
@@ -503,6 +504,8 @@ unsigned char * CALLBACK Mooby2CDRgetBuffer(void);
 	      (void*)FRAN_SPU_freeze}, \
 	    { "SPUregisterCallback", \
 	      (void*)FRAN_SPU_registerCallback}, \
+        { "SPUregisterScheduleCb", \
+	      (void*)FRAN_SPU_registerScheduleCb}, \
 	    { "SPUregisterCDDAVolume", \
 	      (void*)FRAN_SPU_registerCDDAVolume}, \
 	    { "SPUasync", \
