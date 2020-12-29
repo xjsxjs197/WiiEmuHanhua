@@ -37,8 +37,7 @@ static AESNDPB* voice = NULL;
 int	iDisStereo=0;
 
 #define NUM_BUFFERS 4
-#define BUFFERS_SIZE 32768
-static struct { u8 buffer[BUFFERS_SIZE]; u32 len; } buffers[NUM_BUFFERS];
+static struct { void* buffer; u32 len; } buffers[NUM_BUFFERS];
 static u32 fill_buffer, play_buffer;
 
 static void aesnd_callback(AESNDPB* voice, u32 state);
@@ -104,10 +103,7 @@ unsigned long SoundGetBytesBuffered(void)
 
 		if(i == play_buffer) break;
 
-        // upd xjsxjs197 start
-		//i = (i + NUM_BUFFERS - 1) % NUM_BUFFERS;
 		i = (i + NUM_BUFFERS - 1) & 3;
-		// upd xjsxjs197 end
 	}
 
 	return bytes_buffered;
@@ -127,15 +123,11 @@ static void aesnd_callback(AESNDPB* voice, u32 state){
 		if(play_buffer != fill_buffer) {
 			AESND_SetVoiceBuffer(voice,
 					buffers[play_buffer].buffer, buffers[play_buffer].len);
-            // upd xjsxjs197 start
-			//play_buffer = (play_buffer + 1) % NUM_BUFFERS;
+
 			play_buffer = (play_buffer + 1) & 3;
-			// upd xjsxjs197 end
 		}
 	}
 }
-
-extern void *cacheable_kernel_memcpy(void *to, const void *from, size_t len);
 
 ////////////////////////////////////////////////////////////////////////
 // FEED SOUND DATA
@@ -144,13 +136,10 @@ void SoundFeedStreamData(unsigned char* pSound,long lBytes)
 {
 	if(!audioEnabled) return;
 
-	//buffers[fill_buffer].buffer = pSound;
-	cacheable_kernel_memcpy(buffers[fill_buffer].buffer, pSound, lBytes);
+	buffers[fill_buffer].buffer = pSound;
 	buffers[fill_buffer].len = lBytes;
-	// upd xjsxjs197 start
-	//fill_buffer = (fill_buffer + 1) % NUM_BUFFERS;
+
 	fill_buffer = (fill_buffer + 1) & 3;
-	// upd xjsxjs197 end
 
 	AESND_SetVoiceStop(voice, false);
 }
