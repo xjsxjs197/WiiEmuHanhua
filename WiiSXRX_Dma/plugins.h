@@ -175,12 +175,12 @@ typedef void (CALLBACK* SPUsetPitch)(unsigned char, unsigned short);
 typedef void (CALLBACK* SPUsetVolumeL)(unsigned char, short );
 typedef void (CALLBACK* SPUsetVolumeR)(unsigned char, short );
 //psemu pro 2 functions from now..
-typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short);	
-typedef unsigned short (CALLBACK* SPUreadRegister)(unsigned long);		
+typedef void (CALLBACK* SPUwriteRegister)(unsigned long, unsigned short, unsigned int);
+typedef unsigned short (CALLBACK* SPUreadRegister)(unsigned long);
 typedef void (CALLBACK* SPUwriteDMA)(unsigned short);
 typedef unsigned short (CALLBACK* SPUreadDMA)(void);
-typedef void (CALLBACK* SPUwriteDMAMem)(unsigned short *, int);
-typedef void (CALLBACK* SPUreadDMAMem)(unsigned short *, int);
+typedef void (CALLBACK* SPUwriteDMAMem)(unsigned short *, int, unsigned int);
+typedef void (CALLBACK* SPUreadDMAMem)(unsigned short *, int, unsigned int);
 typedef void (CALLBACK* SPUplayADPCMchannel)(xa_decode_t *);
 // add xjsxjs197 start
 // CDDA AUDIO
@@ -201,8 +201,7 @@ typedef struct
  unsigned char cSPURam[0x80000];
  xa_decode_t   xaS;
 } SPUFreeze_t;
-
-typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *);
+typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *, uint32_t);
 typedef void (CALLBACK* SPUasync)(uint32_t, long);
 
 //SPU POINTERS

@@ -29,6 +29,8 @@
 #include "Gamecube/wiiSXconfig.h"
 #include "Gamecube/fileBrowser/fileBrowser-libfat.h"
 
+#include "dfsound/externals.h"
+
 int Log = 0;
 
 /* PSX Executable types */
@@ -396,8 +398,16 @@ int CheckCdrom() {
 	}
 	SysPrintf(_("CD-ROM Label: %.32s\n"), CdromLabel);
 	SysPrintf(_("CD-ROM ID: %.9s\n"), CdromId);
-	SysPrintf(_("CD-ROM EXE Name: %.255s\n"), exename);
-
+  for(i = 32; i>0; i--) {
+    if(CdromLabel[i]==' ') {
+      CdromLabel[i]=0;
+    }
+  }
+  for(i = 9; i>0; i--) {
+    if(CdromId[i]==' ') {
+      CdromId[i]=0;
+    }
+  }
 	BuildPPFCache();
 
 	return 0;
@@ -555,15 +565,15 @@ int SaveState() {
   LoadingBar_showBar(0.80f, SAVE_STATE_MSG);
 	// spu
 	spufP = (SPUFreeze_t *) malloc(16);
-	SPU_freeze(2, spufP);
+	SPU_freeze(2, spufP, psxRegs.cycle);
 	Size = spufP->ulFreezeSize; gzwrite(f, &Size, 4);
 	free(spufP);
 	spufP = (SPUFreeze_t *) malloc(Size);
-	SPU_freeze(1, spufP);
+	SPU_freeze(1, spufP, psxRegs.cycle);
 	gzwrite(f, spufP, Size);
 	free(spufP);
   // spu spuMem save (save directly to save memory)
-  gzwrite(f, &spuMem[0], 0x80000);
+  gzwrite(f, spu.spuMemC, 0x80000);
   LoadingBar_showBar(0.90f, SAVE_STATE_MSG);
 
 	sioFreeze(f, 1);
@@ -638,12 +648,12 @@ int LoadState() {
 	gzread(f, &Size, 4);
 	spufP = (SPUFreeze_t *) malloc (Size);
 	gzread(f, spufP, Size);
-	SPU_freeze(0, spufP);
+	SPU_freeze(0, spufP, psxRegs.cycle);
 	free(spufP);
   // spu spuMem save (save directly to save memory)
-  gzread(f, &spuMem[0], 0x80000);
+  gzread(f, spu.spuMemC, 0x80000);
   LoadingBar_showBar(0.99f, LOAD_STATE_MSG);
-  
+
 	sioFreeze(f, 0);
 	cdrFreeze(f, 0);
 	psxHwFreeze(f, 0);

@@ -24,8 +24,8 @@ GPU = Soft
 TARGET		:=	WiiSXRX_Release
 BUILD		:=	build_release
 SOURCES		:=	../lang \
-                . ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ ../franspu/ \
-				./libgui/gui2
+                . ./gc_input/ ./libgui/ ./menu/ ./fileBrowser/ .. ../ppc/ ../Peops$(GPU)GPU/ \
+				./libgui/gui2 ../dfsound/
 
 DATA		:=	data
 
@@ -48,7 +48,7 @@ LDFLAGS	=	-g $(MACHDEP) -Wl,-Map,$(notdir $@).map,-wrap,wiiuse_register
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:=	-laesnd -ldi -liso9660 -lm -lfat -ldb -lwiiuse -lwupc -lwiidrc -lbte -logc -lz -ltinysmb
+LIBS	:=	-laesnd -ldi -liso9660 -lm -lfat -ldb -lwiiuse -lwupc -lwiidrc -lbte -logc -lz -ltinysmb -lSDL -lwiikeyboard
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

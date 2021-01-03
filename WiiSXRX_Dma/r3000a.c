@@ -201,6 +201,12 @@ void psxBranchTest() {
 				gpuotcInterrupt();
 			}
 		}
+		if (psxRegs.interrupt & (1 << PSXINT_SPU_UPDATE)) { // scheduled spu update
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_SPU_UPDATE].sCycle) >= psxRegs.intCycle[PSXINT_SPU_UPDATE].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_SPU_UPDATE);
+				spuUpdate();
+			}
+		}
 
 		//if (psxRegs.interrupt & 0x80000000) {
 		//	psxRegs.interrupt&=~0x80000000;

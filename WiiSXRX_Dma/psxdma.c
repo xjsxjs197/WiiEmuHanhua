@@ -52,7 +52,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 				break;
 			}
 			words = (bcr >> 16) * (bcr & 0xffff);
-			SPU_writeDMAMem(ptr, words * 2);
+			SPU_writeDMAMem(ptr, words * 2, psxRegs.cycle);
 			//HW_DMA4_MADR = SWAPu32(madr + (words << 2));
 			STORE_SWAP32p(psxHAddr(0x10c0), madr + (words << 2));
 			SPUDMA_INT(words >> 1);
@@ -70,7 +70,7 @@ void psxDma4(u32 madr, u32 bcr, u32 chcr) { // SPU
 				break;
 			}
 			words = (bcr >> 16) * (bcr & 0xffff);
-			SPU_readDMAMem(ptr, words * 2);
+			SPU_readDMAMem(ptr, words * 2, psxRegs.cycle);
 			psxCpu->Clear(madr, words);
 
 			//HW_DMA4_MADR = SWAPu32(madr + (words << 2));
