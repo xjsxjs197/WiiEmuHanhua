@@ -20,7 +20,8 @@
 #include <SDL/SDL.h>
 #include "out.h"
 
-#define BUFFER_SIZE		22050
+//#define BUFFER_SIZE		22050
+#define BUFFER_SIZE		24000
 
 short			*pSndBuffer = NULL;
 int				iBufSize = 0;
@@ -67,10 +68,10 @@ static int sdl_init(void) {
 
 	InitSDL();
 
-	spec.freq = 44100;
+	spec.freq = BUFFER_SIZE << 1;
 	spec.format = AUDIO_S16SYS;
 	spec.channels = 2;
-	spec.samples = 512;
+	spec.samples = 0;
 	spec.callback = SOUND_FillAudio;
 
 	if (SDL_OpenAudio(&spec, NULL) < 0) {
