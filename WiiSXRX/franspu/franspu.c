@@ -446,7 +446,7 @@ void FRAN_SPU_async(unsigned long cycle, long psxType)
 	int i;
 	//PRINT_LOG1("====FRAN_SPU_async cycle: %d", cycle);
 	// psxType 0=NTSC 16 ms, 1=PAL 20 ms; do two frames
-	int t = (psxType == 0 ? 16 : 20);
+	int t = (psxType == 0 ? 32 : 40);
 	for (i = 0; i < t; i++)
 	// upd xjsxjs197 end
 		SPU_async_1ms(s_chan,SSumL,SSumR,iFMod); // Calculates 1 ms of sound

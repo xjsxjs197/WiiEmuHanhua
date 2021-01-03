@@ -1253,18 +1253,13 @@ void schedule_next_irq(void)
 
 void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
 {
-    int i;
-    for (i = 0; i < 32; i++)
-    {
-        do_samples(cycle, spu_config.iUseFixedUpdates);
-    }
+    do_samples(cycle, spu_config.iUseFixedUpdates);
 
  if (spu.spuCtrl & CTRL_IRQ)
   schedule_next_irq();
 
  if (flags & 1) {
   out_current->feed(spu.pSpuBuffer, (unsigned char *)spu.pS - spu.pSpuBuffer);
-  spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer = ((spu.whichBuffer + 1) & 3)];
   spu.pS = (short *)spu.pSpuBuffer;
 
   //if (spu_config.iTempo) {
@@ -1318,9 +1313,7 @@ void ClearWorkingState(void)
 // SETUPSTREAMS: init most of the spu buffers
 static void SetupStreams(void)
 {
- //spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
- spu.whichBuffer = 0;
- spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer];            // alloc mixing buffer
+ spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
  spu.SSumLR = calloc(NSSIZE * 2, sizeof(spu.SSumLR[0]));
 
  spu.XAStart =                                         // alloc xa buffer
@@ -1341,8 +1334,8 @@ static void SetupStreams(void)
 // REMOVESTREAMS: free most buffer
 static void RemoveStreams(void)
 {
- //free(spu.pSpuBuffer);                                 // free mixing buffer
- //spu.pSpuBuffer = NULL;
+ free(spu.pSpuBuffer);                                 // free mixing buffer
+ spu.pSpuBuffer = NULL;
  free(spu.SSumLR);
  spu.SSumLR = NULL;
  free(spu.XAStart);                                    // free XA buffer

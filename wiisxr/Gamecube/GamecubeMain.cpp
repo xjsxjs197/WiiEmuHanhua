@@ -498,7 +498,7 @@ int main(int argc, char *argv[])
 #endif
 
 	// Start up AESND (inited here because its used in SPU and CD)
-	AESND_Init();
+	//AESND_Init();
 
 #ifdef HW_RVL
 	// Initialize the network if the user has specified something in their SMB settings
@@ -516,7 +516,7 @@ int main(int argc, char *argv[])
 	while (menu->isRunning()) {}
 
 	// Shut down AESND
-	AESND_Reset();
+	//AESND_Reset();
 
     menu::IplFont obj = menu::IplFont::getInstance();
 	delete &obj;

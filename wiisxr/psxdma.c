@@ -254,7 +254,7 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
             // upd xjsxjs197 end
 			madr -= 4;
 		}
-		mem++; *mem = 0xffffff;
+		mem++; *mem = SWAPu32(0xffffff);
 
 		//GPUOTCDMA_INT(size);
 		// halted

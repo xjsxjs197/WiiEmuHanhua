@@ -18,17 +18,6 @@
 #include "../Gamecube/DEBUG.h"
 #include <aesndlib.h>
 
-#define MAX_OUT_DRIVERS 1
-
-static struct out_driver out_drivers[MAX_OUT_DRIVERS];
-struct out_driver *out_current;
-static int driver_count;
-
-#define REGISTER_DRIVER(d) { \
-	extern void out_register_##d(struct out_driver *drv); \
-	out_register_##d(&out_drivers[driver_count++]); \
-}
-
 char audioEnabled;
 
 static const u32 freq = 44100;
@@ -48,28 +37,6 @@ void SetVolume(void)
 	// iVolume goes 1 (loudest) - 4 (lowest); volume goes 255-64
 	u16 volume = (4 - iVolume + 1) * 64 - 1;
 	if (voice) AESND_SetVoiceVolume(voice, volume, volume);
-}
-
-////////////////////////////////////////////////////////////////////////
-// SETUP SOUND
-////////////////////////////////////////////////////////////////////////
-
-void SetupSound(void)
-{
-	int i;
-	if (driver_count == 0) {
-        REGISTER_DRIVER(cube);
-	}
-
-	out_drivers[0].init();
-
-	//if (i < 0 || i >= driver_count) {
-	//	printf("the impossible happened\n");
-	//	abort();
-	//}
-
-	out_current = &out_drivers[0];
-	//printf("selected sound output driver: %s\n", out_current->name);
 }
 
 void CubeSoundInit(void)
@@ -145,11 +112,11 @@ void SoundFeedStreamData(unsigned char* pSound,long lBytes)
 }
 
 void pauseAudio(void){
-	AESND_Pause(true);
+	//AESND_Pause(true);
 }
 
 void resumeAudio(void){
-	AESND_Pause(false);
+	//AESND_Pause(false);
 }
 
 void out_register_cube(struct out_driver *drv)
