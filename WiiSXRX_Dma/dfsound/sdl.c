@@ -23,23 +23,23 @@
 //#define BUFFER_SIZE		22050
 #define BUFFER_SIZE		24000
 
-//short			*pSndBuffer = NULL;
+short			*pSndBuffer = NULL;
 //int				iBufSize = 0;
-//volatile int	iReadPos = 0, iWritePos = 0;
-extern char audioEnabled;
-#define NUM_BUFFERS 4
-static struct { void* buffer; int len; } buffers[NUM_BUFFERS];
-static int fill_buffer, play_buffer;
-static int usedBuf = 0;
+volatile int	iReadPos = 0, iWritePos = 0;
+//extern char audioEnabled;
+//#define NUM_BUFFERS 4
+//static struct { void* buffer; int len; } buffers[NUM_BUFFERS];
+//static int fill_buffer, play_buffer;
+//static int usedBuf = 0;
 
 static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
-	/*short *p = (short *)stream;
+	short *p = (short *)stream;
 
 	len /= sizeof(short);
 
 	while (iReadPos != iWritePos && len > 0) {
 		*p++ = pSndBuffer[iReadPos++];
-		if (iReadPos >= iBufSize) iReadPos = 0;
+		if (iReadPos >= BUFFER_SIZE) iReadPos = 0;
 		--len;
 	}
 
@@ -47,8 +47,8 @@ static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 	while (len > 0) {
 		*p++ = 0;
 		--len;
-	}*/
-	int minLen = buffers[play_buffer].len;
+	}
+	/*int minLen = buffers[play_buffer].len;
 	if (len < minLen)
     {
         minLen = len;
@@ -60,7 +60,7 @@ static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 	if (usedBuf < 0)
     {
         usedBuf = 0;
-    }
+    }*/
 }
 
 static void InitSDL() {
@@ -82,15 +82,15 @@ static void DestroySDL() {
 static int sdl_init(void) {
 	SDL_AudioSpec				spec;
 
-	//if (pSndBuffer != NULL) return -1;
-	fill_buffer = play_buffer = 0;
+	if (pSndBuffer != NULL) return -1;
+	//fill_buffer = play_buffer = 0;
 
 	InitSDL();
 
 	spec.freq = BUFFER_SIZE << 1;
-	spec.format = AUDIO_S16LSB //AUDIO_S16SYS; //AUDIO_S16MSB; //
+	spec.format = AUDIO_S16SYS; // AUDIO_S16LSB // //AUDIO_S16MSB; //
 	spec.channels = 2;
-	spec.samples = 4096;
+	spec.samples = 2048;
 	spec.callback = SOUND_FillAudio;
 
 	if (SDL_OpenAudio(&spec, NULL) < 0) {
@@ -100,67 +100,67 @@ static int sdl_init(void) {
 
 	//iBufSize = BUFFER_SIZE;
 
-	//pSndBuffer = (short *)malloc(iBufSize * sizeof(short));
-	//if (pSndBuffer == NULL) {
-	//	SDL_CloseAudio();
-	//	return -1;
-	//}
+	pSndBuffer = (short *)malloc(BUFFER_SIZE * sizeof(short));
+	if (pSndBuffer == NULL) {
+		SDL_CloseAudio();
+		return -1;
+	}
 
-	//iReadPos = 0;
-	//iWritePos = 0;
+	iReadPos = 0;
+	iWritePos = 0;
 
 	SDL_PauseAudio(0);
 	return 0;
 }
 
 static void sdl_finish(void) {
-	//if (pSndBuffer == NULL) return;
+	if (pSndBuffer == NULL) return;
 
 	SDL_CloseAudio();
 	DestroySDL();
 
-	//free(pSndBuffer);
-	//pSndBuffer = NULL;
+	free(pSndBuffer);
+	pSndBuffer = NULL;
 }
 
 static int sdl_busy(void) {
-	/*int size;
+	int size;
 
-	//if (pSndBuffer == NULL) return 1;
+	if (pSndBuffer == NULL) return 1;
 
 	size = iReadPos - iWritePos;
-	if (size <= 0) size += iBufSize;
+	if (size <= 0) size += BUFFER_SIZE;
 
-	if (size < iBufSize / 2) return 1;
+	if (size < BUFFER_SIZE / 2) return 1;
 
-	return 0;*/
-	if (usedBuf > 2)
+	return 0;
+	/*if (usedBuf > 2)
     {
         return 1;
     }
 
-    return 0;
+    return 0;*/
 }
 
 static void sdl_feed(void *pSound, int lBytes) {
-	/*short *p = (short *)pSound;
+	short *p = (short *)pSound;
 
 	if (pSndBuffer == NULL) return;
 
 	while (lBytes > 0) {
-		if (((iWritePos + 1) % iBufSize) == iReadPos) break;
+		if (((iWritePos + 1) % BUFFER_SIZE) == iReadPos) break;
 
 		pSndBuffer[iWritePos] = *p++;
 
 		++iWritePos;
-		if (iWritePos >= iBufSize) iWritePos = 0;
+		if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
 
 		lBytes -= sizeof(short);
-	}*/
+	}
 
 	//if(!audioEnabled) return;
 
-	buffers[fill_buffer].buffer = pSound;
+	/*buffers[fill_buffer].buffer = pSound;
 	buffers[fill_buffer].len = lBytes;
 
 	fill_buffer = (fill_buffer + 1) & 3;
@@ -168,7 +168,7 @@ static void sdl_feed(void *pSound, int lBytes) {
 	if (usedBuf > NUM_BUFFERS)
     {
         usedBuf = NUM_BUFFERS;
-    }
+    }*/
 }
 
 void out_register_sdl(struct out_driver *drv)
