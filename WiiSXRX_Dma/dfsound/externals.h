@@ -174,6 +174,7 @@ typedef struct
 // psx buffers / addresses
 
 #define SB_SIZE (32 + 4)
+#define NUM_SPU_BUFFERS 4
 
 typedef struct
 {
@@ -199,6 +200,9 @@ typedef struct
  unsigned int    dwNewChannel;         // flags for faster testing, if new channel starts
  unsigned int    dwChannelOn;          // not silent channels
  unsigned int    dwChannelDead;        // silent+not useful channels
+
+ unsigned char   spuBuffer[NUM_SPU_BUFFERS][32768] __attribute__((aligned(32)));
+ unsigned int    whichBuffer;
 
  unsigned char * pSpuBuffer;
  short         * pS;
