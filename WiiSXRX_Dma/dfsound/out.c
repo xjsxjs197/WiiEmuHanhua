@@ -32,11 +32,11 @@ void SetupSound(void)
 			break;
 
 	if (i < 0 || i >= driver_count) {
-		printf("the impossible happened\n");
+		//printf("the impossible happened\n");
 		abort();
 	}
 
 	out_current = &out_drivers[i];
-	printf("selected sound output driver: %s\n", out_current->name);
+	//printf("selected sound output driver: %s\n", out_current->name);
 }
 

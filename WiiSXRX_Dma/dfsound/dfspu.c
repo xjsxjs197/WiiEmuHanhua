@@ -1337,14 +1337,26 @@ static void SetupStreams(void)
 // REMOVESTREAMS: free most buffer
 static void RemoveStreams(void)
 {
- free(spu.pSpuBuffer);                                 // free mixing buffer
- spu.pSpuBuffer = NULL;
- free(spu.SSumLR);
- spu.SSumLR = NULL;
- free(spu.XAStart);                                    // free XA buffer
- spu.XAStart = NULL;
- free(spu.CDDAStart);                                  // free CDDA buffer
- spu.CDDAStart = NULL;
+    if (spu.pSpuBuffer)
+    {
+        free(spu.pSpuBuffer);                                 // free mixing buffer
+        spu.pSpuBuffer = NULL;
+    }
+    if (spu.SSumLR)
+    {
+        free(spu.SSumLR);
+        spu.SSumLR = NULL;
+    }
+    if (spu.XAStart)
+    {
+        free(spu.XAStart);                                    // free XA buffer
+        spu.XAStart = NULL;
+    }
+    if (spu.CDDAStart)
+    {
+        free(spu.CDDAStart);                                  // free CDDA buffer
+        spu.CDDAStart = NULL;
+    }
 }
 
 #if defined(C64X_DSP)
@@ -1533,29 +1545,38 @@ long DF_SPUclose(void)
 
  out_current->finish();                                // no more sound handling
 
+    exit_spu_thread();
+    if (spu.spuMemC)
+    {
+        free(spu.spuMemC);
+        spu.spuMemC = NULL;
+    }
+    if (spu.SB)
+    {
+        free(spu.SB);
+        spu.SB = NULL;
+    }
+    if (spu.s_chan)
+    {
+        free(spu.s_chan);
+        spu.s_chan = NULL;
+    }
+    if (spu.rvb)
+    {
+        free(spu.rvb);
+        spu.rvb = NULL;
+    }
+
+    RemoveStreams();                                      // no more streaming
+    spu.bSpuInit=0;
+
  return 0;
 }
 
 // SPUSHUTDOWN: called by main emu on final exit
 long DF_SPUshutdown(void)
 {
- DF_SPUclose();
-
- exit_spu_thread();
-
- free(spu.spuMemC);
- spu.spuMemC = NULL;
- free(spu.SB);
- spu.SB = NULL;
- free(spu.s_chan);
- spu.s_chan = NULL;
- free(spu.rvb);
- spu.rvb = NULL;
-
- RemoveStreams();                                      // no more streaming
- spu.bSpuInit=0;
-
- return 0;
+    return 0;
 }
 
 // SPUTEST: we don't test, we are always fine ;)
