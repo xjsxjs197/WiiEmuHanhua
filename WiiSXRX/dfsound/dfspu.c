@@ -1219,7 +1219,7 @@ void schedule_next_irq(void)
  if (spu.scheduleCallback == NULL)
   return;
 
- upd_samples = 44100 / 50;
+ upd_samples = 48000 / 50;
 
  for (ch = 0; ch < MAXCHAN; ch++)
  {
@@ -1242,8 +1242,8 @@ void schedule_next_irq(void)
   }
  }
 
- if (upd_samples < 44100 / 50)
-  spu.scheduleCallback(upd_samples * 768);
+ if (upd_samples < 48000 / 50)
+  spu.scheduleCallback(upd_samples * 768 / 2);
 }
 
 // SPU ASYNC... even newer epsxe func
@@ -1253,22 +1253,22 @@ void schedule_next_irq(void)
 
 void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
 {
- do_samples(cycle, spu_config.iUseFixedUpdates);
+    do_samples(cycle, spu_config.iUseFixedUpdates);
 
  if (spu.spuCtrl & CTRL_IRQ)
   schedule_next_irq();
 
  if (flags & 1) {
   out_current->feed(spu.pSpuBuffer, (unsigned char *)spu.pS - spu.pSpuBuffer);
-  spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer = ((spu.whichBuffer + 1) & 3)];
+  //spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer = ((spu.whichBuffer + 1) & 3)];
   spu.pS = (short *)spu.pSpuBuffer;
 
-  if (spu_config.iTempo) {
+  //if (spu_config.iTempo) {
    if (!out_current->busy())
     // cause more samples to be generated
     // (and break some games because of bad sync)
-    spu.cycles_played -= 44100 / 60 / 2 * 768;
-  }
+    spu.cycles_played -= 48000 / 60 / 2 * 768;
+  //}
  }
 }
 
@@ -1314,14 +1314,14 @@ void ClearWorkingState(void)
 // SETUPSTREAMS: init most of the spu buffers
 static void SetupStreams(void)
 {
- //spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
- spu.whichBuffer = 0;
- spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer];            // alloc mixing buffer
+ spu.pSpuBuffer = (unsigned char *)malloc(32768);      // alloc mixing buffer
+ //spu.whichBuffer = 0;
+ //spu.pSpuBuffer = spu.spuBuffer[spu.whichBuffer];            // alloc mixing buffer
  spu.SSumLR = calloc(NSSIZE * 2, sizeof(spu.SSumLR[0]));
 
  spu.XAStart =                                         // alloc xa buffer
-  (uint32_t *)malloc(44100 * sizeof(uint32_t));
- spu.XAEnd   = spu.XAStart + 44100;
+  (uint32_t *)malloc(48000 * sizeof(uint32_t));
+ spu.XAEnd   = spu.XAStart + 48000;
  spu.XAPlay  = spu.XAStart;
  spu.XAFeed  = spu.XAStart;
 
@@ -1337,14 +1337,26 @@ static void SetupStreams(void)
 // REMOVESTREAMS: free most buffer
 static void RemoveStreams(void)
 {
- //free(spu.pSpuBuffer);                                 // free mixing buffer
- //spu.pSpuBuffer = NULL;
- free(spu.SSumLR);
- spu.SSumLR = NULL;
- free(spu.XAStart);                                    // free XA buffer
- spu.XAStart = NULL;
- free(spu.CDDAStart);                                  // free CDDA buffer
- spu.CDDAStart = NULL;
+    if (spu.pSpuBuffer)
+    {
+        free(spu.pSpuBuffer);                                 // free mixing buffer
+        spu.pSpuBuffer = NULL;
+    }
+    if (spu.SSumLR)
+    {
+        free(spu.SSumLR);
+        spu.SSumLR = NULL;
+    }
+    if (spu.XAStart)
+    {
+        free(spu.XAStart);                                    // free XA buffer
+        spu.XAStart = NULL;
+    }
+    if (spu.CDDAStart)
+    {
+        free(spu.CDDAStart);                                  // free CDDA buffer
+        spu.CDDAStart = NULL;
+    }
 }
 
 #if defined(C64X_DSP)
@@ -1533,29 +1545,38 @@ long DF_SPUclose(void)
 
  out_current->finish();                                // no more sound handling
 
+    exit_spu_thread();
+    if (spu.spuMemC)
+    {
+        free(spu.spuMemC);
+        spu.spuMemC = NULL;
+    }
+    if (spu.SB)
+    {
+        free(spu.SB);
+        spu.SB = NULL;
+    }
+    if (spu.s_chan)
+    {
+        free(spu.s_chan);
+        spu.s_chan = NULL;
+    }
+    if (spu.rvb)
+    {
+        free(spu.rvb);
+        spu.rvb = NULL;
+    }
+
+    RemoveStreams();                                      // no more streaming
+    spu.bSpuInit=0;
+
  return 0;
 }
 
 // SPUSHUTDOWN: called by main emu on final exit
 long DF_SPUshutdown(void)
 {
- DF_SPUclose();
-
- exit_spu_thread();
-
- free(spu.spuMemC);
- spu.spuMemC = NULL;
- free(spu.SB);
- spu.SB = NULL;
- free(spu.s_chan);
- spu.s_chan = NULL;
- free(spu.rvb);
- spu.rvb = NULL;
-
- RemoveStreams();                                      // no more streaming
- spu.bSpuInit=0;
-
- return 0;
+    return 0;
 }
 
 // SPUTEST: we don't test, we are always fine ;)

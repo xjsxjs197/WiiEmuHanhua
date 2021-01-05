@@ -102,7 +102,7 @@ static unsigned long timeGetTime_spu()
 }
 
 ////////////////////////////////////////////////////////////////////////
-// FEED XA 
+// FEED XA
 ////////////////////////////////////////////////////////////////////////
 
 INLINE void FeedXA(xa_decode_t *xap)
@@ -117,7 +117,7 @@ INLINE void FeedXA(xa_decode_t *xap)
 #if 0//def XA_HACK
  iSize=((45500*xap->nsamples)/xap->freq);              // get size
 #else
- iSize=((44100*xap->nsamples)/xap->freq);              // get size
+ iSize=((48000*xap->nsamples)/xap->freq);              // get size
 #endif
  if(!iSize) return;                                    // none? bye
 
@@ -141,11 +141,11 @@ INLINE void FeedXA(xa_decode_t *xap)
    dwFPS+=dw-dwLT;iFPSCnt++;
 
    dwLT=dw;
-                                       
+
    if(iFPSCnt>=10)
     {
      if(!dwFPS) dwFPS=1;
-     dw1=1000000/dwFPS; 
+     dw1=1000000/dwFPS;
      if(dw1>=(dwL1-100) && dw1<=(dwL1+100)) dw1=dwL1;
      else dwL1=dw1;
      dw2=(xap->freq*100/xap->nsamples);

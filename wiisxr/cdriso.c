@@ -1480,6 +1480,9 @@ const char *GetIsoFile(void) {
 	return &isoFile.name[0];
 }
 
+#include "Gamecube/fileBrowser/fileBrowser.h"
+#include "Gamecube/fileBrowser/fileBrowser-libfat.h"
+
 // This function is invoked by the front-end when opening an ISO
 // file for playback
 static long CALLBACK ISOopen(void) {
@@ -1491,6 +1494,10 @@ static long CALLBACK ISOopen(void) {
 	if (cdHandle != NULL) {
 		return 0; // it's already open
 	}
+
+	if (isoFile_open(GetIsoFile()) == FILE_BROWSER_ERROR_NO_FILE) {
+        return -1;
+    }
 
 	cdHandle = fopen(GetIsoFile(), "rb");
 	if (cdHandle == NULL) {
@@ -1661,7 +1668,7 @@ static long CALLBACK ISOshutdown(void) {
 // buffer:
 //  byte 0 - start track
 //  byte 1 - end track
-static long CALLBACK ISOgetTN(unsigned char *buffer) {
+long CALLBACK ISOgetTN(unsigned char *buffer) {
 	buffer[0] = 1;
 
 	if (numtracks > 0) {

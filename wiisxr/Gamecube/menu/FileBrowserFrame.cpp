@@ -37,7 +37,7 @@ extern "C" {
 #include "../fileBrowser/fileBrowser-DVD.h"
 #include "../fileBrowser/fileBrowser-CARD.h"
 #include "../fileBrowser/fileBrowser-SMB.h"
-extern long Mooby2CDRgetTN(unsigned char *buffer);
+extern long ISOgetTN(unsigned char *buffer);
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
@@ -523,8 +523,8 @@ void fileBrowserFrame_LoadFile(int i)
 			if (ChkString(CdromLabel, "SLPM86192", strlen("SLPM86192"))) {
 		        Config.RCntFix = 1;
 		    }
-			sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
-			strcat(RomInfo,buffer);
+			//sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
+			//strcat(RomInfo,buffer);
 			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);
@@ -535,7 +535,11 @@ void fileBrowserFrame_LoadFile(int i)
 			sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
 			strcat(RomInfo,buffer);
 			unsigned char tracks[2];
-
+            ISOgetTN(&tracks[0]);
+            sprintf(buffer,"Number of tracks %u\n", tracks[1]);
+			strcat(RomInfo,buffer);
+    		
+			
 			switch (autoSaveLoaded)
 			{
 			case NATIVESAVEDEVICE_NONE:
