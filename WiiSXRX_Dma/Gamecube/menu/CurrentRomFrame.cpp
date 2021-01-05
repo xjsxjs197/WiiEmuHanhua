@@ -39,7 +39,7 @@ extern "C" {
 #include "../fileBrowser/fileBrowser-CARD.h"
 extern int LoadMcd(int mcd, fileBrowser_file *savepath);
 extern int SaveMcd(int mcd, fileBrowser_file *savepath);
-extern long Mooby2CDRgetTN(unsigned char *buffer);
+extern long ISOgetTN(unsigned char *buffer);
 }
 
 void Func_ShowRomInfo();
@@ -158,6 +158,10 @@ void Func_ShowRomInfo()
   strcat(RomInfo,buffer);
   sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
   strcat(RomInfo,buffer);
+  unsigned char tracks[2];
+  ISOgetTN(&tracks[0]);
+  sprintf(buffer,"Number of tracks %u\n", tracks[1]);
+	strcat(RomInfo,buffer);
 
 	menu::MessageBox::getInstance().setMessage(RomInfo);
 }

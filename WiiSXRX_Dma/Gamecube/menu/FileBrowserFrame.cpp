@@ -37,7 +37,7 @@ extern "C" {
 #include "../fileBrowser/fileBrowser-DVD.h"
 #include "../fileBrowser/fileBrowser-CARD.h"
 #include "../fileBrowser/fileBrowser-SMB.h"
-extern long Mooby2CDRgetTN(unsigned char *buffer);
+extern long ISOgetTN(unsigned char *buffer);
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
@@ -535,7 +535,11 @@ void fileBrowserFrame_LoadFile(int i)
 			sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
 			strcat(RomInfo,buffer);
 			unsigned char tracks[2];
-
+            ISOgetTN(&tracks[0]);
+            sprintf(buffer,"Number of tracks %u\n", tracks[1]);
+			strcat(RomInfo,buffer);
+    		
+			
 			switch (autoSaveLoaded)
 			{
 			case NATIVESAVEDEVICE_NONE:
