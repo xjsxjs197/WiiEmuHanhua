@@ -69,42 +69,40 @@
 #define	fr31	31
 
 	.globl myps_guVecMultiply
+	// r3 = mt, r4 = src, r5 = dst
 myps_guVecMultiply:
-	psq_l		fr0,0(r4),0,0
-	psq_l		fr2,0(r3),0,0
-	psq_l		fr1,8(r4),1,0
+	psq_l		fr0,0(r4),0,0        // fr0 = x y
+	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
+	psq_l		fr1,8(r4),1,0        // fr1 = z 0
+	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
+	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2], m[0][3] --------------------
+	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (m[0][3] * 1.0) + (m[0][1] * y)
+    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1] ====================
+	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (m[0][3] * 1.0) + (m[0][1] * y), 0 ?
+	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2], m[1][3] --------------------
+	ps_mul		fr10,fr8,fr0         // fr10 = m[1][0] * x, m[1][1] * y
+	psq_st		fr6,0(r5),1,0        // r5 = result_X
+	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (m[1][3] * 1.0) + (m[1][1] * y)
+	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1] =======================
+	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (m[1][3] * 1.0) + (m[1][1] * y), 0 ?
+	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2], m[2][3] ---------------------
 	ps_mul		fr4,fr2,fr0
-	psq_l		fr3,8(r3),0,0
-	ps_madd		fr5,fr3,fr1,fr4
-	psq_l		fr8,16(r3),0,0
-	ps_sum0		fr6,fr5,fr6,fr5
-	psq_l		fr9,24(r3),0,0
-	ps_mul		fr10,fr8,fr0
-	psq_st		fr6,0(r5),1,0
-	ps_madd		fr11,fr9,fr1,fr10
-	psq_l		fr2,32(r3),0,0
-	ps_sum0		fr12,fr11,fr12,fr11
-	psq_l		fr3,40(r3),0,0
-	ps_mul		fr4,fr2,fr0
-	psq_st		fr12,4(r5),1,0
+	psq_st		fr12,4(r5),1,0       // r5 = result_Y
 	ps_madd		fr5,fr3,fr1,fr4
 	ps_sum0		fr6,fr5,fr6,fr5
-	psq_st		fr6,8(r5),1,0
+	psq_st		fr6,8(r5),1,0        // r5 = result_Z
 	blr
 
 	.globl myps_guVecMultiplySR
 	// r3 = mt, r4 = src, r5 = dst
 myps_guVecMultiplySR:
     psq_l		fr0,0(r3),0,0    // m[0][0], m[0][1] GQR0 = 0
-    // fp6 - x y
-    psq_l		fr6,0(r4),0,0
+    psq_l		fr6,0(r4),0,0    // fp6 - x y
     psq_l		fr2,16(r3),0,0   // m[1][0], m[1][1]
-    // fp8 = m00x m01y // next X
-    ps_mul		fr8,fr0,fr6
+    ps_mul		fr8,fr0,fr6      // fp8 = m00x m01y // next X
     psq_l		fr4,32(r3),0,0   // m[2][0], m[2][1]
-    // fp10 = m10x m11y // next Y
-    ps_mul		fr10,fr2,fr6
-    psq_l		fr7,8(r4),1,0   // fp7 - z,1.0
+    ps_mul		fr10,fr2,fr6     // fp10 = m10x m11y // next Y
+    psq_l		fr7,8(r4),1,0    // fp7 - z,1.0
     // fp12 = m20x m21y // next Z
     ps_mul		fr12,fr4,fr6  // YYY last FP6 usage
     psq_l		fr3,24(r3),0,0   // m[1][2], m[1][3]
