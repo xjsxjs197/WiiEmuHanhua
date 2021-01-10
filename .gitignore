@@ -49,3 +49,13 @@ WiiSXRX_Dma/Gamecube/WiiSXRX_debug.dol
 WiiSXRX_Dma/Gamecube/WiiSXRX_debug.elf
 WiiSXRX_Dma/Gamecube/WiiSXRX_Release.dol
 WiiSXRX_Dma/Gamecube/WiiSXRX_Release.elf
+WiiSXRX_DmaOk/Gamecube/WiiSXRX_debug.dol
+WiiSXRX_DmaOk/Gamecube/WiiSXRX_debug.elf
+WiiSXRX_DmaOk/Gamecube/WiiSXRX_Release.dol
+WiiSXRX_DmaOk/Gamecube/WiiSXRX_Release.elf
+WiiSXRX_DmaOk/Gamecube/build_release/zh_lang.h
+WiiSXRX_DmaOk/Gamecube/build_release/WiiSXRX_Release.elf.map
+WiiSXRX_DmaOk/Gamecube/build_release/en_lang.h
+WiiSXRX_DmaOk/Gamecube/build_debug/zh_lang.h
+WiiSXRX_DmaOk/Gamecube/build_debug/WiiSXRX_debug.elf.map
+WiiSXRX_DmaOk/Gamecube/build_debug/en_lang.h
