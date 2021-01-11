@@ -163,13 +163,16 @@
 
 typedef struct _vecf {
 	f32 x,y,z;
+	s32 flag;
 } guVector;
 typedef f32	Mtx[3][3];
 
 extern void myps_guVecMultiply(register Mtx mt,register guVector *src,register guVector *dst);
+extern void ps_gte_rtps1(register Mtx mt,register guVector *src,register guVector *add,register guVector *dst);
 
 Mtx tmpMtx;
 guVector srcVec;
+guVector addVec;
 guVector dstVec;
 
 __inline u32 MFC2(int reg) {
@@ -454,10 +457,14 @@ __inline s32 FlimG2(s64 x) {
     srcVec.x = gteVX##vn; \
     srcVec.y = gteVY##vn; \
     srcVec.z = gteVZ##vn; \
-    myps_guVecMultiply(tmpMtx, &srcVec, &dstVec); \
-    gteMAC1 = FNC_OVERFLOW1((signed long)(dstVec.x * ((f32)1 / 4096.0)) + gteTRX); \
-    gteMAC2 = FNC_OVERFLOW2((signed long)(dstVec.y * ((f32)1 / 4096.0)) + gteTRY); \
-    gteMAC3 = FNC_OVERFLOW3((signed long)(dstVec.z * ((f32)1 / 4096.0)) + gteTRZ); \
+    addVec.x = gteTRX; \
+    addVec.y = gteTRY; \
+    addVec.z = gteTRZ; \
+    ps_gte_rtps1(tmpMtx, &srcVec, &addVec, &dstVec); \
+    gteMAC1 = (s32)(dstVec.x); \
+    gteMAC2 = (s32)(dstVec.y); \
+    gteMAC3 = (s32)(dstVec.z); \
+    gteFLAG |= dstVec.flag; \
 }
 
 /*	gteMAC1 = NC_OVERFLOW1(((signed long)(gteR11*gteVX0 + gteR12*gteVY0 + gteR13*gteVZ0)>>12) + gteTRX);
@@ -2340,10 +2347,14 @@ void gteCC() {
     srcVec.x = gteIR1;
     srcVec.y = gteIR2;
     srcVec.z = gteIR3;
-    myps_guVecMultiply(tmpMtx, &srcVec, &dstVec);
-    RR0 = FNC_OVERFLOW1(gteRBK + (s64)(dstVec.x * ((f32)1 / 4096.0)));
-	GG0 = FNC_OVERFLOW2(gteGBK + (s64)(dstVec.y * ((f32)1 / 4096.0)));
-	BB0 = FNC_OVERFLOW3(gteBBK + (s64)(dstVec.z * ((f32)1 / 4096.0)));
+    addVec.x = gteRBK;
+    addVec.y = gteGBK;
+    addVec.z = gteBBK;
+    ps_gte_rtps1(tmpMtx, &srcVec, &addVec, &dstVec);
+    RR0 = (s32)(dstVec.x);
+    GG0 = (s32)(dstVec.y);
+    BB0 = (s32)(dstVec.z);
+    gteFLAG |= dstVec.flag;
 
 	gteMAC1 = (gteR * RR0) >> 8;
 	gteMAC2 = (gteG * GG0) >> 8;

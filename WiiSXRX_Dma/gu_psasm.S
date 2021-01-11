@@ -73,19 +73,19 @@
 myps_guVecMultiply:
 	psq_l		fr0,0(r4),0,0        // fr0 = x y
 	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
-	psq_l		fr1,8(r4),1,0        // fr1 = z 0
+	psq_l		fr1,8(r4),1,0        // fr1 = z
 	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
-	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2], m[0][3] --------------------
-	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (m[0][3] * 1.0) + (m[0][1] * y)
-    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1] ====================
-	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (m[0][3] * 1.0) + (m[0][1] * y), 0 ?
-	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2], m[1][3] --------------------
+	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2]
+	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (0 * 0) + (m[0][1] * y)
+    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1]
+	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (0 * 0) + (m[0][1] * y), 0
+	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2]
 	ps_mul		fr10,fr8,fr0         // fr10 = m[1][0] * x, m[1][1] * y
 	psq_st		fr6,0(r5),1,0        // r5 = result_X
-	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (m[1][3] * 1.0) + (m[1][1] * y)
-	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1] =======================
-	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (m[1][3] * 1.0) + (m[1][1] * y), 0 ?
-	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2], m[2][3] ---------------------
+	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
+	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1]
+	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (0 * 0) + (m[1][1] * y), 0 ?
+	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2]
 	ps_mul		fr4,fr2,fr0
 	psq_st		fr12,4(r5),1,0       // r5 = result_Y
 	ps_madd		fr5,fr3,fr1,fr4
@@ -93,37 +93,92 @@ myps_guVecMultiply:
 	psq_st		fr6,8(r5),1,0        // r5 = result_Z
 	blr
 
-	.globl myps_guVecMultiplySR
-	// r3 = mt, r4 = src, r5 = dst
-myps_guVecMultiplySR:
-    psq_l		fr0,0(r3),0,0    // m[0][0], m[0][1] GQR0 = 0
-    psq_l		fr6,0(r4),0,0    // fp6 - x y
-    psq_l		fr2,16(r3),0,0   // m[1][0], m[1][1]
-    ps_mul		fr8,fr0,fr6      // fp8 = m00x m01y // next X
-    psq_l		fr4,32(r3),0,0   // m[2][0], m[2][1]
-    ps_mul		fr10,fr2,fr6     // fp10 = m10x m11y // next Y
-    psq_l		fr7,8(r4),1,0    // fp7 - z,1.0
-    // fp12 = m20x m21y // next Z
-    ps_mul		fr12,fr4,fr6  // YYY last FP6 usage
-    psq_l		fr3,24(r3),0,0   // m[1][2], m[1][3]
-    ps_sum0		fr8,fr8,fr8,fr8
-    psq_l		fr5,40(r3),0,0   // m[2][2], m[2][3]
-    ps_sum0		fr10,fr10,fr10,fr10
-    psq_l		fr1,8(r3),0,0    // m[0][2], m[0][3]
-    ps_sum0		fr12,fr12,fr12,fr12
-    ps_madd		fr9,fr1,fr7,fr8
-    psq_st		fr9,0(r5),1,0      // store X
-    ps_madd		fr11,fr3,fr7,fr10
-    psq_st		fr11,4(r5),1,0      // store Y
-    ps_madd		fr13,fr5,fr7,fr12
-    psq_st		fr13,8(r5),1,0      //  sore Z
+	.globl ps_gte_rtps1
+	// r3 = mt, r4 = src, r5 = add, r6 = dst
+ps_gte_rtps1:
+	psq_l		fr0,0(r4),0,0        // fr0 = x y
+	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
+	psq_l		fr1,8(r4),1,0        // fr1 = z
+	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
+	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2]
+	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (0 * 0) + (m[0][1] * y)
+    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1]
+	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (0 * 0) + (m[0][1] * y), 0
+	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2]
+	ps_mul		fr10,fr8,fr0         // fr10 = m[1][0] * x, m[1][1] * y
+	//psq_st		fr6,0(r5),1,0        // r5 = result_X
+	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
+	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1]
+	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (0 * 0) + (m[1][1] * y), 0
+	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2]
+	ps_mul		fr4,fr2,fr0
+	//psq_st		fr12,4(r5),1,0       // r5 = result_Y
+
+    lfs		    fr7,Unit4096@sdarel(r13)
+	lfs		    fr8,Unit4096+4@sdarel(r13)
+	ps_merge00  fr6,fr6,fr12         // fr6 = result_X, result_Y
+	ps_merge01	fr7,fr7,fr8
+	psq_l		fr0,0(r5),0,0        // fr0 = addX addY
+	ps_madd		fr8,fr6,fr7,fr0      // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
+
+	ps_madd		fr5,fr3,fr1,fr4
+	psq_l		fr9,8(r5),1,0        // fr9 = addZ
+	ps_sum0		fr6,fr5,fr6,fr5
+	//psq_st		fr6,8(r5),1,0        // r5 = result_Z
+
+	lfs		    fr11,FncOverflowH@sdarel(r13)
+	lfs		    fr12,FncOverflowL@sdarel(r13)
+	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
+
+OverflowLChkX:
+    ps_cmpo0    fr0,fr8,fr12         // if ((result_X / 4096.0 + addX) < -2147483648.0)
+    andi.       r7,r7,0
+    blt         OverflowLFlagX
+OverflowHChkX:
+    ps_cmpo0    fr0,fr11,fr8         // if (2147483647 < (result_X / 4096.0 + addX))
+    blt         OverflowHFlagX
+OverflowLChkY:
+    ps_cmpo1    fr0,fr8,fr12         // if ((result_Y / 4096.0 + addY) < -2147483648.0)
+    blt         OverflowLFlagY
+OverflowHChkY:
+    ps_cmpo1    fr0,fr11,fr8         // if (2147483647 < (result_Y / 4096.0 + addY))
+    blt         OverflowHFlagY
+OverflowLChkZ:
+    ps_cmpo0    fr0,fr6,fr12         // if ((result_Z / 4096.0 + addZ) < -2147483648.0)
+    blt         OverflowLFlagZ
+OverflowHChkZ:
+    ps_cmpo0    fr0,fr11,fr6         // if (2147483647 < (result_Z / 4096.0 + addZ))
+    blt         OverflowHFlagZ
+    b           SetReturnVal
+OverflowLFlagX:
+    oris        r7,r7,0x2000         // gteFLAG |= 1<<29;
+    b           OverflowHChkX
+OverflowHFlagX:
+    oris        r7,r7,0x400          // gteFLAG |= 1<<26;
+    b           OverflowLChkY
+OverflowLFlagY:
+    oris        r7,r7,0x1000         // gteFLAG |= 1<<28;
+    b           OverflowHChkY
+OverflowHFlagY:
+    oris        r7,r7,0x200          // gteFLAG |= 1<<25;
+    b           OverflowLChkZ
+OverflowLFlagZ:
+    oris        r7,r7,0x800          // gteFLAG |= 1<<27;
+    b           OverflowHChkZ
+OverflowHFlagZ:
+    oris        r7,r7,0x100          // gteFLAG |= 1<<24;
+SetReturnVal:
+    psq_st		fr8,0(r6),0,0        // r6 = X, Y
+    psq_st		fr6,8(r6),1,0        // r6 = X, Y, Z
+    stw         r7,12(r6)            // r6 = X, Y, Z, gteFlag
 	blr
 
 	.section .sdata
-	.balign 16
-Unit01:
-	.float	0.0, 1.0
-QuatEpsilon:
-	.float	0.00001
-NrmData:
-	.float	0.5, 3.0
+	.balign 32
+Unit4096:
+	.float	0.000244, 0.000244       // 1 >> 12 = 1 / 4096 = 0.000244140625
+FncOverflowH:
+	.float	2147483647.0
+FncOverflowL:
+	.float	-2147483648.0
+
