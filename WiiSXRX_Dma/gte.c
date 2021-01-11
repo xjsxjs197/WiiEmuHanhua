@@ -169,6 +169,7 @@ typedef f32	Mtx[3][3];
 
 extern void myps_guVecMultiply(register Mtx mt,register guVector *src,register guVector *dst);
 extern void ps_gte_rtps1(register Mtx mt,register guVector *src,register guVector *add,register guVector *dst);
+extern void ps_gte_rtpsNoDiv(register Mtx mt,register guVector *src,register guVector *add,register guVector *dst);
 
 Mtx tmpMtx;
 guVector srcVec;
@@ -298,12 +299,12 @@ __inline float NC_OVERFLOW3(float x) {
 	return x;
 }
 
-__inline float NC_OVERFLOW4(float x) {
+/*__inline float NC_OVERFLOW4(float x) {
 	if (x<-2147483648.0) {gteFLAG |= 1<<16;}
 	else if (x> 2147483647.0) {gteFLAG |= 1<<15;}
 
 	return x;
-}
+}*/
 
 __inline s32 FNC_OVERFLOW1(s64 x) {
 	if (x< (s64)0xffffffff80000000LL) {gteFLAG |= 1<<29;}
@@ -2535,10 +2536,15 @@ void gteCDP() { //test opcode
     srcVec.x = gteIR1;
     srcVec.y = gteIR2;
     srcVec.z = gteIR2;
-    myps_guVecMultiply(tmpMtx, &srcVec, &dstVec);
-    RR0 = NC_OVERFLOW1(gteRBK + dstVec.x);
-	GG0 = NC_OVERFLOW2(gteGBK + dstVec.y);
-	BB0 = NC_OVERFLOW3(gteBBK + dstVec.z);
+    addVec.x = gteRBK;
+    addVec.y = gteGBK;
+    addVec.z = gteBBK;
+    ps_gte_rtpsNoDiv(tmpMtx, &srcVec, &addVec, &dstVec);
+
+    RR0 = (dstVec.x);
+    GG0 = (dstVec.y);
+    BB0 = (dstVec.z);
+    gteFLAG |= dstVec.flag;
 
 	gteMAC1 = gteR*RR0 + gteIR0*limA1S(gteRFC-gteR*RR0);
 	gteMAC2 = gteG*GG0 + gteIR0*limA2S(gteGFC-gteG*GG0);
