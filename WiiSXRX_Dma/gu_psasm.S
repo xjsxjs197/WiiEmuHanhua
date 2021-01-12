@@ -216,38 +216,55 @@ startTrans:
 	ps_sum0		fr6,fr5,fr6,fr5
 	//psq_st		fr6,8(r5),1,0        // r5 = result_Z
 
-	lfs		    fr11,F12limA1UOverFlowH@sdarel(r13)
-	lfs		    fr12,F12limA1UOverFlowL@sdarel(r13)
+    lfs		    fr11,F12limA1UOverFlowH@sdarel(r13)
+    lfs		    fr12,F12limA1UOverFlowL@sdarel(r13)
+	ps_merge00  fr11,fr11,fr11
+	ps_merge00  fr12,fr12,fr12
 	ps_madd		fr6,fr6,fr7,fr16      // fr6 = result_Z / 4096.0 + addZ
 
 F12OverflowLChkX:
     ps_cmpo0    fr0,fr8,fr12         // if ((result_X / 4096.0) < 0.0)
-    blt         F12OverflowFlagX
+    blt         F12OverflowLFlagX
 F12OverflowHChkX:
     ps_cmpo0    fr0,fr11,fr8         // if ((32767 << 12) < (result_X / 4096.0))
-    blt         F12OverflowFlagX
+    blt         F12OverflowHFlagX
 F12OverflowLChkY:
     ps_cmpo1    fr0,fr8,fr12         // if ((result_Y / 4096.0) < 0.0)
-    blt         F12OverflowFlagY
+    blt         F12OverflowLFlagY
 F12OverflowHChkY:
     ps_cmpo1    fr0,fr11,fr8         // if ((32767 << 12) < (result_Y / 4096.0))
-    blt         F12OverflowFlagY
+    blt         F12OverflowHFlagY
 F12OverflowLChkZ:
     ps_cmpo0    fr0,fr6,fr12         // if ((result_Z / 4096.0) < 0.0)
-    blt         F12OverflowFlagZ
+    blt         F12OverflowLFlagZ
 F12OverflowHChkZ:
     ps_cmpo0    fr0,fr11,fr6         // if ((32767 << 12) < (result_Z / 4096.0))
-    blt         F12OverflowFlagZ
+    blt         F12OverflowHFlagZ
     b           CheckLoop
 
-F12OverflowFlagX:
+F12OverflowLFlagX:
     oris        r9,r9,0x100          // gteFLAG |= 1<<24;
+    ps_merge01  fr8,fr12,fr8
     b           F12OverflowLChkY
-F12OverflowFlagY:
+F12OverflowHFlagX:
+    oris        r9,r9,0x100          // gteFLAG |= 1<<24;
+    ps_merge01  fr8,fr11,fr8
+    b           F12OverflowLChkY
+F12OverflowLFlagY:
     oris        r9,r9,0x80           // gteFLAG |= 1<<23;
+    ps_merge00  fr8,fr8,fr12
     b           F12OverflowLChkZ
-F12OverflowFlagZ:
+F12OverflowHFlagY:
+    oris        r9,r9,0x80           // gteFLAG |= 1<<23;
+    ps_merge00  fr8,fr8,fr11
+    b           F12OverflowLChkZ
+F12OverflowLFlagZ:
     oris        r9,r9,0x40           // gteFLAG |= 1<<22;
+    ps_merge01  fr6,fr12,fr6
+    b           CheckLoop
+F12OverflowHFlagZ:
+    oris        r9,r9,0x40           // gteFLAG |= 1<<22;
+    ps_merge01  fr6,fr11,fr6
 
 CheckLoop:
     cmpi        r0,0,r10,1
