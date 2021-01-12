@@ -93,9 +93,9 @@ myps_guVecMultiply:
 	psq_st		fr6,8(r5),1,0        // r5 = result_Z
 	blr
 
-	.globl ps_gte_rtps1
-	// r3 = mt, r4 = src, r5 = add, r6 = dst
-ps_gte_rtps1:
+	.globl ps_gte_rtps
+	// r3 = mt, r4 = src, r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
+ps_gte_rtps:
 	psq_l		fr0,0(r4),0,0        // fr0 = x y
 	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
 	psq_l		fr1,8(r4),1,0        // fr1 = z
@@ -114,10 +114,9 @@ ps_gte_rtps1:
 	ps_mul		fr4,fr2,fr0
 	//psq_st		fr12,4(r5),1,0       // r5 = result_Y
 
-    lfs		    fr7,Unit4096@sdarel(r13)
-	lfs		    fr8,Unit4096+4@sdarel(r13)
+    psq_l		fr7,0(r7),0,0        // fr7 = 1.0f,1.0f or 0.000244f, 0.000244f
+
 	ps_merge00  fr6,fr6,fr12         // fr6 = result_X, result_Y
-	ps_merge01	fr7,fr7,fr8
 	psq_l		fr0,0(r5),0,0        // fr0 = addX addY
 	ps_madd		fr8,fr6,fr7,fr0      // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
 
@@ -173,9 +172,23 @@ SetReturnVal:
     stw         r7,12(r6)            // r6 = X, Y, Z, gteFlag
 	blr
 
-	.globl ps_gte_rtpsNoDiv
-	// r3 = mt, r4 = src, r5 = add, r6 = dst
-ps_gte_rtpsNoDiv:
+	.globl ps_gte_DoubleTrans
+	// r3 = Mtx6X3, r4 = src, r5 = add, r6 = dst, r7 = div(0.000244f, 0.000244f)
+ps_gte_DoubleTrans:
+    andi.       r9,r9,0
+    andi.       r10,r10,0
+    lfs		    fr15,Unit0@sdarel(r13)
+	lfs		    fr16,Unit0@sdarel(r13)
+	ps_merge00  fr15,fr15,fr16       // fr15 = 0.0, 0.0
+	b           startTrans
+nextTrans:
+    addic       r10,r10,1
+    psq_l		fr15,0(r5),0,0       // fr15 = addX, addY
+    psq_l		fr16,8(r5),1,0       // fr16 = addZ
+    addic       r3,r3,36
+    psq_st		fr8,0(r4),0,0        // r4 = newX, newY
+    psq_st		fr6,8(r4),1,0        // r4 = newX, newY, newZ
+startTrans:
 	psq_l		fr0,0(r4),0,0        // fr0 = x y
 	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
 	psq_l		fr1,8(r4),1,0        // fr1 = z
@@ -194,67 +207,62 @@ ps_gte_rtpsNoDiv:
 	ps_mul		fr4,fr2,fr0
 	//psq_st		fr12,4(r5),1,0       // r5 = result_Y
 
-    lfs		    fr7,Unit1@sdarel(r13)
-	lfs		    fr8,Unit1+4@sdarel(r13)
+    psq_l		fr7,0(r7),0,0        // fr7 = 1.0f,1.0f or 0.000244f, 0.000244f
+
 	ps_merge00  fr6,fr6,fr12         // fr6 = result_X, result_Y
-	ps_merge01	fr7,fr7,fr8
-	psq_l		fr0,0(r5),0,0        // fr0 = addX addY
-	ps_madd		fr8,fr6,fr7,fr0      // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
+	ps_madd		fr8,fr6,fr7,fr15     // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
 
 	ps_madd		fr5,fr3,fr1,fr4
-	psq_l		fr9,8(r5),1,0        // fr9 = addZ
 	ps_sum0		fr6,fr5,fr6,fr5
 	//psq_st		fr6,8(r5),1,0        // r5 = result_Z
 
-	lfs		    fr11,FncOverflowH@sdarel(r13)
-	lfs		    fr12,FncOverflowL@sdarel(r13)
-	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
+	lfs		    fr11,F12limA1UOverFlowH@sdarel(r13)
+	lfs		    fr12,F12limA1UOverFlowL@sdarel(r13)
+	ps_madd		fr6,fr6,fr7,fr16      // fr6 = result_Z / 4096.0 + addZ
 
-OverflowLChkX1:
-    ps_cmpo0    fr0,fr8,fr12         // if ((result_X / 4096.0 + addX) < -2147483648.0)
-    andi.       r7,r7,0
-    blt         OverflowLFlagX1
-OverflowHChkX1:
-    ps_cmpo0    fr0,fr11,fr8         // if (2147483647 < (result_X / 4096.0 + addX))
-    blt         OverflowHFlagX1
-OverflowLChkY1:
-    ps_cmpo1    fr0,fr8,fr12         // if ((result_Y / 4096.0 + addY) < -2147483648.0)
-    blt         OverflowLFlagY1
-OverflowHChkY1:
-    ps_cmpo1    fr0,fr11,fr8         // if (2147483647 < (result_Y / 4096.0 + addY))
-    blt         OverflowHFlagY1
-OverflowLChkZ1:
-    ps_cmpo0    fr0,fr6,fr12         // if ((result_Z / 4096.0 + addZ) < -2147483648.0)
-    blt         OverflowLFlagZ1
-OverflowHChkZ1:
-    ps_cmpo0    fr0,fr11,fr6         // if (2147483647 < (result_Z / 4096.0 + addZ))
-    blt         OverflowHFlagZ1
-    b           SetReturnVal1
-OverflowLFlagX1:
-    oris        r7,r7,0x2000         // gteFLAG |= 1<<29;
-    b           OverflowHChkX1
-OverflowHFlagX1:
-    oris        r7,r7,0x400          // gteFLAG |= 1<<26;
-    b           OverflowLChkY1
-OverflowLFlagY1:
-    oris        r7,r7,0x1000         // gteFLAG |= 1<<28;
-    b           OverflowHChkY1
-OverflowHFlagY1:
-    oris        r7,r7,0x200          // gteFLAG |= 1<<25;
-    b           OverflowLChkZ1
-OverflowLFlagZ1:
-    oris        r7,r7,0x800          // gteFLAG |= 1<<27;
-    b           OverflowHChkZ1
-OverflowHFlagZ1:
-    oris        r7,r7,0x100          // gteFLAG |= 1<<24;
-SetReturnVal1:
+F12OverflowLChkX:
+    ps_cmpo0    fr0,fr8,fr12         // if ((result_X / 4096.0) < 0.0)
+    blt         F12OverflowFlagX
+F12OverflowHChkX:
+    ps_cmpo0    fr0,fr11,fr8         // if ((32767 << 12) < (result_X / 4096.0))
+    blt         F12OverflowFlagX
+F12OverflowLChkY:
+    ps_cmpo1    fr0,fr8,fr12         // if ((result_Y / 4096.0) < 0.0)
+    blt         F12OverflowFlagY
+F12OverflowHChkY:
+    ps_cmpo1    fr0,fr11,fr8         // if ((32767 << 12) < (result_Y / 4096.0))
+    blt         F12OverflowFlagY
+F12OverflowLChkZ:
+    ps_cmpo0    fr0,fr6,fr12         // if ((result_Z / 4096.0) < 0.0)
+    blt         F12OverflowFlagZ
+F12OverflowHChkZ:
+    ps_cmpo0    fr0,fr11,fr6         // if ((32767 << 12) < (result_Z / 4096.0))
+    blt         F12OverflowFlagZ
+    b           CheckLoop
+
+F12OverflowFlagX:
+    oris        r9,r9,0x100          // gteFLAG |= 1<<24;
+    b           F12OverflowLChkY
+F12OverflowFlagY:
+    oris        r9,r9,0x80           // gteFLAG |= 1<<23;
+    b           F12OverflowLChkZ
+F12OverflowFlagZ:
+    oris        r9,r9,0x40           // gteFLAG |= 1<<22;
+
+CheckLoop:
+    cmpi        r0,0,r10,1
+    blt         nextTrans
+
     psq_st		fr8,0(r6),0,0        // r6 = X, Y
     psq_st		fr6,8(r6),1,0        // r6 = X, Y, Z
-    stw         r7,12(r6)            // r6 = X, Y, Z, gteFlag
+    stw         r9,12(r6)            // r6 = X, Y, Z, gteFlag
 	blr
+
 
 	.section .sdata
 	.balign 32
+Unit0:
+	.float	0.0
 Unit1:
 	.float	1.0, 1.0
 Unit4096:
@@ -263,4 +271,8 @@ FncOverflowH:
 	.float	2147483647.0
 FncOverflowL:
 	.float	-2147483648.0
+F12limA1UOverFlowH:
+	.float	134213632.0              // 32767 << 12 = 134213632
+F12limA1UOverFlowL:
+	.float	0.0
 
