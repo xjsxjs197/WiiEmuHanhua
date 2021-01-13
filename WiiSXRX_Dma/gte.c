@@ -755,7 +755,7 @@ void gteRTPT() {
 
 void gteMVMVA() {
 	s64 SSX, SSY, SSZ;
-	int noneGteFlag = 1;
+	int noneGteFlag = 0;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
@@ -769,7 +769,7 @@ void gteMVMVA() {
 		case 0x10000: // V2 * R
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteR); break;
 		case 0x18000: // IR * R
-		    noneGteFlag = 1;
+		    //noneGteFlag = 1;
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
 			break;
 		case 0x20000: // V0 * L
@@ -779,7 +779,7 @@ void gteMVMVA() {
 		case 0x30000: // V2 * L
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteL); break;
 		case 0x38000: // IR * L
-		    noneGteFlag = 1;
+		    //noneGteFlag = 1;
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
 		case 0x40000: // V0 * C
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gte_C); break;
@@ -788,7 +788,7 @@ void gteMVMVA() {
 		case 0x50000: // V2 * C
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gte_C); break;
 		case 0x58000: // IR * C
-		    noneGteFlag = 1;
+		    //noneGteFlag = 1;
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
 		default:
 			SSX = SSY = SSZ = 0;

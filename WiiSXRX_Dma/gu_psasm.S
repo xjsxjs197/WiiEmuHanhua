@@ -127,6 +127,8 @@ ps_gte_rtps:
 
 	lfs		    fr11,FncOverflowH@sdarel(r13)
 	lfs		    fr12,FncOverflowL@sdarel(r13)
+	ps_merge00  fr11,fr11,fr11
+	ps_merge00  fr12,fr12,fr12
 	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
 
 OverflowLChkX:
@@ -149,23 +151,30 @@ OverflowHChkZ:
     ps_cmpo0    fr0,fr11,fr6         // if (2147483647 < (result_Z / 4096.0 + addZ))
     blt         OverflowHFlagZ
     b           SetReturnVal
+
 OverflowLFlagX:
     oris        r7,r7,0x2000         // gteFLAG |= 1<<29;
-    b           OverflowHChkX
+    ps_merge01  fr8,fr12,fr8
+    b           OverflowLChkY
 OverflowHFlagX:
     oris        r7,r7,0x400          // gteFLAG |= 1<<26;
+    ps_merge01  fr8,fr11,fr8
     b           OverflowLChkY
 OverflowLFlagY:
     oris        r7,r7,0x1000         // gteFLAG |= 1<<28;
-    b           OverflowHChkY
+    ps_merge00  fr8,fr8,fr12
+    b           OverflowLChkZ
 OverflowHFlagY:
     oris        r7,r7,0x200          // gteFLAG |= 1<<25;
+    ps_merge00  fr8,fr8,fr11
     b           OverflowLChkZ
 OverflowLFlagZ:
     oris        r7,r7,0x800          // gteFLAG |= 1<<27;
-    b           OverflowHChkZ
+    ps_merge00  fr6,fr12,fr6
+    b           SetReturnVal
 OverflowHFlagZ:
     oris        r7,r7,0x100          // gteFLAG |= 1<<24;
+    ps_merge00  fr6,fr11,fr6
 SetReturnVal:
     psq_st		fr8,0(r6),0,0        // r6 = X, Y
     psq_st		fr6,8(r6),1,0        // r6 = X, Y, Z
@@ -260,11 +269,11 @@ F12OverflowHFlagY:
     b           F12OverflowLChkZ
 F12OverflowLFlagZ:
     oris        r9,r9,0x40           // gteFLAG |= 1<<22;
-    ps_merge01  fr6,fr12,fr6
+    ps_merge00  fr6,fr12,fr6
     b           CheckLoop
 F12OverflowHFlagZ:
     oris        r9,r9,0x40           // gteFLAG |= 1<<22;
-    ps_merge01  fr6,fr11,fr6
+    ps_merge00  fr6,fr11,fr6
 
 CheckLoop:
     cmpi        r0,0,r10,1
