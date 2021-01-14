@@ -53,6 +53,17 @@
 #include "Gamecube/wiiSXconfig.h"
 
 #include <ogc/machine/processor.h>
+#include <ogc/cast.h>
+
+#define	GQR0			912
+#define	GQR1			913
+
+static inline void CAST_SetGQR(s32 GQR, u32 typeL, s32 scaleL)
+{
+	register u32 val = ((((scaleL)<<8)) | (typeL));
+	//register u32 val = (((((scaleL)<<8)|(typeL))<<16));
+	__set_gqr(GQR,val);
+}
 
 extern void SysMessage(char *fmt, ...);
 
@@ -101,6 +112,16 @@ int psxMemInit() {
     // enable HID2(PSE)
     u32 hid2 = mfhid2();
     mthid2(hid2 | 0x20000000);
+
+    // set GQRs load s16 => float
+    //CAST_SetGQR(GQR0, GQR_TYPE_S16, 0);
+    //CAST_SetGQR(GQR1, GQR_TYPE_S16, 0);
+    CAST_SetGQR(GQR2, GQR_TYPE_S16, 0);
+    CAST_SetGQR(GQR3, GQR_TYPE_S16, 0);
+    //CAST_SetGQR(GQR4, GQR_TYPE_S16, 0);
+    //CAST_SetGQR(GQR5, GQR_TYPE_S16, 0);
+    //CAST_SetGQR(GQR6, GQR_TYPE_S16, 0);
+    //CAST_SetGQR(GQR7, GQR_TYPE_S16, 0);
 
 	return 0;
 }

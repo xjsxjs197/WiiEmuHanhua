@@ -98,19 +98,19 @@ myps_guVecMultiply:
 ps_gte_rtps:
 	psq_l		fr0,0(r4),0,0        // fr0 = x y
 	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
-	psq_l		fr1,8(r4),1,0        // fr1 = z
+	psq_l		fr1,4(r4),1,0        // fr1 = z
 	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
-	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2]
+	psq_l		fr3,4(r3),1,0        // fr3 = m[0][2]
 	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (0 * 0) + (m[0][1] * y)
-    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1]
+    psq_l		fr2,8(r3),0,0       // fr2 = m[1][0], m[1][1]
 	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (0 * 0) + (m[0][1] * y), 0
-	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2]
-	ps_mul		fr10,fr8,fr0         // fr10 = m[1][0] * x, m[1][1] * y
+	psq_l		fr2,12(r3),1,0       // fr2 = m[1][2]
+	ps_mul		fr10,fr2,fr0         // fr10 = m[1][0] * x, m[1][1] * y
 	//psq_st		fr6,0(r5),1,0        // r5 = result_X
-	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
-	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1]
+	ps_madd		fr11,fr2,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
+	psq_l		fr2,16(r3),0,0       // fr2 = m[2][0], m[2][1]
 	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (0 * 0) + (m[1][1] * y), 0
-	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2]
+	psq_l		fr3,20(r3),1,0       // fr3 = m[2][2]
 	ps_mul		fr4,fr2,fr0
 	//psq_st		fr12,4(r5),1,0       // r5 = result_Y
 
