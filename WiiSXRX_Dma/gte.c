@@ -467,7 +467,7 @@ __inline s32 FlimG2(s64 x) {
     addVec.y = gteTRY; \
     addVec.z = gteTRZ; \
     /*ps_gte_rtps(tmpMtx, &srcVec, &addVec, &dstVec, div4096);*/ \
-    ps_gte_rtps((s16*)(&(gteR11)), (s16*)(&(gteVX##vn)), &addVec, &dstVec, div4096); \
+    ps_gte_rtps(&(gteR11), &(gteVX##vn), &addVec, &dstVec, div4096); \
     gteMAC1 = (s32)(dstVec.x); \
     gteMAC2 = (s32)(dstVec.y); \
     gteMAC3 = (s32)(dstVec.z); \
@@ -2370,9 +2370,9 @@ void gteCC() {
 
 	gteFLAG = 0;
 
-	//RR0 = FNC_OVERFLOW1(gteRBK + ((gteLR1*gteIR1 + gteLR2*gteIR2 + gteLR3*gteIR3) >> 12));
-	//GG0 = FNC_OVERFLOW2(gteGBK + ((gteLG1*gteIR1 + gteLG2*gteIR2 + gteLG3*gteIR3) >> 12));
-	//BB0 = FNC_OVERFLOW3(gteBBK + ((gteLB1*gteIR1 + gteLB2*gteIR2 + gteLB3*gteIR3) >> 12));
+	RR0 = FNC_OVERFLOW1(gteRBK + ((gteLR1*gteIR1 + gteLR2*gteIR2 + gteLR3*gteIR3) >> 12));
+	GG0 = FNC_OVERFLOW2(gteGBK + ((gteLG1*gteIR1 + gteLG2*gteIR2 + gteLG3*gteIR3) >> 12));
+	BB0 = FNC_OVERFLOW3(gteBBK + ((gteLB1*gteIR1 + gteLB2*gteIR2 + gteLB3*gteIR3) >> 12));
 	/*tmpMtx[0][0] = gteLR1;
     tmpMtx[0][1] = gteLR2;
     tmpMtx[0][2] = gteLR3;
@@ -2384,16 +2384,15 @@ void gteCC() {
     tmpMtx[2][2] = gteLB3;
     srcVec.x = gteIR1;
     srcVec.y = gteIR2;
-    srcVec.z = gteIR3;*/
+    srcVec.z = gteIR3;
     addVec.x = gteRBK;
     addVec.y = gteGBK;
     addVec.z = gteBBK;
-    //ps_gte_rtps(tmpMtx, &srcVec, &addVec, &dstVec, div4096);
-    ps_gte_rtps((s16*)(&(gteLR1)), (s16*)(&(gteIR1)), &addVec, &dstVec, div4096);
+    ps_gte_rtps(&(gteLR1), &(gteIR1), &addVec, &dstVec, div4096);
     RR0 = (s32)(dstVec.x);
     GG0 = (s32)(dstVec.y);
     BB0 = (s32)(dstVec.z);
-    gteFLAG |= dstVec.flag;
+    gteFLAG |= dstVec.flag;*/
 
 	gteMAC1 = (gteR * RR0) >> 8;
 	gteMAC2 = (gteG * GG0) >> 8;
@@ -2559,9 +2558,9 @@ void gteCDP() { //test opcode
 
 	gteFLAG = 0;
 
-	//RR0 = NC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
-	//GG0 = NC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
-	//BB0 = NC_OVERFLOW3(gteBBK + (gteLB1*gteIR1 +gteLB2*gteIR2 + gteLB3*gteIR3));
+	RR0 = NC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
+	GG0 = NC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
+	BB0 = NC_OVERFLOW3(gteBBK + (gteLB1*gteIR1 +gteLB2*gteIR2 + gteLB3*gteIR3));
 	/*tmpMtx[0][0] = gteLR1;
     tmpMtx[0][1] = gteLR2;
     tmpMtx[0][2] = gteLR3;
@@ -2573,16 +2572,16 @@ void gteCDP() { //test opcode
     tmpMtx[2][2] = gteLB3;
     srcVec.x = gteIR1;
     srcVec.y = gteIR2;
-    srcVec.z = gteIR2;*/
+    srcVec.z = gteIR2;
     addVec.x = gteRBK;
     addVec.y = gteGBK;
     addVec.z = gteBBK;
-    ps_gte_rtps((s16*)(&(gteLR1)), (s16*)(&(gteIR1)), &addVec, &dstVec, div1);
+    ps_gte_rtps(&(gteLR1), &(gteIR1), &addVec, &dstVec, div1);
 
     RR0 = (dstVec.x);
     GG0 = (dstVec.y);
     BB0 = (dstVec.z);
-    gteFLAG |= dstVec.flag;
+    gteFLAG |= dstVec.flag;*/
 
 	gteMAC1 = gteR*RR0 + gteIR0*limA1S(gteRFC-gteR*RR0);
 	gteMAC2 = gteG*GG0 + gteIR0*limA2S(gteGFC-gteG*GG0);

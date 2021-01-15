@@ -96,39 +96,41 @@ myps_guVecMultiply:
 	.globl ps_gte_rtps
 	// r3 = mt, r4 = src, r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
 ps_gte_rtps:
-	psq_l		fr0,0(r4),0,0        // fr0 = x y
-	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
-	psq_l		fr1,4(r4),1,0        // fr1 = z
-	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
-	psq_l		fr3,4(r3),1,0        // fr3 = m[0][2]
-	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (0 * 0) + (m[0][1] * y)
-    psq_l		fr2,8(r3),0,0       // fr2 = m[1][0], m[1][1]
-	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (0 * 0) + (m[0][1] * y), 0
-	psq_l		fr2,12(r3),1,0       // fr2 = m[1][2]
-	ps_mul		fr10,fr2,fr0         // fr10 = m[1][0] * x, m[1][1] * y
-	//psq_st		fr6,0(r5),1,0        // r5 = result_X
-	ps_madd		fr11,fr2,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
-	psq_l		fr2,16(r3),0,0       // fr2 = m[2][0], m[2][1]
-	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (0 * 0) + (m[1][1] * y), 0
-	psq_l		fr3,20(r3),1,0       // fr3 = m[2][2]
-	ps_mul		fr4,fr2,fr0
-	//psq_st		fr12,4(r5),1,0       // r5 = result_Y
+	psq_l		fr5,0(r4),0,0        // fr5 = x, y
+	psq_l		fr2,0(r3),0,0        // fr2 = m00, m01
+	psq_l		fr4,4(r4),1,0        // fr4 = z, 1.0
+	ps_mul		fr1,fr2,fr5          // fr1 = m00 * x, m01 * y
+
+	psq_l		fr3,4(r3),1,0        // fr3 = m02, 1.0
+	psq_l		fr2,6(r3),0,0        // fr2 = m10, m11
+
+	ps_madd		fr0,fr3,fr4,fr1      // fr0 = (m02 * z) + (m00 * x), (1.0 * 1.0) + (m01 * y)
+    ps_mul		fr10,fr2,fr5         // fr10 = m10 * x, m11 * y
+	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m02 * z) + (m00 * x) + (1.0 * 1.0) + (m01 * y), 1.0
+
+	psq_l		fr2,10(r3),1,0       // fr2 = m12, 1.0
+	ps_madd		fr11,fr2,fr4,fr10    // fr11 = (m12 * z) + (m10 * x), (1.0 * 1.0) + (m11 * y)
+
+	psq_l		fr3,12(r3),0,0       // fr3 = m20, m21
+	psq_l		fr2,16(r3),1,0       // fr2 = m22, 1.0
+	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m12 * z) + (m10 * x) + (1.0 * 1.0) + (m11 * y), 1.0
+
+	ps_mul		fr1,fr3,fr5          // fr1 = m20 * x, m21 * y
 
     psq_l		fr7,0(r7),0,0        // fr7 = 1.0f,1.0f or 0.000244f, 0.000244f
 
 	ps_merge00  fr6,fr6,fr12         // fr6 = result_X, result_Y
-	psq_l		fr0,0(r5),0,0        // fr0 = addX addY
-	ps_madd		fr8,fr6,fr7,fr0      // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
+	psq_l		fr11,0(r5),0,0       // fr11 = addX addY
+	ps_madd		fr8,fr6,fr7,fr11     // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
 
-	ps_madd		fr5,fr3,fr1,fr4
+	ps_madd		fr0,fr2,fr4,fr1      // fr0 = (m22 * z) + (m20 * x), (1.0 * 1.0) + (m21 * y)
 	psq_l		fr9,8(r5),1,0        // fr9 = addZ
-	ps_sum0		fr6,fr5,fr6,fr5
-	//psq_st		fr6,8(r5),1,0        // r5 = result_Z
+	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m22 * z) + (m20 * x) + (1.0 * 1.0) + (m21 * y), result_Y
 
 	lfs		    fr11,FncOverflowH@sdarel(r13)
 	lfs		    fr12,FncOverflowL@sdarel(r13)
-	ps_merge00  fr11,fr11,fr11
-	ps_merge00  fr12,fr12,fr12
+	ps_merge00  fr11,fr11,fr11       // fr11 = 2147483647.0, 2147483647.0
+	ps_merge00  fr12,fr12,fr12       // fr12 = -2147483648.0, -2147483648.0
 	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
 
 OverflowLChkX:
