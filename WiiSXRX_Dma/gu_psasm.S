@@ -95,31 +95,36 @@ myps_guVecMultiply:
 
 	.globl ps_gte_rtps
 	// r3 = mt, r4 = src, r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
-	// r4(y, x, padding, z)
+	// r3(m12, m11, m21, m13, m23, m22, m32, m31, 0, m33)
+	// r4(y, x, 0, z)
 ps_gte_rtps:
-    li		    r8,0x0007
-    oris	    r8,r8,0x0007
-	mtspr	    917,r8
-	psq_l		fr5,0(r4),0,5        // fr5 = x, y
-	psq_l		fr2,0(r3),0,5        // fr2 = m00, m01
-	psq_l		fr4,4(r4),1,5        // fr4 = z, 1.0
-	ps_mul		fr1,fr2,fr5          // fr1 = m00 * x, m01 * y
+	psq_l		fr5,0(r4),0,5        // fr5 = y, x
+	ps_merge10  fr5,fr5,fr5          // fr5 = x, y
+	psq_l		fr2,0(r3),0,5        // fr2 = m12, m11
+	ps_merge10  fr2,fr2,fr2          // fr2 = m11, m12
+	psq_l		fr4,4(r4),0,5        // fr4 = 0.0, z
+	ps_merge10  fr4,fr4,fr4          // fr4 = z, 0.0
+	ps_mul		fr1,fr2,fr5          // fr1 = m11 * x, m12 * y
 
-	psq_l		fr3,4(r3),1,5        // fr3 = m02, 1.0
-	psq_l		fr2,6(r3),0,5        // fr2 = m10, m11
+	psq_l		fr3,6(r3),1,5        // fr3 = m13, 1.0
+	psq_l		fr2,4(r3),1,5        // fr2 = m21, 1.0
+	psq_l		fr10,10(r3),1,5      // fr10 = m22, 1.0
+	ps_merge00  fr2,fr2,fr10         // fr2 = m21, m22
 
-	ps_madd		fr0,fr3,fr4,fr1      // fr0 = (m02 * z) + (m00 * x), (1.0 * 1.0) + (m01 * y)
-    ps_mul		fr10,fr2,fr5         // fr10 = m10 * x, m11 * y
-	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m02 * z) + (m00 * x) + (1.0 * 1.0) + (m01 * y), 1.0
+	ps_madd		fr0,fr3,fr4,fr1      // fr0 = (m13 * z) + (m11 * x), (1.0 * 0.0) + (m11 * y)
+    ps_mul		fr10,fr2,fr5         // fr10 = m21 * x, m22 * y
+	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m13 * z) + (m11 * x) + (1.0 * 0.0) + (m11 * y), 1.0
 
-	psq_l		fr2,10(r3),1,5       // fr2 = m12, 1.0
-	ps_madd		fr11,fr2,fr4,fr10    // fr11 = (m12 * z) + (m10 * x), (1.0 * 1.0) + (m11 * y)
+	psq_l		fr2,8(r3),1,5        // fr2 = m23, 1.0
+	ps_madd		fr11,fr2,fr4,fr10    // fr11 = (m23 * z) + (m21 * x), (1.0 * 0.0) + (m22 * y)
 
-	psq_l		fr3,12(r3),0,5       // fr3 = m20, m21
-	psq_l		fr2,16(r3),1,5       // fr2 = m22, 1.0
-	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m12 * z) + (m10 * x) + (1.0 * 1.0) + (m11 * y), 1.0
+	psq_l		fr3,12(r3),0,5       // fr3 = m32, m31
+	ps_merge10  fr3,fr3,fr3          // fr3 = m31, m32
+	psq_l		fr2,16(r3),0,5       // fr2 = 0.0, m33
+	ps_merge10  fr2,fr2,fr2          // fr2 = m33, 0.0
+	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m23 * z) + (m21 * x) + (1.0 * 0.0) + (m22 * y), 1.0
 
-	ps_mul		fr1,fr3,fr5          // fr1 = m20 * x, m21 * y
+	ps_mul		fr1,fr3,fr5          // fr1 = m31 * x, m32 * y
 
     psq_l		fr7,0(r7),0,0        // fr7 = 1.0f,1.0f or 0.000244f, 0.000244f
 
@@ -127,9 +132,9 @@ ps_gte_rtps:
 	psq_l		fr11,0(r5),0,0       // fr11 = addX addY
 	ps_madd		fr8,fr6,fr7,fr11     // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
 
-	ps_madd		fr0,fr2,fr4,fr1      // fr0 = (m22 * z) + (m20 * x), (1.0 * 1.0) + (m21 * y)
+	ps_madd		fr0,fr2,fr4,fr1      // fr0 = (m33 * z) + (m31 * x), (1.0 * 0.0) + (m32 * y)
 	psq_l		fr9,8(r5),1,0        // fr9 = addZ
-	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m22 * z) + (m20 * x) + (1.0 * 1.0) + (m21 * y), result_Y
+	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m33 * z) + (m31 * x) + (1.0 * 0.0) + (m33 * y), result_Y
 
 	lfs		    fr11,FncOverflowH@sdarel(r13)
 	lfs		    fr12,FncOverflowL@sdarel(r13)

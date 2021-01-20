@@ -55,13 +55,10 @@
 #include <ogc/machine/processor.h>
 #include <ogc/cast.h>
 
-#define	GQR0			912
-#define	GQR1			913
-
 void CAST_SetGQR(s32 GQR, u32 typeL, s32 scaleL)
 {
-	register u32 val = ((((scaleL)<<8)) | (typeL));
-	//register u32 val = (((((scaleL)<<8)|(typeL))<<16));
+	//register u32 val = ((((scaleL)<<8)) | (typeL));
+	register u32 val = (((((scaleL)<<8)|(typeL))<<16));
 	__set_gqr(GQR,val);
 }
 
@@ -119,7 +116,7 @@ int psxMemInit() {
     //CAST_SetGQR(GQR2, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR3, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR4, GQR_TYPE_S16, 0);
-    //CAST_SetGQR(GQR5, GQR_TYPE_S16, 0);
+    CAST_SetGQR(GQR5, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR6, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR7, GQR_TYPE_S16, 0);
 
