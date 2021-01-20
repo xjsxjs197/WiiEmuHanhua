@@ -95,24 +95,28 @@ myps_guVecMultiply:
 
 	.globl ps_gte_rtps
 	// r3 = mt, r4 = src, r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
+	// r4(y, x, padding, z)
 ps_gte_rtps:
-	psq_l		fr5,0(r4),0,0        // fr5 = x, y
-	psq_l		fr2,0(r3),0,0        // fr2 = m00, m01
-	psq_l		fr4,4(r4),1,0        // fr4 = z, 1.0
+    li		    r8,0x0007
+    oris	    r8,r8,0x0007
+	mtspr	    917,r8
+	psq_l		fr5,0(r4),0,5        // fr5 = x, y
+	psq_l		fr2,0(r3),0,5        // fr2 = m00, m01
+	psq_l		fr4,4(r4),1,5        // fr4 = z, 1.0
 	ps_mul		fr1,fr2,fr5          // fr1 = m00 * x, m01 * y
 
-	psq_l		fr3,4(r3),1,0        // fr3 = m02, 1.0
-	psq_l		fr2,6(r3),0,0        // fr2 = m10, m11
+	psq_l		fr3,4(r3),1,5        // fr3 = m02, 1.0
+	psq_l		fr2,6(r3),0,5        // fr2 = m10, m11
 
 	ps_madd		fr0,fr3,fr4,fr1      // fr0 = (m02 * z) + (m00 * x), (1.0 * 1.0) + (m01 * y)
     ps_mul		fr10,fr2,fr5         // fr10 = m10 * x, m11 * y
 	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m02 * z) + (m00 * x) + (1.0 * 1.0) + (m01 * y), 1.0
 
-	psq_l		fr2,10(r3),1,0       // fr2 = m12, 1.0
+	psq_l		fr2,10(r3),1,5       // fr2 = m12, 1.0
 	ps_madd		fr11,fr2,fr4,fr10    // fr11 = (m12 * z) + (m10 * x), (1.0 * 1.0) + (m11 * y)
 
-	psq_l		fr3,12(r3),0,0       // fr3 = m20, m21
-	psq_l		fr2,16(r3),1,0       // fr2 = m22, 1.0
+	psq_l		fr3,12(r3),0,5       // fr3 = m20, m21
+	psq_l		fr2,16(r3),1,5       // fr2 = m22, 1.0
 	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m12 * z) + (m10 * x) + (1.0 * 1.0) + (m11 * y), 1.0
 
 	ps_mul		fr1,fr3,fr5          // fr1 = m20 * x, m21 * y

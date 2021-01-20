@@ -165,17 +165,22 @@ typedef struct _vecf {
 	f32 x,y,z;
 	s32 flag;
 } guVector;
-typedef f32	Mtx[3][3];
+typedef struct _svecf {
+	s16 x,y,z;
+} guVectorS;
+typedef s16	Mtx[3][3];
 typedef f32	Mtx6X3[3][3];
 
-extern void myps_guVecMultiply(register Mtx mt,register guVector *src,register guVector *dst);
+//extern void myps_guVecMultiply(register Mtx mt,register guVector *src,register guVector *dst);
 //extern void ps_gte_rtps(register Mtx mt,register guVector *src,register guVector *add,register guVector *dst,register f32 *div);
-extern void ps_gte_rtps(register s16* mt,register s16 *src,register guVector *add,register guVector *dst,register f32 *div);
-extern void ps_gte_DoubleTrans(register Mtx6X3 mt,register guVector *src,register guVector *add,register guVector *dst,register f32 *div);
+extern void ps_gte_rtps(register Mtx mt,register guVectorS *src,register guVector *add,register guVector *dst,register f32 *div);
+//extern void ps_gte_DoubleTrans(register Mtx6X3 mt,register guVector *src,register guVector *add,register guVector *dst,register f32 *div);
 
 Mtx tmpMtx;
 Mtx6X3 tmpMtx6X3;
 guVector srcVec;
+guVectorS srcVecS;
+
 guVector addVec;
 guVector dstVec;
 static f32 div1[] = {1.0f, 1.0f};
@@ -450,24 +455,24 @@ __inline s32 FlimG2(s64 x) {
 	/*gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX);*/ \
 	/*gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY);*/ \
 	/*gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ);*/ \
-	/*tmpMtx[0][0] = gteR11;*/ \
-    /*tmpMtx[0][1] = gteR12;*/ \
-    /*tmpMtx[0][2] = gteR13;*/ \
-    /*tmpMtx[1][0] = gteR21;*/ \
-    /*tmpMtx[1][1] = gteR22;*/ \
-    /*tmpMtx[1][2] = gteR23;*/ \
-    /*tmpMtx[2][0] = gteR31;*/ \
-    /*tmpMtx[2][1] = gteR32;*/ \
-    /*tmpMtx[2][2] = gteR33;*/ \
+	tmpMtx[0][0] = gteR11; \
+    tmpMtx[0][1] = gteR12; \
+    tmpMtx[0][2] = gteR13; \
+    tmpMtx[1][0] = gteR21; \
+    tmpMtx[1][1] = gteR22; \
+    tmpMtx[1][2] = gteR23; \
+    tmpMtx[2][0] = gteR31; \
+    tmpMtx[2][1] = gteR32; \
+    tmpMtx[2][2] = gteR33; \
      \
-    /*srcVec.x = gteVX##vn;*/ \
-    /*srcVec.y = gteVY##vn;*/ \
-    /*srcVec.z = gteVZ##vn;*/ \
+    srcVecS.x = gteVX##vn; \
+    srcVecS.y = gteVY##vn; \
+    srcVecS.z = gteVZ##vn; \
     addVec.x = gteTRX; \
     addVec.y = gteTRY; \
     addVec.z = gteTRZ; \
-    /*ps_gte_rtps(tmpMtx, &srcVec, &addVec, &dstVec, div4096);*/ \
-    ps_gte_rtps(&(gteR11), &(gteVX##vn), &addVec, &dstVec, div4096); \
+    ps_gte_rtps(tmpMtx, &srcVecS, &addVec, &dstVec, div4096); \
+    /*ps_gte_rtps(tmpMtx, (s16*)(&(gteVY##vn)), &addVec, &dstVec, div4096);*/ \
     gteMAC1 = (s32)(dstVec.x); \
     gteMAC2 = (s32)(dstVec.y); \
     gteMAC3 = (s32)(dstVec.z); \
