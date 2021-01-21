@@ -68,33 +68,19 @@
 #define	fr30	30
 #define	fr31	31
 
-	.globl myps_guVecMultiply
-	// r3 = mt, r4 = src, r5 = dst
-myps_guVecMultiply:
-	psq_l		fr0,0(r4),0,0        // fr0 = x y
-	psq_l		fr2,0(r3),0,0        // fr2 = m[0][0], m[0][1]
-	psq_l		fr1,8(r4),1,0        // fr1 = z
-	ps_mul		fr4,fr2,fr0          // fr4 = m[0][0] * x, m[0][1] * y
-	psq_l		fr3,8(r3),1,0        // fr3 = m[0][2]
-	ps_madd		fr5,fr3,fr1,fr4      // fr5 = (m[0][2] * z) + (m[0][0] * x), (0 * 0) + (m[0][1] * y)
-    psq_l		fr8,12(r3),0,0       // fr8 = m[1][0], m[1][1]
-	ps_sum0		fr6,fr5,fr6,fr5      // fr6 = (m[0][2] * z) + (m[0][0] * x) + (0 * 0) + (m[0][1] * y), 0
-	psq_l		fr9,20(r3),1,0       // fr9 = m[1][2]
-	ps_mul		fr10,fr8,fr0         // fr10 = m[1][0] * x, m[1][1] * y
-	psq_st		fr6,0(r5),1,0        // r5 = result_X
-	ps_madd		fr11,fr9,fr1,fr10    // fr11 = (m[1][2] * z) + (m[1][0] * x), (0 * 0) + (m[1][1] * y)
-	psq_l		fr2,24(r3),0,0       // fr2 = m[2][0], m[2][1]
-	ps_sum0		fr12,fr11,fr12,fr11  // fr12 = (m[1][2] * z) + (m[1][0] * x) + (0 * 0) + (m[1][1] * y), 0 ?
-	psq_l		fr3,32(r3),1,0       // fr3 = m[2][2]
-	ps_mul		fr4,fr2,fr0
-	psq_st		fr12,4(r5),1,0       // r5 = result_Y
-	ps_madd		fr5,fr3,fr1,fr4
-	ps_sum0		fr6,fr5,fr6,fr5
-	psq_st		fr6,8(r5),1,0        // r5 = result_Z
-	blr
+	.globl ps_gte_rtps32
+	// r3 = mt, r4 = src(f32), r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
+	// r3(m12, m11, m21, m13, m23, m22, m32, m31, 0, m33)
+	// r4(x, y, z, 0)
+ps_gte_rtps32:
+	psq_l		fr5,0(r4),0,0        // fr5 = x, y
+	psq_l		fr2,0(r3),0,5        // fr2 = m12, m11
+	ps_merge10  fr2,fr2,fr2          // fr2 = m11, m12
+	psq_l		fr4,8(r4),0,0        // fr4 = z, 0.0
+	b           ps_get_comn
 
 	.globl ps_gte_rtps
-	// r3 = mt, r4 = src, r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
+	// r3 = mt, r4 = src(s16), r5 = add, r6 = dst, r7 = div(1.0f,1.0f or 0.000244f, 0.000244f)
 	// r3(m12, m11, m21, m13, m23, m22, m32, m31, 0, m33)
 	// r4(y, x, 0, z)
 ps_gte_rtps:
@@ -104,6 +90,8 @@ ps_gte_rtps:
 	ps_merge10  fr2,fr2,fr2          // fr2 = m11, m12
 	psq_l		fr4,4(r4),0,5        // fr4 = 0.0, z
 	ps_merge10  fr4,fr4,fr4          // fr4 = z, 0.0
+
+ps_get_comn:
 	ps_mul		fr1,fr2,fr5          // fr1 = m11 * x, m12 * y
 
 	psq_l		fr3,6(r3),1,5        // fr3 = m13, 1.0
@@ -128,15 +116,15 @@ ps_gte_rtps:
 
     psq_l		fr7,0(r7),0,0        // fr7 = 1.0f,1.0f or 0.000244f, 0.000244f
 
-	ps_merge00  fr6,fr6,fr12         // fr6 = result_X, result_Y
+	ps_merge00  fr6,fr6,fr12         // fr6 = retX, retY
 	psq_l		fr11,0(r5),0,0       // fr11 = addX addY
-	ps_madd		fr8,fr6,fr7,fr11     // fr8 = result_X / 4096.0 + addX, result_Y / 4096.0 + addY
+	ps_madd		fr8,fr6,fr7,fr11     // fr8 = retX / 4096.0 + addX, retY / 4096.0 + addY
 
 	ps_madd		fr0,fr2,fr4,fr1      // fr0 = (m33 * z) + (m31 * x), (1.0 * 0.0) + (m32 * y)
 	psq_l		fr9,8(r5),1,0        // fr9 = addZ
-	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m33 * z) + (m31 * x) + (1.0 * 0.0) + (m33 * y), result_Y
+	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m33 * z) + (m31 * x) + (1.0 * 0.0) + (m33 * y), retY
 
-	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
+	ps_madd		fr6,fr6,fr7,fr9      // fr6 = retZ / 4096.0 + addZ, 0
 
     fctiw       fr9,fr8              // retX => f32 to s32
     stfiwx      fr9,0,r6             // r6 = retX

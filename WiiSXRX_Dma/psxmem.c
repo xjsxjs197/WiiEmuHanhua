@@ -110,13 +110,10 @@ int psxMemInit() {
     u32 hid2 = mfhid2();
     mthid2(hid2 | 0x20000000);
 
-    // set GQRs load s16 => float
-    //CAST_SetGQR(GQR0, GQR_TYPE_S16, 0);
-    //CAST_SetGQR(GQR1, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR2, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR3, GQR_TYPE_S16, 0);
-    //CAST_SetGQR(GQR4, GQR_TYPE_S16, 0);
-    CAST_SetGQR(GQR5, GQR_TYPE_S16, 0);
+    CAST_SetGQR(GQR4, GQR_TYPE_U16, 0); // set GQR4 load u16 => float
+    CAST_SetGQR(GQR5, GQR_TYPE_S16, 0); // set GQR4 load s16 => float
     //CAST_SetGQR(GQR6, GQR_TYPE_S16, 0);
     //CAST_SetGQR(GQR7, GQR_TYPE_S16, 0);
 
