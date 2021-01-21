@@ -181,6 +181,7 @@ guVector addVec;
 guVector dstVec;
 static f32 div1[] = {1.0f, 1.0f};
 static f32 div4096[] = {0.000244f, 0.000244f}; // 1 >> 12 = 1 / 4096 = 0.000244140625
+static s16 srcVecS[] = {0, 0, 0, 0}; // x, y, z, 0
 
 __inline u32 MFC2(int reg) {
 	switch(reg) {
@@ -470,12 +471,12 @@ __inline s32 FlimG2(s64 x) {
     /*srcVecS[0] = gteVX##vn;*/ \
     /*srcVecS[1] = gteVY##vn;*/ \
     /*srcVecS[2] = gteVZ##vn;*/ \
-    ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &dstVec, div4096); \
+    ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &(gteMAC1), div4096); \
     /*ps_gte_rtps(tmpMtx, (s16*)(&(gteVY##vn)), &addVec, &dstVec, div4096);*/ \
-    gteMAC1 = (s32)(dstVec.x); \
-    gteMAC2 = (s32)(dstVec.y); \
-    gteMAC3 = (s32)(dstVec.z); \
-    gteFLAG |= dstVec.flag; \
+    /*gteMAC1 = dstVec.x;*/ \
+    /*gteMAC2 = dstVec.y;*/ \
+    /*gteMAC3 = dstVec.z;*/ \
+    /*gteFLAG |= dstVec.flag;*/ \
 }
 
 /*	gteMAC1 = NC_OVERFLOW1(((signed long)(gteR11*gteVX0 + gteR12*gteVY0 + gteR13*gteVZ0)>>12) + gteTRX);

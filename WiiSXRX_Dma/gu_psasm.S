@@ -136,60 +136,20 @@ ps_gte_rtps:
 	psq_l		fr9,8(r5),1,0        // fr9 = addZ
 	ps_sum0		fr6,fr0,fr6,fr0      // fr6 = (m33 * z) + (m31 * x) + (1.0 * 0.0) + (m33 * y), result_Y
 
-	lfs		    fr11,FncOverflowH@sdarel(r13)
-	lfs		    fr12,FncOverflowL@sdarel(r13)
-	ps_merge00  fr11,fr11,fr11       // fr11 = 2147483647.0, 2147483647.0
-	ps_merge00  fr12,fr12,fr12       // fr12 = -2147483648.0, -2147483648.0
 	ps_madd		fr6,fr6,fr7,fr9      // fr6 = result_Z / 4096.0 + addZ, 0
 
-OverflowLChkX:
-    ps_cmpo0    fr0,fr8,fr12         // if ((result_X / 4096.0 + addX) < -2147483648.0)
-    andi.       r7,r7,0
-    blt         OverflowLFlagX
-OverflowHChkX:
-    ps_cmpo0    fr0,fr11,fr8         // if (2147483647 < (result_X / 4096.0 + addX))
-    blt         OverflowHFlagX
-OverflowLChkY:
-    ps_cmpo1    fr0,fr8,fr12         // if ((result_Y / 4096.0 + addY) < -2147483648.0)
-    blt         OverflowLFlagY
-OverflowHChkY:
-    ps_cmpo1    fr0,fr11,fr8         // if (2147483647 < (result_Y / 4096.0 + addY))
-    blt         OverflowHFlagY
-OverflowLChkZ:
-    ps_cmpo0    fr0,fr6,fr12         // if ((result_Z / 4096.0 + addZ) < -2147483648.0)
-    blt         OverflowLFlagZ
-OverflowHChkZ:
-    ps_cmpo0    fr0,fr11,fr6         // if (2147483647 < (result_Z / 4096.0 + addZ))
-    blt         OverflowHFlagZ
-    b           SetReturnVal
+    fctiw       fr9,fr8              // retX => f32 to s32
+    stfiwx      fr9,0,r6             // r6 = retX
 
-OverflowLFlagX:
-    oris        r7,r7,0x2000         // gteFLAG |= 1<<29;
-    ps_merge01  fr8,fr12,fr8
-    b           OverflowLChkY
-OverflowHFlagX:
-    oris        r7,r7,0x400          // gteFLAG |= 1<<26;
-    ps_merge01  fr8,fr11,fr8
-    b           OverflowLChkY
-OverflowLFlagY:
-    oris        r7,r7,0x1000         // gteFLAG |= 1<<28;
-    ps_merge00  fr8,fr8,fr12
-    b           OverflowLChkZ
-OverflowHFlagY:
-    oris        r7,r7,0x200          // gteFLAG |= 1<<25;
-    ps_merge00  fr8,fr8,fr11
-    b           OverflowLChkZ
-OverflowLFlagZ:
-    oris        r7,r7,0x800          // gteFLAG |= 1<<27;
-    ps_merge00  fr6,fr12,fr6
-    b           SetReturnVal
-OverflowHFlagZ:
-    oris        r7,r7,0x100          // gteFLAG |= 1<<24;
-    ps_merge00  fr6,fr11,fr6
-SetReturnVal:
-    psq_st		fr8,0(r6),0,0        // r6 = X, Y
-    psq_st		fr6,8(r6),1,0        // r6 = X, Y, Z
-    stw         r7,12(r6)            // r6 = X, Y, Z, gteFlag
+    ps_merge10  fr8,fr8,fr8          // fr8 = retY, retX
+    fctiw       fr9,fr8              // retY => f32 to s32
+    addi        r6,r6,4
+    stfiwx      fr9,0,r6             // r6 = retX, retY
+
+    fctiw       fr9,fr6              // retZ => f32 to s32
+    addi        r6,r6,4
+    stfiwx      fr9,0,r6             // r6 = retX, retY, retZ
+
 	blr
 
 	.globl ps_gte_DoubleTrans
