@@ -181,6 +181,7 @@ guVector dstVec;
 static f32 div1[] = {1.0f, 1.0f};
 static f32 div4096[] = {0.000244f, 0.000244f}; // 1 >> 12 = 1 / 4096 = 0.000244140625
 static f32 srcVecF[] = {0.0f, 0.0f, 0.0f, 0.0f}; // x, y, z, 0
+static s16 srcVecS[] = {0, 0, 0, 0}; // y, x, 0, z
 static s32 dstVecS[] = {0, 0, 0, 0};
 
 __inline u32 MFC2(int reg) {
@@ -737,25 +738,24 @@ void gteRTPT() {
     } \
     else  \
     { \
-        tmpMtx[0][0] = mx##11; \
-        tmpMtx[0][1] = mx##12; \
-        tmpMtx[0][2] = mx##13; \
-        tmpMtx[1][0] = mx##21; \
-        tmpMtx[1][1] = mx##22; \
-        tmpMtx[1][2] = mx##23; \
-        tmpMtx[2][0] = mx##31; \
-        tmpMtx[2][1] = mx##32; \
-        tmpMtx[2][2] = mx##33; \
-         \
-        srcVec.x = (_v0); \
-        srcVec.y = (_v1); \
-        srcVec.z = (_v2); \
+        mtAddr = &(mx##12); \
+        srcAddr = &(_v1); \
     } \
+}
+
+#define _MVMVA_FUNC2(_v0, _v1, _v2, mx) { \
+        mtAddr = &(mx##12); \
+        srcVecS[1] = (_v0); \
+        srcVecS[0] = (_v1); \
+        srcVecS[3] = (_v2); \
+        srcAddr = srcVecS; \
 }
 
 void gteMVMVA() {
 	s64 SSX, SSY, SSZ;
-	int noneGteFlag = 1;
+	s16 *mtAddr;
+	s16 *srcAddr;
+	int noneGteFlag = 0;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
@@ -770,7 +770,7 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteR); break;
 		case 0x18000: // IR * R
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
+			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
 			break;
 		case 0x20000: // V0 * L
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gteL); break;
@@ -780,7 +780,7 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteL); break;
 		case 0x38000: // IR * L
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
+			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
 		case 0x40000: // V0 * C
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gte_C); break;
 		case 0x48000: // V1 * C
@@ -789,7 +789,7 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gte_C); break;
 		case 0x58000: // IR * C
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
+			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
 		default:
 			SSX = SSY = SSZ = 0;
 			noneGteFlag = 1;
@@ -850,16 +850,16 @@ void gteMVMVA() {
 
         if (psxRegs.code & 0x80000)
         {
-            //ps_gte_rtps(tmpMtx, &srcVec, &addVec, &dstVec, div4096);
+            ps_gte_rtps(mtAddr, srcAddr, &addVec, &(gteMAC1), div4096);
         }
         else
         {
-            //ps_gte_rtps(tmpMtx, &srcVec, &addVec, &dstVec, div1);
+            ps_gte_rtps(mtAddr, srcAddr, &addVec, &(gteMAC1), div1);
         }
-        gteMAC1 = (s32)(dstVec.x);
-        gteMAC2 = (s32)(dstVec.y);
-        gteMAC3 = (s32)(dstVec.z);
-        gteFLAG |= dstVec.flag;
+        //gteMAC1 = (s32)(dstVec.x);
+        //gteMAC2 = (s32)(dstVec.y);
+        //gteMAC3 = (s32)(dstVec.z);
+        //gteFLAG |= dstVec.flag;
     }
 
 	if (psxRegs.code & 0x400)
