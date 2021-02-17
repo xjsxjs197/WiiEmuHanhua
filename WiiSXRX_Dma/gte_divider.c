@@ -32,7 +32,7 @@ static const u8 table[] =
 	0x00
 };
 
-u32 DIVIDE(u16 numerator, u16 denominator)
+__inline u32 DIVIDE(u16 numerator, u16 denominator)
 {
 	if (numerator < (denominator * 2)) {
 		int shift = __builtin_clz(denominator) - 16;

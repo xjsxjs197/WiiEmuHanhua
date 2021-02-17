@@ -295,12 +295,12 @@ __inline float NC_OVERFLOW3(float x) {
 	return x;
 }
 
-__inline float NC_OVERFLOW4(float x) {
+/*__inline float NC_OVERFLOW4(float x) {
 	if (x<-2147483648.0) {gteFLAG |= 1<<16;}
 	else if (x> 2147483647.0) {gteFLAG |= 1<<15;}
 
 	return x;
-}
+}*/
 
 __inline s32 FNC_OVERFLOW1(s64 x) {
 	if (x< (s64)0xffffffff80000000LL) {gteFLAG |= 1<<29;}

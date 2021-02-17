@@ -455,14 +455,13 @@ __inline s32 FlimG2(s64 x) {
 }
 
 #define GTE_RTPS1(vn) { \
-	/*gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX);*/ \
-	/*gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY);*/ \
-	/*gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ);*/ \
-     \
+	gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX); \
+	gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY); \
+	gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ); \
     /*srcVecS[0] = gteVX##vn;*/ \
     /*srcVecS[1] = gteVY##vn;*/ \
     /*srcVecS[2] = gteVZ##vn;*/ \
-    ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &(gteMAC1), div4096); \
+    /*ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &(gteMAC1), div4096);*/ \
     /*gteMAC1 = dstVec.x;*/ \
     /*gteMAC2 = dstVec.y;*/ \
     /*gteMAC3 = dstVec.z;*/ \
@@ -563,7 +562,7 @@ void gteRTPS() {
 
 	gteFLAG = 0;
 
-    RTPS_PARAM();
+    //RTPS_PARAM();
 
 	GTE_RTPS1(0);
 
@@ -659,7 +658,7 @@ void gteRTPT() {
 
 	gteSZx = gteSZ2;
 
-    RTPS_PARAM();
+    //RTPS_PARAM();
 
 	GTE_RTPS1(0);
 
@@ -738,8 +737,8 @@ void gteRTPT() {
     } \
     else  \
     { \
-        mtAddr = &(mx##12); \
-        srcAddr = &(_v1); \
+        /*mtAddr = &(mx##12);*/ \
+        /*srcAddr = &(_v1);*/ \
     } \
 }
 
@@ -755,7 +754,7 @@ void gteMVMVA() {
 	s64 SSX, SSY, SSZ;
 	s16 *mtAddr;
 	s16 *srcAddr;
-	int noneGteFlag = 0;
+	int noneGteFlag = 1;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
@@ -770,7 +769,8 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteR); break;
 		case 0x18000: // IR * R
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
+			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
+			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
 			break;
 		case 0x20000: // V0 * L
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gteL); break;
@@ -780,7 +780,8 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteL); break;
 		case 0x38000: // IR * L
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
+			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
+			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
 		case 0x40000: // V0 * C
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gte_C); break;
 		case 0x48000: // V1 * C
@@ -789,7 +790,8 @@ void gteMVMVA() {
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gte_C); break;
 		case 0x58000: // IR * C
 		    //noneGteFlag = 1;
-			_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
+			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
+			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
 		default:
 			SSX = SSY = SSZ = 0;
 			noneGteFlag = 1;
@@ -2368,18 +2370,16 @@ void gteCC() {
 
 	gteFLAG = 0;
 
-	/*RR0 = FNC_OVERFLOW1(gteRBK + ((gteLR1*gteIR1 + gteLR2*gteIR2 + gteLR3*gteIR3) >> 12));
+    #if 1
+	RR0 = FNC_OVERFLOW1(gteRBK + ((gteLR1*gteIR1 + gteLR2*gteIR2 + gteLR3*gteIR3) >> 12));
 	GG0 = FNC_OVERFLOW2(gteGBK + ((gteLG1*gteIR1 + gteLG2*gteIR2 + gteLG3*gteIR3) >> 12));
 	BB0 = FNC_OVERFLOW3(gteBBK + ((gteLB1*gteIR1 + gteLB2*gteIR2 + gteLB3*gteIR3) >> 12));
-	tmpMtx[0][0] = gteLR1;
-    tmpMtx[0][1] = gteLR2;
-    tmpMtx[0][2] = gteLR3;
-    tmpMtx[1][0] = gteLG1;
-    tmpMtx[1][1] = gteLG2;
-    tmpMtx[1][2] = gteLG3;
-    tmpMtx[2][0] = gteLB1;
-    tmpMtx[2][1] = gteLB2;
-    tmpMtx[2][2] = gteLB3;*/
+
+	gteMAC1 = (gteR * RR0) >> 8;
+	gteMAC2 = (gteG * GG0) >> 8;
+	gteMAC3 = (gteB * BB0) >> 8;
+
+    #else
     srcVecF[0] = gteIR1;
     srcVecF[1] = gteIR2;
     srcVecF[2] = gteIR3;
@@ -2395,6 +2395,7 @@ void gteCC() {
 	gteMAC1 = (gteR * dstVecS[0]) >> 8;
 	gteMAC2 = (gteG * dstVecS[1]) >> 8;
 	gteMAC3 = (gteB * dstVecS[2]) >> 8;
+	#endif // 1
 
 	MAC2IR1();
 
@@ -2556,18 +2557,16 @@ void gteCDP() { //test opcode
 
 	gteFLAG = 0;
 
-	/*RR0 = NC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
+    #if 1
+	RR0 = NC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
 	GG0 = NC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
 	BB0 = NC_OVERFLOW3(gteBBK + (gteLB1*gteIR1 +gteLB2*gteIR2 + gteLB3*gteIR3));
-	tmpMtx[0][0] = gteLR1;
-    tmpMtx[0][1] = gteLR2;
-    tmpMtx[0][2] = gteLR3;
-    tmpMtx[1][0] = gteLG1;
-    tmpMtx[1][1] = gteLG2;
-    tmpMtx[1][2] = gteLG3;
-    tmpMtx[2][0] = gteLB1;
-    tmpMtx[2][1] = gteLB2;
-    tmpMtx[2][2] = gteLB3;*/
+
+	gteMAC1 = gteR*RR0 + gteIR0*limA1S(gteRFC-gteR*RR0);
+	gteMAC2 = gteG*GG0 + gteIR0*limA2S(gteGFC-gteG*GG0);
+	gteMAC3 = gteB*BB0 + gteIR0*limA3S(gteBFC-gteB*BB0);
+
+	#else
     srcVecF[0] = gteIR1;
     srcVecF[1] = gteIR2;
     srcVecF[2] = gteIR3;
@@ -2585,6 +2584,7 @@ void gteCDP() { //test opcode
 	gteMAC1 = gteR*dstVecS[0] + gteIR0*limA1S(gteRFC-gteR*dstVecS[0]);
 	gteMAC2 = gteG*dstVecS[1] + gteIR0*limA2S(gteGFC-gteG*dstVecS[1]);
 	gteMAC3 = gteB*dstVecS[2] + gteIR0*limA3S(gteBFC-gteB*dstVecS[2]);
+	#endif // 1
 
 /*	RR0 = FNC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
 	GG0 = FNC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
