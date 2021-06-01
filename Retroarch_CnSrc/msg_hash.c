@@ -37,71 +37,71 @@ int msg_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
 #ifdef HAVE_LANGEXTRA
    switch (uint_user_language)
    {
-      // upd xjsxjs197 start
-   //   case RETRO_LANGUAGE_FRENCH:
-   //      ret = menu_hash_get_help_fr_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_GERMAN:
-   //      ret = menu_hash_get_help_de_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_SPANISH:
-   //      ret = menu_hash_get_help_es_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_ITALIAN:
-   //      ret = menu_hash_get_help_it_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
-   //      ret = menu_hash_get_help_pt_br_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
-   //      ret = menu_hash_get_help_pt_pt_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_DUTCH:
-   //      ret = menu_hash_get_help_nl_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_ESPERANTO:
-   //      ret = menu_hash_get_help_eo_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_POLISH:
-   //      ret = menu_hash_get_help_pl_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_JAPANESE:
-   //      ret = menu_hash_get_help_jp_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_KOREAN:
-   //      ret = menu_hash_get_help_ko_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_VIETNAMESE:
-   //      ret = menu_hash_get_help_vn_enum(msg, s, len);
-   //      break;
+      /*case RETRO_LANGUAGE_FRENCH:
+         ret = msg_hash_get_help_fr_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_GERMAN:
+         ret = msg_hash_get_help_de_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_SPANISH:
+         ret = msg_hash_get_help_es_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_ITALIAN:
+         ret = msg_hash_get_help_it_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
+         ret = msg_hash_get_help_pt_br_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
+         ret = msg_hash_get_help_pt_pt_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_DUTCH:
+         ret = msg_hash_get_help_nl_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_ESPERANTO:
+         ret = msg_hash_get_help_eo_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_POLISH:
+         ret = msg_hash_get_help_pl_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_JAPANESE:
+         ret = msg_hash_get_help_jp_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_KOREAN:
+         ret = msg_hash_get_help_ko_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_VIETNAMESE:
+         ret = msg_hash_get_help_vn_enum(msg, s, len);
+         break;*/
       case RETRO_LANGUAGE_CHINESE_SIMPLIFIED:
          ret = msg_hash_get_help_chs_enum(msg, s, len);
          break;
-   //   case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
-   //      ret = msg_hash_get_help_cht_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_ARABIC:
-   //      ret = msg_hash_get_help_ar_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_GREEK:
-   //      ret = msg_hash_get_help_el_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_TURKISH:
-   //      ret = msg_hash_get_help_tr_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_SLOVAK:
-   //      ret = msg_hash_get_help_sk_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_PERSIAN:
-   //      ret = msg_hash_get_help_fa_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_HEBREW:
-   //      ret = msg_hash_get_help_he_enum(msg, s, len);
-   //      break;
-   //   case RETRO_LANGUAGE_ASTURIAN:
-   //      ret = msg_hash_get_help_ast_enum(msg, s, len);
-   //      break;
-    // upd xjsxjs197 end
+      /*case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
+         ret = msg_hash_get_help_cht_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_ARABIC:
+         ret = msg_hash_get_help_ar_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_GREEK:
+         ret = msg_hash_get_help_el_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_TURKISH:
+         ret = msg_hash_get_help_tr_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_SLOVAK:
+         ret = msg_hash_get_help_sk_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_PERSIAN:
+         ret = msg_hash_get_help_fa_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_HEBREW:
+         ret = msg_hash_get_help_he_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_ASTURIAN:
+         ret = msg_hash_get_help_ast_enum(msg, s, len);
+         break;
+      case RETRO_LANGUAGE_FINNISH:
+         ret = msg_hash_get_help_fi_enum(msg, s, len);*/
       default:
          break;
    }
@@ -115,86 +115,64 @@ int msg_hash_get_help_enum(enum msg_hash_enums msg, char *s, size_t len)
 
 const char *get_user_language_iso639_1(bool limit)
 {
-   const char *voice;
-   voice = "en";
    switch (uint_user_language)
    {
-      // upd xjsxjs197 start
-   //   case RETRO_LANGUAGE_FRENCH:
-   //      voice = "fr";
-   //      break;
-   //   case RETRO_LANGUAGE_GERMAN:
-   //      voice = "de";
-   //      break;
-   //   case RETRO_LANGUAGE_SPANISH:
-   //      voice = "es";
-   //      break;
-   //   case RETRO_LANGUAGE_ITALIAN:
-   //      voice = "it";
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
-   //      if (limit)
-   //         voice = "pt";
-   //      else
-   //         voice = "pt_br";
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
-   //      if (limit)
-   //         voice = "pt";
-   //      else
-   //         voice = "pt_pt";
-   //      break;
-   //   case RETRO_LANGUAGE_DUTCH:
-   //      voice = "nl";
-   //      break;
-   //   case RETRO_LANGUAGE_ESPERANTO:
-   //      voice = "eo";
-   //      break;
-   //   case RETRO_LANGUAGE_POLISH:
-   //      voice = "pl";
-   //      break;
-   //   case RETRO_LANGUAGE_JAPANESE:
-   //      voice = "ja";
-   //      break;
-   //   case RETRO_LANGUAGE_KOREAN:
-   //      voice = "ko";
-   //      break;
-   //   case RETRO_LANGUAGE_VIETNAMESE:
-   //      voice = "vi";
-   //      break;
+      case RETRO_LANGUAGE_FRENCH:
+         return "fr";
+      case RETRO_LANGUAGE_GERMAN:
+         return "de";
+      case RETRO_LANGUAGE_SPANISH:
+         return "es";
+      case RETRO_LANGUAGE_ITALIAN:
+         return "it";
+      case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
+         if (limit)
+            return "pt";
+         return "pt_br";
+      case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
+         if (limit)
+            return "pt";
+         return "pt_pt";
+      case RETRO_LANGUAGE_DUTCH:
+         return "nl";
+      case RETRO_LANGUAGE_ESPERANTO:
+         return "eo";
+      case RETRO_LANGUAGE_POLISH:
+         return "pl";
+      case RETRO_LANGUAGE_JAPANESE:
+         return "ja";
+      case RETRO_LANGUAGE_KOREAN:
+         return "ko";
+      case RETRO_LANGUAGE_VIETNAMESE:
+         return "vi";
       case RETRO_LANGUAGE_CHINESE_SIMPLIFIED:
-         voice = "zh";
-         break;
-   //   case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
-   //      voice = "zh";
-   //      break;
-   //   case RETRO_LANGUAGE_ARABIC:
-   //      voice = "ar";
-   //      break;
-   //   case RETRO_LANGUAGE_GREEK:
-   //      voice = "el";
-   //      break;
-   //   case RETRO_LANGUAGE_TURKISH:
-   //      voice = "tr";
-   //      break;
-   //   case RETRO_LANGUAGE_SLOVAK:
-   //      voice = "sk";
-   //      break;
-   //   case RETRO_LANGUAGE_RUSSIAN:
-   //      voice = "ru";
-   //      break;
-   //   case RETRO_LANGUAGE_PERSIAN:
-   //      voice = "fa";
-   //      break;
-   //   case RETRO_LANGUAGE_HEBREW:
-   //      voice = "he";
-   //      break;
-   //   case RETRO_LANGUAGE_ASTURIAN:
-   //      voice = "ast";
-   //      break;
-   // upd xjsxjs197 end
+         if (limit)
+            return "zh";
+         return "zh_cn";
+      case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
+         if (limit)
+            return "zh";
+         return "zh_tw";
+      case RETRO_LANGUAGE_ARABIC:
+         return "ar";
+      case RETRO_LANGUAGE_GREEK:
+         return "el";
+      case RETRO_LANGUAGE_TURKISH:
+         return "tr";
+      case RETRO_LANGUAGE_SLOVAK:
+         return "sk";
+      case RETRO_LANGUAGE_RUSSIAN:
+         return "ru";
+      case RETRO_LANGUAGE_PERSIAN:
+         return "fa";
+      case RETRO_LANGUAGE_HEBREW:
+         return "he";
+      case RETRO_LANGUAGE_ASTURIAN:
+         return "ast";
+      case RETRO_LANGUAGE_FINNISH:
+         return "fi";
    }
-   return voice;
+   return "en";
 }
 
 const char *msg_hash_to_str(enum msg_hash_enums msg)
@@ -204,74 +182,75 @@ const char *msg_hash_to_str(enum msg_hash_enums msg)
 #ifdef HAVE_LANGEXTRA
    switch (uint_user_language)
    {
-      // upd xjsxjs197 start
-   //   case RETRO_LANGUAGE_FRENCH:
-   //      ret = msg_hash_to_str_fr(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_GERMAN:
-   //      ret = msg_hash_to_str_de(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_SPANISH:
-   //      ret = msg_hash_to_str_es(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_ITALIAN:
-   //      ret = msg_hash_to_str_it(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
-   //      ret = msg_hash_to_str_pt_br(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
-   //      ret = msg_hash_to_str_pt_pt(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_DUTCH:
-   //      ret = msg_hash_to_str_nl(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_ESPERANTO:
-   //      ret = msg_hash_to_str_eo(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_POLISH:
-   //      ret = msg_hash_to_str_pl(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_RUSSIAN:
-   //      ret = msg_hash_to_str_ru(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_JAPANESE:
-   //      ret = msg_hash_to_str_jp(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_KOREAN:
-   //      ret = msg_hash_to_str_ko(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_VIETNAMESE:
-   //      ret = msg_hash_to_str_vn(msg);
-   //      break;
+      /*case RETRO_LANGUAGE_FRENCH:
+         ret = msg_hash_to_str_fr(msg);
+         break;
+      case RETRO_LANGUAGE_GERMAN:
+         ret = msg_hash_to_str_de(msg);
+         break;
+      case RETRO_LANGUAGE_SPANISH:
+         ret = msg_hash_to_str_es(msg);
+         break;
+      case RETRO_LANGUAGE_ITALIAN:
+         ret = msg_hash_to_str_it(msg);
+         break;
+      case RETRO_LANGUAGE_PORTUGUESE_BRAZIL:
+         ret = msg_hash_to_str_pt_br(msg);
+         break;
+      case RETRO_LANGUAGE_PORTUGUESE_PORTUGAL:
+         ret = msg_hash_to_str_pt_pt(msg);
+         break;
+      case RETRO_LANGUAGE_DUTCH:
+         ret = msg_hash_to_str_nl(msg);
+         break;
+      case RETRO_LANGUAGE_ESPERANTO:
+         ret = msg_hash_to_str_eo(msg);
+         break;
+      case RETRO_LANGUAGE_POLISH:
+         ret = msg_hash_to_str_pl(msg);
+         break;
+      case RETRO_LANGUAGE_RUSSIAN:
+         ret = msg_hash_to_str_ru(msg);
+         break;
+      case RETRO_LANGUAGE_JAPANESE:
+         ret = msg_hash_to_str_jp(msg);
+         break;
+      case RETRO_LANGUAGE_KOREAN:
+         ret = msg_hash_to_str_ko(msg);
+         break;
+      case RETRO_LANGUAGE_VIETNAMESE:
+         ret = msg_hash_to_str_vn(msg);
+         break;*/
       case RETRO_LANGUAGE_CHINESE_SIMPLIFIED:
          ret = msg_hash_to_str_chs(msg);
          break;
-   //   case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
-   //      ret = msg_hash_to_str_cht(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_ARABIC:
-   //      ret = msg_hash_to_str_ar(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_GREEK:
-   //      ret = msg_hash_to_str_el(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_TURKISH:
-   //      ret = msg_hash_to_str_tr(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_SLOVAK:
-   //      ret = msg_hash_to_str_sk(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_PERSIAN:
-   //      ret = msg_hash_to_str_fa(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_HEBREW:
-   //      ret = msg_hash_to_str_he(msg);
-   //      break;
-   //   case RETRO_LANGUAGE_ASTURIAN:
-   //      ret = msg_hash_to_str_ast(msg);
-   //      break;
-   // upd xjsxjs197 start
+      /*case RETRO_LANGUAGE_CHINESE_TRADITIONAL:
+         ret = msg_hash_to_str_cht(msg);
+         break;
+      case RETRO_LANGUAGE_ARABIC:
+         ret = msg_hash_to_str_ar(msg);
+         break;
+      case RETRO_LANGUAGE_GREEK:
+         ret = msg_hash_to_str_el(msg);
+         break;
+      case RETRO_LANGUAGE_TURKISH:
+         ret = msg_hash_to_str_tr(msg);
+         break;
+      case RETRO_LANGUAGE_SLOVAK:
+         ret = msg_hash_to_str_sk(msg);
+         break;
+      case RETRO_LANGUAGE_PERSIAN:
+         ret = msg_hash_to_str_fa(msg);
+         break;
+      case RETRO_LANGUAGE_HEBREW:
+         ret = msg_hash_to_str_he(msg);
+         break;
+      case RETRO_LANGUAGE_ASTURIAN:
+         ret = msg_hash_to_str_ast(msg);
+         break;
+      case RETRO_LANGUAGE_FINNISH:
+         ret = msg_hash_to_str_fi(msg);
+         break;*/
       default:
          break;
    }

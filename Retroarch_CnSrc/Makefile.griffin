@@ -116,9 +116,9 @@ else ifeq ($(platform), ps3-cobra)
 
 # NGC/Wii - libogc
 else ifeq ($(libogc_platform), 1)
-   EXTERNAL_LIBOGC=0
+   EXTERNAL_LIBOGC   ?= 0
    # add xjsxjs197 start
-   HAVE_NETWORKING          := 1
+   GX_PTHREAD_LEGACY ?= 1
    AS = $(DEVKITPPC)/bin/powerpc-eabi-as$(EXE_EXT)
    # add xjsxjs197 end
    CC = $(DEVKITPPC)/bin/powerpc-eabi-gcc$(EXE_EXT)
