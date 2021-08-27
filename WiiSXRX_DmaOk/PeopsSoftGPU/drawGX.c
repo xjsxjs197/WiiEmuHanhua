@@ -166,15 +166,19 @@ void DoClearFrontBuffer(void)                          // CLEAR DX BUFFER
 //	printf("DoClearFrontBuffer\n");
 
 	//Write menu/debug text on screen
-	GXColor fontColor = {150,255,150,255};
-	IplFont_drawInit(fontColor);
-	if((ulKeybits&KEY_SHOWFPS)&&showFPSonScreen)
+	if(showFPSonScreen && (ulKeybits&KEY_SHOWFPS))
+	{
+	    GXColor fontColor = {150,255,150,255};
+        IplFont_drawInit(fontColor);
 		IplFont_drawString(10,35,szDispBuf, 1.0, false);
+		int i = 0;
+        DEBUG_update();
+        for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
+		{
+            IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
+		}
+	}
 
-	int i = 0;
-	DEBUG_update();
-	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
-		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
 
    //reset swap table from GUI/DEBUG
 	GX_SetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
@@ -451,15 +455,18 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 	GX_End();
 
 	//Write menu/debug text on screen
-	GXColor fontColor = {150,255,150,255};
-	IplFont_drawInit(fontColor);
-	if((ulKeybits&KEY_SHOWFPS)&&showFPSonScreen)
+	if (showFPSonScreen && (ulKeybits&KEY_SHOWFPS))
+    {
+        GXColor fontColor = {150,255,150,255};
+	    IplFont_drawInit(fontColor);
 		IplFont_drawString(10,35,szDispBuf, 1.0, false);
-
-	int i = 0;
-	DEBUG_update();
-	for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
-		IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
+		int i = 0;
+        DEBUG_update();
+        for (i=0;i<DEBUG_TEXT_HEIGHT;i++)
+		{
+            IplFont_drawString(10,(10*i+60),text[i], 0.5, false);
+		}
+    }
 
    //reset swap table from GUI/DEBUG
 	GX_SetTevSwapModeTable(GX_TEV_SWAP0, GX_CH_RED, GX_CH_GREEN, GX_CH_BLUE, GX_CH_ALPHA);
