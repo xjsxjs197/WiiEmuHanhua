@@ -6,7 +6,7 @@
 
 #include "../MessageBox.h"
 
-// select Bios by game name
+// select Bios by game name xjsxjs197
 char * GetGameBios(char * biosPath, char * fileName)
 {
     char * retVal = "/SCPH1001.BIN";
@@ -22,7 +22,7 @@ char * GetGameBios(char * biosPath, char * fileName)
     *tmpPtr = '//';
     *(tmpPtr + 1) = '\0';
 
-    strcat(tstLine, fileName);
+    strncat(tstLine, fileName, strlen(fileName) - 4);
     strcat(tstLine, ".bin");
 
     FILE* f = fopen(tstLine, "rb" );  //attempt to open file
@@ -33,7 +33,7 @@ char * GetGameBios(char * biosPath, char * fileName)
         memset(tstLine, 0, strlen(tstLine));
         *tstLine = '/';
         *(tstLine + 1) = '\0';
-        strcat(tstLine, fileName);
+        strncat(tstLine, fileName, strlen(fileName) - 4);
         strcat(tstLine, ".bin");
 
         return tstLine;

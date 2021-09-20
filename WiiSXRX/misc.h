@@ -35,16 +35,16 @@ extern "C" {
 
 typedef struct {
 	unsigned char id[8];
-    u32 text;                   
-    u32 data;                    
+    u32 text;
+    u32 data;
     u32 pc0;
-    u32 gp0;                     
+    u32 gp0;
     u32 t_addr;
     u32 t_size;
-    u32 d_addr;                  
-    u32 d_size;                  
-    u32 b_addr;                  
-    u32 b_size;                  
+    u32 d_addr;
+    u32 d_size;
+    u32 b_addr;
+    u32 b_size;
     u32 s_addr;
     u32 s_size;
     u32 SavedSP;
@@ -55,6 +55,7 @@ typedef struct {
 } EXE_HEADER;
 
 char CdromId[10];
+char debugInfo[256];
 char CdromLabel[33];
 
 int LoadCdrom();

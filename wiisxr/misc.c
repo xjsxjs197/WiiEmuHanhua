@@ -408,7 +408,8 @@ int CheckCdrom() {
       CdromId[i]=0;
     }
   }
-	BuildPPFCache();
+    // xjsxjs197 mem too small
+	// BuildPPFCache();
 
 	return 0;
 }

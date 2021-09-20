@@ -234,7 +234,8 @@ void loadSettings(int argc, char *argv[])
 		fileBrowser_file* configFile_file = &saveDir_libfat_USB;
 		if(configFile_init(configFile_file)) {                //only if device initialized ok
             // add xjsxjs197 start
-            //sprintf(Config.PatchesDir, "usb:/wiisxrx/ppf/");
+            memset(Config.PatchesDir, '\0', sizeof(Config.PatchesDir));
+            strcpy(Config.PatchesDir, "usb:/wiisxrx/ppf/");
             // add xjsxjs197 end
 			FILE* f = fopen( "usb:/wiisxrx/settings.cfg", "r" );  //attempt to open file
 			if(f) {        //open ok, read it
@@ -281,7 +282,8 @@ void loadSettings(int argc, char *argv[])
 		fileBrowser_file* configFile_file = &saveDir_libfat_Default;
 		if(configFile_init(configFile_file)) {                //only if device initialized ok
             // add xjsxjs197 start
-            //sprintf(Config.PatchesDir, "sd:/wiisxrx/ppf/");
+            memset(Config.PatchesDir, '\0', sizeof(Config.PatchesDir));
+            strcpy(Config.PatchesDir, "sd:/wiisxrx/ppf/");
             // add xjsxjs197 end
 			FILE* f = fopen( "sd:/wiisxrx/settings.cfg", "r" );  //attempt to open file
 			if(f) {        //open ok, read it

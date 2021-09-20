@@ -38,6 +38,7 @@ extern "C" {
 #include "../fileBrowser/fileBrowser-CARD.h"
 #include "../fileBrowser/fileBrowser-SMB.h"
 extern long ISOgetTN(unsigned char *buffer);
+extern char debugInfo[256];
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
@@ -538,8 +539,11 @@ void fileBrowserFrame_LoadFile(int i)
             ISOgetTN(&tracks[0]);
             sprintf(buffer,"Number of tracks %u\n", tracks[1]);
 			strcat(RomInfo,buffer);
-    		
-			
+
+			#ifdef DISP_DEBUG
+			strcat(RomInfo,debugInfo);
+			#endif // DISP_DEBUG
+
 			switch (autoSaveLoaded)
 			{
 			case NATIVESAVEDEVICE_NONE:
