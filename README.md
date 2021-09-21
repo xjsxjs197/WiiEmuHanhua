@@ -22,10 +22,10 @@ Wii上的汉化的模拟器
 
 6、https://github.com/Mystro256
   WiiSxr_1.3          索尼PS模拟器     (PPC29 + Libogc_1.8.16(libfat.a使用New))
-  wiisxr              最新最全的变更（不包括Gte），可以玩北斗神拳，某些游戏不能玩
-  WiiSXRX             原本基础上优化（Counter，SPU用原来的）
-  WiiSXRX_Dma         原本基础上优化到Dma（不包括Gte,Counter），可以正常游戏
-  WiiSXRX_DmaOk       原本基础上优化到Dma（不包括Counter），优化Gte，但是有错误，效率也没有改善多少；
+  wiisxr              最新最全的变更（旧：Gte），可以玩北斗神拳，某些游戏不能玩
+  WiiSXRX             原本基础上优化（旧：Gte，Counter，SPU）
+  WiiSXRX_Dma         原本基础上优化到Dma（旧：Gte,Counter,Cdrom），可以正常游戏
+  WiiSXRX_DmaOk       原本基础上优化到Dma（旧：Counter,Cdrom），优化Gte，但是有错误，效率也没有改善多少；
 
 7、https://github.com/FIX94/Wii64
   Wii64(fix94)_1.2    任天堂N64模拟器  (PPC29 + Libogc_1.8.16(libfat.a使用New))

@@ -227,14 +227,13 @@ int fileBrowser_libfat_readDir(fileBrowser_file* file, fileBrowser_file** dir){
 	*dir = malloc( num_entries * sizeof(fileBrowser_file) );
 	// Read each entry of the directory
 	while( (temp = readdir(dp)) && (temp != NULL) ){
+        if (!isFileOk(temp->d_name)) {
+            continue;
+		}
 		// Make sure we have room for this one
 		if(i == num_entries){
 			++num_entries;
 			*dir = realloc( *dir, num_entries * sizeof(fileBrowser_file) );
-		}
-
-		if (!isFileOk(temp->d_name)) {
-            continue;
 		}
 
 		sprintf((*dir)[i].name, "%s/%s", file->name, temp->d_name);
