@@ -48,6 +48,9 @@ static u32 resp;
 static u32 cop2readypc = 0;
 static u32 idlecyclecount = 0;
 static iRegisters iRegs[34];
+// added xjsxjs197 start
+static iRegisters iRegsTmp[34];
+// added xjsxjs197 end
 
 int psxCP2time[64] = {
         2 , 16, 1 , 1 , 1 , 1 , 8 , 1 , // 00
@@ -68,6 +71,9 @@ static void (*recCP2[64])();
 static void (*recCP2BSC[32])();
 
 static HWRegister HWRegisters[NUM_HW_REGISTERS];
+// added xjsxjs197 start
+static HWRegister HWRegistersTmp[NUM_HW_REGISTERS];
+// added xjsxjs197 end
 static int HWRegUseCount;
 static int DstCPUReg;
 static int UniqueRegAlloc;
@@ -88,7 +94,8 @@ static int MapRegSpecial(int which);
 static void FlushRegSpecial(int hwreg);
 static int GetHWRegSpecial(int which);
 static int PutHWRegSpecial(int which);
-static void recRecompile();
+__inline static void recRecompile();
+static void recRecompileInit();
 static void recError();
 
 // used in debug.c for dynarec free space printing
@@ -1078,16 +1085,27 @@ __inline static void execute() {
 	/*else { recError(); return; }*/
 
 	if (*recFunc == 0) {
+        #ifdef DISP_DEBUG
+        PRINT_LOG1("recRecompile start (%8x)", psxRegs.pc);
+        #endif
 		recRecompile();
 	}
 	recRun(*recFunc, (u32)&psxRegs, (u32)&psxM);
 }
 
 static void recExecute() {
+    // added xjsxjs197 start
+    recRecompileInit();
+    // added xjsxjs197 end
+
 	while(!stop) execute();
 }
 
 static void recExecuteBlock() {
+    // added xjsxjs197 start
+    recRecompileInit();
+    // added xjsxjs197 end
+
 	execute();
 }
 
@@ -2788,10 +2806,37 @@ static void (*recCP2BSC[32])() = {
 	recNULL, recNULL, recNULL, recNULL, recNULL, recNULL, recNULL, recNULL
 };
 
-static void recRecompile() {
+// added xjsxjs197 start
+static void recRecompileInit()
+{
+    int i;
+    memset(HWRegistersTmp, 0, sizeof(HWRegistersTmp));
+	for (i=0; i<NUM_HW_REGISTERS; i++)
+		HWRegistersTmp[i].code = cpuHWRegisters[NUM_HW_REGISTERS-i-1];
+
+	// reserve the special psxReg register
+	HWRegistersTmp[0].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
+	HWRegistersTmp[0].private = PSXREGS;
+	HWRegistersTmp[0].k = (u32)&psxRegs;
+
+	HWRegistersTmp[1].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
+	HWRegistersTmp[1].private = PSXMEM;
+	HWRegistersTmp[1].k = (u32)&psxM;
+
+	for (i=0; i<NUM_REGISTERS; i++) {
+		iRegsTmp[i].state = ST_UNK;
+		iRegsTmp[i].reg = -1;
+	}
+	iRegsTmp[0].k = 0;
+	iRegsTmp[0].state = ST_CONST;
+}
+// added xjsxjs197 end
+
+__inline static void recRecompile() {
 	u32 *ptr;
 	int i;
 
+    // upd xjsxjs197 start
 	cop2readypc = 0;
 	idlecyclecount = 0;
 
@@ -2799,30 +2844,33 @@ static void recRecompile() {
 	UniqueRegAlloc = 1;
 	HWRegUseCount = 0;
 	DstCPUReg = -1;
-	memset(HWRegisters, 0, sizeof(HWRegisters));
-	for (i=0; i<NUM_HW_REGISTERS; i++)
-		HWRegisters[i].code = cpuHWRegisters[NUM_HW_REGISTERS-i-1];
-
-	// reserve the special psxReg register
-	HWRegisters[0].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
-	HWRegisters[0].private = PSXREGS;
-	HWRegisters[0].k = (u32)&psxRegs;
-
-	HWRegisters[1].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
-	HWRegisters[1].private = PSXMEM;
-	HWRegisters[1].k = (u32)&psxM;
+//	memset(HWRegisters, 0, sizeof(HWRegisters));
+//	for (i=0; i<NUM_HW_REGISTERS; i++)
+//		HWRegisters[i].code = cpuHWRegisters[NUM_HW_REGISTERS-i-1];
+//
+//	// reserve the special psxReg register
+//	HWRegisters[0].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
+//	HWRegisters[0].private = PSXREGS;
+//	HWRegisters[0].k = (u32)&psxRegs;
+//
+//	HWRegisters[1].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
+//	HWRegisters[1].private = PSXMEM;
+//	HWRegisters[1].k = (u32)&psxM;
+    memcpy(HWRegisters, HWRegistersTmp, sizeof(HWRegisters));
 
 	// reserve the special psxRegs.cycle register
 	//HWRegisters[1].usage = HWUSAGE_SPECIAL | HWUSAGE_RESERVED | HWUSAGE_HARDWIRED;
 	//HWRegisters[1].private = CYCLECOUNT;
 
 	//memset(iRegs, 0, sizeof(iRegs));
-	for (i=0; i<NUM_REGISTERS; i++) {
-		iRegs[i].state = ST_UNK;
-		iRegs[i].reg = -1;
-	}
-	iRegs[0].k = 0;
-	iRegs[0].state = ST_CONST;
+//	for (i=0; i<NUM_REGISTERS; i++) {
+//		iRegs[i].state = ST_UNK;
+//		iRegs[i].reg = -1;
+//	}
+//	iRegs[0].k = 0;
+//	iRegs[0].state = ST_CONST;
+    memcpy(iRegs, iRegsTmp, sizeof(iRegs));
+	// upd xjsxjs197 end
 
 	/* if ppcPtr reached the mem limit reset whole mem */
 	if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
