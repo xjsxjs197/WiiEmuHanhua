@@ -1085,9 +1085,6 @@ __inline static void execute() {
 	/*else { recError(); return; }*/
 
 	if (*recFunc == 0) {
-        #ifdef DISP_DEBUG
-        PRINT_LOG1("recRecompile start (%8x)", psxRegs.pc);
-        #endif
 		recRecompile();
 	}
 	recRun(*recFunc, (u32)&psxRegs, (u32)&psxM);
@@ -2879,10 +2876,10 @@ __inline static void recRecompile() {
 		//char *p = (char *)PSXM(pc);
 		u8 *p = PSXM(pc);
 		if (p == NULL) recError();
-		//psxRegs.code = SWAP32(*(u32 *)p);
+		psxRegs.code = SWAP32(*(u32 *)p);
 		pc+=4; count++;
-		//recBSC[psxRegs.code>>26]();
-		recBSC[(*(p + 3)) >> 2]();
+		recBSC[psxRegs.code>>26]();
+		//recBSC[(*(p + 3)) >> 2]();
         // upd xjsxjs197 end
 
 		if (branch) {

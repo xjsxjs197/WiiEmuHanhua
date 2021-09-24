@@ -20,6 +20,8 @@
 #include <gccore.h>
 #include <malloc.h>
 #include <time.h>
+#include <ogc/lwp_watchdog.h>
+#include "../coredebug.h"
 #include "stdafx.h"
 #define _IN_DRAW
 #include "externals.h"
@@ -110,7 +112,13 @@ void DoBufferSwap(void)                                // SWAP BUFFERS
 
 	if(iOldDX!=iDX || iOldDY!=iDY)
 	{
+	    #ifdef DISP_DEBUG
+	    u64 t1 = ticks_to_millisecs(gettime());
+	    #endif // DISP_DEBUG
 		memset(Xpixels,0,iResY_Max*iResX_Max*2);
+		#ifdef DISP_DEBUG
+        PRINT_LOG1("BlitScreenNS_GX Reset %ld ", ticks_to_millisecs(gettime()) - t1);
+        #endif
 		iOldDX=iDX;iOldDY=iDY;
 	}
 
@@ -355,7 +363,13 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 	{ //adjust texture conversion
 		oldwidth = width;
 		oldheight = height;
+		#ifdef DISP_DEBUG
+	    u64 t1 = ticks_to_millisecs(gettime());
+	    #endif // DISP_DEBUG
 		memset(GXtexture,0,iResX_Max*iResY_Max*2);
+		#ifdef DISP_DEBUG
+        PRINT_LOG1("GX_Flip Reset %ld ", ticks_to_millisecs(gettime()) - t1);
+        #endif
 		GX_InitTexObj(&GXtexobj, GXtexture, width, height, GX_TF_RGB565, GX_CLAMP, GX_CLAMP, GX_TRUE);
 	}
 /*
