@@ -50,11 +50,14 @@ private:
     int getPngBufPtr(char *string);
     wchar_t* charToWideChar(char* strChar);
     wchar_t* charToWideChar(const char* strChar);
+    u8* getCharPngBuf(const wchar_t wChar);
+    int getCharCode(const wchar_t wChar);
 
 	u16 frameWidth;
 	GXTexObj fontTexObj;
 	GXRModeObj *vmode;
 	GXColor fontColor;
+	wchar_t* blankChar;
 };
 
 } //namespace menu

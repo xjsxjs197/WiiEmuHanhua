@@ -55,6 +55,8 @@ IplFont::IplFont()
     fclose(charPngFile);
     charPngFile = NULL;
 
+    blankChar = charToWideChar(" ");
+
 	uint16_t *zhFontBufTemp = (uint16_t *)ZhBufFont_dat;
     while (bufIndex < searchLen)
     {
@@ -208,6 +210,30 @@ __inline wchar_t* IplFont::charToWideChar(const char* strChar) {
 	return charToWideChar((char*)strChar);
 }
 
+__inline u8* IplFont::getCharPngBuf(const wchar_t wChar) {
+    std::map<wchar_t, u8*>::iterator iter = charPngBufMap.find(wChar);
+	if (iter != charPngBufMap.end())
+	{
+	    return (u8*)(charPngBufMap[wChar]);
+	}
+    else
+	{
+	    return (u8*)(charPngBufMap[blankChar[0]]);
+	}
+}
+
+__inline int IplFont::getCharCode(const wchar_t wChar) {
+    std::map<wchar_t, int>::iterator iter = charCodeMap.find(wChar);
+	if (iter != charCodeMap.end())
+	{
+	    return charCodeMap[wChar];
+	}
+    else
+	{
+	    return charCodeMap[blankChar[0]];
+	}
+}
+
 void IplFont::drawString(int x, int y, char *string, float scale, bool centered)
 {
 	if(centered)
@@ -225,7 +251,7 @@ void IplFont::drawString(int x, int y, char *string, float scale, bool centered)
     wchar_t *tmpPtr = utf8Txt;
 	while (*utf8Txt) {
 
-        GX_InitTexObj(&fontTexObj, (u8*)(charPngBufMap[*utf8Txt]), CH_FONT_WIDTH, CH_FONT_HEIGHT, GX_TF_IA8, GX_CLAMP, GX_CLAMP, GX_FALSE);
+        GX_InitTexObj(&fontTexObj, this->getCharPngBuf(*utf8Txt), CH_FONT_WIDTH, CH_FONT_HEIGHT, GX_TF_IA8, GX_CLAMP, GX_CLAMP, GX_FALSE);
         GX_LoadTexObj(&fontTexObj, GX_TEXMAP0);
 
         GX_Begin(GX_QUADS, GX_VTXFMT1, 4);
@@ -247,7 +273,7 @@ void IplFont::drawString(int x, int y, char *string, float scale, bool centered)
 
         GX_End();
 
-		x += charCodeMap[*utf8Txt] + 1; // x + charWidth
+		x += this->getCharCode(*utf8Txt) + 1; // x + charWidth
 		utf8Txt++;
 	}
 
@@ -342,7 +368,7 @@ void IplFont::drawStringAtOrigin(char *string, float scale)
 	wchar_t *tmpPtr = utf8Txt;
 	while (*utf8Txt)
 	{
-		x += charCodeMap[*utf8Txt];
+		x += this->getCharCode(*utf8Txt);
 		utf8Txt++;
 	}
     x0 = (int) -x / 2;
@@ -359,7 +385,7 @@ int IplFont::getStringWidth(char *string, float scale)
 	wchar_t *tmpPtr = utf8Txt;
 	while(*utf8Txt)
 	{
-		strWidth += charCodeMap[*utf8Txt];
+		strWidth += this->getCharCode(*utf8Txt);
 		utf8Txt++;
 	}
 	free(tmpPtr);

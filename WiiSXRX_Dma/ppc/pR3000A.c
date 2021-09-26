@@ -2876,10 +2876,10 @@ __inline static void recRecompile() {
 		//char *p = (char *)PSXM(pc);
 		u8 *p = PSXM(pc);
 		if (p == NULL) recError();
-		psxRegs.code = SWAP32(*(u32 *)p);
+		//psxRegs.code = SWAP32(*(u32 *)p);
+		psxRegs.code = LOAD_SWAP32p(p);
 		pc+=4; count++;
 		recBSC[psxRegs.code>>26]();
-		//recBSC[(*(p + 3)) >> 2]();
         // upd xjsxjs197 end
 
 		if (branch) {

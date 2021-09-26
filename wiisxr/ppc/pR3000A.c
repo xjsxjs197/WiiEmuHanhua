@@ -1085,9 +1085,6 @@ __inline static void execute() {
 	/*else { recError(); return; }*/
 
 	if (*recFunc == 0) {
-        #ifdef DISP_DEBUG
-        PRINT_LOG1("recRecompile start (%8x)", psxRegs.pc);
-        #endif
 		recRecompile();
 	}
 	recRun(*recFunc, (u32)&psxRegs, (u32)&psxM);
@@ -2887,14 +2884,15 @@ __inline static void recRecompile() {
 
 	//where did 500 come from?
 	for (count=0; count<500;) {
-		char *p = (char *)PSXM(pc);
+        // upd xjsxjs197 start
+		//char *p = (char *)PSXM(pc);
+		u8 *p = PSXM(pc);
 		if (p == NULL) recError();
-		// upd xjsxjs197 start
 		//psxRegs.code = SWAP32(*(u32 *)p);
 		psxRegs.code = LOAD_SWAP32p(p);
-		// upd xjsxjs197 end
 		pc+=4; count++;
 		recBSC[psxRegs.code>>26]();
+        // upd xjsxjs197 end
 
 		if (branch) {
 			branch = 0;
@@ -2907,16 +2905,23 @@ __inline static void recRecompile() {
 	  iRet();
   }
 
-  DCFlushRange((u8*)ptr,(u32)(u8*)ppcPtr-(u32)(u8*)ptr);
-  ICInvalidateRange((u8*)ptr,(u32)(u8*)ppcPtr-(u32)(u8*)ptr);
+  // upd xjsxjs197 start
+  //DCFlushRange((u8*)ptr,(u32)(u8*)ppcPtr-(u32)(u8*)ptr);
+  //ICInvalidateRange((u8*)ptr,(u32)(u8*)ppcPtr-(u32)(u8*)ptr);
+  u32 endRange = (u32)(u8*)ppcPtr-(u32)(u8*)ptr;
+  DCFlushRange((void*)ptr, endRange);
+  ICInvalidateRange((void*)ptr, endRange);
+  // upd xjsxjs197 nd
 
 #ifdef TAG_CODE
 	sprintf((char *)ppcPtr, "PC=%08x", pcold);  //causes misalignment
 	ppcPtr += strlen((char *)ppcPtr);
 #endif
   // upd xjsxjs197 start
+  #ifdef DISP_DEBUG
   //dyna_used = ((u32)ppcPtr - (u32)recMem)/1024;
   dyna_used = ((u32)ppcPtr - (u32)recMem) >> 10;
+  #endif // DISP_DEBUG
   // upd xjsxjs197 end
 }
 
