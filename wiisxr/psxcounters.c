@@ -425,14 +425,13 @@ u32 psxRcntRcount( u32 index )
     // Parasite Eve 2 fix.
     if( Config.RCntFix )
     {
-        /*if( index == 2 )
+        if( index == 2 )
         {
             if( rcnts[index].counterState == CountToTarget )
             {
-                count /= BIAS;
+                count >>= 1;
             }
-        }*/
-        count = count >> 1;
+        }
     }
 
     //verboseLog( 2, "[RCNT %i] rcount: %x\n", index, count );

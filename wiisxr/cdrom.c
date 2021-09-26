@@ -56,7 +56,7 @@ static unsigned char *pTransfer;
 #define CdlStandby     7
 #define CdlStop        8
 #define CdlPause       9
-#define CdlInit        10
+#define CdlReset       10
 #define CdlMute        11
 #define CdlDemute      12
 #define CdlSetfilter   13
@@ -74,19 +74,19 @@ static unsigned char *pTransfer;
 #define CdlTest        25
 #define CdlID          26
 #define CdlReadS       27
-#define CdlReset       28
+#define CdlInit        28
 #define CdlGetQ        29
 #define CdlReadToc     30
 
 char *CmdName[0x100]= {
     "CdlSync",     "CdlNop",       "CdlSetloc",  "CdlPlay",
     "CdlForward",  "CdlBackward",  "CdlReadN",   "CdlStandby",
-    "CdlStop",     "CdlPause",     "CdlInit",    "CdlMute",
+    "CdlStop",     "CdlPause",     "CdlReset",    "CdlMute",
     "CdlDemute",   "CdlSetfilter", "CdlSetmode", "CdlGetmode",
     "CdlGetlocL",  "CdlGetlocP",   "CdlReadT",   "CdlGetTN",
     "CdlGetTD",    "CdlSeekL",     "CdlSeekP",   "CdlSetclock",
     "CdlGetclock", "CdlTest",      "CdlID",      "CdlReadS",
-    "CdlReset",    NULL,           "CDlReadToc", NULL
+    "CdlInit",    NULL,           "CDlReadToc", NULL
 };
 
 unsigned char Test04[] = { 0 };
@@ -497,6 +497,7 @@ void cdrPlayInterrupt()
 		if (cdr.SetlocPending) {
 			memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 			cdr.SetlocPending = 0;
+			cdr.m_locationChanged = TRUE;
 		}
 		Find_CurTrack(cdr.SetSectorPlay);
 		ReadTrack(cdr.SetSectorPlay);
@@ -528,7 +529,15 @@ void cdrPlayInterrupt()
 		}
 	}
 
-	CDRMISC_INT(cdReadTime);
+	if (cdr.m_locationChanged)
+	{
+		CDRMISC_INT(cdReadTime * 30);
+		cdr.m_locationChanged = FALSE;
+	}
+	else
+	{
+		CDRMISC_INT(cdReadTime);
+	}
 
 	// update for CdlGetlocP/autopause
 	generate_subq(cdr.SetSectorPlay);
@@ -592,6 +601,7 @@ void cdrInterrupt() {
 			if (cdr.SetlocPending) {
 				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 				cdr.SetlocPending = 0;
+				cdr.m_locationChanged = TRUE;
 			}
 
 			// BIOS CD Player
@@ -639,7 +649,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 
 			cdr.StatP |= STATUS_PLAY;
-
+			
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
@@ -729,13 +739,15 @@ void cdrInterrupt() {
 			cdr.Stat = Complete;
 			break;
 
-		case CdlInit:
-			AddIrqQueue(CdlInit + 0x100, cdReadTime * 6);
+		case CdlReset:
+			cdr.Muted = FALSE;
+			cdr.Mode = 0x20; /* Needed for This is Football 2, Pooh's Party and possibly others. */
+			AddIrqQueue(CdlReset + 0x100, 4100000);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;
 
-		case CdlInit + 0x100:
+		case CdlReset + 0x100:
 			cdr.Stat = Complete;
 			break;
 
@@ -905,7 +917,7 @@ void cdrInterrupt() {
 			cdr.Stat = Complete;
 			break;
 
-		case CdlReset:
+		case CdlInit:
 			// yes, it really sets STATUS_SHELLOPEN
 			cdr.StatP |= STATUS_SHELLOPEN;
 			cdr.DriveState = DRIVESTATE_RESCAN_CD;
@@ -937,6 +949,7 @@ void cdrInterrupt() {
 				if(seekTime > 1000000) seekTime = 1000000;
 				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 				cdr.SetlocPending = 0;
+				cdr.m_locationChanged = TRUE;
 			}
 			Find_CurTrack(cdr.SetSectorPlay);
 
@@ -1128,9 +1141,14 @@ void cdrReadInterrupt() {
 			cdr.Channel = cdr.Transfer[4 + 1];
 		}
 
+		/* Gameblabla 
+		 * Skips playing on channel 255.
+		 * Fixes missing audio in Blue's Clues : Blue's Big Musical. (Should also fix Taxi 2)
+		 * TODO : Check if this is the proper behaviour.
+		 * */
 		if((cdr.Transfer[4 + 2] & 0x4) &&
 			 (cdr.Transfer[4 + 1] == cdr.Channel) &&
-			 (cdr.Transfer[4 + 0] == cdr.File)) {
+			 (cdr.Transfer[4 + 0] == cdr.File) && cdr.Channel != 255) {
 			int ret = xa_decode_sector(&cdr.Xa, cdr.Transfer+4, cdr.FirstSector);
 			if (!ret) {
 				cdrAttenuate(cdr.Xa.pcm, cdr.Xa.nsamples, cdr.Xa.stereo);
@@ -1153,7 +1171,13 @@ void cdrReadInterrupt() {
 
 	cdr.Readed = 0;
 
-	CDREAD_INT((cdr.Mode & MODE_SPEED) ? (cdReadTime / 2) : cdReadTime);
+	uint32_t delay = (cdr.Mode & MODE_SPEED) ? (cdReadTime / 2) : cdReadTime;
+	if (cdr.m_locationChanged) {
+		CDREAD_INT(delay * 30);
+		cdr.m_locationChanged = FALSE;
+	} else {
+		CDREAD_INT(delay);
+	}
 
 	/*
 	Croc 2: $40 - only FORM1 (*)
@@ -1253,7 +1277,7 @@ void cdrWrite1(unsigned char rt) {
 
 	cdr.ResultReady = 0;
 	cdr.Ctrl |= 0x80;
-	// cdr.Stat = NoIntr;
+	// cdr.Stat = NoIntr; 
 	AddIrqQueue(cdr.Cmd, 0x800);
 
 	switch (cdr.Cmd) {
@@ -1278,8 +1302,8 @@ void cdrWrite1(unsigned char rt) {
 		StopReading();
 		break;
 
-	case CdlReset:
 	case CdlInit:
+	case CdlReset:
 		cdr.Seeked = SEEK_DONE;
 		StopCdda();
 		StopReading();
@@ -1491,6 +1515,8 @@ void cdrReset() {
 	cdr.DriveState = DRIVESTATE_STANDBY;
 	cdr.StatP = STATUS_ROTATING;
 	pTransfer = cdr.Transfer;
+	cdr.SetlocPending = 0;
+	cdr.m_locationChanged = FALSE;
 
 	// BIOS player - default values
 	cdr.AttenuatorLeftToLeft = 0x80;
@@ -1507,10 +1533,10 @@ int cdrFreeze(gzFile f, int Mode) {
 
 	if (Mode == 0 && !Config.Cdda)
 		CDR_stop();
-
+	
 	cdr.freeze_ver = 0x63647202;
 	gzfreeze(&cdr, sizeof(cdr));
-
+	
 	if (Mode == 1) {
 		cdr.ParamP = cdr.ParamC;
 		tmp = pTransfer - cdr.Transfer;
@@ -1536,7 +1562,6 @@ int cdrFreeze(gzFile f, int Mode) {
 
 			Find_CurTrack(cdr.SetSectorPlay);
 			if (!Config.Cdda)
-                PRINT_LOG("========CDR_play===========");
 				CDR_play(cdr.SetSectorPlay);
 		}
 
