@@ -1102,7 +1102,8 @@ void cdrReadInterrupt() {
 
 	if (cdr.Irq || cdr.Stat) {
 		CDR_LOG_I("cdrom: read stat hack %02x %x\n", cdr.Irq, cdr.Stat);
-		CDREAD_INT(0x1000);
+		//CDREAD_INT(0x1000);
+		CDREAD_INT(0x800);
 		return;
 	}
 
