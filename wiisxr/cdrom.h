@@ -36,6 +36,10 @@ extern "C" {
 //#define itob(i)     ((i) / 10 * 16 + (i) % 10) /* u_char to BCD */
 #define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 
+#define ABS_CD(x) ((x >= 0) ? x : -x)
+#define MIN_VALUE(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
+#define MAX_VALUE(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
+
 #define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
 
 #define CD_FRAMESIZE_RAW		2352
