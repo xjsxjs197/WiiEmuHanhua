@@ -55,6 +55,9 @@ typedef struct {
 
 	unsigned char Transfer[2352];
 	unsigned char *pTransfer;
+	// added by xjsxjs197 start
+	unsigned char *pTransferFast;
+	// added by xjsxjs197 end
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
