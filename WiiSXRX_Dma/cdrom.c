@@ -371,8 +371,8 @@ void cdrInterrupt() {
 
     	case CdlGetlocL:
 			SetResultSize(8);
-//        	for (i=0; i<8; i++) cdr.Result[i] = itob(cdr.pTransferFast[i]);
-        	for (i=0; i<8; i++) cdr.Result[i] = cdr.pTransferFast[i];
+//        	for (i=0; i<8; i++) cdr.Result[i] = itob(cdr.Transfer[i]);
+        	for (i=0; i<8; i++) cdr.Result[i] = cdr.Transfer[i];
         	cdr.Stat = Acknowledge;
         	break;
 
@@ -641,7 +641,7 @@ void cdrReadInterrupt() {
 #endif
 		memset(cdr.Transfer, 0, 2340);
 		// added by xjsxjs197 start
-		cdr.pTransferFast = cdr.Transfer;
+		//cdr.Transfer = cdr.Transfer;
 		// added by xjsxjs197 end
 		cdr.Stat = DiskError;
 		cdr.Result[0]|= 0x01;
@@ -650,21 +650,21 @@ void cdrReadInterrupt() {
 		return;
 	}
 
-	//memcpy(cdr.Transfer, buf, 2340);
+	cacheable_kernel_memcpy(cdr.Transfer, buf, 2340);
 	// added by xjsxjs197 start
-    cdr.pTransferFast = buf;
+    //cdr.Transfer = buf;
     // added by xjsxjs197 end
     cdr.Stat = DataReady;
 
 #ifdef CDR_LOG
-	fprintf(emuLog, "cdrReadInterrupt() Log: cdr.pTransferFast %x:%x:%x\n", cdr.pTransferFast[0], cdr.pTransferFast[1], cdr.pTransferFast[2]);
+	fprintf(emuLog, "cdrReadInterrupt() Log: cdr.Transfer %x:%x:%x\n", cdr.Transfer[0], cdr.Transfer[1], cdr.Transfer[2]);
 #endif
 
 	if ((cdr.Muted == 1) && (cdr.Mode & 0x40) && (!Config.Xa) && (cdr.FirstSector != -1)) { // CD-XA
-		if ((cdr.pTransferFast[4+2] & 0x4) &&
-			((cdr.Mode&0x8) ? (cdr.pTransferFast[4+1] == cdr.Channel) : 1) &&
-			(cdr.pTransferFast[4+0] == cdr.File)) {
-			int ret = xa_decode_sector(&cdr.Xa, cdr.pTransferFast+4, cdr.FirstSector);
+		if ((cdr.Transfer[4+2] & 0x4) &&
+			((cdr.Mode&0x8) ? (cdr.Transfer[4+1] == cdr.Channel) : 1) &&
+			(cdr.Transfer[4+0] == cdr.File)) {
+			int ret = xa_decode_sector(&cdr.Xa, cdr.Transfer+4, cdr.FirstSector);
 
 			if (!ret) {
 				SPU_playADPCMchannel(&cdr.Xa);
@@ -686,7 +686,7 @@ void cdrReadInterrupt() {
 
     cdr.Readed = 0;
 
-	if ((cdr.pTransferFast[4+2] & 0x80) && (cdr.Mode & 0x2)) { // EOF
+	if ((cdr.Transfer[4+2] & 0x80) && (cdr.Mode & 0x2)) { // EOF
 #ifdef CDR_LOG
 		CDR_LOG("cdrReadInterrupt() Log: Autopausing read\n");
 #endif
@@ -1058,7 +1058,7 @@ void cdrWrite3(unsigned char rt) {
 	}
 	if (rt == 0x80 && !(cdr.Ctrl & 0x1) && cdr.Readed == 0) {
 		cdr.Readed = 1;
-		cdr.pTransfer = cdr.pTransferFast;
+		cdr.pTransfer = cdr.Transfer;
 
 		switch (cdr.Mode&0x30) {
 			case 0x10:
@@ -1122,9 +1122,9 @@ int cdrFreeze(gzFile f, int Mode) {
 
 	gzfreeze(&cdr, sizeof(cdr));
 
-	if (Mode == 1) tmp = cdr.pTransfer - cdr.pTransferFast;
+	if (Mode == 1) tmp = cdr.pTransfer - cdr.Transfer;
 	gzfreezel(&tmp);
-	if (Mode == 0) cdr.pTransfer = cdr.pTransferFast + tmp;
+	if (Mode == 0) cdr.pTransfer = cdr.Transfer + tmp;
 
 	return 0;
 }
