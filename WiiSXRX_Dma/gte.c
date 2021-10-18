@@ -258,6 +258,27 @@ __inline void MTC2(u32 value, int reg) {
 	}
 }
 
+static inline void CTC2(u32 value, int reg) {
+	switch (reg) {
+		case 4:
+		case 12:
+		case 20:
+		case 26:
+		case 27:
+		case 29:
+		case 30:
+			value = (s32)(s16)value;
+			break;
+
+		case 31:
+			value = value & 0x7ffff000;
+			if (value & 0x7f87e000) value |= 0x80000000;
+			break;
+	}
+
+	psxRegs.CP2C.r[reg] = value;
+}
+
 void gteMFC2() {
 	if (!_Rt_) return;
 	psxRegs.GPR.r[_Rt_] = MFC2(_Rd_);
@@ -273,7 +294,8 @@ void gteMTC2() {
 }
 
 void gteCTC2() {
-	psxRegs.CP2C.r[_Rd_] = psxRegs.GPR.r[_Rt_];
+	//psxRegs.CP2C.r[_Rd_] = psxRegs.GPR.r[_Rt_];
+	CTC2(psxRegs.GPR.r[_Rt_], _Rd_);
 }
 
 #define _oB_ (psxRegs.GPR.r[_Rs_] + _Imm_)
