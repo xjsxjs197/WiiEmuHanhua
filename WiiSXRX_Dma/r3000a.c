@@ -216,10 +216,10 @@ void psxBranchTest() {
 			}
 		}
 
-		if (psxRegs.interrupt & 0x80000000) {
-			psxRegs.interrupt&=~0x80000000;
+		//if (psxRegs.interrupt & 0x80000000) {
+		//	psxRegs.interrupt&=~0x80000000;
 			psxTestHWInts();
-		}
+		//}
 	}
 //	if (psxRegs.cycle > 0xd29c6500) Log=1;
 }

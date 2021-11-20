@@ -161,28 +161,8 @@
 #define gteZSF4 ((s16*)psxRegs.CP2C.r)[SEL16(60)]
 #define gteFLAG psxRegs.CP2C.r[31]
 
-typedef struct _vecf {
-	f32 x,y,z;
-	s32 flag;
-} guVector;
-typedef s16	Mtx[3][3];
-typedef f32	Mtx6X3[3][3];
-
-extern void ps_gte_rtps(register s16 *mt,register s16 *src,register guVector *add,register guVector *dst,register f32 *div);
-extern void ps_gte_rtps32(register s16 *mt,register f32 *src,register guVector *add,register s32 *dst,register f32 *div);
-//extern void ps_gte_DoubleTrans(register Mtx6X3 mt,register guVector *src,register guVector *add,register guVector *dst,register f32 *div);
-
-Mtx tmpMtx;
-Mtx6X3 tmpMtx6X3;
-guVector srcVec;
-
-guVector addVec;
-guVector dstVec;
-static f32 div1[] = {1.0f, 1.0f};
-static f32 div4096[] = {0.000244f, 0.000244f}; // 1 >> 12 = 1 / 4096 = 0.000244140625
-static f32 srcVecF[] = {0.0f, 0.0f, 0.0f, 0.0f}; // x, y, z, 0
-static s16 srcVecS[] = {0, 0, 0, 0}; // y, x, 0, z
-static s32 dstVecS[] = {0, 0, 0, 0};
+extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
+extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
 
 __inline u32 MFC2(int reg) {
 	switch(reg) {
@@ -523,7 +503,8 @@ printf("zero %x, %x\n", gteMAC0, gteIR0); \
 	if (gteSZ##vn == 0) { \
 		FDSZ = 2 << 16; gteFLAG |= 1<<17; \
 	} else { \
-		FDSZ = DIVIDE(gteH, gteSZ##vn); \
+		/*FDSZ = DIVIDE(gteH, gteSZ##vn);*/ \
+		FDSZ = ((u64)gteH << 32) / ((u64)gteSZ##vn << 16); \
 		if ((u64)FDSZ > (2 << 16)) { FDSZ = 2 << 16; gteFLAG |= 1<<17; } \
 	} \
  \
@@ -584,9 +565,11 @@ void gteRTPS() {
 
 	gteFLAG = 0;
 
-    //RTPS_PARAM();
-
 	GTE_RTPS1(0);
+    /*asm_rtps((s32*)psxRegs.CP2C.r, (s32*)psxRegs.CP2D.r);
+    #ifdef DISP_DEBUG
+	PRINT_LOG("asm_rtps======");
+    #endif // DISP_DEBUG*/
 
 	MAC2IR();
 
@@ -605,6 +588,9 @@ void gteRTPS() {
 	GTE_RTPS3();
 
 	SUM_FLAG;
+	//#ifdef DISP_DEBUG
+	//PRINT_LOG3("FDSZ==%d==%d==%d", gteIR1, gteIR2, gteIR3);
+    //#endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -675,6 +661,11 @@ void gteRTPT() {
 		G_SC(28);
 	}
 #endif
+
+    /*asm_rtpt((s32*)psxRegs.CP2C.r, (s32*)psxRegs.CP2D.r);
+    #ifdef DISP_DEBUG
+	PRINT_LOG("======asm_rtpt");
+    #endif // DISP_DEBUG*/
 
 	gteFLAG = 0;
 
@@ -752,35 +743,22 @@ void gteRTPT() {
 #define gte_C33 gteLB3
 
 #define _MVMVA_FUNC(_v0, _v1, _v2, mx) { \
-    if (noneGteFlag == 1) { \
-	    SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
-	    SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
-	    SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
-    } \
-    else  \
-    { \
-        /*mtAddr = &(mx##12);*/ \
-        /*srcAddr = &(_v1);*/ \
-    } \
-}
-
-#define _MVMVA_FUNC2(_v0, _v1, _v2, mx) { \
-        mtAddr = &(mx##12); \
-        srcVecS[1] = (_v0); \
-        srcVecS[0] = (_v1); \
-        srcVecS[3] = (_v2); \
-        srcAddr = srcVecS; \
+    SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
+    SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
+    SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
 }
 
 void gteMVMVA() {
 	s64 SSX, SSY, SSZ;
 	s16 *mtAddr;
 	s16 *srcAddr;
-	int noneGteFlag = 1;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
 #endif
+    #ifdef DISP_DEBUG
+	PRINT_LOG("========gteMVMVA======");
+    #endif // DISP_DEBUG
 
 	switch (psxRegs.code & 0x78000) {
 		case 0x00000: // V0 * R
@@ -790,8 +768,6 @@ void gteMVMVA() {
 		case 0x10000: // V2 * R
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteR); break;
 		case 0x18000: // IR * R
-		    //noneGteFlag = 1;
-			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteR);
 			break;
 		case 0x20000: // V0 * L
@@ -801,8 +777,6 @@ void gteMVMVA() {
 		case 0x30000: // V2 * L
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gteL); break;
 		case 0x38000: // IR * L
-		    //noneGteFlag = 1;
-			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gteL); break;
 		case 0x40000: // V0 * C
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gte_C); break;
@@ -811,80 +785,37 @@ void gteMVMVA() {
 		case 0x50000: // V2 * C
 			_MVMVA_FUNC(gteVX2, gteVY2, gteVZ2, gte_C); break;
 		case 0x58000: // IR * C
-		    //noneGteFlag = 1;
-			//_MVMVA_FUNC2((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
 			_MVMVA_FUNC((short)gteIR1, (short)gteIR2, (short)gteIR3, gte_C); break;
 		default:
 			SSX = SSY = SSZ = 0;
-			noneGteFlag = 1;
 	}
 
     gteFLAG = 0;
 
-	if (noneGteFlag == 1) {
-        if (psxRegs.code & 0x80000)
-        {
-            SSX>>= 12; SSY>>= 12; SSZ>>= 12;
-        }
-        switch (psxRegs.code & 0x6000) {
-            case 0x0000: // Add TR
-                SSX+= gteTRX;
-                SSY+= gteTRY;
-                SSZ+= gteTRZ;
-                break;
-            case 0x2000: // Add BK
-                SSX+= gteRBK;
-                SSY+= gteGBK;
-                SSZ+= gteBBK;
-                break;
-            case 0x4000: // Add FC
-                SSX+= gteRFC;
-                SSY+= gteGFC;
-                SSZ+= gteBFC;
-                break;
-        }
-        gteMAC1 = FNC_OVERFLOW1(SSX);
-	    gteMAC2 = FNC_OVERFLOW2(SSY);
-	    gteMAC3 = FNC_OVERFLOW3(SSZ);
+	if (psxRegs.code & 0x80000)
+	{
+		SSX>>= 12; SSY>>= 12; SSZ>>= 12;
 	}
-	else
-    {
-        switch (psxRegs.code & 0x6000) {
-            case 0x0000: // Add TR
-                addVec.x = gteTRX;
-                addVec.y = gteTRY;
-                addVec.z = gteTRZ;
-                break;
-            case 0x2000: // Add BK
-                addVec.x = gteRBK;
-                addVec.y = gteGBK;
-                addVec.z = gteBBK;
-                break;
-            case 0x4000: // Add FC
-                addVec.x = gteRFC;
-                addVec.y = gteGFC;
-                addVec.z = gteBFC;
-                break;
-            default:
-                addVec.x = 0.0f;
-                addVec.y = 0.0f;
-                addVec.z = 0.0f;
-                break;
-        }
-
-        if (psxRegs.code & 0x80000)
-        {
-            ps_gte_rtps(mtAddr, srcAddr, &addVec, &(gteMAC1), div4096);
-        }
-        else
-        {
-            ps_gte_rtps(mtAddr, srcAddr, &addVec, &(gteMAC1), div1);
-        }
-        //gteMAC1 = (s32)(dstVec.x);
-        //gteMAC2 = (s32)(dstVec.y);
-        //gteMAC3 = (s32)(dstVec.z);
-        //gteFLAG |= dstVec.flag;
-    }
+	switch (psxRegs.code & 0x6000) {
+		case 0x0000: // Add TR
+			SSX+= gteTRX;
+			SSY+= gteTRY;
+			SSZ+= gteTRZ;
+			break;
+		case 0x2000: // Add BK
+			SSX+= gteRBK;
+			SSY+= gteGBK;
+			SSZ+= gteBBK;
+			break;
+		case 0x4000: // Add FC
+			SSX+= gteRFC;
+			SSY+= gteGFC;
+			SSZ+= gteBFC;
+			break;
+	}
+	gteMAC1 = FNC_OVERFLOW1(SSX);
+	gteMAC2 = FNC_OVERFLOW2(SSY);
+	gteMAC3 = FNC_OVERFLOW3(SSZ);
 
 	if (psxRegs.code & 0x400)
 		MAC2IR1()
@@ -1069,45 +1000,15 @@ void gteSQR() {
 	gte_RRLT= F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
 	gte_GGLT= F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
 	gte_BBLT= F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
-	/*tmpMtx6X3[0][0] = gteL11;*/ \
-    /*tmpMtx6X3[0][1] = gteL12;*/ \
-    /*tmpMtx6X3[0][2] = gteL13;*/ \
-    /*tmpMtx6X3[1][0] = gteL21;*/ \
-    /*tmpMtx6X3[1][1] = gteL22;*/ \
-    /*tmpMtx6X3[1][2] = gteL23;*/ \
-    /*tmpMtx6X3[2][0] = gteL31;*/ \
-    /*tmpMtx6X3[2][1] = gteL32;*/ \
-    /*tmpMtx6X3[2][2] = gteL33;*/ \
-     \
-    /*tmpMtx6X3[3][0] = gteLR1;*/ \
-    /*tmpMtx6X3[3][1] = gteLR2;*/ \
-    /*tmpMtx6X3[3][2] = gteLR3;*/ \
-    /*tmpMtx6X3[4][0] = gteLG1;*/ \
-    /*tmpMtx6X3[4][1] = gteLG2;*/ \
-    /*tmpMtx6X3[4][2] = gteLG3;*/ \
-    /*tmpMtx6X3[5][0] = gteLB1;*/ \
-    /*tmpMtx6X3[5][1] = gteLB2;*/ \
-    /*tmpMtx6X3[5][2] = gteLB3;*/ \
-    \
-    /*srcVec.x = gteVX##vn;*/ \
-    /*srcVec.y = gteVY##vn;*/ \
-    /*srcVec.z = gteVZ##vn;*/ \
-    /*addVec.x = gteRBK;*/ \
-    /*addVec.y = gteGBK;*/ \
-    /*addVec.z = gteBBK;*/ \
-    \
-    /*ps_gte_DoubleTrans(tmpMtx6X3, &srcVec, &addVec, &dstVec, div4096);*/ \
-    /*gte_RRLT = (s32)(dstVec.x);*/ \
-    /*gte_GGLT = (s32)(dstVec.y);*/ \
-    /*gte_BBLT = (s32)(dstVec.z);*/ \
-    /*gteFLAG |= dstVec.flag;*/ \
-    \
 	gteMAC1 = (long)(((s64)((u32)gteR<<12)*gte_RRLT) >> 20);\
 	gteMAC2 = (long)(((s64)((u32)gteG<<12)*gte_GGLT) >> 20);\
 	gteMAC3 = (long)(((s64)((u32)gteB<<12)*gte_BBLT) >> 20);
 
 
 void gteNCCS()  {
+    #ifdef DISP_DEBUG
+	PRINT_LOG("========gteNCCS======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 
@@ -1185,6 +1086,9 @@ void gteNCCS()  {
 }
 
 void gteNCCT() {
+    #ifdef DISP_DEBUG
+	PRINT_LOG("========gteNCCT======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 
@@ -1320,39 +1224,6 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 	gte_RRLT= F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
 	gte_GGLT= F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
 	gte_BBLT= F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
-	/*tmpMtx6X3[0][0] = gteL11;*/ \
-    /*tmpMtx6X3[0][1] = gteL12;*/ \
-    /*tmpMtx6X3[0][2] = gteL13;*/ \
-    /*tmpMtx6X3[1][0] = gteL21;*/ \
-    /*tmpMtx6X3[1][1] = gteL22;*/ \
-    /*tmpMtx6X3[1][2] = gteL23;*/ \
-    /*tmpMtx6X3[2][0] = gteL31;*/ \
-    /*tmpMtx6X3[2][1] = gteL32;*/ \
-    /*tmpMtx6X3[2][2] = gteL33;*/ \
-     \
-    /*tmpMtx6X3[3][0] = gteLR1;*/ \
-    /*tmpMtx6X3[3][1] = gteLR2;*/ \
-    /*tmpMtx6X3[3][2] = gteLR3;*/ \
-    /*tmpMtx6X3[4][0] = gteLG1;*/ \
-    /*tmpMtx6X3[4][1] = gteLG2;*/ \
-    /*tmpMtx6X3[4][2] = gteLG3;*/ \
-    /*tmpMtx6X3[5][0] = gteLB1;*/ \
-    /*tmpMtx6X3[5][1] = gteLB2;*/ \
-    /*tmpMtx6X3[5][2] = gteLB3;*/ \
-    \
-    /*srcVec.x = gteVX##vn;*/ \
-    /*srcVec.y = gteVY##vn;*/ \
-    /*srcVec.z = gteVZ##vn;*/ \
-    /*addVec.x = gteRBK;*/ \
-    /*addVec.y = gteGBK;*/ \
-    /*addVec.z = gteBBK;*/ \
-    \
-    /*ps_gte_DoubleTrans(tmpMtx6X3, &srcVec, &addVec, &dstVec, div4096);*/ \
-    /*gte_RRLT = (s32)(dstVec.x);*/ \
-    /*gte_GGLT = (s32)(dstVec.y);*/ \
-    /*gte_BBLT = (s32)(dstVec.z);*/ \
-    /*gteFLAG |= dstVec.flag;*/ \
-    \
 	gte_RR0 = (long)(((s64)((u32)gteR<<12)*gte_RRLT) >> 12);\
 	gte_GG0 = (long)(((s64)((u32)gteG<<12)*gte_GGLT) >> 12);\
 	gte_BB0 = (long)(((s64)((u32)gteB<<12)*gte_BBLT) >> 12);\
@@ -1361,6 +1232,9 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 	gteMAC3 = (long)((gte_BB0 + (((s64)gteIR0 * F12limA3S((s64)(gteBFC << 8) - gte_BB0)) >> 12)) >> 8);
 
 void gteNCDS() {
+    #ifdef DISP_DEBUG
+	PRINT_LOG("========gteNCDS======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 	s32 gte_RR0, gte_GG0, gte_BB0;
@@ -1476,6 +1350,9 @@ void gteNCDS() {
 }
 
 void gteNCDT() {
+    #ifdef DISP_DEBUG
+	PRINT_LOG("========gteNCDT======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 	s32 gte_RR0, gte_GG0, gte_BB0;
@@ -2151,38 +2028,6 @@ void gteDPCT() {
 	gteMAC1 = F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
 	gteMAC2 = F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
 	gteMAC3 = F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
-	/*tmpMtx6X3[0][0] = gteL11;*/ \
-    /*tmpMtx6X3[0][1] = gteL12;*/ \
-    /*tmpMtx6X3[0][2] = gteL13;*/ \
-    /*tmpMtx6X3[1][0] = gteL21;*/ \
-    /*tmpMtx6X3[1][1] = gteL22;*/ \
-    /*tmpMtx6X3[1][2] = gteL23;*/ \
-    /*tmpMtx6X3[2][0] = gteL31;*/ \
-    /*tmpMtx6X3[2][1] = gteL32;*/ \
-    /*tmpMtx6X3[2][2] = gteL33;*/ \
-     \
-    /*tmpMtx6X3[3][0] = gteLR1;*/ \
-    /*tmpMtx6X3[3][1] = gteLR2;*/ \
-    /*tmpMtx6X3[3][2] = gteLR3;*/ \
-    /*tmpMtx6X3[4][0] = gteLG1;*/ \
-    /*tmpMtx6X3[4][1] = gteLG2;*/ \
-    /*tmpMtx6X3[4][2] = gteLG3;*/ \
-    /*tmpMtx6X3[5][0] = gteLB1;*/ \
-    /*tmpMtx6X3[5][1] = gteLB2;*/ \
-    /*tmpMtx6X3[5][2] = gteLB3;*/ \
-    \
-    /*srcVec.x = gteVX##vn;*/ \
-    /*srcVec.y = gteVY##vn;*/ \
-    /*srcVec.z = gteVZ##vn;*/ \
-    /*addVec.x = gteRBK;*/ \
-    /*addVec.y = gteGBK;*/ \
-    /*addVec.z = gteBBK;*/ \
-    \
-    /*ps_gte_DoubleTrans(tmpMtx6X3, &srcVec, &addVec, &dstVec, div4096);*/ \
-    /*gteMAC1 = (s32)(dstVec.x);*/ \
-    /*gteMAC2 = (s32)(dstVec.y);*/ \
-    /*gteMAC3 = (s32)(dstVec.z);*/ \
-    /*gteFLAG |= dstVec.flag;*/ \
 
 void gteNCS() {
 	s32 gte_LL1,gte_LL2,gte_LL3;
@@ -2392,7 +2237,6 @@ void gteCC() {
 
 	gteFLAG = 0;
 
-    #if 1
 	RR0 = FNC_OVERFLOW1(gteRBK + ((gteLR1*gteIR1 + gteLR2*gteIR2 + gteLR3*gteIR3) >> 12));
 	GG0 = FNC_OVERFLOW2(gteGBK + ((gteLG1*gteIR1 + gteLG2*gteIR2 + gteLG3*gteIR3) >> 12));
 	BB0 = FNC_OVERFLOW3(gteBBK + ((gteLB1*gteIR1 + gteLB2*gteIR2 + gteLB3*gteIR3) >> 12));
@@ -2400,24 +2244,6 @@ void gteCC() {
 	gteMAC1 = (gteR * RR0) >> 8;
 	gteMAC2 = (gteG * GG0) >> 8;
 	gteMAC3 = (gteB * BB0) >> 8;
-
-    #else
-    srcVecF[0] = gteIR1;
-    srcVecF[1] = gteIR2;
-    srcVecF[2] = gteIR3;
-    addVec.x = gteRBK;
-    addVec.y = gteGBK;
-    addVec.z = gteBBK;
-    ps_gte_rtps32(&(gteLR2), srcVecF, &addVec, dstVecS, div4096);
-    /*RR0 = (s32)(dstVec.x);
-    GG0 = (s32)(dstVec.y);
-    BB0 = (s32)(dstVec.z);
-    gteFLAG |= dstVec.flag;*/
-
-	gteMAC1 = (gteR * dstVecS[0]) >> 8;
-	gteMAC2 = (gteG * dstVecS[1]) >> 8;
-	gteMAC3 = (gteB * dstVecS[2]) >> 8;
-	#endif // 1
 
 	MAC2IR1();
 
@@ -2579,7 +2405,6 @@ void gteCDP() { //test opcode
 
 	gteFLAG = 0;
 
-    #if 1
 	RR0 = NC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
 	GG0 = NC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
 	BB0 = NC_OVERFLOW3(gteBBK + (gteLB1*gteIR1 +gteLB2*gteIR2 + gteLB3*gteIR3));
@@ -2587,26 +2412,6 @@ void gteCDP() { //test opcode
 	gteMAC1 = gteR*RR0 + gteIR0*limA1S(gteRFC-gteR*RR0);
 	gteMAC2 = gteG*GG0 + gteIR0*limA2S(gteGFC-gteG*GG0);
 	gteMAC3 = gteB*BB0 + gteIR0*limA3S(gteBFC-gteB*BB0);
-
-	#else
-    srcVecF[0] = gteIR1;
-    srcVecF[1] = gteIR2;
-    srcVecF[2] = gteIR3;
-    addVec.x = gteRBK;
-    addVec.y = gteGBK;
-    addVec.z = gteBBK;
-
-    ps_gte_rtps32(&(gteLR2), srcVecF, &addVec, dstVecS, div1);
-
-    /*RR0 = (dstVec.x);
-    GG0 = (dstVec.y);
-    BB0 = (dstVec.z);
-    gteFLAG |= dstVec.flag;*/
-
-	gteMAC1 = gteR*dstVecS[0] + gteIR0*limA1S(gteRFC-gteR*dstVecS[0]);
-	gteMAC2 = gteG*dstVecS[1] + gteIR0*limA2S(gteGFC-gteG*dstVecS[1]);
-	gteMAC3 = gteB*dstVecS[2] + gteIR0*limA3S(gteBFC-gteB*dstVecS[2]);
-	#endif // 1
 
 /*	RR0 = FNC_OVERFLOW1(gteRBK + (gteLR1*gteIR1 +gteLR2*gteIR2 + gteLR3*gteIR3));
 	GG0 = FNC_OVERFLOW2(gteGBK + (gteLG1*gteIR1 +gteLG2*gteIR2 + gteLG3*gteIR3));
