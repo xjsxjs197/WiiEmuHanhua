@@ -39,6 +39,9 @@ extern "C" {
 #include "../fileBrowser/fileBrowser-SMB.h"
 extern long ISOgetTN(unsigned char *buffer);
 extern char debugInfo[256];
+extern int* convertIntToFloat(register int in);
+extern u32* chkFloat(register float in);
+extern s32 chkInt(register s32 in, register s32 in2);
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
@@ -531,17 +534,67 @@ void fileBrowserFrame_LoadFile(int i)
 			strcat(RomInfo,buffer);
 			sprintf(buffer,"ISO Size: %u Mb\n",isoFile.size/1024/1024);
 			strcat(RomInfo,buffer);
-			sprintf(buffer,"Country: %s\n",(!Config.PsxType) ? "NTSC":"PAL");
-			strcat(RomInfo,buffer);
-			sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
-			strcat(RomInfo,buffer);
-			unsigned char tracks[2];
-            ISOgetTN(&tracks[0]);
-            sprintf(buffer,"Number of tracks %u\n", tracks[1]);
-			strcat(RomInfo,buffer);
+//			sprintf(buffer,"Country: %s\n",(!Config.PsxType) ? "NTSC":"PAL");
+//			strcat(RomInfo,buffer);
+//			sprintf(buffer,"BIOS: %s\n",(Config.HLE==BIOS_USER_DEFINED) ? "USER DEFINED":"HLE");
+//			strcat(RomInfo,buffer);
+			//unsigned char tracks[2];
+            //ISOgetTN(&tracks[0]);
+            //sprintf(buffer,"Number of tracks %u\n", tracks[1]);
+			//strcat(RomInfo,buffer);
 
 			#ifdef DISP_DEBUG
-			strcat(RomInfo,debugInfo);
+			//sprintf(debugInfo, "\n==%f== \n", *testPairedLoad());
+			//strcat(RomInfo,debugInfo);
+//			int tstIn = 262111;
+//			tstIn = 1145483111;
+//			sprintf(debugInfo, "\n==2==%d=%d= \n", tstIn, *convertIntToFloat(tstIn));
+//			strcat(RomInfo,debugInfo);
+//			s32 chkI = 32768;
+//			s16 *retI;
+//			retI = chkInt(&chkI);
+//			sprintf(debugInfo, "==chkI H===%d==%d \n", *retI, chkI);
+//			strcat(RomInfo,debugInfo);
+//			chkI = -32769;
+//			retI = chkInt(&chkI);
+//			sprintf(debugInfo, "==chkI L===%d==%d \n", *retI, chkI);
+//			strcat(RomInfo,debugInfo);
+            sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffffff, 1));
+            strcat(RomInfo,debugInfo);
+            sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffff00, 1));
+            strcat(RomInfo,debugInfo);
+//
+//			chkI = 32767;
+//			retI = chkInt(&chkI);
+//			sprintf(debugInfo, "==chkI H===%d==%d \n", *retI, chkI);
+//			strcat(RomInfo,debugInfo);
+//
+//			chkI = -32768;
+//			retI = chkInt(&chkI);
+//			sprintf(debugInfo, "==chkI L===%d==%d \n", *retI, chkI);
+//			strcat(RomInfo,debugInfo);
+
+//			float chkL = -147483547.999999;
+//			float chkH = 147483546.9999999;
+//			sprintf(debugInfo, "\n==chkFloatL===%08x==%f== \n", *chkFloat(-147483547.999999), -147483547.999999);
+//			strcat(RomInfo,debugInfo);
+//			sprintf(debugInfo, "\n==chkFloatL===%08x==%f== \n", *chkFloat(-147583547.999999), -147583547.999999);
+//			strcat(RomInfo,debugInfo);
+//			sprintf(debugInfo, "\n==chkFloatH===%08x==%f== \n", *chkFloat(147483546.999999), 147483546.999999);
+//			strcat(RomInfo,debugInfo);
+//			sprintf(debugInfo, "\n==chkFloatH===%08x==%f== \n", *chkFloat(147583547.999999), 147583547.999999);
+//			strcat(RomInfo,debugInfo);
+//			ret = chkFloat(&chkH, &out1, &out2);
+//			sprintf(debugInfo, "==chkFloatH===%d==%x==%f \n", *ret, out1, out2);
+//			strcat(RomInfo,debugInfo);
+//			chkL = -2148483750;
+//			chkH = 2147883750;
+//			ret = chkFloat(&chkL, &out1, &out2);
+//			sprintf(debugInfo, "==chkFloatL===%d==%x==%f \n", *ret, out1, out2);
+//			strcat(RomInfo,debugInfo);
+//			ret = chkFloat(&chkH, &out1, &out2);
+//			sprintf(debugInfo, "==chkFloatH===%d==%x==%f \n", *ret, out1, out2);
+//			strcat(RomInfo,debugInfo);
 			#endif // DISP_DEBUG
 
 			switch (autoSaveLoaded)
