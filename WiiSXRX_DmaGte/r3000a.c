@@ -124,7 +124,9 @@ void psxException(u32 code, u32 bd) {
 		u32 tmp = PSXMu32(psxRegs.CP0.n.EPC);
 		psxRegs.code = tmp;
 		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
+            #ifdef DISP_DEBUG
             PRINT_LOG("========hokuto no ken Fix ");
+            #endif // DISP_DEBUG
 		    PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
 
             psxRegs.code = PSXMu32(psxRegs.CP0.n.EPC);
@@ -193,6 +195,12 @@ void psxBranchTest() {
 			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_SPUDMA].sCycle) >= psxRegs.intCycle[PSXINT_SPUDMA].cycle) {
 				psxRegs.interrupt &= ~(1 << PSXINT_SPUDMA);
 				spuInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_MDECINDMA)) { // mdec in
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_MDECINDMA].sCycle) >= psxRegs.intCycle[PSXINT_MDECINDMA].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_MDECINDMA);
+				mdec0Interrupt();
 			}
 		}
 		if (psxRegs.interrupt & (1 << PSXINT_GPUOTCDMA)) { // gpu otc
