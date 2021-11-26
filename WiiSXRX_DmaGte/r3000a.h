@@ -104,7 +104,7 @@ typedef union {
 		u32 irgb, orgb;
 		s32          lzcs, lzcr;
 	} n;
-	u32 r[32];
+	u32 r[33];
 } psxCP2Data;
 
 typedef union {

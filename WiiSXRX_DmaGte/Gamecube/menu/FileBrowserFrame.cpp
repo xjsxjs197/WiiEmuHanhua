@@ -42,6 +42,7 @@ extern char debugInfo[256];
 extern int* convertIntToFloat(register int in);
 extern u32* chkFloat(register float in);
 extern s32 chkInt(register s32 in, register s32 in2);
+extern u32 table[];
 }
 
 extern "C" char * JoinString(char *s1, char *s2);
@@ -544,8 +545,8 @@ void fileBrowserFrame_LoadFile(int i)
 			//strcat(RomInfo,buffer);
 
 			#ifdef DISP_DEBUG
-			//sprintf(debugInfo, "\n==%f== \n", *testPairedLoad());
-			//strcat(RomInfo,debugInfo);
+			sprintf(debugInfo, "\n==%d== \n", table[0]);
+			strcat(RomInfo,debugInfo);
 //			int tstIn = 262111;
 //			tstIn = 1145483111;
 //			sprintf(debugInfo, "\n==2==%d=%d= \n", tstIn, *convertIntToFloat(tstIn));
@@ -559,10 +560,10 @@ void fileBrowserFrame_LoadFile(int i)
 //			retI = chkInt(&chkI);
 //			sprintf(debugInfo, "==chkI L===%d==%d \n", *retI, chkI);
 //			strcat(RomInfo,debugInfo);
-            sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffffff, 1));
-            strcat(RomInfo,debugInfo);
-            sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffff00, 1));
-            strcat(RomInfo,debugInfo);
+            //sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffffff, 1));
+            //strcat(RomInfo,debugInfo);
+            //sprintf(debugInfo, "==chkI H===%d= \n", chkInt(0x7fffff00, 1));
+            //strcat(RomInfo,debugInfo);
 //
 //			chkI = 32767;
 //			retI = chkInt(&chkI);

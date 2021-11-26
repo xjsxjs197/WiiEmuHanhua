@@ -124,43 +124,92 @@ NC_OVERFLOW_H_Flag:
     addi        r7,r15,0
     blr
 
-// fr6: gteSZX, fr5: retVAl
+// float divide fr6: gteSZX, fr5: retVAl
 //NATIVE_DIVIDE:
 //    psq_l       fr5,106(r3),1,4      // fr5 = gteH   (psxRegs.CP2C.p[26].w.l)
-//    lfs		    fr7,MUL2@sdarel(r13)
-//    fmuls       fr7, fr7, fr6
+//    fmuls       fr7, fr16, fr6
 //    fcmpu       fr0, fr5, fr7
 //    blt         DIVIDE_DO            // if gteH < gteSZX * 2
-//    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
+//    b           DIVIDE_OVERFLOW
 //    blr
 //
 //DIVIDE_DO:
-//    lfs		    fr8,MUL16@sdarel(r13)
-//    fmuls       fr5, fr5, fr8        // gteH << 16
+//    fmuls       fr5, fr5, fr17       // gteH << 16
 //    fdivs       fr5, fr5, fr6        // gteH << 16 / gteSZX
-//    lfs		    fr8,MAXDIV@sdarel(r13)
-//    fcmpu       fr0, fr8, fr5        // retVal > 0x1ffff
+//    fcmpu       fr0, fr18, fr5       // retVal > 0x1ffff
 //    blt         DIVIDE_OVERFLOW
 //    blr
 //
 //DIVIDE_OVERFLOW:
 //    oris        r8, r8, 2            // set overflow flag 1<<17
-//    fmr         fr5, fr8
+//    fmr         fr5, fr18
 //    blr
+
+// int divide r6: gteSZX, fr5: retVAl
+//NATIVE_DIVIDE:
+//    lhz         r9, 106(r3)          // r9 = gteH   (psxRegs.CP2C.p[26].w.l)
+//    rotlwi      r10, r6, 1
+//    cmp         0, 1, r9, r10
+//    blt         DIVIDE_DO            // if gteH < gteSZX * 2
+//    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
+//    blr
+//
+//DIVIDE_DO:
+//    rotlwi      r9, r9, 16           // gteH << 16
+//    divwu       r9, r9, r6           // gteH << 16 / gteSZX
+//    lwz         r15, DivOverflow@sdarel(r13)
+//    cmp         0, 1, r15, r9        // retVal > 0x1ffff
+//    blt         DIVIDE_OVERFLOW
+//    xoris r9, r9, 0x8000
+//    stw r9, FloatBufB@sdarel(r13)
+//    lfd fr5, FloatBufA@sdarel(r13)
+//    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
+//    frsp fr5, fr5                    // fr3 = TRY(single)
+//    blr
+
+//DIVIDE_OVERFLOW:
+//    oris        r8, r8, 2            // set overflow flag 1<<17
+//    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
+//    blr
+
+// int divide use table r6: gteSZX, fr5: retVAl
 NATIVE_DIVIDE:
     lhz         r9, 106(r3)          // r9 = gteH   (psxRegs.CP2C.p[26].w.l)
     rotlwi      r10, r6, 1
     cmp         0, 1, r9, r10
     blt         DIVIDE_DO            // if gteH < gteSZX * 2
-    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
+    b		    DIVIDE_OVERFLOW
     blr
 
 DIVIDE_DO:
+    addi        r10, 0, 32767
+    addi        r10, r10, 1
+    cmp         0, 1, r6, r10        // gteSZX < 32768
+    blt         DIVIDE_LOW
+    sub         r10, r6, r10
+    rotlwi      r10, r10, 2
+    lwz         r6, 128(r4)          // load table addr psxRegs.CP2D r[32]
+    lwzx        r15, r10, r6         // load table index value
+    mulhw       r9, r9, r15          // r9 = h * iSz
+
+    addi        r6, 0, 1
+    rotlwi      r6, r6, 15
+    add         r6, r6, r9
+    rotrwi      r9, r6, 16
+
+    //lwz         r15, DivOverflow@sdarel(r13)
+    //cmp         0, 1, r15, r9        // retVal > 0x1ffff
+    //blt         DIVIDE_OVERFLOW
+    xoris r9, r9, 0x8000
+    stw r9, FloatBufB@sdarel(r13)
+    lfd fr5, FloatBufA@sdarel(r13)
+    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
+    frsp fr5, fr5                    // fr3 = TRY(single)
+    blr
+
+DIVIDE_LOW:
     rotlwi      r9, r9, 16           // gteH << 16
     divwu       r9, r9, r6           // gteH << 16 / gteSZX
-    lwz         r15, DivOverflow@sdarel(r13)
-    cmp         0, 1, r15, r9        // retVal > 0x1ffff
-    blt         DIVIDE_OVERFLOW
     xoris r9, r9, 0x8000
     stw r9, FloatBufB@sdarel(r13)
     lfd fr5, FloatBufA@sdarel(r13)
@@ -170,7 +219,7 @@ DIVIDE_DO:
 
 DIVIDE_OVERFLOW:
     oris        r8, r8, 2            // set overflow flag 1<<17
-    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
+    fmr         fr5, fr18
     blr
 
 asm_rtps_comn_mac:
@@ -423,6 +472,27 @@ asm_rtps_comn_dqab:
     mtspr lr, r18
     blr
 
+// Init set consts
+asm_rtps_comn_init:
+    addi r8, 0, 0
+
+	// set fix value
+	lfs		    fr11,FncOverflowH@sdarel(r13)
+    lfs		    fr12,FncOverflowL@sdarel(r13)
+	lfs		    fr14ShiftR12, UnitShiftR12@sdarel(r13)
+
+	lfd         fr10Kmagic, kmagic@sdarel(r13)
+	lfs         fr15ShiftR16, UnitShiftR16@sdarel(r13)
+	lfs		    fr16,MUL2@sdarel(r13)
+    lfs		    fr17,MUL16@sdarel(r13)
+    lfs		    fr18,MAXDIV@sdarel(r13) // fr18 = 0x1ffff
+
+    stw r8, 124(r3)                  // gteFLAG = 0 CP2C.r[31]
+	ps_merge00  fr11,fr11,fr11
+	ps_merge00  fr12,fr12,fr12
+	ps_merge00  fr14ShiftR12,fr14ShiftR12,fr14ShiftR12  // fr14 = 1 >> 12, 1 >> 12
+	blr
+
 .globl asm_rtps
 // r3: CP2C, r4: CP2D
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
@@ -430,35 +500,28 @@ asm_rtps_comn_dqab:
 asm_rtps:
     mfspr r11, lr                    // save link register
 
-    addi r8, 0, 0
-    stw r8, 124(r3)                  // gteFLAG = 0 CP2C.r[31]
-
-	// set fix value
-	lfd         fr10Kmagic, kmagic@sdarel(r13)
-	lfs		    fr14ShiftR12, UnitShiftR12@sdarel(r13)
-	lfs         fr15ShiftR16, UnitShiftR16@sdarel(r13)
-	lfs		    fr11,FncOverflowH@sdarel(r13)
-    lfs		    fr12,FncOverflowL@sdarel(r13)
-	ps_merge00  fr11,fr11,fr11
-	ps_merge00  fr12,fr12,fr12
-	ps_merge00  fr14ShiftR12,fr14ShiftR12,fr14ShiftR12  // fr14 = 1 >> 12, 1 >> 12
+    bl          asm_rtps_comn_init
 
 	addi        r5, r4, 0            // set gteVY0
 	bl          asm_rtps_comn_mac
 
 	// gteSZ0 = gteSZ1; gteSZ1 = gteSZ2; gteSZ2 = gteSZ3;
-    lwz r6,68(r4)                    // gteSZ1  (regs->CP2D.p[17].w.l)
-    stw r6,64(r4)
-    lwz r6,72(r4)                    // gteSZ2  (regs->CP2D.p[18].w.l)
-    stw r6,68(r4)
-    lwz r6,76(r4)                    // gteSZ3  (regs->CP2D.p[19].w.l)
-    stw r6,72(r4)
+	lmw r29, 68(r4)                  // load gteSZ1(regs->CP2D.p[17].w.l)--gteSZ3
+	stmw r29, 64(r4)                 // store gteSZ0 (regs->CP2D.p[16].w.l)--gteSZ2
+//    lwz r6,68(r4)                    // gteSZ1  (regs->CP2D.p[17].w.l)
+//    stw r6,64(r4)
+//    lwz r6,72(r4)                    // gteSZ2  (regs->CP2D.p[18].w.l)
+//    stw r6,68(r4)
+//    lwz r6,76(r4)                    // gteSZ3  (regs->CP2D.p[19].w.l)
+//    stw r6,72(r4)
 
     // gteSXY0 = gteSXY1; gteSXY1 = gteSXY2;
-    lwz r6,52(r4)                    // gteSXY1 (regs->CP2D.r[13])
-    stw r6,48(r4)
-    lwz r6,56(r4)                    // gteSXY2 (regs->CP2D.r[14])
-    stw r6,52(r4)
+    lmw r30, 52(r4)                  // load gteSXY1 (regs->CP2D.r[13])--gteSXY2
+    stmw r30, 48(r4)                 // store gteSXY0 (regs->CP2D.r[12])--gteSXY1
+//    lwz r6,52(r4)                    // gteSXY1 (regs->CP2D.r[13])
+//    stw r6,48(r4)
+//    lwz r6,56(r4)                    // gteSXY2 (regs->CP2D.r[14])
+//    stw r6,52(r4)
 
     addi        r5, r4, 78           // set gteSZ3  (regs->CP2D.p[19].w.l)
     addi        r16, r4, 56          // set gteSY2gteSX2  (regs->CP2D.p[14].sw)
@@ -478,18 +541,7 @@ asm_rtps:
 asm_rtpt:
     mfspr r11, lr                    // save link register
 
-    addi r8, 0, 0
-    stw r8, 124(r3)                  // gteFLAG = 0 CP2C.r[31]
-
-	// set fix value
-	lfd         fr10Kmagic, kmagic@sdarel(r13)
-	lfs		    fr14ShiftR12, UnitShiftR12@sdarel(r13)
-	lfs         fr15ShiftR16, UnitShiftR16@sdarel(r13)
-	lfs		    fr11,FncOverflowH@sdarel(r13)
-    lfs		    fr12,FncOverflowL@sdarel(r13)
-	ps_merge00  fr11,fr11,fr11
-	ps_merge00  fr12,fr12,fr12
-	ps_merge00  fr14ShiftR12,fr14ShiftR12,fr14ShiftR12  // fr14 = 1 >> 12, 1 >> 12
+    bl          asm_rtps_comn_init
 
 	// gteSZ0 = gteSZ3;
 	lwz r6,76(r4)                    // gteSZ3  (regs->CP2D.p[19].w.l)

@@ -22,6 +22,7 @@
 */
 
 #include "gte.h"
+#include <ogc/lwp_watchdog.h>
 
 #ifdef GTE_DUMP
 #define G_OP(name,delay) fprintf(gteLog, "* : %08X : %02d : %s\n", psxRegs.code, delay, name);
@@ -163,6 +164,7 @@
 
 extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
 extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
+extern u32 table[];
 
 __inline u32 MFC2(int reg) {
 	switch(reg) {
@@ -568,9 +570,13 @@ void gteRTPS() {
     //RTPS_PARAM();
 
 	//GTE_RTPS1(0);
-    asm_rtps((s32*)psxRegs.CP2C.r, (s32*)psxRegs.CP2D.r);
+	#ifdef DISP_DEBUG
+	u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
+    asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
     #ifdef DISP_DEBUG
-	PRINT_LOG("asm_rtps======");
+    u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtps=====%llu=", end - start);
     #endif // DISP_DEBUG
 /*
 	MAC2IR();
@@ -663,10 +669,13 @@ void gteRTPT() {
 		G_SC(28);
 	}
 #endif
-
-    asm_rtpt((s32*)psxRegs.CP2C.r, (s32*)psxRegs.CP2D.r);
     #ifdef DISP_DEBUG
-	PRINT_LOG("======asm_rtpt");
+	u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
+    asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
+    #ifdef DISP_DEBUG
+	u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtpt=====%llu=", end - start);
     #endif // DISP_DEBUG
 
 	/*gteFLAG = 0;
@@ -759,7 +768,7 @@ void gteMVMVA() {
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
 #endif
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteMVMVA======");
+	//PRINT_LOG("========gteMVMVA======");
     #endif // DISP_DEBUG
 
 	switch (psxRegs.code & 0x78000) {
@@ -1009,7 +1018,7 @@ void gteSQR() {
 
 void gteNCCS()  {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCCS======");
+	//PRINT_LOG("========gteNCCS======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1089,7 +1098,7 @@ void gteNCCS()  {
 
 void gteNCCT() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCCT======");
+	//PRINT_LOG("========gteNCCT======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1235,7 +1244,7 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 
 void gteNCDS() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCDS======");
+	//PRINT_LOG("========gteNCDS======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1353,7 +1362,7 @@ void gteNCDS() {
 
 void gteNCDT() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCDT======");
+	//PRINT_LOG("========gteNCDT======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;

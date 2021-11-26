@@ -27,10 +27,10 @@ extern unsigned int diff_sec(long long start,long long end);
 static void check_heap_space(void){
 	sprintf(txtbuffer,"%dKB MEM1 available", SYS_GetArena1Size()/1024);
 	DEBUG_print(txtbuffer,DBG_MEMFREEINFO);
-	
+
 	sprintf(txtbuffer,"Dynarec (KB) %04d/%04d",dyna_used,dyna_total/1024);
 	DEBUG_print(txtbuffer,DBG_CORE1);
-	
+
 	sprintf(txtbuffer,"DSP is at %f%%",AESND_GetDSPProcessUsage());
 	DEBUG_print(txtbuffer,DBG_CORE2);
 }
@@ -41,7 +41,7 @@ void DEBUG_update() {
 	int i;
 	long long nowTick = gettime();
 	for(i=0; i<DEBUG_TEXT_HEIGHT; i++){
-		if(diff_sec(texttimes[i],nowTick)>=DEBUG_STRING_LIFE) 
+		if(diff_sec(texttimes[i],nowTick)>=DEBUG_STRING_LIFE)
 		{
 			memset(text[i],0,DEBUG_TEXT_WIDTH);
 		}
@@ -91,7 +91,7 @@ void DEBUG_print(char* string,int pos){
 			}
 #endif
 		}
-		else if(pos == DBG_SDGECKOPRINT) {			
+		else if(pos == DBG_SDGECKOPRINT) {
 #ifdef SDPRINT
 			if(!f || (printToSD == 0))
 				return;
@@ -105,14 +105,14 @@ void DEBUG_print(char* string,int pos){
 			texttimes[pos] = gettime();
 		}
 	#endif
-	
+
 }
 
 
 #define MAX_STATS 20
 unsigned int stats_buffer[MAX_STATS];
 unsigned int avge_counter[MAX_STATS];
-void DEBUG_stats(int stats_id, char *info, unsigned int stats_type, unsigned int adjustment_value) 
+void DEBUG_stats(int stats_id, char *info, unsigned int stats_type, unsigned int adjustment_value)
 {
 	#ifdef SHOW_DEBUG
 	switch(stats_type)
@@ -129,11 +129,11 @@ void DEBUG_stats(int stats_id, char *info, unsigned int stats_type, unsigned int
 				avge_counter[stats_id] = 0;
 			stats_buffer[stats_id] = 0;
 			break;
-		
+
 	}
 	unsigned int value = stats_buffer[stats_id];
 	if(stats_type == STAT_TYPE_AVGE) value /= avge_counter[stats_id];
-	
+
 	sprintf(txtbuffer,"%s [ %u ]", info, value);
 	DEBUG_print(txtbuffer,DBG_STATSBASE+stats_id);
 	#endif
