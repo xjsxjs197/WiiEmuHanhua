@@ -125,10 +125,10 @@ typedef union {
 } psxCP2Ctrl;
 
 typedef struct {
+    psxCP2Data CP2D; 	/* Cop2 data registers */
+	psxCP2Ctrl CP2C; 	/* Cop2 control registers */
 	psxGPRRegs GPR;		/* General Purpose Registers */
 	psxCP0Regs CP0;		/* Coprocessor0 Registers */
-	psxCP2Data CP2D; 	/* Cop2 data registers */
-	psxCP2Ctrl CP2C; 	/* Cop2 control registers */
     u32 pc;				/* Program counter */
     u32 code;			/* The instruction */
 	u32 cycle;
@@ -137,7 +137,7 @@ typedef struct {
 	struct { u32 sCycle, cycle; } intCycle[32];
 } psxRegisters;
 
-extern psxRegisters psxRegs;
+extern psxRegisters psxRegs __attribute__((aligned(32)));
 
 enum {
 	PSXINT_SIO = 0,

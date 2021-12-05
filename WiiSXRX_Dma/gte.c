@@ -22,6 +22,7 @@
 */
 
 #include "gte.h"
+#include <ogc/lwp_watchdog.h>
 
 #ifdef GTE_DUMP
 #define G_OP(name,delay) fprintf(gteLog, "* : %08X : %02d : %s\n", psxRegs.code, delay, name);
@@ -164,6 +165,22 @@
 extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
 extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
 
+bool needFlushCache = false;
+
+#define StoreToCache() { \
+	DCTouchRange(psxRegs.CP2D.r, 32 * 4); \
+	DCTouchRange(psxRegs.CP2C.r, 32 * 4); \
+	needFlushCache = true; \
+}
+
+#define FlushCache() { \
+    if (needFlushCache) { \
+	    DCFlushRange(psxRegs.CP2D.r, 32 * 4); \
+	    DCFlushRange(psxRegs.CP2C.r, 32 * 4); \
+	    needFlushCache = false; \
+    } \
+}
+
 __inline u32 MFC2(int reg) {
 	switch(reg) {
 		case 29:
@@ -261,11 +278,13 @@ static inline void CTC2(u32 value, int reg) {
 
 void gteMFC2() {
 	if (!_Rt_) return;
+	//FlushCache();
 	psxRegs.GPR.r[_Rt_] = MFC2(_Rd_);
 }
 
 void gteCFC2() {
 	if (!_Rt_) return;
+	//FlushCache();
 	psxRegs.GPR.r[_Rt_] = psxRegs.CP2C.r[_Rd_];
 }
 
@@ -498,14 +517,23 @@ __inline s32 FlimG2(s64 x) {
 printf("zero %x, %x\n", gteMAC0, gteIR0); \
 }
 #endif
-//#if 0
+/*
 #define GTE_RTPS2(vn) { \
 	if (gteSZ##vn == 0) { \
 		FDSZ = 2 << 16; gteFLAG |= 1<<17; \
 	} else { \
-		/*FDSZ = DIVIDE(gteH, gteSZ##vn);*/ \
 		FDSZ = ((u64)gteH << 32) / ((u64)gteSZ##vn << 16); \
 		if ((u64)FDSZ > (2 << 16)) { FDSZ = 2 << 16; gteFLAG |= 1<<17; } \
+	} \
+ \
+	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * FDSZ) >> 16)) >> 16); \
+	gteSY##vn = FlimG2((gteOFY + (((s64)((s64)gteIR2 << 16) * FDSZ) >> 16)) >> 16); \
+}
+*/
+#define GTE_RTPS2(vn) { \
+    FDSZ = DIVIDE_INT(gteH, gteSZ##vn); \
+	if (FDSZ == 0x1ffff) { \
+		gteFLAG |= 1<<17; \
 	} \
  \
 	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * FDSZ) >> 16)) >> 16); \
@@ -523,8 +551,9 @@ printf("zero %x, %x\n", gteMAC0, gteIR0); \
 //	gteMAC0 =       ((gteDQB >> 24) + (gteDQA >> 8) * DSZ) * 16777216.0;
 //	gteIR0  = FlimE(((gteDQB >> 24) + (gteDQA >> 8) * DSZ) * 4096.0);
 
-
 void gteRTPS() {
+    //StoreToCache();
+
 	s64 FDSZ;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
@@ -562,7 +591,9 @@ void gteRTPS() {
 		G_SC(28);
 	}
 #endif
-
+    #ifdef DISP_DEBUG
+	u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
 	gteFLAG = 0;
 
 	GTE_RTPS1(0);
@@ -583,14 +614,18 @@ void gteRTPS() {
 	gteSXY1 = gteSXY2;
 
 	GTE_RTPS2(2);
+	#ifdef DISP_DEBUG
+	//PRINT_LOG1("FDSZ=====%llu=", FDSZ);
+	#endif // DISP_DEBUG
 	gteSXYP = gteSXY2;
 
 	GTE_RTPS3();
 
 	SUM_FLAG;
-	//#ifdef DISP_DEBUG
-	//PRINT_LOG3("FDSZ==%d==%d==%d", gteIR1, gteIR2, gteIR3);
-    //#endif // DISP_DEBUG
+	#ifdef DISP_DEBUG
+    u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtps=====%llu=", end - start);
+	#endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -620,6 +655,7 @@ void gteRTPS() {
 }
 
 void gteRTPT() {
+    //StoreToCache();
 	s64 FDSZ;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
@@ -666,7 +702,9 @@ void gteRTPT() {
     #ifdef DISP_DEBUG
 	PRINT_LOG("======asm_rtpt");
     #endif // DISP_DEBUG*/
-
+    #ifdef DISP_DEBUG
+	u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
 	gteFLAG = 0;
 
 	gteSZx = gteSZ2;
@@ -681,6 +719,9 @@ void gteRTPT() {
 	gteIR1 = FlimA1S(gteMAC1);
 	gteIR2 = FlimA2S(gteMAC2);
 	GTE_RTPS2(0);
+	#ifdef DISP_DEBUG
+	//PRINT_LOG1("FDSZ=====%llu=", FDSZ);
+	#endif // DISP_DEBUG
 
 	GTE_RTPS1(1);
 
@@ -704,6 +745,10 @@ void gteRTPT() {
 	GTE_RTPS3();
 
 	SUM_FLAG;
+	#ifdef DISP_DEBUG
+	u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtpt=====%llu=", end - start);
+    #endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -757,7 +802,7 @@ void gteMVMVA() {
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
 #endif
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteMVMVA======");
+	//PRINT_LOG("========gteMVMVA======");
     #endif // DISP_DEBUG
 
 	switch (psxRegs.code & 0x78000) {
@@ -1007,7 +1052,7 @@ void gteSQR() {
 
 void gteNCCS()  {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCCS======");
+	//PRINT_LOG("========gteNCCS======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1087,7 +1132,7 @@ void gteNCCS()  {
 
 void gteNCCT() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCCT======");
+	//PRINT_LOG("========gteNCCT======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1233,7 +1278,7 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 
 void gteNCDS() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCDS======");
+	//PRINT_LOG("========gteNCDS======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
@@ -1351,7 +1396,7 @@ void gteNCDS() {
 
 void gteNCDT() {
     #ifdef DISP_DEBUG
-	PRINT_LOG("========gteNCDT======");
+	//PRINT_LOG("========gteNCDT======");
     #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;

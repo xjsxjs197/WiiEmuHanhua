@@ -164,6 +164,7 @@
 
 extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
 extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
+extern void gte_rtps_comn_mac(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
 extern u32 table[];
 
 __inline u32 MFC2(int reg) {
@@ -452,24 +453,10 @@ __inline s32 FlimG2(s64 x) {
 }
 
 //********END OF LIMITATIONS**********************************/
-#define RTPS_PARAM() { \
-    addVec.x = gteTRX; \
-    addVec.y = gteTRY; \
-    addVec.z = gteTRZ; \
-}
-
 #define GTE_RTPS1(vn) { \
 	gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX); \
 	gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY); \
 	gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ); \
-    /*srcVecS[0] = gteVX##vn;*/ \
-    /*srcVecS[1] = gteVY##vn;*/ \
-    /*srcVecS[2] = gteVZ##vn;*/ \
-    /*ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &(gteMAC1), div4096);*/ \
-    /*gteMAC1 = dstVec.x;*/ \
-    /*gteMAC2 = dstVec.y;*/ \
-    /*gteMAC3 = dstVec.z;*/ \
-    /*gteFLAG |= dstVec.flag;*/ \
 }
 
 /*	gteMAC1 = NC_OVERFLOW1(((signed long)(gteR11*gteVX0 + gteR12*gteVY0 + gteR13*gteVZ0)>>12) + gteTRX);
@@ -500,14 +487,23 @@ __inline s32 FlimG2(s64 x) {
 printf("zero %x, %x\n", gteMAC0, gteIR0); \
 }
 #endif
-//#if 0
+/*
 #define GTE_RTPS2(vn) { \
 	if (gteSZ##vn == 0) { \
 		FDSZ = 2 << 16; gteFLAG |= 1<<17; \
 	} else { \
-		/*FDSZ = DIVIDE(gteH, gteSZ##vn);*/ \
 		FDSZ = ((u64)gteH << 32) / ((u64)gteSZ##vn << 16); \
 		if ((u64)FDSZ > (2 << 16)) { FDSZ = 2 << 16; gteFLAG |= 1<<17; } \
+	} \
+ \
+	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * FDSZ) >> 16)) >> 16); \
+	gteSY##vn = FlimG2((gteOFY + (((s64)((s64)gteIR2 << 16) * FDSZ) >> 16)) >> 16); \
+}
+*/
+#define GTE_RTPS2(vn) { \
+    FDSZ = DIVIDE_INT(gteH, gteSZ##vn); \
+	if (FDSZ == 0x1ffff) { \
+		gteFLAG |= 1<<17; \
 	} \
  \
 	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * FDSZ) >> 16)) >> 16); \
@@ -565,20 +561,15 @@ void gteRTPS() {
 	}
 #endif
 
-	//gteFLAG = 0;
-
-    //RTPS_PARAM();
-
-	//GTE_RTPS1(0);
-	#ifdef DISP_DEBUG
+    #ifdef DISP_DEBUG
 	u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
-    asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
-    #ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("asm_rtps=====%llu=", end - start);
-    #endif // DISP_DEBUG
-/*
+
+	gteFLAG = 0;
+
+	//GTE_RTPS1(0);
+    gte_rtps_comn_mac(psxRegs.CP2C.r, psxRegs.CP2D.r, 0);
+
 	MAC2IR();
 
 	gteSZx = gteSZ0;
@@ -597,9 +588,10 @@ void gteRTPS() {
 
 	SUM_FLAG;
 	#ifdef DISP_DEBUG
-	PRINT_LOG3("FDSZ==%d==%d==%d", gteIR1, gteIR2, gteIR3);
+    u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtps=====%llu=", end - start);
     #endif // DISP_DEBUG
-*/
+
 #ifdef GTE_DUMP
 	if(sample < 100)
 	{
@@ -672,19 +664,14 @@ void gteRTPT() {
     #ifdef DISP_DEBUG
 	u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
-    asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
-    #ifdef DISP_DEBUG
-	u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("asm_rtpt=====%llu=", end - start);
-    #endif // DISP_DEBUG
+    //asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
 
-	/*gteFLAG = 0;
+	gteFLAG = 0;
 
 	gteSZx = gteSZ2;
 
-    //RTPS_PARAM();
-
-	GTE_RTPS1(0);
+	//GTE_RTPS1(0);
+	gte_rtps_comn_mac(psxRegs.CP2C.r, psxRegs.CP2D.r, 0);
 
 //	gteSZ0 = limC(gteMAC3);
 	gteSZ0 = FlimC(gteMAC3);
@@ -693,7 +680,8 @@ void gteRTPT() {
 	gteIR2 = FlimA2S(gteMAC2);
 	GTE_RTPS2(0);
 
-	GTE_RTPS1(1);
+	//GTE_RTPS1(1);
+	gte_rtps_comn_mac(psxRegs.CP2C.r, psxRegs.CP2D.r, 8);
 
 //	gteSZ1 = limC(gteMAC3);
 	gteSZ1 = FlimC(gteMAC3);
@@ -702,7 +690,8 @@ void gteRTPT() {
 	gteIR2 = FlimA2S(gteMAC2);
 	GTE_RTPS2(1);
 
-	GTE_RTPS1(2);
+	//GTE_RTPS1(2);
+	gte_rtps_comn_mac(psxRegs.CP2C.r, psxRegs.CP2D.r, 16);
 
 	MAC2IR();
 
@@ -714,7 +703,12 @@ void gteRTPT() {
 
 	GTE_RTPS3();
 
-	SUM_FLAG;*/
+	SUM_FLAG;
+
+	#ifdef DISP_DEBUG
+	u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("asm_rtpt=====%llu=", end - start);
+    #endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)

@@ -22,6 +22,7 @@
 */
 
 #include "cdrom.h"
+#include <ogc/lwp_watchdog.h>
 
 /* CD-ROM magic numbers */
 #define CdlSync        0
@@ -192,7 +193,14 @@ void ReadTrack() {
 #ifdef CDR_LOG
 	CDR_LOG("ReadTrack() Log: KEY *** %x:%x:%x\n", cdr.Prev[0], cdr.Prev[1], cdr.Prev[2]);
 #endif
+    #ifdef DISP_DEBUG
+	//u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
 	cdr.RErr = CDR_readTrack(cdr.Prev);
+	#ifdef DISP_DEBUG
+    //u64 end = ticks_to_nanosecs(gettick());
+	//PRINT_LOG1("CDR_readTrack=====%llu=", end - start);
+	#endif // DISP_DEBUG
 }
 
 

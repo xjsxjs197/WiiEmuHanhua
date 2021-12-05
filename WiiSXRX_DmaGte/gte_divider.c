@@ -32782,3 +32782,17 @@ const u32 table[] =
 65537,
 65536
 };
+
+__inline u32 DIVIDE_INT(u32 numerator, u32 denominator)
+{
+    if (numerator >= denominator * 2) {
+		return 0x1ffff;
+	}
+	else if (denominator < 32768) {
+		return (numerator << 16) / denominator;
+	}
+	else {
+	    int idx = denominator - 32768;
+	    return (numerator * table[idx] + (1 << 15)) >> 16;
+	}
+}
