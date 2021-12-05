@@ -137,7 +137,7 @@ typedef struct {
 	struct { u32 sCycle, cycle; } intCycle[32];
 } psxRegisters;
 
-extern psxRegisters psxRegs __attribute__((aligned(32)));
+extern psxRegisters psxRegs;
 
 enum {
 	PSXINT_SIO = 0,

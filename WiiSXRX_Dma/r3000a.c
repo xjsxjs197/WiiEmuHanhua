@@ -27,7 +27,7 @@
 #include "cdrom.h"
 #include "mdec.h"
 R3000Acpu *psxCpu;
-psxRegisters psxRegs __attribute__((aligned(32)));
+psxRegisters psxRegs;
 
 int psxInit() {
 
