@@ -283,10 +283,28 @@ u32 psxRcntRcount(u32 index) {
 }
 
 int psxRcntFreeze(gzFile f, int Mode) {
-	char Unused[4096 - sizeof(psxCounter)];
+    u32 count;
+    s32 i;
+	//char Unused[4096 - sizeof(psxCounter)];
 
 	gzfreezel(psxCounters);
-	gzfreezel(Unused);
+	gzfreeze( &cnts, sizeof(cnts) );
+	gzfreeze( &psxNextCounter, sizeof(psxNextCounter) );
+    gzfreeze( &psxNextsCounter, sizeof(psxNextsCounter) );
+
+    if (Mode == 0)
+    {
+        // don't trust things from a savestate
+        for( i = 0; i < cnts; ++i )
+        {
+            psxRcntWmode( i, psxCounters[i].mode );
+            count = (psxRegs.cycle - psxCounters[i].sCycle) / psxCounters[i].rate;
+            psxRcntWcount( i, count );
+        }
+        psxRcntSet();
+    }
+
+	//gzfreezel(Unused);
 
 	return 0;
 }

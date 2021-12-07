@@ -244,7 +244,7 @@ long CALLBACK DF_SPUfreeze(unsigned long ulFreezeMode, SPUFreeze_t * pF,
 
    if(ulFreezeMode==2) return 1;                       // info mode? ok, bye
                                                        // save mode:
-   memcpy(pF->cSPURam,spu.spuMem,0x80000);             // copy common infos
+   //memcpy(pF->cSPURam,spu.spuMem,0x80000);             // copy common infos
    memcpy(pF->cSPUPort,spu.regArea,0x200);
 
    if(spu.xapGlobal && spu.XAPlay!=spu.XAFeed)         // some xa
@@ -277,7 +277,7 @@ long CALLBACK DF_SPUfreeze(unsigned long ulFreezeMode, SPUFreeze_t * pF,
 
  if(ulFreezeMode!=0) return 0;                         // bad mode? bye
 
- memcpy(spu.spuMem,pF->cSPURam,0x80000);               // get ram
+ //memcpy(spu.spuMem,pF->cSPURam,0x80000);               // get ram
  memcpy(spu.regArea,pF->cSPUPort,0x200);
  spu.bMemDirty = 1;
 

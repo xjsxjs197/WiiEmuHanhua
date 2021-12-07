@@ -22,6 +22,7 @@
 #include "externals.h"
 #include "registers.h"
 #include "spu_config.h"
+#include "../psxcommon.h"
 
 static void SoundOn(int start,int end,unsigned short val);
 static void SoundOff(int start,int end,unsigned short val);
@@ -127,7 +128,10 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
       break;
     //-------------------------------------------------//
     case H_SPUdata:
-      *(unsigned short *)(spu.spuMemC + spu.spuAddr) = val;
+      // upd by xjsxjs197 start
+      //*(unsigned short *)(spu.spuMemC + spu.spuAddr) = val;
+      STORE_SWAP16p(spu.spuMemC + spu.spuAddr, val);
+      // upd by xjsxjs197 end
       spu.spuAddr += 2;
       spu.spuAddr &= 0x7fffe;
       break;
@@ -317,13 +321,16 @@ unsigned short CALLBACK DF_SPUreadRegister(unsigned long reg)
 
     case H_SPUstat:
      return (spu.spuStat & ~0x3F) | (spu.spuCtrl & 0x3F);
-        
+
     case H_SPUaddr:
      return (unsigned short)(spu.spuAddr>>3);
 
     case H_SPUdata:
      {
-      unsigned short s = *(unsigned short *)(spu.spuMemC + spu.spuAddr);
+      // upd by xjsxjs197 start
+      //unsigned short s = *(unsigned short *)(spu.spuMemC + spu.spuAddr);
+      unsigned short s = LOAD_SWAP16p(spu.spuMemC + spu.spuAddr);
+      // upd by xjsxjs197 end
       spu.spuAddr += 2;
       spu.spuAddr &= 0x7fffe;
       return s;
