@@ -124,7 +124,9 @@ void psxException(u32 code, u32 bd) {
 		u32 tmp = PSXMu32(psxRegs.CP0.n.EPC);
 		psxRegs.code = tmp;
 		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
+            #ifdef DISP_DEBUG
             PRINT_LOG("========hokuto no ken Fix ");
+            #endif // DISP_DEBUG
 		    PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
 
             psxRegs.code = PSXMu32(psxRegs.CP0.n.EPC);
