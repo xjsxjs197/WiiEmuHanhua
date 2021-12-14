@@ -469,24 +469,11 @@ __inline s32 FlimG2(s64 x) {
 }
 
 //********END OF LIMITATIONS**********************************/
-#define RTPS_PARAM() { \
-    addVec.x = gteTRX; \
-    addVec.y = gteTRY; \
-    addVec.z = gteTRZ; \
-}
 
 #define GTE_RTPS1(vn) { \
 	gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX); \
 	gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY); \
 	gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ); \
-    /*srcVecS[0] = gteVX##vn;*/ \
-    /*srcVecS[1] = gteVY##vn;*/ \
-    /*srcVecS[2] = gteVZ##vn;*/ \
-    /*ps_gte_rtps(&(gteR12), &(gteVY##vn), &addVec, &(gteMAC1), div4096);*/ \
-    /*gteMAC1 = dstVec.x;*/ \
-    /*gteMAC2 = dstVec.y;*/ \
-    /*gteMAC3 = dstVec.z;*/ \
-    /*gteFLAG |= dstVec.flag;*/ \
 }
 
 /*	gteMAC1 = NC_OVERFLOW1(((signed long)(gteR11*gteVX0 + gteR12*gteVY0 + gteR13*gteVZ0)>>12) + gteTRX);
@@ -531,17 +518,17 @@ printf("zero %x, %x\n", gteMAC0, gteIR0); \
 }
 */
 #define GTE_RTPS2(vn) { \
-    FDSZ = DIVIDE_INT(gteH, gteSZ##vn); \
-	if (FDSZ == 0x1ffff) { \
+    tmp = DIVIDE_INT(gteH, gteSZ##vn); \
+	if (tmp == 0x1ffff) { \
 		gteFLAG |= 1<<17; \
 	} \
  \
-	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * FDSZ) >> 16)) >> 16); \
-	gteSY##vn = FlimG2((gteOFY + (((s64)((s64)gteIR2 << 16) * FDSZ) >> 16)) >> 16); \
+	gteSX##vn = FlimG1((gteOFX + (((s64)((s64)gteIR1 << 16) * tmp) >> 16)) >> 16); \
+	gteSY##vn = FlimG2((gteOFY + (((s64)((s64)gteIR2 << 16) * tmp) >> 16)) >> 16); \
 }
 
 #define GTE_RTPS3() { \
-	FDSZ = (s64)((s64)gteDQB + (((s64)((s64)gteDQA << 8) * FDSZ) >> 8)); \
+	FDSZ = (s64)((s64)gteDQB + (((s64)((s64)gteDQA << 8) * tmp) >> 8)); \
 	gteMAC0 = FDSZ; \
 	gteIR0  = FlimE(FDSZ >> 12); \
 }
@@ -555,6 +542,7 @@ void gteRTPS() {
     //StoreToCache();
 
 	s64 FDSZ;
+	u32 tmp;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -657,6 +645,7 @@ void gteRTPS() {
 void gteRTPT() {
     //StoreToCache();
 	s64 FDSZ;
+	u32 tmp;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -708,8 +697,6 @@ void gteRTPT() {
 	gteFLAG = 0;
 
 	gteSZx = gteSZ2;
-
-    //RTPS_PARAM();
 
 	GTE_RTPS1(0);
 
@@ -788,15 +775,13 @@ void gteRTPT() {
 #define gte_C33 gteLB3
 
 #define _MVMVA_FUNC(_v0, _v1, _v2, mx) { \
-    SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
-    SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
-    SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
+	SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
+	SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
+	SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
 }
 
 void gteMVMVA() {
 	s64 SSX, SSY, SSZ;
-	s16 *mtAddr;
-	s16 *srcAddr;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
@@ -1269,6 +1254,7 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 	gte_RRLT= F12limA1U(gteRBK + ((gteLR1*gte_LL1 + gteLR2*gte_LL2 + gteLR3*gte_LL3) >> 12)); \
 	gte_GGLT= F12limA2U(gteGBK + ((gteLG1*gte_LL1 + gteLG2*gte_LL2 + gteLG3*gte_LL3) >> 12)); \
 	gte_BBLT= F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
+ \
 	gte_RR0 = (long)(((s64)((u32)gteR<<12)*gte_RRLT) >> 12);\
 	gte_GG0 = (long)(((s64)((u32)gteG<<12)*gte_GGLT) >> 12);\
 	gte_BB0 = (long)(((s64)((u32)gteB<<12)*gte_BBLT) >> 12);\
