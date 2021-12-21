@@ -574,7 +574,7 @@ int SaveState() {
 	gzwrite(f, spufP, Size);
 	free(spufP);
   // spu spuMem save (save directly to save memory)
-  gzwrite(f, spu.spuMemC, 0x80000);
+  //gzwrite(f, spu.spuMemC, 0x80000);
   LoadingBar_showBar(0.90f, SAVE_STATE_MSG);
 
 	sioFreeze(f, 1);
@@ -652,7 +652,7 @@ int LoadState() {
 	SPU_freeze(0, spufP, psxRegs.cycle);
 	free(spufP);
   // spu spuMem save (save directly to save memory)
-  gzread(f, spu.spuMemC, 0x80000);
+  //gzread(f, spu.spuMemC, 0x80000);
   LoadingBar_showBar(0.99f, LOAD_STATE_MSG);
 
 	sioFreeze(f, 0);
