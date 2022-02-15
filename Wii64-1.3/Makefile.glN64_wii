@@ -1,0 +1,11 @@
+#Makefile MUPEN64 for glN64_GX + MenuV2 + Wii 
+
+include $(DEVKITPPC)/base_rules
+
+ELF		= wii64-glN64.elf
+DOL		= wii64-glN64.dol
+
+include Makefile.glN64
+include Makefile.wii
+include Makefile.base
+
