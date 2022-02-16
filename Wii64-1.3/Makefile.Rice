@@ -1,0 +1,38 @@
+# Makefile for Rice
+
+CXXFLAGS	+= -DRICE_GFX
+
+OBJ_RICE_GX	+= \
+		TextureArchive/ArchiveReader.o \
+		Rice_GX/OGLGraphicsContext.o \
+		Rice_GX/Debugger.o \
+		Rice_GX/Video.o \
+		Rice_GX/Config.o \
+		Rice_GX/GraphicsContext.o \
+		Rice_GX/TextureFilters.o \
+		Rice_GX/DeviceBuilder.o \
+		Rice_GX/Render.o \
+		Rice_GX/RSP_Parser.o \
+		Rice_GX/TextureManager.o \
+		Rice_GX/RenderBase.o \
+		Rice_GX/FrameBuffer.o \
+		Rice_GX/Texture.o \
+		Rice_GX/OGLRender.o \
+		Rice_GX/OGLTexture.o \
+		Rice_GX/TEVBlender.o \
+		Rice_GX/TEVCombiner.o \
+		Rice_GX/OGLExtRender.o \
+		Rice_GX/blender.o \
+		Rice_GX/math.o \
+		Rice_GX/Combiner.o \
+		Rice_GX/RSP_S2DEX.o \
+		Rice_GX/RenderExt.o \
+		Rice_GX/ConvertImageGX.o \
+		Rice_GX/DecodedMux.o \
+		Rice_GX/RenderTexture.o \
+		Rice_GX/OGLDecodedMux.o \
+		Rice_GX/OGLRenderExt.o
+
+
+ALL_OBJ		+= $(OBJ_RICE_GX)
+
