@@ -577,6 +577,58 @@ gte_rtps_comn_mac:
 
     blr
 
+.globl gte_rtps_comn_mac1
+// r3: CP2C, r4: CP2D
+// r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
+// r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
+// r5: vxy start addr(0, 4, 8)
+gte_rtps_comn_mac1:
+    add         r5, r4, r5
+    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
+    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
+
+	psq_l		fr3, 0(r3), 1, 5     // fr3 = m12, 1.0
+    psq_l		fr4, 10(r3), 1, 5    // fr4 = m22, 1.0
+    psq_l		fr2, 2(r3), 0, 5     // fr2 = m11, m21
+
+    ps_merge11  fr6, fr0, fr0        // fr6 = x, x
+    ps_merge00  fr7, fr0, fr0        // fr7 = y, y
+    ps_merge11  fr8, fr1, fr1        // fr8 = z, z
+
+    ps_merge00  fr3, fr3, fr4        // fr3 = m12, m22
+	psq_l		fr5, 6(r3), 0, 5     // fr5 = m13, m23
+
+	ps_mul		fr2, fr2, fr6        // fr2 = m11 * x, m21 * x
+
+	psq_l		fr9, 14(r3), 1, 5    // fr9 = m31, 1.0
+	psq_l		fr10, 12(r3), 1, 5   // fr10 = m32, 1.0
+
+	ps_madd		fr2, fr3, fr7, fr2   // fr2 = (m12 * y) + (m11 * x), (m22 * y) + (m21 * x)
+
+	ps_mul		fr9, fr9, fr6        // fr2 = m31 * x, 1.0 * x
+
+	psq_l		fr11, 18(r3), 1, 5   // fr11 = m33, 1.0
+	ps_madd		fr9, fr10, fr7, fr9  // fr9 = (m32 * y) + (m31 * x), (1.0 * y) + (1.0 * x)
+
+	ps_madd		fr2, fr5, fr8, fr2   // fr2 = (m13 * z) + (m12 * y) + (m11 * x), (m23 * z) + (m22 * y) + (m21 * x) = SUMX / SUMY
+
+	ps_madd		fr9, fr11, fr8, fr9  // fr9 = (m33 * z) + (m32 * y) + (m31 * x), (1.0 * z) + (1.0 * y) + (1.0 * x) = SUMZ
+
+    fctiw      fr0, fr2              // SUMX => int
+    addi       r9, r4, 100
+    addi       r10, r9, 8
+    fctiw      fr1, fr9              // SUMZ => int
+    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY
+
+    stfiwx     fr0, 0, r9            // SUMX => gteMAC1 CP2D.r)[25]
+    stfiwx     fr1, 0, r10           // SUMZ => gteMAC3 CP2D.r)[27]
+
+    fctiw      fr3, fr2              // SUMY => int
+    addi       r9, r9, 4
+    stfiwx     fr3, 0, r9            // SUMY => gteMAC2 CP2D.r)[26]
+
+    blr
+
 .globl asm_rtps
 // r3: CP2C, r4: CP2D
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
