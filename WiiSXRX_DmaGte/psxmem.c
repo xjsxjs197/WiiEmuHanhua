@@ -64,7 +64,6 @@ void CAST_SetGQR(s32 GQR, u32 typeL, s32 scaleL)
 }
 
 extern void SysMessage(char *fmt, ...);
-extern u32 table[];
 
 s8 psxM[0x00220000] __attribute__((aligned(32)));
 s8 psxR[0x00080000] __attribute__((aligned(32)));
@@ -119,7 +118,6 @@ int psxMemInit() {
     CAST_SetGQR(GQR6, GQR_TYPE_S16, 8); // set GQR4 load s16 => float >> 8
     //CAST_SetGQR(GQR7, GQR_TYPE_S16, 0);
 
-    psxRegs.CP2D.r[32] = (u32*)table;
 
 	return 0;
 }

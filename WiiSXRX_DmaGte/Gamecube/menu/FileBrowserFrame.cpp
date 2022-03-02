@@ -545,8 +545,8 @@ void fileBrowserFrame_LoadFile(int i)
 			//strcat(RomInfo,buffer);
 
 			#ifdef DISP_DEBUG
-			sprintf(debugInfo, "\n==%d== \n", table[0]);
-			strcat(RomInfo,debugInfo);
+			//sprintf(debugInfo, "\n==%d== \n", table[0]);
+			//strcat(RomInfo,debugInfo);
 //			int tstIn = 262111;
 //			tstIn = 1145483111;
 //			sprintf(debugInfo, "\n==2==%d=%d= \n", tstIn, *convertIntToFloat(tstIn));
