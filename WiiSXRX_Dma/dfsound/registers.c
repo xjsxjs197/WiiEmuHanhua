@@ -302,7 +302,7 @@ unsigned short CALLBACK DF_SPUreadRegister(unsigned long reg)
        if(spu.dwNewChannel&(1<<ch)) return 1;          // we are started, but not processed? return 1
        if((spu.dwChannelOn&(1<<ch)) &&                 // same here... we haven't decoded one sample yet, so no envelope yet. return 1 as well
           //!spu.s_chan[ch].ADSRX.EnvelopeVol)
-          !(spu.s_chan[ch].ADSRX.EnvelopeVol > 0.0 || spu.s_chan[ch].ADSRX.EnvelopeVol < 0.0))
+          spu.s_chan[ch].ADSRX.EnvelopeVol < 1.0)
         return 1;
        //return (unsigned short)(spu.s_chan[ch].ADSRX.EnvelopeVol>>16);
        return (unsigned short)(spu.s_chan[ch].ADSRX.EnvelopeVol);

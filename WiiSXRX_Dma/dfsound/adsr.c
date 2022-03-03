@@ -66,7 +66,7 @@ INLINE void StartADSR(int ch)                          // MIX ADSR
 static int MixADSR(ADSRInfoEx *adsr, int ns_to)
 {
  float EnvelopeVol = adsr->EnvelopeVol;
- float val, level;
+ float val, level, sumTmp;
  int ns = 0, rto;
 
  if (adsr->State == ADSR_RELEASE)
@@ -78,12 +78,13 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
      for (; ns < ns_to; ns++)
      {
        EnvelopeVol += (val * EnvelopeVol) / 32768.0;
-       if (EnvelopeVol <= 0.0)
+       if (EnvelopeVol < 0.0)
        {
-           EnvelopeVol = 0.0;
+           break;
        }
 
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
        ChanBuf[ns] >>= 10;
      }
    }
@@ -92,12 +93,12 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
      for (; ns < ns_to; ns++)
      {
        EnvelopeVol += val;
-       if (EnvelopeVol <= 0.0)
+       if (EnvelopeVol < 0.0)
        {
-           EnvelopeVol = 0.0;
+           break;
        }
 
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
        ChanBuf[ns] >>= 10;
      }
    }
@@ -116,20 +117,17 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
      for (; ns < ns_to; ns++)
      {
        EnvelopeVol += val;
-       if (EnvelopeVol >= 32767.0)
-        break;
+       if (EnvelopeVol >= 32767.0) // overflow
+       {
+         adsr->State = ADSR_DECAY;
+         ns++; // sample is good already
+         goto decay;
+       }
 
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
        ChanBuf[ns] >>= 10;
      }
 
-     if (EnvelopeVol >= 32767.0) // overflow
-     {
-       EnvelopeVol = 32767.0;
-       adsr->State = ADSR_DECAY;
-       ns++; // sample is good already
-       goto decay;
-     }
      break;
 
    //--------------------------------------------------//
@@ -138,19 +136,23 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
      val = RateTableSub[adsr->DecayRate * 4];
      level = (float)(adsr->SustainLevel);
 
-     for (; ns < ns_to; ns++)
+     for (; ns < ns_to; )
      {
-       EnvelopeVol += (val * EnvelopeVol) / 32768.0;
-       if (EnvelopeVol <= level)
+       sumTmp = EnvelopeVol + ((val * EnvelopeVol) / 32768.0);
+       if (sumTmp >= 0.0)
        {
-         EnvelopeVol = level;
-         adsr->State = ADSR_SUSTAIN;
-         ns++;
-         goto sustain;
+         EnvelopeVol = sumTmp;
        }
 
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
        ChanBuf[ns] >>= 10;
+       ns++;
+
+       if (EnvelopeVol < level)
+       {
+         adsr->State = ADSR_SUSTAIN;
+         goto sustain;
+       }
      }
      break;
 
@@ -173,15 +175,13 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
 
        for (; ns < ns_to; ns++)
        {
-         EnvelopeVol += val;
-         if (EnvelopeVol >= 32767.0)
+         sumTmp = EnvelopeVol + val;
+         if (sumTmp <= 32767.0)
          {
-           EnvelopeVol = 32767.0;
-           //ns = ns_to;
-           //break;
+           EnvelopeVol = sumTmp;
          }
 
-         ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+         ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
          ChanBuf[ns] >>= 10;
        }
      }
@@ -199,13 +199,13 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
        {
          for (; ns < ns_to; ns++)
          {
-           EnvelopeVol += (val * EnvelopeVol) / 32768.0;
-           if (EnvelopeVol <= 0.0)
+           sumTmp = EnvelopeVol + ((val * EnvelopeVol) / 32768.0);
+           if (sumTmp >= 0.0)
            {
-               EnvelopeVol = 0.0;
+               EnvelopeVol = sumTmp;
            }
 
-           ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+           ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
            ChanBuf[ns] >>= 10;
          }
        }
@@ -213,13 +213,13 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
        {
          for (; ns < ns_to; ns++)
          {
-           EnvelopeVol += val;
-           if (EnvelopeVol <= 0.0)
+           sumTmp = EnvelopeVol + val;
+           if (sumTmp >= 0.0)
            {
-               EnvelopeVol = 0.0;
+               EnvelopeVol = sumTmp;
            }
 
-           ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+           ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
            ChanBuf[ns] >>= 10;
          }
        }
