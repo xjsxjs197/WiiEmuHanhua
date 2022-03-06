@@ -28,6 +28,10 @@
 
 //static int RateTableAdd[128];
 //static int RateTableSub[128];
+//static int RateTableAddH[128];
+//static int RateTableAddL[128];
+//static int RateTableSubH[128];
+//static int RateTableSubL[128];
 static float RateTableAdd[128];
 static float RateTableSub[128];
 
@@ -38,8 +42,8 @@ void InitADSR(void)                                    // INIT ADSR
  // Optimize table - Dr. Hell ADSR math
  for (lcv = 0; lcv < 48; lcv++)
  {
-  RateTableAdd[lcv] = (float)((7 - (lcv&3)) << (11 + 16 - (lcv >> 2)));
-  RateTableSub[lcv] = (float)((-8 + (lcv&3)) << (11 + 16 - (lcv >> 2)));
+  RateTableAdd[lcv] = (float)((7 - (lcv&3)) << (11 - (lcv >> 2)));
+  RateTableSub[lcv] = (float)((-8 + (lcv&3)) << (11 - (lcv >> 2)));
  }
 
  for (; lcv < 128; lcv++)
@@ -52,16 +56,200 @@ void InitADSR(void)                                    // INIT ADSR
  }
 }
 
+//void InitADSR(void)                                    // INIT ADSR
+//{
+// int lcv, denom;
+//
+// // Optimize table - Dr. Hell ADSR math
+// for (lcv = 0; lcv < 48; lcv++)
+// {
+//  RateTableAddH[lcv] = ((7 - (lcv&3)) << (11 - (lcv >> 2)));
+//  RateTableAddL[lcv] = 1;
+//  RateTableSubH[lcv] = ((-8 + (lcv&3)) << (11 - (lcv >> 2)));
+//  RateTableSubL[lcv] = 1;
+// }
+//
+// for (; lcv < 128; lcv++)
+// {
+//  denom = 1 << ((lcv>>2) - 11);
+//
+//  RateTableAddH[lcv] = ((7 - (lcv&3)));
+//  RateTableAddL[lcv] = denom;
+//  RateTableSubH[lcv] = ((-8 + (lcv&3)));
+//  RateTableSubL[lcv] = denom;
+//
+// }
+//}
+
+
 ////////////////////////////////////////////////////////////////////////
 
 INLINE void StartADSR(int ch)                          // MIX ADSR
 {
  spu.s_chan[ch].ADSRX.State = ADSR_ATTACK;             // and init some adsr vars
- //spu.s_chan[ch].ADSRX.EnvelopeVol = 0;
  spu.s_chan[ch].ADSRX.EnvelopeVol = 0.0;
 }
 
 ////////////////////////////////////////////////////////////////////////
+
+//static int MixADSR(ADSRInfoEx *adsr, int ns_to)
+//{
+// int EnvelopeVol = adsr->EnvelopeVol;
+// int ns = 0, val, rto, level, valL;
+//
+// if (adsr->State == ADSR_RELEASE)
+// {
+//   val = RateTableSubH[adsr->ReleaseRate * 4];
+//   valL = RateTableSubL[adsr->ReleaseRate * 4];
+//
+//   if (adsr->ReleaseModeExp)
+//   {
+//     for (; ns < ns_to; ns++)
+//     {
+//       EnvelopeVol += (val * EnvelopeVol) >> 15;
+//       if (EnvelopeVol <= 0)
+//         break;
+//
+//       ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//       ChanBuf[ns] >>= 10;
+//     }
+//   }
+//   else
+//   {
+//     for (; ns < ns_to; ns++)
+//     {
+//       EnvelopeVol += val;
+//       if (EnvelopeVol <= 0)
+//         break;
+//
+//       ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//       ChanBuf[ns] >>= 10;
+//     }
+//   }
+//
+//   goto done;
+// }
+//
+// switch (adsr->State)
+// {
+//   case ADSR_ATTACK:                                   // -> attack
+//     rto = 0;
+//     if (adsr->AttackModeExp && EnvelopeVol >= 0x6000)
+//       rto = 8;
+//     val = RateTableAddH[adsr->AttackRate + rto];
+//     valL = RateTableAddL[adsr->AttackRate + rto];
+//
+//     for (; ns < ns_to; ns++)
+//     {
+//       EnvelopeVol += val;
+//       if (EnvelopeVol > 32767)
+//        break;
+//
+//       ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//       ChanBuf[ns] >>= 10;
+//     }
+//
+//     if (EnvelopeVol > 32767) // overflow
+//     {
+//       EnvelopeVol = 32767;
+//       adsr->State = ADSR_DECAY;
+//       ns++; // sample is good already
+//       goto decay;
+//     }
+//     break;
+//
+//   //--------------------------------------------------//
+//   decay:
+//   case ADSR_DECAY:                                    // -> decay
+//     val = RateTableSubH[adsr->DecayRate * 4];
+//     valL = RateTableSubL[adsr->DecayRate * 4];
+//     level = adsr->SustainLevel;
+//
+//     for (; ns < ns_to; )
+//     {
+//       EnvelopeVol += (val * EnvelopeVol) >> 15;
+//       if (EnvelopeVol < 0)
+//         EnvelopeVol = 0;
+//
+//       ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//       ChanBuf[ns] >>= 10;
+//       ns++;
+//
+//       if (((EnvelopeVol >> 11) & 0xf) <= level)
+//       {
+//         adsr->State = ADSR_SUSTAIN;
+//         goto sustain;
+//       }
+//     }
+//     break;
+//
+//   //--------------------------------------------------//
+//   sustain:
+//   case ADSR_SUSTAIN:                                  // -> sustain
+//     if (adsr->SustainIncrease)
+//     {
+//       if (EnvelopeVol >= 0x7fff)
+//       {
+//         ns = ns_to;
+//         break;
+//       }
+//
+//       rto = 0;
+//       if (adsr->SustainModeExp && EnvelopeVol >= 0x6000)
+//         rto = 8;
+//       val = RateTableAddH[adsr->SustainRate + rto];
+//       valL = RateTableAddL[adsr->SustainRate + rto];
+//
+//       for (; ns < ns_to; ns++)
+//       {
+//         EnvelopeVol += val;
+//         if (EnvelopeVol >= 0x7fe0)
+//         {
+//           EnvelopeVol = 0x7fff;
+//           ns = ns_to;
+//           break;
+//         }
+//
+//         ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//         ChanBuf[ns] >>= 10;
+//       }
+//     }
+//     else
+//     {
+//       val = RateTableSubH[adsr->SustainRate];
+//       valL = RateTableSubL[adsr->SustainRate];
+//       if (adsr->SustainModeExp)
+//       {
+//         for (; ns < ns_to; ns++)
+//         {
+//           EnvelopeVol += (val * EnvelopeVol) >> 15;
+//           if (EnvelopeVol < 0)
+//             break;
+//
+//           ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//           ChanBuf[ns] >>= 10;
+//         }
+//       }
+//       else
+//       {
+//         for (; ns < ns_to; ns++)
+//         {
+//           EnvelopeVol += val;
+//           if (EnvelopeVol < 0)
+//             break;
+//
+//           ChanBuf[ns] = ((ChanBuf[ns] * EnvelopeVol) / valL) >> 5;
+//           ChanBuf[ns] >>= 10;
+//         }
+//       }
+//     }
+//     break;
+// }
+//
+//done:
+// adsr->EnvelopeVol = EnvelopeVol;
+// return ns;
+//}
 
 static int MixADSR(ADSRInfoEx *adsr, int ns_to)
 {
@@ -84,8 +272,7 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
        }
 
        //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
-       //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
        ChanBuf[ns] >>= 10;
      }
    }
@@ -99,8 +286,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
            break;
        }
 
-       //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+       //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
        ChanBuf[ns] >>= 10;
      }
    }
@@ -127,8 +314,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
          goto decay;
        }
 
-       //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+       //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
        ChanBuf[ns] >>= 10;
      }
 
@@ -148,8 +335,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
            EnvelopeVol = 0.0;
        }
 
-       //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-       ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+       ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+       //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
        ChanBuf[ns] >>= 10;
        ns++;
 
@@ -189,8 +376,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
            break;
          }
 
-         //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-         ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+         ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+         //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
          ChanBuf[ns] >>= 10;
        }
      }
@@ -215,8 +402,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
                break;
            }
 
-           //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-           ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+           ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+           //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
            ChanBuf[ns] >>= 10;
          }
        }
@@ -232,8 +419,8 @@ static int MixADSR(ADSRInfoEx *adsr, int ns_to)
            }
 
            //ChanBuf[ns] = (int)((float)ChanBuf[ns] * (EnvelopeVol / 32.0));
-           //ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
-           ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
+           ChanBuf[ns] = (int)((float)ChanBuf[ns] * EnvelopeVol / 32.0);
+           //ChanBuf[ns] *= (short)(EnvelopeVol / 32.0);
            ChanBuf[ns] >>= 10;
          }
        }
