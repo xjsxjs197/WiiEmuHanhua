@@ -390,7 +390,7 @@ void schedule_next_irq(void)
  if (scheduleCallback == NULL)
   return;
 
- upd_samples = 44100 / 50;
+ upd_samples = 48000 / 50;
 
  for (ch = 0; ch < MAXCHAN; ch++)
  {

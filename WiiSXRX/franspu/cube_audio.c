@@ -21,7 +21,7 @@
 
 char audioEnabled;
 
-static const u32 freq = 44100;
+static const u32 freq = 48000;
 extern unsigned int iVolume;
 static AESNDPB* voice = NULL;
 

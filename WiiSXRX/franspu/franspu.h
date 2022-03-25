@@ -62,7 +62,7 @@ unsigned int  * CDDAStart;
 unsigned int  * CDDAEnd;
 
 #define CDDA_BUFFER_SIZE (16384 * sizeof(uint32_t)) // must be power of 2
-#define XA_BUFFER_SIZE (44100 << 1)
+#define XA_BUFFER_SIZE (48000 << 1)
 // add xjsxjs197 end
 
 // byteswappings

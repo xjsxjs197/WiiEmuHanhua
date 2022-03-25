@@ -97,7 +97,7 @@ void FeedXA(xa_decode_t *xap)
 	xapGlobal = xap;                                      // store info for save states
 	XARepeat  = 100;                                      // set up repeat
 
-	iSize=((44100*xap->nsamples)/xap->freq);              // get size
+	iSize=((48000*xap->nsamples)/xap->freq);              // get size
 	if(!iSize) return;                                    // none? bye
 
 	if(XAFeed<XAPlay) {
