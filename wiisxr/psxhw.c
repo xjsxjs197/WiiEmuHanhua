@@ -429,11 +429,8 @@ void psxHwWrite16(u32 add, u16 value) {
 			if (Config.SpuIrq) psxHu16ref(0x1070) |= SWAPu16(0x200);
 			// upd xjsxjs197 start
 			//psxHu16ref(0x1070) &= SWAPu16((psxHu16(0x1074) & value));
-            //STORE_SWAP16p(tmpAddr16, (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
-            //psxHu16ref(0x1070) &= tmpAddr16[0];
-			//psxHu16ref(0x1070) &= SWAPu16(value);
-			STORE_SWAP16p(tmpAddr16, value);
-			psxHu16ref(0x1070) &= tmpAddr16[0];
+            STORE_SWAP16p(tmpAddr16, (LOAD_SWAP16p(psxHAddr(0x1074)) & value));
+            psxHu16ref(0x1070) &= tmpAddr16[0];
 			// upd xjsxjs197 end
 			return;
 
@@ -445,7 +442,7 @@ void psxHwWrite16(u32 add, u16 value) {
 			//psxHu16ref(0x1074) = SWAPu16(value);
 			STORE_SWAP16p(psxHAddr(0x1074), value);
 			// upd xjsxjs197 end
-			//psxRegs.interrupt|= 0x80000000;
+			psxRegs.interrupt|= 0x80000000;
 			return;
 
 		case 0x1f801100:
@@ -531,6 +528,7 @@ void psxHwWrite16(u32 add, u16 value) {
 	} \
 }*/
 #define DmaExec(char, bcr, madr, n) { \
+	if (LOAD_SWAP32p(psxHAddr(char)) & 0x01000000) return; \
 	STORE_SWAP32p(psxHAddr(char), value); \
  \
     tmpVal = LOAD_SWAP32p(psxHAddr(char)); \
@@ -567,11 +565,8 @@ void psxHwWrite32(u32 add, u32 value) {
 			if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAPu32(0x200);
 			// upd xjsxjs197 start
 			//psxHu32ref(0x1070) &= SWAPu32((psxHu32(0x1074) & value));
-            //STORE_SWAP32p(tmpAddr, (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
-            //psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
-			//psxHu32ref(0x1070) &= SWAPu32(value);
-			STORE_SWAP32p(tmpAddr, value);
-			psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
+            STORE_SWAP32p(tmpAddr, (LOAD_SWAP32p(psxHAddr(0x1074)) & value));
+            psxHu32ref(0x1070) &= (u32)(tmpAddr[0]);
 			// upd xjsxjs197 end
 			return;
 		case 0x1f801074:
@@ -582,7 +577,7 @@ void psxHwWrite32(u32 add, u32 value) {
 			//psxHu32ref(0x1074) = SWAPu32(value);
 			STORE_SWAP32p(psxHAddr(0x1074), value);
 			// upd xjsxjs197 end
-			//psxRegs.interrupt|= 0x80000000;
+			psxRegs.interrupt|= 0x80000000;
 			return;
 
 #ifdef PSXHW_LOG

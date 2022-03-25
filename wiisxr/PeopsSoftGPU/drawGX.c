@@ -20,6 +20,8 @@
 #include <gccore.h>
 #include <malloc.h>
 #include <time.h>
+#include <ogc/lwp_watchdog.h>
+#include "../coredebug.h"
 #include "stdafx.h"
 #define _IN_DRAW
 #include "externals.h"
@@ -357,6 +359,7 @@ void GX_Flip(short width, short height, u8 * buffer, int pitch)
 		oldheight = height;
 		memset(GXtexture,0,iResX_Max*iResY_Max*2);
 		GX_InitTexObj(&GXtexobj, GXtexture, width, height, GX_TF_RGB565, GX_CLAMP, GX_CLAMP, GX_TRUE);
+		GX_InitTexObjFilterMode(&GXtexobj, GX_LINEAR, GX_LINEAR);  // GX_LINEAR 1X filter
 	}
 /*
 	for (h = 0; h < height; h += 4)

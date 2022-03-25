@@ -363,6 +363,7 @@ static void generate_subq(const u8 *time)
 	cdr.subq.Absolute[2] = itob(time[2]);
 }
 
+// ReadTrack=========================
 static void ReadTrack(const u8 *time) {
 	unsigned char tmp[3];
 	struct SubQ *subq;
@@ -414,6 +415,7 @@ static void ReadTrack(const u8 *time) {
 		cdr.subq.Absolute[0], cdr.subq.Absolute[1], cdr.subq.Absolute[2]);
 }
 
+// AddIrqQueue=====================
 static void AddIrqQueue(unsigned short irq, unsigned long ecycle) {
 	if (cdr.Irq != 0) {
 		if (irq == cdr.Irq || irq + 0x100 == cdr.Irq) {
@@ -496,7 +498,7 @@ void cdrPlayInterrupt()
 	if (cdr.Seeked == SEEK_PENDING) {
 		if (cdr.Stat) {
 			CDR_LOG_I("cdrom: seek stat hack\n");
-			CDRMISC_INT(0x1000);
+			CDRMISC_INT(0x800);
 			return;
 		}
 		SetResultSize(1);
@@ -552,12 +554,12 @@ void cdrPlayInterrupt()
 
 	if (cdr.m_locationChanged)
 	{
-		CDRMISC_INT(cdReadTime * 30);
+		CDRMISC_INT((cdReadTime * 30) >> 1);
 		cdr.m_locationChanged = FALSE;
 	}
 	else
 	{
-		CDRMISC_INT(cdReadTime);
+		CDRMISC_INT(cdReadTime >> 1);
 	}
 
 	// update for CdlGetlocP/autopause
@@ -575,7 +577,7 @@ void cdrInterrupt() {
 	// Reschedule IRQ
 	if (cdr.Stat) {
 		CDR_LOG_I("cdrom: stat hack: %02x %x\n", cdr.Irq, cdr.Stat);
-		CDR_INT(0x1000);
+		CDR_INT(0x800);
 		return;
 	}
 
@@ -674,7 +676,7 @@ void cdrInterrupt() {
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
-			CDRMISC_INT( cdReadTime );
+			CDRMISC_INT( cdReadTime >> 1 );
 			start_rotating = 1;
 			break;
 
@@ -757,12 +759,12 @@ void cdrInterrupt() {
 			 * */
 			if (cdr.DriveState != DRIVESTATE_STANDBY)
 			{
-				delay = 7000;
+				delay = 3500;
 			}
 			else
 			{
-				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
-				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
+				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000)) >> 1;
+				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime >> 2 : cdReadTime >> 1);
 			}
 			AddIrqQueue(CdlPause + 0x100, delay);
 			cdr.Ctrl |= 0x80;
@@ -903,7 +905,7 @@ void cdrInterrupt() {
 			Rockman X5 = 0.5-4x
 			- fix capcom logo
 			*/
-			CDRMISC_INT(cdr.Seeked == SEEK_DONE ? 0x800 : cdReadTime * 4);
+			CDRMISC_INT(cdr.Seeked == SEEK_DONE ? 0x400 : cdReadTime * 2);
 			cdr.Seeked = SEEK_PENDING;
 			start_rotating = 1;
 			break;
@@ -1287,6 +1289,12 @@ void cdrWrite0(unsigned char rt) {
 	CDR_LOG_IO("cdr w0: %02x\n", rt);
 
 	cdr.Ctrl = (rt & 3) | (cdr.Ctrl & ~3);
+	
+	if (rt == 0) {
+		cdr.ParamP = 0;
+		cdr.ParamC = 0;
+		cdr.ResultReady = 0;
+	}
 }
 
 unsigned char cdrRead1(void) {
@@ -1428,10 +1436,10 @@ void cdrWrite2(unsigned char rt) {
 }
 
 unsigned char cdrRead3(void) {
-	if (cdr.Ctrl & 0x1)
-		psxHu8(0x1803) = cdr.Stat | 0xE0;
-	else
-		psxHu8(0x1803) = cdr.Reg2 | 0xE0;
+	if (cdr.Stat) {
+		if (cdr.Ctrl & 0x1) psxHu8(0x1803) = cdr.Stat | 0xE0;
+		else psxHu8(0x1803) = cdr.Reg2 | 0xE0;
+	} else psxHu8(0x1803) = 0;
 
 	CDR_LOG_IO("cdr r3: %02x\n", psxHu8(0x1803));
 	return psxHu8(0x1803);
@@ -1448,6 +1456,9 @@ void cdrWrite3(unsigned char rt) {
 
 		if (rt & 0x40)
 			cdr.ParamC = 0;
+		if (cdr.Irq) CDR_INT(cdr.eCycle);
+        if (cdr.Reading && !cdr.ResultReady)
+            CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
 		return;
 	case 2:
 		cdr.AttenuatorLeftToRightT = rt;
@@ -1537,7 +1548,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 
 			if( chcr == 0x11400100 ) {
 				HW_DMA3_MADR = SWAPu32(madr + cdsize);
-				CDRDMA_INT( cdsize >> 4 );
+				CDRDMA_INT( cdsize >> 5 );
 			}
 			else if( chcr == 0x11000000 ) {
 				// CDRDMA_INT( (cdsize/4) * 1 );

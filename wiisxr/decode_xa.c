@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   51 Franklin Street, Fifth Floor, Boston, MA 02111-1307 USA.           *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
  ***************************************************************************/
 
 /* 
@@ -23,7 +23,7 @@
 
 #include "decode_xa.h"
 
-#define FIXED
+#define _FIXED
 
 #define NOT(_X_)				(!(_X_))
 #define XACLAMP(_X_,_MI_,_MA_)	{if(_X_<_MI_)_X_=_MI_;if(_X_>_MA_)_X_=_MA_;}
@@ -35,15 +35,15 @@
 //===  ADPCM DECODING ROUTINES
 //============================================
 
-#ifndef FIXED
-static double K0[4] = {
+#ifndef _FIXED
+static float K0[4] = {
     0.0,
     0.9375,
     1.796875,
     1.53125
 };
 
-static double K1[4] = {
+static float K1[4] = {
     0.0,
     0.0,
     -0.8125,
@@ -74,7 +74,7 @@ void ADPCM_InitDecode(ADPCM_Decode_t *decp) {
 }
 
 //===========================================
-#ifndef FIXED
+#ifndef _FIXED
 #define IK0(fid)	((int)((-K0[fid]) * (1<<SHC)))
 #define IK1(fid)	((int)((-K1[fid]) * (1<<SHC)))
 #else

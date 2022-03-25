@@ -81,7 +81,8 @@ typedef struct
  unsigned char  SustainLevel;
  unsigned char  SustainRate;
  unsigned char  ReleaseRate;
- int            EnvelopeVol;
+ float          EnvelopeVol;
+ //int            EnvelopeVol;
 } ADSRInfoEx;
 
 ///////////////////////////////////////////////////////////

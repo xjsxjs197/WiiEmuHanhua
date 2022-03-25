@@ -27,13 +27,8 @@ void SoundOff(int start,int end,unsigned short val)    // SOUND OFF PSX COMMAND
  	int ch;
  	for(ch=start;ch<end;ch++,val>>=1)                     // loop channels
   	{
-   		if(val&1)
-        {// && s_chan[i].bOn)  mmm...
-     		s_chan[ch].bStop=1;
-     		// add xjsxjs197 start
-     		s_chan[ch].ADSRX.State = ADSR_RELEASE;
-     		// add xjsxjs197 end
-        }
+   		if(val&1)                                     // && s_chan[i].bOn)  mmm...
+     			s_chan[ch].bStop=1;
   	}
 }
 
@@ -45,22 +40,14 @@ void FModOn(int start,int end,unsigned short val)      // FMOD ON PSX COMMAND
   	{
    		if(val&1)                                     // -> fmod on/off
     		{
-     			if(ch>0)
+     			if(ch>0) 
       			{
        				s_chan[ch].bFMod=1;           // --> sound channel
        				s_chan[ch-1].bFMod=2;         // --> freq channel
       			}
     		}
    		else
-        {
-            s_chan[ch].bFMod=0;                   // --> turn off fmod
-            // add xjsxjs197 start
-            if (ch > 0 && s_chan[ch - 1].bFMod == 2)
-            {
-                s_chan[ch - 1].bFMod = 0;
-            }
-            // add xjsxjs197 end
-        }
+     			s_chan[ch].bFMod=0;                   // --> turn off fmod
   	}
 }
 
