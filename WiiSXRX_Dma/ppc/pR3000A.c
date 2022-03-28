@@ -1604,11 +1604,7 @@ static void recMULTU() {
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
     #ifdef DISP_DEBUG
-    if ((s32)iRegs[_Rt_].k == 0)
-    {
-        PRINT_LOG("recDIV 0=====");
-    }
-    if (iRegs[_Rs_].k == 0x80000000 && iRegs[_Rt_].k == 0xffffffff)
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
     {
         PRINT_LOG("recDIV 0xffffffff=====");
     }
@@ -1621,10 +1617,27 @@ static void recDIV() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        if ((s32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIV 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k  >= 0 ? 0xffffffff : 1);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (s32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIV 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
@@ -1670,11 +1683,7 @@ static void recDIV() {
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
     #ifdef DISP_DEBUG
-    if ((u32)iRegs[_Rt_].k == 0)
-    {
-        PRINT_LOG("recDIVU 0=====");
-    }
-    if (iRegs[_Rs_].k == 0x80000000 && iRegs[_Rt_].k == 0xffffffff)
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
     {
         PRINT_LOG("recDIVU 0xffffffff=====");
     }
@@ -1687,10 +1696,28 @@ static void recDIVU() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        if ((u32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIVU 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, 0xffffffff);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (u32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIVU 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
