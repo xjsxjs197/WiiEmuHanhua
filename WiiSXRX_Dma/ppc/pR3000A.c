@@ -1603,6 +1603,16 @@ static void recMULTU() {
 
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
+    #ifdef DISP_DEBUG
+    if ((s32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIV 0=====");
+    }
+    if (iRegs[_Rs_].k == 0x80000000 && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIV 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
@@ -1659,6 +1669,16 @@ static void recDIV() {
 
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
+    #ifdef DISP_DEBUG
+    if ((u32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIVU 0=====");
+    }
+    if (iRegs[_Rs_].k == 0x80000000 && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIVU 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {

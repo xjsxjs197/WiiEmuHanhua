@@ -58,7 +58,7 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
  if (val == 0 && (r & 0xff8) == 0xd88)
   return;
 
- do_samples_if_needed(cycles, 0);
+ //do_samples_if_needed(cycles, 0);
 
  if(r>=0x0c00 && r<0x0d80)                             // some channel info?
   {
@@ -139,8 +139,8 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
     case H_SPUctrl:
       if (!(spu.spuCtrl & CTRL_IRQ)) {
         spu.spuStat&=~STAT_IRQ;
-        if (val & CTRL_IRQ)
-         schedule_next_irq();
+        //if (val & CTRL_IRQ)
+         //schedule_next_irq();
       }
       spu.spuCtrl=val;
       break;
@@ -277,7 +277,7 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
 
 upd_irq:
  if (spu.spuCtrl & CTRL_IRQ)
-  schedule_next_irq();
+  //schedule_next_irq();
  return;
 
 rvbd:
