@@ -54,6 +54,7 @@
 
 #include <ogc/machine/processor.h>
 #include <ogc/cast.h>
+#include <ogc/cache.h>
 
 void CAST_SetGQR(s32 GQR, u32 typeL, s32 scaleL)
 {
@@ -118,6 +119,8 @@ int psxMemInit() {
     CAST_SetGQR(GQR6, GQR_TYPE_S16, 8); // set GQR4 load s16 => float >> 8
     //CAST_SetGQR(GQR7, GQR_TYPE_S16, 0);
 
+    DCEnable();
+    ICEnable();
 
 	return 0;
 }

@@ -53,7 +53,7 @@ typedef struct {
 
 	unsigned char StatP;
 
-	unsigned char Transfer[2352];
+	unsigned char Transfer[DATA_SIZE];
 	unsigned char *pTransfer;
 	// added by xjsxjs197 start
 	unsigned char *pTransferFast;
@@ -89,6 +89,7 @@ typedef struct {
 	int Init;
 
 	unsigned char Irq;
+	unsigned char IrqRepeated;
 	unsigned long eCycle;
 
 	int Seeked;

@@ -168,6 +168,9 @@ void sioWrite8(unsigned char value) {
 			return;
 	}
 
+    #ifdef DISP_DEBUG
+    PRINT_LOG3("sioWrite8====%d=%d=%x", mcdst, rdwr, CtrlReg);
+    #endif // DISP_DEBUG*/
 	switch (mcdst) {
 		case 1:
 			SIO_INT();
@@ -305,7 +308,7 @@ void sioWrite8(unsigned char value) {
 void sioWriteCtrl16(unsigned short value) {
 	CtrlReg = value & ~RESET_ERR;
 	if (value & RESET_ERR) StatReg &= ~IRQ;
-	if ((CtrlReg & SIO_RESET) || (!CtrlReg)) {
+	if ((CtrlReg & SIO_RESET) || !(CtrlReg & DTR)) {
 		padst = 0; mcdst = 0; parp = 0;
 		StatReg = TX_RDY | TX_EMPTY;
 		psxRegs.interrupt&=~(1 << PSXINT_SIO);
@@ -317,9 +320,11 @@ void sioInterrupt() {
 	PAD_LOG("Sio Interrupt (CP0.Status = %x)\n", psxRegs.CP0.n.Status);
 #endif
 //	SysPrintf("Sio Interrupt\n");
-	StatReg|= IRQ;
-	psxHu32ref(0x1070)|= SWAPu32(0x80);
-	psxRegs.interrupt|= 0x80000000;
+    if (!(StatReg & IRQ)) {
+	    StatReg|= IRQ;
+	    psxHu32ref(0x1070)|= SWAPu32(0x80);
+	    psxRegs.interrupt|= 0x80000000;
+    }
 }
 
 //call me from menu, takes slot and save path as args
@@ -507,82 +512,89 @@ void ConvertMcd(char *mcd, char *data) {
 	}*/
 }
 
-void GetMcdBlockInfo(int mcd, int block, McdBlock *Info) {
-	char *data = NULL, *ptr, *str;
-	unsigned short clut[16];
-	int i, x;
-
-	memset(Info, 0, sizeof(McdBlock));
-
-	str = Info->Title;
-
-	if (mcd == 1) data = Mcd1Data;
-	if (mcd == 2) data = Mcd2Data;
-
-	ptr = data + block * 8192 + 2;
-
-	Info->IconCount = *ptr & 0x3;
-
-	ptr+= 2;
-
-	i=0;
-	memcpy(Info->sTitle, ptr, 48*2);
-
-	for (i=0; i < 48; i++) {
-		unsigned short c = *(ptr) << 8;
-		c|= *(ptr+1);
-		if (!c) break;
-
-		if (c >= 0x8281 && c <= 0x8298)
-			c = (c - 0x8281) + 'a';
-		else if (c >= 0x824F && c <= 0x827A)
-			c = (c - 0x824F) + '0';
-		else if (c == 0x8144) c = '.';
-		else if (c == 0x8146) c = ':';
-		else if (c == 0x8168) c = '"';
-		else if (c == 0x8169) c = '(';
-		else if (c == 0x816A) c = ')';
-		else if (c == 0x816D) c = '[';
-		else if (c == 0x816E) c = ']';
-		else if (c == 0x817C) c = '-';
-		else {
-			c = ' ';
-		}
-
-		str[i] = c;
-		ptr+=2;
-	}
-	str[i] = 0;
-
-	ptr = data + block * 8192 + 0x60; // icon palete data
-
-	for (i=0; i<16; i++) {
-		clut[i] = *((unsigned short*)ptr);
-		ptr+=2;
-	}
-
-	for (i=0; i<Info->IconCount; i++) {
-		short *icon = &Info->Icon[i*16*16];
-
-		ptr = data + block * 8192 + 128 + 128 * i; // icon data
-
-		for (x=0; x<16*16; x++) {
-			icon[x++] = clut[*ptr & 0xf];
-			icon[x]   = clut[*ptr >> 4];
-			ptr++;
-		}
-	}
-
-	ptr = data + block * 128;
-
-	Info->Flags = *ptr;
-
-	ptr+= 0xa;
-	strncpy(Info->ID, ptr, 12);
-	Info->ID[12] = 0;
-	ptr+= 12;
-	strncpy(Info->Name, ptr, 16);
-}
+//void GetMcdBlockInfo(int mcd, int block, McdBlock *Info) {
+//	char *data = NULL, *ptr, *str;
+//	unsigned short clut[16];
+//	int i, x;
+//
+//	memset(Info, 0, sizeof(McdBlock));
+//
+//	str = Info->Title;
+//
+//	if (mcd == 1) data = Mcd1Data;
+//	if (mcd == 2) data = Mcd2Data;
+//
+//	ptr = data + block * 8192 + 2;
+//
+//	Info->IconCount = *ptr & 0x3;
+//
+//	ptr+= 2;
+//
+//	i=0;
+//	memcpy(Info->sTitle, ptr, 48*2);
+//
+//	for (i=0; i < 48; i++) {
+//		unsigned short c = *(ptr) << 8;
+//		c|= *(ptr+1);
+//		if (!c) break;
+//
+//		// Convert ASCII characters to half-width
+//		if (c >= 0x8281 && c <= 0x829A)
+//			c = (c - 0x8281) + 'a';
+//		else if (c >= 0x824F && c <= 0x827A)
+//			c = (c - 0x824F) + '0';
+//		else if (c == 0x8140) c = ' ';
+//		else if (c == 0x8143) c = ',';
+//		else if (c == 0x8144) c = '.';
+//		else if (c == 0x8146) c = ':';
+//		else if (c == 0x8147) c = ';';
+//		else if (c == 0x8148) c = '?';
+//		else if (c == 0x8149) c = '!';
+//		else if (c == 0x815E) c = '/';
+//		else if (c == 0x8168) c = '"';
+//		else if (c == 0x8169) c = '(';
+//		else if (c == 0x816A) c = ')';
+//		else if (c == 0x816D) c = '[';
+//		else if (c == 0x816E) c = ']';
+//		else if (c == 0x817C) c = '-';
+//		else {
+//			c = ' ';
+//		}
+//
+//		str[i] = c;
+//		ptr+=2;
+//	}
+//	str[i] = 0;
+//
+//	ptr = data + block * 8192 + 0x60; // icon palete data
+//
+//	for (i=0; i<16; i++) {
+//		clut[i] = *((unsigned short*)ptr);
+//		ptr+=2;
+//	}
+//
+//	for (i=0; i<Info->IconCount; i++) {
+//		short *icon = &Info->Icon[i*16*16];
+//
+//		ptr = data + block * 8192 + 128 + 128 * i; // icon data
+//
+//		for (x=0; x<16*16; x++) {
+//			icon[x++] = clut[*ptr & 0xf];
+//			icon[x]   = clut[*ptr >> 4];
+//			ptr++;
+//		}
+//	}
+//
+//	ptr = data + block * 128;
+//
+//	Info->Flags = *ptr;
+//
+//	ptr+= 0xa;
+//	strncpy(Info->ID, ptr, 12);
+//	Info->ID[12] = 0;
+//	ptr+= 12;
+//	strncpy(Info->Name, ptr, 16);
+//}
 
 int sioFreeze(gzFile f, int Mode) {
 	char Unused[4096];

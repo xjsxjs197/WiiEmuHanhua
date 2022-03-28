@@ -39,10 +39,10 @@
  #define ssat32_to_16(v) \
   asm("ssat %0,#16,%1" : "=r" (v) : "r" (v))
 #else
- #define ssat32_to_16(v) do { \
+ #define ssat32_to_16(v) { \
   if (v < -32768) v = -32768; \
   else if (v > 32767) v = 32767; \
- } while (0)
+ }
 #endif
 
 #define PSXCLK	33868800	/* 33.8688 MHz */

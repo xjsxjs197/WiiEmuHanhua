@@ -22,6 +22,7 @@
 #include "externals.h"
 #include "registers.h"
 #include "spu_config.h"
+#include "../psxcommon.h"
 
 static void SoundOn(int start,int end,unsigned short val);
 static void SoundOff(int start,int end,unsigned short val);
@@ -57,7 +58,7 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
  if (val == 0 && (r & 0xff8) == 0xd88)
   return;
 
- do_samples_if_needed(cycles, 0);
+ //do_samples_if_needed(cycles, 0);
 
  if(r>=0x0c00 && r<0x0d80)                             // some channel info?
   {
@@ -127,7 +128,10 @@ void CALLBACK DF_SPUwriteRegister(unsigned long reg, unsigned short val,
       break;
     //-------------------------------------------------//
     case H_SPUdata:
-      *(unsigned short *)(spu.spuMemC + spu.spuAddr) = val;
+      // upd by xjsxjs197 start
+      //*(unsigned short *)(spu.spuMemC + spu.spuAddr) = val;
+      STORE_SWAP16p(spu.spuMemC + spu.spuAddr, val);
+      // upd by xjsxjs197 end
       spu.spuAddr += 2;
       spu.spuAddr &= 0x7fffe;
       break;
@@ -297,9 +301,11 @@ unsigned short CALLBACK DF_SPUreadRegister(unsigned long reg)
        const int ch=(r>>4)-0xc0;
        if(spu.dwNewChannel&(1<<ch)) return 1;          // we are started, but not processed? return 1
        if((spu.dwChannelOn&(1<<ch)) &&                 // same here... we haven't decoded one sample yet, so no envelope yet. return 1 as well
-          !spu.s_chan[ch].ADSRX.EnvelopeVol)
+          //!spu.s_chan[ch].ADSRX.EnvelopeVol)
+          spu.s_chan[ch].ADSRX.EnvelopeVol < 1.0)
         return 1;
-       return (unsigned short)(spu.s_chan[ch].ADSRX.EnvelopeVol>>16);
+       //return (unsigned short)(spu.s_chan[ch].ADSRX.EnvelopeVol>>16);
+       return (unsigned short)(spu.s_chan[ch].ADSRX.EnvelopeVol);
       }
 
      case 14:                                          // get loop address
@@ -317,13 +323,16 @@ unsigned short CALLBACK DF_SPUreadRegister(unsigned long reg)
 
     case H_SPUstat:
      return (spu.spuStat & ~0x3F) | (spu.spuCtrl & 0x3F);
-        
+
     case H_SPUaddr:
      return (unsigned short)(spu.spuAddr>>3);
 
     case H_SPUdata:
      {
-      unsigned short s = *(unsigned short *)(spu.spuMemC + spu.spuAddr);
+      // upd by xjsxjs197 start
+      //unsigned short s = *(unsigned short *)(spu.spuMemC + spu.spuAddr);
+      unsigned short s = LOAD_SWAP16p(spu.spuMemC + spu.spuAddr);
+      // upd by xjsxjs197 end
       spu.spuAddr += 2;
       spu.spuAddr &= 0x7fffe;
       return s;
