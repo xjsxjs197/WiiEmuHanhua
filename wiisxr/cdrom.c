@@ -458,9 +458,9 @@ static void cdrPlayInterrupt_Autopause()
 		cdr.Result[0] = cdr.StatP;
 		cdr.Result[1] = cdr.subq.Track;
 		cdr.Result[2] = cdr.subq.Index;
-		
+
 		abs_lev_chselect = cdr.subq.Absolute[1] & 0x01;
-		
+
 		/* 8 is a hack. For accuracy, it should be 588. */
 		for (i = 0; i < 8; i++)
 		{
@@ -535,7 +535,7 @@ void cdrPlayInterrupt()
 		cdrPlayInterrupt_Autopause();
 
 	if (!cdr.Play) return;
-	
+
 	if (CDR_readCDDA && !cdr.Muted && cdr.Mode & MODE_REPORT) {
 		cdrAttenuate(read_buf, CD_FRAMESIZE_RAW / 4, 1);
 		if (SPU_playCDDAchannel)
@@ -554,12 +554,12 @@ void cdrPlayInterrupt()
 
 	if (cdr.m_locationChanged)
 	{
-		CDRMISC_INT((cdReadTime * 30) >> 1);
+		CDRMISC_INT(cdReadTime * 30);
 		cdr.m_locationChanged = FALSE;
 	}
 	else
 	{
-		CDRMISC_INT(cdReadTime >> 1);
+		CDRMISC_INT(cdReadTime);
 	}
 
 	// update for CdlGetlocP/autopause
@@ -617,7 +617,7 @@ void cdrInterrupt() {
 				// XXX: wrong, should seek instead..
 				cdr.Seeked = SEEK_DONE;
 			}
-			
+
 			cdr.FastBackward = 0;
 			cdr.FastForward = 0;
 
@@ -672,11 +672,11 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 
 			cdr.StatP |= STATUS_PLAY;
-			
+
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
-			CDRMISC_INT( cdReadTime >> 1 );
+			CDRMISC_INT( cdReadTime );
 			start_rotating = 1;
 			break;
 
@@ -752,19 +752,21 @@ void cdrInterrupt() {
 			InuYasha - Feudal Fairy Tale: slower
 			- Fixes battles
 			*/
-			/* Gameblabla - Tightening the timings (as taken from Duckstation). 
+			/* Gameblabla - Tightening the timings (as taken from Duckstation).
 			 * The timings from Duckstation are based upon hardware tests.
 			 * Mednafen's timing don't work for Gundam Battle Assault 2 in PAL/50hz mode,
 			 * seems to be timing sensitive as it can depend on the CPU's clock speed.
+			 *
+			 * We will need to get around this for Bedlam/Rise 2 later...
 			 * */
 			if (cdr.DriveState != DRIVESTATE_STANDBY)
 			{
-				delay = 3500;
+				delay = 7000;
 			}
 			else
 			{
-				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000)) >> 1;
-				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime >> 2 : cdReadTime >> 1);
+				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
+				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
 			}
 			AddIrqQueue(CdlPause + 0x100, delay);
 			cdr.Ctrl |= 0x80;
@@ -905,7 +907,7 @@ void cdrInterrupt() {
 			Rockman X5 = 0.5-4x
 			- fix capcom logo
 			*/
-			CDRMISC_INT(cdr.Seeked == SEEK_DONE ? 0x400 : cdReadTime * 2);
+			CDRMISC_INT(cdr.Seeked == SEEK_DONE ? 0x800 : cdReadTime * 4);
 			cdr.Seeked = SEEK_PENDING;
 			start_rotating = 1;
 			break;
@@ -989,13 +991,13 @@ void cdrInterrupt() {
 				* It was originally set to 1000000 for Driver, however it is not high enough for Worms Pinball
 				* and was unreliable for that game.
 				* I also tested it against Mednafen and Driver's titlescreen music starts 25 frames later, not immediatly.
-				* 
+				*
 				* Obviously, this isn't perfect but right now, it should be a bit better.
 				* Games to test this against if you change that setting :
 				* - Driver (titlescreen music delay and retry mission)
 				* - Worms Pinball (Will either not boot or crash in the memory card screen)
 				* - Viewpoint (short pauses if the delay in the ingame music is too long)
-				* 
+				*
 				* It seems that 3386880 * 5 is too much for Driver's titlescreen and it starts skipping.
 				* However, 1000000 is not enough for Worms Pinball to reliably boot.
 				*/
@@ -1031,8 +1033,8 @@ void cdrInterrupt() {
 			- fixes cutscenes
 			C-12 - Final Resistance - doesn't like seek
 			*/
-			
-			/*	
+
+			/*
 				By nicolasnoble from PCSX Redux :
 				"It LOOKS like this logic is wrong, therefore disabling it with `&& false` for now.
 				For "PoPoLoCrois Monogatari II", the game logic will soft lock and will never issue GetLocP to detect
@@ -1046,7 +1048,7 @@ void cdrInterrupt() {
 				done right away. It's rather when it's done seeking, and the read has actually started. This probably
 				requires a bit more work to make sure seek delays are processed properly.
 				Checked with a few games, this seems to work fine."
-				
+
 				Gameblabla additional notes :
 				This still needs the "+ seekTime" that PCSX Redux doesn't have for the Driver "retry" mission error.
 			*/
@@ -1162,8 +1164,8 @@ void cdrReadInterrupt() {
 
 	if (cdr.Irq || cdr.Stat) {
 		CDR_LOG_I("cdrom: read stat hack %02x %x\n", cdr.Irq, cdr.Stat);
-		//CDREAD_INT(0x1000);
-		CDREAD_INT(0x800);
+		//CDREAD_INT(0x800);
+		CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
 		return;
 	}
 
@@ -1202,7 +1204,7 @@ void cdrReadInterrupt() {
 			cdr.Channel = cdr.Transfer[4 + 1];
 		}
 
-		/* Gameblabla 
+		/* Gameblabla
 		 * Skips playing on channel 255.
 		 * Fixes missing audio in Blue's Clues : Blue's Big Musical. (Should also fix Taxi 2)
 		 * TODO : Check if this is the proper behaviour.
@@ -1234,7 +1236,7 @@ void cdrReadInterrupt() {
 
 	uint32_t delay = (cdr.Mode & MODE_SPEED) ? (cdReadTime / 2) : cdReadTime;
 	if (cdr.m_locationChanged) {
-		CDREAD_INT(delay * 30);
+		CDREAD_INT(delay * 15);
 		cdr.m_locationChanged = FALSE;
 	} else {
 		CDREAD_INT(delay);
@@ -1289,7 +1291,7 @@ void cdrWrite0(unsigned char rt) {
 	CDR_LOG_IO("cdr w0: %02x\n", rt);
 
 	cdr.Ctrl = (rt & 3) | (cdr.Ctrl & ~3);
-	
+
 	if (rt == 0) {
 		cdr.ParamP = 0;
 		cdr.ParamC = 0;
@@ -1344,7 +1346,7 @@ void cdrWrite1(unsigned char rt) {
 
 	cdr.ResultReady = 0;
 	cdr.Ctrl |= 0x80;
-	// cdr.Stat = NoIntr; 
+	// cdr.Stat = NoIntr;
 	AddIrqQueue(cdr.Cmd, 0x800);
 
 	switch (cdr.Cmd) {
@@ -1456,9 +1458,9 @@ void cdrWrite3(unsigned char rt) {
 
 		if (rt & 0x40)
 			cdr.ParamC = 0;
-		if (cdr.Irq) CDR_INT(cdr.eCycle);
-        if (cdr.Reading && !cdr.ResultReady)
-            CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
+		//if (cdr.Irq) CDR_INT(cdr.eCycle);
+        //if (cdr.Reading && !cdr.ResultReady && cdr.intOk)
+        //    CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime);
 		return;
 	case 2:
 		cdr.AttenuatorLeftToRightT = rt;
@@ -1548,12 +1550,12 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 
 			if( chcr == 0x11400100 ) {
 				HW_DMA3_MADR = SWAPu32(madr + cdsize);
-				CDRDMA_INT( cdsize >> 5 );
+				CDRDMA_INT( (cdsize/4) / 4 );
 			}
 			else if( chcr == 0x11000000 ) {
 				// CDRDMA_INT( (cdsize/4) * 1 );
 				// halted
-				psxRegs.cycle += (((cdsize >> 2) * 24 ) >> 1);
+				psxRegs.cycle += (cdsize/4) * 24/2;
 				CDRDMA_INT(16);
 			}
 			return;
@@ -1615,10 +1617,10 @@ int cdrFreeze(gzFile f, int Mode) {
 
 	if (Mode == 0 && !Config.Cdda)
 		CDR_stop();
-	
+
 	cdr.freeze_ver = 0x63647202;
 	gzfreeze(&cdr, sizeof(cdr));
-	
+
 	if (Mode == 1) {
 		cdr.ParamP = cdr.ParamC;
 		tmp = pTransfer - cdr.Transfer;

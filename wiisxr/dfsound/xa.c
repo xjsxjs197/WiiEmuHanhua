@@ -125,6 +125,9 @@ INLINE void FeedXA(xa_decode_t *xap)
  else              iPlace=(spu.XAEnd-spu.XAFeed) + (spu.XAPlay-spu.XAStart);
 
  if(iPlace==0) return;                                 // no place at all
+ #ifdef DISP_DEBUG
+ PRINT_LOG1("SPUplayADPCMchannel %d=====", iSize);
+ #endif // DISP_DEBUG
 
  //----------------------------------------------------//
  if(spu_config.iXAPitch)                               // pitch change option?

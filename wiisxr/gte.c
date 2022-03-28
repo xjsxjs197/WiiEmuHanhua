@@ -580,7 +580,7 @@ void gteRTPS() {
 	}
 #endif
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
+	//u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
 	gteFLAG = 0;
 
@@ -611,8 +611,8 @@ void gteRTPS() {
 
 	SUM_FLAG;
 	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("asm_rtps=====%llu=", end - start);
+    //u64 end = ticks_to_nanosecs(gettick());
+	//PRINT_LOG1("asm_rtps=====%llu=", end - start);
 	#endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
@@ -689,10 +689,10 @@ void gteRTPT() {
 
     /*asm_rtpt((s32*)psxRegs.CP2C.r, (s32*)psxRegs.CP2D.r);
     #ifdef DISP_DEBUG
-	PRINT_LOG("======asm_rtpt");
+	//PRINT_LOG("======asm_rtpt");
     #endif // DISP_DEBUG*/
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
+	//u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
 	gteFLAG = 0;
 
@@ -733,8 +733,8 @@ void gteRTPT() {
 
 	SUM_FLAG;
 	#ifdef DISP_DEBUG
-	u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("asm_rtpt=====%llu=", end - start);
+	//u64 end = ticks_to_nanosecs(gettick());
+	//PRINT_LOG1("asm_rtpt=====%llu=", end - start);
     #endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
