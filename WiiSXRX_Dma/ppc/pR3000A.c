@@ -1610,6 +1610,7 @@ static void recDIV() {
     }
     #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd, *bZero;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1672,11 +1673,32 @@ static void recDIV() {
 			}
 		}
 	} else {
+	    CMPLWI(GetHWReg32(_Rt_), 0);
+	    BNE_L(bDiv);
+	    CMPLWI(GetHWReg32(_Rs_), 0);
+        BGE_L(bZero);
+
+        LI(PutHWReg32(REG_LO), 1);
+        if (usehi) {
+	        MR(PutHWReg32(REG_HI), GetHWReg32(_Rs_));
+	    }
+        B_L(bEnd);
+
+        B_DST(bZero);
+	    LIW(PutHWReg32(REG_LO), 0xffffffff);
+	    if (usehi) {
+	        MR(PutHWReg32(REG_HI), GetHWReg32(_Rs_));
+	    }
+	    B_L(bEnd);
+
+	    B_DST(bDiv);
 		DIVW(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
 		if (usehi) {
 			MULLW(PutHWReg32(REG_HI), GetHWReg32(REG_LO), GetHWReg32(_Rt_));
 			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
 		}
+
+		B_DST(bEnd);
 	}
 }
 
@@ -1689,6 +1711,7 @@ static void recDIVU() {
     }
     #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1736,11 +1759,22 @@ static void recDIVU() {
 			}
 		}
 	} else {
+	    CMPLWI(GetHWReg32(_Rt_), 0);
+	    BNE_L(bDiv);
+	    LIW(PutHWReg32(REG_LO), 0xffffffff);
+	    if (usehi) {
+	        MR(PutHWReg32(REG_HI), GetHWReg32(_Rs_));
+	    }
+	    B_L(bEnd);
+
+	    B_DST(bDiv);
 		DIVWU(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
 		if (usehi) {
 			MULLW(PutHWReg32(REG_HI), GetHWReg32(_Rt_), GetHWReg32(REG_LO));
 			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
 		}
+
+		B_DST(bEnd);
 	}
 }
 
