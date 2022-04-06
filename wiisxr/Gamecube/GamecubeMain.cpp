@@ -549,15 +549,19 @@ int loadISOSwap(fileBrowser_file* file) {
 
 	memcpy(&isoFile, file, sizeof(fileBrowser_file) );
 
-    cdrIsoMultidiskSelect++;
+    CdromId[0] = '\0';
+    CdromLabel[0] = '\0';
+    //cdrIsoMultidiskSelect++;
+
     CDR_close();
 	//might need to insert code here to trigger a lid open/close interrupt
 	if(CDR_open() < 0)
 		return -1;
+
 	CheckCdrom();
 	LoadCdrom();
 
-	LidInterrupt();
+	//LidInterrupt();
 
 	return 0;
 }
