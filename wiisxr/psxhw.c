@@ -25,6 +25,8 @@
 #include "mdec.h"
 #include "cdrom.h"
 #include "gpu.h"
+#include <ogc/lwp.h>
+#include <ogc/lwp_watchdog.h>
 
 // add xjsxjs197 start
 u32 tmpVal;
@@ -36,6 +38,56 @@ char debug[256];
 #endif // DISP_DEBUG
 // add xjsxjs197 end
 
+static lwpq_t spuQueue;
+static lwp_t spuThreadP = LWP_THREAD_NULL;
+
+static bool stopSpuThreadFlg = false;
+
+void SPU_Delay_nsec()
+{
+	struct timespec elapsed, tv;
+	elapsed.tv_sec = 0;
+	elapsed.tv_nsec = 1000000;
+	tv.tv_sec = elapsed.tv_sec;
+	tv.tv_nsec = elapsed.tv_nsec;
+	nanosleep(&tv, &elapsed);
+}
+
+// (Spu Timer)
+static void *SpuThread(void *arg)
+{
+	while (1)
+	{
+	    if (stopSpuThreadFlg)
+        {
+            break;
+        }
+
+        SPU_Delay_nsec();
+
+	    SPU_async(psxRegs.cycle, 1);
+	}
+	return NULL;
+}
+
+void initSpuThread()
+{
+    if (spuThreadP == LWP_THREAD_NULL)
+    {
+        LWP_CreateThread(&spuThreadP, SpuThread, NULL, NULL, NULL, 95); // (Spu Timer)
+    }
+}
+
+void stopSpuThread()
+{
+    if (spuThreadP != LWP_THREAD_NULL)
+    {
+        stopSpuThreadFlg = true;
+	    LWP_JoinThread(spuThreadP, NULL);
+	    spuThreadP = LWP_THREAD_NULL;
+    }
+}
+
 void psxHwReset() {
 	if (Config.Sio) psxHu32ref(0x1070) |= SWAP32(0x80);
 	if (Config.SpuIrq) psxHu32ref(0x1070) |= SWAP32(0x200);
@@ -46,6 +98,8 @@ void psxHwReset() {
 	cdrReset();
 	psxRcntInit();
 	//HW_GPU_STATUS = 0x14802000;
+
+	//initSpuThread();
 }
 
 u8 psxHwRead8(u32 add) {

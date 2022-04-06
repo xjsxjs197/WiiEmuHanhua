@@ -45,6 +45,7 @@
 extern char * GetGameBios(char * biosPath, char * fileName);
 extern char* filenameFromAbsPath(char* absPath);
 extern u32 __di_check_ahbprot(void);
+extern unsigned int cdrIsoMultidiskSelect;
 
 extern "C" {
 #include "DEBUG.h"
@@ -78,6 +79,8 @@ void SysCloseLibrary(void *lib);
 void SysUpdate();
 void SysRunGui();
 void SysMessage(char *fmt, ...);
+void stopSpuThread();
+void LidInterrupt();
 }
 
 unsigned int* xfb[2] = { NULL, NULL };	/*** Framebuffers ***/
@@ -355,6 +358,8 @@ void ShutdownWii()
 {
 	shutdown = 1;
 	stop = 1;
+
+	//stopSpuThread();
 }
 #endif
 
@@ -544,11 +549,16 @@ int loadISOSwap(fileBrowser_file* file) {
 
 	memcpy(&isoFile, file, sizeof(fileBrowser_file) );
 
+    cdrIsoMultidiskSelect++;
+    CDR_close();
 	//might need to insert code here to trigger a lid open/close interrupt
 	if(CDR_open() < 0)
 		return -1;
 	CheckCdrom();
 	LoadCdrom();
+
+	LidInterrupt();
+
 	return 0;
 }
 

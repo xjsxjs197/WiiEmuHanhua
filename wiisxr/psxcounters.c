@@ -21,11 +21,13 @@
 * Internal PSX counters.
 */
 
+#include <ogc/lwp_watchdog.h>
 #include "psxcounters.h"
 #include "Gamecube/DEBUG.h"
 
 static int cnts = 4;
 psxCounter psxCounters[5];
+static u64 spuTimer = 0;
 
 static void psxRcntUpd(unsigned long index) {
 	psxCounters[index].sCycle = psxRegs.cycle;
@@ -93,6 +95,7 @@ void psxRcntInit() {
 
 	if (SPU_async != NULL) {
 		cnts = 5;
+		spuTimer = 0;
 
 		psxCounters[4].rate = 768 * 64;
 		psxCounters[4].target = 1;
@@ -186,6 +189,12 @@ void psxRcntUpdate() {
 	}
 
 	if (cnts >= 5) {
+//        u64 curSpuTime = ticks_to_microsecs(gettick());
+//		if (curSpuTime >= spuTimer + 1200) {
+//            SPU_async(psxRegs.cycle, 1);
+//            spuTimer = curSpuTime;
+//		}
+
 		if ((psxRegs.cycle - psxCounters[4].sCycle) >= psxCounters[4].Cycle) {
 #ifdef PROFILE
   start_section(AUDIO_SECTION);

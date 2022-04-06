@@ -107,6 +107,9 @@ void psxHwWrite16(u32 add, u16 value);
 void psxHwWrite32(u32 add, u32 value);
 int psxHwFreeze(gzFile f, int Mode);
 
+void initSpuThread();
+void stopSpuThread();
+
 #ifdef __cplusplus
 }
 #endif
