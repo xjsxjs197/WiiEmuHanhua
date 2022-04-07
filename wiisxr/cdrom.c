@@ -233,7 +233,13 @@ void cdrLidSeekInterrupt()
 {
 	switch (cdr.DriveState) {
 	default:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG("========cdrLidSeekInterrupt=====default ");
+        #endif // DISP_DEBUG
 	case DRIVESTATE_STANDBY:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("========cdrLidSeekInterrupt=====DRIVESTATE_STANDBY: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
 		cdr.StatP &= ~STATUS_SEEK;
 
 		if (CDR_getStatus(&stat) == -1)
@@ -248,6 +254,9 @@ void cdrLidSeekInterrupt()
 		break;
 
 	case DRIVESTATE_LID_OPEN:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("========cdrLidSeekInterrupt=====DRIVESTATE_LID_OPEN: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
 		if (CDR_getStatus(&stat) == -1)
 			stat.Status &= ~STATUS_SHELLOPEN;
 
@@ -283,6 +292,9 @@ void cdrLidSeekInterrupt()
 		break;
 
 	case DRIVESTATE_RESCAN_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("========cdrLidSeekInterrupt=====DRIVESTATE_RESCAN_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
 		cdr.StatP |= STATUS_ROTATING;
 		cdr.DriveState = DRIVESTATE_PREPARE_CD;
 
@@ -292,6 +304,9 @@ void cdrLidSeekInterrupt()
 		break;
 
 	case DRIVESTATE_PREPARE_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("========cdrLidSeekInterrupt=====DRIVESTATE_PREPARE_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
 		cdr.StatP |= STATUS_SEEK;
 
 		cdr.DriveState = DRIVESTATE_STANDBY;

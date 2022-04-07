@@ -81,6 +81,7 @@ void SysRunGui();
 void SysMessage(char *fmt, ...);
 void stopSpuThread();
 void LidInterrupt();
+void SysStartCPU();
 }
 
 unsigned int* xfb[2] = { NULL, NULL };	/*** Framebuffers ***/
@@ -551,7 +552,7 @@ int loadISOSwap(fileBrowser_file* file) {
 
     CdromId[0] = '\0';
     CdromLabel[0] = '\0';
-    //cdrIsoMultidiskSelect++;
+    cdrIsoMultidiskSelect++;
 
     CDR_close();
 	//might need to insert code here to trigger a lid open/close interrupt
@@ -561,7 +562,9 @@ int loadISOSwap(fileBrowser_file* file) {
 	CheckCdrom();
 	LoadCdrom();
 
-	//LidInterrupt();
+	LidInterrupt();
+
+	//SysStartCPU();
 
 	return 0;
 }

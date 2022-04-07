@@ -239,7 +239,7 @@ void SPU_async_1ms(SPUCHAN * pChannel,int *SSumL, int *SSumR, int *iFMod)
 												pSpuIrq <= pChannel->pLoop)))
 						{
 							pChannel->iIrqDone=1;                 // -> debug flag
-							PRINT_LOG("irqCallback Sound===========");
+							//PRINT_LOG("irqCallback Sound===========");
 							irqCallback();                        // -> call main emu
 
 						}
