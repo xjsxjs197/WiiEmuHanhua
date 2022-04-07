@@ -46,6 +46,7 @@ extern char * GetGameBios(char * biosPath, char * fileName);
 extern char* filenameFromAbsPath(char* absPath);
 extern u32 __di_check_ahbprot(void);
 extern unsigned int cdrIsoMultidiskSelect;
+extern bool swapIso;
 
 extern "C" {
 #include "DEBUG.h"
@@ -562,7 +563,8 @@ int loadISOSwap(fileBrowser_file* file) {
 	CheckCdrom();
 	LoadCdrom();
 
-	LidInterrupt();
+	//LidInterrupt();
+	swapIso = true;
 
 	//SysStartCPU();
 

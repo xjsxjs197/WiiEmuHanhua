@@ -139,6 +139,8 @@ void cdrWrite2(unsigned char rt);
 void cdrWrite3(unsigned char rt);
 int cdrFreeze(gzFile f, int Mode);
 
+bool swapIso;
+
 #ifdef __cplusplus
 }
 #endif

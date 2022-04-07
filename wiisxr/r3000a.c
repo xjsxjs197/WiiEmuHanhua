@@ -152,6 +152,12 @@ void psxException(u32 code, u32 bd) {
 }
 
 void psxBranchTest() {
+    if (swapIso)
+    {
+        LidInterrupt();
+        swapIso = false;
+    }
+
 	if ((psxRegs.cycle - psxNextsCounter) >= psxNextCounter)
 		psxRcntUpdate();
 
