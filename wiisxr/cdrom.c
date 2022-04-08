@@ -1689,11 +1689,8 @@ void LidInterrupt() {
 	getCdInfo();
 	StopCdda();
 
-    if (swapIso)
-    {
-        //stat.Status |= STATUS_SHELLOPEN;
-        cdr.StatP |= STATUS_SHELLOPEN;
-        cdr.DriveState = DRIVESTATE_RESCAN_CD;
-    }
+    cdr.StatP |= STATUS_SHELLOPEN;
+    cdr.DriveState = DRIVESTATE_RESCAN_CD;
+
 	cdrLidSeekInterrupt();
 }

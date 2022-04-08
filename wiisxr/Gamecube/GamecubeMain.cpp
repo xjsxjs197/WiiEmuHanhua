@@ -82,7 +82,6 @@ void SysRunGui();
 void SysMessage(char *fmt, ...);
 void stopSpuThread();
 void LidInterrupt();
-void SysStartCPU();
 }
 
 unsigned int* xfb[2] = { NULL, NULL };	/*** Framebuffers ***/
@@ -561,12 +560,11 @@ int loadISOSwap(fileBrowser_file* file) {
 		return -1;
 
 	CheckCdrom();
+
+	swapIso = true;
 	LoadCdrom();
 
-	//LidInterrupt();
-	swapIso = true;
-
-	//SysStartCPU();
+	LidInterrupt();
 
 	return 0;
 }

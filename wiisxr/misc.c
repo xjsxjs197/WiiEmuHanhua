@@ -177,9 +177,11 @@ int LoadCdrom() {
 	u8 time[4], *buf;
 	u8 mdir[4096];
 
-	// not the best place to do it, but since BIOS boot logo killer
-	// is just below, do it here
-	//fake_bios_gpu_setup();
+    if (!swapIso) {
+        // not the best place to do it, but since BIOS boot logo killer
+	    // is just below, do it here
+	    fake_bios_gpu_setup();
+    }
 
 	if (!Config.HLE) {
 		if(!LoadCdBios)
