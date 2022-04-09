@@ -1601,9 +1601,74 @@ static void recMULTU() {
 	}
 }
 
+#define inlineDIVW_Comn() \
+	    int rt = GetHWReg32(_Rt_); \
+	    int rs = GetHWReg32(_Rs_); \
+	    int getLo = GetHWReg32(REG_LO); \
+	    int putLo = PutHWReg32(REG_LO); \
+	    CMPLWI(rt, 0); \
+	    BNE_L(bDiv); \
+	    CMPWI(rs, 0); \
+        BGE_L(bZero); \
+ \
+        LI(putLo, 1); \
+        if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+        B_L(bEnd); \
+ \
+        B_DST(bZero); \
+	    LIW(putLo, 0xffffffff); \
+	    if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+	    B_L(bEnd2); \
+ \
+	    B_DST(bDiv); \
+		DIVW(putLo, rs, rt); \
+
+#define inlineDIVW_Const() { \
+        inlineDIVW_Comn(); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+            if ((iRegs[_Rt_].k & 0x7fff) == iRegs[_Rt_].k) { \
+                MULLI(putHi, getLo, iRegs[_Rt_].k); \
+            } else { \
+                MULLW(putHi, getLo, rt); \
+            } \
+            SUB(putHi, rs, getHi); \
+        } \
+ \
+		B_DST(bEnd); \
+		B_DST(bEnd2); \
+} \
+
+#define inlineDIVW_Normal() { \
+        inlineDIVW_Comn(); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+			MULLW(putHi, getLo, rt); \
+			SUB(putHi, rs, getHi); \
+		} \
+ \
+		B_DST(bEnd); \
+		B_DST(bEnd2); \
+} \
+
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
+    #ifdef DISP_DEBUG
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIV 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd, *bEnd2, *bZero;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1611,10 +1676,27 @@ static void recDIV() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        if ((s32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIV 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k  >= 0 ? 0xffffffff : 1);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (s32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIV 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
@@ -1638,28 +1720,50 @@ static void recDIV() {
 				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
 			}
 		} else {
-			DIVW(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-			if (usehi) {
-				if ((iRegs[_Rt_].k & 0x7fff) == iRegs[_Rt_].k) {
-					MULLI(PutHWReg32(REG_HI), GetHWReg32(REG_LO), iRegs[_Rt_].k);
-				} else {
-					MULLW(PutHWReg32(REG_HI), GetHWReg32(REG_LO), GetHWReg32(_Rt_));
-				}
-				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-			}
+			inlineDIVW_Const();
 		}
 	} else {
-		DIVW(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-		if (usehi) {
-			MULLW(PutHWReg32(REG_HI), GetHWReg32(REG_LO), GetHWReg32(_Rt_));
-			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-		}
+	    inlineDIVW_Normal();
 	}
 }
 
+#define inlineDIVWU() { \
+	    int rt = GetHWReg32(_Rt_); \
+	    int rs = GetHWReg32(_Rs_); \
+	    int getLo = GetHWReg32(REG_LO); \
+	    int putLo = PutHWReg32(REG_LO); \
+	    CMPLWI(rt, 0);  \
+	    BNE_L(bDiv); \
+ \
+	    LIW(putLo, 0xffffffff); \
+	    if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+	    B_L(bEnd); \
+ \
+	    B_DST(bDiv); \
+		DIVWU(putLo, rs, rt); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+			MULLW(putHi, rt, getLo); \
+			SUB(putHi, rs, getHi); \
+		} \
+ \
+		B_DST(bEnd); \
+} \
+
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
+    #ifdef DISP_DEBUG
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIVU 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1667,10 +1771,28 @@ static void recDIVU() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        if ((u32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIVU 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, 0xffffffff);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (u32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIVU 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
@@ -1682,18 +1804,10 @@ static void recDIVU() {
 				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
 			}
 		} else {
-			DIVWU(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-			if (usehi) {
-				MULLW(PutHWReg32(REG_HI), GetHWReg32(_Rt_), GetHWReg32(REG_LO));
-				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-			}
+			inlineDIVWU();
 		}
 	} else {
-		DIVWU(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-		if (usehi) {
-			MULLW(PutHWReg32(REG_HI), GetHWReg32(_Rt_), GetHWReg32(REG_LO));
-			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-		}
+	    inlineDIVWU();
 	}
 }
 

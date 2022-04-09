@@ -181,6 +181,8 @@ int LoadCdrom() {
         // not the best place to do it, but since BIOS boot logo killer
 	    // is just below, do it here
 	    fake_bios_gpu_setup();
+    } else {
+        swapIso = false;
     }
 
 	if (!Config.HLE) {
