@@ -30,6 +30,7 @@
 #include "registers.h"
 #include "out.h"
 #include "spu_config.h"
+#include "../coredebug.h"
 
 #ifdef __arm__
 #include "arm_features.h"

@@ -205,6 +205,97 @@ static void setIrq(void)
 		psxRegs.interrupt|= 0x80000000;
 	}
 }
+
+// timing used in this function was taken from tests on real hardware
+// (yes it's slow, but you probably don't want to modify it)
+void cdrLidSeekInterrupt()
+{
+	switch (cdr.DriveState) {
+	default:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG("cdrLidSeekInterrupt=default ");
+        #endif // DISP_DEBUG
+	case DRIVESTATE_STANDBY:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_STANDBY: %x ", stat.Status);
+        #endif // DISP_DEBUG
+		cdr.StatP &= ~STATUS_SEEK;
+
+		if (CDR_getStatus(&stat) == -1)
+			return;
+
+        #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_STANDBY2: %x ", stat.Status);
+        #endif // DISP_DEBUG
+		if (stat.Status & STATUS_SHELLOPEN)
+		{
+			StopCdda();
+			cdr.DriveState = DRIVESTATE_LID_OPEN;
+			CDRLID_INT(0x800);
+		}
+		break;
+
+	case DRIVESTATE_LID_OPEN:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_LID_OPEN: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		if (CDR_getStatus(&stat) == -1)
+			stat.Status &= ~STATUS_SHELLOPEN;
+
+		// 02, 12, 10
+		if (!(cdr.StatP & STATUS_SHELLOPEN)) {
+			StopReading();
+			cdr.StatP |= STATUS_SHELLOPEN;
+
+			// could generate error irq here, but real hardware
+			// only sometimes does that
+			// (not done when lots of commands are sent?)
+
+			CDRLID_INT(cdReadTime * 30);
+			break;
+		}
+		else if (cdr.StatP & STATUS_ROTATING) {
+			cdr.StatP &= ~STATUS_ROTATING;
+		}
+		else if (!(stat.Status & STATUS_SHELLOPEN)) {
+			// closed now
+			CheckCdrom();
+
+			// cdr.StatP STATUS_SHELLOPEN is "sticky"
+			// and is only cleared by CdlNop
+
+			cdr.DriveState = DRIVESTATE_RESCAN_CD;
+			CDRLID_INT(cdReadTime * 105);
+			break;
+		}
+
+		// recheck for close
+		CDRLID_INT(cdReadTime * 3);
+		break;
+
+	case DRIVESTATE_RESCAN_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_RESCAN_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		cdr.StatP |= STATUS_ROTATING;
+		cdr.DriveState = DRIVESTATE_PREPARE_CD;
+
+		// this is very long on real hardware, over 6 seconds
+		// make it a bit faster here...
+		CDRLID_INT(cdReadTime * 150);
+		break;
+
+	case DRIVESTATE_PREPARE_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_PREPARE_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		cdr.StatP |= STATUS_SEEK;
+
+		cdr.DriveState = DRIVESTATE_STANDBY;
+		CDRLID_INT(cdReadTime * 26);
+		break;
+	}
+}
 // ReadTrack=========================
 void ReadTrack() {
     unsigned char tmp[3];
@@ -252,6 +343,8 @@ void AddIrqQueue(unsigned char irq, unsigned long ecycle) {
 }
 
 void cdrInterrupt() {
+	int no_busy_error = 0;
+	int start_rotating = 0;
 	int i;
 	unsigned char Irq = cdr.Irq;
 
@@ -290,6 +383,9 @@ void cdrInterrupt() {
     	case CdlNop:
 			SetResultSize(1);
         	cdr.Result[0] = cdr.StatP;
+			if (cdr.DriveState != DRIVESTATE_LID_OPEN)
+				cdr.StatP &= ~STATUS_SHELLOPEN;
+			no_busy_error = 1;
         	cdr.Stat = Acknowledge;
 			i = stat.Status;
         	if (CDR_getStatus(&stat) != -1) {
@@ -382,6 +478,8 @@ void cdrInterrupt() {
 //			if (!cdr.Init) {
 				AddIrqQueue(CdlInit + 0x20, 0x800);
 //			}
+            no_busy_error = 1;
+			start_rotating = 1;
         	break;
 
 		case CdlInit + 0x20:
@@ -417,6 +515,7 @@ void cdrInterrupt() {
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
+			no_busy_error = 1;
         	break;
 
     	case CdlGetmode:
@@ -429,6 +528,7 @@ void cdrInterrupt() {
         	cdr.Result[4] = 0;
         	cdr.Result[5] = 0;
         	cdr.Stat = Acknowledge;
+			no_busy_error = 1;
         	break;
 
     	case CdlGetlocL:
@@ -539,7 +639,8 @@ void cdrInterrupt() {
 					SetResultSize(8);
 					memcpy(cdr.Result, Test23, 4);
 					break;
-        	}
+			}
+			no_busy_error = 1;
 			break;
 
     	case CdlID:
@@ -582,8 +683,18 @@ void cdrInterrupt() {
 		case CdlReset:
 			SetResultSize(1);
         	cdr.StatP = 0x2;
+			// yes, it really sets STATUS_SHELLOPEN
+			cdr.StatP |= STATUS_SHELLOPEN;
+			cdr.DriveState = DRIVESTATE_RESCAN_CD;
+			CDRLID_INT(20480);
+			no_busy_error = 1;
+			start_rotating = 1;
 			cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
+			break;
+        
+		case CdlGetQ:
+			no_busy_error = 1;
 			break;
 
     	case CdlReadToc:
@@ -592,6 +703,8 @@ void cdrInterrupt() {
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
 			AddIrqQueue(CdlReadToc + 0x20, 0x800);
+			no_busy_error = 1;
+			start_rotating = 1;
 			break;
 
     	case CdlReadToc + 0x20:
@@ -599,6 +712,7 @@ void cdrInterrupt() {
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Complete;
+			no_busy_error = 1;
 			break;
 
 		case AUTOPAUSE:
@@ -663,6 +777,24 @@ void cdrInterrupt() {
 		default:
 			cdr.Stat = Complete;
 			break;
+	}
+	
+	if (cdr.DriveState == DRIVESTATE_STOPPED && start_rotating) {
+		cdr.DriveState = DRIVESTATE_STANDBY;
+		cdr.StatP |= STATUS_ROTATING;
+	}
+
+	if (!no_busy_error) {
+		switch (cdr.DriveState) {
+		case DRIVESTATE_LID_OPEN:
+		case DRIVESTATE_RESCAN_CD:
+		case DRIVESTATE_PREPARE_CD:
+			SetResultSize(2);
+			cdr.Result[0] = cdr.StatP | STATUS_ERROR;
+			cdr.Result[1] = ERROR_NOTREADY;
+			cdr.Stat = DiskError;
+			break;
+		}
 	}
 
 	if (cdr.Stat != NoIntr && cdr.Reg2 != 0x18) {
@@ -1235,6 +1367,17 @@ void cdrDmaInterrupt()
 	}
 }
 
+static void getCdInfo(void)
+{
+	u8 tmp;
+
+	CDR_getTN(cdr.ResultTN);
+	CDR_getTD(0, cdr.SetSectorEnd);
+	tmp = cdr.SetSectorEnd[0];
+	cdr.SetSectorEnd[0] = cdr.SetSectorEnd[2];
+	cdr.SetSectorEnd[2] = tmp;
+}
+
 void cdrReset() {
 	memset(&cdr, 0, sizeof(cdr));
 	cdr.CurTrack = 1;
@@ -1242,8 +1385,10 @@ void cdrReset() {
 	cdr.Channel = 1;
 	cdr.Reg2 = 0x1f;
 	cdr.Stat = NoIntr;
+	cdr.DriveState = DRIVESTATE_STANDBY;
 	cdr.StatP = STATUS_ROTATING;
 	cdr.pTransfer = cdr.Transfer;
+	getCdInfo();
 }
 
 int cdrFreeze(gzFile f, int Mode) {
@@ -1258,4 +1403,12 @@ int cdrFreeze(gzFile f, int Mode) {
 	return 0;
 }
 
+void LidInterrupt() {
+	getCdInfo();
+	StopCdda();
 
+    cdr.StatP |= STATUS_SHELLOPEN;
+    cdr.DriveState = DRIVESTATE_RESCAN_CD;
+
+	cdrLidSeekInterrupt();
+}

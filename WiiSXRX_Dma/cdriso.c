@@ -259,7 +259,9 @@ static void stopCDDA() {
 		return;
 	}
 
-    PRINT_LOG("========stopCDDA========");
+    #ifdef DISP_DEBUG
+    //PRINT_LOG("========stopCDDA========");
+    #endif // DISP_DEBUG
 	playing = FALSE;
 
 	//pthread_join(threadid, NULL);
@@ -272,7 +274,10 @@ static void startCDDA(void) {
 		stopCDDA();
 	}
 
-    PRINT_LOG("========startCDDA========");
+    #ifdef DISP_DEBUG
+    //PRINT_LOG("========startCDDA========");
+    #endif // DISP_DEBUG
+
 	playing = TRUE;
 
 	//pthread_create(&threadid, NULL, playthread, NULL);

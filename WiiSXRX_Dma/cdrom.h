@@ -55,9 +55,6 @@ typedef struct {
 
 	unsigned char Transfer[DATA_SIZE];
 	unsigned char *pTransfer;
-	// added by xjsxjs197 start
-	unsigned char *pTransferFast;
-	// added by xjsxjs197 end
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
@@ -74,6 +71,7 @@ typedef struct {
 
 	unsigned char ResultTN[6];
 	unsigned char ResultTD[4];
+	unsigned char SetSectorEnd[4];
 	unsigned char SetSector[4];
 	unsigned char SetSectorSeek[4];
 	unsigned char Track;
@@ -94,6 +92,8 @@ typedef struct {
 
 	int Seeked;
 
+	u8 DriveState;
+	u8 FastForward;
 	char Unused[4083];
 } cdrStruct;
 
@@ -102,6 +102,11 @@ cdrStruct cdr;
 void cdrReset();
 void cdrInterrupt();
 void cdrReadInterrupt();
+void cdrRepplayInterrupt();
+void cdrLidSeekInterrupt();
+void cdrPlayInterrupt();
+void cdrDmaInterrupt();
+void LidInterrupt();
 unsigned char cdrRead0(void);
 unsigned char cdrRead1(void);
 unsigned char cdrRead2(void);
@@ -111,6 +116,8 @@ void cdrWrite1(unsigned char rt);
 void cdrWrite2(unsigned char rt);
 void cdrWrite3(unsigned char rt);
 int cdrFreeze(gzFile f, int Mode);
+
+bool swapIso;
 
 #ifdef __cplusplus
 }
