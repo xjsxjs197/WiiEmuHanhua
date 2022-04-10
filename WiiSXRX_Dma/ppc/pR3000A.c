@@ -1606,7 +1606,7 @@ static void recMULTU() {
 	    int rs = GetHWReg32(_Rs_); \
 	    int getLo = GetHWReg32(REG_LO); \
 	    int putLo = PutHWReg32(REG_LO); \
-	    CMPLWI(rt, 0); \
+	    CMPWI(rt, 0); /* singed cmp */ \
 	    BNE_L(bDiv); \
 	    CMPWI(rs, 0); \
         BGE_L(bZero); \
@@ -1732,7 +1732,7 @@ static void recDIV() {
 	    int rs = GetHWReg32(_Rs_); \
 	    int getLo = GetHWReg32(REG_LO); \
 	    int putLo = PutHWReg32(REG_LO); \
-	    CMPLWI(rt, 0);  \
+	    CMPLWI(rt, 0); /* unsinged cmp */ \
 	    BNE_L(bDiv); \
  \
 	    LIW(putLo, 0xffffffff); \
