@@ -36,10 +36,6 @@ extern "C" {
 //#define itob(i)     ((i) / 10 * 16 + (i) % 10) /* u_char to BCD */
 #define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 
-#define ABS_CD(x) ((x >= 0) ? x : -x)
-#define MIN_VALUE(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a < _b ? _a : _b; })
-#define MAX_VALUE(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
-
 #define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
 
 #define CD_FRAMESIZE_RAW		2352
@@ -57,17 +53,8 @@ typedef struct {
 
 	unsigned char StatP;
 
-	unsigned char Transfer[DATA_SIZE];
-	struct {
-		unsigned char Track;
-		unsigned char Index;
-		unsigned char Relative[3];
-		unsigned char Absolute[3];
-	} subq;
-	unsigned char TrackChanged;
-	bool     m_locationChanged;
-	unsigned char pad1[2];
-	unsigned int  freeze_ver;
+	unsigned char Transfer[CD_FRAMESIZE_RAW];
+	unsigned int  transferIndex;
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
@@ -105,16 +92,24 @@ typedef struct {
 	u32 eCycle;
 
 	u8 Seeked;
+	u8 ReadRescheduled;
 
 	u8 DriveState;
 	u8 FastForward;
 	u8 FastBackward;
-	u8 pad;
 
 	u8 AttenuatorLeftToLeft, AttenuatorLeftToRight;
 	u8 AttenuatorRightToRight, AttenuatorRightToLeft;
 	u8 AttenuatorLeftToLeftT, AttenuatorLeftToRightT;
 	u8 AttenuatorRightToRightT, AttenuatorRightToLeftT;
+
+	struct {
+		unsigned char Track;
+		unsigned char Index;
+		unsigned char Relative[3];
+		unsigned char Absolute[3];
+	} subq;
+	unsigned char TrackChanged;
 } cdrStruct;
 
 extern cdrStruct cdr;
@@ -124,7 +119,7 @@ void cdrAttenuate(s16 *buf, int samples, int stereo);
 
 void cdrInterrupt();
 void cdrReadInterrupt();
-void cdrRepplayInterrupt();
+void cdrDecodedBufferInterrupt();
 void cdrLidSeekInterrupt();
 void cdrPlayInterrupt();
 void cdrDmaInterrupt();
