@@ -493,7 +493,7 @@ void cdrPlayInterrupt()
 {
 	if (cdr.Seeked == SEEK_PENDING) {
 		if (cdr.Stat) {
-			CDRMISC_INT( 0x100 );
+			CDRMISC_INT( 0x800 );
 			return;
 		}
 		SetResultSize(1);
@@ -564,7 +564,7 @@ void cdrInterrupt() {
 
 	// Reschedule IRQ
 	if (cdr.Stat) {
-		CDR_INT( 0x100 );
+		CDR_INT( 0x800 );
 		return;
 	}
 
@@ -692,8 +692,9 @@ void cdrInterrupt() {
 				error = ERROR_INVALIDARG;
 				goto set_error;
 			}
-			AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
+			//AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
 			start_rotating = 1;
+			cdr.Stat = Complete;
 			break;
 
 		case CdlStandby + 0x100:
@@ -713,12 +714,15 @@ void cdrInterrupt() {
 			StopCdda();
 			StopReading();
 
-			delay = 0x800;
-			if (cdr.DriveState == DRIVESTATE_STANDBY)
-				delay = cdReadTime * 30 / 2;
+			//delay = 0x800;
+			//if (cdr.DriveState == DRIVESTATE_STANDBY)
+			//	delay = cdReadTime * 30 / 2;
 
 			cdr.DriveState = DRIVESTATE_STOPPED;
-			AddIrqQueue(CdlStop + 0x100, delay);
+			//AddIrqQueue(CdlStop + 0x100, delay);
+			cdr.StatP &= ~STATUS_ROTATING;
+			cdr.Result[0] = cdr.StatP;
+			cdr.Stat = Complete;
 			break;
 
 		case CdlStop + 0x100:
@@ -738,7 +742,8 @@ void cdrInterrupt() {
 			InuYasha - Feudal Fairy Tale: slower
 			- Fixes battles
 			*/
-			AddIrqQueue(CdlPause + 0x100, cdReadTime * 3);
+			//AddIrqQueue(CdlPause + 0x100, cdReadTime * 3);
+			AddIrqQueue(CdlPause + 0x100, 0x800);
 			cdr.Ctrl |= 0x80;
 			break;
 
@@ -750,7 +755,10 @@ void cdrInterrupt() {
 			break;
 
 		case CdlInit:
-			AddIrqQueue(CdlInit + 0x100, cdReadTime * 6);
+            cdr.Muted = FALSE;
+			cdr.Mode = 0x20; /* Needed for This is Football 2, Pooh's Party and possibly others. */
+			//AddIrqQueue(CdlInit + 0x100, cdReadTime * 6);
+			AddIrqQueue(CdlInit + 0x100, 0x800);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;
@@ -883,7 +891,8 @@ void cdrInterrupt() {
 			break;
 
 		case CdlID:
-			AddIrqQueue(CdlID + 0x100, 20480);
+			//AddIrqQueue(CdlID + 0x100, 20480);
+			AddIrqQueue(CdlID + 0x100, 0x800);
 			break;
 
 		case CdlID + 0x100:
@@ -927,7 +936,8 @@ void cdrInterrupt() {
 			break;
 
 		case CdlReadToc:
-			AddIrqQueue(CdlReadToc + 0x100, cdReadTime * 180 / 4);
+			//AddIrqQueue(CdlReadToc + 0x100, cdReadTime * 180 / 4);
+			AddIrqQueue(CdlReadToc + 0x100, 0x800);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;
@@ -1093,7 +1103,7 @@ void cdrReadInterrupt() {
 		return;
 
 	if (cdr.Irq || cdr.Stat) {
-		CDREAD_INT(0x100);
+		CDREAD_INT(0x800);
 		return;
 	}
 
@@ -1475,10 +1485,12 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 			psxCpu->Clear(madr, cdsize >> 2);
 
 			if( chcr == 0x11400100 ) {
-				CDRDMA_INT( (cdsize/4) / 4 );
+				//CDRDMA_INT( (cdsize/4) / 4 );
+				CDRDMA_INT( cdsize >> 5 );
 			}
 			else if( chcr == 0x11000000 ) {
-				CDRDMA_INT( (cdsize/4) * 1 );
+				//CDRDMA_INT( (cdsize/4) * 1 );
+				CDRDMA_INT( 16 );
 			}
 			return;
 
