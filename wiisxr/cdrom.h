@@ -55,6 +55,16 @@ typedef struct {
 
 	unsigned char Transfer[CD_FRAMESIZE_RAW];
 	unsigned int  transferIndex;
+    struct {
+		unsigned char Track;
+		unsigned char Index;
+		unsigned char Relative[3];
+		unsigned char Absolute[3];
+	} subq;
+	unsigned char TrackChanged;
+	bool m_locationChanged;
+	unsigned char pad1[2];
+	unsigned int  freeze_ver;
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
@@ -97,19 +107,12 @@ typedef struct {
 	u8 DriveState;
 	u8 FastForward;
 	u8 FastBackward;
+	u8 pad;
 
 	u8 AttenuatorLeftToLeft, AttenuatorLeftToRight;
 	u8 AttenuatorRightToRight, AttenuatorRightToLeft;
 	u8 AttenuatorLeftToLeftT, AttenuatorLeftToRightT;
 	u8 AttenuatorRightToRightT, AttenuatorRightToLeftT;
-
-	struct {
-		unsigned char Track;
-		unsigned char Index;
-		unsigned char Relative[3];
-		unsigned char Absolute[3];
-	} subq;
-	unsigned char TrackChanged;
 } cdrStruct;
 
 extern cdrStruct cdr;

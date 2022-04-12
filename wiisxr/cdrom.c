@@ -493,7 +493,7 @@ void cdrPlayInterrupt()
 {
 	if (cdr.Seeked == SEEK_PENDING) {
 		if (cdr.Stat) {
-			CDRMISC_INT( 0x800 );
+			CDRMISC_INT(0x1000);
 			return;
 		}
 		SetResultSize(1);
@@ -509,6 +509,7 @@ void cdrPlayInterrupt()
 		if (cdr.SetlocPending) {
 			memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 			cdr.SetlocPending = 0;
+			cdr.m_locationChanged = TRUE;
 		}
 		Find_CurTrack(cdr.SetSectorPlay);
 		ReadTrack(cdr.SetSectorPlay);
@@ -549,7 +550,15 @@ void cdrPlayInterrupt()
 		}
 	}
 
-	CDRMISC_INT(cdReadTime);
+	if (cdr.m_locationChanged)
+	{
+		CDRMISC_INT(cdReadTime * 30);
+		cdr.m_locationChanged = FALSE;
+	}
+	else
+	{
+		CDRMISC_INT(cdReadTime);
+	}
 
 	// update for CdlGetlocP/autopause
 	generate_subq(cdr.SetSectorPlay);
@@ -561,10 +570,11 @@ void cdrInterrupt() {
 	int start_rotating = 0;
 	int error = 0;
 	int delay;
+	unsigned int seekTime = 0;
 
 	// Reschedule IRQ
 	if (cdr.Stat) {
-		CDR_INT( 0x800 );
+		CDR_INT(0x1000);
 		return;
 	}
 
@@ -611,6 +621,7 @@ void cdrInterrupt() {
 			if (cdr.SetlocPending) {
 				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 				cdr.SetlocPending = 0;
+				cdr.m_locationChanged = TRUE;
 			}
 
 			// BIOS CD Player
@@ -692,9 +703,10 @@ void cdrInterrupt() {
 				error = ERROR_INVALIDARG;
 				goto set_error;
 			}
-			//AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
+			AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
+			//AddIrqQueue(CdlStandby + 0x100, cdReadTime);
 			start_rotating = 1;
-			cdr.Stat = Complete;
+			//cdr.Stat = Complete;
 			break;
 
 		case CdlStandby + 0x100:
@@ -714,15 +726,18 @@ void cdrInterrupt() {
 			StopCdda();
 			StopReading();
 
-			//delay = 0x800;
-			//if (cdr.DriveState == DRIVESTATE_STANDBY)
-			//	delay = cdReadTime * 30 / 2;
+			delay = 0x800;
+			if (cdr.DriveState == DRIVESTATE_STANDBY)
+				delay = cdReadTime * 30 / 2;
+//			delay = 0x400;
+//			if (cdr.DriveState == DRIVESTATE_STANDBY)
+//				delay = cdReadTime;
 
 			cdr.DriveState = DRIVESTATE_STOPPED;
-			//AddIrqQueue(CdlStop + 0x100, delay);
-			cdr.StatP &= ~STATUS_ROTATING;
-			cdr.Result[0] = cdr.StatP;
-			cdr.Stat = Complete;
+			AddIrqQueue(CdlStop + 0x100, delay);
+//			cdr.StatP &= ~STATUS_ROTATING;
+//			cdr.Result[0] = cdr.StatP;
+//			cdr.Stat = Complete;
 			break;
 
 		case CdlStop + 0x100:
@@ -742,8 +757,8 @@ void cdrInterrupt() {
 			InuYasha - Feudal Fairy Tale: slower
 			- Fixes battles
 			*/
-			//AddIrqQueue(CdlPause + 0x100, cdReadTime * 3);
-			AddIrqQueue(CdlPause + 0x100, 0x800);
+			AddIrqQueue(CdlPause + 0x100, cdReadTime * 3);
+			//AddIrqQueue(CdlPause + 0x100, 0x800);
 			cdr.Ctrl |= 0x80;
 			break;
 
@@ -757,8 +772,8 @@ void cdrInterrupt() {
 		case CdlInit:
             cdr.Muted = FALSE;
 			cdr.Mode = 0x20; /* Needed for This is Football 2, Pooh's Party and possibly others. */
-			//AddIrqQueue(CdlInit + 0x100, cdReadTime * 6);
-			AddIrqQueue(CdlInit + 0x100, 0x800);
+			AddIrqQueue(CdlInit + 0x100, cdReadTime * 6);
+			//AddIrqQueue(CdlInit + 0x100, 0x800);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;
@@ -936,8 +951,8 @@ void cdrInterrupt() {
 			break;
 
 		case CdlReadToc:
-			//AddIrqQueue(CdlReadToc + 0x100, cdReadTime * 180 / 4);
-			AddIrqQueue(CdlReadToc + 0x100, 0x800);
+			AddIrqQueue(CdlReadToc + 0x100, cdReadTime * 180 / 4);
+			//AddIrqQueue(CdlReadToc + 0x100, 0x800);
 			no_busy_error = 1;
 			start_rotating = 1;
 			break;
@@ -950,8 +965,11 @@ void cdrInterrupt() {
 		case CdlReadN:
 		case CdlReadS:
 			if (cdr.SetlocPending) {
+				seekTime = abs(msf2sec(cdr.SetSectorPlay) - msf2sec(cdr.SetSector)) * (cdReadTime / 200);
+				if(seekTime > 1000000) seekTime = 1000000;
 				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
 				cdr.SetlocPending = 0;
+				cdr.m_locationChanged = TRUE;
 			}
 			Find_CurTrack(cdr.SetSectorPlay);
 
@@ -989,12 +1007,12 @@ void cdrInterrupt() {
 				// - fix cutscene speech (startup)
 
 				// ??? - use more accurate seek time later
-				CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime) : cdReadTime * 2);
+				CDREAD_INT(((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1) + seekTime);
 			} else {
 				cdr.StatP |= STATUS_READ;
 				cdr.StatP &= ~STATUS_SEEK;
 
-				CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime) : cdReadTime * 2);
+				CDREAD_INT((cdr.Mode & 0x80) ? (cdReadTime / 2) : cdReadTime * 1);
 			}
 
 			cdr.Result[0] = cdr.StatP;
@@ -1485,12 +1503,12 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 			psxCpu->Clear(madr, cdsize >> 2);
 
 			if( chcr == 0x11400100 ) {
-				//CDRDMA_INT( (cdsize/4) / 4 );
-				CDRDMA_INT( cdsize >> 5 );
+				CDRDMA_INT( (cdsize/4) / 4 );
+				//CDRDMA_INT( cdsize >> 5 );
 			}
 			else if( chcr == 0x11000000 ) {
-				//CDRDMA_INT( (cdsize/4) * 1 );
-				CDRDMA_INT( 16 );
+				CDRDMA_INT( (cdsize/4) * 1 );
+				//CDRDMA_INT( 16 );
 			}
 			return;
 
@@ -1533,6 +1551,7 @@ void cdrReset() {
 	cdr.Stat = NoIntr;
 	cdr.DriveState = DRIVESTATE_STANDBY;
 	cdr.StatP = STATUS_ROTATING;
+	cdr.m_locationChanged = FALSE;
 
 	// BIOS player - default values
 	cdr.AttenuatorLeftToLeft = 0x80;
