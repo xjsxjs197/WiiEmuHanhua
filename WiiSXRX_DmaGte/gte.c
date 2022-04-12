@@ -582,15 +582,11 @@ void gteRTPS() {
 #endif
 
     #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_rtps shift 12 error=====");
-    }
 	#endif // DISP_DEBUG
 
 	gteFLAG = 0;
 
-    //gte_rtps_comn_mac1(psxRegs.CP2C.r, psxRegs.CP2D.r, 0);
+    asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
 	GTE_RTPS1(0);
 
 	MAC2IR();

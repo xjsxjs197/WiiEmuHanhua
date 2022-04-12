@@ -125,25 +125,25 @@ NC_OVERFLOW_H_Flag:
     blr
 
 // float divide fr6: gteSZX, fr5: retVAl
-//NATIVE_DIVIDE:
-//    psq_l       fr5,106(r3),1,4      // fr5 = gteH   (psxRegs.CP2C.p[26].w.l)
-//    fmuls       fr7, fr16, fr6
-//    fcmpu       fr0, fr5, fr7
-//    blt         DIVIDE_DO            // if gteH < gteSZX * 2
-//    b           DIVIDE_OVERFLOW
-//    blr
-//
-//DIVIDE_DO:
-//    fmuls       fr5, fr5, fr17       // gteH << 16
-//    fdivs       fr5, fr5, fr6        // gteH << 16 / gteSZX
-//    fcmpu       fr0, fr18, fr5       // retVal > 0x1ffff
-//    blt         DIVIDE_OVERFLOW
-//    blr
-//
-//DIVIDE_OVERFLOW:
-//    oris        r8, r8, 2            // set overflow flag 1<<17
-//    fmr         fr5, fr18
-//    blr
+NATIVE_DIVIDE:
+    psq_l       fr5,106(r3),1,4      // fr5 = gteH   (psxRegs.CP2C.p[26].w.l)
+    fmuls       fr7, fr16, fr6
+    fcmpu       fr0, fr5, fr7
+    blt         DIVIDE_DO            // if gteH < gteSZX * 2
+    b           DIVIDE_OVERFLOW
+    blr
+
+DIVIDE_DO:
+    fmuls       fr5, fr5, fr17       // gteH << 16
+    fdivs       fr5, fr5, fr6        // gteH << 16 / gteSZX
+    fcmpu       fr0, fr18, fr5       // retVal > 0x1ffff
+    blt         DIVIDE_OVERFLOW
+    blr
+
+DIVIDE_OVERFLOW:
+    oris        r8, r8, 2            // set overflow flag 1<<17
+    fmr         fr5, fr18
+    blr
 
 // int divide r6: gteSZX, fr5: retVAl
 //NATIVE_DIVIDE:
@@ -166,61 +166,61 @@ NC_OVERFLOW_H_Flag:
 //    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
 //    frsp fr5, fr5                    // fr3 = TRY(single)
 //    blr
-
+//
 //DIVIDE_OVERFLOW:
 //    oris        r8, r8, 2            // set overflow flag 1<<17
 //    lfs		    fr5,MAXDIV@sdarel(r13)// fr5 = 0x1ffff
 //    blr
 
 // int divide use table r6: gteSZX, fr5: retVAl
-NATIVE_DIVIDE:
-    lhz         r9, 106(r3)          // r9 = gteH   (psxRegs.CP2C.p[26].w.l)
-    rotlwi      r10, r6, 1
-    cmp         0, 1, r9, r10
-    blt         DIVIDE_DO            // if gteH < gteSZX * 2
-    b		    DIVIDE_OVERFLOW
-    blr
-
-DIVIDE_DO:
-    addi        r10, 0, 32767
-    addi        r10, r10, 1
-    cmp         0, 1, r6, r10        // gteSZX < 32768
-    blt         DIVIDE_LOW
-    sub         r10, r6, r10
-    rotlwi      r10, r10, 2
-    lwz         r6, 128(r4)          // load table addr psxRegs.CP2D r[32]
-    lwzx        r15, r10, r6         // load table index value
-    mulhw       r9, r9, r15          // r9 = h * iSz
-
-    addi        r6, 0, 1
-    rotlwi      r6, r6, 15
-    add         r6, r6, r9
-    rotrwi      r9, r6, 16
-
-    //lwz         r15, DivOverflow@sdarel(r13)
-    //cmp         0, 1, r15, r9        // retVal > 0x1ffff
-    //blt         DIVIDE_OVERFLOW
-    xoris r9, r9, 0x8000
-    stw r9, FloatBufB1@sdarel(r13)
-    lfd fr5, FloatBufA1@sdarel(r13)
-    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
-    frsp fr5, fr5                    // fr3 = TRY(single)
-    blr
-
-DIVIDE_LOW:
-    rotlwi      r9, r9, 16           // gteH << 16
-    divwu       r9, r9, r6           // gteH << 16 / gteSZX
-    xoris r9, r9, 0x8000
-    stw r9, FloatBufB1@sdarel(r13)
-    lfd fr5, FloatBufA1@sdarel(r13)
-    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
-    frsp fr5, fr5                    // fr3 = TRY(single)
-    blr
-
-DIVIDE_OVERFLOW:
-    oris        r8, r8, 2            // set overflow flag 1<<17
-    fmr         fr5, fr18
-    blr
+//NATIVE_DIVIDE:
+//    lhz         r9, 106(r3)          // r9 = gteH   (psxRegs.CP2C.p[26].w.l)
+//    rotlwi      r10, r6, 1
+//    cmp         0, 1, r9, r10
+//    blt         DIVIDE_DO            // if gteH < gteSZX * 2
+//    b		    DIVIDE_OVERFLOW
+//    blr
+//
+//DIVIDE_DO:
+//    addi        r10, 0, 32767
+//    addi        r10, r10, 1
+//    cmp         0, 1, r6, r10        // gteSZX < 32768
+//    blt         DIVIDE_LOW
+//    sub         r10, r6, r10
+//    rotlwi      r10, r10, 2
+//    lwz         r6, 128(r4)          // load table addr psxRegs.CP2D r[32]
+//    lwzx        r15, r10, r6         // load table index value
+//    mulhw       r9, r9, r15          // r9 = h * iSz
+//
+//    addi        r6, 0, 1
+//    rotlwi      r6, r6, 15
+//    add         r6, r6, r9
+//    rotrwi      r9, r6, 16
+//
+//    //lwz         r15, DivOverflow@sdarel(r13)
+//    //cmp         0, 1, r15, r9        // retVal > 0x1ffff
+//    //blt         DIVIDE_OVERFLOW
+//    xoris r9, r9, 0x8000
+//    stw r9, FloatBufB1@sdarel(r13)
+//    lfd fr5, FloatBufA1@sdarel(r13)
+//    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
+//    frsp fr5, fr5                    // fr3 = TRY(single)
+//    blr
+//
+//DIVIDE_LOW:
+//    rotlwi      r9, r9, 16           // gteH << 16
+//    divwu       r9, r9, r6           // gteH << 16 / gteSZX
+//    xoris r9, r9, 0x8000
+//    stw r9, FloatBufB1@sdarel(r13)
+//    lfd fr5, FloatBufA1@sdarel(r13)
+//    fsub fr5, fr5, fr10Kmagic        // fr3 = TRY(double)
+//    frsp fr5, fr5                    // fr3 = TRY(single)
+//    blr
+//
+//DIVIDE_OVERFLOW:
+//    oris        r8, r8, 2            // set overflow flag 1<<17
+//    fmr         fr5, fr18
+//    blr
 
 asm_rtps_comn_mac:
     mfspr r18, lr                    // save link register
@@ -373,8 +373,8 @@ asm_rtps_comn_sxy:
     sth r7, 0(r5)                    // gteSZ3  (regs->CP2D.p[19].w.l)
 
     // DIVIDE(gteH, gteSZ3) and limE
-    //psq_l fr6, 0(r5), 1, 4           // fr6 = gteSZ3  (regs->CP2D.p[19].w.l)
-    lhz r6, 0(r5)                    // r6 = getSZX
+    psq_l fr6, 0(r5), 1, 4           // fr6 = gteSZ3  (regs->CP2D.p[19].w.l)
+    //lhz r6, 0(r5)                    // r6 = getSZX
     bl NATIVE_DIVIDE                 // fr5 = limE(DIVIDE(gteH, gteSZ3))
 
     // (s64)gteOFX + ((s64)gteIR1 * quotient)
