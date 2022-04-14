@@ -493,141 +493,141 @@ asm_rtps_comn_init:
 	ps_merge00  fr14ShiftR12,fr14ShiftR12,fr14ShiftR12  // fr14 = 1 >> 12, 1 >> 12
 	blr
 
-.globl gte_rtps_comn_mac
+//.globl gte_rtps_comn_mac
 // r3: CP2C, r4: CP2D
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
 // r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
 // r5: vxy start addr(0, 4, 8)
-gte_rtps_comn_mac:
-    lfd         fr10Kmagic, kmagic@sdarel(r13)
-    lfs		    fr14ShiftR12, UnitShiftR12@sdarel(r13)
-    add         r5, r4, r5
-    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
-    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
+//gte_rtps_comn_mac:
+//    lfd         fr10Kmagic, kmagic@sdarel(r13)
+//    lfs		    fr14ShiftR12, UnitShiftR12@sdarel(r13)
+//    add         r5, r4, r5
+//    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
+//    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
+//
+//    psq_l		fr2, 0(r3), 0, 5     // fr2 = m12, m11
+//	psq_l		fr3, 6(r3), 1, 5     // fr3 = m13, 1.0
+//
+//    psq_l		fr4, 4(r3), 1, 5     // fr4 = m21, 1.0
+//	psq_l		fr5, 10(r3), 1, 5    // fr5 = m22, 1.0
+//
+//	ps_mul		fr2, fr2, fr0        // fr2 = m12 * y, m11 * x
+//
+//	ps_merge10  fr1, fr1, fr1        // fr1 = z, 0
+//
+//	psq_l		fr6, 12(r3), 0, 5    // fr6 = m32, m31
+//	psq_l		fr7, 18(r3), 1, 5    // fr7 = m33, 1.0
+//
+//	ps_merge00  fr4, fr5, fr4        // fr4 = m22, m21
+//
+//	ps_madd		fr2, fr3, fr1, fr2   // fr2 = (m13 * z) + (m12 * y), (1.0 * 0.0) + (m11 * x)
+//
+//	ps_mul		fr6, fr6, fr0        // fr6 = m32 * y, m31 * x
+//    ps_mul		fr4, fr4, fr0        // fr1 = m22 * y, m21 * x
+//    psq_l		fr5, 8(r3), 1, 5     // fr5 = m23, 1.0
+//
+//	ps_sum0		fr2, fr2, fr2, fr2   // fr2 = (m13 * z) + (m12 * y) + (1.0 * 0.0) + (m11 * x), 1.0 = SUMX
+//
+//    ps_madd		fr6, fr7, fr1, fr6   // fr6 = (m33 * z) + (m32 * y), (1.0 * 0.0) + (m31 * x)
+//	ps_madd		fr4, fr5, fr1, fr4   // fr4 = (m23 * z) + (m22 * y), (1.0 * 0.0) + (m21 * x)
+//
+//    ps_sum0		fr6, fr6, fr6, fr6   // fr6 = (m33 * z) + (m32 * y) + (1.0 * 0.0) + (m31 * x), 1.0 = SUMZ
+//	ps_sum0		fr4, fr4, fr4, fr4   // fr4 = (m23 * z) + (m22 * y) + (1.0 * 0.0) + (m21 * x), 1.0 = SUMY
+//
+//    ps_merge00  fr2, fr2, fr4        // fr2 = SUMX, SUMY
+//
+//    // load TRX, TRY, TRZ to float
+//    lwz r6, 20(r3)                   // gteTRX (((s32 *)regs->CP2C.r)[5])
+//    lwz r7, 24(r3)                   // gteTRY (((s32 *)regs->CP2C.r)[6])
+//    lwz r8, 28(r3)                   // gteTRZ (((s32 *)regs->CP2C.r)[7])
+//    xoris r6, r6, 0x8000
+//    xoris r7, r7, 0x8000
+//    xoris r8, r8, 0x8000
+//    stw r6, FloatBufB1@sdarel(r13)
+//    stw r7, FloatBufB2@sdarel(r13)
+//    stw r8, FloatBufB3@sdarel(r13)
+//    lfd fr3, FloatBufA1@sdarel(r13)
+//    lfd fr4, FloatBufA2@sdarel(r13)
+//    lfd fr5, FloatBufA3@sdarel(r13)
+//    fsub fr3, fr3, fr10Kmagic        // fr3 = TRX(double)
+//    fsub fr4, fr4, fr10Kmagic        // fr4 = TRY(double)
+//    fsub fr5, fr5, fr10Kmagic        // fr5 = TRZ(double)
+//    frsp fr3, fr3                    // fr3 = TRX(single)
+//    frsp fr4, fr4                    // fr4 = TRY(single)
+//    frsp fr5, fr5                    // fr5 = TRZ(single)
+//
+//    ps_merge00  fr3, fr3, fr4        // fr3 = TRX, TRY
+//    //ps_madd     fr2, fr2, fr14ShiftR12, fr3 // fr2 = SUMX >> 12 + TRX, SUMY >> 12 + TRY
+//    //ps_madd     fr5, fr6, fr14ShiftR12, fr5 // fr5 = SUMZ >> 12 + TRZ, 0
+//    ps_add     fr2, fr2, fr3         // fr2 = SUMX + TRX, SUMY + TRY
+//    ps_add     fr5, fr6, fr5         // fr5 = SUMZ + TRZ, 0
+//
+//    fctiw      fr0, fr2              // SUMX + TRX => int
+//    addi       r9, r4, 100
+//    addi       r10, r9, 8
+//    fctiw      fr1, fr5              // SUMZ + TRZ => int
+//    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY + TRY
+//
+//    stfiwx     fr0, 0, r9            // SUMX + TRX => gteMAC1 CP2D.r)[25]
+//    stfiwx     fr1, 0, r10           // SUMZ + TRZ => gteMAC3 CP2D.r)[27]
+//
+//    fctiw      fr3, fr2              // SUMY + TRY => int
+//    addi       r9, r9, 4
+//    stfiwx     fr3, 0, r9            // SUMY + TRY => gteMAC2 CP2D.r)[26]
+//
+//    blr
 
-    psq_l		fr2, 0(r3), 0, 5     // fr2 = m12, m11
-	psq_l		fr3, 6(r3), 1, 5     // fr3 = m13, 1.0
-
-    psq_l		fr4, 4(r3), 1, 5     // fr4 = m21, 1.0
-	psq_l		fr5, 10(r3), 1, 5    // fr5 = m22, 1.0
-
-	ps_mul		fr2, fr2, fr0        // fr2 = m12 * y, m11 * x
-
-	ps_merge10  fr1, fr1, fr1        // fr1 = z, 0
-
-	psq_l		fr6, 12(r3), 0, 5    // fr6 = m32, m31
-	psq_l		fr7, 18(r3), 1, 5    // fr7 = m33, 1.0
-
-	ps_merge00  fr4, fr5, fr4        // fr4 = m22, m21
-
-	ps_madd		fr2, fr3, fr1, fr2   // fr2 = (m13 * z) + (m12 * y), (1.0 * 0.0) + (m11 * x)
-
-	ps_mul		fr6, fr6, fr0        // fr6 = m32 * y, m31 * x
-    ps_mul		fr4, fr4, fr0        // fr1 = m22 * y, m21 * x
-    psq_l		fr5, 8(r3), 1, 5     // fr5 = m23, 1.0
-
-	ps_sum0		fr2, fr2, fr2, fr2   // fr2 = (m13 * z) + (m12 * y) + (1.0 * 0.0) + (m11 * x), 1.0 = SUMX
-
-    ps_madd		fr6, fr7, fr1, fr6   // fr6 = (m33 * z) + (m32 * y), (1.0 * 0.0) + (m31 * x)
-	ps_madd		fr4, fr5, fr1, fr4   // fr4 = (m23 * z) + (m22 * y), (1.0 * 0.0) + (m21 * x)
-
-    ps_sum0		fr6, fr6, fr6, fr6   // fr6 = (m33 * z) + (m32 * y) + (1.0 * 0.0) + (m31 * x), 1.0 = SUMZ
-	ps_sum0		fr4, fr4, fr4, fr4   // fr4 = (m23 * z) + (m22 * y) + (1.0 * 0.0) + (m21 * x), 1.0 = SUMY
-
-    ps_merge00  fr2, fr2, fr4        // fr2 = SUMX, SUMY
-
-    // load TRX, TRY, TRZ to float
-    lwz r6, 20(r3)                   // gteTRX (((s32 *)regs->CP2C.r)[5])
-    lwz r7, 24(r3)                   // gteTRY (((s32 *)regs->CP2C.r)[6])
-    lwz r8, 28(r3)                   // gteTRZ (((s32 *)regs->CP2C.r)[7])
-    xoris r6, r6, 0x8000
-    xoris r7, r7, 0x8000
-    xoris r8, r8, 0x8000
-    stw r6, FloatBufB1@sdarel(r13)
-    stw r7, FloatBufB2@sdarel(r13)
-    stw r8, FloatBufB3@sdarel(r13)
-    lfd fr3, FloatBufA1@sdarel(r13)
-    lfd fr4, FloatBufA2@sdarel(r13)
-    lfd fr5, FloatBufA3@sdarel(r13)
-    fsub fr3, fr3, fr10Kmagic        // fr3 = TRX(double)
-    fsub fr4, fr4, fr10Kmagic        // fr4 = TRY(double)
-    fsub fr5, fr5, fr10Kmagic        // fr5 = TRZ(double)
-    frsp fr3, fr3                    // fr3 = TRX(single)
-    frsp fr4, fr4                    // fr4 = TRY(single)
-    frsp fr5, fr5                    // fr5 = TRZ(single)
-
-    ps_merge00  fr3, fr3, fr4        // fr3 = TRX, TRY
-    //ps_madd     fr2, fr2, fr14ShiftR12, fr3 // fr2 = SUMX >> 12 + TRX, SUMY >> 12 + TRY
-    //ps_madd     fr5, fr6, fr14ShiftR12, fr5 // fr5 = SUMZ >> 12 + TRZ, 0
-    ps_add     fr2, fr2, fr3         // fr2 = SUMX + TRX, SUMY + TRY
-    ps_add     fr5, fr6, fr5         // fr5 = SUMZ + TRZ, 0
-
-    fctiw      fr0, fr2              // SUMX + TRX => int
-    addi       r9, r4, 100
-    addi       r10, r9, 8
-    fctiw      fr1, fr5              // SUMZ + TRZ => int
-    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY + TRY
-
-    stfiwx     fr0, 0, r9            // SUMX + TRX => gteMAC1 CP2D.r)[25]
-    stfiwx     fr1, 0, r10           // SUMZ + TRZ => gteMAC3 CP2D.r)[27]
-
-    fctiw      fr3, fr2              // SUMY + TRY => int
-    addi       r9, r9, 4
-    stfiwx     fr3, 0, r9            // SUMY + TRY => gteMAC2 CP2D.r)[26]
-
-    blr
-
-.globl gte_rtps_comn_mac1
+//.globl gte_rtps_comn_mac1
 // r3: CP2C, r4: CP2D
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
 // r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
 // r5: vxy start addr(0, 4, 8)
-gte_rtps_comn_mac1:
-    add         r5, r4, r5
-    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
-    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
-
-	psq_l		fr3, 0(r3), 1, 5     // fr3 = m12, 1.0
-    psq_l		fr4, 10(r3), 1, 5    // fr4 = m22, 1.0
-    psq_l		fr2, 2(r3), 0, 5     // fr2 = m11, m21
-
-    ps_merge11  fr6, fr0, fr0        // fr6 = x, x
-    ps_merge00  fr7, fr0, fr0        // fr7 = y, y
-    ps_merge11  fr8, fr1, fr1        // fr8 = z, z
-
-    ps_merge00  fr3, fr3, fr4        // fr3 = m12, m22
-	psq_l		fr5, 6(r3), 0, 5     // fr5 = m13, m23
-
-	ps_mul		fr2, fr2, fr6        // fr2 = m11 * x, m21 * x
-
-	psq_l		fr9, 14(r3), 1, 5    // fr9 = m31, 1.0
-	psq_l		fr10, 12(r3), 1, 5   // fr10 = m32, 1.0
-
-	ps_madd		fr2, fr3, fr7, fr2   // fr2 = (m12 * y) + (m11 * x), (m22 * y) + (m21 * x)
-
-	ps_mul		fr9, fr9, fr6        // fr2 = m31 * x, 1.0 * x
-
-	psq_l		fr11, 18(r3), 1, 5   // fr11 = m33, 1.0
-	ps_madd		fr9, fr10, fr7, fr9  // fr9 = (m32 * y) + (m31 * x), (1.0 * y) + (1.0 * x)
-
-	ps_madd		fr2, fr5, fr8, fr2   // fr2 = (m13 * z) + (m12 * y) + (m11 * x), (m23 * z) + (m22 * y) + (m21 * x) = SUMX / SUMY
-
-	ps_madd		fr9, fr11, fr8, fr9  // fr9 = (m33 * z) + (m32 * y) + (m31 * x), (1.0 * z) + (1.0 * y) + (1.0 * x) = SUMZ
-
-    fctiw      fr0, fr2              // SUMX => int
-    addi       r9, r4, 100
-    addi       r10, r9, 8
-    fctiw      fr1, fr9              // SUMZ => int
-    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY
-
-    stfiwx     fr0, 0, r9            // SUMX => gteMAC1 CP2D.r)[25]
-    stfiwx     fr1, 0, r10           // SUMZ => gteMAC3 CP2D.r)[27]
-
-    fctiw      fr3, fr2              // SUMY => int
-    addi       r9, r9, 4
-    stfiwx     fr3, 0, r9            // SUMY => gteMAC2 CP2D.r)[26]
-
-    blr
+//gte_rtps_comn_mac1:
+//    add         r5, r4, r5
+//    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
+//    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
+//
+//	psq_l		fr3, 0(r3), 1, 5     // fr3 = m12, 1.0
+//    psq_l		fr4, 10(r3), 1, 5    // fr4 = m22, 1.0
+//    psq_l		fr2, 2(r3), 0, 5     // fr2 = m11, m21
+//
+//    ps_merge11  fr6, fr0, fr0        // fr6 = x, x
+//    ps_merge00  fr7, fr0, fr0        // fr7 = y, y
+//    ps_merge11  fr8, fr1, fr1        // fr8 = z, z
+//
+//    ps_merge00  fr3, fr3, fr4        // fr3 = m12, m22
+//	psq_l		fr5, 6(r3), 0, 5     // fr5 = m13, m23
+//
+//	ps_mul		fr2, fr2, fr6        // fr2 = m11 * x, m21 * x
+//
+//	psq_l		fr9, 14(r3), 1, 5    // fr9 = m31, 1.0
+//	psq_l		fr10, 12(r3), 1, 5   // fr10 = m32, 1.0
+//
+//	ps_madd		fr2, fr3, fr7, fr2   // fr2 = (m12 * y) + (m11 * x), (m22 * y) + (m21 * x)
+//
+//	ps_mul		fr9, fr9, fr6        // fr2 = m31 * x, 1.0 * x
+//
+//	psq_l		fr11, 18(r3), 1, 5   // fr11 = m33, 1.0
+//	ps_madd		fr9, fr10, fr7, fr9  // fr9 = (m32 * y) + (m31 * x), (1.0 * y) + (1.0 * x)
+//
+//	ps_madd		fr2, fr5, fr8, fr2   // fr2 = (m13 * z) + (m12 * y) + (m11 * x), (m23 * z) + (m22 * y) + (m21 * x) = SUMX / SUMY
+//
+//	ps_madd		fr9, fr11, fr8, fr9  // fr9 = (m33 * z) + (m32 * y) + (m31 * x), (1.0 * z) + (1.0 * y) + (1.0 * x) = SUMZ
+//
+//    fctiw      fr0, fr2              // SUMX => int
+//    addi       r9, r4, 100
+//    addi       r10, r9, 8
+//    fctiw      fr1, fr9              // SUMZ => int
+//    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY
+//
+//    stfiwx     fr0, 0, r9            // SUMX => gteMAC1 CP2D.r)[25]
+//    stfiwx     fr1, 0, r10           // SUMZ => gteMAC3 CP2D.r)[27]
+//
+//    fctiw      fr3, fr2              // SUMY => int
+//    addi       r9, r9, 4
+//    stfiwx     fr3, 0, r9            // SUMY => gteMAC2 CP2D.r)[26]
+//
+//    blr
 
 .globl asm_rtps
 // r3: CP2C, r4: CP2D

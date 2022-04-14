@@ -164,8 +164,8 @@
 
 extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
 extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
-extern void gte_rtps_comn_mac(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
-extern void gte_rtps_comn_mac1(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
+//extern void gte_rtps_comn_mac(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
+//extern void gte_rtps_comn_mac1(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
 
 __inline u32 MFC2(int reg) {
 	switch(reg) {
@@ -455,15 +455,9 @@ __inline s32 FlimG2(s64 x) {
 //********END OF LIMITATIONS**********************************/
 
 #define GTE_RTPS1(vn) { \
-    if (psxRegs.code & 0x80000) { \
-        gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn) + gteTRX << 12) >> 12); \
-        gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn) + gteTRY << 12) >> 12); \
-	    gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn) + gteTRZ << 12) >> 12); \
-    } else { \
-	    gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)) + gteTRX << 12); \
-	    gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)) + gteTRY << 12); \
-	    gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)) + gteTRZ << 12); \
-    }\
+	gteMAC1 = FNC_OVERFLOW1(((signed long)(gteR11*gteVX##vn + gteR12*gteVY##vn + gteR13*gteVZ##vn)>>12) + gteTRX); \
+	gteMAC2 = FNC_OVERFLOW2(((signed long)(gteR21*gteVX##vn + gteR22*gteVY##vn + gteR23*gteVZ##vn)>>12) + gteTRY); \
+	gteMAC3 = FNC_OVERFLOW3(((signed long)(gteR31*gteVX##vn + gteR32*gteVY##vn + gteR33*gteVZ##vn)>>12) + gteTRZ); \
 }
 /*
 #define GTE_RTPS1(vn) { \
@@ -584,10 +578,10 @@ void gteRTPS() {
     #ifdef DISP_DEBUG
 	#endif // DISP_DEBUG
 
-	gteFLAG = 0;
+	//gteFLAG = 0;
 
     asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
-	GTE_RTPS1(0);
+	/*GTE_RTPS1(0);
 
 	MAC2IR();
 
@@ -605,11 +599,11 @@ void gteRTPS() {
 
 	GTE_RTPS3();
 
-	SUM_FLAG;
+	SUM_FLAG;*/
 	#ifdef DISP_DEBUG
     //u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("asm_rtps=====%llu=", end - start);
-    #endif // DISP_DEBUG
+	#endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -684,15 +678,9 @@ void gteRTPT() {
     #ifdef DISP_DEBUG
 	//u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
-	#ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_rtpt shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
-    //asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
+    asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
 
-	gteFLAG = 0;
+	/*gteFLAG = 0;
 
 	gteSZx = gteSZ2;
 
@@ -729,8 +717,7 @@ void gteRTPT() {
 
 	GTE_RTPS3();
 
-	SUM_FLAG;
-
+	SUM_FLAG;*/
 	#ifdef DISP_DEBUG
 	//u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("asm_rtpt=====%llu=", end - start);
@@ -774,9 +761,9 @@ void gteRTPT() {
 #define gte_C33 gteLB3
 
 #define _MVMVA_FUNC(_v0, _v1, _v2, mx) { \
-    SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
-    SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
-    SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
+	SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
+	SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
+	SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
 }
 
 void gteMVMVA() {
@@ -923,12 +910,6 @@ void gteAVSZ3() {
 	}
 #endif
 
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_avz3 shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 
 	gteFLAG = 0;
 
@@ -969,12 +950,6 @@ void gteAVSZ4() {
 		G_SC(30);
 	}
 #endif
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_zvsz4 shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 
 	gteFLAG = 0;
 
@@ -1056,8 +1031,8 @@ void gteSQR() {
 
 void gteNCCS()  {
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
-	#endif // DISP_DEBUG
+	//PRINT_LOG("========gteNCCS======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 
@@ -1099,12 +1074,6 @@ void gteNCCS()  {
 	}
 #endif
 
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_nccs shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 	gteFLAG = 0;
 
 	GTE_NCCS(0);
@@ -1118,11 +1087,6 @@ void gteNCCS()  {
 	MAC2IR1();
 
 	SUM_FLAG
-
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCCS=====%llu=", end - start);
-    #endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -1147,14 +1111,8 @@ void gteNCCS()  {
 
 void gteNCCT() {
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
-	#endif // DISP_DEBUG
-	#ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_ncct shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
+	//PRINT_LOG("========gteNCCT======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 
@@ -1226,11 +1184,6 @@ void gteNCCT() {
 	MAC2IR1();
 
 	SUM_FLAG
-
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCCT=====%llu=", end - start);
-    #endif // DISP_DEBUG
 
 #ifdef GTE_DUMP
 	if(sample < 100)
@@ -1305,14 +1258,8 @@ gte_BBLT= limA3U(gteBBK/4096.0f + (gteLB1/4096.0f*gte_LL1 + gteLB2/4096.0f*gte_L
 
 void gteNCDS() {
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
-	#endif // DISP_DEBUG
-	#ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_ncds shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
+	//PRINT_LOG("========gteNCDS======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 	s32 gte_RR0, gte_GG0, gte_BB0;
@@ -1407,11 +1354,6 @@ void gteNCDS() {
 
 	SUM_FLAG;
 
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCDS=====%llu=", end - start);
-    #endif // DISP_DEBUG
-
 #ifdef GTE_DUMP
 	if(sample < 100)
 	{
@@ -1434,14 +1376,8 @@ void gteNCDS() {
 
 void gteNCDT() {
     #ifdef DISP_DEBUG
-	u64 start = ticks_to_nanosecs(gettick());
-	#endif // DISP_DEBUG
-	#ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_ncdt shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
+	//PRINT_LOG("========gteNCDT======");
+    #endif // DISP_DEBUG
 	s32 gte_LL1, gte_LL2, gte_LL3;
 	s32 gte_RRLT, gte_GGLT, gte_BBLT;
 	s32 gte_RR0, gte_GG0, gte_BB0;
@@ -1624,11 +1560,6 @@ void gteNCDT() {
 
 	SUM_FLAG;
 
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCDT=====%llu=", end - start);
-    #endif // DISP_DEBUG
-
 #ifdef GTE_DUMP
 	if(sample < 100)
 	{
@@ -1713,12 +1644,6 @@ void gteOP() {
 
 void gteDCPL() {
 //	unsigned long C,R,G,B;
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_dcpl shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -1913,12 +1838,6 @@ void gteGPL() {
 }
 
 void gteDPCS() {
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_dpcs shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -1998,12 +1917,6 @@ void gteDPCS() {
 }
 
 void gteDPCT() {
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_dpct shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -2142,15 +2055,6 @@ void gteDPCT() {
 	gteMAC3 = F12limA3U(gteBBK + ((gteLB1*gte_LL1 + gteLB2*gte_LL2 + gteLB3*gte_LL3) >> 12)); \
 
 void gteNCS() {
-    #ifdef DISP_DEBUG
-    u64 start = ticks_to_nanosecs(gettick());
-    #endif // DISP_DEBUG
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_ncs shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 	s32 gte_LL1,gte_LL2,gte_LL3;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
@@ -2210,11 +2114,6 @@ void gteNCS() {
 
 	SUM_FLAG
 
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCS=====%llu=", end - start);
-    #endif // DISP_DEBUG
-
 #ifdef GTE_DUMP
 	if(sample < 100)
 	{
@@ -2236,15 +2135,6 @@ void gteNCS() {
 }
 
 void gteNCT() {
-    #ifdef DISP_DEBUG
-    u64 start = ticks_to_nanosecs(gettick());
-    #endif // DISP_DEBUG
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_nct shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 	s32 gte_LL1,gte_LL2,gte_LL3;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
@@ -2322,11 +2212,6 @@ void gteNCT() {
 
 	SUM_FLAG
 
-	#ifdef DISP_DEBUG
-    u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("NCT=====%llu=", end - start);
-    #endif // DISP_DEBUG
-
 #ifdef GTE_DUMP
 	if(sample < 100)
 	{
@@ -2348,12 +2233,6 @@ void gteNCT() {
 }
 
 void gteCC() {
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_cc shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 	s32 RR0,GG0,BB0;
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
@@ -2423,12 +2302,6 @@ void gteCC() {
 }
 
 void gteINTPL() { //test opcode
-    #ifdef DISP_DEBUG
-	if (!(psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_intpl shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 #ifdef GTE_DUMP
 	static int sample = 0; sample++;
 #endif
@@ -2521,12 +2394,6 @@ void gteINTPL() { //test opcode
 }
 
 void gteCDP() { //test opcode
-    #ifdef DISP_DEBUG
-	if ((psxRegs.code & 0x80000))
-    {
-        PRINT_LOG("get_cdp not shift 12 error=====");
-    }
-	#endif // DISP_DEBUG
 	float RR0,GG0,BB0;
 //	s32 RR0,GG0,BB0;
 #ifdef GTE_DUMP

@@ -43,7 +43,7 @@ void DF_SPUreadDMAMem(unsigned short *pusPSXMem, int iSize,
 {
  int i;
 
- do_samples_if_needed(cycles, 1);
+ //do_samples_if_needed(cycles, 1);
 
  for(i=0;i<iSize;i++)
   {
@@ -83,7 +83,7 @@ void DF_SPUwriteDMAMem(unsigned short *pusPSXMem, int iSize,
 {
  int i;
 
- do_samples_if_needed(cycles, 1);
+ //do_samples_if_needed(cycles, 1);
  spu.bMemDirty = 1;
 
  if(spu.spuAddr + iSize*2 < 0x80000)
