@@ -56,8 +56,9 @@ typedef struct {
 
 	unsigned char StatP;
 
-	unsigned char Transfer[DATA_SIZE];
-	struct {
+	unsigned char Transfer[CD_FRAMESIZE_RAW];
+	unsigned int  transferIndex;
+    struct {
 		unsigned char Track;
 		unsigned char Index;
 		unsigned char Relative[3];
@@ -92,7 +93,7 @@ typedef struct {
 	int CurTrack;
 	int Mode, File, Channel;
 	int Reset;
-	int NoErr;
+	int RErr;
 	int FirstSector;
 
 	xa_decode_t Xa;
@@ -137,7 +138,7 @@ void cdrWrite0(unsigned char rt);
 void cdrWrite1(unsigned char rt);
 void cdrWrite2(unsigned char rt);
 void cdrWrite3(unsigned char rt);
-int cdrFreeze(void *f, int Mode);
+int cdrFreeze(gzFile f, int Mode);
 
 bool swapIso;
 
