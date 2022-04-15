@@ -126,7 +126,7 @@ INLINE void FeedXA(xa_decode_t *xap)
 
  if(iPlace==0) return;                                 // no place at all
  #ifdef DISP_DEBUG
- PRINT_LOG1("SPUplayADPCMchannel %d=====", iSize);
+ //PRINT_LOG1("SPUplayADPCMchannel %d=====", iSize);
  #endif // DISP_DEBUG
 
  //----------------------------------------------------//

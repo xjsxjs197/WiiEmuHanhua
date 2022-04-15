@@ -2,12 +2,13 @@
 0x800375c8:   3c 80 81 27   	lis r4, -0x7ed9
 0x800375cc:   38 84 28 40   	addi r4, r4, 0x2840
 0x800375d0:   38 64 00 80   	addi r3, r4, 0x80
-0x800375d4:   48 06 3e f4   	b 0x8009b4c8 <asm_rtpt>
+0x800375d4:   48 06 3e f4   	b 0x8009b4c8 <asm_rtpt>    ============OK
+
 ; function: gteRTPS at 0x800375d8 -- 0x800375e8
 0x800375d8:   3c 80 81 27   	lis r4, -0x7ed9
 0x800375dc:   38 84 28 40   	addi r4, r4, 0x2840
 0x800375e0:   38 64 00 80   	addi r3, r4, 0x80
-0x800375e4:   48 06 3e 90   	b 0x8009b474 <asm_rtps>
+0x800375e4:   48 06 3e 90   	b 0x8009b474 <asm_rtps>    ============OK
 
 
 ; function: FNC_OVERFLOW1 at 0x8009b104 -- 0x8009b13c
@@ -41,9 +42,7 @@
 0x8009b168:   4e 80 00 20   	blr  
 
 ; function: NATIVE_DIVIDE at 0x8009b16c -- 0x8009b16d
-; data inside code section at 0x8009b16d -- 0x8009b170
-0x8009b16d:   a3 c0 6a                                           |..j             |
-; function: function_8009b170 at 0x8009b170 -- 0x8009b1a4
+0x8009b16c:   e0 a3 c0 6a            
 0x8009b170:   ec f0 01 b2   	fmuls f7, f16, f6
 0x8009b174:   fc 05 38 00   	fcmpu cr0, f5, f7
 0x8009b178:   41 80 00 0c   	blt 0x8009b184 <function_8009b170+0x14>
@@ -159,11 +158,9 @@
 0x8009b318:   4b ff fe 25   	bl 0x8009b13c <NC_OVERFLOW>
 0x8009b31c:   b0 e5 00 00   	sth r7, 0(r5)
 0x8009b320:   e0 c5 c0 00    
-; function: function_8009b324 at 0x8009b324 -- 0x8009b330
 0x8009b324:   4b ff fe 49   	bl 0x8009b16c <NATIVE_DIVIDE>
 0x8009b328:   81 23 00 60   	lwz r9, 0x60(r3)
 0x8009b32c:   81 43 00 64   	lwz r10, 0x64(r3)
-; data inside code section at 0x8009b330 -- 0x8009b374
 0x8009b330:   e0 24 b0 26 
               e0 44 b0 2a  
               10 a5 2c 20 
@@ -181,18 +178,15 @@
               10 00 0c 20 
               10 02 01 7a 
 0x8009b370:   11 00 00 90   
-; function: function_8009b374 at 0x8009b374 -- 0x8009b38c
 0x8009b374:   3d 40 00 01   	lis r10, 1
 0x8009b378:   39 20 7f ff   	li r9, 0x7fff
 0x8009b37c:   39 29 00 01   	addi r9, r9, 1
 0x8009b380:   4b ff fd 85   	bl 0x8009b104 <FNC_OVERFLOW1>
 0x8009b384:   4b ff fd 95   	bl 0x8009b118
 0x8009b388:   11 ef 7c 20   	vmhaddshs v15, v15, v15, v16
-; data inside code section at 0x8009b38c -- 0x8009b398
 0x8009b38c:   11 08 03 f2  
               11 08 44 a0  
               f1 10 30 00  
-; function: function_8009b398 at 0x8009b398 -- 0x8009b3d0
 0x8009b398:   a8 d0 00 02   	lha r6, 2(r16)
 0x8009b39c:   39 20 40 00   	li r9, 0x4000
 0x8009b3a0:   39 40 40 00   	li r10, 0x4000
@@ -207,11 +201,10 @@
 0x8009b3c4:   b0 f0 00 00   	sth r7, 0(r16)
 0x8009b3c8:   7e 48 03 a6   	mtlr r18
 0x8009b3cc:   4e 80 00 20   	blr 
+
 ; function: asm_rtps_comn_dqab at 0x8009b3d0 -- 0x8009b3d4
 0x8009b3d0:   7e 48 02 a6   	mflr r18
-; data inside code section at 0x8009b3d4 -- 0x8009b3d8
-0x8009b3d4:   e0 03 b0 6e                                        |...n            |
-; function: function_8009b3d8 at 0x8009b3d8 -- 0x8009b414
+0x8009b3d4:   e0 03 b0 6e 
 0x8009b3d8:   81 23 00 70   	lwz r9, 0x70(r3)
 0x8009b3dc:   6d 29 80 00   	xoris r9, r9, 0x8000
 0x8009b3e0:   91 2d 80 50   	stw r9, -0x7fb0(r13)
@@ -227,9 +220,7 @@
 0x8009b408:   39 24 00 60   	addi r9, r4, 0x60
 0x8009b40c:   7c 20 4f ae   	stfiwx f1, 0, r9
 0x8009b410:   ed 08 03 b2   	fmuls f8, f8, f14
-; data inside code section at 0x8009b414 -- 0x8009b418
-0x8009b414:   f1 04 b0 22                                        |..."            |
-; function: function_8009b418 at 0x8009b418 -- 0x8009b43c
+0x8009b414:   f1 04 b0 22 
 0x8009b418:   a8 c4 00 22   	lha r6, 0x22(r4)
 0x8009b41c:   39 20 10 00   	li r9, 0x1000
 0x8009b420:   39 40 10 00   	li r10, 0x1000
@@ -239,6 +230,7 @@
 0x8009b430:   90 e4 00 20   	stw r7, 0x20(r4)
 0x8009b434:   7e 48 03 a6   	mtlr r18
 0x8009b438:   4e 80 00 20   	blr 
+
 ; function: asm_rtps_comn_init at 0x8009b43c -- 0x8009b474
 0x8009b43c:   39 00 00 00   	li r8, 0
 0x8009b440:   c9 4d 80 64   	lfd f10, -0x7f9c(r13)
@@ -254,6 +246,7 @@
 0x8009b468:   11 8c 64 20   	vmhaddshs v12, v12, v12, v16
 0x8009b46c:   11 ce 74 20   	vmhaddshs v14, v14, v14, v16
 0x8009b470:   4e 80 00 20   	blr 
+
 ; function: asm_rtps at 0x8009b474 -- 0x8009b4c8
 0x8009b474:   7d 68 02 a6   	mflr r11
 0x8009b478:   4b ff ff c5   	bl 0x8009b43c <asm_rtps_comn_init>
@@ -276,6 +269,7 @@
 0x8009b4bc:   91 03 00 7c   	stw r8, 0x7c(r3)
 0x8009b4c0:   7d 68 03 a6   	mtlr r11
 0x8009b4c4:   4e 80 00 20   	blr 
+
 ; function: asm_rtpt at 0x8009b4c8 -- 0x8009b524
 0x8009b4c8:   7d 68 02 a6   	mflr r11
 0x8009b4cc:   4b ff ff 71   	bl 0x8009b43c <asm_rtps_comn_init>

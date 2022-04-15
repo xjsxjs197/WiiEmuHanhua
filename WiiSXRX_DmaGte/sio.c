@@ -169,7 +169,7 @@ void sioWrite8(unsigned char value) {
 	}
 
     #ifdef DISP_DEBUG
-    PRINT_LOG3("sioWrite8====%d=%d=%x", mcdst, rdwr, CtrlReg);
+    //PRINT_LOG3("sioWrite8====%d=%d=%x", mcdst, rdwr, CtrlReg);
     #endif // DISP_DEBUG*/
 	switch (mcdst) {
 		case 1:
