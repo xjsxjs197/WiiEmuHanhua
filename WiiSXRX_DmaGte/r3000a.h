@@ -120,8 +120,10 @@ typedef union {
 		s32      dqa, dqb;
 		s32      zsf3, zsf4;
 		s32      flag;
+		u32      padding[32];
 	} n;
-	u32 r[32];
+	//u32 r[32];
+	u32 r[64]; // CP2C[32] + backREG[32]
 } psxCP2Ctrl;
 
 typedef struct {

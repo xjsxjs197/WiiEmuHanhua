@@ -634,6 +634,7 @@ asm_rtps_comn_init:
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
 // r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
 asm_rtps:
+    stmw r5, 0x80(r3)                // save r5--r31 register
     mfspr r11, lr                    // save link register
 
     bl          asm_rtps_comn_init
@@ -667,6 +668,7 @@ asm_rtps:
 
     stw r8, 124(r3)                   // set gteFLAG , CP2C.r[31]
     mtspr lr, r11
+    lmw r5, 0x80(r3)                  // restore r5--r31 register
     blr
 
 
@@ -675,6 +677,7 @@ asm_rtps:
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
 // r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
 asm_rtpt:
+    stmw r5, 0x80(r3)                // save r5--r31 register
     mfspr r11, lr                    // save link register
 
     bl          asm_rtps_comn_init
@@ -708,6 +711,7 @@ asm_rtpt:
 
     stw r8, 124(r3)                   // set gteFLAG , CP2C.r[31]
     mtspr lr, r11
+    lmw r5, 0x80(r3)                  // restore r5--r31 register
     blr
 
 

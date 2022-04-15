@@ -1,14 +1,13 @@
 ; function: gteRTPT at 0x800375c8 -- 0x800375d8
 0x800375c8:   3c 80 81 27   	lis r4, -0x7ed9
-0x800375cc:   38 84 28 40   	addi r4, r4, 0x2840
-0x800375d0:   38 64 00 80   	addi r3, r4, 0x80
-0x800375d4:   48 06 3e f4   	b 0x8009b4c8 <asm_rtpt>    ============OK
-
+0x800375cc:   38 84 28 40   	addi r4, r4, 0x27c0
+0x800375d0:   38 64 00 80   	addi r3, r4, 0x80            
+0x800375d4:   48 06 3e f4   	b 0x8009b4c8 <asm_rtpt>
 ; function: gteRTPS at 0x800375d8 -- 0x800375e8
 0x800375d8:   3c 80 81 27   	lis r4, -0x7ed9
-0x800375dc:   38 84 28 40   	addi r4, r4, 0x2840
+0x800375dc:   38 84 28 40   	addi r4, r4, 0x27c0
 0x800375e0:   38 64 00 80   	addi r3, r4, 0x80
-0x800375e4:   48 06 3e 90   	b 0x8009b474 <asm_rtps>    ============OK
+0x800375e4:   48 06 3e 90   	b 0x8009b474 <asm_rtps>
 
 
 ; function: FNC_OVERFLOW1 at 0x8009b104 -- 0x8009b13c
@@ -42,7 +41,7 @@
 0x8009b168:   4e 80 00 20   	blr  
 
 ; function: NATIVE_DIVIDE at 0x8009b16c -- 0x8009b16d
-0x8009b16c:   e0 a3 c0 6a            
+0x8009b16d:   e0 a3 c0 6a                                           |..j             |
 0x8009b170:   ec f0 01 b2   	fmuls f7, f16, f6
 0x8009b174:   fc 05 38 00   	fcmpu cr0, f5, f7
 0x8009b178:   41 80 00 0c   	blt 0x8009b184 <function_8009b170+0x14>
@@ -101,8 +100,6 @@
               10 63 24 20
 0x8009b248:   10 42 1b ba 
               10 a6 2b ba 
-
-; function: function_8009b250 at 0x8009b250 -- 0x8009b2fc
 0x8009b250:   fc 00 10 1c   	fctiw f0, f2
 0x8009b254:   39 24 00 64   	addi r9, r4, 0x64
 0x8009b258:   39 49 00 08   	addi r10, r9, 8
@@ -204,7 +201,7 @@
 
 ; function: asm_rtps_comn_dqab at 0x8009b3d0 -- 0x8009b3d4
 0x8009b3d0:   7e 48 02 a6   	mflr r18
-0x8009b3d4:   e0 03 b0 6e 
+0x8009b3d4:   e0 03 b0 6e                                        |...n            |
 0x8009b3d8:   81 23 00 70   	lwz r9, 0x70(r3)
 0x8009b3dc:   6d 29 80 00   	xoris r9, r9, 0x8000
 0x8009b3e0:   91 2d 80 50   	stw r9, -0x7fb0(r13)
@@ -220,7 +217,7 @@
 0x8009b408:   39 24 00 60   	addi r9, r4, 0x60
 0x8009b40c:   7c 20 4f ae   	stfiwx f1, 0, r9
 0x8009b410:   ed 08 03 b2   	fmuls f8, f8, f14
-0x8009b414:   f1 04 b0 22 
+0x8009b414:   f1 04 b0 22                                        |..."            |
 0x8009b418:   a8 c4 00 22   	lha r6, 0x22(r4)
 0x8009b41c:   39 20 10 00   	li r9, 0x1000
 0x8009b420:   39 40 10 00   	li r10, 0x1000

@@ -1,0 +1,297 @@
+; function: gteRTPT at 0x80077330 -- 0x80077340
+0x80077330:   3c 80 81 27   	lis r4, -0x7ed9
+0x80077334:   38 84 27 c0   	addi r4, r4, 0x27c0
+0x80077338:   38 64 00 80   	addi r3, r4, 0x80
+0x8007733c:   48 00 03 e0   	b 0x8009b430 <asm_rtpt>
+; function: gteRTPS at 0x80077340 -- 0x80077350
+0x80077340:   3c 80 81 27   	lis r4, -0x7ed9
+0x80077344:   38 84 27 c0   	addi r4, r4, 0x27c0
+0x80077348:   38 64 00 80   	addi r3, r4, 0x80
+0x8007734c:   48 00 03 74   	b 0x8009b3d4 <asm_rtps>
+
+
+; function: FNC_OVERFLOW1 at 0x8009b064 -- 0x8009b09c
+0x8009b064:   10 08 60 40   	vadduhm v0, v8, v12
+0x8009b068:   41 80 00 24   	blt 0x8009b08c <FNC_OVERFLOW1+0x28>
+0x8009b06c:   10 0b 40 40   	vadduhm v0, v11, v8
+0x8009b070:   41 80 00 24   	blt 0x8009b094 <FNC_OVERFLOW1+0x30>
+0x8009b074:   4e 80 00 20   	blr 
+0x8009b078:   10 08 60 c0   	vaddudm v0, v8, v12
+0x8009b07c:   41 80 00 10   	blt 0x8009b08c <FNC_OVERFLOW1+0x28>
+0x8009b080:   10 0b 40 c0   	vaddudm v0, v11, v8
+0x8009b084:   41 80 00 10   	blt 0x8009b094 <FNC_OVERFLOW1+0x30>
+0x8009b088:   4e 80 00 20   	blr 
+0x8009b08c:   7d 08 4b 78   	or r8, r8, r9
+0x8009b090:   4e 80 00 20   	blr 
+0x8009b094:   7d 08 53 78   	or r8, r8, r10
+0x8009b098:   4e 80 00 20   	blr 
+
+; function: NC_OVERFLOW at 0x8009b09c -- 0x8009b0cc
+0x8009b09c:   7c 26 70 00   	cmpd r6, r14
+0x8009b0a0:   41 80 00 14   	blt 0x8009b0b4 <NC_OVERFLOW+0x18>
+0x8009b0a4:   7c 2f 30 00   	cmpd r15, r6
+0x8009b0a8:   41 80 00 18   	blt 0x8009b0c0 <NC_OVERFLOW+0x24>
+0x8009b0ac:   38 e6 00 00   	addi r7, r6, 0
+0x8009b0b0:   4e 80 00 20   	blr 
+0x8009b0b4:   7d 08 4b 78   	or r8, r8, r9
+0x8009b0b8:   38 ee 00 00   	addi r7, r14, 0
+0x8009b0bc:   4e 80 00 20   	blr 
+0x8009b0c0:   7d 08 53 78   	or r8, r8, r10
+0x8009b0c4:   38 ef 00 00   	addi r7, r15, 0
+0x8009b0c8:   4e 80 00 20   	blr 
+
+; function: NATIVE_DIVIDE at 0x8009b0cc -- 0x8009b0cd
+0x8009b0cd:   e0 a3 c0 6a                                         
+0x8009b0d0:   ec f0 01 b2   	fmuls f7, f16, f6
+0x8009b0d4:   fc 05 38 00   	fcmpu cr0, f5, f7
+0x8009b0d8:   41 80 00 0c   	blt 0x8009b0e4 <function_8009b0d0+0x14>
+0x8009b0dc:   48 00 00 1c   	b 0x8009b0f8 <function_8009b0d0+0x28>
+0x8009b0e0:   4e 80 00 20   	blr 
+0x8009b0e4:   ec a5 04 72   	fmuls f5, f5, f17
+0x8009b0e8:   ec a5 30 24   	fdivs f5, f5, f6
+0x8009b0ec:   fc 12 28 00   	fcmpu cr0, f18, f5
+0x8009b0f0:   41 80 00 08   	blt 0x8009b0f8 <function_8009b0d0+0x28>
+0x8009b0f4:   4e 80 00 20   	blr 
+0x8009b0f8:   65 08 00 02   	oris r8, r8, 2
+0x8009b0fc:   fc a0 90 90   	fmr f5, f18
+0x8009b100:   4e 80 00 20   	blr 
+
+; function: asm_rtps_comn_mac at 0x8009b104 -- 0x8009b108
+0x8009b104:   7e 48 02 a6   	mflr r18
+0x8009b108:   e0 25 30 04 
+              e0 05 30 00  
+              e0 43 30 00 
+              e0 63 b0 06   |.%0...0..C0..c..|
+0x8009b118:   e0 83 b0 04 
+              e0 a3 b0 0a  
+              10 42 00 32 
+              10 21 0c a0   |.........B.2.!..|
+0x8009b128:   e0 c3 30 0c 
+              e0 e3 b0 12  
+              10 85 24 20 
+              10 43 10 7a   |..0.......$ .C.z|
+0x8009b138:   10 c6 00 32 
+              10 84 00 32  
+              e0 a3 b0 08 
+              10 42 10 94   |...2...2.....B..|
+0x8009b148:   10 c7 30 7a 
+              10 85 20 7a  
+              10 c6 31 94 
+              10 84 21 14   |..0z.. z..1...!.|
+0x8009b158:   10 42 24 20 
+              81 c3 00 14  
+              81 e3 00 18 
+              82 03 00 1c   |.B$ ............|
+0x8009b168:   6d ce 80 00 
+              6d ef 80 00  
+              6e 10 80 00 
+              91 cd 80 50   |m...m...n......P|
+0x8009b178:   91 ed 80 58 
+              92 0d 80 60  
+              c8 6d 80 4c 
+              c8 8d 80 54   |...X...`.m.L...T|
+0x8009b188:   c8 ad 80 5c 
+              fc 63 50 28  
+              fc 84 50 28 
+              fc a5 50 28   |...\.cP(..P(..P(|
+0x8009b198:   fc 60 18 18 
+              fc 80 20 18  
+              fc a0 28 18 
+              10 63 24 20   |.`.... ...(..c$ |
+0x8009b1a8:   10 42 1b ba 
+              10 a6 2b ba                            |.B....+.        |
+0x8009b1b0:   fc 00 10 1c   	fctiw f0, f2
+0x8009b1b4:   39 24 00 64   	addi r9, r4, 0x64
+0x8009b1b8:   39 49 00 08   	addi r10, r9, 8
+0x8009b1bc:   fc 20 28 1c   	fctiw f1, f5
+0x8009b1c0:   10 42 14 a0   	vmhaddshs v2, v2, v2, v18
+0x8009b1c4:   7c 00 4f ae   	stfiwx f0, 0, r9
+0x8009b1c8:   7c 20 57 ae   	stfiwx f1, 0, r10
+0x8009b1cc:   fc 60 10 1c   	fctiw f3, f2
+0x8009b1d0:   39 29 00 04   	addi r9, r9, 4
+0x8009b1d4:   7c 60 4f ae   	stfiwx f3, 0, r9
+0x8009b1d8:   81 cd 80 80   	lwz r14, -0x7f80(r13)
+0x8009b1dc:   81 ed 80 7c   	lwz r15, -0x7f84(r13)
+0x8009b1e0:   80 c4 00 64   	lwz r6, 0x64(r4)
+0x8009b1e4:   3d 40 40 00   	lis r10, 0x4000
+0x8009b1e8:   3d 20 08 00   	lis r9, 0x800
+0x8009b1ec:   4b ff fe b1   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b1f0:   80 c4 00 68   	lwz r6, 0x68(r4)
+0x8009b1f4:   3d 40 20 00   	lis r10, 0x2000
+0x8009b1f8:   3d 20 04 00   	lis r9, 0x400
+0x8009b1fc:   4b ff fe a1   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b200:   80 c4 00 6c   	lwz r6, 0x6c(r4)
+0x8009b204:   3d 40 10 00   	lis r10, 0x1000
+0x8009b208:   3d 20 02 00   	lis r9, 0x200
+0x8009b20c:   4b ff fe 91   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b210:   39 c0 80 00   	li r14, -0x8000
+0x8009b214:   39 e0 7f ff   	li r15, 0x7fff
+0x8009b218:   80 c4 00 64   	lwz r6, 0x64(r4)
+0x8009b21c:   3d 20 01 00   	lis r9, 0x100
+0x8009b220:   3d 40 01 00   	lis r10, 0x100
+0x8009b224:   4b ff fe 79   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b228:   90 e4 00 24   	stw r7, 0x24(r4)
+0x8009b22c:   80 c4 00 68   	lwz r6, 0x68(r4)
+0x8009b230:   3d 20 00 80   	lis r9, 0x80
+0x8009b234:   3d 40 00 80   	lis r10, 0x80
+0x8009b238:   4b ff fe 65   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b23c:   90 e4 00 28   	stw r7, 0x28(r4)
+0x8009b240:   80 c4 00 6c   	lwz r6, 0x6c(r4)
+0x8009b244:   3d 20 00 40   	lis r9, 0x40
+0x8009b248:   3d 40 00 40   	lis r10, 0x40
+0x8009b24c:   4b ff fe 51   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b250:   90 e4 00 2c   	stw r7, 0x2c(r4)
+0x8009b254:   7e 48 03 a6   	mtlr r18
+0x8009b258:   4e 80 00 20   	blr 
+
+; function: asm_rtps_comn_sxy at 0x8009b25c -- 0x8009b280
+0x8009b25c:   7e 48 02 a6   	mflr r18
+0x8009b260:   80 c4 00 6c   	lwz r6, 0x6c(r4)
+0x8009b264:   3d 20 00 04   	lis r9, 4
+0x8009b268:   3d 40 00 04   	lis r10, 4
+0x8009b26c:   39 c0 00 00   	li r14, 0
+0x8009b270:   3d e0 00 01   	lis r15, 1
+0x8009b274:   35 ef ff ff   	addic. r15, r15, -1
+0x8009b278:   4b ff fe 25   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b27c:   b0 e5 00 00   	sth r7, 0(r5)
+0x8009b280:   e0 c5 c0 00                                        |....            |
+0x8009b284:   4b ff fe 49   	bl 0x8009b0cc <NATIVE_DIVIDE>
+0x8009b288:   81 23 00 60   	lwz r9, 0x60(r3)
+0x8009b28c:   81 43 00 64   	lwz r10, 0x64(r3)
+0x8009b290:   e0 24 b0 26 
+              e0 44 b0 2a  
+              10 a5 2c 20 
+              6d 29 80 00   |.$.&.D.*.., m)..|
+0x8009b2a0:   6d 4a 80 00 
+              10 41 14 20  
+              91 2d 80 50 
+              91 4d 80 58   |mJ...A. .-.P.M.X|
+0x8009b2b0:   c8 0d 80 4c 
+              c8 2d 80 54  
+              fc 00 50 28 
+              fc 21 50 28   |...L.-.T..P(.!P(|
+0x8009b2c0:   fc 00 00 18 
+              fc 20 08 18  
+              10 00 0c 20 
+              10 02 01 7a   |..... ..... ...z|
+0x8009b2d0:   11 00 00 90                                        |....            |
+0x8009b2d4:   3d 40 00 01   	lis r10, 1
+0x8009b2d8:   39 20 7f ff   	li r9, 0x7fff
+0x8009b2dc:   39 29 00 01   	addi r9, r9, 1
+0x8009b2e0:   4b ff fd 85   	bl 0x8009b064 <FNC_OVERFLOW1>
+0x8009b2e4:   4b ff fd 95   	bl 0x8009b078
+0x8009b2e8:   11 ef 7c 20   	vmhaddshs v15, v15, v15, v16
+0x8009b2ec:   11 08 03 f2 
+              11 08 44 a0  
+              f1 10 30 00               |......D...0.    |
+0x8009b2f8:   a8 d0 00 02   	lha r6, 2(r16)
+0x8009b2fc:   39 20 40 00   	li r9, 0x4000
+0x8009b300:   39 40 40 00   	li r10, 0x4000
+0x8009b304:   39 c0 fc 00   	li r14, -0x400
+0x8009b308:   39 e0 03 ff   	li r15, 0x3ff
+0x8009b30c:   4b ff fd 91   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b310:   b0 f0 00 02   	sth r7, 2(r16)
+0x8009b314:   a8 d0 00 00   	lha r6, 0(r16)
+0x8009b318:   39 20 20 00   	li r9, 0x2000
+0x8009b31c:   39 40 20 00   	li r10, 0x2000
+0x8009b320:   4b ff fd 7d   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b324:   b0 f0 00 00   	sth r7, 0(r16)
+0x8009b328:   7e 48 03 a6   	mtlr r18
+0x8009b32c:   4e 80 00 20   	blr 
+
+; function: asm_rtps_comn_dqab at 0x8009b330 -- 0x8009b334
+0x8009b330:   7e 48 02 a6   	mflr r18
+0x8009b334:   e0 03 b0 6e                                        |...n            |
+0x8009b338:   81 23 00 70   	lwz r9, 0x70(r3)
+0x8009b33c:   6d 29 80 00   	xoris r9, r9, 0x8000
+0x8009b340:   91 2d 80 50   	stw r9, -0x7fb0(r13)
+0x8009b344:   c8 2d 80 4c   	lfd f1, -0x7fb4(r13)
+0x8009b348:   fc 21 50 28   	fsub f1, f1, f10
+0x8009b34c:   fc 20 08 18   	frsp f1, f1
+0x8009b350:   ed 00 09 7a   	fmadds f8, f0, f5, f1
+0x8009b354:   3d 40 00 01   	lis r10, 1
+0x8009b358:   39 20 7f ff   	li r9, 0x7fff
+0x8009b35c:   39 29 00 01   	addi r9, r9, 1
+0x8009b360:   4b ff fd 05   	bl 0x8009b064 <FNC_OVERFLOW1>
+0x8009b364:   fc 20 40 1c   	fctiw f1, f8
+0x8009b368:   39 24 00 60   	addi r9, r4, 0x60
+0x8009b36c:   7c 20 4f ae   	stfiwx f1, 0, r9
+0x8009b370:   ed 08 03 b2   	fmuls f8, f8, f14
+0x8009b374:   f1 04 b0 22                                        |..."            |
+0x8009b378:   a8 c4 00 22   	lha r6, 0x22(r4)
+0x8009b37c:   39 20 10 00   	li r9, 0x1000
+0x8009b380:   39 40 10 00   	li r10, 0x1000
+0x8009b384:   39 c0 00 00   	li r14, 0
+0x8009b388:   39 e0 10 00   	li r15, 0x1000
+0x8009b38c:   4b ff fd 11   	bl 0x8009b09c <NC_OVERFLOW>
+0x8009b390:   90 e4 00 20   	stw r7, 0x20(r4)
+0x8009b394:   7e 48 03 a6   	mtlr r18
+0x8009b398:   4e 80 00 20   	blr 
+
+; function: asm_rtps_comn_init at 0x8009b39c -- 0x8009b3d4
+0x8009b39c:   39 00 00 00   	li r8, 0
+0x8009b3a0:   c9 4d 80 64   	lfd f10, -0x7f9c(r13)
+0x8009b3a4:   c1 6d 80 74   	lfs f11, -0x7f8c(r13)
+0x8009b3a8:   c1 8d 80 78   	lfs f12, -0x7f88(r13)
+0x8009b3ac:   c1 cd 80 70   	lfs f14, -0x7f90(r13)
+0x8009b3b0:   c1 ed 80 84   	lfs f15, -0x7f7c(r13)
+0x8009b3b4:   c2 0d 80 40   	lfs f16, -0x7fc0(r13)
+0x8009b3b8:   c2 2d 80 44   	lfs f17, -0x7fbc(r13)
+0x8009b3bc:   c2 4d 80 48   	lfs f18, -0x7fb8(r13)
+0x8009b3c0:   91 03 00 7c   	stw r8, 0x7c(r3)
+0x8009b3c4:   11 6b 5c 20   	vmhaddshs v11, v11, v11, v16
+0x8009b3c8:   11 8c 64 20   	vmhaddshs v12, v12, v12, v16
+0x8009b3cc:   11 ce 74 20   	vmhaddshs v14, v14, v14, v16
+0x8009b3d0:   4e 80 00 20   	blr 
+
+; function: asm_rtps at 0x8009b3d4 -- 0x8009b430
+0x8009b3d4:   bc a3 00 80   	stmw r5, 0x80(r3)
+0x8009b3d8:   7d 68 02 a6   	mflr r11
+0x8009b3dc:   4b ff ff c1   	bl 0x8009b39c <asm_rtps_comn_init>
+0x8009b3e0:   38 a4 00 00   	addi r5, r4, 0
+0x8009b3e4:   4b ff fd 21   	bl 0x8009b104 <asm_rtps_comn_mac>
+0x8009b3e8:   80 c4 00 44   	lwz r6, 0x44(r4)
+0x8009b3ec:   90 c4 00 40   	stw r6, 0x40(r4)
+0x8009b3f0:   80 c4 00 48   	lwz r6, 0x48(r4)
+0x8009b3f4:   90 c4 00 44   	stw r6, 0x44(r4)
+0x8009b3f8:   80 c4 00 4c   	lwz r6, 0x4c(r4)
+0x8009b3fc:   90 c4 00 48   	stw r6, 0x48(r4)
+0x8009b400:   80 c4 00 34   	lwz r6, 0x34(r4)
+0x8009b404:   90 c4 00 30   	stw r6, 0x30(r4)
+0x8009b408:   80 c4 00 38   	lwz r6, 0x38(r4)
+0x8009b40c:   90 c4 00 34   	stw r6, 0x34(r4)
+0x8009b410:   38 a4 00 4e   	addi r5, r4, 0x4e
+0x8009b414:   3a 04 00 38   	addi r16, r4, 0x38
+0x8009b418:   4b ff fe 45   	bl 0x8009b25c <asm_rtps_comn_sxy>
+0x8009b41c:   4b ff ff 15   	bl 0x8009b330 <asm_rtps_comn_dqab>
+0x8009b420:   91 03 00 7c   	stw r8, 0x7c(r3)
+0x8009b424:   7d 68 03 a6   	mtlr r11
+0x8009b428:   b8 a3 00 80   	lmw r5, 0x80(r3)
+0x8009b42c:   4e 80 00 20   	blr 
+
+; function: asm_rtpt at 0x8009b430 -- 0x8009b494
+0x8009b430:   bc a3 00 80   	stmw r5, 0x80(r3)
+0x8009b434:   7d 68 02 a6   	mflr r11
+0x8009b438:   4b ff ff 65   	bl 0x8009b39c <asm_rtps_comn_init>
+0x8009b43c:   80 c4 00 4c   	lwz r6, 0x4c(r4)
+0x8009b440:   90 c4 00 40   	stw r6, 0x40(r4)
+0x8009b444:   38 a4 00 00   	addi r5, r4, 0
+0x8009b448:   4b ff fc bd   	bl 0x8009b104 <asm_rtps_comn_mac>
+0x8009b44c:   38 a4 00 46   	addi r5, r4, 0x46
+0x8009b450:   3a 04 00 30   	addi r16, r4, 0x30
+0x8009b454:   4b ff fe 09   	bl 0x8009b25c <asm_rtps_comn_sxy>
+0x8009b458:   38 a4 00 08   	addi r5, r4, 8
+0x8009b45c:   4b ff fc a9   	bl 0x8009b104 <asm_rtps_comn_mac>
+0x8009b460:   38 a4 00 4a   	addi r5, r4, 0x4a
+0x8009b464:   3a 04 00 34   	addi r16, r4, 0x34
+0x8009b468:   4b ff fd f5   	bl 0x8009b25c <asm_rtps_comn_sxy>
+0x8009b46c:   38 a4 00 10   	addi r5, r4, 0x10
+0x8009b470:   4b ff fc 95   	bl 0x8009b104 <asm_rtps_comn_mac>
+0x8009b474:   38 a4 00 4e   	addi r5, r4, 0x4e
+0x8009b478:   3a 04 00 38   	addi r16, r4, 0x38
+0x8009b47c:   4b ff fd e1   	bl 0x8009b25c <asm_rtps_comn_sxy>
+0x8009b480:   4b ff fe b1   	bl 0x8009b330 <asm_rtps_comn_dqab>
+0x8009b484:   91 03 00 7c   	stw r8, 0x7c(r3)
+0x8009b488:   7d 68 03 a6   	mtlr r11
+0x8009b48c:   b8 a3 00 80   	lmw r5, 0x80(r3)
+0x8009b490:   4e 80 00 20   	blr 
