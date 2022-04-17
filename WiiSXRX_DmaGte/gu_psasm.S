@@ -629,6 +629,164 @@ asm_rtps_comn_init:
 //
 //    blr
 
+.globl asm_mvmva
+// r3: CP2C, r4: CP2D, r5:vAddr, r6:mxAddr, r7:shift12Flg, r8:addAddr, r9:lowVal
+// r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)
+// r4: (vy0, vx0, 0, vz0, vy1, vx1, 0, vz1, vy2, vx2, 0, vz2)
+asm_mvmva:
+    stmw r14, 0x80(r3)               // save r14--r31 register
+    mfspr r11, lr                    // save link register
+
+    addi r20,r8,0
+    addi r21,r9,0
+    bl          asm_rtps_comn_init
+
+    psq_l		fr1, 4(r5), 0, 3     // fr1 = 0, z
+    psq_l		fr0, 0(r5), 0, 3     // fr0 = y, x
+
+    psq_l		fr2, 0(r6), 0, 3     // fr2 = m12, m11
+	psq_l		fr3, 6(r6), 1, 3     // fr3 = m13, 1.0
+
+    psq_l		fr4, 4(r6), 1, 3     // fr4 = m21, 1.0
+	psq_l		fr5, 10(r6), 1, 3    // fr5 = m22, 1.0
+
+	ps_mul		fr2, fr2, fr0        // fr2 = m12 * y, m11 * x
+
+	ps_merge10  fr1, fr1, fr1        // fr1 = z, 0
+
+	psq_l		fr6, 12(r6), 0, 3    // fr6 = m32, m31
+	psq_l		fr7, 18(r6), 1, 3    // fr7 = m33, 1.0
+
+	ps_merge00  fr4, fr5, fr4        // fr4 = m22, m21
+
+	ps_madd		fr2, fr3, fr1, fr2   // fr2 = (m13 * z) + (m12 * y), (1.0 * 0.0) + (m11 * x)
+
+	ps_mul		fr6, fr6, fr0        // fr6 = m32 * y, m31 * x
+    ps_mul		fr4, fr4, fr0        // fr1 = m22 * y, m21 * x
+    psq_l		fr5, 8(r6), 1, 3     // fr5 = m23, 1.0
+
+	ps_sum0		fr2, fr2, fr2, fr2   // fr2 = (m13 * z) + (m12 * y) + (1.0 * 0.0) + (m11 * x), 1.0 = SUMX
+
+    ps_madd		fr6, fr7, fr1, fr6   // fr6 = (m33 * z) + (m32 * y), (1.0 * 0.0) + (m31 * x)
+	ps_madd		fr4, fr5, fr1, fr4   // fr4 = (m23 * z) + (m22 * y), (1.0 * 0.0) + (m21 * x)
+
+    ps_sum0		fr6, fr6, fr6, fr6   // fr6 = (m33 * z) + (m32 * y) + (1.0 * 0.0) + (m31 * x), 1.0 = SUMZ
+	ps_sum0		fr4, fr4, fr4, fr4   // fr4 = (m23 * z) + (m22 * y) + (1.0 * 0.0) + (m21 * x), 1.0 = SUMY
+
+    ps_merge00  fr2, fr2, fr4        // fr2 = SUMX, SUMY
+
+    // load TRX,TRY,TRZ or RBK,GBK,BBk or RFC,GFC,BFC to float
+    lwz r14, 0(r20)                  //
+    lwz r15, 4(r20)                  //
+    lwz r16, 8(r20)                  //
+    xoris r14, r14, 0x8000
+    xoris r15, r15, 0x8000
+    xoris r16, r16, 0x8000
+    stw r14, FloatBufB1@sdarel(r13)
+    stw r15, FloatBufB2@sdarel(r13)
+    stw r16, FloatBufB3@sdarel(r13)
+    lfd fr3, FloatBufA1@sdarel(r13)
+    lfd fr4, FloatBufA2@sdarel(r13)
+    lfd fr5, FloatBufA3@sdarel(r13)
+    fsub fr3, fr3, fr10Kmagic        // fr3 = TRX(double)
+    fsub fr4, fr4, fr10Kmagic        // fr4 = TRY(double)
+    fsub fr5, fr5, fr10Kmagic        // fr5 = TRZ(double)
+    frsp fr3, fr3                    // fr3 = TRX(single)
+    frsp fr4, fr4                    // fr4 = TRY(single)
+    frsp fr5, fr5                    // fr5 = TRZ(single)
+
+    ps_merge00  fr3, fr3, fr4        // fr3 = TRX, TRY
+    cmpi 0, 1, r7, 1
+    blt  asm_mvmva_add
+    ps_madd     fr2, fr2, fr14ShiftR12, fr3 // fr2 = SUMX >> 12 + TRX, SUMY >> 12 + TRY
+    ps_madd     fr5, fr6, fr14ShiftR12, fr5 // fr5 = SUMZ >> 12 + TRZ, 0
+    b    asm_mvmva_addend
+
+asm_mvmva_add:
+    ps_add      fr2, fr2, fr3               // fr2 = SUMX + TRX, SUMY + TRY
+    ps_add      fr5, fr6, fr5               // fr5 = SUMZ + TRZ, 0
+
+asm_mvmva_addend:
+
+    // A1, A2, A3 check
+    // fr8: chk1/chk2, fr12: chkL/chkL, fr11: chkH/chkH, r10: highFlg, r9: lowFlg, r8: allFlg
+    //ps_mr       fr8, fr0
+	//lis r10, 0x4000                  // gteFLAG |= 1<<30;
+    //lis r9, 0x800                    // gteFLAG |= 1<<27;
+    //bl FNC_OVERFLOW1                 // check SUMX + TRX
+
+    //lis r10, 0x2000                  // gteFLAG |= 1<<29;
+    //lis r9, 0x400                    // gteFLAG |= 1<<26;
+    //bl FNC_OVERFLOW2                 // check SUMY + TRY
+
+    //ps_mr      fr8, fr1              // fr8 = SUMZ + TRZ, 0
+    //lis r10, 0x1000                  // gteFLAG |= 1<<28;
+    //lis r9, 0x200                    // gteFLAG |= 1<<25;
+    //bl FNC_OVERFLOW1                 // check SUMZ + TRZ
+
+    fctiw      fr0, fr2              // SUMX + TRX => int
+    addi       r9, r4, 100
+    addi       r10, r9, 8
+    fctiw      fr1, fr5              // SUMZ + TRZ => int
+    ps_merge10 fr2, fr2, fr2         // fr2 = SUMY + TRY
+
+    stfiwx     fr0, 0, r9            // SUMX + TRX => gteMAC1 CP2D.r)[25]
+    stfiwx     fr1, 0, r10           // SUMZ + TRZ => gteMAC3 CP2D.r)[27]
+
+    fctiw      fr3, fr2              // SUMY + TRY => int
+    addi       r9, r9, 4
+    stfiwx     fr3, 0, r9            // SUMY + TRY => gteMAC2 CP2D.r)[26]
+
+    // MAC int check
+    lwz r14, IntOverflowL@sdarel(r13)
+    lwz r15, IntOverflowH@sdarel(r13)
+
+    lwz r6, 100(r4)                  // gteMAC1 CP2D.r)[25]
+    lis r10, 0x4000                  // gteFLAG |= 1<<30;
+    lis r9, 0x800                    // gteFLAG |= 1<<27;
+    bl NC_OVERFLOW                   // A1 check
+
+    lwz r6, 104(r4)                  // gteMAC2 CP2D.r)[26]
+    lis r10, 0x2000                  // gteFLAG |= 1<<29;
+    lis r9, 0x400                    // gteFLAG |= 1<<26;
+    bl NC_OVERFLOW                   // A2 check
+
+    lwz r6, 108(r4)                  // gteMAC3 CP2D.r)[27]
+    lis r10, 0x1000                  // gteFLAG |= 1<<28;
+    lis r9, 0x200                    // gteFLAG |= 1<<25;
+    bl NC_OVERFLOW                   // A3 check
+
+    // limB1, limB2, limB3 check
+    addi r14, r21, 0
+    addi r15, 0, 0x7fff
+
+    // limB1 Check: r6: chk, r14: LVal, r15: HVal, r10: highFlg, r9: lowFlg, r8: allFlg, r7: retVal
+    lwz r6, 100(r4)                  // gteMAC1 CP2D.r)[25]
+    lis r9, 0x100                    // gteFLAG |= 1<<24;
+    lis r10, 0x100                   // gteFLAG |= 1<<24;
+    bl NC_OVERFLOW                   // limB1 check
+    stw r7,36(r4)                    // set gteIR1  (s32*)psxRegs.CP2D.r)[9]
+
+    // limB2 Check: r6: chk, r14: LVal, r15: HVal, r10: highFlg, r9: lowFlg, r8: allFlg, r7: retVal
+    lwz r6, 104(r4)                  // gteMAC2 CP2D.r)[26]
+    lis r9, 0x80                     // gteFLAG |= 1<<23;
+    lis r10, 0x80                    // gteFLAG |= 1<<23;
+    bl NC_OVERFLOW                   // limB2 check
+    stw r7,40(r4)                    // set gteIR2  (s32*)psxRegs.CP2D.r)[10]
+
+    // limB3 Check: r6: chk, r14: LVal, r15: HVal, r10: highFlg, r9: lowFlg, r8: allFlg, r7: retVal
+    lwz r6, 108(r4)                  // gteMAC3 CP2D.r)[27]
+    lis r9, 0x40                     // gteFLAG |= 1<<22;
+    lis r10, 0x40                    // gteFLAG |= 1<<22;
+    bl NC_OVERFLOW                   // limB3 check
+    stw r7,44(r4)                    // set gteIR3  (s32*)psxRegs.CP2D.r)[11]
+
+    stw r8, 124(r3)                   // set gteFLAG , CP2C.r[31]
+    mtspr lr, r11
+    lmw r14, 0x80(r3)                 // restore r14--r31 register
+    blr
+
+
 .globl asm_rtps
 // r3: CP2C, r4: CP2D
 // r3: (m12, m11, m21, m13, m23, m22, m32, m31, 0, m33, TRX, TRY, TRZ)

@@ -164,8 +164,12 @@
 
 extern void asm_rtps(register s32 *cp2c, register s32 *cp2d);
 extern void asm_rtpt(register s32 *cp2c, register s32 *cp2d);
+extern void asm_mvmva(register u32 *cp2c, register u32 *cp2d, register u32 *vAddr, register u32 *mxAddr, register s32 shift12Flg, register u32 *addAddr, register s32 lowVal);
 //extern void gte_rtps_comn_mac(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
 //extern void gte_rtps_comn_mac1(register s32 *cp2c, register s32 *cp2d, register s32 vxyIdx);
+#ifdef DISP_DEBUG
+static int gteLogIdx = 0;
+#endif // DISP_DEBUG
 
 __inline u32 MFC2(int reg) {
 	switch(reg) {
@@ -776,9 +780,109 @@ void gteMVMVA() {
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
 #endif
     #ifdef DISP_DEBUG
-	//PRINT_LOG("========gteMVMVA======");
+	//PRINT_LOG1("=%d====gteMVMVA====", gteLogIdx++);
     #endif // DISP_DEBUG
+    //r5:vAddr, r6:mxAddr, r7:shift12Flg, r8:addAddr, r9:lowVal
+    u32* vAddr, mxAddr, addAddr;
+    s32 shift12Flg, lowVal;
+    vAddr = (u32*)psxRegs.CP2D.r;      // psxRegs.CP2D.p[ 0 ].sw.h
+    mxAddr = (u32*)psxRegs.CP2C.r;     // psxRegs.CP2C.p[ 0 ].sw.h
+    switch (psxRegs.code & 0x78000) {
+        default:
+            #ifdef DISP_DEBUG
+            PRINT_LOG("gteMVMVA=default");
+            #endif // DISP_DEBUG*/
+            break;
+		case 0x00000: // V0 * R
+            break;
+		case 0x08000: // V1 * R
+			vAddr += 2; // psxRegs.CP2D.p[ 2 ].w.h
+            break;
+		case 0x10000: // V2 * R
+			vAddr += 4; // psxRegs.CP2D.p[ 4 ].w.h
+            break;
+		case 0x18000: // IR * R
+		    gteIR1 = (gteIR2 << 16) | (gteIR1 & 0xFFFF);
+		    gteIR2 = gteIR3;
+			vAddr += 9; // psxRegs.CP2D.p[ 9 ].sw.l
+            break;
+		case 0x20000: // V0 * L
+            mxAddr += 8;// psxRegs.CP2C.p[ 8 ].sw.h
+            break;
+		case 0x28000: // V1 * L
+			vAddr += 2; // psxRegs.CP2D.p[ 2 ].w.h
+            mxAddr += 8;// psxRegs.CP2C.p[ 8 ].sw.h
+            break;
+		case 0x30000: // V2 * L
+			vAddr += 4; // psxRegs.CP2D.p[ 4 ].w.h
+            mxAddr += 8;// psxRegs.CP2C.p[ 8 ].sw.h
+            break;
+		case 0x38000: // IR * L
+			gteIR1 = (gteIR2 << 16) | (gteIR1 & 0xFFFF);
+		    gteIR2 = gteIR3;
+			vAddr += 9; // psxRegs.CP2D.p[ 9 ].sw.l
+            mxAddr += 8;// psxRegs.CP2C.p[ 8 ].sw.h
+            break;
+		case 0x40000: // V0 * C
+            mxAddr += 16;// psxRegs.CP2C.p[ 16 ].sw.h
+            break;
+		case 0x48000: // V1 * C
+			vAddr += 2; // psxRegs.CP2D.p[ 2 ].w.h
+            mxAddr += 16;// psxRegs.CP2C.p[ 16 ].sw.h
+            break;
+		case 0x50000: // V2 * C
+			vAddr += 4; // psxRegs.CP2D.p[ 4 ].w.h
+            mxAddr += 16;// psxRegs.CP2C.p[ 16 ].sw.h
+            break;
+		case 0x58000: // IR * C
+			gteIR1 = (gteIR2 << 16) | (gteIR1 & 0xFFFF);
+		    gteIR2 = gteIR3;
+			vAddr += 9; // psxRegs.CP2D.p[ 9 ].sw.l
+            mxAddr += 16;// psxRegs.CP2C.p[ 16 ].sw.h
+            break;
+	}
+	#ifdef DISP_DEBUG
+    //PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x78000, (u32*)psxRegs.CP2D.r, (u32)vAddr);
+    #endif // DISP_DEBUG*/
 
+	shift12Flg = 0;
+	if (psxRegs.code & 0x80000)
+	{
+		shift12Flg = 1;
+	}
+	psxRegs.CP2C.r[60] = 0;
+	psxRegs.CP2C.r[61] = 0;
+	psxRegs.CP2C.r[62] = 0;
+	addAddr = (u32*)psxRegs.CP2C.r;
+	switch (psxRegs.code & 0x6000) {
+		case 0x0000: // Add TR
+            addAddr += 5; // psxRegs.CP2C.p[ 5 ].sd
+			break;
+		case 0x2000: // Add BK
+			addAddr += 13; // psxRegs.CP2C.p[ 13 ].sd
+			break;
+		case 0x4000: // Add FC
+			addAddr += 21; // psxRegs.CP2C.p[ 21 ].sd
+			break;
+        default:
+            addAddr += 60;
+			break;
+	}
+
+	#ifdef DISP_DEBUG
+    PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x6000, (u32*)psxRegs.CP2C.r, (u32)addAddr);
+    #endif // DISP_DEBUG*/
+
+	if (psxRegs.code & 0x400)
+    {
+        lowVal = 0;
+    }
+    else
+    {
+        lowVal = -0x8000;
+    }
+    asm_mvmva(psxRegs.CP2C.r, psxRegs.CP2D.r, vAddr, mxAddr, shift12Flg, addAddr, lowVal);
+/*
 	switch (psxRegs.code & 0x78000) {
 		case 0x00000: // V0 * R
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gteR); break;
@@ -841,7 +945,7 @@ void gteMVMVA() {
 	else MAC2IR()
 
 	SUM_FLAG;
-
+*/
 	#ifdef DISP_DEBUG
 	//u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("gteMVMVA=====%llu=", end - start);

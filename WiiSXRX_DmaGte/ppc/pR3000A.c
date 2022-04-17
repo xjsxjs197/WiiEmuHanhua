@@ -1037,7 +1037,7 @@ static void rec##f() { \
 }
 
 static u32 asmRtpsRtps[] = {
-    0x3c808127,0x388427c0,0x38640080,0x480003e0,0x3c808127,0x388427c0,0x38640080,0x48000374,0x10086040,0x41800024,
+    0x480003e0,0x60000000,0x60000000,0x60000000,0x48000374,0x10086040,0x41800024,
     0x100b4040,0x41800024,0x4e800020,0x100860c0,0x41800010,0x100b40c0,0x41800010,0x4e800020,0x7d084b78,0x4e800020,
     0x7d085378,0x4e800020,0x7c267000,0x41800014,0x7c2f3000,0x41800018,0x38e60000,0x4e800020,0x7d084b78,0x38ee0000,
     0x4e800020,0x7d085378,0x38ef0000,0x4e800020,0xe0a3c06a,0xecf001b2,0xfc053800,0x4180000c,0x4800001c,0x4e800020,
@@ -1062,9 +1062,9 @@ static u32 asmRtpsRtps[] = {
     0xc20d8040,0xc22d8044,0xc24d8048,0x9103007c,0x116b5c20,0x118c6420,0x11ce7420,0x4e800020,0xbca30080,0x7d6802a6,
     0x4bffffc1,0x38a40000,0x4bfffd21,0x80c40044,0x90c40040,0x80c40048,0x90c40044,0x80c4004c,0x90c40048,0x80c40034,
     0x90c40030,0x80c40038,0x90c40034,0x38a4004e,0x3a040038,0x4bfffe45,0x4bffff15,0x9103007c,0x7d6803a6,0xb8a30080,
-    0x4e800020,0xbca30080,0x7d6802a6,0x4bffff65,0x80c4004c,0x90c40040,0x38a40000,0x4bfffcbd,0x38a40046,0x3a040030,
+    0x48000064,0xbca30080,0x7d6802a6,0x4bffff65,0x80c4004c,0x90c40040,0x38a40000,0x4bfffcbd,0x38a40046,0x3a040030,
     0x4bfffe09,0x38a40008,0x4bfffca9,0x38a4004a,0x3a040034,0x4bfffdf5,0x38a40010,0x4bfffc95,0x38a4004e,0x3a040038,
-    0x4bfffde1,0x4bfffeb1,0x9103007c,0x7d6803a6,0xb8a30080,0x4e800020
+    0x4bfffde1,0x4bfffeb1,0x9103007c,0x7d6803a6,0xb8a30080,0x60000000
 };
 
 void gteRTPS();
@@ -1073,10 +1073,13 @@ static void recRTPT() {
     int tmpSize = sizeof(asmRtpsRtps);
     int i;
     #ifdef DISP_DEBUG
-    PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
+    //PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
     #endif // DISP_DEBUG*/
     if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
     {
+        ReleaseArgs();
+        LIW(3, psxRegs.CP2C.r);
+        LIW(4, psxRegs.CP2D.r);
         i = 0;
         tmpSize = tmpSize >> 2;
         while (tmpSize-- > 0)
@@ -1094,13 +1097,21 @@ static void recRTPT() {
 }
 static void recRTPS() {
     int tmpSize = sizeof(asmRtpsRtps) - 4 * 4;
+    int i;
     #ifdef DISP_DEBUG
-    PRINT_LOG2("recRTPS=%x=%d", (u32)ppcPtr, tmpSize >> 2);
+    //PRINT_LOG2("recRTPS=%x=%d", (u32)ppcPtr, tmpSize >> 2);
     #endif // DISP_DEBUG*/
     if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
     {
-        memcpy(ppcPtr, asmRtpsRtps + (4 * 4), tmpSize);
-        ppcPtr += tmpSize >> 2;
+        ReleaseArgs();
+        LIW(3, psxRegs.CP2C.r);
+        LIW(4, psxRegs.CP2D.r);
+        i = 4;
+        tmpSize = tmpSize >> 2;
+        while (tmpSize-- > 0)
+        {
+            INSTR = asmRtpsRtps[i++];
+        }
     }
     else
     {

@@ -1,0 +1,68 @@
+r3:cp2c, r4:cp2d, r5:vAddr, r6:mxAddr, r7:shift12Flg, r8:addAddr, r9:lowVal
+
+#define VY0  (psxRegs.CP2D.p[ 0 ].sw.h)  ----r5
+#define VX0  (psxRegs.CP2D.p[ 0 ].sw.l)
+        
+#define VZ0  (psxRegs.CP2D.p[ 1 ].sw.l)
+
+#define VY1  (psxRegs.CP2D.p[ 2 ].w.h)  ----r5
+#define VX1  (psxRegs.CP2D.p[ 2 ].w.l)
+
+#define VZ1  (psxRegs.CP2D.p[ 3 ].w.l)
+
+#define VY2  (psxRegs.CP2D.p[ 4 ].w.h)  ----r5
+#define VX2  (psxRegs.CP2D.p[ 4 ].w.l)
+
+#define VZ2  (psxRegs.CP2D.p[ 5 ].w.l)
+
+#define IR1  (psxRegs.CP2D.p[ 9 ].sw.l) ******Reset结构和上面一样的*******
+#define IR2  (psxRegs.CP2D.p[ 10 ].sw.l)
+#define IR3  (psxRegs.CP2D.p[ 11 ].sw.l)
+
+
+#define R12 (psxRegs.CP2C.p[ 0 ].sw.h) ------r3
+#define R11 (psxRegs.CP2C.p[ 0 ].sw.l)
+#define R21 (psxRegs.CP2C.p[ 1 ].sw.h)
+#define R13 (psxRegs.CP2C.p[ 1 ].sw.l)
+#define R23 (psxRegs.CP2C.p[ 2 ].sw.h)
+#define R22 (psxRegs.CP2C.p[ 2 ].sw.l)
+#define R32 (psxRegs.CP2C.p[ 3 ].sw.h)
+#define R31 (psxRegs.CP2C.p[ 3 ].sw.l)
+
+#define R33 (psxRegs.CP2C.p[ 4 ].sw.l)
+
+#define L12 (psxRegs.CP2C.p[ 8 ].sw.h) ------r3
+#define L11 (psxRegs.CP2C.p[ 8 ].sw.l)
+#define L21 (psxRegs.CP2C.p[ 9 ].sw.h)
+#define L13 (psxRegs.CP2C.p[ 9 ].sw.l)
+#define L23 (psxRegs.CP2C.p[ 10 ].sw.h)
+#define L22 (psxRegs.CP2C.p[ 10 ].sw.l)
+#define L32 (psxRegs.CP2C.p[ 11 ].sw.h)
+#define L31 (psxRegs.CP2C.p[ 11 ].sw.l)
+
+#define L33 (psxRegs.CP2C.p[ 12 ].sw.l)
+
+#define LR2 (psxRegs.CP2C.p[ 16 ].sw.h) ------r3
+#define LR1 (psxRegs.CP2C.p[ 16 ].sw.l)
+#define LG1 (psxRegs.CP2C.p[ 17 ].sw.h)
+#define LR3 (psxRegs.CP2C.p[ 17 ].sw.l)
+#define LG3 (psxRegs.CP2C.p[ 18 ].sw.h)
+#define LG2 (psxRegs.CP2C.p[ 18 ].sw.l)
+#define LB2 (psxRegs.CP2C.p[ 19 ].sw.h)
+#define LB1 (psxRegs.CP2C.p[ 19 ].sw.l)
+
+#define LB3 (psxRegs.CP2C.p[ 20 ].sw.l)
+
+
+#define TRX (psxRegs.CP2C.p[ 5 ].sd)
+#define TRY (psxRegs.CP2C.p[ 6 ].sd)
+#define TRZ (psxRegs.CP2C.p[ 7 ].sd)
+
+#define RBK (psxRegs.CP2C.p[ 13 ].sd)
+#define GBK (psxRegs.CP2C.p[ 14 ].sd)
+#define BBK (psxRegs.CP2C.p[ 15 ].sd)
+
+#define RFC (psxRegs.CP2C.p[ 21 ].sd)
+#define GFC (psxRegs.CP2C.p[ 22 ].sd)
+#define BFC (psxRegs.CP2C.p[ 23 ].sd)
+

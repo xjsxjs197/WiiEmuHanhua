@@ -1,17 +1,12 @@
-; function: gteRTPT at 0x80077330 -- 0x80077340
-0x80077330:   3c 80 81 27   	lis r4, -0x7ed9
+0x80077330:   3c 80 81 27   	lis r4, -0x7ed9                       ; function: gteRTPT at 0x80077330 -- 0x80077340
 0x80077334:   38 84 27 c0   	addi r4, r4, 0x27c0
 0x80077338:   38 64 00 80   	addi r3, r4, 0x80
 0x8007733c:   48 00 03 e0   	b 0x8009b430 <asm_rtpt>
-; function: gteRTPS at 0x80077340 -- 0x80077350
-0x80077340:   3c 80 81 27   	lis r4, -0x7ed9
+0x80077340:   3c 80 81 27   	lis r4, -0x7ed9                       ; function: gteRTPS at 0x80077340 -- 0x80077350
 0x80077344:   38 84 27 c0   	addi r4, r4, 0x27c0
 0x80077348:   38 64 00 80   	addi r3, r4, 0x80
 0x8007734c:   48 00 03 74   	b 0x8009b3d4 <asm_rtps>
-
-
-; function: FNC_OVERFLOW1 at 0x8009b064 -- 0x8009b09c
-0x8009b064:   10 08 60 40   	vadduhm v0, v8, v12
+0x8009b064:   10 08 60 40   	vadduhm v0, v8, v12                   ; function: FNC_OVERFLOW1 at 0x8009b064 -- 0x8009b09c
 0x8009b068:   41 80 00 24   	blt 0x8009b08c <FNC_OVERFLOW1+0x28>
 0x8009b06c:   10 0b 40 40   	vadduhm v0, v11, v8
 0x8009b070:   41 80 00 24   	blt 0x8009b094 <FNC_OVERFLOW1+0x30>
@@ -25,9 +20,7 @@
 0x8009b090:   4e 80 00 20   	blr 
 0x8009b094:   7d 08 53 78   	or r8, r8, r10
 0x8009b098:   4e 80 00 20   	blr 
-
-; function: NC_OVERFLOW at 0x8009b09c -- 0x8009b0cc
-0x8009b09c:   7c 26 70 00   	cmpd r6, r14
+0x8009b09c:   7c 26 70 00   	cmpd r6, r14                         ; function: NC_OVERFLOW at 0x8009b09c -- 0x8009b0cc
 0x8009b0a0:   41 80 00 14   	blt 0x8009b0b4 <NC_OVERFLOW+0x18>
 0x8009b0a4:   7c 2f 30 00   	cmpd r15, r6
 0x8009b0a8:   41 80 00 18   	blt 0x8009b0c0 <NC_OVERFLOW+0x24>
@@ -39,9 +32,7 @@
 0x8009b0c0:   7d 08 53 78   	or r8, r8, r10
 0x8009b0c4:   38 ef 00 00   	addi r7, r15, 0
 0x8009b0c8:   4e 80 00 20   	blr 
-
-; function: NATIVE_DIVIDE at 0x8009b0cc -- 0x8009b0cd
-0x8009b0cd:   e0 a3 c0 6a                                         
+0x8009b0cd:   e0 a3 c0 6a                                             ; function: NATIVE_DIVIDE at 0x8009b0cc -- 0x8009b0cd
 0x8009b0d0:   ec f0 01 b2   	fmuls f7, f16, f6
 0x8009b0d4:   fc 05 38 00   	fcmpu cr0, f5, f7
 0x8009b0d8:   41 80 00 0c   	blt 0x8009b0e4 <function_8009b0d0+0x14>
@@ -55,9 +46,7 @@
 0x8009b0f8:   65 08 00 02   	oris r8, r8, 2
 0x8009b0fc:   fc a0 90 90   	fmr f5, f18
 0x8009b100:   4e 80 00 20   	blr 
-
-; function: asm_rtps_comn_mac at 0x8009b104 -- 0x8009b108
-0x8009b104:   7e 48 02 a6   	mflr r18
+0x8009b104:   7e 48 02 a6   	mflr r18                              ; function: asm_rtps_comn_mac at 0x8009b104 -- 0x8009b108
 0x8009b108:   e0 25 30 04 
               e0 05 30 00  
               e0 43 30 00 
@@ -143,9 +132,7 @@
 0x8009b250:   90 e4 00 2c   	stw r7, 0x2c(r4)
 0x8009b254:   7e 48 03 a6   	mtlr r18
 0x8009b258:   4e 80 00 20   	blr 
-
-; function: asm_rtps_comn_sxy at 0x8009b25c -- 0x8009b280
-0x8009b25c:   7e 48 02 a6   	mflr r18
+0x8009b25c:   7e 48 02 a6   	mflr r18                                    ; function: asm_rtps_comn_sxy at 0x8009b25c -- 0x8009b280
 0x8009b260:   80 c4 00 6c   	lwz r6, 0x6c(r4)
 0x8009b264:   3d 20 00 04   	lis r9, 4
 0x8009b268:   3d 40 00 04   	lis r10, 4
@@ -198,9 +185,7 @@
 0x8009b324:   b0 f0 00 00   	sth r7, 0(r16)
 0x8009b328:   7e 48 03 a6   	mtlr r18
 0x8009b32c:   4e 80 00 20   	blr 
-
-; function: asm_rtps_comn_dqab at 0x8009b330 -- 0x8009b334
-0x8009b330:   7e 48 02 a6   	mflr r18
+0x8009b330:   7e 48 02 a6   	mflr r18                                      ; function: asm_rtps_comn_dqab at 0x8009b330 -- 0x8009b334
 0x8009b334:   e0 03 b0 6e                                        |...n            |
 0x8009b338:   81 23 00 70   	lwz r9, 0x70(r3)
 0x8009b33c:   6d 29 80 00   	xoris r9, r9, 0x8000
@@ -227,9 +212,7 @@
 0x8009b390:   90 e4 00 20   	stw r7, 0x20(r4)
 0x8009b394:   7e 48 03 a6   	mtlr r18
 0x8009b398:   4e 80 00 20   	blr 
-
-; function: asm_rtps_comn_init at 0x8009b39c -- 0x8009b3d4
-0x8009b39c:   39 00 00 00   	li r8, 0
+0x8009b39c:   39 00 00 00   	li r8, 0                                      ; function: asm_rtps_comn_init at 0x8009b39c -- 0x8009b3d4
 0x8009b3a0:   c9 4d 80 64   	lfd f10, -0x7f9c(r13)
 0x8009b3a4:   c1 6d 80 74   	lfs f11, -0x7f8c(r13)
 0x8009b3a8:   c1 8d 80 78   	lfs f12, -0x7f88(r13)
@@ -243,9 +226,7 @@
 0x8009b3c8:   11 8c 64 20   	vmhaddshs v12, v12, v12, v16
 0x8009b3cc:   11 ce 74 20   	vmhaddshs v14, v14, v14, v16
 0x8009b3d0:   4e 80 00 20   	blr 
-
-; function: asm_rtps at 0x8009b3d4 -- 0x8009b430
-0x8009b3d4:   bc a3 00 80   	stmw r5, 0x80(r3)
+0x8009b3d4:   bc a3 00 80   	stmw r5, 0x80(r3)                            ; function: asm_rtps at 0x8009b3d4 -- 0x8009b430
 0x8009b3d8:   7d 68 02 a6   	mflr r11
 0x8009b3dc:   4b ff ff c1   	bl 0x8009b39c <asm_rtps_comn_init>
 0x8009b3e0:   38 a4 00 00   	addi r5, r4, 0
@@ -267,10 +248,9 @@
 0x8009b420:   91 03 00 7c   	stw r8, 0x7c(r3)
 0x8009b424:   7d 68 03 a6   	mtlr r11
 0x8009b428:   b8 a3 00 80   	lmw r5, 0x80(r3)
-0x8009b42c:   4e 80 00 20   	blr 
-
-; function: asm_rtpt at 0x8009b430 -- 0x8009b494
-0x8009b430:   bc a3 00 80   	stmw r5, 0x80(r3)
+==========0x8009b42c:   4e 80 00 20   	blr                                 *****************************************
+              48 00 00 64   	b 0x8009b430 <asm_rtpt>
+0x8009b430:   bc a3 00 80   	stmw r5, 0x80(r3)                           ; function: asm_rtpt at 0x8009b430 -- 0x8009b494
 0x8009b434:   7d 68 02 a6   	mflr r11
 0x8009b438:   4b ff ff 65   	bl 0x8009b39c <asm_rtps_comn_init>
 0x8009b43c:   80 c4 00 4c   	lwz r6, 0x4c(r4)
