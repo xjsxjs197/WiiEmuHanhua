@@ -783,15 +783,14 @@ void gteMVMVA() {
 	//PRINT_LOG1("=%d====gteMVMVA====", gteLogIdx++);
     #endif // DISP_DEBUG
     //r5:vAddr, r6:mxAddr, r7:shift12Flg, r8:addAddr, r9:lowVal
-    u32* vAddr, mxAddr, addAddr;
+    u32* vAddr;
+    u32* mxAddr;
+    u32* addAddr;
     s32 shift12Flg, lowVal;
     vAddr = (u32*)psxRegs.CP2D.r;      // psxRegs.CP2D.p[ 0 ].sw.h
     mxAddr = (u32*)psxRegs.CP2C.r;     // psxRegs.CP2C.p[ 0 ].sw.h
     switch (psxRegs.code & 0x78000) {
         default:
-            #ifdef DISP_DEBUG
-            PRINT_LOG("gteMVMVA=default");
-            #endif // DISP_DEBUG*/
             break;
 		case 0x00000: // V0 * R
             break;
@@ -842,8 +841,8 @@ void gteMVMVA() {
             break;
 	}
 	#ifdef DISP_DEBUG
-    //PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x78000, (u32*)psxRegs.CP2D.r, (u32)vAddr);
-    #endif // DISP_DEBUG*/
+    PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x78000, (u32*)psxRegs.CP2D.r, (u32)vAddr);
+    #endif
 
 	shift12Flg = 0;
 	if (psxRegs.code & 0x80000)
@@ -870,8 +869,8 @@ void gteMVMVA() {
 	}
 
 	#ifdef DISP_DEBUG
-    PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x6000, (u32*)psxRegs.CP2C.r, (u32)addAddr);
-    #endif // DISP_DEBUG*/
+    //PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x6000, (u32*)psxRegs.CP2C.r, (u32)addAddr);
+    #endif
 
 	if (psxRegs.code & 0x400)
     {

@@ -83,11 +83,16 @@ FILE *gteLog;
                 sprintf(debug, msg, val1, val2, val3);\
                 PEOPS_GPUdisplayText(debug); \
             }
+    #define PRINT_LOG4(msg, val1, val2, val3, val4) { \
+                sprintf(debug, msg, val1, val2, val3, val4);\
+                PEOPS_GPUdisplayText(debug); \
+            }
 #else
     #define PRINT_LOG(msg)
     #define PRINT_LOG1(msg, val)
     #define PRINT_LOG2(msg, val1, val2)
     #define PRINT_LOG3(msg, val1, val2, val3)
+    #define PRINT_LOG4(msg, val1, val2, val3, val4)
 #endif
 // add xjsxjs197 end
 

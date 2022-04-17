@@ -1077,6 +1077,8 @@ static void recRTPT() {
     #endif // DISP_DEBUG*/
     if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
     {
+        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
+        iFlushRegs(0);
         ReleaseArgs();
         LIW(3, psxRegs.CP2C.r);
         LIW(4, psxRegs.CP2D.r);
@@ -1086,6 +1088,7 @@ static void recRTPT() {
         {
             INSTR = asmRtpsRtps[i++];
         }
+        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
     }
     else
     {
@@ -1103,6 +1106,8 @@ static void recRTPS() {
     #endif // DISP_DEBUG*/
     if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
     {
+        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
+        iFlushRegs(0);
         ReleaseArgs();
         LIW(3, psxRegs.CP2C.r);
         LIW(4, psxRegs.CP2D.r);
@@ -1112,6 +1117,7 @@ static void recRTPS() {
         {
             INSTR = asmRtpsRtps[i++];
         }
+        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
     }
     else
     {
