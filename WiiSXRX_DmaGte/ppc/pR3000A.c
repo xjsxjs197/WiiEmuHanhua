@@ -1165,7 +1165,7 @@ static void recMVMVA() {
     STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
     FlushAllHWReg();
 
-    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize + 12)
+    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
     {
         LIW(3, psxRegs.CP2C.r);
         LIW(4, psxRegs.CP2D.r);
@@ -3006,7 +3006,9 @@ __inline static void recRecompile() {
 	// upd xjsxjs197 end
 
 	/* if ppcPtr reached the mem limit reset whole mem */
-	if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	//if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	u32 maxAddr = (u32)recMem + (RECMEM_SIZE - 0x10000);
+	if ((u32)ppcPtr >= maxAddr) // fix me. don't just assume 0x10000
 		recReset();
 #ifdef TAG_CODE
 	ppcAlign();
@@ -3034,6 +3036,11 @@ __inline static void recRecompile() {
 			branch = 0;
 			break;
 		}
+        // added by xjsxjs197 start
+		if ((u32)ppcPtr >= maxAddr)
+        {
+            break;
+        }
 	}
   if(!branch) {
 	  iFlushRegs(pc);
