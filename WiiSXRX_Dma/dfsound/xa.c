@@ -104,6 +104,9 @@ static unsigned long timeGetTime_spu()
 ////////////////////////////////////////////////////////////////////////
 // FEED XA
 ////////////////////////////////////////////////////////////////////////
+#ifdef DISP_DEBUG
+static int tmpIdx = 0;
+#endif // DISP_DEBUG
 
 INLINE void FeedXA(xa_decode_t *xap)
 {
@@ -126,7 +129,7 @@ INLINE void FeedXA(xa_decode_t *xap)
 
  if(iPlace==0) return;                                 // no place at all
  #ifdef DISP_DEBUG
- PRINT_LOG1("SPUplayADPCMchannel %d=====", iSize);
+ PRINT_LOG3("%d SPUplayADPCMchannel %d==%d=",tmpIdx++, iSize, xap->freq);
  #endif // DISP_DEBUG
 
  //----------------------------------------------------//

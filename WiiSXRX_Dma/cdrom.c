@@ -363,7 +363,7 @@ void cdrInterrupt() {
 		    SetResultSize(1);
 	        cdr.Result[0] = cdr.StatP;
 	        cdr.Stat = Acknowledge;
-	
+
 			CDR_INT(cdr.eCycle);
 			setIrq();
 	        cdr.ParamP = 0;
@@ -692,7 +692,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
 			break;
-        
+
 		case CdlGetQ:
 			no_busy_error = 1;
 			break;
@@ -778,7 +778,7 @@ void cdrInterrupt() {
 			cdr.Stat = Complete;
 			break;
 	}
-	
+
 	if (cdr.DriveState == DRIVESTATE_STOPPED && start_rotating) {
 		cdr.DriveState = DRIVESTATE_STANDBY;
 		cdr.StatP |= STATUS_ROTATING;
@@ -855,7 +855,7 @@ void cdrReadInterrupt() {
 			cdr.File = cdr.Transfer[4 + 0];
 			cdr.Channel = cdr.Transfer[4 + 1];
 		}
-		/* Gameblabla 
+		/* Gameblabla
 		 * Skips playing on channel 255.
 		 * Fixes missing audio in Blue's Clues : Blue's Big Musical. (Should also fix Taxi 2)
 		 * TODO : Check if this is the proper behaviour.
@@ -965,6 +965,7 @@ unsigned char cdrRead1(void) {
 }
 
 void cdrWrite1(unsigned char rt) {
+	u8 set_loc[3];
 	int i;
 
 #ifdef CDR_LOG
@@ -999,15 +1000,37 @@ void cdrWrite1(unsigned char rt) {
         	break;
 
     	case CdlSetloc:
-			StopReading();
+			/*StopReading();
 			cdr.Seeked = 0;
         	for (i=0; i<3; i++) cdr.SetSector[i] = btoi(cdr.Param[i]);
-        	cdr.SetSector[3] = 0;
+        	cdr.SetSector[3] = 0;*/
 /*        	if ((cdr.SetSector[0] | cdr.SetSector[1] | cdr.SetSector[2]) == 0) {
 				*(u32 *)cdr.SetSector = *(u32 *)cdr.SetSectorSeek;
 			}*/
+
+            // MM must be BCD, SS must be BCD and <0x60, FF must be BCD and <0x75
+            if (((cdr.Param[0] & 0x0F) > 0x09) || (cdr.Param[0] > 0x99) || ((cdr.Param[1] & 0x0F) > 0x09) || (cdr.Param[1] >= 0x60) || ((cdr.Param[2] & 0x0F) > 0x09) || (cdr.Param[2] >= 0x75))
+            {
+                //CDR_LOG("Invalid/out of range seek to %02X:%02X:%02X\n", cdr.Param[0], cdr.Param[1], cdr.Param[2]);
+            }
+            else
+            {
+                for (i = 0; i < 3; i++)
+                {
+                    set_loc[i] = btoi(cdr.Param[i]);
+                }
+
+//                i = msf2sec(cdr.SetSectorPlay);
+//                i = abs(i - msf2sec(set_loc));
+//                if (i > 16)
+//                    cdr.Seeked = SEEK_PENDING;
+
+                memcpy(cdr.SetSector, set_loc, 3);
+                cdr.SetSector[3] = 0;
+                //cdr.SetlocPending = 1;
+            }
 			cdr.Ctrl|= 0x80;
-        	cdr.Stat = NoIntr;
+        	//cdr.Stat = NoIntr;
     		AddIrqQueue(cdr.Cmd, 0x800);
         	break;
 
@@ -1263,7 +1286,7 @@ void cdrWrite3(unsigned char rt) {
 
 		return;
 	}
-	
+
 	if ((rt & 0x80) && !(cdr.Ctrl & 0x1) && cdr.Readed == 0) {
 		cdr.Readed = 1;
 		cdr.pTransfer = cdr.Transfer;
@@ -1317,7 +1340,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 #endif
 				break;
 			}
-			
+
 			/*
 			GS CDX: Enhancement CD crash
 			- Setloc 0:0:0
@@ -1346,7 +1369,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				CDRDMA_INT(16);
 			}
 			return;
-			
+
 		default:
 #ifdef CDR_LOG
 			CDR_LOG("psxDma3() Log: Unknown cddma %lx\n", chcr);
