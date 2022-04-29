@@ -247,8 +247,8 @@ void psxDma6(u32 madr, u32 bcr, u32 chcr) {
 		while (bcr--) {
             // upd xjsxjs197 start
 			//*mem-- = SWAPu32((madr - 4) & 0xffffff);
-			STORE_SWAP32p(tmpAddr, (madr - 4) & 0xffffff);
-			*mem-- = tmpAddr[0];
+			STORE_SWAP32p2(mem, (madr - 4) & 0xffffff);
+			mem--;
 			//mem--;
 			//STORE_SWAP32p(mem, (u32)((madr - 4) & 0xffffff));
             // upd xjsxjs197 end
