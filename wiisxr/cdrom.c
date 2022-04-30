@@ -419,7 +419,7 @@ static void ReadTrack(const u8 *time) {
 	cdr.Prev[0] = tmp[0];
 	cdr.Prev[1] = tmp[1];
 	cdr.Prev[2] = tmp[2];
-	
+
 	//if (CheckSBI(time))
 	//	return;
 
@@ -490,9 +490,9 @@ static void cdrPlayInterrupt_Autopause()
 		cdr.Result[0] = cdr.StatP;
 		cdr.Result[1] = cdr.subq.Track;
 		cdr.Result[2] = cdr.subq.Index;
-		
+
 		abs_lev_chselect = cdr.subq.Absolute[1] & 0x01;
-		
+
 		/* 8 is a hack. For accuracy, it should be 588. */
 		for (i = 0; i < 8; i++)
 		{
@@ -702,7 +702,7 @@ void cdrInterrupt() {
 			cdr.Result[0] = cdr.StatP;
 
 			cdr.StatP |= STATUS_PLAY;
-			
+
 			// BIOS player - set flag again
 			cdr.Play = TRUE;
 
@@ -1025,13 +1025,13 @@ void cdrInterrupt() {
 				* It was originally set to 1000000 for Driver, however it is not high enough for Worms Pinball
 				* and was unreliable for that game.
 				* I also tested it against Mednafen and Driver's titlescreen music starts 25 frames later, not immediatly.
-				* 
+				*
 				* Obviously, this isn't perfect but right now, it should be a bit better.
 				* Games to test this against if you change that setting :
 				* - Driver (titlescreen music delay and retry mission)
 				* - Worms Pinball (Will either not boot or crash in the memory card screen)
 				* - Viewpoint (short pauses if the delay in the ingame music is too long)
-				* 
+				*
 				* It seems that 3386880 * 5 is too much for Driver's titlescreen and it starts skipping.
 				* However, 1000000 is not enough for Worms Pinball to reliably boot.
 				*/
@@ -1261,9 +1261,9 @@ void cdrReadInterrupt() {
 				 * This is a hack for Megaman X4, Castlevania etc...
 				 * that regressed from the new m_locationChanged and CDROM timings changes.
 				 * It is mostly noticeable in Castevania however and the stuttering can be very jarring.
-				 * 
+				 *
 				 * According to PCSX redux authors, we shouldn't cause a location change if
-				 * the sector difference is too small. 
+				 * the sector difference is too small.
 				 * I attempted to go with that approach but came empty handed.
 				 * So for now, let's just set cdr.m_locationChanged to false when playing back any ADPCM samples.
 				 * This does not regress Crash Team Racing's intro at least.
@@ -1309,7 +1309,7 @@ void cdrReadInterrupt() {
 	}
 
 	// update for CdlGetlocP
-	ReadTrack(cdr.SetSectorPlay);
+	//ReadTrack(cdr.SetSectorPlay);
 }
 
 /*
@@ -1668,10 +1668,10 @@ int cdrFreeze(gzFile f, int Mode) {
 
 	if (Mode == 0 && !Config.Cdda)
 		CDR_stop();
-	
+
 	cdr.freeze_ver = 0x63647202;
 	gzfreeze(&cdr, sizeof(cdr));
-	
+
 	if (Mode == 1) {
 		cdr.ParamP = cdr.ParamC;
 		tmp = pTransfer - cdr.Transfer;
