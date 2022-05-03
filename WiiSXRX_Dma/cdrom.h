@@ -55,6 +55,17 @@ typedef struct {
 
 	unsigned char Transfer[DATA_SIZE];
 	unsigned char *pTransfer;
+	unsigned int  transferIndex;
+    struct {
+		unsigned char Track;
+		unsigned char Index;
+		unsigned char Relative[3];
+		unsigned char Absolute[3];
+	} subq;
+	unsigned char TrackChanged;
+	bool m_locationChanged;
+	unsigned char pad1[2];
+	unsigned int  freeze_ver;
 
 	unsigned char Prev[4];
 	unsigned char Param[8];
@@ -67,6 +78,7 @@ typedef struct {
 	unsigned char ResultReady;
 	unsigned char Cmd;
 	unsigned char Readed;
+	unsigned char SetlocPending;
 	unsigned long Reading;
 
 	unsigned char ResultTN[6];

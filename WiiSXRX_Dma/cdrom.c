@@ -342,10 +342,68 @@ void AddIrqQueue(unsigned char irq, unsigned long ecycle) {
 	}
 }
 
+// also handles seek
+void cdrPlayInterrupt()
+{
+	if (cdr.Seeked == SEEK_PENDING) {
+		if (cdr.Stat) {
+			//CDR_LOG_I("cdrom: seek stat hack\n");
+			CDRMISC_INT(0x800);
+			return;
+		}
+		SetResultSize(1);
+		cdr.StatP |= STATUS_ROTATING;
+		cdr.StatP &= ~STATUS_SEEK;
+		cdr.Result[0] = cdr.StatP;
+		cdr.Seeked = SEEK_DONE;
+		if (cdr.Irq == 0) {
+			cdr.Stat = Complete;
+			setIrq();
+		}
+
+		if (cdr.SetlocPending) {
+			//memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+			//*((u32*)cdr.SetSectorPlay) = *((u32*)cdr.SetSector);
+			cdr.SetlocPending = 0;
+			cdr.m_locationChanged = TRUE;
+		}
+		//Find_CurTrack(cdr.SetSectorPlay);
+		//ReadTrack(cdr.SetSectorPlay);
+		ReadTrack();
+		cdr.TrackChanged = FALSE;
+	}
+
+	if (!cdr.Play) return;
+
+	cdr.SetSector[2]++;
+	if (cdr.SetSector[2] == 75) {
+		cdr.SetSector[2] = 0;
+		cdr.SetSector[1]++;
+		if (cdr.SetSector[1] == 60) {
+			cdr.SetSector[1] = 0;
+			cdr.SetSector[0]++;
+		}
+	}
+
+	if (cdr.m_locationChanged)
+	{
+		CDRMISC_INT(cdReadTime * 30);
+		cdr.m_locationChanged = FALSE;
+	}
+	else
+	{
+		CDRMISC_INT(cdReadTime);
+	}
+
+	// update for CdlGetlocP/autopause
+	//generate_subq(cdr.SetSectorPlay);
+}
+
 void cdrInterrupt() {
 	int no_busy_error = 0;
 	int start_rotating = 0;
 	int i;
+	int delay;
 	unsigned char Irq = cdr.Irq;
 
 	if (cdr.Stat) {
@@ -442,7 +500,12 @@ void cdrInterrupt() {
 			SetResultSize(1);
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
-        	cdr.Stat = Complete;
+        	//cdr.Stat = Complete;
+			AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
+			break;
+
+		case CdlStandby + 0x100:
+			cdr.Stat = Complete;
 			break;
 
 		case CdlStop:
@@ -450,15 +513,52 @@ void cdrInterrupt() {
 			SetResultSize(1);
         	cdr.StatP&=~0x2;
 			cdr.Result[0] = cdr.StatP;
-        	cdr.Stat = Complete;
+        	//cdr.Stat = Complete;
+			delay = 0x800;
+			if (cdr.DriveState == DRIVESTATE_STANDBY)
+				delay = cdReadTime * 30 / 2;
+
+			cdr.DriveState = DRIVESTATE_STOPPED;
+			AddIrqQueue(CdlStop + 0x100, delay);
 //        	cdr.Stat = Acknowledge;
 			break;
+
+		case CdlStop + 0x100:
+			cdr.StatP &= ~STATUS_ROTATING;
+			cdr.Result[0] = cdr.StatP;
+			cdr.Stat = Complete;
 
 		case CdlPause:
 			SetResultSize(1);
 			cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
-			AddIrqQueue(CdlPause + 0x20, 0x800);
+            /*
+			Gundam Battle Assault 2: much slower (*)
+			- Fixes boot, gameplay
+
+			Hokuto no Ken 2: slower
+			- Fixes intro + subtitles
+
+			InuYasha - Feudal Fairy Tale: slower
+			- Fixes battles
+			*/
+			/* Gameblabla - Tightening the timings (as taken from Duckstation).
+			 * The timings from Duckstation are based upon hardware tests.
+			 * Mednafen's timing don't work for Gundam Battle Assault 2 in PAL/50hz mode,
+			 * seems to be timing sensitive as it can depend on the CPU's clock speed.
+			 *
+			 * We will need to get around this for Bedlam/Rise 2 later...
+			 * */
+			if (cdr.DriveState != DRIVESTATE_STANDBY)
+			{
+				delay = 7000;
+			}
+			else
+			{
+				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
+				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
+			}
+			AddIrqQueue(CdlPause + 0x20, delay >> 2);
 			cdr.Ctrl|= 0x80;
 			break;
 
@@ -986,6 +1086,9 @@ void cdrWrite1(unsigned char rt) {
 
 	if (cdr.Ctrl & 0x1) return;
 
+	cdr.ResultReady = 0;
+
+// cdrWrite1 switch =====================================
     switch(cdr.Cmd) {
     	case CdlSync:
 			cdr.Ctrl|= 0x80;
