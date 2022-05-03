@@ -799,7 +799,7 @@ void cdrInterrupt() {
 				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
 				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
 			}
-			AddIrqQueue(CdlPause + 0x100, delay);
+			AddIrqQueue(CdlPause + 0x100, delay >> 2);
 			//AddIrqQueue(CdlPause + 0x100, cdReadTime * 3);
 			cdr.Ctrl |= 0x80;
 			break;
@@ -1411,6 +1411,7 @@ void cdrWrite1(unsigned char rt) {
 	// cdr.Stat = NoIntr;
 	AddIrqQueue(cdr.Cmd, 0x800);
 
+// cdrWrite1 switch =====================================
 	switch (cdr.Cmd) {
 	case CdlSetloc:
 		//CDR_LOG("CDROM setloc command (%02X, %02X, %02X)\n", cdr.Param[0], cdr.Param[1], cdr.Param[2]);
