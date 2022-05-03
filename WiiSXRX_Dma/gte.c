@@ -787,8 +787,8 @@ void gteMVMVA() {
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
 #endif
     #ifdef DISP_DEBUG
-	//PRINT_LOG("========gteMVMVA======");
-    #endif // DISP_DEBUG
+	u64 start = ticks_to_nanosecs(gettick());
+	#endif // DISP_DEBUG
 
 	switch (psxRegs.code & 0x78000) {
 		case 0x00000: // V0 * R
@@ -852,6 +852,10 @@ void gteMVMVA() {
 	else MAC2IR()
 
 	SUM_FLAG;
+	#ifdef DISP_DEBUG
+	u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("gteMVMVA=====%llu=", end - start);
+    #endif // DISP_DEBUG
 }
 
 void gteNCLIP() {

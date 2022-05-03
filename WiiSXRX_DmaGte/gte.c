@@ -582,10 +582,10 @@ void gteRTPS() {
     #ifdef DISP_DEBUG
 	#endif // DISP_DEBUG
 
-	//gteFLAG = 0;
+	gteFLAG = 0;
 
-    asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
-	/*GTE_RTPS1(0);
+    //asm_rtps(psxRegs.CP2C.r, psxRegs.CP2D.r);
+	GTE_RTPS1(0);
 
 	MAC2IR();
 
@@ -603,7 +603,7 @@ void gteRTPS() {
 
 	GTE_RTPS3();
 
-	SUM_FLAG;*/
+	SUM_FLAG;
 	#ifdef DISP_DEBUG
     //u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("asm_rtps=====%llu=", end - start);
@@ -682,9 +682,9 @@ void gteRTPT() {
     #ifdef DISP_DEBUG
 	//u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
-    asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
+    //asm_rtpt(psxRegs.CP2C.r, psxRegs.CP2D.r);
 
-	/*gteFLAG = 0;
+	gteFLAG = 0;
 
 	gteSZx = gteSZ2;
 
@@ -721,7 +721,7 @@ void gteRTPT() {
 
 	GTE_RTPS3();
 
-	SUM_FLAG;*/
+	SUM_FLAG;
 	#ifdef DISP_DEBUG
 	//u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("asm_rtpt=====%llu=", end - start);
@@ -765,16 +765,34 @@ void gteRTPT() {
 #define gte_C33 gteLB3
 
 #define _MVMVA_FUNC(_v0, _v1, _v2, mx) { \
-	SSX = (_v0) * mx##11 + (_v1) * mx##12 + (_v2) * mx##13; \
-	SSY = (_v0) * mx##21 + (_v1) * mx##22 + (_v2) * mx##23; \
-	SSZ = (_v0) * mx##31 + (_v1) * mx##32 + (_v2) * mx##33; \
+    if (_v0 == 0) { \
+        sum1 = 0; sum2 = 0; sum3 = 0;  \
+    } else { \
+        sum1 = (_v0) * mx##11; \
+        sum2 = (_v0) * mx##21; \
+        sum3 = (_v0) * mx##31; \
+    }  \
+    if (_v1 != 0) { \
+        sum1 += (_v1) * mx##12; \
+        sum2 += (_v1) * mx##22; \
+        sum3 += (_v1) * mx##32; \
+    }  \
+    if (_v2 != 0) { \
+        sum1 += (_v2) * mx##13; \
+        sum2 += (_v2) * mx##23; \
+        sum3 += (_v2) * mx##33; \
+    } \
+    SSX = (s64)sum1; \
+    SSY = (s64)sum2; \
+    SSZ = (s64)sum3; \
 }
 
 void gteMVMVA() {
     #ifdef DISP_DEBUG
-	//u64 start = ticks_to_nanosecs(gettick());
+	u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
 	s64 SSX, SSY, SSZ;
+	int sum1, sum2, sum3;
 
 #ifdef GTE_LOG
 	GTE_LOG("GTE_MVMVA %lx\n", psxRegs.code & 0x1ffffff);
@@ -783,7 +801,7 @@ void gteMVMVA() {
 	//PRINT_LOG1("=%d====gteMVMVA====", gteLogIdx++);
     #endif // DISP_DEBUG
     //r5:vAddr, r6:mxAddr, r7:shift12Flg, r8:addAddr, r9:lowVal
-    u32* vAddr;
+    /*u32* vAddr;
     u32* mxAddr;
     u32* addAddr;
     s32 shift12Flg, lowVal;
@@ -841,7 +859,7 @@ void gteMVMVA() {
             break;
 	}
 	#ifdef DISP_DEBUG
-    PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x78000, (u32*)psxRegs.CP2D.r, (u32)vAddr);
+    //PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x78000, (u32*)psxRegs.CP2D.r, (u32)vAddr);
     #endif
 
 	shift12Flg = 0;
@@ -869,7 +887,20 @@ void gteMVMVA() {
 	}
 
 	#ifdef DISP_DEBUG
-    //PRINT_LOG3("gteMVMVA=%x=%x=%x", psxRegs.code & 0x6000, (u32*)psxRegs.CP2C.r, (u32)addAddr);
+	char RomInfo[512] = "";
+    char buffer [50];
+	s16 *tmp = (s16*)vAddr;
+	sprintf(buffer, "x=%x y=%x z=%x\n", *(tmp + 1), *tmp, *(tmp + 3));
+    strcat(RomInfo, buffer);
+    tmp = (s16*)mxAddr;
+    sprintf(buffer, "m11=%x m12=%x m13=%x\n", *(tmp + 1), *tmp, *(tmp + 3));
+    strcat(RomInfo, buffer);
+    sprintf(buffer, "m21=%x m22=%x m23=%x\n", *(tmp + 2), *(tmp + 5), *(tmp + 4));
+    strcat(RomInfo, buffer);
+    sprintf(buffer, "m31=%x m32=%x m33=%x\n", *(tmp + 7), *(tmp + 6), *(tmp + 9));
+    strcat(RomInfo, buffer);
+
+    PRINT_LOG1("%s", RomInfo);
     #endif
 
 	if (psxRegs.code & 0x400)
@@ -880,8 +911,8 @@ void gteMVMVA() {
     {
         lowVal = -0x8000;
     }
-    asm_mvmva(psxRegs.CP2C.r, psxRegs.CP2D.r, vAddr, mxAddr, shift12Flg, addAddr, lowVal);
-/*
+    asm_mvmva(psxRegs.CP2C.r, psxRegs.CP2D.r, vAddr, mxAddr, shift12Flg, addAddr, lowVal);*/
+
 	switch (psxRegs.code & 0x78000) {
 		case 0x00000: // V0 * R
 			_MVMVA_FUNC(gteVX0, gteVY0, gteVZ0, gteR); break;
@@ -944,10 +975,10 @@ void gteMVMVA() {
 	else MAC2IR()
 
 	SUM_FLAG;
-*/
+
 	#ifdef DISP_DEBUG
-	//u64 end = ticks_to_nanosecs(gettick());
-	//PRINT_LOG1("gteMVMVA=====%llu=", end - start);
+	u64 end = ticks_to_nanosecs(gettick());
+	PRINT_LOG1("gteMVMVA=====%llu=", end - start);
     #endif // DISP_DEBUG
 }
 

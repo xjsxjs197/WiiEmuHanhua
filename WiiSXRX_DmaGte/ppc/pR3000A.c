@@ -1094,27 +1094,27 @@ void gteRTPS();
 void gteRTPT();
 void gteMVMVA();
 static void recRTPT() {
-    int tmpSize = sizeof(asmRtpsRtps);
-    int i;
-    #ifdef DISP_DEBUG
-    //PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
-    #endif // DISP_DEBUG*/
-    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-    {
-        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-        //iFlushRegs(0);
-        //ReleaseArgs();
-        LIW(3, psxRegs.CP2C.r);
-        LIW(4, psxRegs.CP2D.r);
-        i = 0;
-        tmpSize = tmpSize >> 2;
-        while (tmpSize-- > 0)
-        {
-            INSTR = asmRtpsRtps[i++];
-        }
-        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-    }
-    else
+//    int tmpSize = sizeof(asmRtpsRtps);
+//    int i;
+//    #ifdef DISP_DEBUG
+//    //PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
+//    #endif // DISP_DEBUG*/
+//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
+//    {
+//        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
+//        //iFlushRegs(0);
+//        //ReleaseArgs();
+//        LIW(3, psxRegs.CP2C.r);
+//        LIW(4, psxRegs.CP2D.r);
+//        i = 0;
+//        tmpSize = tmpSize >> 2;
+//        while (tmpSize-- > 0)
+//        {
+//            INSTR = asmRtpsRtps[i++];
+//        }
+//        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
+//    }
+//    else
     {
         if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
         iFlushRegs(0);
@@ -1123,27 +1123,27 @@ static void recRTPT() {
     }
 }
 static void recRTPS() {
-    int tmpSize = sizeof(asmRtpsRtps) - 4 * 4;
-    int i;
-    #ifdef DISP_DEBUG
-    //PRINT_LOG2("recRTPS=%x=%d", (u32)ppcPtr, tmpSize >> 2);
-    #endif // DISP_DEBUG*/
-    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-    {
-        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-        //iFlushRegs(0);
-        //ReleaseArgs();
-        LIW(3, psxRegs.CP2C.r);
-        LIW(4, psxRegs.CP2D.r);
-        i = 4;
-        tmpSize = tmpSize >> 2;
-        while (tmpSize-- > 0)
-        {
-            INSTR = asmRtpsRtps[i++];
-        }
-        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-    }
-    else
+//    int tmpSize = sizeof(asmRtpsRtps) - 4 * 4;
+//    int i;
+//    #ifdef DISP_DEBUG
+//    //PRINT_LOG2("recRTPS=%x=%d", (u32)ppcPtr, tmpSize >> 2);
+//    #endif // DISP_DEBUG*/
+//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
+//    {
+//        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
+//        //iFlushRegs(0);
+//        //ReleaseArgs();
+//        LIW(3, psxRegs.CP2C.r);
+//        LIW(4, psxRegs.CP2D.r);
+//        i = 4;
+//        tmpSize = tmpSize >> 2;
+//        while (tmpSize-- > 0)
+//        {
+//            INSTR = asmRtpsRtps[i++];
+//        }
+//        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
+//    }
+//    else
     {
         if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
         iFlushRegs(0);
@@ -1165,19 +1165,19 @@ static void recMVMVA() {
     STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
     FlushAllHWReg();
 
-    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-    {
-        LIW(3, psxRegs.CP2C.r);
-        LIW(4, psxRegs.CP2D.r);
-
-        i = 0;
-        tmpSize = tmpSize >> 2;
-        while (tmpSize-- > 0)
-        {
-            INSTR = asmMvmva[i++];
-        }
-    }
-    else
+//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
+//    {
+//        LIW(3, psxRegs.CP2C.r);
+//        LIW(4, psxRegs.CP2D.r);
+//
+//        i = 0;
+//        tmpSize = tmpSize >> 2;
+//        while (tmpSize-- > 0)
+//        {
+//            INSTR = asmMvmva[i++];
+//        }
+//    }
+//    else
     {
         CALLFunc ((u32)gteMVMVA);
     }
