@@ -544,7 +544,8 @@ void cdrPlayInterrupt()
 		}
 
 		if (cdr.SetlocPending) {
-			memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+			//memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+			*((u32*)cdr.SetSectorPlay) = *((u32*)cdr.SetSector);
 			cdr.SetlocPending = 0;
 			cdr.m_locationChanged = TRUE;
 		}
@@ -652,7 +653,8 @@ void cdrInterrupt() {
 			cdr.FastForward = 0;
 
 			if (cdr.SetlocPending) {
-				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+				//memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+				*((u32*)cdr.SetSectorPlay) = *((u32*)cdr.SetSector);
 				cdr.SetlocPending = 0;
 				cdr.m_locationChanged = TRUE;
 			}
@@ -850,7 +852,8 @@ void cdrInterrupt() {
 
 		case CdlGetlocL:
 			SetResultSize(8);
-			memcpy(cdr.Result, cdr.Transfer, 8);
+			//memcpy(cdr.Result, cdr.Transfer, 8);
+			*((unsigned long long *)cdr.Result) = *((unsigned long long *)cdr.Transfer);
 			break;
 
 		case CdlGetlocP:
@@ -874,7 +877,8 @@ void cdrInterrupt() {
                 generate_subq(cdr.SetSectorPlay);
             }
 
-			memcpy(&cdr.Result, &cdr.subq, 8);
+			//memcpy(&cdr.Result, &cdr.subq, 8);
+			*((unsigned long long *)&cdr.Result) = *((unsigned long long *)&cdr.subq);
 
 			//if (!cdr.Play && CheckSBI(cdr.Result+5))
 			//	memset(cdr.Result+2, 0, 6);
@@ -1037,7 +1041,8 @@ void cdrInterrupt() {
 				*/
 				if(seekTime > 3386880 * 2) seekTime = 3386880 * 2;
 				//if(seekTime > 1000000) seekTime = 1000000;
-				memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+				//memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+				*((u32 *)cdr.SetSectorPlay) = *((u32 *)cdr.SetSector);
 				cdr.SetlocPending = 0;
 				cdr.m_locationChanged = TRUE;
 			}
@@ -1060,7 +1065,8 @@ void cdrInterrupt() {
 			{
 				u8 *buf = CDR_getBuffer();
 				if (buf != NULL)
-					memcpy(cdr.Transfer, buf, 8);
+					//memcpy(cdr.Transfer, buf, 8);
+					*((unsigned long long *)cdr.Transfer) = *((unsigned long long *)buf);
 			}
 
 			/*
@@ -1232,7 +1238,8 @@ void cdrReadInterrupt() {
 		return;
 	}
 
-	memcpy(cdr.Transfer, buf, DATA_SIZE);
+	//memcpy(cdr.Transfer, buf, DATA_SIZE);
+	cacheable_kernel_memcpy(cdr.Transfer, buf, DATA_SIZE);
 	//CheckPPFCache(cdr.Transfer, cdr.Prev[0], cdr.Prev[1], cdr.Prev[2]);
 
 
@@ -1517,7 +1524,8 @@ void cdrWrite3(unsigned char rt) {
 		return;
 	case 3:
 		if (rt & 0x20) {
-			memcpy(&cdr.AttenuatorLeftToLeft, &cdr.AttenuatorLeftToLeftT, 4);
+			//memcpy(&cdr.AttenuatorLeftToLeft, &cdr.AttenuatorLeftToLeftT, 4);
+			*((u32*)&cdr.AttenuatorLeftToLeft) = *((u32*)&cdr.AttenuatorLeftToLeftT);
 			//CDR_LOG_I("CD-XA Volume: %02x %02x | %02x %02x\n",
 			//	cdr.AttenuatorLeftToLeft, cdr.AttenuatorLeftToRight,
 			//	cdr.AttenuatorRightToLeft, cdr.AttenuatorRightToRight);
@@ -1592,7 +1600,8 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				size = cdsize;
 			if (size > 0)
 			{
-				memcpy(ptr, pTransfer, size);
+				//memcpy(ptr, pTransfer, size);
+				cacheable_kernel_memcpy(ptr, pTransfer, size);
 			}
 
 			psxCpu->Clear(madr, cdsize >> 2);
@@ -1600,12 +1609,12 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 
 			if( chcr == 0x11400100 ) {
 				HW_DMA3_MADR = SWAPu32(madr + cdsize);
-				CDRDMA_INT( (cdsize/4) / 4 );
+				CDRDMA_INT( cdsize >> 5 );
 			}
 			else if( chcr == 0x11000000 ) {
 				// CDRDMA_INT( (cdsize/4) * 1 );
 				// halted
-				psxRegs.cycle += (cdsize/4) * 24/2;
+				psxRegs.cycle += (((cdsize >> 2) * 24 ) >> 1);
 				CDRDMA_INT(16);
 			}
 			return;

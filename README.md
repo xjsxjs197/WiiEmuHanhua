@@ -22,9 +22,9 @@ Wii上的汉化的模拟器
 
 6、https://github.com/Mystro256
   WiiSxr_1.3          索尼PS模拟器     (PPC29 + Libogc_1.8.16(libfat.a使用New))
-  wiisxr              最新最全的变更（旧：Gte），可以玩北斗神拳，某些游戏不能玩
-  WiiSXRX             原本基础上优化（旧：Gte，Counter，SPU）
-  WiiSXRX_Dma         原本基础上优化到Dma（旧：Gte,Counter,Cdrom），可以正常游戏
+  wiisxr              最新最全的变更（旧：Gte, Counter），可以玩北斗神拳，兼容性最高，就是读盘有点慢，特别是寄生前夜进入战斗要用5秒！
+  WiiSXRX             原本基础上优化（旧：Gte，Counter，SPU），主要为了对比和验证
+  WiiSXRX_Dma         原本基础上优化到Dma（旧：Gte, Counter, Cdrom），除了北斗神拳不能玩，其他和wiisxr一样，读盘速度快。
   WiiSXRX_DmaGte      在WiiSXRX_Dma基础上，优化Gte，但是有错误，效率也没有改善多少；
 
 7、https://github.com/FIX94/Wii64
