@@ -38,16 +38,29 @@ char debug[256];
 #endif // DISP_DEBUG
 // add xjsxjs197 end
 
+#define DELAY_MS     1000000	   // 1ms
+extern int stop;
+
 static lwpq_t spuQueue;
 static lwp_t spuThreadP = LWP_THREAD_NULL;
 
 static bool stopSpuThreadFlg = false;
 
-void SPU_Delay_nsec()
+static void SPU_Delay_nsec(int delayNsec)
 {
 	struct timespec elapsed, tv;
 	elapsed.tv_sec = 0;
-	elapsed.tv_nsec = 1000000;
+	elapsed.tv_nsec = delayNsec;
+	tv.tv_sec = elapsed.tv_sec;
+	tv.tv_nsec = elapsed.tv_nsec;
+	nanosleep(&tv, &elapsed);
+}
+
+static void SPU_Delay_1sec()
+{
+	struct timespec elapsed, tv;
+	elapsed.tv_sec = 1;
+	elapsed.tv_nsec = 0;
 	tv.tv_sec = elapsed.tv_sec;
 	tv.tv_nsec = elapsed.tv_nsec;
 	nanosleep(&tv, &elapsed);
@@ -63,9 +76,24 @@ static void *SpuThread(void *arg)
             break;
         }
 
-        SPU_Delay_nsec();
-
-	    SPU_async(psxRegs.cycle, 1);
+        if (stop)
+        {
+            SPU_Delay_1sec();
+        }
+        else
+        {
+            // psxType 0=NTSC 8 ms, 1=PAL 10 ms; do two frames
+            if (Config.PsxType)
+            {
+                SPU_Delay_nsec(DELAY_MS * 8);
+                SPU_async(90 * 8, 1);
+            }
+	        else
+            {
+                SPU_Delay_nsec(DELAY_MS * 10);
+                SPU_async(90 * 10, 1);
+            }
+        }
 	}
 	return NULL;
 }
@@ -99,7 +127,7 @@ void psxHwReset() {
 	psxRcntInit();
 	//HW_GPU_STATUS = 0x14802000;
 
-	//initSpuThread();
+	initSpuThread();
 }
 
 u8 psxHwRead8(u32 add) {

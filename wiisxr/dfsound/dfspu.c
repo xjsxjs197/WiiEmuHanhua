@@ -1098,24 +1098,25 @@ void do_samples(unsigned int cycles_to, int do_direct)
  int cycle_diff;
  int ns_to;
 
- cycle_diff = cycles_to - spu.cycles_played;
- if (cycle_diff < -2*1048576 || cycle_diff > 2*1048576)
-  {
-   //xprintf("desync %u %d\n", cycles_to, cycle_diff);
-   spu.cycles_played = cycles_to;
-   return;
-  }
+// cycle_diff = cycles_to - spu.cycles_played;
+// if (cycle_diff < -2*1048576 || cycle_diff > 2*1048576)
+//  {
+//   //xprintf("desync %u %d\n", cycles_to, cycle_diff);
+//   spu.cycles_played = cycles_to;
+//   return;
+//  }
 
  silentch = ~(spu.dwChannelOn | spu.dwNewChannel) & 0xffffff;
 
- do_direct |= (silentch == 0xffffff);
- if (worker != NULL)
-  sync_worker_thread(do_direct);
+// do_direct |= (silentch == 0xffffff);
+// if (worker != NULL)
+//  sync_worker_thread(do_direct);
+//
+// if (cycle_diff < 2 * 768)
+//  return;
 
- if (cycle_diff < 2 * 768)
-  return;
-
- ns_to = (cycle_diff / 768 + 1) & ~1;
+ //ns_to = (cycle_diff / 768 + 1) & ~1;
+ ns_to = cycles_to;
  if (ns_to > NSSIZE) {
   // should never happen
   //xprintf("ns_to oflow %d %d\n", ns_to, NSSIZE);
@@ -1258,8 +1259,8 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
 {
     do_samples(cycle, spu_config.iUseFixedUpdates);
 
- if (spu.spuCtrl & CTRL_IRQ)
-  schedule_next_irq();
+ //if (spu.spuCtrl & CTRL_IRQ)
+ // schedule_next_irq();
 
  if (flags & 1) {
   out_current->feed(spu.pSpuBuffer, (unsigned char *)spu.pS - spu.pSpuBuffer);

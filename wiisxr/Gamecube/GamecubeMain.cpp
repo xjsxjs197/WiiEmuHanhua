@@ -360,7 +360,7 @@ void ShutdownWii()
 	shutdown = 1;
 	stop = 1;
 
-	//stopSpuThread();
+	stopSpuThread();
 }
 #endif
 
