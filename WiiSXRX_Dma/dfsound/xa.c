@@ -120,7 +120,9 @@ INLINE void FeedXA(xa_decode_t *xap)
 #if 0//def XA_HACK
  iSize=((45500*xap->nsamples)/xap->freq);              // get size
 #else
- iSize=((48000*xap->nsamples)/xap->freq);              // get size
+ //iSize=((48000*xap->nsamples)/xap->freq);              // get size
+ iSize = xap->newSize;
+
 #endif
  if(!iSize) return;                                    // none? bye
 

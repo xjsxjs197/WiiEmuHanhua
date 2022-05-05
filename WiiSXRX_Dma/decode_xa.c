@@ -17,7 +17,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.           *
  ***************************************************************************/
 
-/* 
+/*
 * XA audio decoding functions (Kazzuya).
 */
 
@@ -30,6 +30,8 @@
 
 #define SH	4
 #define SHC	10
+
+#define SPU_FREQ	48000
 
 //============================================
 //===  ADPCM DECODING ROUTINES
@@ -56,7 +58,7 @@ static int K0[4] = {
 	1.796875  * (1<<SHC),
 	1.53125   * (1<<SHC)
 };
- 
+
 static int K1[4] = {
 	0.0       * (1<<SHC),
 	0.0       * (1<<SHC),
@@ -296,7 +298,7 @@ u8  coding2;
 #define SUB_AUDIO   2
 
 //============================================
-static int parse_xa_audio_sector( xa_decode_t *xdp, 
+static int parse_xa_audio_sector( xa_decode_t *xdp,
 								  xa_subheader_t *subheadp,
 								  unsigned char *sectorp,
 								  int is_first_sector ) {
@@ -324,7 +326,17 @@ static int parse_xa_audio_sector( xa_decode_t *xdp,
 		ADPCM_InitDecode( &xdp->right );
 
 		xdp->nsamples = 18 * 28 * 8;
-		if (xdp->stereo == 1) xdp->nsamples /= 2;
+		if (xdp->freq == 37800) {
+            xdp->newSize = ((SPU_FREQ * 18 * 28 * 8) / 37800);
+		} else {
+		    xdp->newSize = ((SPU_FREQ * 18 * 28 * 8) / 18900);
+		}
+		if (xdp->stereo == 1)
+		{
+		    xdp->nsamples >>= 1;
+		    xdp->newSize >>= 1;
+		}
+
     }
 	xa_decode_data( xdp, sectorp );
 
