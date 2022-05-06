@@ -853,8 +853,8 @@ void gteMVMVA() {
 
 	SUM_FLAG;
 	#ifdef DISP_DEBUG
-	u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("gteMVMVA=====%llu=", end - start);
+	//u64 end = ticks_to_nanosecs(gettick());
+	//PRINT_LOG1("gteMVMVA=====%llu=", end - start);
     #endif // DISP_DEBUG
 }
 

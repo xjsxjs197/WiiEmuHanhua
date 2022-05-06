@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <SDL/SDL.h>
 #include "out.h"
+#include "../coredebug.h"
 
 //#define BUFFER_SIZE		22050
 #define BUFFER_SIZE		24000
@@ -148,12 +149,33 @@ static void sdl_feed(void *pSound, int lBytes) {
 	if (pSndBuffer == NULL) return;
 
 	while (lBytes > 0) {
-		if (((iWritePos + 1) % BUFFER_SIZE) == iReadPos) break;
+//		if (((iWritePos + 1) % BUFFER_SIZE) == iReadPos)
+//		{
+//		    #ifdef DISP_DEBUG
+//            PRINT_LOG1("sdl_feed === error: %d ", lBytes);
+//            #endif // DISP_DEBUG
+//		    break;
+//		}
+
+        ++iWritePos;
+        if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
+
+        if (iWritePos == iReadPos)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG1("sdl_feed === error: %d ", lBytes);
+            #endif // DISP_DEBUG
+            iWritePos--;
+            if (iWritePos < 0)
+            {
+                iWritePos = BUFFER_SIZE - 1;
+            }
+            break;
+        }
 
 		pSndBuffer[iWritePos] = *p++;
-
-		++iWritePos;
-		if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
+		//++iWritePos;
+		//if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
 
 		lBytes -= sizeof(short);
 	}

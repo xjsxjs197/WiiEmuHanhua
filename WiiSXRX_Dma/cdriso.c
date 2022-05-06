@@ -1298,10 +1298,27 @@ static void readThreadStart() {
   readThreadStop();
 }
 
+#ifdef DISP_DEBUG
+static int tmpIdx1 = 0;
+static int tmpIdx2 = 0;
+#endif // DISP_DEBUG
 static int cdread_normal(FILE *f, unsigned int base, void *dest, int sector)
 {
 	fseek(f, base + sector * CD_FRAMESIZE_RAW, SEEK_SET);
-	return fread(dest, 1, CD_FRAMESIZE_RAW, f);
+	//return fread(dest, 1, CD_FRAMESIZE_RAW, f);
+	if (fread(dest, CD_FRAMESIZE_RAW, 1, f) == 1) {
+        #ifdef DISP_DEBUG
+        //PRINT_LOG1("cdread_normal1====%d==", tmpIdx1++);
+        #endif // DISP_DEBUG
+        return CD_FRAMESIZE_RAW;
+	}
+	else
+    {
+        #ifdef DISP_DEBUG
+        //PRINT_LOG1("cdread_normal2====%d==", tmpIdx2++);
+        #endif // DISP_DEBUG
+        return fread(dest, 1, CD_FRAMESIZE_RAW, f);
+    }
 }
 
 static int cdread_sub_mixed(FILE *f, unsigned int base, void *dest, int sector)
