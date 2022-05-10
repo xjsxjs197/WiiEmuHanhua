@@ -1791,7 +1791,8 @@ static void DecodeRawSubData(void) {
 // time: byte 0 - minute; byte 1 - second; byte 2 - frame
 // uses bcd format
 static long CALLBACK ISOreadTrack(unsigned char *time) {
-	int sector = MSF2SECT(btoi(time[0]), btoi(time[1]), btoi(time[2]));
+	//int sector = MSF2SECT(btoi(time[0]), btoi(time[1]), btoi(time[2]));
+	int sector = MSF2SECT((time[0]), (time[1]), (time[2]));
 	long ret;
 
 	if (cdHandle == NULL) {
