@@ -37,6 +37,7 @@ extern "C" {
 #define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 
 #define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
+//#define MSF2SECT(m, s, f)		(((m) * 60 + (s)) * 75 + (f))
 
 #define CD_FRAMESIZE_RAW		2352
 #define DATA_SIZE				(CD_FRAMESIZE_RAW - 12)
