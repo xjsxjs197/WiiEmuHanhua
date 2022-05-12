@@ -27,7 +27,7 @@
 
 static int cnts = 4;
 psxCounter psxCounters[5];
-static u64 spuTimer = 0;
+static u32 spuTimer = 0;
 
 static void psxRcntUpd(unsigned long index) {
 	psxCounters[index].sCycle = psxRegs.cycle;
@@ -189,18 +189,26 @@ void psxRcntUpdate() {
 	}
 
 	if (cnts >= 5) {
-//        u64 curSpuTime = ticks_to_microsecs(gettick());
-//		if (curSpuTime >= spuTimer + 1200) {
-//            SPU_async(psxRegs.cycle, 1);
-//            spuTimer = curSpuTime;
-//		}
+        u32 curSpuTime = (u32)(ticks_to_microsecs(gettime()));
+		if (curSpuTime >= spuTimer + 1200) {
+            #ifdef DISP_DEBUG
+            PRINT_LOG1("SPU_async====%d ", curSpuTime - spuTimer);
+            #endif // DISP_DEBUG
+            SPU_async(psxRegs.cycle, 1, Config.PsxType);
+            spuTimer = curSpuTime;
+		}
 
 		if ((psxRegs.cycle - psxCounters[4].sCycle) >= psxCounters[4].Cycle) {
 #ifdef PROFILE
   start_section(AUDIO_SECTION);
 #endif
 			//SPU_async((psxRegs.cycle - psxCounters[4].sCycle) * BIAS, Config.PsxType);
-			//SPU_async(psxRegs.cycle, 1);
+            #ifdef DISP_DEBUG
+            //u32 curSpuTime = diff_usec(spuTimer, gettime());
+            //PRINT_LOG1("SPU_async====%d ", curSpuTime);
+            //spuTimer = gettime();
+            #endif // DISP_DEBUG
+			//SPU_async(psxRegs.cycle, 1, Config.PsxType);
 #ifdef PROFILE
 	end_section(AUDIO_SECTION);
 #endif

@@ -1098,25 +1098,28 @@ void do_samples(unsigned int cycles_to, int do_direct)
  int cycle_diff;
  int ns_to;
 
-// cycle_diff = cycles_to - spu.cycles_played;
-// if (cycle_diff < -2*1048576 || cycle_diff > 2*1048576)
-//  {
-//   //xprintf("desync %u %d\n", cycles_to, cycle_diff);
-//   spu.cycles_played = cycles_to;
-//   return;
-//  }
+ cycle_diff = cycles_to - spu.cycles_played;
+ if (cycle_diff < -2*1048576 || cycle_diff > 2*1048576)
+  {
+   //xprintf("desync %u %d\n", cycles_to, cycle_diff);
+   spu.cycles_played = cycles_to;
+   return;
+  }
 
  silentch = ~(spu.dwChannelOn | spu.dwNewChannel) & 0xffffff;
 
-// do_direct |= (silentch == 0xffffff);
-// if (worker != NULL)
-//  sync_worker_thread(do_direct);
-//
-// if (cycle_diff < 2 * 768)
-//  return;
+ do_direct |= (silentch == 0xffffff);
+ if (worker != NULL)
+  sync_worker_thread(do_direct);
 
- //ns_to = (cycle_diff / 768 + 1) & ~1;
- ns_to = cycles_to;
+ if (cycle_diff < 2 * 768)
+  return;
+
+ ns_to = (cycle_diff / 768 + 1) & ~1;
+ #ifdef DISP_DEBUG
+ //PRINT_LOG1("SPU_async====%d ", ns_to);
+ #endif // DISP_DEBUG
+ //ns_to = 600;
  if (ns_to > NSSIZE) {
   // should never happen
   //xprintf("ns_to oflow %d %d\n", ns_to, NSSIZE);
@@ -1255,7 +1258,7 @@ void schedule_next_irq(void)
 
 // rearmed: called dynamically now
 
-void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
+void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags, unsigned int psxType)
 {
     do_samples(cycle, spu_config.iUseFixedUpdates);
 
@@ -1268,11 +1271,15 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
   spu.pS = (short *)spu.pSpuBuffer;
 
   //if (spu_config.iTempo) {
-   if (!out_current->busy())
+   if (!out_current->busy()) {
     // cause more samples to be generated
     // (and break some games because of bad sync)
-    spu.cycles_played -= 48000 / 60 / 2 * 768;
-  //}
+    if (psxType) {
+        spu.cycles_played -= 48000 / 50 / 2 * 768;  // Config.PsxType = 1, PAL 50Fps/1s
+    } else {
+        spu.cycles_played -= 48000 / 60 / 2 * 768;  // Config.PsxType = 0, PAL 60Fps/1s
+    }
+   }
  }
 }
 

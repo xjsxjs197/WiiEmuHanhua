@@ -86,12 +86,12 @@ static void *SpuThread(void *arg)
             if (Config.PsxType)
             {
                 SPU_Delay_nsec(DELAY_MS * 8);
-                SPU_async(90 * 8, 1);
+                SPU_async(90 * 8, 1, Config.PsxType);
             }
 	        else
             {
                 SPU_Delay_nsec(DELAY_MS * 10);
-                SPU_async(90 * 10, 1);
+                SPU_async(90 * 10, 1, Config.PsxType);
             }
         }
 	}
@@ -100,20 +100,20 @@ static void *SpuThread(void *arg)
 
 void initSpuThread()
 {
-    if (spuThreadP == LWP_THREAD_NULL)
-    {
-        LWP_CreateThread(&spuThreadP, SpuThread, NULL, NULL, NULL, 95); // (Spu Timer)
-    }
+//    if (spuThreadP == LWP_THREAD_NULL)
+//    {
+//        LWP_CreateThread(&spuThreadP, SpuThread, NULL, NULL, NULL, 95); // (Spu Timer)
+//    }
 }
 
 void stopSpuThread()
 {
-    if (spuThreadP != LWP_THREAD_NULL)
-    {
-        stopSpuThreadFlg = true;
-	    LWP_JoinThread(spuThreadP, NULL);
-	    spuThreadP = LWP_THREAD_NULL;
-    }
+//    if (spuThreadP != LWP_THREAD_NULL)
+//    {
+//        stopSpuThreadFlg = true;
+//	    LWP_JoinThread(spuThreadP, NULL);
+//	    spuThreadP = LWP_THREAD_NULL;
+//    }
 }
 
 void psxHwReset() {

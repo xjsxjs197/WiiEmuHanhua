@@ -118,7 +118,7 @@ unsigned short DF_SPUreadDMA(void);
 void DF_SPUreadDMAMem(unsigned short * pusPSXMem,int iSize, unsigned int cycles);
 void DF_SPUwriteDMA(unsigned short val);
 void DF_SPUwriteDMAMem(unsigned short * pusPSXMem,int iSize, unsigned int cycles);
-void DF_SPUasync(unsigned long cycle, unsigned int flags);
+void DF_SPUasync(unsigned long cycle, unsigned int flags, unsigned int psxType);
 void DF_SPUplayADPCMchannel(xa_decode_t *xap);
 int  DF_SPUplayCDDAchannel(short *pcm, int nbytes);
 long DF_SPUinit(void);

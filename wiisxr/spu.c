@@ -37,5 +37,5 @@ void CALLBACK SPUschedule(unsigned int cycles_after) {
 }
 
 void spuUpdate() {
-	SPU_async(psxRegs.cycle, 0);
+	SPU_async(psxRegs.cycle, 0, Config.PsxType);
 }
