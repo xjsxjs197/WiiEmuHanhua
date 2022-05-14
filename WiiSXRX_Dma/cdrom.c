@@ -1463,8 +1463,8 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				size = cdsize;
 			if (size > 0)
 			{
-				//memcpy(ptr, pTransfer, size);
-				cacheable_kernel_memcpy(ptr, pTransfer, size);
+				//memcpy(ptr, cdr.pTransfer, size);
+				cacheable_kernel_memcpy(ptr, cdr.pTransfer, size);
 			}
 
 			psxCpu->Clear(madr, cdsize >> 2);
