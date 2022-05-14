@@ -2972,7 +2972,9 @@ __inline static void recRecompile() {
 	// upd xjsxjs197 end
 
 	/* if ppcPtr reached the mem limit reset whole mem */
-	if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	//if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	u32 maxAddr = (u32)recMem + (RECMEM_SIZE - 0x10000);
+	if ((u32)ppcPtr >= maxAddr) // fix me. don't just assume 0x10000
 		recReset();
 #ifdef TAG_CODE
 	ppcAlign();
@@ -3000,6 +3002,16 @@ __inline static void recRecompile() {
 			branch = 0;
 			break;
 		}
+
+		// added by xjsxjs197 start
+		if ((u32)ppcPtr >= maxAddr)
+        {
+            #ifdef SHOW_DEBUG
+            sprintf(txtbuffer, "recRecompile overflow %d", (u32)ppcPtr - maxAddr);
+            DEBUG_print(txtbuffer, DBG_CORE2);
+            #endif // SHOW_DEBUG
+            break;
+        }
 	}
   if(!branch) {
 	  iFlushRegs(pc);

@@ -814,7 +814,7 @@ static void do_channels(int ns_to)
     }
 
    if (s_chan->bFMod == 2)                         // fmod freq channel
-    memcpy(iFMod, &ChanBuf, ns_to * sizeof(iFMod[0]));
+    cacheable_kernel_memcpy(iFMod, &ChanBuf, ns_to * sizeof(iFMod[0]));
    if (s_chan->bRVBActive && do_rvb)
     mix_chan_rvb(spu.SSumLR, ns_to, s_chan->iLeftVolume, s_chan->iRightVolume, RVB);
    else

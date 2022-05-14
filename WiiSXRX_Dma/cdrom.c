@@ -562,7 +562,7 @@ void cdrInterrupt() {
 				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
 				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
 			}
-			AddIrqQueue(CdlPause + 0x20, delay >> 2);
+			AddIrqQueue(CdlPause + 0x20, delay >> 1);
 			cdr.Ctrl|= 0x80;
 			break;
 
@@ -1463,7 +1463,8 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				size = cdsize;
 			if (size > 0)
 			{
-				memcpy(ptr, cdr.pTransfer, size);
+				//memcpy(ptr, pTransfer, size);
+				cacheable_kernel_memcpy(ptr, pTransfer, size);
 			}
 
 			psxCpu->Clear(madr, cdsize >> 2);
