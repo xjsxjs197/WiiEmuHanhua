@@ -506,7 +506,7 @@ void fileBrowserFrame_LoadFile(int i)
 			}
 
 			strcpy(feedback_string, "Loaded ");
-			strncat(feedback_string, filenameFromAbsPath(dir_entries[i].name), 36-7);
+			strcat(feedback_string, filenameFromAbsPath(dir_entries[i].name));
 
 			char RomInfo[512] = "";
 			char buffer [50];
@@ -522,8 +522,6 @@ void fileBrowserFrame_LoadFile(int i)
 			if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
 		        Config.RCntFix = 1;
 		    }
-			//sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
-			//strcat(RomInfo,buffer);
 			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);
@@ -537,10 +535,6 @@ void fileBrowserFrame_LoadFile(int i)
             ISOgetTN(&tracks[0]);
             sprintf(buffer,"Number of tracks %u\n", tracks[1]);
 			strcat(RomInfo,buffer);
-
-			#ifdef DISP_DEBUG
-			strcat(RomInfo,debugInfo);
-			#endif // DISP_DEBUG
 
 			switch (autoSaveLoaded)
 			{
