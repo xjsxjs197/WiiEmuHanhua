@@ -510,7 +510,7 @@ void fileBrowserFrame_LoadFile(int i)
 			}
 
 			strcpy(feedback_string, "Loaded ");
-			strncat(feedback_string, filenameFromAbsPath(dir_entries[i].name), 36-7);
+			strcat(feedback_string, filenameFromAbsPath(dir_entries[i].name));
 
 			char RomInfo[512] = "";
 			char buffer [50];

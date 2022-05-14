@@ -51,12 +51,12 @@
 #define gteVX0     ((s16*)psxRegs.CP2D.r)[SEL16(0)]
 #define gteVY0     ((s16*)psxRegs.CP2D.r)[SEL16(1)]
 #define gteVZ0     ((s16*)psxRegs.CP2D.r)[SEL16(2)]
-#define gteVX1     ((s16*)psxRegs.CP2D.r)[SEL16(4)]
-#define gteVY1     ((s16*)psxRegs.CP2D.r)[SEL16(5)]
-#define gteVZ1     ((s16*)psxRegs.CP2D.r)[SEL16(6)]
-#define gteVX2     ((s16*)psxRegs.CP2D.r)[SEL16(8)]
-#define gteVY2     ((s16*)psxRegs.CP2D.r)[SEL16(9)]
-#define gteVZ2     ((s16*)psxRegs.CP2D.r)[SEL16(10)]
+#define gteVX1     ((u16*)psxRegs.CP2D.r)[SEL16(4)]
+#define gteVY1     ((u16*)psxRegs.CP2D.r)[SEL16(5)]
+#define gteVZ1     ((u16*)psxRegs.CP2D.r)[SEL16(6)]
+#define gteVX2     ((u16*)psxRegs.CP2D.r)[SEL16(8)]
+#define gteVY2     ((u16*)psxRegs.CP2D.r)[SEL16(9)]
+#define gteVZ2     ((u16*)psxRegs.CP2D.r)[SEL16(10)]
 #define gteRGB     psxRegs.CP2D.r[6]
 #define gteOTZ     ((s16*)psxRegs.CP2D.r)[SEL16(7*2)]
 #define gteIR0     ((s32*)psxRegs.CP2D.r)[8]
@@ -978,7 +978,8 @@ void gteMVMVA() {
 
 	#ifdef DISP_DEBUG
 	u64 end = ticks_to_nanosecs(gettick());
-	PRINT_LOG1("gteMVMVA=====%llu=", end - start);
+	//PRINT_LOG1("gteMVMVA=====%llu=", end - start);
+	PRINT_LOG1("gteMVMVA=====%08x=", psxRegs.code & 0x78000);
     #endif // DISP_DEBUG
 }
 
