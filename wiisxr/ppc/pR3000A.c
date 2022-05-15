@@ -1087,6 +1087,10 @@ __inline static void execute() {
 	if (*recFunc == 0) {
 		recRecompile();
 	}
+	#ifdef SHOW_DEBUG
+    sprintf(txtbuffer, "current address %08x", *recFunc);
+	DEBUG_print(txtbuffer, DBG_CORE1);
+    #endif // SHOW_DEBUG
 	recRun(*recFunc, (u32)&psxRegs, (u32)&psxM);
 }
 
@@ -1606,7 +1610,7 @@ static void recMULTU() {
 	    int rs = GetHWReg32(_Rs_); \
 	    int getLo = GetHWReg32(REG_LO); \
 	    int putLo = PutHWReg32(REG_LO); \
-	    CMPLWI(rt, 0); \
+	    CMPWI(rt, 0); /* singed cmp */ \
 	    BNE_L(bDiv); \
 	    CMPWI(rs, 0); \
         BGE_L(bZero); \
@@ -1732,7 +1736,7 @@ static void recDIV() {
 	    int rs = GetHWReg32(_Rs_); \
 	    int getLo = GetHWReg32(REG_LO); \
 	    int putLo = PutHWReg32(REG_LO); \
-	    CMPLWI(rt, 0);  \
+	    CMPLWI(rt, 0); /* unsinged cmp */ \
 	    BNE_L(bDiv); \
  \
 	    LIW(putLo, 0xffffffff); \
@@ -2972,7 +2976,9 @@ __inline static void recRecompile() {
 	// upd xjsxjs197 end
 
 	/* if ppcPtr reached the mem limit reset whole mem */
-	if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	//if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
+	u32 maxAddr = (u32)recMem + (RECMEM_SIZE - 0x10000);
+	if ((u32)ppcPtr >= maxAddr) // fix me. don't just assume 0x10000
 		recReset();
 #ifdef TAG_CODE
 	ppcAlign();
@@ -3000,6 +3006,16 @@ __inline static void recRecompile() {
 			branch = 0;
 			break;
 		}
+
+		// added by xjsxjs197 start
+		if ((u32)ppcPtr >= maxAddr)
+        {
+            #ifdef SHOW_DEBUG
+            sprintf(txtbuffer, "recRecompile overflow %d", (u32)ppcPtr - maxAddr);
+            DEBUG_print(txtbuffer, DBG_CORE2);
+            #endif // SHOW_DEBUG
+            break;
+        }
 	}
   if(!branch) {
 	  iFlushRegs(pc);

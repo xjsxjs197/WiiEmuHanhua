@@ -57,7 +57,7 @@ INLINE void MixXA(int *SSumLR, int ns_to, int decode_pos)
     if(spu.XAPlay == spu.XAEnd) spu.XAPlay=spu.XAStart;
 
     l = ((int)(short)v * spu.iLeftXAVol) >> 15;
-    r = ((int)(short)(v >> 16) * spu.iLeftXAVol) >> 15;
+    r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
     SSumLR[ns++] += l;
     SSumLR[ns++] += r;
 
@@ -74,7 +74,7 @@ INLINE void MixXA(int *SSumLR, int ns_to, int decode_pos)
    if(spu.CDDAPlay==spu.CDDAEnd) spu.CDDAPlay=spu.CDDAStart;
 
    l = ((int)(short)v * spu.iLeftXAVol) >> 15;
-   r = ((int)(short)(v >> 16) * spu.iLeftXAVol) >> 15;
+   r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
    SSumLR[ns++] += l;
    SSumLR[ns++] += r;
 

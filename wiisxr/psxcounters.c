@@ -192,7 +192,7 @@ void psxRcntUpdate() {
         u32 curSpuTime = (u32)(ticks_to_microsecs(gettime()));
 		if (curSpuTime >= spuTimer + 1200) {
             #ifdef DISP_DEBUG
-            PRINT_LOG1("SPU_async====%d ", curSpuTime - spuTimer);
+            //PRINT_LOG1("SPU_async====%d ", curSpuTime - spuTimer);
             #endif // DISP_DEBUG
             SPU_async(psxRegs.cycle, 1, Config.PsxType);
             spuTimer = curSpuTime;
