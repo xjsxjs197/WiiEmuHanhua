@@ -659,7 +659,7 @@ void cdrInterrupt() {
 	        	cdr.Result[4] = itob(cdr.Prev[2]);
 		    	//memcpy(cdr.Result+5, cdr.Prev, 3);
 		    	cdr.Result[5] = cdr.Result[2];
-		    	cdr.Result[6] = cdr.Result[3];
+		    	cdr.Result[6] = itob(cdr.Prev[1]);
 		    	cdr.Result[7] = cdr.Result[4];
 			}
         	cdr.Stat = Acknowledge;
