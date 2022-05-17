@@ -32,9 +32,11 @@ extern "C" {
 #include "psxhw.h"
 
 //#define btoi(b)     ((b) / 16 * 10 + (b) % 16) /* BCD to u_char */
-#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15)) /* BCD to u_char */
+//#define btoi(b)		(((b) >> 4) * 10 + ((b) & 15)) /* BCD to u_char */
+#define btoi(b)		(btoiBuf[b]) /* BCD to u_char */
 //#define itob(i)     ((i) / 10 * 16 + (i) % 10) /* u_char to BCD */
-#define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
+//#define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
+#define itob(i)		(itobBuf[i])  /* u_char to BCD */
 
 #define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
 //#define MSF2SECT(m, s, f)		(((m) * 60 + (s)) * 75 + (f))
@@ -111,6 +113,8 @@ typedef struct {
 } cdrStruct;
 
 cdrStruct cdr;
+extern unsigned char btoiBuf[];
+extern unsigned char itobBuf[];
 
 void cdrReset();
 void cdrInterrupt();
