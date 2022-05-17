@@ -96,7 +96,7 @@ void mmssdd( char *b, char *p )
 	time[0] = itob(time[0]); time[1] = itob(time[1]); time[2] = itob(time[2]);
 
 #define READTRACK() \
-    time[0] = btoi(time[0]); time[1] = btoi(time[1]); time[2] = btoi(time[2]); \
+    /*time[0] = btoi(time[0]); time[1] = btoi(time[1]); time[2] = btoi(time[2]);*/ \
 	if (CDR_readTrack(time) == -1) return -1; \
 	buf = (void *)CDR_getBuffer(); \
 	if (buf == NULL) return -1; \

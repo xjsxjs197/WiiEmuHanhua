@@ -298,29 +298,33 @@ void cdrLidSeekInterrupt()
 }
 // ReadTrack=========================
 void ReadTrack() {
-//    unsigned char tmp[3];
-//	tmp[0] = itob(cdr.SetSector[0]);
-//	tmp[1] = itob(cdr.SetSector[1]);
-//	tmp[2] = itob(cdr.SetSector[2]);
-//
-//	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
-//    {
-//        return;
-//    }
-    if (cdr.Prev[0] == cdr.SetSector[0] && cdr.Prev[1] == cdr.SetSector[1] && cdr.Prev[2] == cdr.SetSector[2])
+    unsigned char tmp[3];
+	tmp[0] = itob(cdr.SetSector[0]);
+	tmp[1] = itob(cdr.SetSector[1]);
+	tmp[2] = itob(cdr.SetSector[2]);
+
+	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
     {
         return;
     }
+//    if (cdr.Prev[0] == cdr.SetSector[0] && cdr.Prev[1] == cdr.SetSector[1] && cdr.Prev[2] == cdr.SetSector[2])
+//    {
+//        return;
+//    }
 #ifdef CDR_LOG
 	CDR_LOG("ReadTrack() Log: KEY *** %x:%x:%x\n", cdr.Prev[0], cdr.Prev[1], cdr.Prev[2]);
 #endif
     #ifdef DISP_DEBUG
 	//u64 start = ticks_to_nanosecs(gettick());
 	#endif // DISP_DEBUG
-	cdr.RErr = CDR_readTrack(cdr.SetSector);
-	cdr.Prev[0] = cdr.SetSector[0];
-	cdr.Prev[1] = cdr.SetSector[1];
-	cdr.Prev[2] = cdr.SetSector[2];
+	cdr.RErr = CDR_readTrack(tmp);
+	cdr.Prev[0] = tmp[0];
+	cdr.Prev[1] = tmp[1];
+	cdr.Prev[2] = tmp[2];
+//	cdr.RErr = CDR_readTrack(cdr.SetSector);
+//	cdr.Prev[0] = cdr.SetSector[0];
+//	cdr.Prev[1] = cdr.SetSector[1];
+//	cdr.Prev[2] = cdr.SetSector[2];
 	#ifdef DISP_DEBUG
     //u64 end = ticks_to_nanosecs(gettick());
 	//PRINT_LOG1("CDR_readTrack=====%llu=", end - start);
@@ -653,14 +657,18 @@ void cdrInterrupt() {
 			} else {
 	        	cdr.Result[0] = 1;
 	        	cdr.Result[1] = 1;
-	        	cdr.Result[2] = itob(cdr.Prev[0]);
-	        	cdr.Result[3] = itob((btoi(itob(cdr.Prev[1]))) - 2);
-	        	//cdr.Result[3] = itob(cdr.Prev[1]);
-	        	cdr.Result[4] = itob(cdr.Prev[2]);
-		    	//memcpy(cdr.Result+5, cdr.Prev, 3);
-		    	cdr.Result[5] = cdr.Result[2];
-		    	cdr.Result[6] = itob(cdr.Prev[1]);
-		    	cdr.Result[7] = cdr.Result[4];
+//	        	cdr.Result[2] = itob(cdr.Prev[0]);
+//	        	cdr.Result[3] = itob((btoi(itob(cdr.Prev[1]))) - 2);
+//	        	//cdr.Result[3] = itob(cdr.Prev[1]);
+//	        	cdr.Result[4] = itob(cdr.Prev[2]);
+//		    	//memcpy(cdr.Result+5, cdr.Prev, 3);
+//		    	cdr.Result[5] = cdr.Result[2];
+//		    	cdr.Result[6] = itob(cdr.Prev[1]);
+//		    	cdr.Result[7] = cdr.Result[4];
+                cdr.Result[2] = cdr.Prev[0];
+	        	cdr.Result[3] = itob((btoi(cdr.Prev[1])) - 2);
+	        	cdr.Result[4] = cdr.Prev[2];
+		    	memcpy(cdr.Result+5, cdr.Prev, 3);
 			}
         	cdr.Stat = Acknowledge;
         	break;
