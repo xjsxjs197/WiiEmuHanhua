@@ -20,6 +20,7 @@
 /*
 * Handles PSX DMA functions.
 */
+#include <stdbool.h>
 #include "Gamecube/DEBUG.h"
 #include "psxdma.h"
 #include "gpu.h"

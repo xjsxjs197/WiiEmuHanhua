@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <sys/dir.h>
 #include <aesndlib.h>
+#include <stdbool.h>
 #include "DEBUG.h"
 #include "TEXT.h"
 //#include "usb.h"
@@ -56,6 +57,36 @@ int amountwritten = 0;
 //char *dump_filename = "dev0:\\PSXISOS\\debug.txt";
 char *dump_filename = "/PSXISOS/debug.txt";
 FILE* fdebug = NULL;
+
+FILE* fdebugLog = NULL;
+char *debugLogFile = "sd:/wiisxrx/debugLog.txt";
+bool canWriteLog = false;
+
+void openLogFile() {
+    if (!fdebugLog) {
+        fdebugLog = fopen(debugLogFile, "w");
+    }
+}
+
+void closeLogFile() {
+    if (fdebugLog) {
+        fclose(fdebugLog);
+        fdebugLog = NULL;
+    }
+}
+
+void writeLogFile(char* string) {
+    if (fdebugLog && canWriteLog) {
+        fprintf(fdebugLog, string);
+    }
+}
+
+void printFunctionName() {
+    sprintf(txtbuffer, "recRecompile overflow %s\n", __FUNCTION__);
+    DEBUG_print(txtbuffer, DBG_CORE2);
+    writeLogFile(txtbuffer);
+}
+
 void DEBUG_print(char* string,int pos){
 
 	#ifdef SHOW_DEBUG

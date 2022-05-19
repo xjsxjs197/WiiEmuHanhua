@@ -493,6 +493,9 @@ int main(int argc, char *argv[])
 	loadSettings(argc, argv);
 	// added by xjsxjs197 start
 	LoadLanguage();
+	#ifdef SHOW_DEBUG
+	openLogFile();
+	#endif // SHOW_DEBUG
 	// added by xjsxjs197 end
 
 	MenuContext *menu = new MenuContext(vmode);
@@ -531,6 +534,9 @@ int main(int argc, char *argv[])
 
     menu::IplFont obj = menu::IplFont::getInstance();
 	delete &obj;
+	#ifdef SHOW_DEBUG
+	closeLogFile();
+	#endif // SHOW_DEBUG
 
 	delete menu;
 

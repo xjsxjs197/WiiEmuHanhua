@@ -31,6 +31,9 @@
 #include "../wiiSXconfig.h"
 #include "../../psxcommon.h"
 
+#ifdef SHOW_DEBUG
+#include "../DEBUG.h"
+#endif // SHOW_DEBUG
 extern "C" {
 #include "../gc_input/controller.h"
 #include "../fileBrowser/fileBrowser.h"
@@ -1261,6 +1264,11 @@ void Func_DisableCddaYes()
 		FRAME_BUTTONS[i].button->setSelected(false);
 	FRAME_BUTTONS[43].button->setSelected(true);
 	Config.Cdda = CDDA_DISABLE;
+	#ifdef SHOW_DEBUG
+	canWriteLog = !canWriteLog;
+	sprintf(txtbuffer,"Current Write Log Status %d", canWriteLog);
+	DEBUG_print(txtbuffer, DBG_CORE2);
+	#endif // SHOW_DEBUG
 }
 
 void Func_DisableCddaNo()
@@ -1269,6 +1277,11 @@ void Func_DisableCddaNo()
 		FRAME_BUTTONS[i].button->setSelected(false);
 	FRAME_BUTTONS[44].button->setSelected(true);
 	Config.Cdda = CDDA_ENABLE;
+	#ifdef SHOW_DEBUG
+	canWriteLog = !canWriteLog;
+	sprintf(txtbuffer,"Current Write Log Status %d", canWriteLog);
+	DEBUG_print(txtbuffer, DBG_CORE2);
+	#endif // SHOW_DEBUG
 	//menu::MessageBox::getInstance().setMessage("CDDA audio is not implemented");
 }
 
