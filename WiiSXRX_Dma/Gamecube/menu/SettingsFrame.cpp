@@ -1267,6 +1267,7 @@ void Func_DisableCddaYes()
 	#ifdef SHOW_DEBUG
 	canWriteLog = !canWriteLog;
 	sprintf(txtbuffer,"Current Write Log Status %d", canWriteLog);
+	menu::MessageBox::getInstance().setMessage(txtbuffer);
 	DEBUG_print(txtbuffer, DBG_CORE2);
 	#endif // SHOW_DEBUG
 }
@@ -1280,6 +1281,7 @@ void Func_DisableCddaNo()
 	#ifdef SHOW_DEBUG
 	canWriteLog = !canWriteLog;
 	sprintf(txtbuffer,"Current Write Log Status %d", canWriteLog);
+	menu::MessageBox::getInstance().setMessage(txtbuffer);
 	DEBUG_print(txtbuffer, DBG_CORE2);
 	#endif // SHOW_DEBUG
 	//menu::MessageBox::getInstance().setMessage("CDDA audio is not implemented");

@@ -33,6 +33,11 @@
 #include "../psxhle.h"
 #include "../Gamecube/DEBUG.h"
 
+#define printFunctionLog() { \
+    sprintf(txtbuffer, "recFunction %s\n", __FUNCTION__); \
+    printFunctionName(); \
+}
+
 /* variable declarations */
 static u32 psxRecLUT[0x010000];
 static char recMem[RECMEM_SIZE] __attribute__((aligned(32)));	/* the recompiled blocks will be here */
@@ -1091,11 +1096,19 @@ __inline static void execute() {
 }
 
 static void recExecute() {
+    #ifdef SHOW_DEBUG
+	openLogFile();
+	#endif // SHOW_DEBUG
+
     // added xjsxjs197 start
     recRecompileInit();
     // added xjsxjs197 end
 
 	while(!stop) execute();
+
+	#ifdef SHOW_DEBUG
+	closeLogFile();
+	#endif // SHOW_DEBUG
 }
 
 static void recExecuteBlock() {
@@ -1122,21 +1135,21 @@ static void recNULL() {
 //REC_SYS(SPECIAL);
 static void recSPECIAL() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recSPC[_Funct_]();
 }
 
 static void recREGIMM() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recREG[_Rt_]();
 }
 
 static void recCOP0() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recCP0[_Rs_]();
 }
@@ -1144,14 +1157,14 @@ static void recCOP0() {
 //REC_SYS(COP2);
 static void recCOP2() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recCP2[_Funct_]();
 }
 
 static void recBASIC() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recCP2BSC[_Rs_]();
 }
@@ -1167,7 +1180,7 @@ static void recBASIC() {
 static void recADDIU()  {
 // Rt = Rs + Im
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -1191,7 +1204,7 @@ static void recADDI()  {
 static void recSLTI() {
 // Rt = Rs < Im (signed)
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -1214,7 +1227,7 @@ static void recSLTI() {
 static void recSLTIU() {
 // Rt = Rs < Im (unsigned)
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -1244,7 +1257,7 @@ static void recANDI() {
 static void recORI() {
 // Rt = Rs Or Im
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -1262,7 +1275,7 @@ static void recORI() {
 static void recXORI() {
 // Rt = Rs Xor Im
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rt_) return;
 
@@ -1283,7 +1296,7 @@ static void recXORI() {
 static void recLUI()  {
 // Rt = Imm << 16
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -1301,7 +1314,7 @@ static void recLUI()  {
 static void recADDU() {
 // Rd = Rs + Rt
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -1336,7 +1349,7 @@ static void recADD() {
 static void recSUBU() {
 // Rd = Rs - Rt
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1363,7 +1376,7 @@ static void recSUB() {
 static void recAND() {
 // Rd = Rs And Rt
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1390,7 +1403,7 @@ static void recAND() {
 static void recOR() {
 // Rd = Rs Or Rt
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1423,7 +1436,7 @@ static void recOR() {
 static void recXOR() {
 // Rd = Rs Xor Rt
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1449,7 +1462,7 @@ static void recXOR() {
 static void recNOR() {
 // Rd = Rs Nor Rt
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1475,7 +1488,7 @@ static void recNOR() {
 static void recSLT() {
 // Rd = Rs < Rt (signed)
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1494,7 +1507,7 @@ static void recSLT() {
 static void recSLTU() {
 // Rd = Rs < Rt (unsigned)
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -1529,7 +1542,7 @@ int DoShift(u32 k)
 static void recMULT() {
 // Lo/Hi = Rs * Rt (signed)
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	s32 k; int r;
 	int usehi, uselo;
@@ -1602,7 +1615,7 @@ static void recMULT() {
 static void recMULTU() {
 // Lo/Hi = Rs * Rt (unsigned)
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 k; int r;
 	int usehi, uselo;
@@ -1725,7 +1738,7 @@ static void recMULTU() {
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     #ifdef DISP_DEBUG
     if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
@@ -1823,7 +1836,7 @@ static void recDIV() {
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     #ifdef DISP_DEBUG
     if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
@@ -1959,7 +1972,7 @@ static void recLB() {
     }*/
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	preMemRead();
 	CALLFunc((u32)psxMemRead8);
@@ -2000,7 +2013,7 @@ static void recLBU() {
     }*/
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	preMemRead();
 	CALLFunc((u32)psxMemRead8);
@@ -2015,7 +2028,7 @@ static void recLH() {
 // Rt = mem[Rs + Im] (signed)
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
@@ -2058,7 +2071,7 @@ static void recLHU() {
 // Rt = mem[Rs + Im] (unsigned)
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
@@ -2142,7 +2155,7 @@ static void recLW() {
 // Rt = mem[Rs + Im] (unsigned)
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
@@ -2253,7 +2266,7 @@ static void recSB() {
 	}*/
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	preMemWrite(1);
 	CALLFunc((u32)psxMemWrite8);
@@ -2303,7 +2316,7 @@ static void recSH() {
 	}*/
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	preMemWrite(2);
 	CALLFunc((u32)psxMemWrite16);
@@ -2382,7 +2395,7 @@ static void recSW() {
 	B_DST(b1);*/
 #endif
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	preMemWrite(4);
 	CALLFunc((u32)psxMemWrite32);
@@ -2393,7 +2406,7 @@ static void recSW() {
 static void recSLL() {
 // Rd = Rt << Sa
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -2407,7 +2420,7 @@ static void recSLL() {
 static void recSRL() {
 // Rd = Rt >> Sa
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -2421,7 +2434,7 @@ static void recSRL() {
 static void recSRA() {
 // Rd = Rt >> Sa
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
@@ -2438,7 +2451,7 @@ static void recSRA() {
 static void recSLLV() {
 // Rd = Rt << Rs
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -2454,7 +2467,7 @@ static void recSLLV() {
 static void recSRLV() {
 // Rd = Rt >> Rs
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -2470,7 +2483,7 @@ static void recSRLV() {
 static void recSRAV() {
 // Rd = Rt >> Rs
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -2486,7 +2499,7 @@ static void recSRAV() {
 static void recSYSCALL() {
 //	dump=1;
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	iFlushRegs(0);
 
@@ -2503,14 +2516,14 @@ static void recSYSCALL() {
 
 static void recBREAK() {
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 }
 
 static void recMFHI() {
 // Rd = Hi
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -2525,7 +2538,7 @@ static void recMTHI() {
 // Hi = Rs
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		MapConst(REG_HI, iRegs[_Rs_].k);
@@ -2537,7 +2550,7 @@ static void recMTHI() {
 static void recMFLO() {
 // Rd = Lo
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
@@ -2552,7 +2565,7 @@ static void recMTLO() {
 // Lo = Rs
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		MapConst(REG_LO, iRegs[_Rs_].k);
@@ -2566,7 +2579,7 @@ static void recMTLO() {
 static void recBLTZ() {
 // Branch if Rs < 0
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
@@ -2593,7 +2606,7 @@ static void recBLTZ() {
 static void recBGTZ() {
 // Branch if Rs > 0
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
@@ -2620,7 +2633,7 @@ static void recBGTZ() {
 static void recBLTZAL() {
 // Branch if Rs < 0
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
@@ -2651,7 +2664,7 @@ static void recBLTZAL() {
 static void recBGEZAL() {
 // Branch if Rs >= 0
     #ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
@@ -2683,7 +2696,7 @@ static void recJ() {
 // j target
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	iJump(_Target_ * 4 + (pc & 0xf0000000));
 }
@@ -2691,7 +2704,7 @@ static void recJ() {
 static void recJAL() {
 // jal target
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	MapConst(31, pc + 4);
 
@@ -2702,7 +2715,7 @@ static void recJR() {
 // jr Rs
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		iJump(iRegs[_Rs_].k);
@@ -2732,7 +2745,7 @@ static void recJALR() {
 static void recBEQ() {
 // Branch if Rs == Rt
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 
@@ -2788,7 +2801,7 @@ static void recBEQ() {
 static void recBNE() {
 // Branch if Rs != Rt
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 
@@ -2844,7 +2857,7 @@ static void recBNE() {
 static void recBLEZ() {
 // Branch if Rs <= 0
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
@@ -2871,7 +2884,7 @@ static void recBLEZ() {
 static void recBGEZ() {
 // Branch if Rs >= 0
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
@@ -2901,7 +2914,7 @@ REC_FUNC(RFE);
 static void recMFC0() {
 // Rt = Cop0->Rd
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
@@ -2912,7 +2925,7 @@ static void recCFC0() {
 // Rt = Cop0->Rd
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	recMFC0();
 }
@@ -2921,7 +2934,7 @@ static void recMTC0() {
 // Cop0->Rd = Rt
 
 	#ifdef SHOW_DEBUG
-    printFunctionName();
+    printFunctionLog();
     #endif // SHOW_DEBUG
 	/*if (IsConst(_Rt_)) {
 		switch (_Rd_) {
@@ -3178,6 +3191,7 @@ __inline static void recRecompile() {
 		if ((u32)ppcPtr >= maxAddr)
         {
             #ifdef SHOW_DEBUG
+            recError();
             sprintf(txtbuffer, "recRecompile overflow %d\n", (u32)ppcPtr - maxAddr);
             DEBUG_print(txtbuffer, DBG_CORE2);
             writeLogFile(txtbuffer);
