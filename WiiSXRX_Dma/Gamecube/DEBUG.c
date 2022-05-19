@@ -82,7 +82,7 @@ void writeLogFile(char* string) {
 }
 
 void printFunctionName() {
-    sprintf(txtbuffer, "recRecompile overflow %s\n", __FUNCTION__);
+    sprintf(txtbuffer, "recFunction %s\n", __FUNCTION__);
     DEBUG_print(txtbuffer, DBG_CORE2);
     writeLogFile(txtbuffer);
 }

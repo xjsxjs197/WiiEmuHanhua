@@ -3178,7 +3178,7 @@ __inline static void recRecompile() {
 		if ((u32)ppcPtr >= maxAddr)
         {
             #ifdef SHOW_DEBUG
-            sprintf(txtbuffer, "recRecompile overflow %d", (u32)ppcPtr - maxAddr);
+            sprintf(txtbuffer, "recRecompile overflow %d\n", (u32)ppcPtr - maxAddr);
             DEBUG_print(txtbuffer, DBG_CORE2);
             writeLogFile(txtbuffer);
             #endif // SHOW_DEBUG

@@ -292,7 +292,7 @@ void Func_PlayGame()
 	}
 	catch (std::exception exp)
 	{
-	    sprintf(txtbuffer, "exception %s", exp.what());
+	    sprintf(txtbuffer, "exception %s\n", exp.what());
 	    menu::MessageBox::getInstance().fadeMessage(txtbuffer);
         writeLogFile(txtbuffer);
 	}
