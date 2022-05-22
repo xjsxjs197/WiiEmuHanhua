@@ -443,7 +443,7 @@ long CDR__stop(void) {
 // byte 2 - frame
 
 long CDR__getStatus(struct CdrStat *stat) {
-  DEBUG_print("CDR getStatus", DBG_CDR2);
+  //DEBUG_print("CDR getStatus", DBG_CDR2);
 
   stat->Status = 0;       // Ok so far
 

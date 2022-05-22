@@ -322,7 +322,7 @@ void ReadTrack() {
 	tmp[1] = itob(cdr.SetSector[1]);
 	tmp[2] = itob(cdr.SetSector[2]);
 
-	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
+	if (cdr.Prev[2] == tmp[2] && cdr.Prev[1] == tmp[1] && cdr.Prev[0] == tmp[0])
     {
         return;
     }
