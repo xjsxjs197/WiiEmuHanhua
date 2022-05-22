@@ -519,12 +519,7 @@ void cdrInterrupt() {
 			SetResultSize(1);
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
-        	//cdr.Stat = Complete;
-			AddIrqQueue(CdlStandby + 0x100, cdReadTime * 125 / 2);
-			break;
-
-		case CdlStandby + 0x100:
-			cdr.Stat = Complete;
+        	cdr.Stat = Complete;
 			break;
 
 		case CdlStop:
@@ -532,20 +527,9 @@ void cdrInterrupt() {
 			SetResultSize(1);
         	cdr.StatP&=~0x2;
 			cdr.Result[0] = cdr.StatP;
-        	//cdr.Stat = Complete;
-			delay = 0x800;
-			if (cdr.DriveState == DRIVESTATE_STANDBY)
-				delay = cdReadTime * 30 / 2;
-
-			cdr.DriveState = DRIVESTATE_STOPPED;
-			AddIrqQueue(CdlStop + 0x100, delay);
+        	cdr.Stat = Complete;
 //        	cdr.Stat = Acknowledge;
 			break;
-
-		case CdlStop + 0x100:
-			cdr.StatP &= ~STATUS_ROTATING;
-			cdr.Result[0] = cdr.StatP;
-			cdr.Stat = Complete;
 
 		case CdlPause:
 			SetResultSize(1);
