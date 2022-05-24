@@ -38,8 +38,8 @@ extern "C" {
 //#define itob(i)		((((i) / 10) << 4) + (i) % 10)  /* u_char to BCD */
 #define itob(i)		(itobBuf[i])  /* u_char to BCD */
 
-#define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
-//#define MSF2SECT(m, s, f)		(((m) * 60 + (s)) * 75 + (f))
+//#define MSF2SECT(m, s, f)		(((m) * 60 + (s) - 2) * 75 + (f))
+#define MSF2SECT(m, s, f)		(msf2SectM[(m)] + msf2SectS[(s)] - 150 + (f))
 
 #define CD_FRAMESIZE_RAW		2352
 #define DATA_SIZE				(CD_FRAMESIZE_RAW - 12)
@@ -115,6 +115,8 @@ typedef struct {
 cdrStruct cdr;
 extern unsigned char btoiBuf[];
 extern unsigned char itobBuf[];
+extern int msf2SectM[];
+extern int msf2SectS[];
 
 void cdrReset();
 void cdrInterrupt();
