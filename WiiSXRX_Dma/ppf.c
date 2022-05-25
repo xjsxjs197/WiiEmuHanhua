@@ -92,7 +92,8 @@ void FreePPFCache() {
 
 void CheckPPFCache(unsigned char *pB, unsigned char m, unsigned char s, unsigned char f) {
 	PPF_CACHE *pcstart, *pcend, *pcpos;
-	int addr = MSF2SECT(btoi(m), btoi(s), btoi(f)), pos, anz, start;
+	//int addr = MSF2SECT(btoi(m), btoi(s), btoi(f)), pos, anz, start;
+	int addr = MSF2SECT((m), (s), btoi(f)), pos, anz, start;
 
 	if (ppfCache == NULL) return;
 
@@ -454,7 +455,8 @@ int LoadSBI(const char *fname, int sector_count) {
 		}
 		fseek(sbihandle, s, SEEK_CUR);
 
-		s = MSF2SECT(btoi(sbitime[0]), btoi(sbitime[1]), btoi(sbitime[2]));
+		//s = MSF2SECT(btoi(sbitime[0]), btoi(sbitime[1]), btoi(sbitime[2]));
+		s = MSF2SECT((sbitime[0]), (sbitime[1]), btoi(sbitime[2]));
 		if (s < sector_count)
 			sbi_sectors[s >> 3] |= 1 << (s&7);
 		else
