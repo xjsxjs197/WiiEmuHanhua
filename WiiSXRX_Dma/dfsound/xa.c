@@ -176,7 +176,7 @@ INLINE void FeedXA(xa_decode_t *xap)
  spos=0x10000L;
  //sinc = (xap->nsamples << 16) / iSize;                 // calc freq by num / size
  #ifdef DISP_DEBUG
- PRINT_LOG3("SPU FeedXA %ld=%d=%d", xap->nsamples << 16, iSize, xap->sinc);
+ //PRINT_LOG2("SPU FeedXA %d=%d", (xap->nsamples << 16) / iSize, xap->sinc);
  #endif // DISP_DEBUG
  sinc = xap->sinc;                 // calc freq by num / size
 
