@@ -36,6 +36,7 @@ typedef struct {
 	int				stereo;
 	int				nsamples;
 	int             newSize;
+	int             sinc;
 	ADPCM_Decode_t	left, right;
 	short			pcm[16384];
 } xa_decode_t;

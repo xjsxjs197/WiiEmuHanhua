@@ -31,7 +31,8 @@
 #define SH	4
 #define SHC	10
 
-#define SPU_FREQ	48000
+#define PS_SPU_FREQ	48000
+//#define PS_SPU_FREQ	44100
 
 //============================================
 //===  ADPCM DECODING ROUTINES
@@ -327,9 +328,11 @@ static int parse_xa_audio_sector( xa_decode_t *xdp,
 
 		xdp->nsamples = 18 * 28 * 8;
 		if (xdp->freq == 37800) {
-            xdp->newSize = ((SPU_FREQ * 18 * 28 * 8) / 37800);
+            xdp->newSize = ((PS_SPU_FREQ * 18 * 28 * 8) / 37800);
+            xdp->sinc = (1 << 16) * 37800 / (PS_SPU_FREQ);
 		} else {
-		    xdp->newSize = ((SPU_FREQ * 18 * 28 * 8) / 18900);
+		    xdp->newSize = ((PS_SPU_FREQ * 18 * 28 * 8) / 18900);
+		    xdp->sinc = (1 << 16) * 18900 / (PS_SPU_FREQ);
 		}
 		if (xdp->stereo == 1)
 		{
