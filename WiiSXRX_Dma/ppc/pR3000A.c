@@ -3158,8 +3158,12 @@ __inline static void recRecompile() {
 	/* if ppcPtr reached the mem limit reset whole mem */
 	//if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
 	u32 maxAddr = (u32)recMem + (RECMEM_SIZE - 0x10000);
-	if ((u32)ppcPtr >= maxAddr) // fix me. don't just assume 0x10000
+	if ((u32)ppcPtr >= maxAddr) { // fix me. don't just assume 0x10000
+        #ifdef SHOW_DEBUG
+        DEBUG_print("recRecompile Reset", DBG_CORE2);
+        #endif // SHOW_DEBUG
 		recReset();
+	}
 #ifdef TAG_CODE
 	ppcAlign();
 #endif

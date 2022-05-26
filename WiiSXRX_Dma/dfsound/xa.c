@@ -68,20 +68,20 @@ INLINE void MixXA(int *SSumLR, int ns_to, int decode_pos)
   spu.XALastVal = v;
  }
 
- for(ns = 0; ns < ns_to * 2 && spu.CDDAPlay!=spu.CDDAFeed && (spu.CDDAPlay!=spu.CDDAEnd-1||spu.CDDAFeed!=spu.CDDAStart);)
-  {
-   v=*spu.CDDAPlay++;
-   if(spu.CDDAPlay==spu.CDDAEnd) spu.CDDAPlay=spu.CDDAStart;
-
-   l = ((int)(short)v * spu.iLeftXAVol) >> 15;
-   r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
-   SSumLR[ns++] += l;
-   SSumLR[ns++] += r;
-
-   spu.spuMem[cursor] = v;
-   spu.spuMem[cursor + 0x400/2] = v >> 16;
-   cursor = (cursor + 1) & 0x1ff;
-  }
+// for(ns = 0; ns < ns_to * 2 && spu.CDDAPlay!=spu.CDDAFeed && (spu.CDDAPlay!=spu.CDDAEnd-1||spu.CDDAFeed!=spu.CDDAStart);)
+//  {
+//   v=*spu.CDDAPlay++;
+//   if(spu.CDDAPlay==spu.CDDAEnd) spu.CDDAPlay=spu.CDDAStart;
+//
+//   l = ((int)(short)v * spu.iLeftXAVol) >> 15;
+//   r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
+//   SSumLR[ns++] += l;
+//   SSumLR[ns++] += r;
+//
+//   spu.spuMem[cursor] = v;
+//   spu.spuMem[cursor + 0x400/2] = v >> 16;
+//   cursor = (cursor + 1) & 0x1ff;
+//  }
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -135,7 +135,7 @@ INLINE void FeedXA(xa_decode_t *xap)
  #endif // DISP_DEBUG
 
  //----------------------------------------------------//
- if(spu_config.iXAPitch)                               // pitch change option?
+ /*if(spu_config.iXAPitch)                               // pitch change option?
   {
    static DWORD dwLT=0;
    static DWORD dwFPS=0;
@@ -170,7 +170,7 @@ INLINE void FeedXA(xa_decode_t *xap)
     {
      if(iLastSize) iSize=iLastSize;
     }
-  }
+  }*/
  //----------------------------------------------------//
 
  spos=0x10000L;
@@ -185,7 +185,7 @@ INLINE void FeedXA(xa_decode_t *xap)
    uint32_t * pS=(uint32_t *)xap->pcm;
    uint32_t l=0;
 
-   if(spu_config.iXAPitch)
+   /*if(spu_config.iXAPitch)
     {
      int32_t l1,l2;short s;
      for(i=0;i<iSize;i++)
@@ -243,11 +243,11 @@ INLINE void FeedXA(xa_decode_t *xap)
        spos += sinc;
       }
     }
-   else
+   else*/
     {
      for(i=0;i<iSize;i++)
       {
-       if(spu_config.iUseInterpolation==2)
+       /*if(spu_config.iUseInterpolation==2)
         {
          while(spos>=0x10000L)
           {
@@ -269,7 +269,7 @@ INLINE void FeedXA(xa_decode_t *xap)
          vr+=(gauss[vl+3]*gvalr(3)) >> 15;
          l |= vr << 16;
         }
-       else
+       else*/
         {
          while(spos>=0x10000L)
           {
@@ -296,7 +296,7 @@ INLINE void FeedXA(xa_decode_t *xap)
    unsigned short * pS=(unsigned short *)xap->pcm;
    uint32_t l;short s=0;
 
-   if(spu_config.iXAPitch)
+   /*if(spu_config.iXAPitch)
     {
      int32_t l1;
      for(i=0;i<iSize;i++)
@@ -342,11 +342,11 @@ INLINE void FeedXA(xa_decode_t *xap)
        spos += sinc;
       }
     }
-   else
+   else*/
     {
      for(i=0;i<iSize;i++)
       {
-       if(spu_config.iUseInterpolation==2)
+       /*if(spu_config.iUseInterpolation==2)
         {
          while(spos>=0x10000L)
           {
@@ -361,7 +361,7 @@ INLINE void FeedXA(xa_decode_t *xap)
          vr+=(gauss[vl+3]*gvall(3)) >> 15;
          l=s= vr;
         }
-       else
+       else*/
         {
          while(spos>=0x10000L)
           {

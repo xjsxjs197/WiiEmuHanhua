@@ -277,7 +277,7 @@ INLINE int FModChangeFrequency(int *SB, int pitch, int ns)
 
  //sinc=NP<<4;                                           // calc frequency
  sinc = (SPU_FREQ * NP / 44100) << 4;                                           // calc frequency
- if(spu_config.iUseInterpolation==1)                   // freq change in simple interpolation mode
+ //if(spu_config.iUseInterpolation==1)                   // freq change in simple interpolation mode
   SB[32]=1;
  iFMod[ns]=0;
 
@@ -294,7 +294,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
   {
    ssat32_to_16(fa);
 
-   if(spu_config.iUseInterpolation>=2)                 // gauss/cubic interpolation
+   /*if(spu_config.iUseInterpolation>=2)                 // gauss/cubic interpolation
     {
      int gpos = SB[28];
      gval0 = fa;
@@ -302,7 +302,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
      SB[28] = gpos;
     }
    else
-   if(spu_config.iUseInterpolation==1)                 // simple interpolation
+   if(spu_config.iUseInterpolation==1)*/                 // simple interpolation
     {
      SB[28] = 0;
      SB[29] = SB[30];                                  // -> helpers for simple linear interpolation: delay real val for two slots, and calc the two deltas, for a 'look at the future behaviour'
@@ -310,7 +310,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
      SB[31] = fa;
      SB[32] = 1;                                       // -> flag: calc new interolation
     }
-   else SB[29]=fa;                                     // no interpolation
+   //else SB[29]=fa;                                     // no interpolation
   }
 }
 
@@ -322,7 +322,7 @@ INLINE int iGetInterpolationVal(int *SB, int sinc, int spos, int fmod_freq)
 
  if(fmod_freq) return SB[29];
 
- switch(spu_config.iUseInterpolation)
+ /*switch(spu_config.iUseInterpolation)
   {
    //--------------------------------------------------//
    case 3:                                             // cubic interpolation
@@ -369,7 +369,12 @@ INLINE int iGetInterpolationVal(int *SB, int sinc, int spos, int fmod_freq)
      fa=SB[29];
     } break;
    //--------------------------------------------------//
-  }
+  }*/
+  if(sinc<0x10000L)                                 // -> upsampling?
+      InterpolateUp(SB, sinc);                     // --> interpolate up
+  else
+      InterpolateDown(SB, sinc);                   // --> else down
+   fa=SB[29];
 
  return fa;
 }
@@ -789,10 +794,10 @@ static void do_channels(int ns_to)
 
    if (s_chan->bNoise)
     d = do_samples_noise(ch, ns_to);
-   else if (s_chan->bFMod == 2
+   /*else if (s_chan->bFMod == 2
          || (s_chan->bFMod == 0 && spu_config.iUseInterpolation == 0))
     d = do_samples_noint(decode_block, NULL, ch, ns_to,
-          SB, sinc, &s_chan->spos, &s_chan->iSBPos);
+          SB, sinc, &s_chan->spos, &s_chan->iSBPos);*/
    else if (s_chan->bFMod == 0 && spu_config.iUseInterpolation == 1)
     d = do_samples_simple(decode_block, NULL, ch, ns_to,
           SB, sinc, &s_chan->spos, &s_chan->iSBPos);

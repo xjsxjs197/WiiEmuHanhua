@@ -496,7 +496,7 @@ static void SetPitch(int ch,unsigned short val)               // SET PITCH
  spu.s_chan[ch].iRawPitch=NP;
  spu.s_chan[ch].sinc=(NP<<4)|8;
  spu.s_chan[ch].sinc_inv=0;
- if (spu_config.iUseInterpolation == 1)
+ //if (spu_config.iUseInterpolation == 1)
   spu.SB[ch * SB_SIZE + 32] = 1; // -> freq change in simple interpolation mode: set flag
 }
 

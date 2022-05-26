@@ -20,6 +20,7 @@
 #include <SDL/SDL.h>
 #include "out.h"
 #include "../coredebug.h"
+#include "../Gamecube/DEBUG.h"
 
 //#define BUFFER_SIZE		22050
 #define BUFFER_SIZE		24000
@@ -36,7 +37,8 @@ volatile int	iReadPos = 0, iWritePos = 0;
 static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 	short *p = (short *)stream;
 
-	len /= sizeof(short);
+	//len /= sizeof(short);
+	len >>= 1;
 
 	while (iReadPos != iWritePos && len > 0) {
 		*p++ = pSndBuffer[iReadPos++];
@@ -44,6 +46,11 @@ static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 		--len;
 	}
 
+    #ifdef SHOW_DEBUG
+    if (len > 0) {
+        DEBUG_print("SOUND_FillAudio === error", DBG_SPU2);
+    }
+    #endif // DISP_DEBUG
 	// Fill remaining space with zero
 	while (len > 0) {
 		*p++ = 0;
@@ -162,8 +169,8 @@ static void sdl_feed(void *pSound, int lBytes) {
 
         if (iWritePos == iReadPos)
         {
-            #ifdef DISP_DEBUG
-            PRINT_LOG1("sdl_feed === error: %d ", lBytes);
+            #ifdef SHOW_DEBUG
+            DEBUG_print("sdl_feed === error", DBG_SPU1);
             #endif // DISP_DEBUG
             iWritePos--;
             if (iWritePos < 0)

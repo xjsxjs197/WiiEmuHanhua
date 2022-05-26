@@ -631,7 +631,7 @@ void ChangeDispOffsetsX(void)                          // X CENTER
    PreviousPSXDisplay.Range.x1=PreviousPSXDisplay.Range.x1>>1;
    PreviousPSXDisplay.Range.x1=PreviousPSXDisplay.Range.x1<<1;
 
-   DoClearScreenBuffer();
+   //DoClearScreenBuffer();
   }
 
  bDoVSyncUpdate=TRUE;
@@ -689,10 +689,10 @@ void ChangeDispOffsetsY(void)                          // Y CENTER
  else
   PreviousPSXDisplay.Range.y0=0;
 
- if(iO!=PreviousPSXDisplay.Range.y0)
-  {
-   DoClearScreenBuffer();
- }
+// if(iO!=PreviousPSXDisplay.Range.y0)
+//  {
+//   DoClearScreenBuffer();
+// }
 }
 
 ////////////////////////////////////////////////////////////////////////
