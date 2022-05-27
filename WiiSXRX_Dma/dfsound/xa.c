@@ -21,6 +21,9 @@
 
 // will be included from spu.c
 #ifdef _IN_SPU
+#define DBG_SPU1	7
+#define DBG_SPU2	8
+#define DBG_SPU3	9
 
 ////////////////////////////////////////////////////////////////////////
 // XA GLOBALS
@@ -284,6 +287,9 @@ INLINE void FeedXA(xa_decode_t *xap)
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+         #ifdef SHOW_DEBUG
+         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+         #endif // DISP_DEBUG
          break;
         }
 
@@ -378,6 +384,9 @@ INLINE void FeedXA(xa_decode_t *xap)
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+         #ifdef SHOW_DEBUG
+         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+         #endif // DISP_DEBUG
          break;
         }
 

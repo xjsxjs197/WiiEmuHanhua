@@ -1260,7 +1260,7 @@ void schedule_next_irq(void)
 
 // rearmed: called dynamically now
 
-void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
+void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags, unsigned int psxType)
 {
     do_samples(cycle, spu_config.iUseFixedUpdates);
 
@@ -1273,11 +1273,15 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
   spu.pS = (short *)spu.pSpuBuffer;
 
   //if (spu_config.iTempo) {
-   if (!out_current->busy())
+   if (!out_current->busy()) {
     // cause more samples to be generated
     // (and break some games because of bad sync)
-    spu.cycles_played -= SPU_FREQ / 60 / 2 * 768;
-  //}
+    if (psxType) {
+        spu.cycles_played -= SPU_FREQ / 50 / 2 * 768;  // Config.PsxType = 1, PAL 50Fps/1s
+    } else {
+        spu.cycles_played -= SPU_FREQ / 60 / 2 * 768;  // Config.PsxType = 0, PAL 60Fps/1s
+    }
+   }
  }
 }
 

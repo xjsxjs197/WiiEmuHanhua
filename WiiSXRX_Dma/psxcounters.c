@@ -191,7 +191,7 @@ void psxRcntUpdate() {
   start_section(AUDIO_SECTION);
 #endif
 			//SPU_async((psxRegs.cycle - psxCounters[4].sCycle) * BIAS, Config.PsxType);
-			SPU_async(psxRegs.cycle, 1);
+			SPU_async(psxRegs.cycle, 1, Config.PsxType);
 #ifdef PROFILE
 	end_section(AUDIO_SECTION);
 #endif
