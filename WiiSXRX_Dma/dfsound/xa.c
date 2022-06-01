@@ -37,6 +37,89 @@ static int gauss_window[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 #define gvalr0 gauss_window[4+gauss_ptr]
 #define gvalr(x) gauss_window[4+((gauss_ptr+x)&3)]
 
+int xa_pete_simple_l[5];
+int xa_pete_simple_r[5];
+
+#define xa_pete_svall(x) xa_pete_simple_l[x-28]
+#define xa_pete_svalr(x) xa_pete_simple_r[x-28]
+
+long cdxa_dbuf_ptr;
+int lastxa_lc, lastxa_rc;
+int lastcd_lc, lastcd_rc;
+
+// 15-bit value + 1-sign
+INLINE int CLAMP16( int x ) {
+	if(x > 32767) x = 32767;
+	else if(x < -32768) x = -32768;
+
+	return x;
+}
+
+INLINE int XAGetInterpolationVal(int spos, int sinc)
+{
+	int lc,rc;
+    /*
+    ADPCM interpolation (4-tap FIR)
+
+    y[n] = (x[n-3] * 4807 + x[n-2] * 22963 + x[n-1] * 4871 - x[n]) >> 15;
+
+    - Dr. Hell (Xebra PS1 emu)
+    */
+
+    lc = (gvall(3) * 4807 + gvall(2) * 22963 + gvall(1) * 4871 - gvall(0)) >> 15;
+    rc = (gvalr(3) * 4807 + gvalr(2) * 22963 + gvalr(1) * 4871 - gvalr(0)) >> 15;
+
+
+	// clip to 16-bits
+	lc = CLAMP16((lc));
+	rc = CLAMP16((rc));
+
+
+	// mask bits again
+	// - Megaman Legends 2 (intro FMV)
+	lc &= 0xffff;
+	rc &= 0xffff;
+
+	return lc | (rc<<16);
+}
+
+
+INLINE void XAStoreInterpolationVal(int val_l, int val_r)
+{
+	if((spu.spuCtrl&0x4000)==0) {
+		val_l=0;                       // muted?
+		val_r=0;
+	}
+
+    int iXAInterp = 2;
+	gvall0 = CLAMP16( val_l );
+	gvalr0 = CLAMP16( val_r );
+
+
+	//if(iXAInterp>=2)                            // gauss/cubic interpolation
+	{
+		gauss_ptr = (gauss_ptr+1) & 3;
+	}
+//	else
+//		if(iXAInterp==1)                            // simple interpolation
+//		{
+//			pete_svall(28) = 0;
+//			pete_svall(29) = pete_svall(30);
+//			pete_svall(30) = pete_svall(31);
+//			pete_svall(31) = CLAMP16( val_l );
+//			pete_svall(32) = 1;
+//
+//			pete_svalr(28) = 0;
+//			pete_svalr(29) = pete_svalr(30);
+//			pete_svalr(30) = pete_svalr(31);
+//			pete_svalr(31) = CLAMP16( val_r );
+//			pete_svalr(32) = 1;
+//		}
+//		else {
+//			//pChannel->SB[29]=fa;                           // no interpolation
+//		}
+}
+
 ////////////////////////////////////////////////////////////////////////
 // MIX XA & CDDA
 ////////////////////////////////////////////////////////////////////////
@@ -113,7 +196,7 @@ static int tmpIdx = 0;
 
 INLINE void FeedXA(xa_decode_t *xap)
 {
- int sinc,spos,i,iSize,iPlace,vl,vr;
+ int sinc,spos,i,iSize,iPlace,vl,vr, len, fa;
 
  if(!spu.bSPUIsOpen) return;
 
@@ -183,6 +266,34 @@ INLINE void FeedXA(xa_decode_t *xap)
  #endif // DISP_DEBUG
  sinc = xap->sinc;                 // calc freq by num / size
 
+    // get buffered amount - dynamic adjust
+//    if( spu.XAFeed >= spu.XAPlay )
+//        len = spu.XAFeed - spu.XAPlay;
+//    else
+//        len = (spu.XAEnd - spu.XAPlay) + (spu.XAFeed - spu.XAStart);
+
+
+    /*
+    xa runs overclocked - too much underflow
+
+    45100 = overpower typically
+    44500 = about average
+    44100 = underpower usually
+    */
+
+//    if( len == 0 )
+//        sinc = ((unsigned int)( xap->freq << 16 )) / 44900;
+//    else if( len >= 200 )
+//        sinc = ((unsigned int)( xap->freq << 16 )) / SPU_FREQ;
+//    else if( len >= 90 )
+//        sinc = ((unsigned int)( xap->freq << 16 )) / 44300;
+//    else
+//        sinc = ((unsigned int)( xap->freq << 16 )) / 44600;
+
+
+    // safety check
+    if( sinc == 0x10000 ) spos = 0;
+
  if(xap->stereo)
 {
    uint32_t * pS=(uint32_t *)xap->pcm;
@@ -227,11 +338,11 @@ INLINE void FeedXA(xa_decode_t *xap)
        s=(short)LOWORD(l);
        l1=s;
        l1=(l1*iPlace)/iSize;
-       ssat32_to_16(l1);
+       CLAMP16(l1);
        s=(short)HIWORD(l);
        l2=s;
        l2=(l2*iPlace)/iSize;
-       ssat32_to_16(l2);
+       CLAMP16(l2);
        l=(l1&0xffff)|(l2<<16);
 
        *spu.XAFeed++=l;
@@ -248,53 +359,98 @@ INLINE void FeedXA(xa_decode_t *xap)
     }
    else*/
     {
-     for(i=0;i<iSize;i++)
-      {
-       /*if(spu_config.iUseInterpolation==2)
-        {
-         while(spos>=0x10000L)
-          {
-           l = *pS++;
-           gauss_window[gauss_ptr] = (short)LOWORD(l);
-           gauss_window[4+gauss_ptr] = (short)HIWORD(l);
-           gauss_ptr = (gauss_ptr+1) & 3;
-           spos -= 0x10000L;
-          }
-         vl = (spos >> 6) & ~3;
-         vr=(gauss[vl]*gvall0) >> 15;
-         vr+=(gauss[vl+1]*gvall(1)) >> 15;
-         vr+=(gauss[vl+2]*gvall(2)) >> 15;
-         vr+=(gauss[vl+3]*gvall(3)) >> 15;
-         l= vr & 0xffff;
-         vr=(gauss[vl]*gvalr0) >> 15;
-         vr+=(gauss[vl+1]*gvalr(1)) >> 15;
-         vr+=(gauss[vl+2]*gvalr(2)) >> 15;
-         vr+=(gauss[vl+3]*gvalr(3)) >> 15;
-         l |= vr << 16;
-        }
-       else*/
-        {
-         while(spos>=0x10000L)
-          {
-           l = *pS++;
-           spos -= 0x10000L;
-          }
-        }
+//     for(i=0;i<iSize;i++)
+//      {
+//       /*if(spu_config.iUseInterpolation==2)
+//        {
+//         while(spos>=0x10000L)
+//          {
+//           l = *pS++;
+//           gauss_window[gauss_ptr] = (short)LOWORD(l);
+//           gauss_window[4+gauss_ptr] = (short)HIWORD(l);
+//           gauss_ptr = (gauss_ptr+1) & 3;
+//           spos -= 0x10000L;
+//          }
+//         vl = (spos >> 6) & ~3;
+//         vr=(gauss[vl]*gvall0) >> 15;
+//         vr+=(gauss[vl+1]*gvall(1)) >> 15;
+//         vr+=(gauss[vl+2]*gvall(2)) >> 15;
+//         vr+=(gauss[vl+3]*gvall(3)) >> 15;
+//         l= vr & 0xffff;
+//         vr=(gauss[vl]*gvalr0) >> 15;
+//         vr+=(gauss[vl+1]*gvalr(1)) >> 15;
+//         vr+=(gauss[vl+2]*gvalr(2)) >> 15;
+//         vr+=(gauss[vl+3]*gvalr(3)) >> 15;
+//         l |= vr << 16;
+//        }
+//       else*/
+//        {
+//         while(spos>=0x10000L)
+//          {
+//           l = *pS++;
+//           spos -= 0x10000L;
+//          }
+//        }
+//
+//       *spu.XAFeed++=l;
+//
+//       if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
+//       if(spu.XAFeed==spu.XAPlay)
+//        {
+//         if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+//         #ifdef SHOW_DEBUG
+//         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+//         #endif // DISP_DEBUG
+//         break;
+//        }
+//
+//       spos += sinc;
+//      }
 
-       *spu.XAFeed++=l;
+long l1,l2;
 
-       if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
-       if(spu.XAFeed==spu.XAPlay)
-        {
-         if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
-         #ifdef SHOW_DEBUG
-         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
-         #endif // DISP_DEBUG
-         break;
-        }
 
-       spos += sinc;
-      }
+			i = -1;
+			while( i < xap->nsamples )
+			{
+				spos += sinc;
+
+				if(spos >= 0x10000L) {
+					// no more data - abort
+					i++;
+					if( i == xap->nsamples ) break;
+
+
+					spos -= 0x10000L;
+
+					l = *pS++;
+					l1 = (short)(LOWORD(l));
+					l2 = (short)(HIWORD(l));
+
+
+					XAStoreInterpolationVal(l1,l2);
+				}
+
+
+				// no more data - abort
+				if( i == xap->nsamples ) break;
+
+
+				//if( iXAStrength == 0 )
+					fa = XAGetInterpolationVal(spos,sinc);
+				//else
+				//	fa = XAGetInterpolationVal(
+				//		(0x10000 * 4) / 10, (0x10000 * 4) / 10);
+
+
+				*spu.XAFeed++=fa;
+
+				if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
+				if(spu.XAFeed==spu.XAPlay) {
+					spu.XAPlay++;
+					if( spu.XAPlay==spu.XAEnd ) spu.XAPlay = spu.XAStart;
+				}
+			} // end samples
     }
   }
  else
@@ -334,7 +490,7 @@ INLINE void FeedXA(xa_decode_t *xap)
         }
 
        l1=(l1*iPlace)/iSize;
-       ssat32_to_16(l1);
+       CLAMP16(l1);
        l=(l1&0xffff)|(l1<<16);
        *spu.XAFeed++=l;
 
@@ -350,48 +506,88 @@ INLINE void FeedXA(xa_decode_t *xap)
     }
    else*/
     {
-     for(i=0;i<iSize;i++)
-      {
-       /*if(spu_config.iUseInterpolation==2)
-        {
-         while(spos>=0x10000L)
-          {
-           gauss_window[gauss_ptr] = (short)*pS++;
-           gauss_ptr = (gauss_ptr+1) & 3;
-           spos -= 0x10000L;
-          }
-         vl = (spos >> 6) & ~3;
-         vr=(gauss[vl]*gvall0) >> 15;
-         vr+=(gauss[vl+1]*gvall(1)) >> 15;
-         vr+=(gauss[vl+2]*gvall(2)) >> 15;
-         vr+=(gauss[vl+3]*gvall(3)) >> 15;
-         l=s= vr;
-        }
-       else*/
-        {
-         while(spos>=0x10000L)
-          {
-           s = *pS++;
-           spos -= 0x10000L;
-          }
-         l=s;
-        }
+//     for(i=0;i<iSize;i++)
+//      {
+//       /*if(spu_config.iUseInterpolation==2)
+//        {
+//         while(spos>=0x10000L)
+//          {
+//           gauss_window[gauss_ptr] = (short)*pS++;
+//           gauss_ptr = (gauss_ptr+1) & 3;
+//           spos -= 0x10000L;
+//          }
+//         vl = (spos >> 6) & ~3;
+//         vr=(gauss[vl]*gvall0) >> 15;
+//         vr+=(gauss[vl+1]*gvall(1)) >> 15;
+//         vr+=(gauss[vl+2]*gvall(2)) >> 15;
+//         vr+=(gauss[vl+3]*gvall(3)) >> 15;
+//         l=s= vr;
+//        }
+//       else*/
+//        {
+//         while(spos>=0x10000L)
+//          {
+//           s = *pS++;
+//           spos -= 0x10000L;
+//          }
+//         l=s;
+//        }
+//
+//       l &= 0xffff;
+//       *spu.XAFeed++=(l|(l<<16));
+//
+//       if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
+//       if(spu.XAFeed==spu.XAPlay)
+//        {
+//         if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+//         #ifdef SHOW_DEBUG
+//         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+//         #endif // DISP_DEBUG
+//         break;
+//        }
+//
+//       spos += sinc;
+//      }
 
-       l &= 0xffff;
-       *spu.XAFeed++=(l|(l<<16));
+       i = -1;
+			while( i < xap->nsamples )
+			{
+				spos += sinc;
 
-       if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
-       if(spu.XAFeed==spu.XAPlay)
-        {
-         if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
-         #ifdef SHOW_DEBUG
-         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
-         #endif // DISP_DEBUG
-         break;
-        }
+				if(spos >= 0x10000L) {
+					// no more data - abort
+					i++;
+					if( i == xap->nsamples ) break;
 
-       spos += sinc;
-      }
+
+					s = *pS++;
+					spos -= 0x10000L;
+
+					l = (short) s;
+
+
+					XAStoreInterpolationVal(l,l);
+				}
+
+				if( i == xap->nsamples ) break;
+
+
+				//if( iXAStrength == 0 )
+					fa = XAGetInterpolationVal(spos,sinc);
+				//else
+				//	fa = XAGetInterpolationVal(
+				//	(0x10000 * iXAStrength) / 10, (0x10000 * iXAStrength) / 10);
+
+
+				*spu.XAFeed++=fa;
+
+				if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
+				if(spu.XAFeed==spu.XAPlay)
+				{
+					spu.XAPlay++;
+					if( spu.XAPlay==spu.XAEnd ) spu.XAPlay = spu.XAStart;
+				}
+			} // end samples
     }
   }
 }
