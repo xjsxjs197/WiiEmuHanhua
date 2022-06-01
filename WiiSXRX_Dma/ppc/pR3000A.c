@@ -686,7 +686,7 @@ static void iRet() {
     /* store cycle */
     // upd xjsxjs197 start
     //count = idlecyclecount + (pc - pcold)/4;
-    count = idlecyclecount + (pc - pcold) >> 2;
+    count = idlecyclecount + ((pc - pcold) >> 2);
     // upd xjsxjs197 end
     ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
     Return();
@@ -741,7 +741,7 @@ static void SetBranch() {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = idlecyclecount + ((pc - pcold) >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -767,7 +767,7 @@ static void SetBranch() {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();
@@ -790,7 +790,7 @@ static void iJump(u32 branchPC) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = idlecyclecount + ((pc - pcold) >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -812,7 +812,7 @@ static void iJump(u32 branchPC) {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
@@ -876,7 +876,7 @@ static void iBranch(u32 branchPC, int savectx) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + ((pc+4) - pcold)/4;
-		count = idlecyclecount + ((pc + 4) - pcold) >> 2;
+		count = idlecyclecount + ((pc + 4) - pcold >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -900,7 +900,7 @@ static void iBranch(u32 branchPC, int savectx) {
 	/* store cycle */
 	// upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
