@@ -202,7 +202,7 @@ typedef struct
  xa_decode_t   xaS;
 } SPUFreeze_t;
 typedef long (CALLBACK* SPUfreeze)(uint32_t, SPUFreeze_t *, uint32_t);
-typedef void (CALLBACK* SPUasync)(uint32_t, long);
+typedef void (CALLBACK* SPUasync)(uint32_t, uint32_t, uint32_t);
 
 //SPU POINTERS
 SPUconfigure        SPU_configure;

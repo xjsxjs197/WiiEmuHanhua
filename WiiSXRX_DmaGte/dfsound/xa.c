@@ -21,6 +21,9 @@
 
 // will be included from spu.c
 #ifdef _IN_SPU
+#define DBG_SPU1	7
+#define DBG_SPU2	8
+#define DBG_SPU3	9
 
 ////////////////////////////////////////////////////////////////////////
 // XA GLOBALS
@@ -57,7 +60,7 @@ INLINE void MixXA(int *SSumLR, int ns_to, int decode_pos)
     if(spu.XAPlay == spu.XAEnd) spu.XAPlay=spu.XAStart;
 
     l = ((int)(short)v * spu.iLeftXAVol) >> 15;
-    r = ((int)(short)(v >> 16) * spu.iLeftXAVol) >> 15;
+    r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
     SSumLR[ns++] += l;
     SSumLR[ns++] += r;
 
@@ -68,20 +71,20 @@ INLINE void MixXA(int *SSumLR, int ns_to, int decode_pos)
   spu.XALastVal = v;
  }
 
- for(ns = 0; ns < ns_to * 2 && spu.CDDAPlay!=spu.CDDAFeed && (spu.CDDAPlay!=spu.CDDAEnd-1||spu.CDDAFeed!=spu.CDDAStart);)
-  {
-   v=*spu.CDDAPlay++;
-   if(spu.CDDAPlay==spu.CDDAEnd) spu.CDDAPlay=spu.CDDAStart;
-
-   l = ((int)(short)v * spu.iLeftXAVol) >> 15;
-   r = ((int)(short)(v >> 16) * spu.iLeftXAVol) >> 15;
-   SSumLR[ns++] += l;
-   SSumLR[ns++] += r;
-
-   spu.spuMem[cursor] = v;
-   spu.spuMem[cursor + 0x400/2] = v >> 16;
-   cursor = (cursor + 1) & 0x1ff;
-  }
+// for(ns = 0; ns < ns_to * 2 && spu.CDDAPlay!=spu.CDDAFeed && (spu.CDDAPlay!=spu.CDDAEnd-1||spu.CDDAFeed!=spu.CDDAStart);)
+//  {
+//   v=*spu.CDDAPlay++;
+//   if(spu.CDDAPlay==spu.CDDAEnd) spu.CDDAPlay=spu.CDDAStart;
+//
+//   l = ((int)(short)v * spu.iLeftXAVol) >> 15;
+//   r = ((int)(short)(v >> 16) * spu.iRightXAVol) >> 15;
+//   SSumLR[ns++] += l;
+//   SSumLR[ns++] += r;
+//
+//   spu.spuMem[cursor] = v;
+//   spu.spuMem[cursor + 0x400/2] = v >> 16;
+//   cursor = (cursor + 1) & 0x1ff;
+//  }
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -104,6 +107,9 @@ static unsigned long timeGetTime_spu()
 ////////////////////////////////////////////////////////////////////////
 // FEED XA
 ////////////////////////////////////////////////////////////////////////
+#ifdef DISP_DEBUG
+static int tmpIdx = 0;
+#endif // DISP_DEBUG
 
 INLINE void FeedXA(xa_decode_t *xap)
 {
@@ -117,7 +123,9 @@ INLINE void FeedXA(xa_decode_t *xap)
 #if 0//def XA_HACK
  iSize=((45500*xap->nsamples)/xap->freq);              // get size
 #else
- iSize=((48000*xap->nsamples)/xap->freq);              // get size
+ //iSize=((48000*xap->nsamples)/xap->freq);              // get size
+ iSize = xap->newSize;
+
 #endif
  if(!iSize) return;                                    // none? bye
 
@@ -126,11 +134,11 @@ INLINE void FeedXA(xa_decode_t *xap)
 
  if(iPlace==0) return;                                 // no place at all
  #ifdef DISP_DEBUG
- //PRINT_LOG1("SPUplayADPCMchannel %d=====", iSize);
+ //PRINT_LOG3("%d SPUplayADPCMchannel %d==%d=",tmpIdx++, iSize, xap->freq);
  #endif // DISP_DEBUG
 
  //----------------------------------------------------//
- if(spu_config.iXAPitch)                               // pitch change option?
+ /*if(spu_config.iXAPitch)                               // pitch change option?
   {
    static DWORD dwLT=0;
    static DWORD dwFPS=0;
@@ -138,13 +146,9 @@ INLINE void FeedXA(xa_decode_t *xap)
    static int   iLastSize=0;
    static DWORD dwL1=0;
    DWORD dw=timeGetTime_spu(),dw1,dw2;
-
    iPlace=iSize;
-
    dwFPS+=dw-dwLT;iFPSCnt++;
-
    dwLT=dw;
-
    if(iFPSCnt>=10)
     {
      if(!dwFPS) dwFPS=1;
@@ -165,18 +169,22 @@ INLINE void FeedXA(xa_decode_t *xap)
     {
      if(iLastSize) iSize=iLastSize;
     }
-  }
+  }*/
  //----------------------------------------------------//
 
  spos=0x10000L;
- sinc = (xap->nsamples << 16) / iSize;                 // calc freq by num / size
+ //sinc = (xap->nsamples << 16) / iSize;                 // calc freq by num / size
+ #ifdef DISP_DEBUG
+ //PRINT_LOG2("SPU FeedXA %d=%d", (xap->nsamples << 16) / iSize, xap->sinc);
+ #endif // DISP_DEBUG
+ sinc = xap->sinc;                 // calc freq by num / size
 
  if(xap->stereo)
 {
    uint32_t * pS=(uint32_t *)xap->pcm;
    uint32_t l=0;
 
-   if(spu_config.iXAPitch)
+   /*if(spu_config.iXAPitch)
     {
      int32_t l1,l2;short s;
      for(i=0;i<iSize;i++)
@@ -211,7 +219,6 @@ INLINE void FeedXA(xa_decode_t *xap)
            spos -= 0x10000L;
           }
         }
-
        s=(short)LOWORD(l);
        l1=s;
        l1=(l1*iPlace)/iSize;
@@ -221,24 +228,21 @@ INLINE void FeedXA(xa_decode_t *xap)
        l2=(l2*iPlace)/iSize;
        ssat32_to_16(l2);
        l=(l1&0xffff)|(l2<<16);
-
        *spu.XAFeed++=l;
-
        if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
          break;
         }
-
        spos += sinc;
       }
     }
-   else
+   else*/
     {
      for(i=0;i<iSize;i++)
       {
-       if(spu_config.iUseInterpolation==2)
+       /*if(spu_config.iUseInterpolation==2)
         {
          while(spos>=0x10000L)
           {
@@ -260,7 +264,7 @@ INLINE void FeedXA(xa_decode_t *xap)
          vr+=(gauss[vl+3]*gvalr(3)) >> 15;
          l |= vr << 16;
         }
-       else
+       else*/
         {
          while(spos>=0x10000L)
           {
@@ -275,6 +279,9 @@ INLINE void FeedXA(xa_decode_t *xap)
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+         #ifdef SHOW_DEBUG
+         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+         #endif // DISP_DEBUG
          break;
         }
 
@@ -287,7 +294,7 @@ INLINE void FeedXA(xa_decode_t *xap)
    unsigned short * pS=(unsigned short *)xap->pcm;
    uint32_t l;short s=0;
 
-   if(spu_config.iXAPitch)
+   /*if(spu_config.iXAPitch)
     {
      int32_t l1;
      for(i=0;i<iSize;i++)
@@ -317,27 +324,24 @@ INLINE void FeedXA(xa_decode_t *xap)
           }
          l1=s;
         }
-
        l1=(l1*iPlace)/iSize;
        ssat32_to_16(l1);
        l=(l1&0xffff)|(l1<<16);
        *spu.XAFeed++=l;
-
        if(spu.XAFeed==spu.XAEnd) spu.XAFeed=spu.XAStart;
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
          break;
         }
-
        spos += sinc;
       }
     }
-   else
+   else*/
     {
      for(i=0;i<iSize;i++)
       {
-       if(spu_config.iUseInterpolation==2)
+       /*if(spu_config.iUseInterpolation==2)
         {
          while(spos>=0x10000L)
           {
@@ -352,7 +356,7 @@ INLINE void FeedXA(xa_decode_t *xap)
          vr+=(gauss[vl+3]*gvall(3)) >> 15;
          l=s= vr;
         }
-       else
+       else*/
         {
          while(spos>=0x10000L)
           {
@@ -369,6 +373,9 @@ INLINE void FeedXA(xa_decode_t *xap)
        if(spu.XAFeed==spu.XAPlay)
         {
          if(spu.XAPlay!=spu.XAStart) spu.XAFeed=spu.XAPlay-1;
+         #ifdef SHOW_DEBUG
+         DEBUG_print("FeedXA Buffer not enough", DBG_SPU2);
+         #endif // DISP_DEBUG
          break;
         }
 

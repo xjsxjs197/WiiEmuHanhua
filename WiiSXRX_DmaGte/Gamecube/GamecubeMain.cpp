@@ -45,6 +45,8 @@
 extern char * GetGameBios(char * biosPath, char * fileName);
 extern char* filenameFromAbsPath(char* absPath);
 extern u32 __di_check_ahbprot(void);
+extern unsigned int cdrIsoMultidiskSelect;
+extern bool swapIso;
 
 extern "C" {
 #include "DEBUG.h"
@@ -78,6 +80,7 @@ void SysCloseLibrary(void *lib);
 void SysUpdate();
 void SysRunGui();
 void SysMessage(char *fmt, ...);
+void LidInterrupt();
 }
 
 unsigned int* xfb[2] = { NULL, NULL };	/*** Framebuffers ***/
@@ -544,11 +547,22 @@ int loadISOSwap(fileBrowser_file* file) {
 
 	memcpy(&isoFile, file, sizeof(fileBrowser_file) );
 
+    CdromId[0] = '\0';
+    CdromLabel[0] = '\0';
+    cdrIsoMultidiskSelect++;
+
+    CDR_close();
 	//might need to insert code here to trigger a lid open/close interrupt
 	if(CDR_open() < 0)
 		return -1;
+
 	CheckCdrom();
+
+	swapIso = true;
 	LoadCdrom();
+
+	LidInterrupt();
+
 	return 0;
 }
 

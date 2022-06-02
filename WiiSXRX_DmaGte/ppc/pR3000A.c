@@ -33,6 +33,11 @@
 #include "../psxhle.h"
 #include "../Gamecube/DEBUG.h"
 
+#define printFunctionLog() { \
+    sprintf(txtbuffer, "recFunction %s\n", __FUNCTION__); \
+    printFunctionName(); \
+}
+
 /* variable declarations */
 static u32 psxRecLUT[0x010000];
 static char recMem[RECMEM_SIZE] __attribute__((aligned(32)));	/* the recompiled blocks will be here */
@@ -681,7 +686,7 @@ static void iRet() {
     /* store cycle */
     // upd xjsxjs197 start
     //count = idlecyclecount + (pc - pcold)/4;
-    count = idlecyclecount + (pc - pcold) >> 2;
+    count = idlecyclecount + ((pc - pcold) >> 2);
     // upd xjsxjs197 end
     ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
     Return();
@@ -736,7 +741,7 @@ static void SetBranch() {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = idlecyclecount + ((pc - pcold) >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -762,7 +767,7 @@ static void SetBranch() {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 	FlushAllHWReg();
@@ -785,7 +790,7 @@ static void iJump(u32 branchPC) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + (pc - pcold)/4;
-		count = idlecyclecount + (pc - pcold) >> 2;
+		count = idlecyclecount + ((pc - pcold) >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -807,7 +812,7 @@ static void iJump(u32 branchPC) {
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
@@ -871,7 +876,7 @@ static void iBranch(u32 branchPC, int savectx) {
 		/* store cycle */
 		// upd xjsxjs197 start
 		//count = idlecyclecount + ((pc+4) - pcold)/4;
-		count = idlecyclecount + ((pc + 4) - pcold) >> 2;
+		count = idlecyclecount + ((pc + 4) - pcold >> 2);
 		// upd xjsxjs197 end
 		ADDI(PutHWRegSpecial(CYCLECOUNT), GetHWRegSpecial(CYCLECOUNT), count);
 
@@ -895,7 +900,7 @@ static void iBranch(u32 branchPC, int savectx) {
 	/* store cycle */
 	// upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4;
-	count = idlecyclecount + (pc - pcold) >> 2;
+	count = idlecyclecount + ((pc - pcold) >> 2);
 	// upd xjsxjs197 end
         //if (/*psxRegs.code == 0 &&*/ count == 2 && branchPC == pcold) {
         //    LIW(PutHWRegSpecial(CYCLECOUNT), 0);
@@ -1036,154 +1041,6 @@ static void rec##f() { \
 	cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)]; \
 }
 
-static u32 asmRtpsRtps[] = {
-    0x480003e0,0x60000000,0x60000000,0x60000000,0x48000374,0x10086040,0x41800024,
-    0x100b4040,0x41800024,0x4e800020,0x100860c0,0x41800010,0x100b40c0,0x41800010,0x4e800020,0x7d084b78,0x4e800020,
-    0x7d085378,0x4e800020,0x7c267000,0x41800014,0x7c2f3000,0x41800018,0x38e60000,0x4e800020,0x7d084b78,0x38ee0000,
-    0x4e800020,0x7d085378,0x38ef0000,0x4e800020,0xe0a3c06a,0xecf001b2,0xfc053800,0x4180000c,0x4800001c,0x4e800020,
-    0xeca50472,0xeca53024,0xfc122800,0x41800008,0x4e800020,0x65080002,0xfca09090,0x4e800020,0x7e4802a6,0xe0253004,
-    0xe0053000,0xe0433000,0xe063b006,0xe083b004,0xe0a3b00a,0x10420032,0x10210ca0,0xe0c3300c,0xe0e3b012,0x10852420,
-    0x1043107a,0x10c60032,0x10840032,0xe0a3b008,0x10421094,0x10c7307a,0x1085207a,0x10c63194,0x10842114,0x10422420,
-    0x81c30014,0x81e30018,0x8203001c,0x6dce8000,0x6def8000,0x6e108000,0x91cd8050,0x91ed8058,0x920d8060,0xc86d804c,
-    0xc88d8054,0xc8ad805c,0xfc635028,0xfc845028,0xfca55028,0xfc601818,0xfc802018,0xfca02818,0x10632420,0x10421bba,
-    0x10a62bba,0xfc00101c,0x39240064,0x39490008,0xfc20281c,0x104214a0,0x7c004fae,0x7c2057ae,0xfc60101c,0x39290004,
-    0x7c604fae,0x81cd8080,0x81ed807c,0x80c40064,0x3d404000,0x3d200800,0x4bfffeb1,0x80c40068,0x3d402000,0x3d200400,
-    0x4bfffea1,0x80c4006c,0x3d401000,0x3d200200,0x4bfffe91,0x39c08000,0x39e07fff,0x80c40064,0x3d200100,0x3d400100,
-    0x4bfffe79,0x90e40024,0x80c40068,0x3d200080,0x3d400080,0x4bfffe65,0x90e40028,0x80c4006c,0x3d200040,0x3d400040,
-    0x4bfffe51,0x90e4002c,0x7e4803a6,0x4e800020,0x7e4802a6,0x80c4006c,0x3d200004,0x3d400004,0x39c00000,0x3de00001,
-    0x35efffff,0x4bfffe25,0xb0e50000,0xe0c5c000,0x4bfffe49,0x81230060,0x81430064,0xe024b026,0xe044b02a,0x10a52c20,
-    0x6d298000,0x6d4a8000,0x10411420,0x912d8050,0x914d8058,0xc80d804c,0xc82d8054,0xfc005028,0xfc215028,0xfc000018,
-    0xfc200818,0x10000c20,0x1002017a,0x11000090,0x3d400001,0x39207fff,0x39290001,0x4bfffd85,0x4bfffd95,0x11ef7c20,
-    0x110803f2,0x110844a0,0xf1103000,0xa8d00002,0x39204000,0x39404000,0x39c0fc00,0x39e003ff,0x4bfffd91,0xb0f00002,
-    0xa8d00000,0x39202000,0x39402000,0x4bfffd7d,0xb0f00000,0x7e4803a6,0x4e800020,0x7e4802a6,0xe003b06e,0x81230070,
-    0x6d298000,0x912d8050,0xc82d804c,0xfc215028,0xfc200818,0xed00097a,0x3d400001,0x39207fff,0x39290001,0x4bfffd05,
-    0xfc20401c,0x39240060,0x7c204fae,0xed0803b2,0xf104b022,0xa8c40022,0x39201000,0x39401000,0x39c00000,0x39e01000,
-    0x4bfffd11,0x90e40020,0x7e4803a6,0x4e800020,0x39000000,0xc94d8064,0xc16d8074,0xc18d8078,0xc1cd8070,0xc1ed8084,
-    0xc20d8040,0xc22d8044,0xc24d8048,0x9103007c,0x116b5c20,0x118c6420,0x11ce7420,0x4e800020,0xbca30080,0x7d6802a6,
-    0x4bffffc1,0x38a40000,0x4bfffd21,0x80c40044,0x90c40040,0x80c40048,0x90c40044,0x80c4004c,0x90c40048,0x80c40034,
-    0x90c40030,0x80c40038,0x90c40034,0x38a4004e,0x3a040038,0x4bfffe45,0x4bffff15,0x9103007c,0x7d6803a6,0xb8a30080,
-    0x48000064,0xbca30080,0x7d6802a6,0x4bffff65,0x80c4004c,0x90c40040,0x38a40000,0x4bfffcbd,0x38a40046,0x3a040030,
-    0x4bfffe09,0x38a40008,0x4bfffca9,0x38a4004a,0x3a040034,0x4bfffdf5,0x38a40010,0x4bfffc95,0x38a4004e,0x3a040038,
-    0x4bfffde1,0x4bfffeb1,0x9103007c,0x7d6803a6,0xb8a30080,0x60000000
-};
-static u32 asmMvmva[] = {
-    0x3d000003,0x8124028c,0x552a0360,0x7f8a4000,0x419e0190,0x7f8a4040,0x419d0094,0x3d000001,0x61088000,0x7f8a4000,
-    0x419e0124,0x7f8a4040,0x419d00cc,0x6d48ffff,0x2f888000,0x419e0154,0x3d000001,0x7f8a4000,0x409e0134,0x38640080,0x38a40010,0x7c661b78,
-    0x552a0464,0x39000000,0x2f8a2000,0x91040170,0x91040174,0x55276ffe,0x91040178,0x390400b4,0x419e0020,0x2f8a4000,0x390400d4,0x419e0014,
-    0x2f8a0000,0x39040094,0x419e0008,0x39040170,0x5529b7fe,0x7d2900d0,0x55290420,0x39298000,0x480001b0,0x3d000004,0x61088000,0x7f8a4000,
-    0x419e0108,0x7f8a4040,0x409d0064,0x3d000005,0x7f8a4000,0x419e00a0,0x6d48fffa,0x2f888000,0x409e00a4,0xa104002a,0x38c400c0,0x8144002c,
-    0x38a6ff64,0xb1040024,0x38640080,0x91440028,0x4bffff60,0x3d000002,0x7f8a4000,0x419e00ac,0x6d48fffd,0x2f888000,0x409e006c,0x38c400a0,
-    0x38a40008,0x38640080,0x4bffff38,0x6d48fffc,0x2f888000,0x419e00a4,0x3d000004,0x7f8a4000,0x409e0044,0x38c400c0,0x7c852378,0x38640080,
-    0x4bffff10,0xa104002a,0x38640080,0x8144002c,0x7c661b78,0xb1040024,0x38a3ffa4,0x91440028,0x4bfffef0,0x38c400c0,0x38a40010,0x38640080,
-    0x4bfffee0,0x60000000,0x7c852378,0x60000000,0x7c661b78,0x4bfffecc,0x38640080,0x38a40008,0x7c661b78,0x4bfffebc,0x38c400a0,0x38a40010,
-    0x38640080,0x4bfffeac,0x38c400a0,0x7c852378,0x38640080,0x4bfffe9c,0x38c400c0,0x38a40008,0x38640080,0x4bfffe8c,0xa104002a,0x38c400a0,
-    0x8144002c,0x38a6ff84,0xb1040024,0x38640080,0x91440028,0x4bfffe6c,0x7c267000,0x41800014,0x7c2f3000,0x41800018,0x38e60000,0x4e800020,
-    0x7d084b78,0x38ee0000,0x4e800020,0x7d085378,0x38ef0000,0x4e800020,0x39000000,0xc94d8064,0xc16d8074,0xc18d8078,0xc1cd8070,0xc1ed8084,
-    0xc20d8040,0xc22d8044,0xc24d8048,0x9103007c,0x116b5c20,0x118c6420,0x11ce7420,0x4e800020,0xbdc30080,0x7d6802a6,0x3a880000,0x3aa90000,
-    0x4bffffb9,0xe0253004,0xe0053000,0xe0463000,0xe066b006,0xe086b004,0xe0a6b00a,0x10420032,0x10210ca0,0xe0c6300c,0xe0e6b012,0x10852420,
-    0x1043107a,0x10c60032,0x10840032,0xe0a6b008,0x10421094,0x10c7307a,0x1085207a,0x10c63194,0x10842114,0x10422420,0x81d40000,0x81f40004,
-    0x82140008,0x6dce8000,0x6def8000,0x6e108000,0x91cd8050,0x91ed8058,0x920d8060,0xc86d804c,0xc88d8054,0xc8ad805c,0xfc635028,0xfc845028,
-    0xfca55028,0xfc601818,0xfc802018,0xfca02818,0x10632420,0x2c270001,0x41800010,0x10421bba,0x10a62bba,0x4800000c,0x1042182a,0x10a6282a,
-    0xfc00101c,0x39240064,0x39490008,0xfc20281c,0x104214a0,0x7c004fae,0x7c2057ae,0xfc60101c,0x39290004,0x7c604fae,0x81cd8080,0x81ed807c,
-    0x80c40064,0x3d404000,0x3d200800,0x4bfffe8d,0x80c40068,0x3d402000,0x3d200400,0x4bfffe7d,0x80c4006c,0x3d401000,0x3d200200,0x4bfffe6d,
-    0x39d50000,0x39e07fff,0x80c40064,0x3d200100,0x3d400100,0x4bfffe55,0x90e40024,0x80c40068,0x3d200080,0x3d400080,0x4bfffe41,0x90e40028,
-    0x80c4006c,0x3d200040,0x3d400040,0x4bfffe2d,0x90e4002c,0x9103007c,0x7d6803a6,0xb9c30080,0x60000000
-};
-
-void gteRTPS();
-void gteRTPT();
-void gteMVMVA();
-static void recRTPT() {
-//    int tmpSize = sizeof(asmRtpsRtps);
-//    int i;
-//    #ifdef DISP_DEBUG
-//    //PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
-//    #endif // DISP_DEBUG*/
-//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-//    {
-//        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-//        //iFlushRegs(0);
-//        //ReleaseArgs();
-//        LIW(3, psxRegs.CP2C.r);
-//        LIW(4, psxRegs.CP2D.r);
-//        i = 0;
-//        tmpSize = tmpSize >> 2;
-//        while (tmpSize-- > 0)
-//        {
-//            INSTR = asmRtpsRtps[i++];
-//        }
-//        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-//    }
-//    else
-    {
-        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-        iFlushRegs(0);
-	    CALLFunc ((u32)gteRTPT);
-    	cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-    }
-}
-static void recRTPS() {
-//    int tmpSize = sizeof(asmRtpsRtps) - 4 * 4;
-//    int i;
-//    #ifdef DISP_DEBUG
-//    //PRINT_LOG2("recRTPS=%x=%d", (u32)ppcPtr, tmpSize >> 2);
-//    #endif // DISP_DEBUG*/
-//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-//    {
-//        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-//        //iFlushRegs(0);
-//        //ReleaseArgs();
-//        LIW(3, psxRegs.CP2C.r);
-//        LIW(4, psxRegs.CP2D.r);
-//        i = 4;
-//        tmpSize = tmpSize >> 2;
-//        while (tmpSize-- > 0)
-//        {
-//            INSTR = asmRtpsRtps[i++];
-//        }
-//        cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-//    }
-//    else
-    {
-        if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-        iFlushRegs(0);
-	    CALLFunc ((u32)gteRTPS);
-    	cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)];
-    }
-}
-
-static void recMVMVA() {
-    int tmpSize = sizeof(asmMvmva);
-    int i;
-    #ifdef DISP_DEBUG
-    //PRINT_LOG2("recRTPT=%x=%d", (u32)ppcPtr, tmpSize >> 2);
-    #endif // DISP_DEBUG*/
-
-    if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2);
-    iFlushRegs(0);
-    LIW(0, (u32)psxRegs.code);
-    STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
-    FlushAllHWReg();
-
-//    if ((u32)recMem + (RECMEM_SIZE - 0x10000) > (u32)ppcPtr + tmpSize)
-//    {
-//        LIW(3, psxRegs.CP2C.r);
-//        LIW(4, psxRegs.CP2D.r);
-//
-//        i = 0;
-//        tmpSize = tmpSize >> 2;
-//        while (tmpSize-- > 0)
-//        {
-//            INSTR = asmMvmva[i++];
-//        }
-//    }
-//    else
-    {
-        CALLFunc ((u32)gteMVMVA);
-    }
-    cop2readypc = pc + (psxCP2time[_fFunct_(psxRegs.code)]<<2);
-}
-
 static int allocMem() {
 	int i;
 
@@ -1239,11 +1096,19 @@ __inline static void execute() {
 }
 
 static void recExecute() {
+    #ifdef SHOW_DEBUG
+	openLogFile();
+	#endif // SHOW_DEBUG
+
     // added xjsxjs197 start
     recRecompileInit();
     // added xjsxjs197 end
 
 	while(!stop) execute();
+
+	#ifdef SHOW_DEBUG
+	closeLogFile();
+	#endif // SHOW_DEBUG
 }
 
 static void recExecuteBlock() {
@@ -1269,23 +1134,38 @@ static void recNULL() {
 
 //REC_SYS(SPECIAL);
 static void recSPECIAL() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recSPC[_Funct_]();
 }
 
 static void recREGIMM() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recREG[_Rt_]();
 }
 
 static void recCOP0() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recCP0[_Rs_]();
 }
 
 //REC_SYS(COP2);
 static void recCOP2() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recCP2[_Funct_]();
 }
 
 static void recBASIC() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recCP2BSC[_Rs_]();
 }
 
@@ -1299,6 +1179,9 @@ static void recBASIC() {
 
 static void recADDIU()  {
 // Rt = Rs + Im
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	if (IsConst(_Rs_)) {
@@ -1320,6 +1203,9 @@ static void recADDI()  {
 //CR0:	SIGN      | POSITIVE | ZERO  | SOVERFLOW | SOVERFLOW | OVERFLOW | CARRY
 static void recSLTI() {
 // Rt = Rs < Im (signed)
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	if (IsConst(_Rs_)) {
@@ -1340,6 +1226,9 @@ static void recSLTI() {
 
 static void recSLTIU() {
 // Rt = Rs < Im (unsigned)
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	if (IsConst(_Rs_)) {
@@ -1367,6 +1256,9 @@ static void recANDI() {
 
 static void recORI() {
 // Rt = Rs Or Im
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	if (IsConst(_Rs_)) {
@@ -1382,6 +1274,9 @@ static void recORI() {
 
 static void recXORI() {
 // Rt = Rs Xor Im
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rt_) return;
 
     if (IsConst(_Rs_)) {
@@ -1400,6 +1295,9 @@ static void recXORI() {
 
 static void recLUI()  {
 // Rt = Imm << 16
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	MapConst(_Rt_, psxRegs.code << 16);
@@ -1415,6 +1313,9 @@ static void recLUI()  {
 
 static void recADDU() {
 // Rd = Rs + Rt
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1447,6 +1348,9 @@ static void recADD() {
 
 static void recSUBU() {
 // Rd = Rs - Rt
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1471,6 +1375,9 @@ static void recSUB() {
 
 static void recAND() {
 // Rd = Rs And Rt
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1495,6 +1402,9 @@ static void recAND() {
 
 static void recOR() {
 // Rd = Rs Or Rt
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1525,6 +1435,9 @@ static void recOR() {
 
 static void recXOR() {
 // Rd = Rs Xor Rt
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1548,6 +1461,9 @@ static void recXOR() {
 
 static void recNOR() {
 // Rd = Rs Nor Rt
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1571,6 +1487,9 @@ static void recNOR() {
 
 static void recSLT() {
 // Rd = Rs < Rt (signed)
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1587,6 +1506,9 @@ static void recSLT() {
 
 static void recSLTU() {
 // Rd = Rs < Rt (unsigned)
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
@@ -1619,6 +1541,9 @@ int DoShift(u32 k)
 // FIXME: doesn't work in GT - wrong way marker
 static void recMULT() {
 // Lo/Hi = Rs * Rt (signed)
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	s32 k; int r;
 	int usehi, uselo;
 
@@ -1689,6 +1614,9 @@ static void recMULT() {
 
 static void recMULTU() {
 // Lo/Hi = Rs * Rt (unsigned)
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 k; int r;
 	int usehi, uselo;
 
@@ -1749,9 +1677,77 @@ static void recMULTU() {
 	}
 }
 
+#define inlineDIVW_Comn() \
+	    int rt = GetHWReg32(_Rt_); \
+	    int rs = GetHWReg32(_Rs_); \
+	    int getLo = GetHWReg32(REG_LO); \
+	    int putLo = PutHWReg32(REG_LO); \
+	    CMPWI(rt, 0); /* singed cmp */ \
+	    BNE_L(bDiv); \
+	    CMPWI(rs, 0); \
+        BGE_L(bZero); \
+ \
+        LI(putLo, 1); \
+        if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+        B_L(bEnd); \
+ \
+        B_DST(bZero); \
+	    LIW(putLo, 0xffffffff); \
+	    if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+	    B_L(bEnd2); \
+ \
+	    B_DST(bDiv); \
+		DIVW(putLo, rs, rt); \
+
+#define inlineDIVW_Const() { \
+        inlineDIVW_Comn(); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+            if ((iRegs[_Rt_].k & 0x7fff) == iRegs[_Rt_].k) { \
+                MULLI(putHi, getLo, iRegs[_Rt_].k); \
+            } else { \
+                MULLW(putHi, getLo, rt); \
+            } \
+            SUB(putHi, rs, getHi); \
+        } \
+ \
+		B_DST(bEnd); \
+		B_DST(bEnd2); \
+} \
+
+#define inlineDIVW_Normal() { \
+        inlineDIVW_Comn(); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+			MULLW(putHi, getLo, rt); \
+			SUB(putHi, rs, getHi); \
+		} \
+ \
+		B_DST(bEnd); \
+		B_DST(bEnd2); \
+} \
+
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
+    #ifdef DISP_DEBUG
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIV 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd, *bEnd2, *bZero;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1759,10 +1755,27 @@ static void recDIV() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        if ((s32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIV 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k  >= 0 ? 0xffffffff : 1);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (s32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIV 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
@@ -1786,28 +1799,53 @@ static void recDIV() {
 				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
 			}
 		} else {
-			DIVW(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-			if (usehi) {
-				if ((iRegs[_Rt_].k & 0x7fff) == iRegs[_Rt_].k) {
-					MULLI(PutHWReg32(REG_HI), GetHWReg32(REG_LO), iRegs[_Rt_].k);
-				} else {
-					MULLW(PutHWReg32(REG_HI), GetHWReg32(REG_LO), GetHWReg32(_Rt_));
-				}
-				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-			}
+			inlineDIVW_Const();
 		}
 	} else {
-		DIVW(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-		if (usehi) {
-			MULLW(PutHWReg32(REG_HI), GetHWReg32(REG_LO), GetHWReg32(_Rt_));
-			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-		}
+	    inlineDIVW_Normal();
 	}
 }
 
+#define inlineDIVWU() { \
+	    int rt = GetHWReg32(_Rt_); \
+	    int rs = GetHWReg32(_Rs_); \
+	    int getLo = GetHWReg32(REG_LO); \
+	    int putLo = PutHWReg32(REG_LO); \
+	    CMPLWI(rt, 0); /* unsinged cmp */ \
+	    BNE_L(bDiv); \
+ \
+	    LIW(putLo, 0xffffffff); \
+	    if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+	        MR(putHi, rs); \
+	    } \
+	    B_L(bEnd); \
+ \
+	    B_DST(bDiv); \
+		DIVWU(putLo, rs, rt); \
+		if (usehi) { \
+            int putHi = PutHWReg32(REG_HI); \
+            int getHi = GetHWReg32(REG_HI); \
+			MULLW(putHi, rt, getLo); \
+			SUB(putHi, rs, getHi); \
+		} \
+ \
+		B_DST(bEnd); \
+} \
+
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
+    #ifdef DISP_DEBUG
+    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
+    {
+        PRINT_LOG("recDIVU 0xffffffff=====");
+    }
+    #endif // DISP_DEBUG
 	int usehi;
+	u32 *bDiv, *bEnd;
 
 	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
@@ -1815,10 +1853,28 @@ static void recDIVU() {
 		return;
 	}
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
-		MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        if ((u32)iRegs[_Rt_].k == 0)
+        {
+            #ifdef DISP_DEBUG
+            PRINT_LOG("recDIVU 0==OK===");
+            #endif // DISP_DEBUG
+            MapConst(REG_LO, 0xffffffff);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k);
+        }
+        else
+        {
+            MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
+		    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+        }
 		return;
 	}
+
+	#ifdef DISP_DEBUG
+    if (IsConst(_Rt_) && (u32)iRegs[_Rt_].k == 0)
+    {
+        PRINT_LOG("recDIVU 0==Error===");
+    }
+    #endif // DISP_DEBUG
 
 	usehi = isPsxRegUsed(pc, REG_HI);
 
@@ -1830,18 +1886,10 @@ static void recDIVU() {
 				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
 			}
 		} else {
-			DIVWU(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-			if (usehi) {
-				MULLW(PutHWReg32(REG_HI), GetHWReg32(_Rt_), GetHWReg32(REG_LO));
-				SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-			}
+			inlineDIVWU();
 		}
 	} else {
-		DIVWU(PutHWReg32(REG_LO), GetHWReg32(_Rs_), GetHWReg32(_Rt_));
-		if (usehi) {
-			MULLW(PutHWReg32(REG_HI), GetHWReg32(_Rt_), GetHWReg32(REG_LO));
-			SUB(PutHWReg32(REG_HI), GetHWReg32(_Rs_), GetHWReg32(REG_HI));
-		}
+	    inlineDIVWU();
 	}
 }
 
@@ -1923,6 +1971,9 @@ static void recLB() {
     //	SysPrintf("unhandled r8 %x\n", addr);
     }*/
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	preMemRead();
 	CALLFunc((u32)psxMemRead8);
 	if (_Rt_) {
@@ -1961,6 +2012,9 @@ static void recLBU() {
     //	SysPrintf("unhandled r8 %x\n", addr);
     }*/
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	preMemRead();
 	CALLFunc((u32)psxMemRead8);
 
@@ -1973,6 +2027,9 @@ static void recLBU() {
 static void recLH() {
 // Rt = mem[Rs + Im] (signed)
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
 		int t = addr >> 16;
@@ -2013,6 +2070,9 @@ static void recLH() {
 static void recLHU() {
 // Rt = mem[Rs + Im] (unsigned)
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
 		int t = addr >> 16;
@@ -2094,6 +2154,9 @@ static void recLHU() {
 static void recLW() {
 // Rt = mem[Rs + Im] (unsigned)
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		u32 addr = iRegs[_Rs_].k + _Imm_;
 		int t = addr >> 16;
@@ -2202,6 +2265,9 @@ static void recSB() {
 //		SysPrintf("unhandled w8 %x\n", addr);
 	}*/
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	preMemWrite(1);
 	CALLFunc((u32)psxMemWrite8);
 }
@@ -2249,6 +2315,9 @@ static void recSH() {
 //		SysPrintf("unhandled w16 %x\n", addr);
 	}*/
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	preMemWrite(2);
 	CALLFunc((u32)psxMemWrite16);
 }
@@ -2325,6 +2394,9 @@ static void recSW() {
 
 	B_DST(b1);*/
 #endif
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	preMemWrite(4);
 	CALLFunc((u32)psxMemWrite32);
 
@@ -2333,6 +2405,9 @@ static void recSW() {
 
 static void recSLL() {
 // Rd = Rt << Sa
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rt_)) {
@@ -2344,6 +2419,9 @@ static void recSLL() {
 
 static void recSRL() {
 // Rd = Rt >> Sa
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rt_)) {
@@ -2355,6 +2433,9 @@ static void recSRL() {
 
 static void recSRA() {
 // Rd = Rt >> Sa
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     if (!_Rd_) return;
 
     if (IsConst(_Rt_)) {
@@ -2369,6 +2450,9 @@ static void recSRA() {
 
 static void recSLLV() {
 // Rd = Rt << Rs
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
@@ -2382,6 +2466,9 @@ static void recSLLV() {
 
 static void recSRLV() {
 // Rd = Rt >> Rs
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
@@ -2395,6 +2482,9 @@ static void recSRLV() {
 
 static void recSRAV() {
 // Rd = Rt >> Rs
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
@@ -2408,6 +2498,9 @@ static void recSRAV() {
 
 static void recSYSCALL() {
 //	dump=1;
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	iFlushRegs(0);
 
 	ReserveArgs(2);
@@ -2422,10 +2515,16 @@ static void recSYSCALL() {
 }
 
 static void recBREAK() {
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 }
 
 static void recMFHI() {
 // Rd = Hi
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(REG_HI)) {
@@ -2438,6 +2537,9 @@ static void recMFHI() {
 static void recMTHI() {
 // Hi = Rs
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		MapConst(REG_HI, iRegs[_Rs_].k);
 	} else {
@@ -2447,6 +2549,9 @@ static void recMTHI() {
 
 static void recMFLO() {
 // Rd = Lo
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rd_) return;
 
 	if (IsConst(REG_LO)) {
@@ -2459,6 +2564,9 @@ static void recMFLO() {
 static void recMTLO() {
 // Lo = Rs
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		MapConst(REG_LO, iRegs[_Rs_].k);
 	} else {
@@ -2470,6 +2578,9 @@ static void recMTLO() {
 
 static void recBLTZ() {
 // Branch if Rs < 0
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
 
@@ -2494,6 +2605,9 @@ static void recBLTZ() {
 
 static void recBGTZ() {
 // Branch if Rs > 0
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
 
@@ -2518,6 +2632,9 @@ static void recBGTZ() {
 
 static void recBLTZAL() {
 // Branch if Rs < 0
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
 
@@ -2546,6 +2663,9 @@ static void recBLTZAL() {
 
 static void recBGEZAL() {
 // Branch if Rs >= 0
+    #ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
     u32 bpc = _Imm_ * 4 + pc;
     u32 *b;
 
@@ -2575,11 +2695,17 @@ static void recBGEZAL() {
 static void recJ() {
 // j target
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	iJump(_Target_ * 4 + (pc & 0xf0000000));
 }
 
 static void recJAL() {
 // jal target
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	MapConst(31, pc + 4);
 
 	iJump(_Target_ * 4 + (pc & 0xf0000000));
@@ -2588,6 +2714,9 @@ static void recJAL() {
 static void recJR() {
 // jr Rs
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (IsConst(_Rs_)) {
 		iJump(iRegs[_Rs_].k);
 		//LIW(PutHWRegSpecial(TARGET), iRegs[_Rs_].k);
@@ -2615,6 +2744,9 @@ static void recJALR() {
 
 static void recBEQ() {
 // Branch if Rs == Rt
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 
 	if (_Rs_ == _Rt_) {
@@ -2668,6 +2800,9 @@ static void recBEQ() {
 
 static void recBNE() {
 // Branch if Rs != Rt
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 
 	if (_Rs_ == _Rt_) {
@@ -2721,6 +2856,9 @@ static void recBNE() {
 
 static void recBLEZ() {
 // Branch if Rs <= 0
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
 
@@ -2745,6 +2883,9 @@ static void recBLEZ() {
 
 static void recBGEZ() {
 // Branch if Rs >= 0
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	u32 bpc = _Imm_ * 4 + pc;
 	u32 *b;
 
@@ -2772,6 +2913,9 @@ REC_FUNC(RFE);
 
 static void recMFC0() {
 // Rt = Cop0->Rd
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
 	LWZ(PutHWReg32(_Rt_), OFFSET(&psxRegs, &psxRegs.CP0.r[_Rd_]), GetHWRegSpecial(PSXREGS));
@@ -2780,12 +2924,18 @@ static void recMFC0() {
 static void recCFC0() {
 // Rt = Cop0->Rd
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	recMFC0();
 }
 
 static void recMTC0() {
 // Cop0->Rd = Rt
 
+	#ifdef SHOW_DEBUG
+    printFunctionLog();
+    #endif // SHOW_DEBUG
 	/*if (IsConst(_Rt_)) {
 		switch (_Rd_) {
 			case 12:
@@ -2839,12 +2989,12 @@ CP2_FUNC(CTC2);
 CP2_FUNC(LWC2);
 CP2_FUNC(SWC2);
 
-//CP2_FUNCNC(RTPS);
+CP2_FUNCNC(RTPS);
 CP2_FUNC(OP);
 CP2_FUNCNC(NCLIP);
 CP2_FUNCNC(DPCS);
 CP2_FUNCNC(INTPL);
-//CP2_FUNC(MVMVA);
+CP2_FUNC(MVMVA);
 CP2_FUNCNC(NCDS);
 CP2_FUNCNC(NCDT);
 CP2_FUNCNC(CDP);
@@ -2857,7 +3007,7 @@ CP2_FUNCNC(DCPL);
 CP2_FUNCNC(DPCT);
 CP2_FUNCNC(AVSZ3);
 CP2_FUNCNC(AVSZ4);
-//CP2_FUNCNC(RTPT);
+CP2_FUNCNC(RTPT);
 CP2_FUNC(GPF);
 CP2_FUNC(GPL);
 CP2_FUNCNC(NCCT);
@@ -3008,8 +3158,12 @@ __inline static void recRecompile() {
 	/* if ppcPtr reached the mem limit reset whole mem */
 	//if (((u32)ppcPtr - (u32)recMem) >= (RECMEM_SIZE - 0x10000)) // fix me. don't just assume 0x10000
 	u32 maxAddr = (u32)recMem + (RECMEM_SIZE - 0x10000);
-	if ((u32)ppcPtr >= maxAddr) // fix me. don't just assume 0x10000
+	if ((u32)ppcPtr >= maxAddr) { // fix me. don't just assume 0x10000
+        #ifdef SHOW_DEBUG
+        DEBUG_print("recRecompile Reset", DBG_CORE2);
+        #endif // SHOW_DEBUG
 		recReset();
+	}
 #ifdef TAG_CODE
 	ppcAlign();
 #endif
@@ -3036,9 +3190,16 @@ __inline static void recRecompile() {
 			branch = 0;
 			break;
 		}
-        // added by xjsxjs197 start
+
+		// added by xjsxjs197 start
 		if ((u32)ppcPtr >= maxAddr)
         {
+            #ifdef SHOW_DEBUG
+            recError();
+            sprintf(txtbuffer, "recRecompile overflow %d\n", (u32)ppcPtr - maxAddr);
+            DEBUG_print(txtbuffer, DBG_CORE2);
+            writeLogFile(txtbuffer);
+            #endif // SHOW_DEBUG
             break;
         }
 	}

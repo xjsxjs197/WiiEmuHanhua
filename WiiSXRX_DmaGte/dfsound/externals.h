@@ -54,8 +54,10 @@
 // num of channels
 #define MAXCHAN     24
 
+#define SPU_FREQ	48000
+
 // note: must be even due to the way reverb works now
-#define NSSIZE ((48000 / 50 + 16) & ~1)
+#define NSSIZE ((SPU_FREQ / 50 + 16) & ~1)
 
 ///////////////////////////////////////////////////////////
 // struct defines
@@ -81,8 +83,10 @@ typedef struct
  unsigned char  SustainLevel;
  unsigned char  SustainRate;
  unsigned char  ReleaseRate;
- float          EnvelopeVol;
- //int            EnvelopeVol;
+ //float          EnvelopeVol;
+ int            EnvelopeVol;
+ int            EnvelopeVol_f;			// fraction
+ int            lVolume;
 } ADSRInfoEx;
 
 ///////////////////////////////////////////////////////////

@@ -55,8 +55,8 @@ struct iso_directory_record {
 	char name			[1];
 };
 
-#define btoi(b)		((b)/16*10 + (b)%16)		/* BCD to u_char */
-#define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
+//#define btoi(b)		((b)/16*10 + (b)%16)		/* BCD to u_char */
+//#define itob(i)		((i)/10*16 + (i)%10)		/* u_char to BCD */
 
 void mmssdd( char *b, char *p )
  {
@@ -96,10 +96,11 @@ void mmssdd( char *b, char *p )
 	time[0] = itob(time[0]); time[1] = itob(time[1]); time[2] = itob(time[2]);
 
 #define READTRACK() \
+    /*time[0] = btoi(time[0]); time[1] = btoi(time[1]); time[2] = btoi(time[2]);*/ \
 	if (CDR_readTrack(time) == -1) return -1; \
 	buf = (void *)CDR_getBuffer(); \
 	if (buf == NULL) return -1; \
-	else CheckPPFCache((u8 *)buf, time[0], time[1], time[2]);
+	/*else CheckPPFCache((u8 *)buf, time[0], time[1], time[2]);*/
 
 #define READDIR(_dir) \
 	READTRACK(); \
@@ -177,9 +178,13 @@ int LoadCdrom() {
 	u8 time[4], *buf;
 	u8 mdir[4096];
 
-	// not the best place to do it, but since BIOS boot logo killer
-	// is just below, do it here
-	fake_bios_gpu_setup();
+    if (!swapIso) {
+        // not the best place to do it, but since BIOS boot logo killer
+	    // is just below, do it here
+	    fake_bios_gpu_setup();
+    } else {
+        swapIso = false;
+    }
 
 	if (!Config.HLE) {
 		if(!LoadCdBios)

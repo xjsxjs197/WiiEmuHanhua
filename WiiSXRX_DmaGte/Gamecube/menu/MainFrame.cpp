@@ -33,10 +33,13 @@
 #ifdef DEBUGON
 # include <debug.h>
 #endif
+#ifdef SHOW_DEBUG
+#include "../DEBUG.h"
+#endif // SHOW_DEBUG
 extern "C" {
 #ifdef WII
 #include <di/di.h>
-#endif 
+#endif
 /*#include "../gc_memory/memory.h"
 #include "../gc_memory/Saves.h"
 #include "../main/plugin.h"
@@ -101,8 +104,8 @@ MainFrame::MainFrame()
 	add(inputStatusBar);
 
 	for (int i = 0; i < NUM_MAIN_BUTTONS; i++)
-		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString, 
-										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y, 
+		FRAME_BUTTONS[i].button = new menu::Button(FRAME_BUTTONS[i].buttonStyle, &FRAME_BUTTONS[i].buttonString,
+										FRAME_BUTTONS[i].x, FRAME_BUTTONS[i].y,
 										FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].height);
 
 	for (int i = 0; i < NUM_MAIN_BUTTONS; i++)
@@ -115,8 +118,8 @@ MainFrame::MainFrame()
 		if (FRAME_BUTTONS[i].clickedFunc) FRAME_BUTTONS[i].button->setClicked(FRAME_BUTTONS[i].clickedFunc);
 		if (FRAME_BUTTONS[i].returnFunc) FRAME_BUTTONS[i].button->setReturn(FRAME_BUTTONS[i].returnFunc);
 		add(FRAME_BUTTONS[i].button);
-		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x, 
-												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y, 
+		menu::Cursor::getInstance().addComponent(this, FRAME_BUTTONS[i].button, FRAME_BUTTONS[i].x,
+												FRAME_BUTTONS[i].x+FRAME_BUTTONS[i].width, FRAME_BUTTONS[i].y,
 												FRAME_BUTTONS[i].y+FRAME_BUTTONS[i].height);
 	}
 	setDefaultFocus(FRAME_BUTTONS[0].button);
@@ -221,7 +224,7 @@ extern "C" {
 extern int SaveMcd(int mcd, fileBrowser_file *savepath);
 void pauseAudio(void);  void pauseInput(void);
 void resumeAudio(void); void resumeInput(void);
-void go(void); 
+void go(void);
 }
 
 //void control_info_init();
@@ -239,7 +242,7 @@ void Func_PlayGame()
 		menu::MessageBox::getInstance().setMessage("Please load an ISO first");
 		return;
 	}
-	
+
 	//Wait until 'A' button released before play/resume game
 	menu::Cursor::getInstance().setFreezeAction(true);
 	menu::Focus::getInstance().setFreezeAction(true);
@@ -280,7 +283,21 @@ void Func_PlayGame()
 #ifdef DEBUGON
 	_break();
 #endif
+
+#ifdef SHOW_DEBUG
+	try {
+#endif // SHOW_DEBUG
 	go();
+#ifdef SHOW_DEBUG
+	}
+	catch (std::exception exp)
+	{
+	    sprintf(txtbuffer, "exception %s\n", exp.what());
+	    menu::MessageBox::getInstance().fadeMessage(txtbuffer);
+        writeLogFile(txtbuffer);
+	}
+#endif // SHOW_DEBUG
+
 #ifdef DEBUGON
 	_break();
 #endif
@@ -318,7 +335,7 @@ void Func_PlayGame()
       result += SaveMcd(1,saveFile_dir);
       result += SaveMcd(2,saveFile_dir);
       saveFile_deinit(saveFile_dir);
-    	if (result>=amountSaves) {  //saved all of them ok	
+    	if (result>=amountSaves) {  //saved all of them ok
     		switch (nativeSaveDevice)
     		{
     			case NATIVESAVEDEVICE_SD:
@@ -339,7 +356,7 @@ void Func_PlayGame()
   	  else		{
   	    menu::MessageBox::getInstance().setMessage("Failed to save game"); //one or more failed to save
 	    }
-      
+
     }
   }
 #ifdef HW_RVL

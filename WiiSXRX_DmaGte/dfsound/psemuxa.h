@@ -12,11 +12,13 @@ typedef struct
 } ADPCM_Decode_t;
 
 typedef struct
-{                                                                   
+{
 	int				freq;
 	int				nbits;
 	int				stereo;
 	int				nsamples;
+	int             newSize;
+	int             sinc;
 	ADPCM_Decode_t	left, right;
 	short			pcm[16384];
 } xa_decode_t;

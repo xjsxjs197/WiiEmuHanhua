@@ -84,6 +84,51 @@ unsigned char Test20[] = { 0x98, 0x06, 0x10, 0xC3 };
 unsigned char Test22[] = { 0x66, 0x6F, 0x72, 0x20, 0x45, 0x75, 0x72, 0x6F };
 unsigned char Test23[] = { 0x43, 0x58, 0x44, 0x32, 0x39 ,0x34, 0x30, 0x51 };
 
+unsigned char btoiBuf[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
+    20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,40,41,42,43,
+    44,45,46,47,48,49,50,51,52,53,54,55,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,60,61,62,63,64,65,66,67,
+    68,69,70,71,72,73,74,75,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,80,81,82,83,84,85,86,87,88,89,90,91,
+    92,93,94,95,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,100,101,102,103,104,105,106,107,108,109,110,
+    111,112,113,114,115,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,120,121,122,123,124,125,126,
+    127,128,129,130,131,132,133,134,135,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,140,141,142,
+    143,144,145,146,147,148,149,150,151,152,153,154,155,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165
+};
+unsigned char itobBuf[] = {0,1,2,3,4,5,6,7,8,9,16,17,18,19,20,21,22,23,24,25,32,33,34,35,36,37,38,39,40,41,48,49,50,
+    51,52,53,54,55,56,57,64,65,66,67,68,69,70,71,72,73,80,81,82,83,84,85,86,87,88,89,96,97,98,99,100,101,102,103,104,
+    105,112,113,114,115,116,117,118,119,120,121,128,129,130,131,132,133,134,135,136,137,144,145,146,147,148,149,150,
+    151,152,153,160,161,162,163,164,165,166,167,168,169,176,177,178,179,180,181,182,183,184,185,192,193,194,195,196,
+    197,198,199,200,201,208,209,210,211,212,213,214,215,216,217,224,225,226,227,228,229,230,231,232,233,240,241,242,
+    243,244,245,246,247,248,249,0,1,2,3,4,5,6,7,8,9,16,17,18,19,20,21,22,23,24,25,32,33,34,35,36,37,38,39,40,41,48,49,
+    50,51,52,53,54,55,56,57,64,65,66,67,68,69,70,71,72,73,80,81,82,83,84,85,86,87,88,89,96,97,98,99,100,101,102,103,104,
+    105,112,113,114,115,116,117,118,119,120,121,128,129,130,131,132,133,134,135,136,137,144,145,146,147,148,149
+};
+
+int msf2SectM[] = {
+    0,4500,9000,13500,18000,22500,27000,31500,36000,40500,45000,49500,54000,58500,63000,67500,45000,49500,54000,58500,63000,67500,72000,76500,81000,85500,90000,
+    94500,99000,103500,108000,112500,90000,94500,99000,103500,108000,112500,117000,121500,126000,130500,135000,139500,144000,148500,153000,157500,135000,139500,
+    144000,148500,153000,157500,162000,166500,171000,175500,180000,184500,189000,193500,198000,202500,180000,184500,189000,193500,198000,202500,207000,211500,216000,
+    220500,225000,229500,234000,238500,243000,247500,225000,229500,234000,238500,243000,247500,252000,256500,261000,265500,270000,274500,279000,283500,288000,292500,
+    270000,274500,279000,283500,288000,292500,297000,301500,306000,310500,315000,319500,324000,328500,333000,337500,315000,319500,324000,328500,333000,337500,342000,
+    346500,351000,355500,360000,364500,369000,373500,378000,382500,360000,364500,369000,373500,378000,382500,387000,391500,396000,400500,405000,409500,414000,418500,
+    423000,427500,405000,409500,414000,418500,423000,427500,432000,436500,441000,445500,450000,454500,459000,463500,468000,472500,450000,454500,459000,463500,468000,
+    472500,477000,481500,486000,490500,495000,499500,504000,508500,513000,517500,495000,499500,504000,508500,513000,517500,522000,526500,531000,535500,540000,544500,
+    549000,553500,558000,562500,540000,544500,549000,553500,558000,562500,567000,571500,576000,580500,585000,589500,594000,598500,603000,607500,585000,589500,594000,
+    598500,603000,607500,612000,616500,621000,625500,630000,634500,639000,643500,648000,652500,630000,634500,639000,643500,648000,652500,657000,661500,666000,670500,
+    675000,679500,684000,688500,693000,697500,675000,679500,684000,688500,693000,697500,702000,706500,711000,715500,720000,724500,729000,733500,738000,742500
+};
+
+int msf2SectS[] = {
+    0,75,150,225,300,375,450,525,600,675,750,825,900,975,1050,1125,750,825,900,975,1050,1125,1200,1275,1350,1425,1500,1575,1650,1725,1800,1875,1500,1575,1650,1725,
+    1800,1875,1950,2025,2100,2175,2250,2325,2400,2475,2550,2625,2250,2325,2400,2475,2550,2625,2700,2775,2850,2925,3000,3075,3150,3225,3300,3375,3000,3075,3150,3225,
+    3300,3375,3450,3525,3600,3675,3750,3825,3900,3975,4050,4125,3750,3825,3900,3975,4050,4125,4200,4275,4350,4425,4500,4575,4650,4725,4800,4875,4500,4575,4650,4725,
+    4800,4875,4950,5025,5100,5175,5250,5325,5400,5475,5550,5625,5250,5325,5400,5475,5550,5625,5700,5775,5850,5925,6000,6075,6150,6225,6300,6375,6000,6075,6150,6225,
+    6300,6375,6450,6525,6600,6675,6750,6825,6900,6975,7050,7125,6750,6825,6900,6975,7050,7125,7200,7275,7350,7425,7500,7575,7650,7725,7800,7875,7500,7575,7650,7725,
+    7800,7875,7950,8025,8100,8175,8250,8325,8400,8475,8550,8625,8250,8325,8400,8475,8550,8625,8700,8775,8850,8925,9000,9075,9150,9225,9300,9375,9000,9075,9150,9225,
+    9300,9375,9450,9525,9600,9675,9750,9825,9900,9975,10050,10125,9750,9825,9900,9975,10050,10125,10200,10275,10350,10425,10500,10575,10650,10725,10800,10875,10500,
+    10575,10650,10725,10800,10875,10950,11025,11100,11175,11250,11325,11400,11475,11550,11625,11250,11325,11400,11475,11550,11625,11700,11775,11850,11925,12000,12075,
+    12150,12225,12300,12375
+};
+
 // cdr.Stat:
 #define NoIntr		0
 #define DataReady	1
@@ -205,6 +250,97 @@ static void setIrq(void)
 		psxRegs.interrupt|= 0x80000000;
 	}
 }
+
+// timing used in this function was taken from tests on real hardware
+// (yes it's slow, but you probably don't want to modify it)
+void cdrLidSeekInterrupt()
+{
+	switch (cdr.DriveState) {
+	default:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG("cdrLidSeekInterrupt=default ");
+        #endif // DISP_DEBUG
+	case DRIVESTATE_STANDBY:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_STANDBY: %x ", stat.Status);
+        #endif // DISP_DEBUG
+		cdr.StatP &= ~STATUS_SEEK;
+
+		if (CDR_getStatus(&stat) == -1)
+			return;
+
+        #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_STANDBY2: %x ", stat.Status);
+        #endif // DISP_DEBUG
+		if (stat.Status & STATUS_SHELLOPEN)
+		{
+			StopCdda();
+			cdr.DriveState = DRIVESTATE_LID_OPEN;
+			CDRLID_INT(0x800);
+		}
+		break;
+
+	case DRIVESTATE_LID_OPEN:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_LID_OPEN: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		if (CDR_getStatus(&stat) == -1)
+			stat.Status &= ~STATUS_SHELLOPEN;
+
+		// 02, 12, 10
+		if (!(cdr.StatP & STATUS_SHELLOPEN)) {
+			StopReading();
+			cdr.StatP |= STATUS_SHELLOPEN;
+
+			// could generate error irq here, but real hardware
+			// only sometimes does that
+			// (not done when lots of commands are sent?)
+
+			CDRLID_INT(cdReadTime * 30);
+			break;
+		}
+		else if (cdr.StatP & STATUS_ROTATING) {
+			cdr.StatP &= ~STATUS_ROTATING;
+		}
+		else if (!(stat.Status & STATUS_SHELLOPEN)) {
+			// closed now
+			CheckCdrom();
+
+			// cdr.StatP STATUS_SHELLOPEN is "sticky"
+			// and is only cleared by CdlNop
+
+			cdr.DriveState = DRIVESTATE_RESCAN_CD;
+			CDRLID_INT(cdReadTime * 105);
+			break;
+		}
+
+		// recheck for close
+		CDRLID_INT(cdReadTime * 3);
+		break;
+
+	case DRIVESTATE_RESCAN_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_RESCAN_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		cdr.StatP |= STATUS_ROTATING;
+		cdr.DriveState = DRIVESTATE_PREPARE_CD;
+
+		// this is very long on real hardware, over 6 seconds
+		// make it a bit faster here...
+		CDRLID_INT(cdReadTime * 150);
+		break;
+
+	case DRIVESTATE_PREPARE_CD:
+	    #ifdef DISP_DEBUG
+        PRINT_LOG1("cdrLidSeekInterrupt=DRIVESTATE_PREPARE_CD: %x ", cdr.StatP);
+        #endif // DISP_DEBUG
+		cdr.StatP |= STATUS_SEEK;
+
+		cdr.DriveState = DRIVESTATE_STANDBY;
+		CDRLID_INT(cdReadTime * 26);
+		break;
+	}
+}
 // ReadTrack=========================
 void ReadTrack() {
     unsigned char tmp[3];
@@ -212,7 +348,7 @@ void ReadTrack() {
 	tmp[1] = itob(cdr.SetSector[1]);
 	tmp[2] = itob(cdr.SetSector[2]);
 
-	if (cdr.Prev[0] == tmp[0] && cdr.Prev[1] == tmp[1] && cdr.Prev[2] == tmp[2])
+	if (cdr.Prev[2] == tmp[2] && cdr.Prev[1] == tmp[1] && cdr.Prev[0] == tmp[0])
     {
         return;
     }
@@ -251,8 +387,68 @@ void AddIrqQueue(unsigned char irq, unsigned long ecycle) {
 	}
 }
 
+// also handles seek
+void cdrPlayInterrupt()
+{
+	if (cdr.Seeked == SEEK_PENDING) {
+		if (cdr.Stat) {
+			//CDR_LOG_I("cdrom: seek stat hack\n");
+			CDRMISC_INT(0x800);
+			return;
+		}
+		SetResultSize(1);
+		cdr.StatP |= STATUS_ROTATING;
+		cdr.StatP &= ~STATUS_SEEK;
+		cdr.Result[0] = cdr.StatP;
+		cdr.Seeked = SEEK_DONE;
+		if (cdr.Irq == 0) {
+			cdr.Stat = Complete;
+			setIrq();
+		}
+
+		if (cdr.SetlocPending) {
+			//memcpy(cdr.SetSectorPlay, cdr.SetSector, 4);
+			//*((u32*)cdr.SetSectorPlay) = *((u32*)cdr.SetSector);
+			cdr.SetlocPending = 0;
+			cdr.m_locationChanged = TRUE;
+		}
+		//Find_CurTrack(cdr.SetSectorPlay);
+		//ReadTrack(cdr.SetSectorPlay);
+		ReadTrack();
+		cdr.TrackChanged = FALSE;
+	}
+
+	if (!cdr.Play) return;
+
+	cdr.SetSector[2]++;
+	if (cdr.SetSector[2] == 75) {
+		cdr.SetSector[2] = 0;
+		cdr.SetSector[1]++;
+		if (cdr.SetSector[1] == 60) {
+			cdr.SetSector[1] = 0;
+			cdr.SetSector[0]++;
+		}
+	}
+
+	if (cdr.m_locationChanged)
+	{
+		CDRMISC_INT(cdReadTime * 30);
+		cdr.m_locationChanged = FALSE;
+	}
+	else
+	{
+		CDRMISC_INT(cdReadTime);
+	}
+
+	// update for CdlGetlocP/autopause
+	//generate_subq(cdr.SetSectorPlay);
+}
+
 void cdrInterrupt() {
+	int no_busy_error = 0;
+	int start_rotating = 0;
 	int i;
+	int delay;
 	unsigned char Irq = cdr.Irq;
 
 	if (cdr.Stat) {
@@ -270,7 +466,7 @@ void cdrInterrupt() {
 		    SetResultSize(1);
 	        cdr.Result[0] = cdr.StatP;
 	        cdr.Stat = Acknowledge;
-	
+
 			CDR_INT(cdr.eCycle);
 			setIrq();
 	        cdr.ParamP = 0;
@@ -290,6 +486,9 @@ void cdrInterrupt() {
     	case CdlNop:
 			SetResultSize(1);
         	cdr.Result[0] = cdr.StatP;
+			if (cdr.DriveState != DRIVESTATE_LID_OPEN)
+				cdr.StatP &= ~STATUS_SHELLOPEN;
+			no_busy_error = 1;
         	cdr.Stat = Acknowledge;
 			i = stat.Status;
         	if (CDR_getStatus(&stat) != -1) {
@@ -362,7 +561,33 @@ void cdrInterrupt() {
 			SetResultSize(1);
 			cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
-			AddIrqQueue(CdlPause + 0x20, 0x800);
+            /*
+			Gundam Battle Assault 2: much slower (*)
+			- Fixes boot, gameplay
+
+			Hokuto no Ken 2: slower
+			- Fixes intro + subtitles
+
+			InuYasha - Feudal Fairy Tale: slower
+			- Fixes battles
+			*/
+			/* Gameblabla - Tightening the timings (as taken from Duckstation).
+			 * The timings from Duckstation are based upon hardware tests.
+			 * Mednafen's timing don't work for Gundam Battle Assault 2 in PAL/50hz mode,
+			 * seems to be timing sensitive as it can depend on the CPU's clock speed.
+			 *
+			 * We will need to get around this for Bedlam/Rise 2 later...
+			 * */
+			if (cdr.DriveState != DRIVESTATE_STANDBY)
+			{
+				delay = 7000;
+			}
+			else
+			{
+				delay = (((cdr.Mode & MODE_SPEED) ? 2 : 1) * (1000000));
+				CDRMISC_INT((cdr.Mode & MODE_SPEED) ? cdReadTime / 2 : cdReadTime);
+			}
+			AddIrqQueue(CdlPause + 0x20, delay >> 1);
 			cdr.Ctrl|= 0x80;
 			break;
 
@@ -382,6 +607,8 @@ void cdrInterrupt() {
 //			if (!cdr.Init) {
 				AddIrqQueue(CdlInit + 0x20, 0x800);
 //			}
+            no_busy_error = 1;
+			start_rotating = 1;
         	break;
 
 		case CdlInit + 0x20:
@@ -417,6 +644,7 @@ void cdrInterrupt() {
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
+			no_busy_error = 1;
         	break;
 
     	case CdlGetmode:
@@ -429,6 +657,7 @@ void cdrInterrupt() {
         	cdr.Result[4] = 0;
         	cdr.Result[5] = 0;
         	cdr.Stat = Acknowledge;
+			no_busy_error = 1;
         	break;
 
     	case CdlGetlocL:
@@ -452,7 +681,10 @@ void cdrInterrupt() {
 	        	cdr.Result[2] = cdr.Prev[0];
 	        	cdr.Result[3] = itob((btoi(cdr.Prev[1])) - 2);
 	        	cdr.Result[4] = cdr.Prev[2];
-		    	memcpy(cdr.Result+5, cdr.Prev, 3);
+//		    	//memcpy(cdr.Result+5, cdr.Prev, 3);
+		    	cdr.Result[5] = cdr.Prev[0];
+		    	cdr.Result[6] = cdr.Prev[1];
+		    	cdr.Result[7] = cdr.Prev[2];
 			}
         	cdr.Stat = Acknowledge;
         	break;
@@ -539,7 +771,8 @@ void cdrInterrupt() {
 					SetResultSize(8);
 					memcpy(cdr.Result, Test23, 4);
 					break;
-        	}
+			}
+			no_busy_error = 1;
 			break;
 
     	case CdlID:
@@ -582,8 +815,18 @@ void cdrInterrupt() {
 		case CdlReset:
 			SetResultSize(1);
         	cdr.StatP = 0x2;
+			// yes, it really sets STATUS_SHELLOPEN
+			cdr.StatP |= STATUS_SHELLOPEN;
+			cdr.DriveState = DRIVESTATE_RESCAN_CD;
+			CDRLID_INT(20480);
+			no_busy_error = 1;
+			start_rotating = 1;
 			cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
+			break;
+
+		case CdlGetQ:
+			no_busy_error = 1;
 			break;
 
     	case CdlReadToc:
@@ -592,6 +835,8 @@ void cdrInterrupt() {
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Acknowledge;
 			AddIrqQueue(CdlReadToc + 0x20, 0x800);
+			no_busy_error = 1;
+			start_rotating = 1;
 			break;
 
     	case CdlReadToc + 0x20:
@@ -599,6 +844,7 @@ void cdrInterrupt() {
 			cdr.StatP|= 0x2;
         	cdr.Result[0] = cdr.StatP;
         	cdr.Stat = Complete;
+			no_busy_error = 1;
 			break;
 
 		case AUTOPAUSE:
@@ -665,6 +911,24 @@ void cdrInterrupt() {
 			break;
 	}
 
+	if (cdr.DriveState == DRIVESTATE_STOPPED && start_rotating) {
+		cdr.DriveState = DRIVESTATE_STANDBY;
+		cdr.StatP |= STATUS_ROTATING;
+	}
+
+	if (!no_busy_error) {
+		switch (cdr.DriveState) {
+		case DRIVESTATE_LID_OPEN:
+		case DRIVESTATE_RESCAN_CD:
+		case DRIVESTATE_PREPARE_CD:
+			SetResultSize(2);
+			cdr.Result[0] = cdr.StatP | STATUS_ERROR;
+			cdr.Result[1] = ERROR_NOTREADY;
+			cdr.Stat = DiskError;
+			break;
+		}
+	}
+
 	if (cdr.Stat != NoIntr && cdr.Reg2 != 0x18) {
 		psxHu32ref(0x1070)|= SWAP32((u32)0x4);
 		psxRegs.interrupt|= 0x80000000;
@@ -723,7 +987,7 @@ void cdrReadInterrupt() {
 			cdr.File = cdr.Transfer[4 + 0];
 			cdr.Channel = cdr.Transfer[4 + 1];
 		}
-		/* Gameblabla 
+		/* Gameblabla
 		 * Skips playing on channel 255.
 		 * Fixes missing audio in Blue's Clues : Blue's Big Musical. (Should also fix Taxi 2)
 		 * TODO : Check if this is the proper behaviour.
@@ -833,6 +1097,7 @@ unsigned char cdrRead1(void) {
 }
 
 void cdrWrite1(unsigned char rt) {
+	u8 set_loc[3];
 	int i;
 
 #ifdef CDR_LOG
@@ -853,6 +1118,9 @@ void cdrWrite1(unsigned char rt) {
 
 	if (cdr.Ctrl & 0x1) return;
 
+	cdr.ResultReady = 0;
+
+// cdrWrite1 switch =====================================
     switch(cdr.Cmd) {
     	case CdlSync:
 			cdr.Ctrl|= 0x80;
@@ -867,15 +1135,37 @@ void cdrWrite1(unsigned char rt) {
         	break;
 
     	case CdlSetloc:
-			StopReading();
+			/*StopReading();
 			cdr.Seeked = 0;
         	for (i=0; i<3; i++) cdr.SetSector[i] = btoi(cdr.Param[i]);
-        	cdr.SetSector[3] = 0;
+        	cdr.SetSector[3] = 0;*/
 /*        	if ((cdr.SetSector[0] | cdr.SetSector[1] | cdr.SetSector[2]) == 0) {
 				*(u32 *)cdr.SetSector = *(u32 *)cdr.SetSectorSeek;
 			}*/
+
+            // MM must be BCD, SS must be BCD and <0x60, FF must be BCD and <0x75
+            if (((cdr.Param[0] & 0x0F) > 0x09) || (cdr.Param[0] > 0x99) || ((cdr.Param[1] & 0x0F) > 0x09) || (cdr.Param[1] >= 0x60) || ((cdr.Param[2] & 0x0F) > 0x09) || (cdr.Param[2] >= 0x75))
+            {
+                //CDR_LOG("Invalid/out of range seek to %02X:%02X:%02X\n", cdr.Param[0], cdr.Param[1], cdr.Param[2]);
+            }
+            else
+            {
+                for (i = 0; i < 3; i++)
+                {
+                    set_loc[i] = btoi(cdr.Param[i]);
+                }
+
+//                i = msf2sec(cdr.SetSectorPlay);
+//                i = abs(i - msf2sec(set_loc));
+//                if (i > 16)
+//                    cdr.Seeked = SEEK_PENDING;
+
+                memcpy(cdr.SetSector, set_loc, 3);
+                cdr.SetSector[3] = 0;
+                //cdr.SetlocPending = 1;
+            }
 			cdr.Ctrl|= 0x80;
-        	cdr.Stat = NoIntr;
+        	//cdr.Stat = NoIntr;
     		AddIrqQueue(cdr.Cmd, 0x800);
         	break;
 
@@ -1131,7 +1421,7 @@ void cdrWrite3(unsigned char rt) {
 
 		return;
 	}
-	
+
 	if ((rt & 0x80) && !(cdr.Ctrl & 0x1) && cdr.Readed == 0) {
 		cdr.Readed = 1;
 		cdr.pTransfer = cdr.Transfer;
@@ -1185,7 +1475,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 #endif
 				break;
 			}
-			
+
 			/*
 			GS CDX: Enhancement CD crash
 			- Setloc 0:0:0
@@ -1197,7 +1487,8 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				size = cdsize;
 			if (size > 0)
 			{
-				memcpy(ptr, cdr.pTransfer, size);
+				//memcpy(ptr, cdr.pTransfer, size);
+				cacheable_kernel_memcpy(ptr, cdr.pTransfer, size);
 			}
 
 			psxCpu->Clear(madr, cdsize >> 2);
@@ -1214,7 +1505,7 @@ void psxDma3(u32 madr, u32 bcr, u32 chcr) {
 				CDRDMA_INT(16);
 			}
 			return;
-			
+
 		default:
 #ifdef CDR_LOG
 			CDR_LOG("psxDma3() Log: Unknown cddma %lx\n", chcr);
@@ -1235,6 +1526,17 @@ void cdrDmaInterrupt()
 	}
 }
 
+static void getCdInfo(void)
+{
+	u8 tmp;
+
+	CDR_getTN(cdr.ResultTN);
+	CDR_getTD(0, cdr.SetSectorEnd);
+	tmp = cdr.SetSectorEnd[0];
+	cdr.SetSectorEnd[0] = cdr.SetSectorEnd[2];
+	cdr.SetSectorEnd[2] = tmp;
+}
+
 void cdrReset() {
 	memset(&cdr, 0, sizeof(cdr));
 	cdr.CurTrack = 1;
@@ -1242,8 +1544,10 @@ void cdrReset() {
 	cdr.Channel = 1;
 	cdr.Reg2 = 0x1f;
 	cdr.Stat = NoIntr;
+	cdr.DriveState = DRIVESTATE_STANDBY;
 	cdr.StatP = STATUS_ROTATING;
 	cdr.pTransfer = cdr.Transfer;
+	getCdInfo();
 }
 
 int cdrFreeze(gzFile f, int Mode) {
@@ -1258,4 +1562,12 @@ int cdrFreeze(gzFile f, int Mode) {
 	return 0;
 }
 
+void LidInterrupt() {
+	getCdInfo();
+	StopCdda();
 
+    cdr.StatP |= STATUS_SHELLOPEN;
+    cdr.DriveState = DRIVESTATE_RESCAN_CD;
+
+	cdrLidSeekInterrupt();
+}

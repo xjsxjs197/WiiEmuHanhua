@@ -519,17 +519,13 @@ void fileBrowserFrame_LoadFile(int i)
 			strcat(RomInfo,buffer);
 			// add xjsxjs197 start
 			Config.RCntFix = 0;
-			if (ChkString(CdromLabel, "SLPS02480", strlen("SLPS02480"))) {
+			if (ChkString(CdromLabel, "SLPS02480", strlen("SLPS02480"))
+                || ChkString(CdromLabel, "SLPS02481", strlen("SLPS02481"))) {
 		        Config.RCntFix = 1;
 		    }
 			if (ChkString(CdromLabel, "Vandal Hearts", strlen("Vandal Hearts"))) {
 		        Config.RCntFix = 1;
 		    }
-			if (ChkString(CdromLabel, "SLPM86192", strlen("SLPM86192"))) {
-		        Config.RCntFix = 1;
-		    }
-			//sprintf(buffer,"Config.RCntFix: %d\n", Config.RCntFix);
-			//strcat(RomInfo,buffer);
 			// add xjsxjs197 end
 			sprintf(buffer,"CD-ROM ID: %s\n", CdromId);
 			strcat(RomInfo,buffer);

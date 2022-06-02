@@ -125,7 +125,7 @@ void psxException(u32 code, u32 bd) {
 		psxRegs.code = tmp;
 		if (tmp != NULL && ((tmp >> 24) & 0xfe) == 0x4a) {
             #ifdef DISP_DEBUG
-            //PRINT_LOG("========hokuto no ken Fix ");
+            PRINT_LOG("========hokuto no ken Fix ");
             #endif // DISP_DEBUG
 		    PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
 
@@ -152,6 +152,7 @@ void psxException(u32 code, u32 bd) {
 }
 
 void psxBranchTest() {
+
 	if ((psxRegs.cycle - psxNextsCounter) >= psxNextCounter)
 		psxRcntUpdate();
 
@@ -213,6 +214,18 @@ void psxBranchTest() {
 			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRDMA].sCycle) >= psxRegs.intCycle[PSXINT_CDRDMA].cycle) {
 				psxRegs.interrupt &= ~(1 << PSXINT_CDRDMA);
 				cdrDmaInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_CDRPLAY)) { // cdr play timing
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRPLAY].sCycle) >= psxRegs.intCycle[PSXINT_CDRPLAY].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_CDRPLAY);
+				cdrPlayInterrupt();
+			}
+		}
+		if (psxRegs.interrupt & (1 << PSXINT_CDRLID)) { // cdr lid states
+			if ((psxRegs.cycle - psxRegs.intCycle[PSXINT_CDRLID].sCycle) >= psxRegs.intCycle[PSXINT_CDRLID].cycle) {
+				psxRegs.interrupt &= ~(1 << PSXINT_CDRLID);
+				cdrLidSeekInterrupt();
 			}
 		}
 		if (psxRegs.interrupt & (1 << PSXINT_SPU_UPDATE)) { // scheduled spu update

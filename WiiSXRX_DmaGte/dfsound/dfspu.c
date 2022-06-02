@@ -275,8 +275,9 @@ INLINE int FModChangeFrequency(int *SB, int pitch, int ns)
  if(NP>0x3fff) NP=0x3fff;
  if(NP<0x1)    NP=0x1;
 
- sinc=NP<<4;                                           // calc frequency
- if(spu_config.iUseInterpolation==1)                   // freq change in simple interpolation mode
+ //sinc=NP<<4;                                           // calc frequency
+ sinc = (SPU_FREQ * NP / 44100) << 4;                                           // calc frequency
+ //if(spu_config.iUseInterpolation==1)                   // freq change in simple interpolation mode
   SB[32]=1;
  iFMod[ns]=0;
 
@@ -293,7 +294,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
   {
    ssat32_to_16(fa);
 
-   if(spu_config.iUseInterpolation>=2)                 // gauss/cubic interpolation
+   /*if(spu_config.iUseInterpolation>=2)                 // gauss/cubic interpolation
     {
      int gpos = SB[28];
      gval0 = fa;
@@ -301,7 +302,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
      SB[28] = gpos;
     }
    else
-   if(spu_config.iUseInterpolation==1)                 // simple interpolation
+   if(spu_config.iUseInterpolation==1)*/                 // simple interpolation
     {
      SB[28] = 0;
      SB[29] = SB[30];                                  // -> helpers for simple linear interpolation: delay real val for two slots, and calc the two deltas, for a 'look at the future behaviour'
@@ -309,7 +310,7 @@ INLINE void StoreInterpolationVal(int *SB, int sinc, int fa, int fmod_freq)
      SB[31] = fa;
      SB[32] = 1;                                       // -> flag: calc new interolation
     }
-   else SB[29]=fa;                                     // no interpolation
+   //else SB[29]=fa;                                     // no interpolation
   }
 }
 
@@ -321,7 +322,7 @@ INLINE int iGetInterpolationVal(int *SB, int sinc, int spos, int fmod_freq)
 
  if(fmod_freq) return SB[29];
 
- switch(spu_config.iUseInterpolation)
+ /*switch(spu_config.iUseInterpolation)
   {
    //--------------------------------------------------//
    case 3:                                             // cubic interpolation
@@ -368,7 +369,12 @@ INLINE int iGetInterpolationVal(int *SB, int sinc, int spos, int fmod_freq)
      fa=SB[29];
     } break;
    //--------------------------------------------------//
-  }
+  }*/
+  if(sinc<0x10000L)                                 // -> upsampling?
+      InterpolateUp(SB, sinc);                     // --> interpolate up
+  else
+      InterpolateDown(SB, sinc);                   // --> else down
+   fa=SB[29];
 
  return fa;
 }
@@ -788,10 +794,10 @@ static void do_channels(int ns_to)
 
    if (s_chan->bNoise)
     d = do_samples_noise(ch, ns_to);
-   else if (s_chan->bFMod == 2
+   /*else if (s_chan->bFMod == 2
          || (s_chan->bFMod == 0 && spu_config.iUseInterpolation == 0))
     d = do_samples_noint(decode_block, NULL, ch, ns_to,
-          SB, sinc, &s_chan->spos, &s_chan->iSBPos);
+          SB, sinc, &s_chan->spos, &s_chan->iSBPos);*/
    else if (s_chan->bFMod == 0 && spu_config.iUseInterpolation == 1)
     d = do_samples_simple(decode_block, NULL, ch, ns_to,
           SB, sinc, &s_chan->spos, &s_chan->iSBPos);
@@ -813,7 +819,7 @@ static void do_channels(int ns_to)
     }
 
    if (s_chan->bFMod == 2)                         // fmod freq channel
-    memcpy(iFMod, &ChanBuf, ns_to * sizeof(iFMod[0]));
+    cacheable_kernel_memcpy(iFMod, &ChanBuf, ns_to * sizeof(iFMod[0]));
    if (s_chan->bRVBActive && do_rvb)
     mix_chan_rvb(spu.SSumLR, ns_to, s_chan->iLeftVolume, s_chan->iRightVolume, RVB);
    else
@@ -1222,7 +1228,7 @@ void schedule_next_irq(void)
  if (spu.scheduleCallback == NULL)
   return;
 
- upd_samples = 48000 / 50;
+ upd_samples = SPU_FREQ / 50;
 
  for (ch = 0; ch < MAXCHAN; ch++)
  {
@@ -1245,7 +1251,7 @@ void schedule_next_irq(void)
   }
  }
 
- if (upd_samples < 48000 / 50)
+ if (upd_samples < SPU_FREQ / 50)
   spu.scheduleCallback(upd_samples * 768 / 2);
 }
 
@@ -1254,12 +1260,12 @@ void schedule_next_irq(void)
 
 // rearmed: called dynamically now
 
-void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
+void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags, unsigned int psxType)
 {
     do_samples(cycle, spu_config.iUseFixedUpdates);
 
- if (spu.spuCtrl & CTRL_IRQ)
-  schedule_next_irq();
+ //if (spu.spuCtrl & CTRL_IRQ)
+  //schedule_next_irq();
 
  if (flags & 1) {
   out_current->feed(spu.pSpuBuffer, (unsigned char *)spu.pS - spu.pSpuBuffer);
@@ -1267,11 +1273,15 @@ void CALLBACK DF_SPUasync(unsigned int cycle, unsigned int flags)
   spu.pS = (short *)spu.pSpuBuffer;
 
   //if (spu_config.iTempo) {
-   if (!out_current->busy())
+   if (!out_current->busy()) {
     // cause more samples to be generated
     // (and break some games because of bad sync)
-    spu.cycles_played -= 48000 / 60 / 2 * 768;
-  //}
+    if (psxType) {
+        spu.cycles_played -= SPU_FREQ / 50 / 2 * 768;  // Config.PsxType = 1, PAL 50Fps/1s
+    } else {
+        spu.cycles_played -= SPU_FREQ / 60 / 2 * 768;  // Config.PsxType = 0, PAL 60Fps/1s
+    }
+   }
  }
 }
 
@@ -1323,8 +1333,8 @@ static void SetupStreams(void)
  spu.SSumLR = calloc(NSSIZE * 2, sizeof(spu.SSumLR[0]));
 
  spu.XAStart =                                         // alloc xa buffer
-  (uint32_t *)malloc(48000 * sizeof(uint32_t));
- spu.XAEnd   = spu.XAStart + 48000;
+  (uint32_t *)malloc(SPU_FREQ * sizeof(uint32_t));
+ spu.XAEnd   = spu.XAStart + SPU_FREQ;
  spu.XAPlay  = spu.XAStart;
  spu.XAFeed  = spu.XAStart;
 

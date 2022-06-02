@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <SDL/SDL.h>
 #include "out.h"
+#include "../coredebug.h"
+#include "../Gamecube/DEBUG.h"
 
 //#define BUFFER_SIZE		22050
 #define BUFFER_SIZE		24000
@@ -35,7 +37,8 @@ volatile int	iReadPos = 0, iWritePos = 0;
 static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 	short *p = (short *)stream;
 
-	len /= sizeof(short);
+	//len /= sizeof(short);
+	len >>= 1;
 
 	while (iReadPos != iWritePos && len > 0) {
 		*p++ = pSndBuffer[iReadPos++];
@@ -43,6 +46,11 @@ static void SOUND_FillAudio(void *unused, Uint8 *stream, int len) {
 		--len;
 	}
 
+    #ifdef SHOW_DEBUG
+    if (len > 0) {
+        DEBUG_print("SOUND_FillAudio === error", DBG_SPU2);
+    }
+    #endif // DISP_DEBUG
 	// Fill remaining space with zero
 	while (len > 0) {
 		*p++ = 0;
@@ -131,7 +139,12 @@ static int sdl_busy(void) {
 	size = iReadPos - iWritePos;
 	if (size <= 0) size += BUFFER_SIZE;
 
-	if (size < BUFFER_SIZE / 2) return 1;
+	if (size < BUFFER_SIZE / 2) {
+        #ifdef SHOW_DEBUG
+        DEBUG_print("sdl_busy =sdl_busy== ", DBG_SPU1);
+        #endif // DISP_DEBUG
+        return 1;
+	}
 
 	return 0;
 	/*if (usedBuf > 2)
@@ -148,12 +161,33 @@ static void sdl_feed(void *pSound, int lBytes) {
 	if (pSndBuffer == NULL) return;
 
 	while (lBytes > 0) {
-		if (((iWritePos + 1) % BUFFER_SIZE) == iReadPos) break;
+//		if (((iWritePos + 1) % BUFFER_SIZE) == iReadPos)
+//		{
+//		    #ifdef DISP_DEBUG
+//            PRINT_LOG1("sdl_feed === error: %d ", lBytes);
+//            #endif // DISP_DEBUG
+//		    break;
+//		}
+
+        ++iWritePos;
+        if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
+
+        if (iWritePos == iReadPos)
+        {
+            #ifdef SHOW_DEBUG
+            DEBUG_print("sdl_feed === error", DBG_SPU1);
+            #endif // DISP_DEBUG
+            iWritePos--;
+            if (iWritePos < 0)
+            {
+                iWritePos = BUFFER_SIZE - 1;
+            }
+            break;
+        }
 
 		pSndBuffer[iWritePos] = *p++;
-
-		++iWritePos;
-		if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
+		//++iWritePos;
+		//if (iWritePos >= BUFFER_SIZE) iWritePos = 0;
 
 		lBytes -= sizeof(short);
 	}

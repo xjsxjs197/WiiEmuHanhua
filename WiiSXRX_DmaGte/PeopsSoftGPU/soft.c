@@ -72,6 +72,7 @@
 
 #include "stdafx.h"
 
+#include <stdbool.h>
 #include "../Gamecube/DEBUG.h"
 
 #define _IN_SOFT
