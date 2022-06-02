@@ -72,7 +72,7 @@ static void (*recBSC[64])();
 static void (*recSPC[64])();
 static void (*recREG[32])();
 static void (*recCP0[32])();
-static void (*recCP2[64])();
+static void (*recCP2[64])(struct psxCP2Regs *regs);
 static void (*recCP2BSC[32])();
 
 static HWRegister HWRegisters[NUM_HW_REGISTERS];
@@ -1159,10 +1159,10 @@ static void recCOP2() {
     #ifdef SHOW_DEBUG
     printFunctionLog();
     #endif // SHOW_DEBUG
-	recCP2[_Funct_]();
+	recCP2[_Funct_]((struct psxCP2Regs *)&psxRegs.CP2D);
 }
 
-static void recBASIC() {
+static void recBASIC(struct psxCP2Regs *regs) {
     #ifdef SHOW_DEBUG
     printFunctionLog();
     #endif // SHOW_DEBUG
@@ -3071,7 +3071,7 @@ static void (*recCP0[32])() = {
 	recNULL, recNULL, recNULL, recNULL, recNULL, recNULL, recNULL, recNULL
 };
 
-static void (*recCP2[64])() = {
+static void (*recCP2[64])(struct psxCP2Regs *regs) = {
 	recBASIC, recRTPS , recNULL , recNULL, recNULL, recNULL , recNCLIP, recNULL, // 00
 	recNULL , recNULL , recNULL , recNULL, recOP  , recNULL , recNULL , recNULL, // 08
 	recDPCS , recINTPL, recMVMVA, recNCDS, recCDP , recNULL , recNCDT , recNULL, // 10

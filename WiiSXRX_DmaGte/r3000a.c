@@ -89,7 +89,7 @@ void psxException(u32 code, u32 bd) {
 		PSXCPU_LOG("bd set!!!\n");
 #endif
         //SysPrintf("bd set!!!\n");
-		PRINT_LOG("=====bd set!!!");
+		//PRINT_LOG("=====bd set!!!");
 		psxRegs.CP0.n.Cause |= 0x80000000;
 		psxRegs.CP0.n.EPC = (psxRegs.pc - 4);
 	} else
@@ -127,11 +127,12 @@ void psxException(u32 code, u32 bd) {
             #ifdef DISP_DEBUG
             PRINT_LOG("========hokuto no ken Fix ");
             #endif // DISP_DEBUG
-		    PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
+		    //PSXMu32ref(psxRegs.CP0.n.EPC) &= SWAP32(~0x02000000);
 
-            psxRegs.code = PSXMu32(psxRegs.CP0.n.EPC);
-			extern void (*psxCP2[64])();
-		    psxCP2[psxRegs.code & 0x3f]();
+            //psxRegs.code = PSXMu32(psxRegs.CP0.n.EPC);
+			//extern void (*psxCP2[64])(void *cp2regs);
+			//extern void (*psxCP2[64])(struct psxCP2Regs *regs);
+		    //psxCP2[psxRegs.code & 0x3f](&psxRegs.CP2D);
 		}
 		#ifdef DISP_DEBUG
 		else if (tmp == NULL )
