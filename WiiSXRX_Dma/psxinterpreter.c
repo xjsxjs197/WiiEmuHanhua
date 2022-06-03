@@ -562,9 +562,9 @@ void psxSRL() { if (!_Rd_) return; _u32(_rRd_) = _u32(_rRt_) >> _Sa_; } // Rd = 
 * Shift arithmetic with variant register shift           *
 * Format:  OP rd, rt, rs                                 *
 *********************************************************/
-void psxSLLV() { if (!_Rd_) return; _u32(_rRd_) = _u32(_rRt_) << _u32(_rRs_); } // Rd = Rt << rs
-void psxSRAV() { if (!_Rd_) return; _i32(_rRd_) = _i32(_rRt_) >> _u32(_rRs_); } // Rd = Rt >> rs (arithmetic)
-void psxSRLV() { if (!_Rd_) return; _u32(_rRd_) = _u32(_rRt_) >> _u32(_rRs_); } // Rd = Rt >> rs (logical)
+void psxSLLV() { if (!_Rd_) return; _u32(_rRd_) = _u32(_rRt_) << (_u32(_rRs_) & 0x1F); } // Rd = Rt << rs
+void psxSRAV() { if (!_Rd_) return; _i32(_rRd_) = _i32(_rRt_) >> (_u32(_rRs_) & 0x1F); } // Rd = Rt >> rs (arithmetic)
+void psxSRLV() { if (!_Rd_) return; _u32(_rRd_) = _u32(_rRt_) >> (_u32(_rRs_) & 0x1F); } // Rd = Rt >> rs (logical)
 
 /*********************************************************
 * Load higher 16 bits of the first word in GPR with imm  *
@@ -946,9 +946,9 @@ inline void execI() {
 	psxRegs.code = ((code == NULL) ? 0 : SWAP32(*code));
 
 	debugI();
- 
-	psxRegs.pc+= 4; psxRegs.cycle++; 
-	psxBSC[psxRegs.code >> 26](); 
+
+	psxRegs.pc+= 4; psxRegs.cycle++;
+	psxBSC[psxRegs.code >> 26]();
 
 }
 

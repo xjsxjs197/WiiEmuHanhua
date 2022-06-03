@@ -2456,11 +2456,20 @@ static void recSLLV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, iRegs[_Rt_].k << iRegs[_Rs_].k);
+		MapConst(_Rd_, iRegs[_Rt_].k << (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SLW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SLW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
@@ -2472,11 +2481,20 @@ static void recSRLV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, iRegs[_Rt_].k >> iRegs[_Rs_].k);
+		MapConst(_Rd_, iRegs[_Rt_].k >> (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SRWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SRWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SRW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SRW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
@@ -2488,11 +2506,20 @@ static void recSRAV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, (s32)iRegs[_Rt_].k >> iRegs[_Rs_].k);
+		MapConst(_Rd_, (s32)iRegs[_Rt_].k >> (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SRAWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SRAWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SRAW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SRAW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
