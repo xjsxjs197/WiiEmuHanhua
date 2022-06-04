@@ -1211,9 +1211,11 @@ static void recSLTI() {
 	if (IsConst(_Rs_)) {
 		MapConst(_Rt_, (s32)iRegs[_Rs_].k < _Imm_);
 	} else {
-		if (_Imm_ == 0) {
-			SRWI(PutHWReg32(_Rt_), GetHWReg32(_Rs_), 31);
-		} else {
+//		if (_Imm_ == 0) {
+//			SRWI(PutHWReg32(_Rt_), GetHWReg32(_Rs_), 31);
+//		}
+//		else
+		{
 			int reg;
 			CMPWI(GetHWReg32(_Rs_), _Imm_);
 			reg = PutHWReg32(_Rt_);
@@ -1232,10 +1234,10 @@ static void recSLTIU() {
 	if (!_Rt_) return;
 
 	if (IsConst(_Rs_)) {
-		MapConst(_Rt_, iRegs[_Rs_].k < _ImmU_);
+		MapConst(_Rt_, iRegs[_Rs_].k < (u32)_Imm_);
 	} else {
 		int reg;
-		CMPLWI(GetHWReg32(_Rs_), _Imm_);
+		CMPLWI(GetHWReg32(_Rs_), (u32)_Imm_);
 		reg = PutHWReg32(_Rt_);
 		LI(reg, 1);
 		BLT(1);
@@ -1645,8 +1647,10 @@ static void recMULTU() {
 		k = 0;
 	}
 
-	uselo = isPsxRegUsed(pc, REG_LO);
-	usehi = isPsxRegUsed(pc, REG_HI);
+	//uselo = isPsxRegUsed(pc, REG_LO);
+	//usehi = isPsxRegUsed(pc, REG_HI);
+	uselo = 1;
+	usehi = 1;
 
 	if (r != -1) {
 		int shift = DoShift(k);
@@ -1777,7 +1781,8 @@ static void recDIV() {
     }
     #endif // DISP_DEBUG
 
-	usehi = isPsxRegUsed(pc, REG_HI);
+	//usehi = isPsxRegUsed(pc, REG_HI);
+	usehi = 1;
 
 	if (IsConst(_Rt_)) {
 		int shift = DoShift(iRegs[_Rt_].k);
@@ -1876,7 +1881,8 @@ static void recDIVU() {
     }
     #endif // DISP_DEBUG
 
-	usehi = isPsxRegUsed(pc, REG_HI);
+	//usehi = isPsxRegUsed(pc, REG_HI);
+	usehi = 1;
 
 	if (IsConst(_Rt_)) {
 		int shift = DoShift(iRegs[_Rt_].k);
