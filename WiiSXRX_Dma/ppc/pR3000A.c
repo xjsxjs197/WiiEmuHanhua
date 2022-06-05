@@ -1516,9 +1516,15 @@ static void recSLTU() {
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
         MapConst(_Rd_, iRegs[_Rs_].k < iRegs[_Rt_].k);
     } else { // TODO: add immidiate cases
-        SUBFC(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
-        SUBFE(PutHWReg32(_Rd_), GetHWReg32(_Rd_), GetHWReg32(_Rd_));
-        NEG(PutHWReg32(_Rd_), GetHWReg32(_Rd_));
+//        SUBFC(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+//        SUBFE(PutHWReg32(_Rd_), GetHWReg32(_Rd_), GetHWReg32(_Rd_));
+//        NEG(PutHWReg32(_Rd_), GetHWReg32(_Rd_));
+        int reg;
+        CMPLW(GetHWReg32(_Rs_), GetHWReg32(_Rt_));
+        reg = PutHWReg32(_Rd_);
+        LI(reg, 1);
+        BLT(1);
+        LI(reg, 0);
     }
 }
 
