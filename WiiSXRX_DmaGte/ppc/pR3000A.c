@@ -1026,6 +1026,7 @@ static void rec##f() { \
 	iFlushRegs(0); \
 	LIW(0, (u32)psxRegs.code); \
 	STW(0, OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS)); \
+	LIW(PutHWRegSpecial(ARG1), (struct psxCP2Regs *)&psxRegs.CP2D); \
 	FlushAllHWReg(); \
 	CALLFunc ((u32)gte##f); \
 	cop2readypc = pc + (psxCP2time[_fFunct_(psxRegs.code)]<<2); \
@@ -1036,6 +1037,7 @@ void gte##f(); \
 static void rec##f() { \
 	if (pc < cop2readypc) idlecyclecount += ((cop2readypc - pc)>>2); \
 	iFlushRegs(0); \
+	LIW(PutHWRegSpecial(ARG1), (struct psxCP2Regs *)&psxRegs.CP2D); \
 	CALLFunc ((u32)gte##f); \
 /*	branch = 2; */\
 	cop2readypc = pc + psxCP2time[_fFunct_(psxRegs.code)]; \
@@ -1514,9 +1516,15 @@ static void recSLTU() {
     if (IsConst(_Rs_) && IsConst(_Rt_)) {
         MapConst(_Rd_, iRegs[_Rs_].k < iRegs[_Rt_].k);
     } else { // TODO: add immidiate cases
-        SUBFC(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
-        SUBFE(PutHWReg32(_Rd_), GetHWReg32(_Rd_), GetHWReg32(_Rd_));
-        NEG(PutHWReg32(_Rd_), GetHWReg32(_Rd_));
+//        SUBFC(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+//        SUBFE(PutHWReg32(_Rd_), GetHWReg32(_Rd_), GetHWReg32(_Rd_));
+//        NEG(PutHWReg32(_Rd_), GetHWReg32(_Rd_));
+        int reg;
+        CMPLW(GetHWReg32(_Rs_), GetHWReg32(_Rt_));
+        reg = PutHWReg32(_Rd_);
+        LI(reg, 1);
+        BLT(1);
+        LI(reg, 0);
     }
 }
 
@@ -2456,11 +2464,20 @@ static void recSLLV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, iRegs[_Rt_].k << iRegs[_Rs_].k);
+		MapConst(_Rd_, iRegs[_Rt_].k << (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SLW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SLW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
@@ -2472,11 +2489,20 @@ static void recSRLV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, iRegs[_Rt_].k >> iRegs[_Rs_].k);
+		MapConst(_Rd_, iRegs[_Rt_].k >> (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SRWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SRWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SRW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SRW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
@@ -2488,11 +2514,20 @@ static void recSRAV() {
 	if (!_Rd_) return;
 
 	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-		MapConst(_Rd_, (s32)iRegs[_Rt_].k >> iRegs[_Rs_].k);
+		MapConst(_Rd_, (s32)iRegs[_Rt_].k >> (iRegs[_Rs_].k & 0x1F));
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
-		SRAWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), iRegs[_Rs_].k);
+		SRAWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-		SRAW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    int rsIdx, rtIdx;
+	    if (_Rt_ == _Rs_) {
+            rsIdx = GetHWReg32(_Rs_);
+            rtIdx = rsIdx;
+	    } else {
+	        rsIdx = GetHWReg32(_Rs_);
+            rtIdx = GetHWReg32(_Rt_);
+	    }
+	    ANDI_(rsIdx, rsIdx, 0x1F);
+		SRAW(PutHWReg32(_Rd_), rtIdx, rsIdx);
 	}
 }
 
