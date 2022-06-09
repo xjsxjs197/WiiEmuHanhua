@@ -3055,12 +3055,18 @@ static void recHLE() {
 	iFlushRegs(0);
 	FlushAllHWReg();
 
-	if ((psxRegs.code & 0x3ffffff) == (psxRegs.code & 0x7)) {
-		CALLFunc((u32)psxHLEt[psxRegs.code & 0x7]);
-	} else {
-		// somebody else must have written to current opcode for this to happen!!!!
-		CALLFunc((u32)psxHLEt[0]); // call dummy function
-	}
+    uint32_t hleCode = psxRegs.code & 0x03ffffff;
+    if (hleCode >= (sizeof(psxHLEt) / sizeof(psxHLEt[0]))) {
+        CALLFunc((u32)psxHLEt[0]); // call dummy function
+    } else {
+        CALLFunc((u32)psxHLEt[hleCode]);
+    }
+//	if ((psxRegs.code & 0x3ffffff) == (psxRegs.code & 0x7)) {
+//		CALLFunc((u32)psxHLEt[psxRegs.code & 0x7]);
+//	} else {
+//		// somebody else must have written to current opcode for this to happen!!!!
+//		CALLFunc((u32)psxHLEt[0]); // call dummy function
+//	}
 
     // upd xjsxjs197 start
 	//count = idlecyclecount + (pc - pcold)/4 + 20;
