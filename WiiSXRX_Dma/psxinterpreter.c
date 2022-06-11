@@ -541,7 +541,7 @@ void psxMULTU() {
 * Format:  OP rs, offset                                 *
 *********************************************************/
 #define RepZBranchi32(op)      if(_i32(_rRs_) op 0) doBranch(_BranchTarget_);
-#define RepZBranchLinki32(op)  if(_i32(_rRs_) op 0) { _SetLink(31); doBranch(_BranchTarget_); }
+#define RepZBranchLinki32(op)  { _SetLink(31); if(_i32(_rRs_) op 0) { doBranch(_BranchTarget_); } }
 
 void psxBGEZ()   { RepZBranchi32(>=) }      // Branch if Rs >= 0
 void psxBGEZAL() { RepZBranchLinki32(>=) }  // Branch if Rs >= 0 and link
@@ -591,7 +591,8 @@ void psxMTLO() { _rLo_ = _rRs_; } // Lo = Rs
 * Format:  OP                                            *
 *********************************************************/
 void psxBREAK() {
-	// Break exception - psx rom doens't handles this
+	psxRegs.pc -= 4;
+	psxException(0x24, branch);
 }
 
 void psxSYSCALL() {
@@ -603,6 +604,7 @@ void psxRFE() {
 //	SysPrintf("psxRFE\n");
 	psxRegs.CP0.n.Status = (psxRegs.CP0.n.Status & 0xfffffff0) |
 						  ((psxRegs.CP0.n.Status & 0x3c) >> 2);
+	psxTestSWInts();
 }
 
 /*********************************************************
@@ -626,14 +628,14 @@ void psxJAL() {	_SetLink(31); doBranch(_JumpTarget_); }
 * Format:  OP rs, rd                                     *
 *********************************************************/
 void psxJR()   {
-	doBranch(_u32(_rRs_));
+	doBranch(_u32(_rRs_) & ~3);
 	psxJumpTest();
 }
 
 void psxJALR() {
 	u32 temp = _u32(_rRs_);
 	if (_Rd_) { _SetLink(_Rd_); }
-	doBranch(temp);
+	doBranch(temp & ~3);
 }
 
 /*********************************************************
@@ -790,13 +792,13 @@ void psxTestSWInts() {
 __inline void MTC0(int reg, u32 val) {
 //	SysPrintf("MTC0 %d: %x\n", reg, val);
 	switch (reg) {
-		case 12: // Status
+		case 12: // psxRegs.CP0.r[12] = psxRegs.CP0.n.Status
 			psxRegs.CP0.r[12] = val;
 			psxTestSWInts();
 			psxRegs.interrupt|= 0x80000000;
 			break;
 
-		case 13: // Cause
+		case 13: // psxRegs.CP0.r[13] = psxRegs.CP0.n.Cause
 		    // upd xjsxjs197 start
 			//psxRegs.CP0.n.Cause = val & ~(0xfc00);
 			psxRegs.CP0.n.Cause &= ~0x0300;
@@ -846,7 +848,13 @@ void psxBASIC() {
 
 void psxHLE() {
 //	psxHLEt[psxRegs.code & 0xffff]();
-	psxHLEt[psxRegs.code & 0x07]();		// HDHOSHY experimental patch
+//	psxHLEt[psxRegs.code & 0x07]();		// HDHOSHY experimental patch
+    uint32_t hleCode = psxRegs.code & 0x03ffffff;
+    if (hleCode >= (sizeof(psxHLEt) / sizeof(psxHLEt[0]))) {
+        psxNULL();
+    } else {
+        psxHLEt[hleCode]();
+    }
 }
 
 void (*psxBSC[64])() = {
