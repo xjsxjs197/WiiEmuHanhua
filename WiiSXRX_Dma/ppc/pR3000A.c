@@ -2432,8 +2432,9 @@ static void recSLL() {
     } else
     {
         //SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), _Sa_);
+        int rtIdx = GetHWReg32(_Rt_);
         int rdIdx = PutHWReg32(_Rd_);
-        SLWI(rdIdx, GetHWReg32(_Rt_), _Sa_);
+        SLWI(rdIdx, rtIdx, _Sa_);
         STW(rdIdx, OFFSET(&psxRegs, &psxRegs.GPR.r[_Rd_]), GetHWRegSpecial(PSXREGS));
     }
 }
