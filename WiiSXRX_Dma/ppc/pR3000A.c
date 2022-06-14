@@ -1294,7 +1294,7 @@ static void recXORI() {
 * Load higher 16 bits of the first word in GPR with imm  *
 * Format:  OP rt, immediate                              *
 *********************************************************/
-
+//REC_FUNC(LUI);
 static void recLUI()  {
 // Rt = Imm << 16
 	#ifdef SHOW_DEBUG
@@ -1302,7 +1302,11 @@ static void recLUI()  {
     #endif // SHOW_DEBUG
 	if (!_Rt_) return;
 
-	MapConst(_Rt_, psxRegs.code << 16);
+    iFlushRegs(0);
+    LIW(0, psxRegs.code);
+    SLWI(0, 0, 16);
+    STW(0, OFFSET(&psxRegs, &psxRegs.GPR.r[_Rt_]), GetHWRegSpecial(PSXREGS));
+	//MapConst(_Rt_, psxRegs.code << 16);
 }
 
 //End of Load Higher .....
@@ -1759,7 +1763,7 @@ static void recDIV() {
 	int usehi;
 	u32 *bDiv, *bEnd, *bEnd2, *bZero;
 
-	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
+	if (IsConst(_Rs_) && (s32)iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
 		MapConst(REG_HI, 0);
 		return;
@@ -2415,6 +2419,7 @@ static void recSW() {
 	//B_DST(b2);
 }
 
+//REC_FUNC(SLL);
 static void recSLL() {
 // Rd = Rt << Sa
     #ifdef SHOW_DEBUG
@@ -2424,8 +2429,12 @@ static void recSLL() {
 
     if (IsConst(_Rt_)) {
         MapConst(_Rd_, iRegs[_Rt_].k << _Sa_);
-    } else {
-        SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), _Sa_);
+    } else
+    {
+        //SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), _Sa_);
+        int rdIdx = PutHWReg32(_Rd_);
+        SLWI(rdIdx, GetHWReg32(_Rt_), _Sa_);
+        STW(rdIdx, OFFSET(&psxRegs, &psxRegs.GPR.r[_Rd_]), GetHWRegSpecial(PSXREGS));
     }
 }
 
