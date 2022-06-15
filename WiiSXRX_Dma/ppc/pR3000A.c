@@ -1211,11 +1211,9 @@ static void recSLTI() {
 	if (IsConst(_Rs_)) {
 		MapConst(_Rt_, (s32)iRegs[_Rs_].k < _Imm_);
 	} else {
-//		if (_Imm_ == 0) {
-//			SRWI(PutHWReg32(_Rt_), GetHWReg32(_Rs_), 31);
-//		}
-//		else
-		{
+		if (_Imm_ == 0) {
+			SRWI(PutHWReg32(_Rt_), GetHWReg32(_Rs_), 31);
+		} else {
 			int reg;
 			CMPWI(GetHWReg32(_Rs_), _Imm_);
 			reg = PutHWReg32(_Rt_);
@@ -1691,6 +1689,26 @@ static void recMULTU() {
 	}
 }
 
+void psxDIV();
+void psxDIVU();
+static inline void recPsxDiv() {
+	iFlushRegs(0);
+	LIW(PutHWRegSpecial(ARG1), (u32)psxRegs.code);
+	STW(GetHWRegSpecial(ARG1), OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
+	LIW(PutHWRegSpecial(PSXPC), (u32)pc);
+	FlushAllHWReg();
+	CALLFunc((u32)psxDIV);
+}
+
+static inline void recPsxDivU() {
+	iFlushRegs(0);
+	LIW(PutHWRegSpecial(ARG1), (u32)psxRegs.code);
+	STW(GetHWRegSpecial(ARG1), OFFSET(&psxRegs, &psxRegs.code), GetHWRegSpecial(PSXREGS));
+	LIW(PutHWRegSpecial(PSXPC), (u32)pc);
+	FlushAllHWReg();
+	CALLFunc((u32)psxDIVU);
+}
+
 #define inlineDIVW_Comn() \
 	    int rt = GetHWReg32(_Rt_); \
 	    int rs = GetHWReg32(_Rs_); \
@@ -1749,47 +1767,61 @@ static void recMULTU() {
 		B_DST(bEnd2); \
 } \
 
+//REC_FUNC(DIV);
 static void recDIV() {
 // Lo/Hi = Rs / Rt (signed)
     #ifdef SHOW_DEBUG
     printFunctionLog();
     #endif // SHOW_DEBUG
-    #ifdef DISP_DEBUG
-    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
-    {
-        PRINT_LOG("recDIV 0xffffffff=====");
-    }
-    #endif // DISP_DEBUG
 	int usehi;
 	u32 *bDiv, *bEnd, *bEnd2, *bZero;
 
-	if (IsConst(_Rs_) && (s32)iRegs[_Rs_].k == 0) {
+//	if (IsConst(_Rs_) && (s32)iRegs[_Rs_].k == 0) {
+//		MapConst(REG_LO, 0);
+//		MapConst(REG_HI, 0);
+//		return;
+//	}
+//	if (IsConst(_Rt_) && IsConst(_Rs_)) {
+//        if ((s32)iRegs[_Rt_].k == 0)
+//        {
+//            MapConst(REG_LO, (s32)iRegs[_Rs_].k  >= 0 ? 0xffffffff : 1);
+//		    MapConst(REG_HI, (s32)iRegs[_Rs_].k);
+//        }
+//        else
+//        {
+//            MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
+//		    MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
+//        }
+//		return;
+//	}
+	if (IsConst(_Rt_)) {
+        if (IsConst(_Rs_))
+        {
+            if (_i32(iRegs[_Rt_].k) == 0)
+            {
+                MapConst(REG_LO, _i32(iRegs[_Rs_].k)  >= 0 ? 0xffffffff : 1);
+                MapConst(REG_HI, _i32(iRegs[_Rs_].k));
+            }
+            else
+            {
+                if (_i32(iRegs[_Rs_].k) == 0) {
+                    MapConst(REG_LO, 0);
+                    MapConst(REG_HI, 0);
+                }
+                else
+                {
+                    MapConst(REG_LO, _i32(iRegs[_Rs_].k) / _i32(iRegs[_Rt_].k));
+                    MapConst(REG_HI, _i32(iRegs[_Rs_].k) % _i32(iRegs[_Rt_].k));
+                }
+            }
+            return;
+        }
+	}
+    else if (IsConst(_Rs_) && _i32(iRegs[_Rs_].k) == 0) {
 		MapConst(REG_LO, 0);
 		MapConst(REG_HI, 0);
 		return;
 	}
-	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-        if ((s32)iRegs[_Rt_].k == 0)
-        {
-            #ifdef DISP_DEBUG
-            PRINT_LOG("recDIV 0==OK===");
-            #endif // DISP_DEBUG
-            MapConst(REG_LO, (s32)iRegs[_Rs_].k  >= 0 ? 0xffffffff : 1);
-		    MapConst(REG_HI, (s32)iRegs[_Rs_].k);
-        }
-        else
-        {
-            MapConst(REG_LO, (s32)iRegs[_Rs_].k / (s32)iRegs[_Rt_].k);
-		    MapConst(REG_HI, (s32)iRegs[_Rs_].k % (s32)iRegs[_Rt_].k);
-        }
-		return;
-	}
-	#ifdef DISP_DEBUG
-    if (IsConst(_Rt_) && (s32)iRegs[_Rt_].k == 0)
-    {
-        PRINT_LOG("recDIV 0==Error===");
-    }
-    #endif // DISP_DEBUG
 
 	//usehi = isPsxRegUsed(pc, REG_HI);
 	usehi = 1;
@@ -1797,11 +1829,12 @@ static void recDIV() {
 	if (IsConst(_Rt_)) {
 		int shift = DoShift(iRegs[_Rt_].k);
 		if (shift != -1) {
-			SRAWI(PutHWReg32(REG_LO), GetHWReg32(_Rs_), shift);
-			ADDZE(PutHWReg32(REG_LO), GetHWReg32(REG_LO));
-			if (usehi) {
-				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
-			}
+//			SRAWI(PutHWReg32(REG_LO), GetHWReg32(_Rs_), shift);
+//			ADDZE(PutHWReg32(REG_LO), GetHWReg32(REG_LO));
+//			if (usehi) {
+//				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
+//			}
+            recPsxDivU();
 		} else if (iRegs[_Rt_].k == 3) {
 			// http://the.wall.riscom.net/books/proc/ppc/cwg/code2.html
 			LIS(PutHWReg32(REG_HI), 0x5555);
@@ -1848,48 +1881,61 @@ static void recDIV() {
 		B_DST(bEnd); \
 } \
 
+//REC_FUNC(DIVU);
 static void recDIVU() {
 // Lo/Hi = Rs / Rt (unsigned)
     #ifdef SHOW_DEBUG
     printFunctionLog();
     #endif // SHOW_DEBUG
-    #ifdef DISP_DEBUG
-    if (IsConst(_Rs_) && iRegs[_Rs_].k == 0x80000000 && IsConst(_Rt_) && iRegs[_Rt_].k == 0xffffffff)
-    {
-        PRINT_LOG("recDIVU 0xffffffff=====");
-    }
-    #endif // DISP_DEBUG
 	int usehi;
 	u32 *bDiv, *bEnd;
 
-	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
+//	if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
+//		MapConst(REG_LO, 0);
+//		MapConst(REG_HI, 0);
+//		return;
+//	}
+//	if (IsConst(_Rt_) && IsConst(_Rs_)) {
+//        if ((u32)iRegs[_Rt_].k == 0)
+//        {
+//            MapConst(REG_LO, 0xffffffff);
+//		    MapConst(REG_HI, (u32)iRegs[_Rs_].k);
+//        }
+//        else
+//        {
+//            MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
+//		    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+//        }
+//		return;
+//	}
+    if (IsConst(_Rt_)) {
+        if (IsConst(_Rs_))
+        {
+            if ((u32)iRegs[_Rt_].k == 0)
+            {
+                MapConst(REG_LO, 0xffffffff);
+                MapConst(REG_HI, _i32(iRegs[_Rs_].k));
+            }
+            else
+            {
+                if (iRegs[_Rs_].k == 0) {
+                    MapConst(REG_LO, 0);
+                    MapConst(REG_HI, 0);
+                }
+                else
+                {
+                    MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
+                    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
+                }
+            }
+            return;
+        }
+	}
+    else if (IsConst(_Rs_) && iRegs[_Rs_].k == 0) {
 		MapConst(REG_LO, 0);
 		MapConst(REG_HI, 0);
 		return;
 	}
-	if (IsConst(_Rt_) && IsConst(_Rs_)) {
-        if ((u32)iRegs[_Rt_].k == 0)
-        {
-            #ifdef DISP_DEBUG
-            PRINT_LOG("recDIVU 0==OK===");
-            #endif // DISP_DEBUG
-            MapConst(REG_LO, 0xffffffff);
-		    MapConst(REG_HI, (u32)iRegs[_Rs_].k);
-        }
-        else
-        {
-            MapConst(REG_LO, (u32)iRegs[_Rs_].k / (u32)iRegs[_Rt_].k);
-		    MapConst(REG_HI, (u32)iRegs[_Rs_].k % (u32)iRegs[_Rt_].k);
-        }
-		return;
-	}
-
-	#ifdef DISP_DEBUG
-    if (IsConst(_Rt_) && (u32)iRegs[_Rt_].k == 0)
-    {
-        PRINT_LOG("recDIVU 0==Error===");
-    }
-    #endif // DISP_DEBUG
 
 	//usehi = isPsxRegUsed(pc, REG_HI);
 	usehi = 1;
@@ -1897,10 +1943,11 @@ static void recDIVU() {
 	if (IsConst(_Rt_)) {
 		int shift = DoShift(iRegs[_Rt_].k);
 		if (shift != -1) {
-			SRWI(PutHWReg32(REG_LO), GetHWReg32(_Rs_), shift);
-			if (usehi) {
-				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
-			}
+//			SRWI(PutHWReg32(REG_LO), GetHWReg32(_Rs_), shift);
+//			if (usehi) {
+//				RLWINM(PutHWReg32(REG_HI), GetHWReg32(_Rs_), 0, (31-shift), 31);
+//			}
+            recPsxDivU();
 		} else {
 			inlineDIVWU();
 		}
