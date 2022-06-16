@@ -73,7 +73,7 @@ static void (*recSPC[64])();
 static void (*recREG[32])();
 static void (*recCP0[32])();
 static void (*recCP2[64])(struct psxCP2Regs *regs);
-static void (*recCP2BSC[32])();
+static void (*recCP2BSC[32])(struct psxCP2Regs *regs);
 
 static HWRegister HWRegisters[NUM_HW_REGISTERS];
 // added xjsxjs197 start
@@ -1168,7 +1168,7 @@ static void recBASIC(struct psxCP2Regs *regs) {
     #ifdef SHOW_DEBUG
     printFunctionLog();
     #endif // SHOW_DEBUG
-	recCP2BSC[_Rs_]();
+	recCP2BSC[_Rs_](regs);
 }
 
 //end of Tables opcodes...
@@ -3016,10 +3016,56 @@ static void recCTC0() {
 	recMTC0();
 }
 
+#define gteIR1  (regs->CP2D.p[9].sw.l)
+#define gteIR2  (regs->CP2D.p[10].sw.l)
+#define gteIR3  (regs->CP2D.p[11].sw.l)
+#define gteORGB  (regs->CP2D.r[29])
+
+static void recMFC2(struct psxCP2Regs *regs) {
+    if (!_Rt_) return;
+
+    int idxGetArg1, idxGetArg2, idxPutArg1, idxPutArg2;
+
+    switch(_Rd_) {
+		case 29:
+		    idxPutArg1 = PutHWRegSpecial(ARG1);
+		    idxPutArg2 = PutHWRegSpecial(ARG2);
+		    iFlushRegs(0);
+		    LHZ(0, OFFSET(&psxRegs, &gteIR1), GetHWRegSpecial(PSXREGS));
+		    LHZ(idxPutArg1, OFFSET(&psxRegs, &gteIR2), GetHWRegSpecial(PSXREGS));
+		    LHZ(idxPutArg2, OFFSET(&psxRegs, &gteIR3), GetHWRegSpecial(PSXREGS));
+		    RLWINM(0, 0, 25, 27, 31); // (gteIR1 >> 7) & 0x1f)
+		    idxGetArg1 = GetHWRegSpecial(ARG1);
+		    idxGetArg2 = GetHWRegSpecial(ARG2);
+		    RLWINM(idxPutArg1, idxGetArg1, 30, 22, 26); // ((gteIR2 >> 7) & 0x1f) << 5
+		    RLWINM(idxPutArg2, idxGetArg2, 3, 17, 21); // ((gteIR3 >> 7) & 0x1f) << 10
+
+		    OR(0, 0, idxGetArg1);
+		    OR(0, 0, idxGetArg2);
+		    STW(0, OFFSET(&psxRegs, &gteORGB), GetHWRegSpecial(PSXREGS));
+		    MR(PutHWReg32(_Rt_), 0);
+
+//			gteORGB = (((gteIR1 >> 7) & 0x1f)) |
+//					  (((gteIR2 >> 7) & 0x1f)<<5) |
+//					  (((gteIR3 >> 7) & 0x1f)<<10);
+//
+//			psxRegs.GPR.r[_Rt_] = gteORGB;
+
+		default:
+		    LWZ(PutHWReg32(_Rt_), OFFSET(&psxRegs, &psxRegs.CP2D.r[_Rd_]), GetHWRegSpecial(PSXREGS));
+	}
+}
+
+static void recCFC2(struct psxCP2Regs *regs) {
+    if (!_Rt_) return;
+    //psxRegs.GPR.r[_Rt_] = psxRegs.CP2C.r[_Rd_];
+    LWZ(PutHWReg32(_Rt_), OFFSET(&psxRegs, &psxRegs.CP2C.r[_Rd_]), GetHWRegSpecial(PSXREGS));
+}
+
 // GTE function callers
-CP2_FUNC(MFC2);
+//CP2_FUNC(MFC2);
 CP2_FUNC(MTC2);
-CP2_FUNC(CFC2);
+//CP2_FUNC(CFC2);
 CP2_FUNC(CTC2);
 CP2_FUNC(LWC2);
 CP2_FUNC(SWC2);
