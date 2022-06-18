@@ -2529,16 +2529,10 @@ static void recSLLV() {
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
 		SLWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-	    int rsIdx, rtIdx;
-	    if (_Rt_ == _Rs_) {
-            rsIdx = GetHWReg32(_Rs_);
-            rtIdx = rsIdx;
-	    } else {
-	        rsIdx = GetHWReg32(_Rs_);
-            rtIdx = GetHWReg32(_Rt_);
-	    }
-	    ANDI_(rsIdx, rsIdx, 0x1F);
-		SLW(PutHWReg32(_Rd_), rtIdx, rsIdx);
+	    //SLW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    iFlushRegs(0);
+	    ANDI_(0, GetHWReg32(_Rs_), 0x1F);
+		SLW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), 0);
 	}
 }
 
@@ -2554,16 +2548,10 @@ static void recSRLV() {
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
 		SRWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-	    int rsIdx, rtIdx;
-	    if (_Rt_ == _Rs_) {
-            rsIdx = GetHWReg32(_Rs_);
-            rtIdx = rsIdx;
-	    } else {
-	        rsIdx = GetHWReg32(_Rs_);
-            rtIdx = GetHWReg32(_Rt_);
-	    }
-	    ANDI_(rsIdx, rsIdx, 0x1F);
-		SRW(PutHWReg32(_Rd_), rtIdx, rsIdx);
+	    //SRW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+	    iFlushRegs(0);
+	    ANDI_(0, GetHWReg32(_Rs_), 0x1F);
+		SRW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), 0);
 	}
 }
 
@@ -2579,16 +2567,10 @@ static void recSRAV() {
 	} else if (IsConst(_Rs_) && !IsMapped(_Rs_)) {
 		SRAWI(PutHWReg32(_Rd_), GetHWReg32(_Rt_), (iRegs[_Rs_].k & 0x1F));
 	} else {
-	    int rsIdx, rtIdx;
-	    if (_Rt_ == _Rs_) {
-            rsIdx = GetHWReg32(_Rs_);
-            rtIdx = rsIdx;
-	    } else {
-	        rsIdx = GetHWReg32(_Rs_);
-            rtIdx = GetHWReg32(_Rt_);
-	    }
-	    ANDI_(rsIdx, rsIdx, 0x1F);
-		SRAW(PutHWReg32(_Rd_), rtIdx, rsIdx);
+	    //SRAW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), GetHWReg32(_Rs_));
+        iFlushRegs(0);
+	    ANDI_(0, GetHWReg32(_Rs_), 0x1F);
+		SRAW(PutHWReg32(_Rd_), GetHWReg32(_Rt_), 0);
 	}
 }
 
