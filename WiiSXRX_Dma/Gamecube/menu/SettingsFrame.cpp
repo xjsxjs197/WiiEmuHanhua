@@ -58,6 +58,8 @@ void Func_BiosSelectDVD();
 void Func_BootBiosYes();
 void Func_BootBiosNo();
 void Func_ExecuteBios();
+void Func_SelectLanguageEn();
+void Func_SelectLanguageChs();
 void Func_SaveSettingsSD();
 void Func_SaveSettingsUSB();
 
@@ -121,11 +123,11 @@ void pauseAudio(void);  void pauseInput(void);
 void resumeAudio(void); void resumeInput(void);
 }
 
-#define NUM_FRAME_BUTTONS 54
+#define NUM_FRAME_BUTTONS 56
 #define NUM_TAB_BUTTONS 5
 #define FRAME_BUTTONS settingsFrameButtons
 #define FRAME_STRINGS settingsFrameStrings
-#define NUM_FRAME_TEXTBOXES 21
+#define NUM_FRAME_TEXTBOXES 22
 #define FRAME_TEXTBOXES settingsFrameTextBoxes
 
 /*
@@ -163,7 +165,7 @@ Auto Save Memcards: Yes; No
 Save States Device: SD; USB
 */
 
-static char FRAME_STRINGS[56][24] =
+static char FRAME_STRINGS[59][24] =
 	{ "General",
 	  "Video",
 	  "Input",
@@ -224,7 +226,12 @@ static char FRAME_STRINGS[56][24] =
 	  "Auto Save Memcards",
 	  "Save States Device",
 	  "CardA",
-	  "CardB"};
+	  "CardB",
+      // Strings for display language (starting at FRAME_STRINGS[56]) ..was[58]
+      "Select language",
+      "En", // English
+      "Chs" //Simplified Chinese
+      };
 
 
 struct ButtonInfo
@@ -259,7 +266,11 @@ struct ButtonInfo
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[15],	520.0,	170.0,	 70.0,	56.0,	 6,	12,	 9,	 7,	Func_BiosSelectDVD,		Func_ReturnFromSettingsFrame }, // Bios: DVD
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[16],	295.0,	240.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_BootBiosYes,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: Yes
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	240.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_BootBiosNo,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: No
-	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[8],	295.0,	310.0,	200.0,	56.0,	11,	14,	-1,	-1,	Func_ExecuteBios,		Func_ReturnFromSettingsFrame }, // Execute Bios
+	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[8],	465.0,	240.0,	180.0,	56.0,	11,	14,	-1,	-1,	Func_ExecuteBios,		Func_ReturnFromSettingsFrame }, // Execute Bios
+
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[57],	295.0,	310.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_SelectLanguageEn,	Func_ReturnFromSettingsFrame }, // Select Language: En
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[58],	380.0,	310.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_SelectLanguageChs,	Func_ReturnFromSettingsFrame }, // Select Language: Chs
+
 	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[13],	295.0,	380.0,	 55.0,	56.0,	13,	 0,	15,	15,	Func_SaveSettingsSD,	Func_ReturnFromSettingsFrame }, // Save Settings: SD
 	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[14],	360.0,	380.0,	 70.0,	56.0,	13,	 0,	14,	14,	Func_SaveSettingsUSB,	Func_ReturnFromSettingsFrame }, // Save Settings: USB
 	//Buttons for Video Tab (starts at button[16])
@@ -320,6 +331,7 @@ struct TextBoxInfo
 	{	NULL,	FRAME_STRINGS[5],	155.0,	128.0,	 1.0,	true }, // CPU Core: Pure Interp/Dynarec
 	{	NULL,	FRAME_STRINGS[6],	155.0,	198.0,	 1.0,	true }, // Bios: HLE/SD/USB/DVD
 	{	NULL,	FRAME_STRINGS[7],	155.0,	268.0,	 1.0,	true }, // Boot Thru Bios: Yes/No
+	{	NULL,	FRAME_STRINGS[56],	155.0,	338.0,	 1.0,	true }, // Select language: En, Chs, ......
 	{	NULL,	FRAME_STRINGS[9],	155.0,	408.0,	 1.0,	true }, // Save settings.cfg: SD/USB
 	//TextBoxes for Video Tab (starts at textBox[4])
 	{	NULL,	FRAME_STRINGS[18],	190.0,	128.0,	 1.0,	true }, // Show FPS: On/Off
@@ -901,6 +913,20 @@ void Func_ExecuteBios()
 	pauseInput();
 	pauseAudio();
 	continueRemovalThread();
+}
+
+void Func_SelectLanguageEn()
+{
+	for (int i = 57; i <= 58; i++)
+		FRAME_BUTTONS[i].button->setSelected(false);
+	FRAME_BUTTONS[57].button->setSelected(true);
+}
+
+void Func_SelectLanguageChs()
+{
+	for (int i = 57; i <= 58; i++)
+		FRAME_BUTTONS[i].button->setSelected(false);
+	FRAME_BUTTONS[58].button->setSelected(true);
 }
 
 extern void writeConfig(FILE* f);
