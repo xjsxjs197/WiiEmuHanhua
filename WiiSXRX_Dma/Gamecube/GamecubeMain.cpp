@@ -128,6 +128,7 @@ char rumbleEnabled;
 char loadButtonSlot;
 char controllerType;
 char numMultitaps;
+char lang = 0;
 
 #define CONFIG_STRING_TYPE 0
 #define CONFIG_STRING_SIZE 256
@@ -173,7 +174,8 @@ static struct {
   { "smbusername", smbUserName, CONFIG_STRING_TYPE, CONFIG_STRING_TYPE },
   { "smbpassword", smbPassWord, CONFIG_STRING_TYPE, CONFIG_STRING_TYPE },
   { "smbsharename", smbShareName, CONFIG_STRING_TYPE, CONFIG_STRING_TYPE },
-  { "smbipaddr", smbIpAddr, CONFIG_STRING_TYPE, CONFIG_STRING_TYPE }
+  { "smbipaddr", smbIpAddr, CONFIG_STRING_TYPE, CONFIG_STRING_TYPE },
+  { "lang", &lang, ENGLISH, ITALIAN }
 };
 void handleConfigPair(char* kv);
 void readConfig(FILE* f);
@@ -229,6 +231,7 @@ void loadSettings(int argc, char *argv[])
 	iVolume = volume; //Volume="medium" in PEOPSspu
 	Config.PsxAuto = 1; //Autodetect
 	LoadCdBios = BOOTTHRUBIOS_NO;
+	lang = 0;
 
 	//config stuff
 	int (*configFile_init)(fileBrowser_file*) = fileBrowser_libfat_init;

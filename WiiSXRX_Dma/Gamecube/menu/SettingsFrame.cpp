@@ -123,7 +123,7 @@ void pauseAudio(void);  void pauseInput(void);
 void resumeAudio(void); void resumeInput(void);
 }
 
-#define NUM_FRAME_BUTTONS 56
+#define NUM_FRAME_BUTTONS 59
 #define NUM_TAB_BUTTONS 5
 #define FRAME_BUTTONS settingsFrameButtons
 #define FRAME_STRINGS settingsFrameStrings
@@ -268,9 +268,6 @@ struct ButtonInfo
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	240.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_BootBiosNo,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: No
 	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[8],	465.0,	240.0,	180.0,	56.0,	11,	14,	-1,	-1,	Func_ExecuteBios,		Func_ReturnFromSettingsFrame }, // Execute Bios
 
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[57],	295.0,	310.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_SelectLanguageEn,	Func_ReturnFromSettingsFrame }, // Select Language: En
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[58],	380.0,	310.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_SelectLanguageChs,	Func_ReturnFromSettingsFrame }, // Select Language: Chs
-
 	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[13],	295.0,	380.0,	 55.0,	56.0,	13,	 0,	15,	15,	Func_SaveSettingsSD,	Func_ReturnFromSettingsFrame }, // Save Settings: SD
 	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[14],	360.0,	380.0,	 70.0,	56.0,	13,	 0,	14,	14,	Func_SaveSettingsUSB,	Func_ReturnFromSettingsFrame }, // Save Settings: USB
 	//Buttons for Video Tab (starts at button[16])
@@ -315,6 +312,8 @@ struct ButtonInfo
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	170.0,	 75.0,	56.0,	47,	53,	50,	50,	Func_AutoSaveNo,		Func_ReturnFromSettingsFrame }, // Auto Save Memcards: No
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[13],	295.0,	240.0,	 55.0,	56.0,	50,	 4,	53,	53,	Func_SaveStateSD,		Func_ReturnFromSettingsFrame }, // Save State: SD
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[14],	360.0,	240.0,	 70.0,	56.0,	51,	 4,	52,	52,	Func_SaveStateUSB,		Func_ReturnFromSettingsFrame }, // Save State: USB
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[57],	295.0,	310.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_SelectLanguageEn,	Func_ReturnFromSettingsFrame }, // Select Language: En
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[58],	380.0,	310.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_SelectLanguageChs,	Func_ReturnFromSettingsFrame }, // Select Language: Chs
 };
 
 struct TextBoxInfo
@@ -331,7 +330,6 @@ struct TextBoxInfo
 	{	NULL,	FRAME_STRINGS[5],	155.0,	128.0,	 1.0,	true }, // CPU Core: Pure Interp/Dynarec
 	{	NULL,	FRAME_STRINGS[6],	155.0,	198.0,	 1.0,	true }, // Bios: HLE/SD/USB/DVD
 	{	NULL,	FRAME_STRINGS[7],	155.0,	268.0,	 1.0,	true }, // Boot Thru Bios: Yes/No
-	{	NULL,	FRAME_STRINGS[56],	155.0,	338.0,	 1.0,	true }, // Select language: En, Chs, ......
 	{	NULL,	FRAME_STRINGS[9],	155.0,	408.0,	 1.0,	true }, // Save settings.cfg: SD/USB
 	//TextBoxes for Video Tab (starts at textBox[4])
 	{	NULL,	FRAME_STRINGS[18],	190.0,	128.0,	 1.0,	true }, // Show FPS: On/Off
@@ -345,15 +343,16 @@ struct TextBoxInfo
 	{	NULL,	FRAME_STRINGS[37],	145.0,	268.0,	 1.0,	true }, // Disable Rumble: Yes/No
 	{	NULL,	FRAME_STRINGS[40],	145.0,	338.0,	 1.0,	true }, // Save Button Configs: SD/USB
 	{	NULL,	FRAME_STRINGS[41],	145.0,	408.0,	 1.0,	true }, // Auto Load Slot: Default/1/2/3/4
-	//TextBoxes for Audio Tab (starts at textBox[14]) ..was[12]
+	//TextBoxes for Audio Tab (starts at textBox[14]) ..was[17]
 	{	NULL,	FRAME_STRINGS[43],	210.0,	128.0,	 1.0,	true }, // Disable Audio: Yes/No
 	{	NULL,	FRAME_STRINGS[44],	210.0,	198.0,	 1.0,	true }, // Disable XA Audio: Yes/No
 	{	NULL,	FRAME_STRINGS[45],	210.0,	268.0,	 1.0,	true }, // Disable CDDA Audio: Yes/No
 	{	NULL,	FRAME_STRINGS[46],	210.0,	338.0,	 1.0,	true }, // Volume: low/medium/loud/loudest
-	//TextBoxes for Saves Tab (starts at textBox[18]) ..was[16]
+	//TextBoxes for Saves Tab (starts at textBox[18]) ..was[21]
 	{	NULL,	FRAME_STRINGS[51],	150.0,	128.0,	 1.0,	true }, // Memcard Save Device: SD/USB/CardA/CardB
 	{	NULL,	FRAME_STRINGS[52],	150.0,	198.0,	 1.0,	true }, // Auto Save Memcards: Yes/No
 	{	NULL,	FRAME_STRINGS[53],	150.0,	268.0,	 1.0,	true }, // Save State Device: SD/USB
+	{	NULL,	FRAME_STRINGS[56],	155.0,	338.0,	 1.0,	true }, // Select language: En, Chs, ......
 };
 
 SettingsFrame::SettingsFrame()
@@ -433,6 +432,8 @@ void SettingsFrame::activateSubmenu(int submenu)
 			}
 			for (int i = 0; i < 4; i++)
 				FRAME_TEXTBOXES[i].textBox->setVisible(true);
+
+            FRAME_TEXTBOXES[21].textBox->setVisible(true);
 			FRAME_BUTTONS[0].button->setSelected(true);
 			if (dynacore == DYNACORE_INTERPRETER)	FRAME_BUTTONS[5].button->setSelected(true);
 			else									FRAME_BUTTONS[6].button->setSelected(true);
@@ -444,6 +445,20 @@ void SettingsFrame::activateSubmenu(int submenu)
 				FRAME_BUTTONS[i].button->setVisible(true);
 				FRAME_BUTTONS[i].button->setActive(true);
 			}
+			FRAME_BUTTONS[54].button->setVisible(true);
+            FRAME_BUTTONS[54].button->setActive(true);
+            FRAME_BUTTONS[55].button->setVisible(true);
+            FRAME_BUTTONS[55].button->setActive(true);
+            switch(lang)
+            {
+                case SIMP_CHINESE:
+                    FRAME_BUTTONS[55].button->setSelected(true);
+                    break;
+
+                default:
+                    FRAME_BUTTONS[54].button->setSelected(true);
+                    break;
+            }
 			break;
 		case SUBMENU_VIDEO:
 			setDefaultFocus(FRAME_BUTTONS[1].button);
@@ -542,7 +557,7 @@ void SettingsFrame::activateSubmenu(int submenu)
 			else								FRAME_BUTTONS[51].button->setSelected(true);
 			if (saveStateDevice == SAVESTATEDEVICE_SD)	FRAME_BUTTONS[52].button->setSelected(true);
 			else										FRAME_BUTTONS[53].button->setSelected(true);
-			for (int i = 46; i < NUM_FRAME_BUTTONS; i++)
+			for (int i = 46; i < NUM_FRAME_BUTTONS - 2; i++)
 			{
 				FRAME_BUTTONS[i].button->setVisible(true);
 				FRAME_BUTTONS[i].button->setActive(true);
@@ -917,16 +932,18 @@ void Func_ExecuteBios()
 
 void Func_SelectLanguageEn()
 {
-	for (int i = 57; i <= 58; i++)
+	for (int i = 54; i <= 55; i++)
 		FRAME_BUTTONS[i].button->setSelected(false);
-	FRAME_BUTTONS[57].button->setSelected(true);
+	FRAME_BUTTONS[54].button->setSelected(true);
+	lang = ENGLISH;
 }
 
 void Func_SelectLanguageChs()
 {
-	for (int i = 57; i <= 58; i++)
+	for (int i = 54; i <= 55; i++)
 		FRAME_BUTTONS[i].button->setSelected(false);
-	FRAME_BUTTONS[58].button->setSelected(true);
+	FRAME_BUTTONS[55].button->setSelected(true);
+	lang = SIMP_CHINESE;
 }
 
 extern void writeConfig(FILE* f);

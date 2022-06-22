@@ -1,7 +1,7 @@
 /**
  * WiiSX - wiiSXconfig.h
  * Copyright (C) 2007, 2008, 2009, 2010 sepp256
- * 
+ *
  * External declaration and enumeration of config variables
  *
  * WiiSX homepage: http://www.emulatemii.com
@@ -227,6 +227,19 @@ enum numMultitaps
 	MULTITAPS_NONE=0,
 	MULTITAPS_ONE,
 	MULTITAPS_TWO
+};
+
+extern char lang;
+enum lang
+{
+	ENGLISH = 0,
+	SIMP_CHINESE,
+	TRAD_CHINESE,
+	JAPANESE,
+	GERMAN,
+	FRENCH,
+	SPANISH,
+	ITALIAN
 };
 
 #endif //WIISXCONFIG_H
