@@ -25,6 +25,7 @@
 #include "../MEM2.h"
 
 #include "gui2/gettext.h"
+#include "../wiiSXconfig.h"
 
 namespace menu {
 
@@ -45,7 +46,17 @@ IplFont::IplFont()
 
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
-	FILE* charPngFile = fopen("sd:/wiisxrx/fonts/FontCn_IA8.dat", "rb");
+	FILE* charPngFile;
+	switch(lang)
+    {
+        case SIMP_CHINESE:
+            charPngFile = fopen("sd:/wiisxrx/fonts/Chs.dat", "rb"); // 24 * 24 IA8
+            break;
+
+        default:
+            charPngFile = fopen("sd:/wiisxrx/fonts/Chs.dat", "rb");
+            break;
+    }
 	fseek(charPngFile, 0, SEEK_END);
 	int fontSize = (int)ftell(charPngFile);
 	int searchLen = (int)(fontSize / (CHAR_IMG_SIZE + 4));

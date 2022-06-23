@@ -6,6 +6,7 @@
 
 #include "gettext.h"
 #include "filelist.h"
+#include "../../wiiSXconfig.h"
 
 typedef struct _MSG
 {
@@ -209,23 +210,23 @@ bool LoadLanguage()
 	char *file, *eof;
 
 	//switch(GCSettings.language)
-	switch(LANG_SIMP_CHINESE)
+	switch(lang)
 	{
 		//case LANG_JAPANESE: file = (char *)jp_lang; eof = file + jp_lang_size; break;
-		case LANG_ENGLISH: file = (char *)en_lang; eof = file + en_lang_size; break;
+		case ENGLISH: file = (char *)en_lang; eof = file + en_lang_size; break;
 		//case LANG_GERMAN: file = (char *)de_lang; eof = file + de_lang_size; break;
 		//case LANG_FRENCH: file = (char *)fr_lang; eof = file + fr_lang_size; break;
 		//case LANG_SPANISH: file = (char *)es_lang; eof = file + es_lang_size; break;
 		//case LANG_ITALIAN: file = (char *)it_lang; eof = file + it_lang_size; break;
 		//case LANG_DUTCH: file = (char *)nl_lang; eof = file + nl_lang_size; break;
-		case LANG_SIMP_CHINESE:
-		case LANG_TRAD_CHINESE: file = (char *)zh_lang; eof = file + zh_lang_size; break;
+		case SIMP_CHINESE:
+		case TRAD_CHINESE: file = (char *)zh_lang; eof = file + zh_lang_size; break;
 		//case LANG_KOREAN: file = (char *)ko_lang; eof = file + ko_lang_size; break;
 		//case LANG_PORTUGUESE: file = (char *)pt_lang; eof = file + pt_lang_size; break;
 		//case LANG_BRAZILIAN_PORTUGUESE: file = (char *)pt_br_lang; eof = file + pt_br_lang_size; break;
 		//case LANG_CATALAN: file = (char *)ca_lang; eof = file + ca_lang_size; break;
 		//case LANG_TURKISH: file = (char *)tr_lang; eof = file + tr_lang_size; break;
-		default: return false;
+		default: file = (char *)en_lang; eof = file + en_lang_size; break;
 	}
 
 	gettextCleanUp();

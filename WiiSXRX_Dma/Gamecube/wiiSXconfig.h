@@ -230,6 +230,7 @@ enum numMultitaps
 };
 
 extern char lang;
+extern char oldLang;
 enum lang
 {
 	ENGLISH = 0,

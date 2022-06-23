@@ -129,6 +129,7 @@ char loadButtonSlot;
 char controllerType;
 char numMultitaps;
 char lang = 0;
+char oldLang = 0;
 
 #define CONFIG_STRING_TYPE 0
 #define CONFIG_STRING_SIZE 256
@@ -338,6 +339,7 @@ void loadSettings(int argc, char *argv[])
 	}
 #endif
 
+    oldLang = lang;
 	//Test for Bios file
 	if(biosDevice != BIOSDEVICE_HLE)
 		if(checkBiosExists((int)biosDevice) == FILE_BROWSER_ERROR_NO_FILE)

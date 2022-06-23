@@ -968,6 +968,10 @@ void Func_SaveSettingsSD()
 			writeConfig(f);                                   //write out the config
 			fclose(f);
 			menu::MessageBox::getInstance().setMessage("Saved settings.cfg to SD");
+			if (oldLang != lang)
+            {
+                menu::MessageBox::getInstance().setMessage("Because the language has changed, please restart");
+			}
 			return;
 		}
 	}
@@ -990,6 +994,10 @@ void Func_SaveSettingsUSB()
 			writeConfig(f);                                   //write out the config
 			fclose(f);
 			menu::MessageBox::getInstance().setMessage("Saved settings.cfg to USB");
+			if (oldLang != lang)
+            {
+                menu::MessageBox::getInstance().setMessage("Because the language has changed, please restart");
+			}
 			return;
 		}
 	}
