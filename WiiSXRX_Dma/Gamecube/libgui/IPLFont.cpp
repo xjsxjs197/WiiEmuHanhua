@@ -40,24 +40,28 @@ heap_cntrl* GXtexCache;
 IplFont::IplFont()
 		: frameWidth(640)
 {
-	int ZhBufFont_size = 8060788; //8032896; //8060788; // RGB565, IA8
-	int searchLen = (int)(ZhBufFont_size / (CHAR_IMG_SIZE + 4));
+	//int ZhBufFont_size = 8060788; //8032896; //8060788; // RGB565, IA8
+	//int searchLen = (int)(ZhBufFont_size / (CHAR_IMG_SIZE + 4));
 
 	int bufIndex = 0;
 	int skipSetp = (CHAR_IMG_SIZE + 4) / 2;
 	FILE* charPngFile = fopen("sd:/wiisxrx/fonts/FontCn_IA8.dat", "rb");
+	fseek(charPngFile, 0, SEEK_END);
+	int fontSize = (int)ftell(charPngFile);
+	int searchLen = (int)(fontSize / (CHAR_IMG_SIZE + 4));
+
 	GXtexCache = (heap_cntrl*)malloc(sizeof(heap_cntrl));
 	__lwp_heap_init(GXtexCache, CN_FONT_LO, CN_FONT_SIZE, 32);
-	u8 *ZhBufFont_dat = (u8*) __lwp_heap_allocate(GXtexCache, ZhBufFont_size);
+	u8 *fontBuffer = (u8*) __lwp_heap_allocate(GXtexCache, fontSize);
 
 	fseek(charPngFile, 0, SEEK_SET);
-	fread(ZhBufFont_dat, 1, ZhBufFont_size, charPngFile);
+	fread(fontBuffer, 1, fontSize, charPngFile);
     fclose(charPngFile);
     charPngFile = NULL;
 
     blankChar = charToWideChar(" ");
 
-	uint16_t *zhFontBufTemp = (uint16_t *)ZhBufFont_dat;
+	uint16_t *zhFontBufTemp = (uint16_t *)fontBuffer;
     while (bufIndex < searchLen)
     {
         charCodeMap.insert(std::pair<wchar_t, int>(*zhFontBufTemp, *((u8*)(zhFontBufTemp + 1) + 1)));
@@ -68,7 +72,7 @@ IplFont::IplFont()
         zhFontBufTemp += skipSetp;
         bufIndex++;
     }
-    __lwp_heap_free(GXtexCache, ZhBufFont_dat);
+    __lwp_heap_free(GXtexCache, fontBuffer);
 }
 
 IplFont::~IplFont()

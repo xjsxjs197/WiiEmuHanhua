@@ -264,12 +264,12 @@ struct ButtonInfo
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[13],	375.0,	170.0,	 55.0,	56.0,	 5,	12,	 7,	 9,	Func_BiosSelectSD,		Func_ReturnFromSettingsFrame }, // Bios: SD
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[14],	440.0,	170.0,	 70.0,	56.0,	 6,	12,	 8,	10,	Func_BiosSelectUSB,		Func_ReturnFromSettingsFrame }, // Bios: USB
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[15],	520.0,	170.0,	 70.0,	56.0,	 6,	12,	 9,	 7,	Func_BiosSelectDVD,		Func_ReturnFromSettingsFrame }, // Bios: DVD
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[16],	295.0,	240.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_BootBiosYes,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: Yes
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	240.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_BootBiosNo,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: No
-	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[8],	465.0,	240.0,	180.0,	56.0,	11,	14,	-1,	-1,	Func_ExecuteBios,		Func_ReturnFromSettingsFrame }, // Execute Bios
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[16],	295.0,	240.0,	 75.0,	56.0,	 7,	54,	13,	12,	Func_BootBiosYes,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: Yes
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	240.0,	 75.0,	56.0,	 8,	55,	11,	13,	Func_BootBiosNo,		Func_ReturnFromSettingsFrame }, // Boot Thru Bios: No
+	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[8],	465.0,	240.0,	180.0,	56.0,	9,	54,	12,	11,	Func_ExecuteBios,		Func_ReturnFromSettingsFrame }, // Execute Bios
 
-	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[13],	295.0,	380.0,	 55.0,	56.0,	13,	 0,	15,	15,	Func_SaveSettingsSD,	Func_ReturnFromSettingsFrame }, // Save Settings: SD
-	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[14],	360.0,	380.0,	 70.0,	56.0,	13,	 0,	14,	14,	Func_SaveSettingsUSB,	Func_ReturnFromSettingsFrame }, // Save Settings: USB
+	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[13],	295.0,	380.0,	 55.0,	56.0,	54,	 0,	15,	15,	Func_SaveSettingsSD,	Func_ReturnFromSettingsFrame }, // Save Settings: SD
+	{	NULL,	BTN_A_NRM,	FRAME_STRINGS[14],	360.0,	380.0,	 70.0,	56.0,	55,	 0,	14,	14,	Func_SaveSettingsUSB,	Func_ReturnFromSettingsFrame }, // Save Settings: USB
 	//Buttons for Video Tab (starts at button[16])
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[24],	325.0,	100.0,	 75.0,	56.0,	 1,	18,	17,	17,	Func_ShowFpsOn,			Func_ReturnFromSettingsFrame }, // Show FPS: On
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[25],	420.0,	100.0,	 75.0,	56.0,	 1,	19,	16,	16,	Func_ShowFpsOff,		Func_ReturnFromSettingsFrame }, // Show FPS: Off
@@ -312,8 +312,8 @@ struct ButtonInfo
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[17],	380.0,	170.0,	 75.0,	56.0,	47,	53,	50,	50,	Func_AutoSaveNo,		Func_ReturnFromSettingsFrame }, // Auto Save Memcards: No
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[13],	295.0,	240.0,	 55.0,	56.0,	50,	 4,	53,	53,	Func_SaveStateSD,		Func_ReturnFromSettingsFrame }, // Save State: SD
 	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[14],	360.0,	240.0,	 70.0,	56.0,	51,	 4,	52,	52,	Func_SaveStateUSB,		Func_ReturnFromSettingsFrame }, // Save State: USB
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[57],	295.0,	310.0,	 75.0,	56.0,	 7,	13,	12,	12,	Func_SelectLanguageEn,	Func_ReturnFromSettingsFrame }, // Select Language: En
-	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[58],	380.0,	310.0,	 75.0,	56.0,	 8,	13,	11,	11,	Func_SelectLanguageChs,	Func_ReturnFromSettingsFrame }, // Select Language: Chs
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[57],	295.0,	310.0,	 75.0,	56.0,	 11,14,	55,	55,	Func_SelectLanguageEn,	Func_ReturnFromSettingsFrame }, // Select Language: En
+	{	NULL,	BTN_A_SEL,	FRAME_STRINGS[58],	380.0,	310.0,	 75.0,	56.0,	 12,15,	54,	54,	Func_SelectLanguageChs,	Func_ReturnFromSettingsFrame }, // Select Language: Chs
 };
 
 struct TextBoxInfo
@@ -557,8 +557,12 @@ void SettingsFrame::activateSubmenu(int submenu)
 			else								FRAME_BUTTONS[51].button->setSelected(true);
 			if (saveStateDevice == SAVESTATEDEVICE_SD)	FRAME_BUTTONS[52].button->setSelected(true);
 			else										FRAME_BUTTONS[53].button->setSelected(true);
-			for (int i = 46; i < NUM_FRAME_BUTTONS - 2; i++)
+			for (int i = 46; i < NUM_FRAME_BUTTONS; i++)
 			{
+			    if (i == 54 || i == 55) {
+                    // language info
+                    continue;
+			    }
 				FRAME_BUTTONS[i].button->setVisible(true);
 				FRAME_BUTTONS[i].button->setActive(true);
 			}

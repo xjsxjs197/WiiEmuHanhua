@@ -542,4 +542,17 @@ msgstr "前页"
 msgid "Next"
 msgstr "后页"
 
+msgid "En"
+msgstr "英文"
 
+msgid "Chs"
+msgstr "简中"
+
+msgid "Cht"
+msgstr "繁中"
+
+msgid "Jp"
+msgstr "日文"
+
+msgid "Select language"
+msgstr "切换语言"
