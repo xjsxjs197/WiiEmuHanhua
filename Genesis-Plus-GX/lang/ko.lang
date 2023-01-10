@@ -1,2 +1,1185 @@
-msgid " "
-msgstr ""
+
+msgid "DISCLAIMER"
+msgstr "주의사항"
+
+msgid "This is a free software, and you are welcome"
+msgstr "이 소프트웨어는 무료이며,"
+
+msgid "to redistribute it under the conditions of the"
+msgstr "이 프로그램과 함께 받아야 하는"
+
+msgid "license that you should have received with this"
+msgstr "라이센스 조건에 따라 재배포할 수 있습니다."
+
+msgid "program. You may not sell, lease, rent or generally"
+msgstr "어떠한 상업적 제품이나 활동에서도 이 소프트웨어를"
+
+msgid "use this software in any commercial product or activity."
+msgstr "판매, 임대, 대여 또는 일반적으로 사용할 수 없습니다."
+
+msgid "Authors can not be held responsible for any damage or"
+msgstr "저작자는 이 포트를 사용하는 동안 발생할 수 있는"
+
+msgid "or dysfunction that could occur while using this port."
+msgstr "손상 또는 기능 장애에 대해 책임을 지지 않습니다."
+
+msgid "You may not distribute this software with any ROM image"
+msgstr "ROM 이미지를 배포할 법적 권한이 없는 한"
+
+msgid "unless you have the legal right to distribute them."
+msgstr "이 소프트웨어를 배포할 수 없습니다."
+
+msgid "This software is not endorsed by or affiliated"
+msgstr "이 소프트웨어는 세가 또는 닌텐도에 의해"
+
+msgid "with Sega Enterprises Ltd or Nintendo Co Ltd."
+msgstr "승인되거나 제휴되지 않습니다."
+
+msgid "All trademarks and registered trademarks are"
+msgstr "모든 상표 및 등록 상표는"
+
+msgid "the property of their respective owners."
+msgstr "해당 소유자의 재산입니다."
+
+msgid "Back"
+msgstr "뒤로가기"
+
+msgid "KeysConfig"
+msgstr "키구성"
+
+msgid "Configure Controller Keys"
+msgstr "컨트롤러 키 구성"
+
+msgid "Load recently played games"
+msgstr "최근 플레이한 게임 불러오기"
+
+msgid "Load Mega Drive/Genesis games"
+msgstr "메가 드라이브/제네시스 게임 불러오기"
+
+msgid "Load Sega/Mega CD games"
+msgstr "세가/메가 CD 게임 불러오기"
+
+msgid "Load Master System games"
+msgstr "마스터 시스템 게임 불러오기"
+
+msgid "Load Game Gear games"
+msgstr "게임 기어 게임 불러오기"
+
+msgid "Load SG-1000 games"
+msgstr "SG-1000 게임 불러오기"
+
+msgid "Controller Settings"
+msgstr "컨트롤러 설정"
+
+msgid "Load Game"
+msgstr "게임 불러오기"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "System ROM Paths"
+msgstr "시스템 ROM 경로"
+
+msgid "System Settings"
+msgstr "시스템 설정"
+
+msgid "Video Settings"
+msgstr "비디오 설정"
+
+msgid "Audio Settings"
+msgstr "오디오 설정"
+
+msgid "Menu Settings"
+msgstr "메뉴 설정"
+
+msgid "Save Manager"
+msgstr "저장 관리자"
+
+msgid "Auto ROM Load: ON"
+msgstr 자동 ROM 불러오기: 켬"
+
+msgid "Auto ROM Load: OFF"
+msgstr "자동 ROM 불러오기: 끔"
+
+msgid "Auto Cheats: ON"
+msgstr "자동 치트: 켬"
+
+msgid "Auto Cheats: OFF"
+msgstr "자동 치트: 끔"
+
+msgid "Auto Saves: ALL"
+msgstr "자동 저장: 모두"
+
+msgid "Auto Saves: STATE ONLY"
+msgstr "자동 저장: 상태만"
+
+msgid "Auto Saves: SRAM ONLY"
+msgstr "자동 저장: SRAM만"
+
+msgid "Auto Saves: NONE"
+msgstr "자동 저장: 없음"
+
+msgid "ROM Load Device: USB"
+msgstr "ROM 불러오는 장치: USB"
+
+msgid "ROM Load Device: DVD"
+msgstr "ROM 불러오는 장치: DVD"
+
+msgid "ROM Load Device: SD"
+msgstr "ROM 불러오는 장치: SD"
+
+msgid "Saves Device: MCARD A"
+msgstr "저장 장치: MCARD A"
+
+msgid "Saves Device: MCARD B"
+msgstr "저장 장치: MCARD B"
+
+msgid "Saves Device: FAT"
+msgstr "저장 장치: FAT"
+
+msgid "SFX Volume:"
+msgstr "SFX 볼륨:"
+
+msgid "SFX Volume"
+msgstr "SFX 볼륨"
+
+msgid "BGM Volume:"
+msgstr "배경음 볼륨:"
+
+msgid "BGM Volume"
+msgstr "배경음 볼륨"
+
+msgid "BG Overlay: ON"
+msgstr "배경 오버레이: 켬"
+
+msgid "BG Overlay: OFF"
+msgstr "배경 오버레이: 끔"
+
+msgid "Screen Width:"
+msgstr "화면 너비:"
+
+msgid "Screen Width"
+msgstr "화면 너비"
+
+msgid "Show CD Leds: ON"
+msgstr "CD LED 표시: 켬"
+
+msgid "Show CD Leds: OFF"
+msgstr "CD LED 표시: 끔"
+
+msgid "Show FPS: ON"
+msgstr "FPS 표시: 켬"
+
+msgid "Show FPS: OFF"
+msgstr "FPS 표시: 끔"
+
+msgid "Wiimote Timeout: 5 MIN"
+msgstr "위모트 시간초과: 5 분"
+
+msgid "Wiimote Timeout: 30 MIN"
+msgstr "위모트 시간초과: 30 분"
+
+msgid "Wiimote Timeout: 5min"
+msgstr "위모트 시간초과: 5 분"
+
+msgid "Wiimote Timeout: 30min"
+msgstr "위모트 시간초과: 30 분"
+
+msgid "Wiimote Calibration: MANUAL"
+msgstr "위모트 보정: 수동"
+
+msgid "Wiimote Calibration: AUTO"
+msgstr "위모트 보정: 자동"
+
+msgid "Reset default Wii remote pointer calibration"
+msgstr "기본 위모트 포인터 보정 재설정"
+
+msgid "Calibrate Wii remote pointer"
+msgstr "위모트 포인터 보정"
+
+msgid "Pointer Calibration"
+msgstr "포인터 보정"
+
+msgid "Aim center of TV screen"
+msgstr "TV 화면의 중앙을 조준"
+
+msgid "Master System FM: OFF"
+msgstr "마스터 시스템 FM: 끔"
+
+msgid "Master System FM: ON"
+msgstr "마스터 시스템 FM: 켬"
+
+msgid "Master System FM: AUTO"
+msgstr "마스터 시스템 FM: 자동"
+
+msgid "High-Quality FM: ON"
+msgstr "고품질 FM: 켬"
+
+msgid "High-Quality FM: OFF"
+msgstr "고품질 FM: 끔"
+
+msgid "FM Resolution: MAX"
+msgstr "FM 해상도: 최대"
+
+msgid "FM Resolution:"
+msgstr "FM 해상도:"
+
+msgid "FM Volume:"
+msgstr "FM 볼륨:"
+
+msgid "FM Volume"
+msgstr "FM 볼륨"
+
+msgid "PSG Volume:"
+msgstr "PSG 볼륨:"
+
+msgid "PSG Volume"
+msgstr "PSG 볼륨"
+
+msgid "High-Quality PSG: ON"
+msgstr "고품질 PSG: 켬"
+
+msgid "High-Quality PSG: OFF"
+msgstr "고품질 PSG: 끔"
+
+msgid "Audio Output: MONO"
+msgstr "오디오 출력: 모노"
+
+msgid "Audio Output: STEREO"
+msgstr "오디오 출력: 스트레오"
+
+msgid "Filtering: 3-BAND EQ"
+msgstr "필터링: 3 대역 EQ"
+
+msgid "Filtering: LOW-PASS"
+msgstr "필터링: 저역통과"
+
+msgid "Filtering: OFF"
+msgstr "필터링: 끔"
+
+msgid "Low Gain:"
+msgstr "낮은 게인:"
+
+msgid "Low Gain"
+msgstr "낮은 게인"
+
+msgid "Adjust EQ Low Band Gain"
+msgstr "EQ 저대역 게인 조정"
+
+msgid "Middle Gain:"
+msgstr "중간 게인:"
+
+msgid "Middle Gain"
+msgstr "중간 게인"
+
+msgid "High Gain:"
+msgstr "높은 게인:"
+
+msgid "High Gain"
+msgstr "높은 게인"
+
+msgid "Low Freq:"
+msgstr "저주파:"
+
+msgid "High Freq:"
+msgstr "고주파:"
+
+msgid "Low-Pass Rate:"
+msgstr "저역통과율:"
+
+msgid "Adjust Low Pass filter"
+msgstr "저역 통과 필터 조정"
+
+msgid "Low Frequency"
+msgstr "저주파"
+
+msgid "Low Freq:"
+msgstr "저주파:"
+
+msgid "High Frequency"
+msgstr "고주파"
+
+msgid "High Freq:"
+msgstr "고주파:"
+
+msgid "Console Type: AUTO"
+msgstr "콘솔 유형: 자동"
+
+msgid "Console Type: SG-1000"
+msgstr "콘솔 유형: SG-1000"
+
+msgid "Console Type: SG-1000 II"
+msgstr "콘솔 유형: SG-1000 II"
+
+msgid "Console Type: MARK-III"
+msgstr "콘솔 유형: MARK-III"
+
+msgid "Console Type: SMS"
+msgstr "콘솔 유형: SMS"
+
+msgid "Console Type: SMS II"
+msgstr "콘솔 유형: SMS II"
+
+msgid "Console Type: GG"
+msgstr "콘솔 유형: GG"
+
+msgid "Console Type: MD"
+msgstr "콘솔 유형: MD"
+
+msgid "Console Region: AUTO"
+msgstr "콘소 지역: 자동"
+
+msgid "Console Region: USA"
+msgstr "콘소 지역: USA"
+
+msgid "Console Region: PAL"
+msgstr "콘소 지역: PAL"
+
+msgid "Console Region: JAP"
+msgstr "콘소 지역: JAP"
+
+msgid "VDP Mode: AUTO"
+msgstr "VDP 모드: 자동"
+
+msgid "VDP Mode: NTSC"
+msgstr "VDP 모드: NTSC"
+
+msgid "VDP Mode: PAL"
+msgstr "VDP 모드: PAL"
+
+msgid "System Clock: AUTO"
+msgstr "시스템 시계: 자동"
+
+msgid "System Clock: NTSC"
+msgstr "시스템 시계: NTSC"
+
+msgid "System Clock: PAL"
+msgstr "시스템 시계: PAL"
+
+msgid "System Boot: BIOS&CART"
+msgstr "시스템 부팅: BIOS&CART"
+
+msgid "System Boot: BIOS ONLY"
+msgstr "시스템 부팅: BIOS ONLY"
+
+msgid "System Boot: CART"
+msgstr "시스템 부팅: CART"
+
+msgid "System Lockups: ON"
+msgstr "시스템 잠금: 켬"
+
+msgid "System Lockups: OFF"
+msgstr "시스템 잠금: 끔"
+
+msgid "68k Address Error: ON"
+msgstr "68k 주소 오류: 켬"
+
+msgid "68k Address Error: OFF"
+msgstr "68k 주소 오류: 끔"
+
+msgid "Lock-On: GAME GENIE"
+msgstr "고정: 게임 지니"
+
+msgid "Lock-On: ACTION REPLAY"
+msgstr "고정: 액션 리플레이"
+
+msgid "Lock-On: SONIC&KNUCKLES"
+msgstr "고정: 소닉&너클즈"
+
+msgid "Lock-On: OFF"
+msgstr "고정: 끔"
+
+msgid "Cartridge Swap: ON"
+msgstr "카트리지 교체: 켬"
+
+msgid "Cartridge Swap: OFF"
+msgstr "카트리지 교체: 끔"
+
+msgid "SVP Cycles:"
+msgstr "SVP 주기:"
+
+msgid "SVP Cycles"
+msgstr "SVP 주기"
+
+msgid "Display: INTERLACED"
+msgstr "디스플레이: 인터레이스"
+
+msgid "Display: PROGRESSIVE"
+msgstr "디스플레이: 프로그레시브"
+
+msgid "Display: ORIGINAL"
+msgstr "디스플레이: 오리지널"
+
+msgid "TV Mode: 60HZ"
+msgstr "TV 모드: 60HZ"
+
+msgid "TV Mode: 50HZ"
+msgstr "TV 모드: 50HZ"
+
+msgid "TV Mode: 50/60HZ"
+msgstr "TV 모드: 50/60HZ"
+
+msgid "VSYNC: AUTO"
+msgstr "수직동기: 자동"
+
+msgid "VSYNC: OFF"
+msgstr "수직동기: 끔"
+
+msgid "Bilinear Filter:  ON"
+msgstr "이중선형 필터: 켬"
+
+msgid "Bilinear Filter: OFF"
+msgstr "이중선형 필터: 끔"
+
+msgid "Deflickering Filter: ON"
+msgstr "디플리커링 필터: 켬"
+
+msgid "Deflickering Filter: OFF"
+msgstr "디플리커링 필터: 끔"
+
+msgid "LCD Ghosting Filter:"
+msgstr "LCD 고스팅 필터:"
+
+msgid "LCD Ghosting Filter: OFF"
+msgstr "LCD 고스팅 필터: 끔"
+
+msgid "Trap Filter:  ON"
+msgstr "트랩 필터: 켬"
+
+msgid "Trap Filter: OFF"
+msgstr "트랩 필터: 끔"
+
+msgid "NTSC Filter: COMPOSITE"
+msgstr "NTSC 필터: 컴포지트"
+
+msgid "NTSC Filter: S-VIDEO"
+msgstr "NTSC 필터: S-비디오"
+
+msgid "NTSC Filter: RGB"
+msgstr "NTSC 필터: RGB"
+
+msgid "NTSC Filter: MANUAL"
+msgstr "NTSC 필터: 수동"
+
+msgid "NTSC Filter: OFF"
+msgstr "NTSC 필터: 끔"
+
+msgid "NTSC Sharpness:"
+msgstr "NTSC 선명도:"
+
+msgid "NTSC Resolution:"
+msgstr "NTSC 해상도:"
+
+msgid "NTSC Artifacts:"
+msgstr "NTSC 인공물:"
+
+msgid "NTSC Color Bleed:"
+msgstr "NTSC 색상 번짐:"
+
+msgid "NTSC Color Fringing:"
+msgstr "NTSC 색상 윤곽:"
+
+msgid "NTSC Sharpness"
+msgstr "NTSC 선명도"
+
+msgid "NTSC Resolution"
+msgstr "NTSC 해상도"
+
+msgid "NTSC Artifacts"
+msgstr "NTSC 인공물"
+
+msgid "NTSC Color Bleed"
+msgstr "NTSC 색상 번짐"
+
+msgid "NTSC Color Fringing"
+msgstr "NTSC 색상 윤곽"
+
+msgid "Adjust edge contrast enhancement/blurring"
+msgstr "가장자리 대비 향상/흐림 조정"
+
+msgid "Adjust image resolution"
+msgstr "이미지 해상도 조정"
+
+msgid "Adjust artifacts caused by color changes"
+msgstr "색상 변경으로 인한 인공물 조정"
+
+msgid "Adjust color resolution reduction"
+msgstr "调整色彩分辨率"
+
+msgid "Adjust artifacts caused by brightness changes"
+msgstr "색상 해상도 감소 조정"
+
+msgid "Enable/Disable overscan emulation"
+msgstr "오버스캔 에뮬레이션 활성화/비활성화"
+
+msgid "Enable/Disable Game Gear extended screen"
+msgstr "게임 기어 확장 화면 활성화/비활성화"
+
+msgid "Select display aspect ratio"
+msgstr "디스플레이 화면비 선택"
+
+msgid "Adjust display position"
+msgstr "디스플레이 위치 조정"
+
+msgid "Adjust display scaling"
+msgstr "디스플레이 크기 조정"
+
+msgid "Borders: FULL"
+msgstr "테두리: 전체"
+
+msgid "Borders: H ONLY"
+msgstr "테두리: 수평만"
+
+msgid "Borders: V ONLY"
+msgstr "테두리: 수직만"
+
+msgid "Borders: NONE"
+msgstr "테두리: 없음"
+
+msgid "GG Screen: EXTENDED"
+msgstr "GG 화면: 확장"
+
+msgid "GG Screen: ORIGINAL"
+msgstr "GG 화면: 오리지널"
+
+msgid "Aspect: ORIGINAL (4:3)"
+msgstr "화면비: 오리지널 (4:3)"
+
+msgid "Aspect: ORIGINAL (16:9)"
+msgstr "화면비: 오리지널 (16:9)"
+
+msgid "Aspect: SCALED"
+msgstr "화면비: 크기 조정"
+
+msgid "Screen Position:"
+msgstr "화면 위치:"
+
+msgid "Screen Scaling:"
+msgstr "화면 크기 조정:"
+
+msgid "Gamma Correction:"
+msgstr "감마 보정:"
+
+msgid "Gamma Correction"
+msgstr "감마 보정"
+
+msgid "Please load a game first !"
+msgstr "먼저 게임을 불러오세요 !"
+
+msgid "NTSC filter must be disabled"
+msgstr "NTSC 필터를 비활성화해야 함"
+
+msgid "LCD Ghosting Ratio"
+msgstr "LCD 고스팅 비율"
+
+msgid "LCD filter must be disabled"
+msgstr "LCD 필터를 비활성화해야 함"
+
+msgid "X Offset"
+msgstr "X 오프셋"
+
+msgid "Y Offset"
+msgstr "Y 오프셋"
+
+msgid "X Scale"
+msgstr "X 크기 조정"
+
+msgid "Y Scale"
+msgstr "Y 크기 조정"
+
+msgid "Player"
+msgstr "플레이어"
+
+msgid "Configure Player 1 (J-CART) settings"
+msgstr "플레이어 1 (J-CART) 설정 구성"
+
+msgid "Configure Player 2 (J-CART) settings"
+msgstr "플레이어 2 (J-CART) 설정 구성"
+
+msgid "Configure Player 3 (J-CART) settings"
+msgstr "플레이어 3 (J-CART) 설정 구성"
+
+msgid "Configure Player 4 (J-CART) settings"
+msgstr "플레이어 4 (J-CART) 설정 구성"
+
+msgid "Configure Player 1 settings"
+msgstr "플레이어 1 설정 구성"
+
+msgid "Configure Player 2 settings"
+msgstr "플레이어 2 설정 구성"
+
+msgid "Configure Player 3 settings"
+msgstr "플레이어 3 설정 구성"
+
+msgid "Configure Player 4 settings"
+msgstr "플레이어 4 설정 구성"
+
+msgid "Select Port 1 device"
+msgstr "포트 1 장치 선택"
+
+msgid "Select Port 2 device"
+msgstr "포트 2 장치 선택"
+
+msgid "PadType"
+msgstr "패드유형"
+
+msgid "Use 3-buttons Pad"
+msgstr "3 버튼 패드 사용"
+
+msgid "Use 6-buttons Pad"
+msgstr "6 버튼 패드 사용"
+
+msgid "Use 2-buttons Pad"
+msgstr "2 버튼 패드 사용"
+
+msgid "Auto-detect Pad type"
+msgstr "자동 감지 패드 유형"
+
+msgid "InvertMouse"
+msgstr "마우스반전"
+
+msgid "Enable/Disable Y-Axis inversion"
+msgstr "Y 축 반전 활성화/비활성화"
+
+msgid "ShowCursor"
+msgstr "커서보기"
+
+msgid "Enable/Disable Lightgun cursor"
+msgstr "라이트건 커서 활성화/비활성화"
+
+msgid "InputDevice"
+msgstr "장치입력"
+
+msgid "Select Input Controller"
+msgstr "입력 컨트롤러 선택"
+
+msgid "Terebi Oekaki detected !"
+msgstr "테레비 오에카기가 감지되었습니다 !！"
+
+msgid "PICO hardware detected !"
+msgstr "PICO 하드웨어가 감지되었습니다 !"
+
+msgid "One Analog Stick required !"
+msgstr "하나의 아날로그 스틱이 필요합니다 !"
+
+msgid "Two Analog Sticks required !"
+msgstr "두 개의 아날로그 스틱이 필요합니다 !"
+
+msgid "Controller Settings (Player 1) (J-CART)"
+msgstr "컨트롤러 설정 (플레이어 1) (J-CART)"
+
+msgid "Controller Settings (Player 2) (J-CART)"
+msgstr "컨트롤러 설정 (플레이어 2) (J-CART)"
+
+msgid "Controller Settings (Player 3) (J-CART)"
+msgstr "컨트롤러 설정 (플레이어 3) (J-CART)"
+
+msgid "Controller Settings (Player 4) (J-CART)"
+msgstr "컨트롤러 설정 (플레이어 4) (J-CART)"
+
+msgid "Controller Settings (Player 1)"
+msgstr "컨트롤러 설정 (플레이어 1)"
+
+msgid "Controller Settings (Player 2)"
+msgstr "컨트롤러 설정 (플레이어 2)"
+
+msgid "Controller Settings (Player 3)"
+msgstr "컨트롤러 설정 (플레이어 3)"
+
+msgid "Controller Settings (Player 4)"
+msgstr "컨트롤러 설정 (플레이어 4)"
+
+msgid "Keys Configuration"
+msgstr "키 구성"
+
+msgid "No input connected !"
+msgstr "입력이 연결되지 않았습니다 !"
+
+msgid "Backup Memory"
+msgstr "백업 메모리"
+
+msgid "Backup Memory disabled"
+msgstr "백업 메모리 비활성화됨"
+
+msgid "Empty Slot"
+msgstr "빈 슬롯"
+
+msgid "Delete Save File ?"
+msgstr "저장 파일을 삭제하겠습니까?"
+
+msgid "Warning"
+msgstr "경고"
+
+msgid "View Credits"
+msgstr "크레딧 보기"
+
+msgid "Reset System"
+msgstr "시스템 재설정"
+
+msgid "Return to Loader"
+msgstr "로더로 돌아가기"
+
+msgid "Exit to System Menu"
+msgstr "시스템 메뉴로 나가기"
+
+msgid "ActionReplay"
+msgstr "액션리플레이"
+
+msgid "Invalid Controllers Settings"
+msgstr "잘못된 컨트롤러 설정"
+
+msgid "Error"
+msgstr "오류"
+
+msgid "No Disc inserted !"
+msgstr "디스크가 들어 있지 않습니다 !"
+
+msgid "Disc can not be read !"
+msgstr "디스크를 읽을 수 없습니다 !"
+
+msgid "Information"
+msgstr "정보"
+
+msgid "Loading game..."
+msgstr "게임 불러오기 중..."
+
+msgid "Unable to load game"
+msgstr "게임을 불러올 수 없음"
+
+msgid "Unable to allocate memory !"
+msgstr "메모리를 할당할 수 없습니다 !"
+
+msgid "Unable to open directory !"
+msgstr "디렉토리를 열 수 없습니다 !"
+
+msgid "No files found !"
+msgstr "파일이 없습니다 !"
+
+msgid "Loading State ..."
+msgstr "상태 불러오기 중..."
+
+msgid "Backup RAM is disabled !"
+msgstr "백업 RAM이 비활성화되었습니다 !"
+
+msgid "Backup RAM disabled !"
+msgstr "백업 RAM이 비활성화되었습니다 !"
+
+msgid "Loading Backup RAM ..."
+msgstr "백업 RAM 불러오기 중..."
+
+msgid "Unable to open file !"
+msgstr "열 수없는 파일입니다 !"
+
+msgid "Unable to mount memory card"
+msgstr "메모리 카드를 장착할 수 없음"
+
+msgid "Invalid state file !"
+msgstr "잘못된 상태 파일입니다 !"
+
+msgid "Saving State ..."
+msgstr "상태 저장하기 중..."
+
+msgid "Backup RAM not modified !"
+msgstr "백업 RAM이 수정되지 않았습니다 !"
+
+msgid "Saving Backup RAM ..."
+msgstr "백업 RAM 저장하는 중..."
+
+msgid "File is too large"
+msgstr "파일이 너무 큼"
+
+msgid "Invalid Cheat Code"
+msgstr "잘못된 치트 코드"
+
+msgid "No Description"
+msgstr "설명 없음"
+
+msgid "Delete Cheat Entry ?"
+msgstr "치트 항목을 삭제하겠습니까 ?"
+
+msgid "Warning"
+msgstr "경고"
+
+msgid "Press    button to continue."
+msgstr "        버튼을 누르세요."
+
+msgid "Press    to continue."
+msgstr "        를 누르세요."
+
+msgid "        Confirm      Cancel      "
+msgstr "        확 인            취 소      "
+
+msgid "Add White Space"
+msgstr "공백 추가"
+
+msgid "Add Code Separator"
+msgstr "코드 구분자 추가"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Exit"
+msgstr "종료"
+
+msgid "Sega CD (USA) BIOS Selection"
+msgstr "세가 CD(USA) BIOS 선택"
+
+msgid "Mega CD (PAL) BIOS Selection"
+msgstr "메가 CD (PAL) BIOS 선택"
+
+msgid "Mega CD (JAP) BIOS Selection"
+msgstr "메가 CD (JAP) BIOS 선택"
+
+msgid "Mega Drive/Genesis BootROM Selection"
+msgstr "메가 드라이브/제네시스 부팅ROM 선택"
+
+msgid "Master System (USA) BootROM Selection"
+msgstr "마스터 시스템 (USA) 부팅ROM 선택"
+
+msgid "Master System (PAL) BootROM Selection"
+msgstr "마스터 시스템 (PAL) 부팅ROM 선택"
+
+msgid "Master System (JAP) BootROM Selection"
+msgstr "마스터 시스템 (JAP) 부팅ROM 선택"
+
+msgid "Game Gear BootROM Selection"
+msgstr "게임 기어 부팅ROM 선택"
+
+msgid "Game Genie ROM Selection"
+msgstr "게임 지니 ROM 선택"
+
+msgid "Action Replay (Pro) ROM Selection"
+msgstr "액션 리플레이 (프로) ROM 선택"
+
+msgid "Sonic & Knuckles ROM Selection"
+msgstr "소닉 & 너클즈 ROM 선택"
+
+msgid "Sonic 2 & Knuckles ROM Selection"
+msgstr "소닉 2 & 너클즈 ROM 선택"
+
+msgid "Game Selection"
+msgstr "게임 선택"
+
+msgid "Previous Directory"
+msgstr "이전 디렉토리"
+
+msgid "Open Directory"
+msgstr "디렉토리 열기"
+
+msgid "Select File"
+msgstr "파일 선택"
+
+msgid "Load File"
+msgstr "파일 불러오기"
+
+msgid "Controllers settings"
+msgstr "컨트롤러 설정"
+
+msgid "System settings"
+msgstr "시스템 설정"
+
+msgid "Video settings"
+msgstr "비디오 설정"
+
+msgid "Audio settings"
+msgstr "오디오 설정"
+
+msgid "Menu settings"
+msgstr "메뉴 설정"
+
+msgid "Controllers Setting"
+msgstr "컨트롤러 설정"
+
+msgid "System Setting"
+msgstr "시스템 설정"
+
+msgid "Video Setting"
+msgstr "비디오 설정"
+
+msgid "Audio Setting"
+msgstr "오디오 설정"
+
+msgid "Menu Setting"
+msgstr "메뉴 설정"
+
+msgid "Enable/Disable YM2413 chip"
+msgstr "YM2413 칩 활성화/비활성화"
+
+msgid "Enable/Disable YM2612/YM2413 high-quality resampling"
+msgstr "YM2612/YM2413 고품질 리샘플링 활성화/비활성화"
+
+msgid "Adjust YM2612 DAC precision"
+msgstr "YM2612 DAC 정밀 조정"
+
+msgid "Adjust YM2612/YM2413 audio balance"
+msgstr "YM2612/YM2413 오디오 밸런스 조정"
+
+msgid "Adjust SN76489 audio balance"
+msgstr "SN76489 오디오 밸런스 조정"
+
+msgid "Enable/Disable SN76489 high-quality resampling"
+msgstr "SN76489 고품질 리샘플링 활성화/비활성화"
+
+msgid "Select audio mixing output type"
+msgstr "오디오 믹싱 출력 유형 선택"
+
+msgid "Select audio filtering type"
+msgstr "오디오 필터링 유형 선택"
+
+msgid "Adjust EQ Low Band Gain"
+msgstr "EQ 저대역 게인 조정"
+
+msgid "Adjust EQ Mid Band Gain"
+msgstr "EQ 중대역 게인 조정"
+
+msgid "Adjust EQ High Band Gain"
+msgstr "EQ 고대역 게인 조정"
+
+msgid "Adjust EQ Lowest Frequency"
+msgstr "EQ 최저 주파수 조정"
+
+msgid "Adjust EQ Highest Frequency"
+msgstr "EQ 최고 주파수 조정"
+
+msgid "CD BIOS (USA): NOT FOUND"
+msgstr "CD BIOS (USA): 찾을 수 없음"
+
+msgid "Select Sega CD (USA) BIOS"
+msgstr "세가 CD (USA) BIOS 선택"
+
+msgid "CD BIOS (PAL): NOT FOUND"
+msgstr "CD BIOS (PAL): 찾을 수 없음"
+
+msgid "Select Mega CD (PAL) BIOS"
+msgstr "메가 CD (PAL) BIOS 선택"
+
+msgid "CD BIOS (JAP): NOT FOUND"
+msgstr "CD BIOS (JAP): 찾을 수 없음"
+
+msgid "Select Mega CD (JAP) BIOS"
+msgstr "메가 CD (JAP) BIOS 선택"
+
+msgid "MD BIOS (TMSS): NOT FOUND"
+msgstr "MD BIOS (TMSS): 찾을 수 없음"
+
+msgid "Select Mega Drive / Genesis BootROM"
+msgstr "메가 드라이브 / 제네시스 부팅ROM 선택"
+
+msgid "MS BIOS (USA): NOT FOUND"
+msgstr "MS BIOS (USA): 찾을 수 없음"
+
+msgid "Select Master System (USA) BootROM"
+msgstr "마스터 시스템 (USA) 부팅ROM 선택"
+
+msgid "MS BIOS (PAL): NOT FOUND"
+msgstr "MS BIOS (PAL): 찾을 수 없음"
+
+msgid "Select Master System (PAL) BootROM"
+msgstr "마스터 시스템 (PAL) 부팅ROM 선택"
+
+msgid "MS BIOS (JAP): NOT FOUND"
+msgstr "MS BIOS (JAP): 찾을 수 없음"
+
+msgid "Select Master System (JAP) BootROM"
+msgstr "마스터 시스템 (JAP) 부팅ROM 선택"
+
+msgid "Game Gear BIOS: NOT FOUND"
+msgstr "게임 기어 BIOS: 찾을 수 없음"
+
+msgid "Select Game Gear BootROM"
+msgstr "게임 기어 부팅ROM 선택"
+
+msgid "Game Genie: NOT FOUND"
+msgstr "게임 지니: 찾을 수 없음"
+
+msgid "Select Game Genie ROM"
+msgstr "게임 지니 ROM 선택"
+
+msgid "Action Replay: NOT FOUND"
+msgstr "액션 리플레이: 찾을 수 없음"
+
+msgid "Select Action Replay (Pro) ROM"
+msgstr "액션 리플레이 (프로) ROM 선택"
+
+msgid "S&K (2MB ROM): NOT FOUND"
+msgstr "S&K (2MB ROM): 찾을 수 없음"
+
+msgid "Select Sonic & Knuckle main ROM"
+msgstr "소닉 & 너클 메인 ROM 선택"
+
+msgid "S2&K (256K ROM): NOT FOUND"
+msgstr "S2&K (256K ROM): 찾을 수 없음"
+
+msgid "Select Sonic 2 & Knuckle upmem ROM"
+msgstr "소닉 2 & 너클 upmem ROM 선택"
+
+msgid "Console Hardware: AUTO"
+msgstr "콘솔 하드웨어: 자동"
+
+msgid "Select system hardware model"
+msgstr "시스템 하드웨어 모델 선택"
+
+msgid "Select system region"
+msgstr "시스템 지역 선택"
+
+msgid "Select VDP mode"
+msgstr "VDP 모드 선택"
+
+msgid "Select system clock frequency"
+msgstr "시스템 클록 주파수 선택"
+
+msgid "Select system booting method"
+msgstr "시스템 부팅 방법 선택"
+
+msgid "Enable/Disable original system lock-ups"
+msgstr "오리지널 시스템 잠금 활성화/비활성화"
+
+msgid "Enable/Disable 68k address error exceptions"
+msgstr "68k 주소 오류 예외 활성화/비활성화"
+
+msgid "Lock-on: OFF"
+msgstr "고정: 끔"
+
+msgid "Select Lock-On cartridge type"
+msgstr "고정 카트리지 유형 선택"
+
+msgid "Enable/Disable cartridge hot swap"
+msgstr "카트리지 핫 스왑 활성화/비활성화"
+
+msgid "BIOS & Lock-On ROM paths"
+msgstr "BIOS 및 고정 ROM 경로"
+
+msgid "Configure BIOS & Lock-On ROM paths"
+msgstr "BIOS 및 고정 ROM 경로 구성"
+
+msgid "SVP Cycles: 1500"
+msgstr "SVP 주기: 1500"
+
+msgid "Adjust SVP chip emulation speed"
+msgstr "SVP 칩 에뮬레이션 속도 조정"
+
+msgid "Select video mode"
+msgstr "비디오 모드 선택"
+
+msgid "TV mode: 50/60HZ"
+msgstr "TV 모드: 50/60HZ"
+
+msgid "Select video refresh rate"
+msgstr "비디오 주사율 선택"
+
+msgid "Enable/Disable sync with video hardware"
+msgstr "비디오 하드웨어와 동기화 활성화/비활성화"
+
+msgid "Enable/Disable GX hardware texture filtering"
+msgstr "GX 하드웨어 텍스처 필터링 활성화/비활성화"
+
+msgid "Deflickering Filter: AUTO"
+msgstr "디플리커링 필터: 자동"
+
+msgid "Enable/Disable GX hardware framebuffer filtering"
+msgstr "GX 하드웨어 프레임버퍼 필터링 활성화/비활성화"
+
+msgid "Enable/Disable VI hardware composite out filtering"
+msgstr "VI 하드웨어 복합 출력 필터링 활성화/비활성화"
+
+msgid "Gamma Correction: 1.0"
+msgstr "감마 보정: 1.0"
+
+msgid "Adjust VI hardware gamma correction"
+msgstr "VI 하드웨어 감마 보정 조정"
+
+msgid "Enable/Disable software LCD image persistence"
+msgstr "소프트웨어 LCD 이미지 지속성 활성화/비활성화"
+
+msgid "Enable/Disable software NTSC filtering"
+msgstr "소프트웨어 NTSC 필터링 활성화/비활성화"
+
+msgid "NTSC Sharpness: 0.0"
+msgstr "NTSC 선명도: 0.0"
+
+msgid "NTSC Resolution: 0.0"
+msgstr "NTSC 해상도: 0.0"
+
+msgid "NTSC Artifacts: 0.0"
+msgstr "NTSC 인공물: 0.0"
+
+msgid "NTSC Color Bleed: 0.0"
+msgstr "NTSC 색상 번짐: 0.0"
+
+msgid "NTSC Color Fringing: 0.0"
+msgstr "NTSC 색상 윤곽: 0.0"
+
+msgid "Borders: OFF"
+msgstr "테두리: 끔"
+
+msgid "GG screen: ORIGINAL"
+msgstr "GG 화면: 원본"
+
+msgid "Screen Position (+0,+0)"
+msgstr "화면 위치 (+0,+0)"
+
+msgid "Adjust display position"
+msgstr "디스플레이 위치 조정"
+
+msgid "Screen Scaling (+0,+0)"
+msgstr "화면 크기 조정 (+0,+0)"
+
+msgid "Adjust display scaling"
+msgstr "디스플레이 크기 조정"
+
+msgid "Enable/Disable automatic ROM loading on startup"
+msgstr "시작 시 자동 ROM 로드 활성화/비활성화"
+
+msgid "Enable/Disable automatic cheats activation"
+msgstr "자동 치트 작동 활성화/비활성화"
+
+msgid "Enable/Disable automatic saves"
+msgstr "자동 저장 활성화/비활성화"
+
+msgid "Configure default device for ROM files"
+msgstr "ROM 파일용 기본 장치 구성"
+
+msgid "Configure default device for Save files"
+msgstr "파일 저장을 위한 기본 장치 구성"
+
+msgid "SFX Volume: 100"
+msgstr "SFX 볼륨: 100"
+
+msgid "Adjust sound effects volume"
+msgstr "사운드 효과 볼륨 조정"
+
+msgid "BGM Volume: 100"
+msgstr "배경음 볼륨: 100"
+
+msgid "Adjust background music volume"
+msgstr "배경음 볼륨 조정"
+
+msgid "Enable/Disable background overlay"
+msgstr "배경 오버레이 활성화/비활성화"
+
+msgid "Screen Width: 658"
+msgstr "화면 너비: 658"
+
+msgid "Adjust menu screen width in pixels"
+msgstr "메뉴 화면 너비를 픽셀 단위로 조정"
+
+msgid "Enable/Disable CD leds display"
+msgstr "CD LED 디스플레이 활성화/비활성화"
+
+msgid "Enable/Disable FPS counter"
+msgstr "FPS 카운터 활성화/비활성화"
+
+msgid "Wiimote Timeout: OFF"
+msgstr "위모트 시간초과: 끔"
+
+msgid "Enable/Disable Wii remote automatic shutodwn"
+msgstr "위모트 자동 종료 활성화/비활성화"
+
+msgid "Audio Out: MONO"
+msgstr "오디오 출력: 모노"
+
+msgid "Audio Out: STEREO"
+msgstr "오디오 출력: 스테레오"
+
+msgid "Default Settings restored"
+msgstr "기본 설정 복원됨"
