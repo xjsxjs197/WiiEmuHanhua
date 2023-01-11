@@ -1,0 +1,543 @@
+
+msgid "Load ISO"
+msgstr "ISO 불러오기"
+
+msgid "Current ISO"
+msgstr "현재 ISO"
+
+msgid "Settings"
+msgstr "설정"
+
+msgid "Credits"
+msgstr "크레딧"
+
+msgid "Quit"
+msgstr "종료"
+
+msgid "Play Game"
+msgstr "开始玩游戏"
+
+msgid "Resume Game"
+msgstr "게임 다시하기"
+
+msgid "Please load an ISO first"
+msgstr "먼저 ISO를 불러오세요"
+
+msgid "Are you sure you want to exit to loader?"
+msgstr "로더로 나가겠습니까?"
+
+msgid "Automatically saved to SD card"
+msgstr "SD 카드에 자동 저장"
+
+msgid "Automatically saved to USB device"
+msgstr "USB 장치에 자동으로 저장됨"
+
+msgid "Automatically saved to memcard in Slot A"
+msgstr "Slot A의 memcard에 자동 저장"
+
+msgid "Automatically saved to memcard in Slot B"
+msgstr "Slot B의 memcard에 자동 저장"
+
+msgid "Failed to save game"
+msgstr "게임 저장 실패"
+
+msgid "No ISO Loaded"
+msgstr "ISO가 로드되지 않음"
+
+msgid "AutoSave Enabled"
+msgstr "자동저장 활성화됨"
+
+msgid "Nothing to Save"
+msgstr "저장할 항목 없음"
+
+msgid "Game Needs Saving"
+msgstr "게임 저장 필요"
+
+msgid "General"
+msgstr "일반"
+
+msgid "Video"
+msgstr "비디오"
+
+msgid "Input"
+msgstr "입력"
+
+msgid "Audio"
+msgstr "오디오"
+
+msgid "Saves"
+msgstr "저장"
+
+msgid "Select CPU Core"
+msgstr "CPU 코어 선택"
+
+msgid "Select Bios"
+msgstr "Bios 선택"
+
+msgid "Boot Through Bios"
+msgstr "BIOS를 통한 부팅"
+
+msgid "Execute Bios"
+msgstr "Bios 실행"
+
+msgid "Save settings.cfg"
+msgstr "settings.cfg 설정 저장"
+
+msgid "Interpreter"
+msgstr "해석기"
+
+msgid "Dynarec"
+msgstr "동적재컴파일"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "On"
+msgstr "켬"
+
+msgid "Off"
+msgstr "끔"
+
+msgid "Show FPS"
+msgstr "FPS 표시"
+
+msgid "Limit FPS"
+msgstr "FPS 제한"
+
+msgid "Frame Skip"
+msgstr "프레임 건너뛰기"
+
+msgid "Screen Mode"
+msgstr "화면 모드"
+
+msgid "Dithering"
+msgstr "디더링"
+
+msgid "Scaling"
+msgstr "스케일링"
+
+msgid "Auto"
+msgstr "자동"
+
+msgid "Force 16:9"
+msgstr "강제 16:9"
+
+msgid "None"
+msgstr "없음"
+
+msgid "NoneNone"
+msgstr "없음"
+
+msgid "2xSaI"
+msgstr "2xSaI"
+
+msgid "Default"
+msgstr "기본값"
+
+msgid "Always"
+msgstr "항상"
+
+msgid "Configure Input"
+msgstr "입력 구성"
+
+msgid "Configure Buttons"
+msgstr "버튼 구성"
+
+msgid "PSX Controller Type"
+msgstr "PSX 컨트롤러 유형"
+
+msgid "Disable Rumble"
+msgstr "진동 비활성화"
+
+msgid "Standard"
+msgstr "기준"
+
+msgid "Analog"
+msgstr "아날로그"
+
+msgid "Save Button Configs"
+msgstr "버튼 구성 저장"
+
+msgid "Auto Load Slot:"
+msgstr "자동 불러오기 슬롯:"
+
+msgid "Disable Audio"
+msgstr "오디오 비활성화"
+
+msgid "Disable XA"
+msgstr "XA 비활성화"
+
+msgid "Disable CDDA"
+msgstr "CDDA 비활성화"
+
+msgid "Volume"
+msgstr "볼륨"
+
+msgid "loudest"
+msgstr "더 크게"
+
+msgid "loud"
+msgstr "크게"
+
+msgid "medium"
+msgstr "보통"
+
+msgid "low"
+msgstr "작게"
+
+msgid "Memcard Save Device"
+msgstr "Memcard 저장 장치"
+
+msgid "Auto Save Memcards"
+msgstr "자동 저장 Memcards"
+
+msgid "Save States Device"
+msgstr "상태 장치 저장"
+
+msgid "CardA"
+msgstr "카드A"
+
+msgid "CardB"
+msgstr "카드B"
+
+msgid "Game Reset"
+msgstr "게임 재설정"
+
+msgid "BIOS not found on SD"
+msgstr "SD에서 BIOS를 찾을 수 없음"
+
+msgid "BIOS not found on USB"
+msgstr "USB에서 BIOS를 찾을 수 없음"
+
+msgid "DVD BIOS not implemented"
+msgstr "DVD BIOS가 구현되지 않음"
+
+msgid "You must select a BIOS, not HLE"
+msgstr "HLE가 아닌 BIOS를 선택해야 함"
+
+msgid "Failed to initialize system.\nTry loading an ISO."
+msgstr "시스템을 초기화하지 못했습니다.\nISO를 로드하세요."
+
+msgid "Error opening directory sd:/wiisxr"
+msgstr "sd:/wiisxr 디렉토리를 여는 중 오류 발생"
+
+msgid "Saved settings.cfg to SD"
+msgstr "SD에 저장된 settings.cfg"
+
+msgid "Error saving settings.cfg to SD"
+msgstr "settings.cfg를 SD에 저장하는 동안 오류 발생"
+
+msgid "Error opening directory usb:/wiisxr"
+msgstr "usb:/wiisxr 디렉터리 열기 오류"
+
+msgid "Saved settings.cfg to USB"
+msgstr "USB에 저장된 settings.cfg"
+
+msgid "Error saving settings.cfg to USB"
+msgstr "settings.cfg를 USB에 저장하는 동안 오류 발생"
+
+msgid "Saved Button Configs to SD"
+msgstr "SD에 저장된 버튼 구성"
+
+msgid "Error saving Button Configs to SD"
+msgstr "버튼 구성을 SD에 저장하는 중 오류 발생"
+
+msgid "Saved Button Configs to USB"
+msgstr "USB에 저장된 버튼 구성"
+
+msgid "Error saving Button Configs to USB"
+msgstr "버튼 구성을 USB에 저장하는 중 오류 발생"
+
+msgid "CDDA audio is not implemented"
+msgstr "CDDA 오디오가 구현되지 않았음"
+
+msgid "Slot 0"
+msgstr "슬롯 0"
+
+msgid "Slot 1"
+msgstr "슬롯 1"
+
+msgid "Slot 2"
+msgstr "슬롯 2"
+
+msgid "Slot 3"
+msgstr "슬롯 3"
+
+msgid "Slot 4"
+msgstr "슬롯 4"
+
+msgid "Slot 5"
+msgstr "슬롯 5"
+
+msgid "Slot 6"
+msgstr "슬롯 6"
+
+msgid "Slot 7"
+msgstr "슬롯 7"
+
+msgid "Slot 8"
+msgstr "슬롯 8"
+
+msgid "Slot 9"
+msgstr "슬롯 9"
+
+msgid "Pad Assignment"
+msgstr "패드 할당"
+
+msgid "PSX Pad 1"
+msgstr "PSX 패드 1"
+
+msgid "PSX Pad 2"
+msgstr "PSX 패드 2"
+
+msgid "PSX Pad 3"
+msgstr "PSX 패드 3"
+
+msgid "PSX Pad 4"
+msgstr "PSX 패드4"
+
+msgid "Automatic"
+msgstr "자동"
+
+msgid "Manual"
+msgstr "수동"
+
+msgid "None"
+msgstr "없음"
+
+msgid "Gamecube Pad"
+msgstr "게임큐브 패드"
+
+msgid "Wii Pad"
+msgstr "Wii 패드"
+
+msgid "Auto Assign"
+msgstr "자동 할당"
+
+msgid "Next Pad"
+msgstr "다음 패드"
+
+msgid "Load Default"
+msgstr "기본값 불러오기"
+
+msgid "Load"
+msgstr "불러오기"
+
+msgid "Save"
+msgstr "저장하기"
+
+msgid "PSX Pad 1: No Physical Controller Assigned"
+msgstr "PSX 패드 1: 물리적 컨트롤러 할당되지 않음"
+
+msgid "PSX Pad 2: No Physical Controller Assigned"
+msgstr "PSX 패드 2: 물리적 컨트롤러 할당되지 않음"
+
+msgid "PSX Pad 3: No Physical Controller Assigned"
+msgstr "PSX 패드 3: 물리적 컨트롤러 할당되지 않음"
+
+msgid "PSX Pad 4: No Physical Controller Assigned"
+msgstr "PSX 패드 4: 물리적 컨트롤러 할당되지 않음"
+
+msgid "Gamecube Pad 1 to PSX Pad 1 Mapping"
+msgstr "게임큐브 패드 1에서 PSX 패드 1로 매핑"
+
+msgid "Gamecube Pad 2 to PSX Pad 2 Mapping"
+msgstr "게임큐브 패드 2에서 PSX 패드 2로 매핑"
+
+msgid "Gamecube Pad 3 to PSX Pad 3 Mapping"
+msgstr "게임큐브 패드 3에서 PSX 패드 3으로 매핑"
+
+msgid "Gamecube Pad 4 to PSX Pad 4 Mapping"
+msgstr "게임큐브 패드 4에서 PSX 패드 4로 매핑"
+
+msgid "PSX Pad 1: Gamecube Pad 1 Mapping"
+msgstr "PSX 패드 1: 게임큐브 패드 1 매핑"
+
+msgid "PSX Pad 2: Gamecube Pad 2 Mapping"
+msgstr "PSX 패드 2: 게임큐브 패드 2 매핑"
+
+msgid "PSX Pad 1: Gamecube Pad 2 Mapping"
+msgstr "PSX 패드 1: 게임큐브 패드 2 매핑"
+
+msgid "PSX Pad 2: Gamecube Pad 1 Mapping"
+msgstr "PSX 패드 2: 게임큐브 패드 1 매핑"
+
+msgid "PSX Pad 1: Classic Pad 1 Mapping"
+msgstr "PSX 패드 1: 클래식 패드 1 매핑"
+
+msgid "PSX Pad 2: Classic Pad 2 Mapping"
+msgstr "PSX 패드 2: 클래식 패드 2 매핑"
+
+msgid "PSX Pad 1: Classic Pad 2 Mapping"
+msgstr "PSX 패드 1: 클래식 패드 2 매핑"
+
+msgid "PSX Pad 2: Classic Pad 1 Mapping"
+msgstr "PSX 패드 2: 클래식 패드 1 매핑"
+
+msgid "PSX Pad 1: Wiimote+Nunchuck Pad 1 Mapping"
+msgstr "PSX 패드 1: 위모트+눈챠크 패드 1 매핑"
+
+msgid "PSX Pad 2: Wiimote+Nunchuck Pad 2 Mapping"
+msgstr "PSX 패드 2: 위모트+눈챠크 패드 2 매핑"
+
+msgid "PSX Pad 1: Wiimote+Nunchuck Pad 2 Mapping"
+msgstr "PSX 패드 1: 위모트+눈챠크 패드 2 매핑"
+
+msgid "PSX Pad 2: Wiimote+Nunchuck Pad 1 Mapping"
+msgstr "PSX 패드 2: 위모트+눈챠크 패드 1 매핑"
+
+msgid "PSX Pad 1: Wiimote Pad 1 Mapping"
+msgstr "PSX 패드 1: 위모트 패드 1 매핑"
+
+msgid "PSX Pad 2: Wiimote Pad 2 Mapping"
+msgstr "PSX 패드 2: 위모트 패드 2 매핑"
+
+msgid "PSX Pad 1: Wiimote Pad 2 Mapping"
+msgstr "PSX 패드 1: 위모트 패드 2 매핑"
+
+msgid "PSX Pad 2: Wiimote Pad 1 Mapping"
+msgstr "PSX 패드 2: 위모트 패드 1 매핑"
+
+msgid "PSX Pad 1: Wii U Pro Pad 1 Mapping"
+msgstr "PSX 패드 1: Wii U 프로 패드 1 매핑"
+
+msgid "PSX Pad 2: Wii U Pro Pad 2 Mapping"
+msgstr "PSX 패드 2: Wii U 프로 패드 2 매핑"
+
+msgid "PSX Pad 1: Wii U Pro Pad 2 Mapping"
+msgstr "PSX 패드 1: Wii U 프로 패드 2 매핑"
+
+msgid "PSX Pad 2: Wii U Pro Pad 1 Mapping"
+msgstr "PSX 패드 2: Wii U 프로 패드 1 매핑"
+
+msgid "Saved current button mapping to slot 1."
+msgstr "현재 버튼 매핑을 슬롯 1에 저장했습니다."
+
+msgid "Saved current button mapping to slot 2."
+msgstr "현재 버튼 매핑을 슬롯 2에 저장했습니다."
+
+msgid "Load from SD"
+msgstr "SD에서 불러오기"
+
+msgid "Load from DVD"
+msgstr "DVD에서 불러오기"
+
+msgid "Load from USB"
+msgstr "USB에서 불러오기"
+
+msgid "Load from Samba"
+msgstr "Samba에서 불러오기"
+
+msgid "Available only for Wii"
+msgstr "Wii에서만 사용 가능"
+
+msgid "Network not yet initialized"
+msgstr "네트워크가 아직 초기화되지 않았음"
+
+msgid "SMB not configured"
+msgstr "SMB가 구성되지 않음"
+
+msgid "SMB failed to connect"
+msgstr "SMB 연결 실패"
+
+msgid "An error occured"
+msgstr "오류 발생했음"
+
+msgid "Failed to load ISO"
+msgstr "ISO 불러오기 실패"
+
+msgid "Error opening directory"
+msgstr "디렉토리를 여는 중에 오류가 발생"
+
+msgid "Game restarted"
+msgstr "게임 재시작됨"
+
+msgid "Restart Game"
+msgstr "게임 재시작"
+
+msgid "Swap CD"
+msgstr "CD 교체"
+
+msgid "Load MemCards"
+msgstr "MemCard 불러오기"
+
+msgid "Save MemCards"
+msgstr "MemCard 저장하기"
+
+msgid "Show ISO Info"
+msgstr "ISO 정보 표시"
+
+msgid "Load State"
+msgstr "상태 불러오기"
+
+msgid "Save State"
+msgstr "상태 저장하기"
+
+msgid "Loaded save from SD card"
+msgstr "SD 카드에서 불러온 저장"
+
+msgid "No saves found on SD card"
+msgstr "SD 카드에 저장된 항목이 없음"
+
+msgid "Loaded save from USB device"
+msgstr "USB 장치에서 불러온 저장"
+
+msgid "No saves found on USB device"
+msgstr "USB 장치에 저장된 항목이 없음"
+
+msgid "Loaded save from memcard in slot A"
+msgstr "슬롯 A의 memcard에서 불러온 저장"
+
+msgid "No saves found on memcard in slot A"
+msgstr "슬롯 A의 memcard에서 세이브를 찾을 수 없음"
+
+msgid "Loaded save from memcard in slot B"
+msgstr "슬롯 B의 memcard에서 불러온 저장"
+
+msgid "No saves found on memcard in slot B"
+msgstr "슬롯 B의 memcard에서 세이브를 찾을 수 없음"
+
+msgid "Nothing to save"
+msgstr "저장할 항목 없음"
+
+msgid "Saved game to SD card"
+msgstr "SD 카드에 저장된 게임"
+
+msgid "Saved game to USB device"
+msgstr "USB 장치에 저장된 게임"
+
+msgid "Saved game to memcard in Slot A"
+msgstr "슬롯 A의 memcard에 저장된 게임"
+
+msgid "Saved game to memcard in Slot B"
+msgstr "슬롯 B의 memcard에 저장된 게임"
+
+msgid "Failed to Save"
+msgstr "저장 실패"
+
+msgid "Save State Loaded Successfully"
+msgstr "저장 상태가 성공적으로 불러옴"
+
+msgid "Save doesn't exist"
+msgstr "저장이 존재하지 않음"
+
+msgid "Save State Saved Successfully"
+msgstr "상태 저장 성공적으로 저장됨"
+
+msgid "Error Saving State"
+msgstr "상태 저장 오류"
+
+msgid "OK"
+msgstr "확인"
+
+msgid "Cancel"
+msgstr "취소"
+
+msgid "Prev"
+msgstr "이전"
+
+msgid "Next"
+msgstr "다음"
